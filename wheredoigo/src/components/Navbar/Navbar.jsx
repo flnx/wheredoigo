@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import styles from './Navbar.module.css';
+
+// components
+import { NavLinks } from './NavLinks';
 
 // assets
 import logo from '../../assets/logo/logo.png';
-import { List } from 'phosphor-react';
-import styles from './Navbar.module.css';
+import { List, X } from 'phosphor-react';
 
 export const Navbar = () => {
     const [isNavToggled, setIsNavToggled] = useState(false);
@@ -22,39 +26,26 @@ export const Navbar = () => {
     });
 
     return (
-        <header>
-            <div className={styles.container}>
-                <div className={styles.wrapper}>
-                    <a href="#">
-                        <img src={logo} alt="logo" />
-                    </a>
-                    <button
-                        className={styles.hamburger}
-                        href="#"
-                        onClick={() => setIsNavToggled(!isNavToggled)}
-                    >
-                        <List size="36" />
-                    </button>
-                </div>
-                {(isNavToggled || screenWidth > 550) && (
-                    <nav>
-                        <ul className={styles.navbar}>
-                            <li>
-                                <a href="#">Discover</a>
-                            </li>
-                            <li>
-                                <a href="#">Profile</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Register</a>
-                            </li>
-                        </ul>
-                    </nav>
-                )}
+        <div className={styles.container}>
+            <div className={`${styles.wrapper} container`}>
+                <Link to="/">
+                    <img src={logo} alt="logo" />
+                </Link>
+                <button
+                    className={styles.hamburger}
+                    onClick={() => setIsNavToggled(!isNavToggled)}
+                >
+                    {isNavToggled 
+                        ? <X size={36} /> 
+                        : <List size={36} />
+                    }
+                </button>
             </div>
-        </header>
+            {(isNavToggled || screenWidth > 640) && (
+                <nav>
+                    <NavLinks />
+                </nav>
+            )}
+        </div>
     );
 };

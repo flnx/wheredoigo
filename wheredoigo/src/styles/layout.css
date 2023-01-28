@@ -1,0 +1,26 @@
+/* 
+-- min: breakpoints-up
+_____________________________
+  'medium': '40em' (640px)
+  'large': '64em'  (1024px)
+  'prexl': '81em'  (1300px)
+  'xlarge': '87.5em' (1400px)
+
+-- max: breakpoints-down
+_____________________________
+  'small': '39.9375em' 639px
+  'medium': '63.9375em' 1023 px
+  'prexl': '80.9375em' 1299px
+  'large': '87.4375em' 1399px 
+*/
+
+body {
+    background: rgb(238, 233, 233);
+}
+
+.container {
+    margin: 0 auto;
+    width: clamp(14rem, 90vw, 120rem);
+    padding-left: clamp(0.75rem, 0.7rem + 0.34vw, 1rem);
+    padding-right: clamp(0.75rem, 0.7rem + 0.34vw, 1rem);
+}
