@@ -20,8 +20,6 @@ export const Showcase = () => {
                     </div>
                 </div>
             </section>
-
-            {/* <div className={styles['image-container']}></div> */}
         </div>
     );
 };
