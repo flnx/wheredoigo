@@ -1,9 +1,9 @@
 import { NavLink } from 'react-router-dom';
-import styles from './Navbar.module.css';
+import styles from '../Navbar.module.css';
 
 export const NavLinks = () => {
     return (
-        <>
+        <nav>
             <ul className={styles.navbar}>
                 <li>
                     <NavLink to="/discover">Discover</NavLink>
@@ -18,6 +18,6 @@ export const NavLinks = () => {
                     <NavLink to="/register">Register</NavLink>
                 </li>
             </ul>
-        </>
+        </nav>
     );
 };

@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import styles from './Navbar.module.css';
 
 // components
-import { NavLinks } from './NavLinks';
+import { NavLinks } from './NavLinks/NavLinks';
+import { HamburgerIconMenu } from './Hamburger-Icon/HamburgerIcon';
 
 // assets
 import logo from '../../assets/logo/logo.png';
-import { List, X } from 'phosphor-react';
 
 export const Navbar = () => {
     const [isNavToggled, setIsNavToggled] = useState(false);
@@ -25,27 +25,24 @@ export const Navbar = () => {
         };
     });
 
+    const hamburgerClickHandler = () => {
+        setIsNavToggled(!isNavToggled);
+    };
+
     return (
         <div className={styles.container}>
             <div className={`${styles.wrapper} container`}>
                 <Link to="/">
                     <img src={logo} alt="logo" />
                 </Link>
-                <button
-                    className={styles.hamburger}
-                    onClick={() => setIsNavToggled(!isNavToggled)}
-                >
-                    {isNavToggled 
-                        ? <X size={36} /> 
-                        : <List size={36} />
-                    }
-                </button>
+                {screenWidth < 640 && (
+                    <HamburgerIconMenu
+                        hamburgerClickHandler={hamburgerClickHandler}
+                        isNavToggled={isNavToggled}
+                    />
+                )}
             </div>
-            {(isNavToggled || screenWidth > 640) && (
-                <nav>
-                    <NavLinks />
-                </nav>
-            )}
+            {(isNavToggled || screenWidth > 640) && <NavLinks />}
         </div>
     );
 };

@@ -7,6 +7,8 @@
 
 .navbar {
     min-height: 100vh;
+    min-width: 100vw;
+    position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,18 +23,10 @@
     font-size: 2rem;
 }
 
-.hamburger {
-    cursor: pointer;
-    border: none;
-    padding: 0;
-    background-color: transparent;
-    display: flex;
-    align-items: center;
-}
 
 @media (width >= 40em) {
     .container {
-        padding: 0.5rem 0;
+        padding: 0.5rem 1rem;
         margin-inline: auto;
         display: flex;
         justify-content: space-between;
@@ -43,14 +37,12 @@
     }
 
     .navbar {
+        position: static;
+        min-width: auto;
         min-height: auto;
         flex-direction: row;
         justify-content: center;
         background: transparent;
-    }
-
-    .navbar li:last-child {
-        padding-right: 0;
     }
 
     .navbar li a {
@@ -58,7 +50,4 @@
         color: #000;
     }
 
-    .hamburger {
-        display: none;
-    }
 }

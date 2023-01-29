@@ -2,8 +2,7 @@
     height: 32rem;
     color: #fff;
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)),
-        url('../../../assets/pictures/homepage/showcase.jpg') no-repeat 40% 100% /
-            cover;
+        url('../../../assets/pictures/homepage/showcase.jpg') no-repeat 40% 100%/cover;
 }
 
 .intro {
@@ -13,7 +12,6 @@
     gap: 1rem;
 }
 
-
 .showcase p {
     font-weight: 600;
 }
@@ -21,6 +19,10 @@
 .showcase img {
     /* height: 100%; */
     object-fit: cover;
+}
+
+.buttons {
+    margin-bottom: 2em;
 }
 
 .image-container {

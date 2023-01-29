@@ -1,3 +1,5 @@
+import { PrimaryButton } from '../../../components/Buttons/Primary-Btn/PrimaryButton';
+import { SearchBar } from '../../../components/Serach-Bar/SearchBar';
 import styles from './Showcase.module.css';
 
 export const Showcase = () => {
@@ -11,13 +13,10 @@ export const Showcase = () => {
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit. Ex, voluptates.
                         </p>
-                        <div className="buttons">
-                            <button>Discover</button>
-                            <button>Discover</button>
+                        <div className={styles.buttons}>
+                            <PrimaryButton>Discover</PrimaryButton>
                         </div>
-                        <div className="search-bar">
-                            <input type="search" name="" placeholder='search a city, country, place'/>
-                        </div>
+                        <SearchBar />
                     </div>
                 </div>
             </section>
