@@ -6,9 +6,9 @@ import { CitiesSlider } from './Slider/CitiesSlider';
 
 export const Home = () => {
     return (
-        <>
+        <div className="grid">
             <Showcase />
             <CitiesSlider />
-        </>
+        </div>
     );
 };

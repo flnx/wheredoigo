@@ -16,6 +16,7 @@ _____________________________
 
 body {
     background: rgb(238, 233, 233);
+    background: rgba(104, 32, 32, 0.33);
 }
 
 .container {
@@ -23,4 +24,9 @@ body {
     width: clamp(14rem, 90vw, 120rem);
     /* padding-left: clamp(0.75rem, 0.7rem + 0.34vw, 1rem); */
     /* padding-right: clamp(0.75rem, 0.7rem + 0.34vw, 1rem); */
+}
+
+.grid {
+    display: grid;
+    gap: 1rem;
 }

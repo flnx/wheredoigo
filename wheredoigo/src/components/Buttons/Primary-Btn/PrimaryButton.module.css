@@ -5,4 +5,10 @@
     background-color: rgb(36, 40, 109);
     font-weight: bold;
     color: #fff;
+    transition: all 0.190s ease-in-out;
+    cursor: pointer;
+}
+
+.primary:hover, .primary:focus {
+    opacity: 0.85;
 }

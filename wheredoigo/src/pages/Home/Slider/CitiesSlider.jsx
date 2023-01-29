@@ -1,35 +1,64 @@
-import { useRef, useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import styles from './CitiesSlider.module.css';
+import { Link } from 'react-router-dom';
 import images from '../../../utils/images';
+console.log(images);
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Navigation } from 'swiper';
+
+import './CitiesSlider.css';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import 'swiper/css/bundle';
 
 export const CitiesSlider = () => {
-    const [width, setWidth] = useState(0);
-    const carousel = useRef();
-
-    useEffect(() => {
-        setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
-    }, []);
-
     return (
-        <motion.div
-            ref={carousel}
-            whileTap={{ cursor: 'grabbing' }}
-            className={styles.carousel}
-        >
-            <motion.div
-                drag="x"
-                dragConstraints={{ right: 0, left: -width }}
-                className={styles.inner}
+        <div className="container">
+            <Swiper
+                slidesPerView={2}
+                spaceBetween={30}
+                slidesPerGroup={1}
+                loop={false}
+                loopFillGroupWithBlank={true}
+                pagination={{
+                    clickable: true,
+                }}
+                navigation={true}
+                modules={[Pagination, Navigation]}
+                breakpoints={{
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 40,
+                    },
+                    1024: {
+                        slidesPerView: 4,
+                        spaceBetween: 50,
+                    },
+                }}
+                className="mySwiper"
             >
-                {images.map((image, i) => {
-                    return (
-                        <motion.div className={styles.item} key={i}>
-                            <img src={image} alt="img" />
-                        </motion.div>
-                    );
-                })}
-            </motion.div>
-        </motion.div>
+                {images.map((img, i) => (
+                    <SwiperSlide className="item">
+                        <Card imageUrl={img} key={i} />
+                    </SwiperSlide>
+                ))}
+            </Swiper>
+        </div>
+    );
+};
+
+const Card = ({ imageUrl }) => {
+    return (
+        <>
+            <img src={imageUrl} alt="city" />
+            <div className="content">
+                <h2>Place</h2>
+                <p>City, Country</p>
+            </div>
+        </>
     );
 };
