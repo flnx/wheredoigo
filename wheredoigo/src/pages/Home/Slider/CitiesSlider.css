@@ -1,12 +1,19 @@
 .swiper {
     width: 100%;
     height: 100%;
+    padding: 1.525rem 0 !important;
 }
 
-.swiper-slide {
+.swiper-pagination {
+    bottom: 0 !important;
 }
+
+
+/* .swiper-slide {
+} */
 
 .swiper-slide img {
+    cursor: grab;
     width: 100%;
     height: 15rem;
     object-fit: cover;

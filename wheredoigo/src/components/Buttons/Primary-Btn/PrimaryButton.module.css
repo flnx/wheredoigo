@@ -10,5 +10,5 @@
 }
 
 .primary:hover, .primary:focus {
-    opacity: 0.85;
+    background-color: rgb(32, 36, 124);
 }
