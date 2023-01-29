@@ -8,7 +8,6 @@ export const Categories = () => {
             <Category>Beach</Category>
             <Category>Mountain</Category>
             <Category>History</Category>
-            <Category>Water</Category>
             <Category>Snow</Category>
             <Category>Summer</Category>
         </div>
