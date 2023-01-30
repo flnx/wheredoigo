@@ -4,7 +4,7 @@
     gap: 0.5em;
 }
 
-.categories h2 {
+.title {
     margin-bottom: 1rem;
     flex-basis: 100%;
 }

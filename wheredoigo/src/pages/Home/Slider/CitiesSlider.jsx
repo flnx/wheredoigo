@@ -12,39 +12,43 @@ import 'swiper/css/bundle';
 
 export const CitiesSlider = () => {
     return (
-        <Swiper
-            slidesPerView={1.2}
-            spaceBetween={20}
-            slidesPerGroup={1}
-            loop={false}
-            loopFillGroupWithBlank={true}
-            pagination={{
-                clickable: true,
-            }}
-            navigation={true}
-            modules={[Pagination, Navigation]}
-            breakpoints={{
-                500: {
-                    slidesPerView: 2.2,
-                    spaceBetween: 20,
-                },
-                768: {
-                    slidesPerView: 3,
-                    spaceBetween: 40,
-                },
-                1024: {
-                    slidesPerView: 4,
-                    spaceBetween: 50,
-                },
-            }}
-            className="mySwiper"
-        >
-            {images.map((img, i) => (
-                <SwiperSlide className="item" key={i}>
-                    <Card imageUrl={img} />
-                </SwiperSlide>
-            ))}
-        </Swiper>
+        <section>
+            <div className="container">
+                <Swiper
+                    slidesPerView={1.2}
+                    spaceBetween={20}
+                    slidesPerGroup={1}
+                    loop={false}
+                    loopFillGroupWithBlank={true}
+                    pagination={{
+                        clickable: true,
+                    }}
+                    navigation={true}
+                    modules={[Pagination, Navigation]}
+                    breakpoints={{
+                        500: {
+                            slidesPerView: 2.2,
+                            spaceBetween: 20,
+                        },
+                        768: {
+                            slidesPerView: 3,
+                            spaceBetween: 40,
+                        },
+                        1024: {
+                            slidesPerView: 4,
+                            spaceBetween: 50,
+                        },
+                    }}
+                    className="mySwiper"
+                >
+                    {images.map((img, i) => (
+                        <SwiperSlide className="item" key={i}>
+                            <Card imageUrl={img} />
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+            </div>
+        </section>
     );
 };
 
