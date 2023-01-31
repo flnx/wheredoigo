@@ -5,8 +5,9 @@ import './styles/App.css';
 import { Navbar } from './components/Navbar/Navbar';
 import { Footer } from './components/Footer/Footer';
 import { Home } from './pages/Home/Home';
-import { Login } from './pages/Login/Login';
-import { Register } from './pages/Register/Register';
+import { Login } from './pages/Authentication/Login';
+import { Register } from './pages/Authentication/Register';
+import { FormLayout } from './pages/Authentication/FormLayout';
 
 function App() {
     return (
@@ -14,8 +15,8 @@ function App() {
             <Navbar />
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+                <Route path="/login" element={<FormLayout page={Login} />} />
+                <Route path="/register" element={<FormLayout page={Register} />} />
             </Routes>
             <Footer />
         </div>
