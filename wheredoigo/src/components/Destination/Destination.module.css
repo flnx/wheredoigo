@@ -2,12 +2,15 @@
     overflow: hidden;
     display: flex;
     gap: 1rem;
-    background: rgb(114, 62, 62);
+    background: rgb(239, 221, 221);
     border-radius: 5px;
+    box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.075),
+        0 2px 2px hsl(0deg 0% 0% / 0.075), 0 4px 4px hsl(0deg 0% 0% / 0.075),
+        0 8px 8px hsl(0deg 0% 0% / 0.075), 0 16px 16px hsl(0deg 0% 0% / 0.075);
 }
 
 .imageContainer {
-    max-width: 140px;
+    flex: 1.15;
 }
 
 .image {
@@ -18,15 +21,16 @@
 
 .content {
     flex: 1;
-    color: #fff;
-    padding: 1em;
+    color: rgb(14, 12, 26);
+    padding: 0.75em;
     display: grid;
+    gap: 0.5rem;
     align-items: center;
     grid-template-columns: repeat(1, 1fr);
-    grid-template-areas: 
-    "place place rating"
-    "country country country"
-    "price price price";
+    grid-template-areas:
+        'place place rating'
+        'country country country'
+        'price price price';
 }
 
 .place {
@@ -45,4 +49,10 @@
 
 .price {
     grid-area: price;
+}
+
+@media (min-width: 40em) {
+    .imageContainer {
+        flex: 1;
+    }
 }

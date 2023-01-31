@@ -9,17 +9,11 @@ import { Home } from './pages/Home/Home';
 function App() {
     return (
         <div className="App">
-            <header>
-                <Navbar />
-            </header>
-            <main>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                </Routes>
-            </main>
-            <footer>
-                <Footer />
-            </footer>
+            <Navbar />
+            <Routes>
+                <Route path="/" element={<Home />} />
+            </Routes>
+            <Footer />
         </div>
     );
 }

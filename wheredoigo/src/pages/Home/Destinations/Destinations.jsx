@@ -49,6 +49,6 @@ const topDestinationsByRating = [
         price: 499,
         rating: 5,
         imageUrl:
-            'https://images.pexels.com/photos/3580531/pexels-photo-3580531.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=1',
+            'https://images.pexels.com/photos/3580531/pexels-photo-3580531.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
     },
 ];

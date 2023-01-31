@@ -4,8 +4,8 @@ import styles from './Showcase.module.css';
 
 export const Showcase = () => {
     return (
-        <div className={styles.showcase}>
-            <section>
+        <main>
+            <div className={styles.showcase}>
                 <div className="container">
                     <div className={styles.intro}>
                         <h1>Discover the world. Adventure is out there</h1>
@@ -19,7 +19,7 @@ export const Showcase = () => {
                         <SearchBar />
                     </div>
                 </div>
-            </section>
-        </div>
+            </div>
+        </main>
     );
 };

@@ -1,0 +1,9 @@
+.footer {
+    padding: 2rem 0;
+    /* background: #fff; */
+}
+
+.wrapper {
+    display: grid;
+    gap: 2rem;
+}

@@ -4,8 +4,8 @@ export const Categories = () => {
     return (
         <section>
             <div className="container">
+                <h2 className={styles.title}>Categories</h2>
                 <div className={styles.categories}>
-                    <h2 className={styles.title}>Categories</h2>
                     <Category>Lake</Category>
                     <Category>Beach</Category>
                     <Category>Mountain</Category>

@@ -30,19 +30,21 @@ export const Navbar = () => {
     };
 
     return (
-        <div className={styles.container}>
-            <div className={`${styles.wrapper} container`}>
-                <Link to="/">
-                    <img src={logo} alt="logo" />
-                </Link>
-                {screenWidth < 640 && (
-                    <HamburgerIconMenu
-                        hamburgerClickHandler={hamburgerClickHandler}
-                        isNavToggled={isNavToggled}
-                    />
-                )}
+        <header>
+            <div className={styles.container}>
+                <div className={`${styles.wrapper} container`}>
+                    <Link to="/">
+                        <img src={logo} alt="logo" />
+                    </Link>
+                    {screenWidth < 640 && (
+                        <HamburgerIconMenu
+                            hamburgerClickHandler={hamburgerClickHandler}
+                            isNavToggled={isNavToggled}
+                        />
+                    )}
+                </div>
+                {(isNavToggled || screenWidth > 640) && <NavLinks />}
             </div>
-            {(isNavToggled || screenWidth > 640) && <NavLinks />}
-        </div>
+        </header>
     );
 };

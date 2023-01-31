@@ -5,6 +5,8 @@
 
 .wrapper {
     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 40rem));
+    align-items: center;
     gap: 1rem;
     z-index: -1;
 }
@@ -14,17 +16,14 @@
     padding: 2rem 2rem 0;
     border-radius: 18px;
     z-index: 1;
-    box-shadow:
-    0 1px 1px hsl(0deg 0% 0% / 0.075),
-    0 2px 2px hsl(0deg 0% 0% / 0.075),
-    0 4px 4px hsl(0deg 0% 0% / 0.075),
-    0 8px 8px hsl(0deg 0% 0% / 0.075),
-    0 16px 16px hsl(0deg 0% 0% / 0.075)
-    ;
+    box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.075),
+        0 2px 2px hsl(0deg 0% 0% / 0.075), 0 4px 4px hsl(0deg 0% 0% / 0.075),
+        0 8px 8px hsl(0deg 0% 0% / 0.075), 0 16px 16px hsl(0deg 0% 0% / 0.075);
 }
 
 .imageContainer:after {
-    background: url('https://images.pexels.com/photos/1762851/pexels-photo-1762851.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat 50% 50%/cover;
+    background: url('https://images.pexels.com/photos/1762851/pexels-photo-1762851.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
+        no-repeat 50% 50% / cover;
     z-index: -1;
     border-radius: 18px;
     position: absolute;
@@ -39,7 +38,6 @@
     margin: 0 auto;
     border-radius: 18px;
     color: #fff;
-    
 }
 
 .title {
@@ -47,9 +45,10 @@
 }
 
 .content {
-    font-size: 1.100rem;
+    font-size: 1.1rem;
 }
 
-.title, .content {
+.title,
+.content {
     margin-bottom: 1rem;
 }

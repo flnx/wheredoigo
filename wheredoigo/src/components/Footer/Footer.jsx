@@ -2,11 +2,37 @@ import styles from './Footer.module.css';
 
 export const Footer = () => {
     return (
-        <div className={styles.footer}>
-            <img
-                src="https://www.wallpaperup.com/uploads/wallpapers/2013/02/05/35046/ff3c2f09459eb12665c29e05cfb742a5-1000.jpg"
-                alt="a beautiful horizon with fields"
-            />
-        </div>
+        <footer className={styles.footer}>
+            <div className="container">
+                <div className={styles.wrapper}>
+                    <section className={styles.intro}>
+                        <h3> Where Do I Go?</h3>
+                        <p>
+                            We always strive to make our customers happy by
+                            providing the best choices possible!
+                        </p>
+                        <div className="socials">
+                            <span>X</span>
+                            <span>Y</span>
+                            <span>Z</span>
+                        </div>
+                    </section>
+                    <section className={styles.about}>
+                        <h3>About</h3>
+                        <p>About us</p>
+                        <p>FAQ</p>
+                    </section>
+                    <section className={styles.company}>
+                        <h3>Company</h3>
+                        <p>Why "Where Do I Go?"</p>
+                        <p>Our Team</p>
+                    </section>
+                    <section className={styles.newsletter}>
+                        <h3>Stay in touch with our weekly newsletter</h3>
+                        <input type="search" name="" id="" />
+                    </section>
+                </div>
+            </div>
+        </footer>
     );
 };
