@@ -1,0 +1,48 @@
+.card {
+    overflow: hidden;
+    display: flex;
+    gap: 1rem;
+    background: rgb(114, 62, 62);
+    border-radius: 5px;
+}
+
+.imageContainer {
+    max-width: 140px;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.content {
+    flex: 1;
+    color: #fff;
+    padding: 1em;
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-areas: 
+    "place place rating"
+    "country country country"
+    "price price price";
+}
+
+.place {
+    grid-area: place;
+}
+
+.rating {
+    justify-self: end;
+    grid-area: rating;
+}
+
+.country {
+    font-size: 1rem;
+    grid-area: country;
+}
+
+.price {
+    grid-area: price;
+}
