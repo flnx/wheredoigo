@@ -1,9 +1,40 @@
 .footer {
     padding: 2rem 0;
-    /* background: #fff; */
+    background: rgb(15, 16, 30);
+    color: #fff;
 }
 
 .wrapper {
     display: grid;
-    gap: 2rem;
+    gap: 3rem;
+}
+
+.title {
+    margin-bottom: 0.535rem;
+}
+
+.link {
+    font-size: 1.025rem;
+}
+
+.link:not(:last-child) {
+    margin-bottom: 0.325rem;
+}
+
+@media (min-width: 40em) {
+    .wrapper {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+}
+
+@media (min-width: 64em) {
+    .wrapper {
+        grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+
+    }
+
+    .wrapper > section {
+        justify-self: center;
+    }
 }
