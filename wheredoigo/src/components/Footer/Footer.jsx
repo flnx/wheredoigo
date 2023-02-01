@@ -21,11 +21,13 @@ export const Footer = () => {
                         <h3 className={styles.title}>About</h3>
                         <p className={styles.link}>About us</p>
                         <p className={styles.link}>FAQ</p>
+                        <p className={styles.link}>Terms and Conditions</p>
                     </section>
                     <section className={styles.company}>
                         <h3 className={styles.title}>Company</h3>
                         <p className={styles.link}>Why "Where Do I Go?"</p>
                         <p className={styles.link}>Our Team</p>
+                        <p className={styles.link}>Lorem Ipsum</p>
                     </section>
                     <section className={styles.newsletter}>
                         <h3 className={styles.title}>Stay in touch with our weekly newsletter</h3>

@@ -4,7 +4,6 @@ import styles from './Showcase.module.css';
 
 export const Showcase = () => {
     return (
-        <main>
             <div className={styles.showcase}>
                 <div className="container">
                     <div className={styles.intro}>
@@ -20,6 +19,5 @@ export const Showcase = () => {
                     </div>
                 </div>
             </div>
-        </main>
     );
 };

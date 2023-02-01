@@ -4,7 +4,7 @@ import styles from './FormLayout.module.css';
 
 export const Register = () => {
     return (
-        <form>
+        <form className={styles.form}>
             <div className={styles.formField}>
                 <label className={styles.formFieldLabel} htmlFor="name">
                     Full Name

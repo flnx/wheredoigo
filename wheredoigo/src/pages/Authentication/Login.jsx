@@ -3,7 +3,7 @@ import styles from './FormLayout.module.css';
 
 export const Login = () => {
     return (
-        <form>
+        <form className={styles.form}>
             <div className={styles.formField}>
                 <label className={styles.formFieldLabel} htmlFor="email">
                     E-Mail Address

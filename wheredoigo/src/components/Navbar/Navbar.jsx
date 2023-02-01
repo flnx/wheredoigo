@@ -43,7 +43,9 @@ export const Navbar = () => {
                         />
                     )}
                 </div>
-                {(isNavToggled || screenWidth > 640) && <NavLinks />}
+                {(isNavToggled || screenWidth > 640) && (
+                    <NavLinks hamburgerClickHandler={hamburgerClickHandler} />
+                )}
             </div>
         </header>
     );
