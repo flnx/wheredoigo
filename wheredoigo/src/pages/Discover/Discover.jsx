@@ -9,17 +9,22 @@ export const Discover = () => {
         <div className="container">
             <div className={styles.grid}>
                 <h1>Where do you want to go?</h1>
+
                 <section className={styles.searchBar}>
                     <SearchBar />
                 </section>
 
-                <section className={styles.continentsBar}></section>
+                <section className={styles.continents}>
+                    <ContinentsNav />
+                </section>
 
                 <CitiesSlider />
 
+              
+
+
                 <section className={styles.categories}>
                     <h2>Popular Categories</h2>
-                    <ContinentsNav />
                 </section>
 
                 <section className={styles.places}>
