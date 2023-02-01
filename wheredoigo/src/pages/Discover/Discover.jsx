@@ -1,3 +1,4 @@
+import { CategoriesNav } from '../../components/CategoriesNav/CategoriesNav';
 import { ContinentsNav } from '../../components/ContinentsNav/ContinentsNav';
 import { SearchBar } from '../../components/Serach-Bar/SearchBar';
 import { CitiesSlider } from '../Home/Slider/CitiesSlider';
@@ -20,11 +21,9 @@ export const Discover = () => {
 
                 <CitiesSlider />
 
-              
-
-
                 <section className={styles.categories}>
                     <h2>Popular Categories</h2>
+                    <CategoriesNav />
                 </section>
 
                 <section className={styles.places}>

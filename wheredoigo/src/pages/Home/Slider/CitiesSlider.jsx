@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import images from '../../../utils/images';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
