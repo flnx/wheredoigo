@@ -1,65 +1,65 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import './Login.css';
+import styles from './FormLayout.module.css';
 
 export const Register = () => {
     return (
-        <form className="formFields">
-            <div className="formField">
-                <label className="formFieldLabel" htmlFor="name">
+        <form>
+            <div className={styles.formField}>
+                <label className={styles.formFieldLabel} htmlFor="name">
                     Full Name
                 </label>
                 <input
                     type="text"
-                    className="formFieldInput"
+                    className={styles.formFieldInput}
                     placeholder="Enter your full name"
                     name="name"
                     defaultValue=""
                 />
             </div>
-            <div className="formField">
-                <label className="formFieldLabel" htmlFor="password">
+            <div className={styles.formField}>
+                <label className={styles.formFieldLabel} htmlFor="password">
                     Password
                 </label>
                 <input
                     type="password"
-                    className="formFieldInput"
+                    className={styles.formFieldInput}
                     placeholder="Enter your password"
                     name="password"
                     defaultValue=""
                 />
             </div>
-            <div className="formField">
-                <label className="formFieldLabel" htmlFor="email">
+            <div className={styles.formField}>
+                <label className={styles.formFieldLabel} htmlFor="email">
                     E-Mail Address
                 </label>
                 <input
                     type="email"
-                    className="formFieldInput"
+                    className={styles.formFieldInput}
                     placeholder="Enter your email"
                     name="email"
                     defaultValue=""
                 />
             </div>
 
-            <div className="formField">
-                <label className="formFieldCheckboxLabel">
+            <div className={styles.formField}>
+                <label className={styles.formFieldCheckboxLabel}>
                     <input
-                        className="formFieldCheckbox"
+                        className={styles.formFieldCheckbox}
                         type="checkbox"
                         name="hasAgreed"
                         defaultValue=""
                     />
                     I agree all statements in
-                    <a href="null" className="formFieldTermsLink">
+                    <a href="#" className={styles.formFieldTermsLink}>
                         terms of service
                     </a>
                 </label>
             </div>
 
-            <div className="formField">
-                <button className="formFieldButton">Register</button>
-                <Link to="/login" className="formFieldLink">
+            <div className={styles.formField}>
+                <button className={styles.formFieldButton}>Register</button>
+                <Link to="/login" className={styles.formFieldLink}>
                     I'm already member
                 </Link>
             </div>

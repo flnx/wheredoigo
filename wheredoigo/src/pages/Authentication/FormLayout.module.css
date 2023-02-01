@@ -5,14 +5,7 @@ body {
         Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.App {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-
-.content__wrapper {
+.container {
     min-height: 100vh;
     font-family: "Roboto", sans-serif;
     background: black;
@@ -22,12 +15,12 @@ body {
     color: white;
 }
 
-.appAside {
+.aside {
     width: 50%;
     background-color: #6b5b95;
 }
 
-.appForm {
+.wrapper {
     width: 50%;
     background-color: #12130f;
     padding: 25px 40px;
@@ -40,7 +33,7 @@ body {
     margin-bottom: 10%;
 }
 
-.pageSwitcherItem {
+.switcherItem {
     background-color: #40434e;
     color: #9da6b1;
     padding: 10px 25px;
@@ -57,11 +50,11 @@ body {
     color: white;
 }
 
-.pageSwitcherItem:first-child {
+.switcherItem:first-child {
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
 }
-.pageSwitcherItem:last-child {
+.switcherItem:last-child {
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
 }

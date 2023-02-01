@@ -1,28 +1,28 @@
 import { NavLink } from 'react-router-dom';
-import './Login.css';
+import styles from './FormLayout.module.css';
 
 export const FormLayout = ({ page: Page }) => {
     return (
-        <div className="content__wrapper">
-            <div className="appAside" />
-            <div className="appForm">
-                <div className="pageSwitcher">
-                    <NavLink to="/login" className="pageSwitcherItem">
+        <div className={styles.container}>
+            <div className={styles.aside} />
+            <div className={styles.wrapper}>
+                <div className={styles.pageSwitcher}>
+                    <NavLink to="/login" className={styles.switcherItem}>
                         Login
                     </NavLink>
-                    <NavLink to="/register" className="pageSwitcherItem">
+                    <NavLink to="/register" className={styles.switcherItem}>
                         Register
                     </NavLink>
                 </div>
-                <div className="formTitle">
-                    <NavLink to="/login" className="formTitleLink">
+                <div className={styles.formTitle}>
+                    <NavLink to="/login" className={styles.formTitleLink}>
                         Login
                     </NavLink>
-                    <NavLink to="/register" className="formTitleLink">
+                    <NavLink to="/register" className={styles.formTitleLink}>
                         Register
                     </NavLink>
                 </div>
-                <div className="formCenter">
+                <div className={styles.formCenter}>
                     <Page />
                 </div>
             </div>
