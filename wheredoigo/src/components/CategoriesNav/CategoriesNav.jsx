@@ -1,20 +1,16 @@
 import styles from './CategoriesNav.module.css';
-import {
-    BEACH__ICON,
-    CAMP__ICON,
-    MOUNTAINS__ICON,
-    FOREST__ICON,
-} from '../../utils/icons';
-
-console.log(BEACH__ICON, CAMP__ICON, MOUNTAINS__ICON, FOREST__ICON);
+import { icons } from '../../utils/icons';
 
 export const CategoriesNav = () => {
     return (
-        <div className={styles.categories}>
-            <img src={BEACH__ICON} alt="beach icon" />
-            <img src={CAMP__ICON} alt="camp icon" />
-            <img src={MOUNTAINS__ICON} alt="mountain icon" />
-            <img src={FOREST__ICON} alt="forest icon" />
-        </div>
+        <section>
+            <h2 className={styles.title}>Popular Categories</h2>
+            <div className={styles.categories}>
+                <img src={icons.BEACH} alt="beach icon" />
+                <img src={icons.CAMP} alt="camp icon" />
+                <img src={icons.MOUNTAINS} alt="mountain icon" />
+                <img src={icons.FOREST} alt="forest icon" />
+            </div>
+        </section>
     );
 };

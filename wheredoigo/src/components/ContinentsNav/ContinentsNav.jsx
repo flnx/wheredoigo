@@ -3,13 +3,13 @@ import styles from './ContinentsNav.module.css';
 
 export const ContinentsNav = () => {
     return (
-        <div className={styles.continents}>
+        <section className={styles.continents}>
             <NavLink to="#">All</NavLink>
             <NavLink to="#">Europe</NavLink>
             <NavLink to="#">Asia</NavLink>
             <NavLink to="#">America</NavLink>
             <NavLink to="#">Oceania</NavLink>
             <NavLink to="#">Africa</NavLink>
-        </div>
+        </section>
     );
 };
