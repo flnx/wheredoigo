@@ -29,11 +29,15 @@ export const Navbar = () => {
         setIsNavToggled(!isNavToggled);
     };
 
+    const closeNavClickHandler = () => {
+        setIsNavToggled(false);
+    }
+
     return (
         <header>
             <div className={styles.container}>
                 <div className={`${styles.wrapper} container`}>
-                    <Link to="/">
+                    <Link to="/" onClick={closeNavClickHandler}>
                         <img src={logo} alt="logo" />
                     </Link>
                     {screenWidth < 640 && (
@@ -44,7 +48,7 @@ export const Navbar = () => {
                     )}
                 </div>
                 {(isNavToggled || screenWidth > 640) && (
-                    <NavLinks hamburgerClickHandler={hamburgerClickHandler} />
+                    <NavLinks closeNavHandler={closeNavClickHandler} />
                 )}
             </div>
         </header>

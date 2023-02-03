@@ -1,31 +1,27 @@
 import { NavLink } from 'react-router-dom';
 import styles from '../Navbar.module.css';
 
-export const NavLinks = ({ hamburgerClickHandler }) => {
-    const closeMenuOnRedirectHandler = () => {
-        hamburgerClickHandler();
-    };
-
+export const NavLinks = ({ closeNavHandler }) => {
     return (
         <nav>
             <ul className={styles.navbar}>
                 <li>
-                    <NavLink to="/discover" onClick={closeMenuOnRedirectHandler}>
+                    <NavLink to="/discover" onClick={closeNavHandler}>
                         Discover
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/profile" onClick={closeMenuOnRedirectHandler}>
-                        Profile
+                    <NavLink to="/dashboard" onClick={closeNavHandler}>
+                        Dashboard
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/login" onClick={closeMenuOnRedirectHandler}>
+                    <NavLink to="/login" onClick={closeNavHandler}>
                         Login
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/register" onClick={closeMenuOnRedirectHandler}>
+                    <NavLink to="/register" onClick={closeNavHandler}>
                         Register
                     </NavLink>
                 </li>
