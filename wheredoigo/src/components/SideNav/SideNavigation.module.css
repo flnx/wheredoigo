@@ -20,3 +20,13 @@
     flex: 1;
     flex-basis: calc(50% - 0.85rem);
 }
+
+@media (min-width: 800px) {
+    .navbar {
+        flex-direction: column;
+    }
+
+    .navLink {
+        min-width: 10rem;
+    }
+}

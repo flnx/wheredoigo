@@ -10,14 +10,37 @@ export const Dashboard = () => {
     return (
         <div className="container">
             <div className={styles.grid}>
-                <SideNavigation />
-                <SearchBar />
-                <CategoriesNav />
+
+                <section className={styles.sideNav}>
+                    <SideNavigation />
+                </section>
+
+                <section className={styles.searchBar}>
+                    <SearchBar />
+                </section>
+
+                <section className={styles.categories}>
+                    <CategoriesNav />
+                </section>
+
                 <div className={styles.destinations}>
                     {myDestinations.map((x) => (
                         <Destination destination={x} key={x.country} />
                     ))}
                 </div>
+                <aside className={styles.stats}>
+                    <div>
+                        <h2>Statistics</h2>
+                        <div>
+                            <p>Progress Bar</p>
+                            <p>Progress Bar 2</p>
+                            <p>Progress Bar 3</p>
+                        </div>
+                        <div>
+                            <p>Chart</p>
+                        </div>
+                    </div>
+                </aside>
             </div>
         </div>
     );

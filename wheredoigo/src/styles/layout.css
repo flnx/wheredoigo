@@ -21,7 +21,7 @@ body {
 
 .container {
     margin: 0 auto;
-    width: clamp(14rem, 90vw, 120rem);
+    width: clamp(14rem, 85vw, 100rem);
     /* padding-left: clamp(0.75rem, 0.7rem + 0.34vw, 1rem); */
     /* padding-right: clamp(0.75rem, 0.7rem + 0.34vw, 1rem); */
 }

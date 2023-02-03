@@ -1,11 +1,50 @@
 .grid {
+    padding: 2rem;
+    background: rgb(245, 217, 217);
+    border-radius: 5px;
+    box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.075),
+    0 2px 2px hsl(0deg 0% 0% / 0.075), 0 4px 4px hsl(0deg 0% 0% / 0.075),
+    0 8px 8px hsl(0deg 0% 0% / 0.075), 0 16px 16px hsl(0deg 0% 0% / 0.075);
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-areas:
+        'snav search search search search stats'
+        'snav cat cat cat cat stats'
+        'snav dest dest dest dest stats';
+    gap: 2rem;
+    margin: 2rem 0 4rem;
+}
+
+.grid > * {
+    padding: 1.5rem;
+    border-radius: 5px;
+}
+
+.sideNav {
+    border: 1px solid rgb(12, 12, 12);
+    grid-area: snav;
+    /* display: none; */
+}
+
+.searchBar {
+    border: 1px solid rgb(12, 12, 12);
+    grid-area: search;
+}
+
+.categories {
+    border: 1px solid rgb(12, 12, 12);
+    grid-area: cat;
 }
 
 .destinations {
+    border: 1px solid rgb(12, 12, 12);
+    grid-area: dest;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1rem;
 }
 
-@media (min-width: 40em) {
+.stats {
+    border: 1px solid rgb(12, 12, 12);
+    grid-area: stats;
 }

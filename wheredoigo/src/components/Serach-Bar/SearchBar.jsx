@@ -3,7 +3,6 @@ import { MagnifyingGlass } from 'phosphor-react';
 
 export const SearchBar = () => {
     return (
-        <section>
             <form>
                 <div className={styles.wrapper}>
                     <input
@@ -16,6 +15,5 @@ export const SearchBar = () => {
                     </button>
                 </div>
             </form>
-        </section>
     );
 };
