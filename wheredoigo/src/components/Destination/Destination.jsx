@@ -12,14 +12,19 @@ export const Destination = ({ destination }) => {
                 />
             </div>
             <section className={styles.content}>
-                <h2 className={styles.place}>{destination.city}</h2>
-                <div className={styles.rating}>
-                    <Star />
-                    <span>{destination.rating}</span>
+                <div className={styles.flex}>
+                    <h2>{destination.city}</h2>
+
+                    <div className={styles.rating}>
+                        <Star size={24} />
+                        <span>{destination.rating}</span>
+                    </div>
                 </div>
 
-                <p className={styles.country}>{destination.country}</p>
-                <p>${destination.price}</p>
+                <div className={`${styles.flex}`}>
+                    <p>{destination.country}</p>
+                    <p>${destination.price}</p>
+                </div>
             </section>
         </div>
     );

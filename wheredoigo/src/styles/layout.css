@@ -22,10 +22,5 @@ _____________________________
 
 .container {
     margin: 0 auto;
-    width: clamp(14rem, 95vw, 100rem);
-}
-
-.grid {
-    display: grid;
-    gap: 1rem;
+    width: clamp(14rem, 93.5vw, 100rem);
 }

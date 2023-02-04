@@ -3,7 +3,7 @@ h1 {
 }
 
 h2 {
-    font-size: clamp(1rem, 1rem + 1.8vw, 1.2rem);
+    font-size: clamp(1.10rem, 0.9rem + 1.8vw, 1.20rem);
 }
 
 h3 {

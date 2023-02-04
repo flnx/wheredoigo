@@ -12,7 +12,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgb(15, 16, 30);
+    background: var(--background-nav);
     z-index: 2;
 }
 
@@ -21,9 +21,9 @@
 }
 
 .navbar li a {
+    color: var(--text-primary-light);
     font-size: 2rem;
 }
-
 
 @media (width >= 40em) {
     .container {
@@ -49,7 +49,6 @@
     .navbar li a {
         font-size: 1.2rem;
         font-weight: 600;
-        /* color:#000; */
+        color: var(--text-primary);
     }
-
 }

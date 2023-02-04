@@ -1,10 +1,10 @@
 .primary {
     background-color: var(--button-primary);
+    color: var(--text-primary-light);
     border: none;
     border-radius: 5px;
     padding: 0.75em 1.5em;
     font-weight: bold;
-    color: #fff;
     transition: all 0.190s ease-in-out;
     cursor: pointer;
 }

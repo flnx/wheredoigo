@@ -1,7 +1,10 @@
 :root {
     --app-background-color: #ECDBCC;
     --background: #fff;
+    --background-nav: rgb(15, 16, 30);
+    --background-footer: rgb(15, 16, 30);
     --text-primary: #25161A;
+    --text-primary-light: #fff;
     --text-secondary: rgb(203, 190, 190);
     --text-links: rgb(203, 190, 190);
     --button-primary: #C05E2B;

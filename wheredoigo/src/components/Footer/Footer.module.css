@@ -1,8 +1,7 @@
 .footer {
     padding: 2rem 0;
-    background: rgb(15, 16, 30);
-    color: #fff;
     margin-top: auto;
+    background: var(--background-footer);
 }
 
 .wrapper {
@@ -16,6 +15,10 @@
 
 .link {
     font-size: 0.9rem;
+}
+
+.title, .link {
+    color: var(--text-primary-light);
 }
 
 .link:not(:last-child) {
