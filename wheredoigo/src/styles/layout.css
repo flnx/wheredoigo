@@ -14,9 +14,10 @@ _____________________________
   'large': '87.4375em' 1399px 
 */
 
-body {
-    background: rgb(238, 233, 233);
-    background: rgba(104, 32, 32, 0.33);
+.App {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .container {

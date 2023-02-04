@@ -7,8 +7,8 @@ export const Showcase = () => {
             <div className={styles.showcase}>
                 <div className="container">
                     <div className={styles.intro}>
-                        <h1>Discover the world. Adventure is out there</h1>
-                        <p>
+                        <h1 className={styles.title}>Discover the world. Adventure is out there</h1>
+                        <p className={styles.description}>
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit. Ex, voluptates.
                         </p>

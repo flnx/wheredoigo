@@ -1,6 +1,5 @@
 .showcase {
     height: 38rem;
-    color: #fff;
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)),
         url('../../../assets/pictures/homepage/showcase.jpg') no-repeat 50% 50%/cover;
 }
@@ -13,6 +12,11 @@
     flex-direction: column;
     gap: 1.5rem;
 }
+
+.title, .description {
+    color: #fff;
+}
+
 
 .showcase img {
     object-fit: cover;

@@ -49,7 +49,7 @@
     .navbar li a {
         font-size: 1.2rem;
         font-weight: 600;
-        color: #000;
+        /* color:#000; */
     }
 
 }
