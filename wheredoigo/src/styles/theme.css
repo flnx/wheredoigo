@@ -4,6 +4,7 @@
     --app-background-color: #ecdbcc;
     --background: #fff;
     --dashboard-background: #fff;
+    --dashboard-children-background:  #faf5ee;
     --background-nav-dropdown: rgb(15, 16, 30);
     --background-footer: rgb(15, 16, 30);
     --background-intro: linear-gradient(to right bottom,#c05e2b,#c15934,#c1543c,#c05044,#be4c4c,#bb4a53,#b84859,#b4475f,#af4665,#a8476b,#a14770,#9a4874);
@@ -16,10 +17,14 @@
     --button-hover: #9f4718;
     --button-secondary: #00c9aa;
     --button-hover-secondary: #17a590;
-
+    
     --box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.045),
-        0 2px 2px hsl(0deg 0% 0% / 0.045), 0 4px 4px hsl(0deg 0% 0% / 0.045),
-        0 8px 8px hsl(0deg 0% 0% / 0.045), 0 16px 16px hsl(0deg 0% 0% / 0.045);
+    0 2px 2px hsl(0deg 0% 0% / 0.045), 0 4px 4px hsl(0deg 0% 0% / 0.045),
+    0 8px 8px hsl(0deg 0% 0% / 0.045), 0 16px 16px hsl(0deg 0% 0% / 0.045);
+    --shadow-color: rgba(147, 77, 127, 0.075);
+    --filter-box-shadow: drop-shadow(1px 2px 3px var(--shadow-color))
+    drop-shadow(2px 4px 6px var(--shadow-color))
+    drop-shadow(4px 8px 12px var(--shadow-color));
 }
 
 body {

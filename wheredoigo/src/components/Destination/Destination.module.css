@@ -2,14 +2,13 @@
     border-radius: 10px;
     padding: 0.65rem;
     background: var(--background);
-    box-shadow: var(--box-shadow);
+    filter: var(--filter-box-shadow);
     display: flex;
     gap: 1rem;
 }
 
 .imageContainer {
     flex: 1;
-    /* padding: 0.5rem; */
     aspect-ratio: 1.5/1;
 }
 

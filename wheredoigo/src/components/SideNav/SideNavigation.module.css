@@ -1,12 +1,19 @@
 .sideNav {
-    --shadow-color: 21deg 67% 27%;
-    border-radius: 5px;
-    background: #fff;
-    padding: 1rem 0;
-    box-shadow: 0.2px 0.3px 0.4px hsl(var(--shadow-color) / 0.34),
-        0.4px 0.6px 0.8px -1.2px hsl(var(--shadow-color) / 0.34),
-        0.9px 1.4px 1.9px -2.5px hsl(var(--shadow-color) / 0.34);
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+}
 
+.userInfo {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.userInfo img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
 }
 
 .navbar {
@@ -18,7 +25,6 @@
 }
 
 .navLink {
-    /* padding: 0.5rem 1rem; */
     color: var(--text-primary);
     font-weight: 600;
     letter-spacing: 0.5px;
