@@ -1,5 +1,5 @@
 .introSection {
-    background: rgb(152, 23, 62);
+    background-image: var(--background-intro);
     padding: 3em 0;
 }
 
@@ -13,41 +13,37 @@
 .imageContainer {
     flex: 1;
     position: relative;
-    padding: 2rem 2rem 0;
     border-radius: 18px;
     z-index: 1;
-    box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.075),
-        0 2px 2px hsl(0deg 0% 0% / 0.075), 0 4px 4px hsl(0deg 0% 0% / 0.075),
-        0 8px 8px hsl(0deg 0% 0% / 0.075), 0 16px 16px hsl(0deg 0% 0% / 0.075);
 }
 
-.imageContainer:after {
-    background: url('https://images.pexels.com/photos/1762851/pexels-photo-1762851.jpeg')
-        no-repeat 50% 50% / cover;
-    z-index: -1;
-    border-radius: 18px;
-    position: absolute;
-    content: '';
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-}
 
 .intro {
     flex: 1.25;
     border-radius: 18px;
-    color: #fff;
 }
 
 .title {
+    font-weight: 900;
     margin-bottom: 2rem;
     font-size: 2.125rem;
 }
 
 .content {
-    font-size: 1.1rem;
     margin-bottom: 1.125rem;
+}
+
+.title,
+.content {
+    color: var(--text-primary-light);
+}
+
+.intro button {
+    background-color: var(--button-secondary);
+}
+
+.intro button:hover, button:focus {
+    background-color: var(--button-hover-secondary);
 }
 
 @media (min-width: 40em) {
@@ -68,6 +64,6 @@
     }
 
     .content {
-        font-size: 1.725rem;
+        font-size: 1.425rem;
     }
 }

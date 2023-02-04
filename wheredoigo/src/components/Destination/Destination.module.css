@@ -41,4 +41,5 @@
 
 .price {
     color: var(--text-secondary-dark);
+    font-weight: 800;
 }

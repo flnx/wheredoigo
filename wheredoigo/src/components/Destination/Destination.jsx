@@ -13,7 +13,7 @@ export const Destination = ({ destination }) => {
             </div>
             <section className={styles.content}>
                 <div className={styles.flex}>
-                    <h2>{destination.city}</h2>
+                    <h3>{destination.city}</h3>
 
                     <div className={styles.rating}>
                         <Star size={24} />

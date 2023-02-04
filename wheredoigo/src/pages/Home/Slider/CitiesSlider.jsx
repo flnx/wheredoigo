@@ -24,7 +24,7 @@ const Card = ({ imageUrl }) => {
         <>
             <img src={imageUrl} alt="city" className={styles.image}/>
             <div className={styles.content}>
-                <h2>Place</h2>
+                <h3>Place</h3>
                 <p>City, Country</p>
             </div>
         </>
