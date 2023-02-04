@@ -1,28 +1,13 @@
 .swiper {
     width: 100%;
     height: 100%;
-    padding: 1.525rem 0 !important;
+    padding: 1.525rem 0 2.55rem !important;
 }
 
 .swiper-pagination {
     bottom: 0 !important;
 }
 
-/* .swiper-slide {
+/* .swiper-slide{
+    
 } */
-
-.swiper-slide img {
-    cursor: grab;
-    width: 100%;
-    height: 8.5rem;
-    object-fit: cover;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
-
-
-@media (min-width: 768px) {
-    .swiper-slide img {
-        height: 15rem;
-    }
-}

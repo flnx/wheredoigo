@@ -1,11 +1,18 @@
-.content {
-    padding: 1rem;
+.sliderItem {
+    background: var(--background);
+    box-shadow: var(--box-shadow);
+    border-radius: 8px;
 }
 
-.sliderItem {
-    box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.045),
-        0 2px 2px hsl(0deg 0% 0% / 0.045), 0 4px 4px hsl(0deg 0% 0% / 0.045),
-        0 8px 8px hsl(0deg 0% 0% / 0.045), 0 16px 16px hsl(0deg 0% 0% / 0.045);
+.content {
+    padding: 0rem 0.65rem 0.65rem;
+}
 
-    border-radius: 5px;
+.image {
+    cursor: grab;
+    width: 100%;
+    aspect-ratio: 1.5 / 1;
+    object-fit: cover;
+    border-radius: 20px;
+    padding: 0.65rem;
 }

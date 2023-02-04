@@ -1,10 +1,7 @@
 import { SwiperSlide } from 'swiper/react';
 import { SwiperX } from './Swiper';
-
 import images from '../../../utils/images';
-
 import styles from './CitiesSlider.module.css';
-import './Swiper.css';
 
 export const CitiesSlider = () => {
     return (
@@ -25,7 +22,7 @@ export const CitiesSlider = () => {
 const Card = ({ imageUrl }) => {
     return (
         <>
-            <img src={imageUrl} alt="city" />
+            <img src={imageUrl} alt="city" className={styles.image}/>
             <div className={styles.content}>
                 <h2>Place</h2>
                 <p>City, Country</p>

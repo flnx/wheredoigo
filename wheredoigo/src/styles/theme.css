@@ -6,6 +6,10 @@
     --text-links: rgb(203, 190, 190);
     --button-primary: #C05E2B;
     --button-hover: #9f4718;
+
+    --box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.045),
+    0 2px 2px hsl(0deg 0% 0% / 0.045), 0 4px 4px hsl(0deg 0% 0% / 0.045),
+    0 8px 8px hsl(0deg 0% 0% / 0.045), 0 16px 16px hsl(0deg 0% 0% / 0.045);
 }
 
 body {
