@@ -24,6 +24,7 @@
 .navbar li a {
     color: var(--text-primary-light);
     font-size: 2rem;
+    font-weight: 600;
 }
 
 .navbar .btn {
@@ -57,7 +58,7 @@
     }
 
     .navbar li a {
-        font-size: 1rem;
+        font-size: 0.95rem;
         color: var(--text-primary);
     }
 }

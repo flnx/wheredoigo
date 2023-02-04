@@ -1,6 +1,8 @@
 import styles from './SideNavigation.module.css';
 import { NavLink } from 'react-router-dom';
 
+// TO DO: Add Icons
+
 export const SideNavigation = () => {
     return (
         <div className={styles.sideNav}>
