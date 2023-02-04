@@ -8,7 +8,7 @@
 .imageContainer {
     flex: 1;
     padding: 0.5rem;
-    aspect-ratio: 1.25/1;
+    aspect-ratio: 1.5/1;
 }
 
 .content {
@@ -39,8 +39,6 @@
     align-items: center;
 }
 
-@media (min-width: 30em) {
-    .imageContainer {
-        aspect-ratio: 1.5/1;
-    }
+.price {
+    color: var(--text-secondary-dark);
 }

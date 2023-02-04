@@ -3,7 +3,7 @@ import { CategoriesNav } from '../../components/CategoriesNav/CategoriesNav';
 import { ContinentsNav } from '../../components/ContinentsNav/ContinentsNav';
 import { SearchBar } from '../../components/Serach-Bar/SearchBar';
 import { CitiesSlider } from '../Home/Slider/CitiesSlider';
-import { Destinations } from '../../components/Destinations/Destinations';
+import { Destinations } from './Destinations/Destinations';
 
 import styles from './Discover.module.css';
 

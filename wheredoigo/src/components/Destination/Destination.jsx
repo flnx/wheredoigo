@@ -22,8 +22,8 @@ export const Destination = ({ destination }) => {
                 </div>
 
                 <div className={`${styles.flex}`}>
-                    <p>{destination.country}</p>
-                    <p>${destination.price}</p>
+                    <p className={styles.destination}>{destination.country}</p>
+                    <p className={styles.price}>${destination.price}</p>
                 </div>
             </section>
         </div>
