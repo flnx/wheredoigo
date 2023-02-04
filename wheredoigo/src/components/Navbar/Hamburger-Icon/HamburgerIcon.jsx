@@ -7,7 +7,10 @@ export const HamburgerIconMenu = ({ hamburgerClickHandler, isNavToggled }) => {
             className={styles.hamburger}
             onClick={hamburgerClickHandler}
         >
-            {isNavToggled ? <X size={36} /> : <List size={36} />}
+            {isNavToggled 
+                ? <X size={36} /> 
+                : <List size={36} />
+                }
         </button>
     );
 };

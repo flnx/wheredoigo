@@ -42,7 +42,7 @@
     background-color: var(--button-secondary);
 }
 
-.intro button:hover, button:focus {
+.intro button:hover, .intro button:focus {
     background-color: var(--button-hover-secondary);
 }
 

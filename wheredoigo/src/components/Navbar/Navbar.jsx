@@ -31,23 +31,27 @@ export const Navbar = () => {
 
     const closeNavClickHandler = () => {
         setIsNavToggled(false);
-    }
+    };
+
+    const isMobile = screenWidth < 640;
+    const desktopContainer = !isMobile && 'container';
+    const mobileContainer = isMobile && 'container';
 
     return (
         <header>
-            <div className={styles.container}>
-                <div className={`${styles.wrapper} container`}>
+            <div className={`${styles.flex} ${desktopContainer}`}>
+                <div className={`${styles.wrapper} ${mobileContainer}`}>
                     <Link to="/" onClick={closeNavClickHandler}>
                         <img src={logo} alt="logo" />
                     </Link>
-                    {screenWidth < 640 && (
+                    {isMobile && (
                         <HamburgerIconMenu
                             hamburgerClickHandler={hamburgerClickHandler}
                             isNavToggled={isNavToggled}
                         />
                     )}
                 </div>
-                {(isNavToggled || screenWidth > 640) && (
+                {(isNavToggled || !isMobile) && (
                     <NavLinks closeNavHandler={closeNavClickHandler} />
                 )}
             </div>
