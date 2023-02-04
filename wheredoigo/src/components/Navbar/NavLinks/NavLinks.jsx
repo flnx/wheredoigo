@@ -16,12 +16,12 @@ export const NavLinks = ({ closeNavHandler }) => {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/login" onClick={closeNavHandler}>
+                    <NavLink to="/login" onClick={closeNavHandler} className={styles.btn}>
                         Login
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/register" onClick={closeNavHandler}>
+                    <NavLink to="/register" onClick={closeNavHandler} className={styles.btn}>
                         Register
                     </NavLink>
                 </li>
