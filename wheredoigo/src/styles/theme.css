@@ -3,6 +3,7 @@
 :root {
     --app-background-color: #ecdbcc;
     --background: #fff;
+    --dashboard-background: #fff;
     --background-nav-dropdown: rgb(15, 16, 30);
     --background-footer: rgb(15, 16, 30);
     --background-intro: linear-gradient(to right bottom,#c05e2b,#c15934,#c1543c,#c05044,#be4c4c,#bb4a53,#b84859,#b4475f,#af4665,#a8476b,#a14770,#9a4874);
@@ -10,7 +11,7 @@
     --text-primary-light: #fff;
     --text-secondary: rgb(173, 165, 165);
     --text-secondary-dark: #c05e2b;
-    --text-links: rgb(203, 190, 190);
+    --text-links: #737373;
     --button-primary: #c05e2b;
     --button-hover: #9f4718;
     --button-secondary: #00c9aa;

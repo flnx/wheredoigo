@@ -78,5 +78,19 @@ const myDestinations = [
         rating: 5,
         imageUrl:
             'https://images.pexels.com/photos/3580531/pexels-photo-3580531.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
-    },
+    }, {
+        country: 'Croatia 5',
+        city: 'Zagreb',
+        price: 499,
+        rating: 5,
+        imageUrl:
+            'https://images.pexels.com/photos/3580531/pexels-photo-3580531.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+    }, {
+        country: 'Croatia 6',
+        city: 'Zagreb',
+        price: 499,
+        rating: 5,
+        imageUrl:
+            'https://images.pexels.com/photos/3580531/pexels-photo-3580531.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+    }
 ];

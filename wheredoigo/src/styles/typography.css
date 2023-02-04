@@ -8,8 +8,8 @@ h2 {
 }
 
 h3 {
-    font-size: clamp(1.10rem, 0.9rem + 1.8vw, 1.20rem);
-    font-weight: 400;
+    font-size: clamp(1.10rem, 0.9rem + 1.8vw, 1.30rem);
+    font-weight: 600;
 }
 
 p {

@@ -1,24 +1,31 @@
 .sideNav {
-    padding: 1em 0;
+    --shadow-color: 21deg 67% 27%;
     border-radius: 5px;
+    background: #fff;
+    padding: 1rem 0;
+    box-shadow: 0.2px 0.3px 0.4px hsl(var(--shadow-color) / 0.34),
+        0.4px 0.6px 0.8px -1.2px hsl(var(--shadow-color) / 0.34),
+        0.9px 1.4px 1.9px -2.5px hsl(var(--shadow-color) / 0.34);
+
 }
 
 .navbar {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.85rem;
+    gap: 2rem;
     justify-content: space-between;
     text-align: center;
 }
 
 .navLink {
-    padding: 1rem 0;
-    font-weight: 700;
-    color: rgb(15, 16, 30);
-    background: rgb(221, 211, 211);
+    /* padding: 0.5rem 1rem; */
+    color: var(--text-primary);
+    font-weight: 600;
+    letter-spacing: 0.5px;
     border-radius: 10px;
     flex: 1;
     flex-basis: calc(50% - 0.85rem);
+    font-size: 0.85rem;
 }
 
 @media (min-width: 800px) {
