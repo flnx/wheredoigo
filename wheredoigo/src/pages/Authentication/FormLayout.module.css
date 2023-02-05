@@ -59,6 +59,7 @@
 .formFieldButton {
     margin-right: 1rem;
     background-color: #6b5b95;
+    cursor: pointer;
     color: white;
     border: none;
     outline: none;
@@ -66,6 +67,10 @@
     padding: 1rem 4rem;
     font-size: 0.8rem;
     font-weight: 700;
+}
+
+.disabled {
+    opacity: 0.5;
 }
 
 .formFieldLink {
@@ -93,4 +98,9 @@
 
 .socialMediaButtons {
     padding: 10px 100px 10px 0px;
+}
+
+.error {
+    color: rgb(190, 19, 19);
+    font-size: 0.95rem;
 }

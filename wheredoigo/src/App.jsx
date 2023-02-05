@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import './service/axiosConfig';
 
 // Components
 import { Navbar } from './components/Navbar/Navbar';
