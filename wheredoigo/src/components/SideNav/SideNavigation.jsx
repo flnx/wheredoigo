@@ -20,10 +20,16 @@ export const SideNavigation = () => {
                     My Trips
                 </NavLink>
                 <NavLink to="#" className={styles.navLink}>
-                    Completed
+                    Followers
                 </NavLink>
                 <NavLink to="#" className={styles.navLink}>
-                    Completed
+                    My Trips
+                </NavLink>
+                <NavLink to="#" className={styles.navLink}>
+                    History
+                </NavLink>
+                <NavLink to="#" className={styles.navLink}>
+                    Settings
                 </NavLink>
             </nav>
         </div>

@@ -4,44 +4,28 @@
     padding: 3rem 1.25rem;
     border-radius: 20px;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-areas:
-        'snav search search search search stats'
-        'snav cat cat cat cat stats'
-        'snav dest dest dest dest stats';
     gap: 1.25rem;
     margin: 2rem 0 4rem;
 }
 
-.grid > * {
-    padding: 1.5rem;
-}
-
 .sideNav {
-    grid-area: snav;
     border-right: 1px solid #f4f3f2;
 }
 
 .searchBar {
     max-width: 33rem;
     border-bottom: 1px solid #f4f3f2;
-    grid-area: search;
-}
-
-.categories {
-    grid-area: cat;
 }
 
 .destinations {
-    grid-area: dest;
     display: grid;
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(calc(20rem - 1rem), 1fr));
+    gap: 1rem;
 }
 
 .stats {
     background: var(--dashboard-children-background);
     border-radius: 10px;
-    grid-area: stats;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -55,8 +39,37 @@
     color: var(--text-primary);
 }
 
-@media (min-width: 40em) {
+@media (min-width: 64em) {
+    .grid {
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-areas:
+            'snav search search search search stats'
+            'snav cat cat cat cat stats'
+            'snav dest dest dest dest stats';
+    }
+
+    .grid > * {
+        padding: 1.5rem;
+    }
+
     .destinations {
-        grid-template-columns: repeat(auto-fit, minmax(calc(50% - 2rem), 1fr));
+        grid-area: dest;
+    }
+
+    .sideNav {
+        grid-area: snav;
+    }
+
+    .searchBar {
+        max-width: 33rem;
+        grid-area: search;
+    }
+
+    .categories {
+        grid-area: cat;
+    }
+
+    .stats {
+        grid-area: stats;
     }
 }

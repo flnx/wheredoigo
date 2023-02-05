@@ -1,11 +1,10 @@
 .sideNav {
     display: flex;
     flex-direction: column;
-    gap: 5rem;
+    gap: 2rem;
 }
 
 .userInfo {
-    padding: 1.5rem;
     text-align: center;
 }
 
@@ -25,16 +24,18 @@
 }
 
 .navLink {
+    flex: 1;
+    flex-basis: calc(33% - 2rem);
     color: var(--text-primary);
     font-weight: 600;
-    letter-spacing: 0.5px;
-    border-radius: 10px;
-    flex: 1;
-    flex-basis: calc(50% - 0.85rem);
     font-size: 0.85rem;
 }
 
-@media (min-width: 800px) {
+@media (min-width: 64em) {
+    .sideNav {
+        gap: 5rem;
+    }
+
     .navbar {
         flex-direction: column;
     }
