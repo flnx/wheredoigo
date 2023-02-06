@@ -19,3 +19,18 @@ export const validateRegisterData = ({
 
     return error;
 };
+
+export const validateLoginData = ({
+    emailValidation,
+    passwordValidation,
+}) => {
+    let error = false;
+
+    if (emailValidation == false) {
+        error = 'Invalid Email Address';
+    } else if (passwordValidation == false) {
+        error = 'Password must be at least 8 characters long containing at least 1 number and 1 letter';
+    }
+
+    return error;
+};

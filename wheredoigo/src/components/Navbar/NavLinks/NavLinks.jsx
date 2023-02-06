@@ -7,8 +7,6 @@ import styles from '../Navbar.module.css';
 export const NavLinks = ({ closeNavHandler }) => {
     const { auth } = useContext(AuthContext);
 
-    console.log(auth.accessToken);
-
     return (
         <nav>
             <ul className={styles.navbar}>
@@ -44,10 +42,7 @@ export const NavLinks = ({ closeNavHandler }) => {
                         </li>
                     </>
                 ) : (
-                    <NavLink
-                        to="/logout"
-                        onClick={closeNavHandler}
-                    >
+                    <NavLink to="/logout" onClick={closeNavHandler}>
                         Logout
                     </NavLink>
                 )}
