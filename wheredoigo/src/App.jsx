@@ -4,6 +4,7 @@ import './service/axiosConfig';
 // Components
 import { Navbar } from './components/Navbar/Navbar';
 import { Footer } from './components/Footer/Footer';
+import { Logout } from './components/Logout/Logout';
 
 // Pages
 import { Home } from './pages/Home/Home';
@@ -30,6 +31,7 @@ function App() {
                             path="/register"
                             element={<FormLayout page={Register} />}
                         />
+                        <Route path="/logout" element={<Logout />} />
                         <Route path="/discover" element={<Discover />} />
                         <Route path="/dashboard" element={<Dashboard />} />
                     </Routes>

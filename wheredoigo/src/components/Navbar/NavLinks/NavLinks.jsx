@@ -22,7 +22,7 @@ export const NavLinks = ({ closeNavHandler }) => {
                         Dashboard
                     </NavLink>
                 </li>
-                {!auth.accessToken && (
+                {!auth.accessToken ? (
                     <>
                         <li>
                             <NavLink
@@ -43,6 +43,13 @@ export const NavLinks = ({ closeNavHandler }) => {
                             </NavLink>
                         </li>
                     </>
+                ) : (
+                    <NavLink
+                        to="/logout"
+                        onClick={closeNavHandler}
+                    >
+                        Logout
+                    </NavLink>
                 )}
             </ul>
         </nav>
