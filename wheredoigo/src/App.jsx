@@ -12,22 +12,31 @@ import { Login } from './pages/Authentication/Login';
 import { Register } from './pages/Authentication/Register';
 import { FormLayout } from './pages/Authentication/FormLayout';
 import { Dashboard } from './pages/Dashboard/Dashboard';
+import { AuthContextProvider } from './context/AuthContext';
 
 function App() {
     return (
-        <div className="App">
-            <Navbar />
-            <main>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/login" element={<FormLayout page={Login} />} />
-                    <Route path="/register" element={<FormLayout page={Register} />} />
-                    <Route path="/discover" element={<Discover />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
-                </Routes>
-            </main>
-            <Footer />
-        </div>
+        <AuthContextProvider>
+            <div className="App">
+                <Navbar />
+                <main>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route
+                            path="/login"
+                            element={<FormLayout page={Login} />}
+                        />
+                        <Route
+                            path="/register"
+                            element={<FormLayout page={Register} />}
+                        />
+                        <Route path="/discover" element={<Discover />} />
+                        <Route path="/dashboard" element={<Dashboard />} />
+                    </Routes>
+                </main>
+                <Footer />
+            </div>
+        </AuthContextProvider>
     );
 }
 

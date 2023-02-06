@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import styles from './Navbar.module.css';
 
 // components
 import { NavLinks } from './NavLinks/NavLinks';
@@ -8,6 +7,8 @@ import { HamburgerIconMenu } from './Hamburger-Icon/HamburgerIcon';
 
 // assets
 import logo from '../../assets/logo/logo.png';
+
+import styles from './Navbar.module.css';
 
 export const Navbar = () => {
     const [isNavToggled, setIsNavToggled] = useState(false);

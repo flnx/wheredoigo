@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+import { Link, useNavigate } from 'react-router-dom';
 
 // api
 import * as user from '../../service/auth/register';
@@ -11,6 +12,9 @@ import { validateRegisterData } from '../../utils/userDataValidators';
 import styles from './FormLayout.module.css';
 
 export const Register = () => {
+    const { setUserData } = useContext(AuthContext);
+    const navigate = useNavigate();
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
@@ -37,14 +41,23 @@ export const Register = () => {
             return setInputError(error);
         }
 
-        setInputError(false);
-        setIsSuccess(true);
+        try {
+            const { data } = await user.register({ username, password, email });
+            setIsSuccess(true);
+            setInputError(false);
 
-        // try {
-        //     const res = await user.register({ username, password, email });
-        // } catch (err) {
-        //     console.log(err);
-        // }
+            setUserData({
+                username,
+                accessToken: data.sessionToken,
+                ownerId: data.objectId,
+            });
+
+            navigate('/', { replace: true });
+        } catch (err) {
+            const errorMessage =
+                err.response.data.message || err.response.data.error;
+            setInputError(errorMessage);
+        }
     };
 
     return (

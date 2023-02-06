@@ -1,6 +1,9 @@
 import axios from 'axios';
 
+import axios from 'axios';
 
-export const register = async (userData) => {
-    // const re
+export const login = async (userData) => {
+    const res = await axios.post('/users', userData);
+
+    return res;
 };
