@@ -14,11 +14,13 @@ export const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [inputError, setInputError] = useState(false);
-    const [isSuccess, setIsSuccess] = useState(false);
+    const [isDisabled, setIsDisabled] = useState(false);
     const navigate = useNavigate();
 
     const submitHandler = async (e) => {
         e.preventDefault();
+
+        if (isDisabled) return;
 
         const emailValidation = validate.email(email);
         const passwordValidation = validate.password(password);
@@ -32,10 +34,10 @@ export const Login = () => {
             return setInputError(error);
         }
 
+        setIsDisabled(true);
+
         try {
             const { data } = await user.login({ email, password });
-            setIsSuccess(true);
-            setInputError(false);
 
             setUserData({
                 username: data.username,
@@ -48,6 +50,7 @@ export const Login = () => {
             const errorMessage =
                 err.response.data.message || err.response.data.error;
             setInputError(errorMessage);
+            setIsDisabled(false);
         }
     };
 
@@ -90,10 +93,10 @@ export const Login = () => {
             <div className={styles.formField}>
                 <button
                     className={`${styles.formFieldButton} ${
-                        isSuccess && styles.disabled
+                        isDisabled && styles.disabled
                     }`}
                     type="submit"
-                    disabled={isSuccess}
+                    disabled={isDisabled}
                 >
                     Login
                 </button>

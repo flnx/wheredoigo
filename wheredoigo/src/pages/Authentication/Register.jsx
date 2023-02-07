@@ -20,10 +20,12 @@ export const Register = () => {
     const [repeatPassword, setRepeatPassword] = useState('');
     const [email, setEmail] = useState('');
     const [inputError, setInputError] = useState(false);
-    const [isSuccess, setIsSuccess] = useState(false);
+    const [isDisabled, setIsDisabled] = useState(false);
 
     const submitHandler = async (e) => {
         e.preventDefault();
+
+        if (isDisabled) return;
 
         const usernameValidation = validate.username(username);
         const passwordValidation = validate.password(password);
@@ -41,10 +43,10 @@ export const Register = () => {
             return setInputError(error);
         }
 
+        setIsDisabled(true);
+
         try {
             const { data } = await user.register({ username, password, email });
-            setIsSuccess(true);
-            setInputError(false);
 
             setUserData({
                 username,
@@ -54,9 +56,9 @@ export const Register = () => {
 
             navigate('/', { replace: true });
         } catch (err) {
-            const errorMessage =
-                err.response.data.message || err.response.data.error;
+            const errorMessage = err.response.data.message || err.response.data.error;
             setInputError(errorMessage);
+            setIsDisabled(false);
         }
     };
 
@@ -144,9 +146,9 @@ export const Register = () => {
             <div className={styles.formField}>
                 <button
                     className={`${styles.formFieldButton} ${
-                        isSuccess && styles.disabled
+                        isDisabled && styles.disabled
                     }`}
-                    disabled={isSuccess}
+                    disabled={isDisabled}
                 >
                     Register
                 </button>

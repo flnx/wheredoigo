@@ -15,11 +15,7 @@ export const NavLinks = ({ closeNavHandler }) => {
                         Discover
                     </NavLink>
                 </li>
-                <li>
-                    <NavLink to="/dashboard" onClick={closeNavHandler}>
-                        Dashboard
-                    </NavLink>
-                </li>
+
                 {!auth.accessToken ? (
                     <>
                         <li>
@@ -42,9 +38,18 @@ export const NavLinks = ({ closeNavHandler }) => {
                         </li>
                     </>
                 ) : (
-                    <NavLink to="/logout" onClick={closeNavHandler}>
-                        Logout
-                    </NavLink>
+                    <>
+                        <li>
+                            <NavLink to="/dashboard" onClick={closeNavHandler}>
+                                Dashboard
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/logout" onClick={closeNavHandler}>
+                                Logout
+                            </NavLink>
+                        </li>
+                    </>
                 )}
             </ul>
         </nav>
