@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 export const getDestinations = async () => {
-    const res = await axios.get('classes/Destination');
+    return await axios.get('classes/Destination');
+};
 
-    return res;
+export const getDestination = async (id) => {
+    return await axios.get(`classes/Destination/${id}`);
 };

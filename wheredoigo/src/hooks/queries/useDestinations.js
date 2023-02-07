@@ -4,7 +4,7 @@ import { queryEndpoint } from '../../utils/constants';
 
 export const useDestinations = () => {
     return useQuery({
-        queryKey: queryEndpoint.destinations,
+        queryKey: [queryEndpoint.destinations],
         queryFn: getDestinations,
     });
 };

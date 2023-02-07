@@ -1,3 +1,3 @@
 export const queryEndpoint = {
-    destinations: ['destinations'],
+    destinations: 'destinations',
 }
