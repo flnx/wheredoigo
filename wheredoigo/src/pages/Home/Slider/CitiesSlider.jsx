@@ -1,16 +1,16 @@
+import { Link } from 'react-router-dom';
 import { SwiperSlide } from 'swiper/react';
 import { SwiperX } from './Swiper';
-import images from '../../../utils/images';
 import styles from './CitiesSlider.module.css';
 
-export const CitiesSlider = () => {
+export const CitiesSlider = ({ destinations }) => {
     return (
         <section>
             <div className="container">
                 <SwiperX>
-                    {images.map((img, i) => (
-                        <SwiperSlide className={styles.sliderItem} key={i}>
-                            <Card imageUrl={img} />
+                    {destinations.map((x) => (
+                        <SwiperSlide className={styles.sliderItem} key={x.objectId}>
+                            <Card destination={x} />
                         </SwiperSlide>
                     ))}
                 </SwiperX>
@@ -19,14 +19,15 @@ export const CitiesSlider = () => {
     );
 };
 
-const Card = ({ imageUrl }) => {
+
+const Card = ({ destination }) => {
     return (
-        <>
-            <img src={imageUrl} alt="city" className={styles.image}/>
+        <Link to={`/destinations/${destination.objectId}`}>
+            <img src={destination.imageUrl.url} alt="city" className={styles.image} />
             <div className={styles.content}>
-                <h3>Place</h3>
-                <p>City, Country</p>
+                <h3>{destination.city}</h3>
+                <p>{destination.country}</p>
             </div>
-        </>
+        </Link>
     );
 };
