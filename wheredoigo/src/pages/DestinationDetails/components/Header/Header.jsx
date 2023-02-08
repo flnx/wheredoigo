@@ -4,7 +4,27 @@ import styles from './Header.module.css';
 export const DestinationHeader = ({ destination }) => {
     return (
         <header className={styles.intro}>
-            <img src={destination.imageUrl.url} alt={destination.city} />
+            <div className={styles.imagesWrapper}>
+                <img src={destination.imageUrl.url} alt={destination.city} />
+                <div className={styles.secondaryImages}>
+                    <img
+                        src={destination.imageUrl.url}
+                        alt={destination.city}
+                    />
+                    <img
+                        src={destination.imageUrl.url}
+                        alt={destination.city}
+                    />
+                    <img
+                        src={destination.imageUrl.url}
+                        alt={destination.city}
+                    />
+                    <img
+                        src={destination.imageUrl.url}
+                        alt={destination.city}
+                    />
+                </div>
+            </div>
             <div className={styles.titleWrapper}>
                 <h1>{destination.city}</h1>
                 <StarRating rating={5} />

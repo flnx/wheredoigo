@@ -1,11 +1,14 @@
 import { useParams } from 'react-router-dom';
 import { useDestination } from '../../hooks/queries/useDestination';
+
+// components
+import { DestinationHeader } from './components/Header/Header';
 import { EatSection } from './components/Eat/EatSection';
 import { ExploreSection } from './components/Explore/ExploreSection';
-import { DestinationHeader } from './components/Header/Header';
 import { StaySection } from './components/Stay/StaySection';
 
 import styles from './DestinationDetails.module.css';
+import { CategorySwitcher } from './components/CategorySwitcher/CategorySwitcher';
 
 export const DestinationDetails = () => {
     const { destinationId } = useParams();
@@ -20,6 +23,7 @@ export const DestinationDetails = () => {
         <div className="container">
             <div className={styles.wrapper}>
                 <DestinationHeader destination={destination} />
+                <CategorySwitcher />
                 <ExploreSection destination={destination} />
                 <EatSection destination={destination} />
                 <StaySection destination={destination} />

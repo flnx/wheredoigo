@@ -1,5 +1,29 @@
 .intro img {
-    margin-bottom: 0.5rem;
+    width: 100%;
+    object-fit: cover;
+}
+
+.imagesWrapper {
+    max-height: 40rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.imagesWrapper > * {
+    flex: 1;
+    aspect-ratio: 1/1;
+}
+
+.secondaryImages {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.secondaryImages > * {
+    height: calc(50% - 0.5rem);
+    flex-basis: calc(50% - 0.5rem);
 }
 
 .titleWrapper {
