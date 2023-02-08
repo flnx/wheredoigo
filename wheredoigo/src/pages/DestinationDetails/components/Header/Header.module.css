@@ -1,10 +1,12 @@
 .intro img {
     width: 100%;
     object-fit: cover;
+    border-radius: 15px;
+
 }
 
 .imagesWrapper {
-    max-height: 40rem;
+    max-height: 33rem;
     display: flex;
     gap: 1rem;
 }
@@ -29,6 +31,10 @@
 .titleWrapper {
     display: flex;
     justify-content: space-between;
+}
+
+.headerContent {
+    max-width: 35rem;
 }
 
 .countryName {
