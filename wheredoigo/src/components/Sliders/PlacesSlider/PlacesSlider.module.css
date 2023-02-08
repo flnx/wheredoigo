@@ -1,0 +1,18 @@
+.sliderItem {
+    background: var(--background);
+    box-shadow: var(--box-shadow);
+    border-radius: 8px;
+}
+
+.content {
+    padding: 0rem 0.65rem 0.65rem;
+}
+
+.image {
+    cursor: grab;
+    width: 100%;
+    aspect-ratio: 1.5 / 1;
+    object-fit: cover;
+    border-radius: 20px;
+    padding: 0.65rem;
+}

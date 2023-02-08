@@ -1,0 +1,7 @@
+.rating {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.35rem;
+    max-width: 2.4rem;
+}

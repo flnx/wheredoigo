@@ -6,16 +6,15 @@ import { Pagination, Navigation } from 'swiper';
 // import 'swiper/css/navigation';
 
 import 'swiper/css/bundle';
-import './Swiper.css';
+import '../Swiper.css';
 
-export const SwiperX = ({ children }) => {
+export const SliderWrapper = ({ children }) => {
     return (
         <Swiper
             slidesPerView={2.1}
             spaceBetween={10}
             slidesPerGroup={1}
             loop={false}
-            loopFillGroupWithBlank={true}
             pagination={{
                 clickable: true,
             }}

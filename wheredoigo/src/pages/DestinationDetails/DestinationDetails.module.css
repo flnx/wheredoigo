@@ -1,0 +1,25 @@
+.destination img {
+    margin-bottom: 1.5rem;
+}
+
+.header {
+    margin-bottom: 1rem;
+}
+
+.descriptionSection {
+    margin-bottom: 1rem;
+}
+
+.descriptionSection p {
+    font-size: 1.10rem;
+    color: var(--text-primary);
+}
+
+.descriptionSection h3 {
+    margin-bottom: 0.25rem;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+}

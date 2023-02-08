@@ -27,13 +27,6 @@
     object-fit: cover;
 }
 
-.rating {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.35rem;
-}
-
 .flex {
     display: flex;
     justify-content: space-between;

@@ -2,7 +2,7 @@
 import { CategoriesNav } from '../../components/CategoriesNav/CategoriesNav';
 import { ContinentsNav } from '../../components/ContinentsNav/ContinentsNav';
 import { SearchBar } from '../../components/Serach-Bar/SearchBar';
-import { CitiesSlider } from '../Home/Slider/CitiesSlider';
+// import { CitiesSlider } from '../../components/Sliders/CitiesSlider/CitiesSlider';
 import { Destinations } from './Destinations/Destinations';
 
 import styles from './Discover.module.css';
@@ -15,7 +15,7 @@ export const Discover = () => {
 
                 <SearchBar />
                 <ContinentsNav />
-                <CitiesSlider />
+                {/* <CitiesSlider /> */}
                 <CategoriesNav />
                 <Destinations />
             </div>

@@ -1,4 +1,4 @@
-import { Star } from 'phosphor-react';
+import { StarRating } from '../StarRating/StarRating';
 import styles from './Destination.module.css';
 
 export const Destination = ({ destination }) => {
@@ -14,11 +14,7 @@ export const Destination = ({ destination }) => {
             <section className={styles.content}>
                 <div className={styles.flex}>
                     <h3>{destination.city}</h3>
-
-                    <div className={styles.rating}>
-                        <Star size={24} />
-                        <span>{destination.rating}</span>
-                    </div>
+                    <StarRating rating={destination.rating} />
                 </div>
 
                 <div className={`${styles.flex}`}>
