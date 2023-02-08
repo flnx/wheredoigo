@@ -1,7 +1,9 @@
 import { useParams } from 'react-router-dom';
-import { PlacesSlider } from '../../components/Sliders/PlacesSlider/PlacesSlider';
-import { StarRating } from '../../components/StarRating/StarRating';
 import { useDestination } from '../../hooks/queries/useDestination';
+import { EatSection } from './components/Eat/EatSection';
+import { ExploreSection } from './components/Explore/ExploreSection';
+import { DestinationHeader } from './components/Header/Header';
+import { StaySection } from './components/Stay/StaySection';
 
 import styles from './DestinationDetails.module.css';
 
@@ -16,38 +18,12 @@ export const DestinationDetails = () => {
 
     return (
         <div className="container">
-            <section className={styles.destination}>
-                <img src={destination.imageUrl.url} alt={destination.city} />
-
-                <header className={styles.header}>
-                    <div className={styles.flex}>
-                        <h1>{destination.city}</h1>
-                        <StarRating rating={5} />
-                    </div>
-                    <p>{destination.country}</p>
-                </header>
-
-                <article className={styles.descriptionSection}>
-                    <h3>Overview</h3>
-                    <p>{destination.description}</p>
-                </article>
-
-                <section className={styles.staySection}>
-                    <h3>Stay</h3>
-                    <PlacesSlider />
-                </section>
-
-                <section className={styles.exploreSection}>
-                    <h3>Explore</h3>
-                    <PlacesSlider />
-                </section>
-
-                <section className={styles.eatSection}>
-                    <h3>Eat</h3>
-                    <PlacesSlider />
-                </section>
-
-            </section>
+            <div className={styles.wrapper}>
+                <DestinationHeader destination={destination} />
+                <ExploreSection destination={destination} />
+                <EatSection destination={destination} />
+                <StaySection destination={destination} />
+            </div>
         </div>
     );
 };

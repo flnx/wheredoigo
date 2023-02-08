@@ -1,0 +1,21 @@
+.intro img {
+    margin-bottom: 0.5rem;
+}
+
+.titleWrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.countryName {
+    margin-bottom: 1rem;
+}
+
+.descriptionTitle {
+    margin-bottom: 0.5rem;
+}
+
+.description {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
