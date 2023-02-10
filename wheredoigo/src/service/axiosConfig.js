@@ -11,12 +11,6 @@ axios.defaults.headers.common = {
     'Content-Type': 'application/json',
 };
 
-
-
-
-
-
-
 // export const requester = axios.create({
 //     baseURL: HOST,
 //     headers: {

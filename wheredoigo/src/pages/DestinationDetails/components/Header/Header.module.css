@@ -1,33 +1,3 @@
-.intro img {
-    width: 100%;
-    object-fit: cover;
-    border-radius: 15px;
-
-}
-
-.imagesWrapper {
-    max-height: 33rem;
-    display: flex;
-    gap: 1rem;
-}
-
-.imagesWrapper > * {
-    flex: 1;
-    aspect-ratio: 1/1;
-}
-
-.secondaryImages {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 1rem;
-}
-
-.secondaryImages > * {
-    height: calc(50% - 0.5rem);
-    flex-basis: calc(50% - 0.5rem);
-}
-
 .titleWrapper {
     display: flex;
     justify-content: space-between;

@@ -5,7 +5,7 @@ import { useDestination } from '../../hooks/queries/useDestination';
 import { DestinationHeader } from './components/Header/Header';
 import { EatSection } from './components/Eat/EatSection';
 import { ExploreSection } from './components/Explore/ExploreSection';
-import { StaySection } from './components/Stay/StaySection';
+import { ClubsAndPubsSection } from './components/Stay/ClubsAndPubsSection';
 
 import styles from './DestinationDetails.module.css';
 import { CategorySwitcher } from './components/CategorySwitcher/CategorySwitcher';
@@ -13,20 +13,35 @@ import { CategorySwitcher } from './components/CategorySwitcher/CategorySwitcher
 export const DestinationDetails = () => {
     const { destinationId } = useParams();
 
-    const { destination, isLoading, error } = useDestination(destinationId);
+    const { destinationData, placeData } = useDestination(destinationId);
+
+    const {
+        data: destination,
+        isLoading: isDestinationDataLoading,
+        error: destinationFetchError,
+    } = destinationData;
+
+    const {
+        data: destinationPlaces,
+        isLoading: isPlacesDataLoading,
+        error: placesFetchError,
+    } = placeData;
 
     // todo add spinner and error handling overlay
-    if (isLoading) return <h1>Loading...</h1>;
-    if (error) return <h1>{error.message}</h1>;
+
+    if (isPlacesDataLoading || isDestinationDataLoading) return <h1>Loading...</h1>;
+    if (destinationFetchError || placesFetchError) return <h1>An Error Has Occured</h1>;
+
+    console.log(destinationPlaces);
 
     return (
         <div className="container">
             <div className={styles.wrapper}>
-                <DestinationHeader destination={destination} />
+                <DestinationHeader destination={destination.data} />
                 <CategorySwitcher />
-                <ExploreSection destination={destination} />
-                <EatSection destination={destination} />
-                <StaySection destination={destination} />
+                <ExploreSection destination={destination.data} />
+                <EatSection destination={destination.data} />
+                <ClubsAndPubsSection destination={destination.data} />
             </div>
         </div>
     );
