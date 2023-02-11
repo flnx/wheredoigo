@@ -8,6 +8,7 @@ import { Pagination, Navigation } from 'swiper';
 import 'swiper/css/bundle';
 import '../Swiper.css';
 
+
 export const SliderWrapper = ({ children }) => {
     return (
         <Swiper

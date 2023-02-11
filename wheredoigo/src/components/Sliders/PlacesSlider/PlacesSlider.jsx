@@ -33,22 +33,3 @@ export const PlacesSlider = ({ places }) => {
         </section>
     );
 };
-
-// export const CitiesSlider = ({ destinations }) => {
-//     return (
-//         <section>
-//             <div className="container">
-//                 <SliderWrapper>
-//                     {destinations.map((x) => (
-//                         <SwiperSlide
-//                             className={styles.sliderItem}
-//                             key={x.objectId}
-//                         >
-//                             <SliderCard destination={x} />
-//                         </SwiperSlide>
-//                     ))}
-//                 </SliderWrapper>
-//             </div>
-//         </section>
-//     );
-// };

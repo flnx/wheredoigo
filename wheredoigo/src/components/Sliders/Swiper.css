@@ -8,6 +8,6 @@
     bottom: 0 !important;
 }
 
-/* .swiper-slide{
-    
-} */
+.swiper-slide {
+    height: auto;
+}

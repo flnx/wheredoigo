@@ -3,16 +3,20 @@ import { PlacesSlider } from '../../../../components/Sliders/PlacesSlider/Places
 import styles from '../../DestinationDetails.module.css';
 
 export const EatSection = ({ places }) => {
-    const eatPlaces = places.filter((x) => x.type == 'eat');
+    const eatingPlaces = places.filter((x) => x.type == 'eat');
+
+    const isThereEatingPlaces = eatingPlaces.length > 0;
 
     return (
-        <section>
-            <h3 className={styles.sectionTitle}>Eat</h3>
-            <span className={styles.sectionDescription}>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem,
-                natus.
-            </span>
-            <PlacesSlider places={eatPlaces} />
-        </section>
+        isThereEatingPlaces && (
+            <section>
+                <h3 className={styles.sectionTitle}>Eat</h3>
+                <span className={styles.sectionDescription}>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Rem, natus.
+                </span>
+                <PlacesSlider places={eatingPlaces} />
+            </section>
+        )
     );
 };
