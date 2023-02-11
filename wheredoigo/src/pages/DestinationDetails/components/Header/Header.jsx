@@ -1,11 +1,43 @@
+import { useState } from 'react';
+import { createPortal } from 'react-dom';
+
+// components
+import { Gallery } from '../../../../components/Gallery/Gallery';
 import { ImagesGridWrapper } from '../../../../components/ImagesGridWrapper/ImagesGridWrapper';
 import { StarRating } from '../../../../components/StarRating/StarRating';
+
 import styles from './Header.module.css';
 
 export const DestinationHeader = ({ destination }) => {
+    const [gallery, setGallery] = useState([]);
+
+    const images = {
+        img1: destination.imageUrl.url,
+        img2: destination.imageUrl2.url,
+        img3: destination.imageUrl3.url,
+        img4: destination.imageUrl4.url,
+        img5: destination.imageUrl5.url,
+    };
+
+    const onImageClickHandler = (imageUrl) => {
+        const imagesArray = Object.values(images).filter((x) => x !== imageUrl);
+
+        setGallery([imageUrl, ...imagesArray]);
+    };
+
+    const isGalleryOpen = gallery.length > 0;
+
     return (
         <header className={styles.intro}>
-            <ImagesGridWrapper imageUrl={destination.imageUrl.url} alt={destination.city} />
+            {isGalleryOpen && createPortal(
+                <Gallery images={gallery} />, 
+                document.body
+            )}
+            <ImagesGridWrapper
+                images={images}
+                alt={destination.city}
+                onClickHandler={onImageClickHandler}
+            />
             <div className={styles.titleWrapper}>
                 <h1>{destination.city}</h1>
                 <StarRating rating={5} />

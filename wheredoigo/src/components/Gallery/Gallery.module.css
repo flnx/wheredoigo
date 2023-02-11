@@ -1,0 +1,20 @@
+.overlay {
+    position: fixed;
+    z-index: 1000;
+    inset: 0 0 0 0;
+    background: rgba(0, 0, 0, 0.735);
+    height: 100vh;
+}
+
+.wrapper {
+    position: fixed;
+    inset: 5% 5% 5% 5%;
+    background: black;
+    z-index: 10000;
+    overflow: scroll;
+}
+
+.wrapper img {
+    width: 500px;
+    aspect-ratio: 1/1;
+}
