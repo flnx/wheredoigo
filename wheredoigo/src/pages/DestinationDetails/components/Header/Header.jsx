@@ -19,10 +19,13 @@ export const DestinationHeader = ({ destination }) => {
         img5: destination.imageUrl5.url,
     };
 
-    const onImageClickHandler = (imageUrl) => {
-        const imagesArray = Object.values(images).filter((x) => x !== imageUrl);
+    const onImageClickHandler = (clickedImage) => {
+        const arrayWithoutClickedImage = Object
+            .values(images)
+            .filter((x) => x !== clickedImage);
 
-        setGallery([imageUrl, ...imagesArray]);
+        // adding clicked img on index 0
+        setGallery([clickedImage, ...arrayWithoutClickedImage]);
     };
 
     const closeGalleryHandler = () => {
@@ -33,8 +36,7 @@ export const DestinationHeader = ({ destination }) => {
 
     return (
         <header className={styles.intro}>
-            {isGalleryOpen &&
-                createPortal(
+            {isGalleryOpen && createPortal(
                     <Gallery
                         images={gallery}
                         closeGalleryHandler={closeGalleryHandler}

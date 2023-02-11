@@ -55,4 +55,9 @@
     width: 100%;
     aspect-ratio: 1.25/1;
     object-fit: cover;
+    cursor: pointer;
+}
+
+.isActive {
+    border: 2px solid rgb(157, 22, 96) !important;
 }
