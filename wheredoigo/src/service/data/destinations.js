@@ -5,5 +5,7 @@ export const getDestinations = async () => {
 };
 
 export const getDestination = async (id) => {
-    return await axios.get(`classes/Destination/${id}`);
+    const res = await axios.get(`classes/Destination/${id}`);
+
+    return res.data;
 };
