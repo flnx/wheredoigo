@@ -2,7 +2,9 @@ import { PlacesSlider } from '../../../../components/Sliders/PlacesSlider/Places
 
 import styles from '../../DestinationDetails.module.css';
 
-export const ClubsAndPubsSection = () => {
+export const ClubsAndPubsSection = ({ places }) => {
+    const partyPlaces = places.filter((x) => x.type == 'party');
+
     return (
         <section>
             <h3 className={styles.sectionTitle}>Clubs & Pubs</h3>
@@ -10,7 +12,7 @@ export const ClubsAndPubsSection = () => {
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem,
                 natus.
             </span>
-            <PlacesSlider />
+            <PlacesSlider places={partyPlaces} />
         </section>
     );
 };

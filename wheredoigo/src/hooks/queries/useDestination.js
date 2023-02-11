@@ -4,7 +4,7 @@ import { getPlaces } from '../../service/data/places';
 import { queryEndpoint } from '../../utils/constants';
 
 export const useDestination = (id) => {
-    const [destination, place] = useQueries({
+    const [destination, places] = useQueries({
         queries: [
             {
                 queryKey: [queryEndpoint.destinations, id],
@@ -17,5 +17,5 @@ export const useDestination = (id) => {
         ],
     });
 
-    return { destination, place };
+    return { destination, places };
 };

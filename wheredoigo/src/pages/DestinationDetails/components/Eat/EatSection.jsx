@@ -2,7 +2,9 @@ import { PlacesSlider } from '../../../../components/Sliders/PlacesSlider/Places
 
 import styles from '../../DestinationDetails.module.css';
 
-export const EatSection = () => {
+export const EatSection = ({ places }) => {
+    const eatPlaces = places.filter((x) => x.type == 'eat');
+
     return (
         <section>
             <h3 className={styles.sectionTitle}>Eat</h3>
@@ -10,7 +12,7 @@ export const EatSection = () => {
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem,
                 natus.
             </span>
-            <PlacesSlider />
+            <PlacesSlider places={eatPlaces} />
         </section>
     );
 };
