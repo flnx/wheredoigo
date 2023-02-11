@@ -1,20 +1,58 @@
 .overlay {
     position: fixed;
-    z-index: 1000;
     inset: 0 0 0 0;
     background: rgba(0, 0, 0, 0.735);
     height: 100vh;
 }
 
 .wrapper {
+    padding: 2rem;
     position: fixed;
-    inset: 5% 5% 5% 5%;
+    inset: 5% 10% 5% 10%;
     background: black;
-    z-index: 10000;
-    overflow: scroll;
+    overflow: hidden;
+    border-radius: 10px;
 }
 
-.wrapper img {
-    width: 500px;
-    aspect-ratio: 1/1;
+.imagesContainer {
+    display: flex;
+    gap: 2rem;
+    /* background: rgb(68, 47, 47); */
+    height: 100%;
+}
+
+.imagesContainer img {
+    border-radius: 10px;
+}
+
+.mainImgContainer {
+    overflow: hidden;
+    flex: 2.5;
+    height: 100%;
+    /* background: rgb(255, 255, 255); */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mainImg {
+    width: 100%;
+}
+
+.secondaryImgContainer {
+    flex: 1;
+    height: 100%;
+    overflow: scroll;
+    /* background: rgb(255, 255, 255); */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-auto-rows: min-content;
+    gap: 1rem;
+}
+
+.secondaryImgContainer img {
+    width: 100%;
+    aspect-ratio: 1.25/1;
+    object-fit: cover;
 }

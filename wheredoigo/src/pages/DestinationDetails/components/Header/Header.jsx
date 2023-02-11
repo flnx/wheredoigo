@@ -25,14 +25,22 @@ export const DestinationHeader = ({ destination }) => {
         setGallery([imageUrl, ...imagesArray]);
     };
 
+    const closeGalleryHandler = () => {
+        setGallery([]);
+    };
+
     const isGalleryOpen = gallery.length > 0;
 
     return (
         <header className={styles.intro}>
-            {isGalleryOpen && createPortal(
-                <Gallery images={gallery} />, 
-                document.body
-            )}
+            {isGalleryOpen &&
+                createPortal(
+                    <Gallery
+                        images={gallery}
+                        closeGalleryHandler={closeGalleryHandler}
+                    />,
+                    document.body
+                )}
             <ImagesGridWrapper
                 images={images}
                 alt={destination.city}
