@@ -3,6 +3,7 @@
     inset: 0 0 0 0;
     background: rgba(0, 0, 0, 0.735);
     height: 100vh;
+    z-index: 5;
 }
 
 .wrapper {
@@ -12,6 +13,7 @@
     background: black;
     overflow: hidden;
     border-radius: 10px;
+    z-index: 10;
 }
 
 .imagesContainer {

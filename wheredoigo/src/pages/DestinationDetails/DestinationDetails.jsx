@@ -3,10 +3,10 @@ import { useDestination } from '../../hooks/queries/useDestination';
 
 // components
 import { DestinationHeader } from './components/Header/Header';
-import { EatSection } from './components/Eat/EatSection';
-import { ExploreSection } from './components/Explore/ExploreSection';
-import { ClubsAndPubsSection } from './components/ClubsSection/ClubsAndPubsSection';
-import { CategorySwitcher } from './components/CategorySwitcher/CategorySwitcher';
+import { EatSection } from './components/EatSection/EatSection';
+import { ExploreSection } from './components/ExploreSection/ExploreSection';
+import { PartySection } from './components/PartySection/PartySection';
+import { TipsPopUp } from '../../components/TipsPopUp/TipsPopUp';
 
 import styles from './DestinationDetails.module.css';
 
@@ -26,10 +26,10 @@ export const DestinationDetails = () => {
         <div className="container">
             <div className={styles.wrapper}>
                 <DestinationHeader destination={destination.data} />
-                <CategorySwitcher />
+                <TipsPopUp destination={destination.data} />
                 <ExploreSection places={places.data} />
                 <EatSection places={places.data} />
-                <ClubsAndPubsSection places={places.data} />
+                <PartySection places={places.data} />
             </div>
         </div>
     );

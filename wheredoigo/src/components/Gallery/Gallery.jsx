@@ -27,7 +27,7 @@ export const Gallery = ({ images, closeGalleryHandler }) => {
                     <div className={styles.secondaryImgContainer}>
                         {images.map((x) => (
                             <img
-                                className={mainImage == x && isActive}
+                                className={`${mainImage == x && isActive}`}
                                 src={x}
                                 alt="img"
                                 key={x}
@@ -36,9 +36,6 @@ export const Gallery = ({ images, closeGalleryHandler }) => {
                         ))}
                     </div>
                 </div>
-                {/* {images.map((img) => (
-                    <img src={img} alt="image " />
-                ))} */}
             </div>
         </section>
     );

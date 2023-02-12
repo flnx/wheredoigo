@@ -2,7 +2,7 @@ import { PlacesSlider } from '../../../../components/Sliders/PlacesSlider/Places
 
 import styles from '../../DestinationDetails.module.css';
 
-export const ClubsAndPubsSection = ({ places }) => {
+export const PartySection = ({ places }) => {
     const partyPlaces = places.filter((x) => x.type == 'party');
 
     const isTherePartyPlaces = partyPlaces.length > 0;

@@ -21,54 +21,48 @@ import { FormLayout } from './pages/Authentication/FormLayout';
 import { Dashboard } from './pages/Dashboard/Dashboard';
 import { AuthContextProvider } from './context/AuthContext';
 import { DestinationDetails } from './pages/DestinationDetails/DestinationDetails';
+import { DetailsModal } from './components/DetailsModal/DetailsModal';
 
 function App() {
     return (
         <QueryClientProvider client={queryClient}>
             <ReactQueryDevtools initialIsOpen={true} />
-                <AuthContextProvider>
-                    <div className="App">
-                        <Navbar />
-                        <main>
-                            <Routes>
-                                <Route element={<UnauthenticatedRoute />}>
-                                    <Route
-                                        path="/login"
-                                        element={<FormLayout page={Login} />}
-                                    />
-                                    <Route
-                                        path="/register"
-                                        element={<FormLayout page={Register} />}
-                                    />
-                                </Route>
-                                <Route path="/" element={<Home />} />
+            <AuthContextProvider>
+                <div className="App">
+                    <Navbar />
+                    <main>
+                        <Routes>
+                            <Route element={<UnauthenticatedRoute />}>
                                 <Route
-                                    path="/discover"
-                                    element={<Discover />}
+                                    path="/login"
+                                    element={<FormLayout page={Login} />}
                                 />
                                 <Route
-                                    path="/destinations/:destinationId"
-                                    element={<DestinationDetails />}
+                                    path="/register"
+                                    element={<FormLayout page={Register} />}
                                 />
+                            </Route>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/discover" element={<Discover />} />
+                            <Route path="/destinations/:destinationId" element={<DestinationDetails />}>
+                                <Route path="info" element={<DetailsModal />}/>
+                            </Route>
+                            <Route
+                                path="/place/:placeId"
+                                element={<h1>Place</h1>}
+                            />
+                            <Route element={<ProtectedRoute />}>
                                 <Route
-                                    path="/place/:placeId"
-                                    element={<h1>Place</h1>}
+                                    path="/dashboard"
+                                    element={<Dashboard />}
                                 />
-                                <Route element={<ProtectedRoute />}>
-                                    <Route
-                                        path="/dashboard"
-                                        element={<Dashboard />}
-                                    />
-                                    <Route
-                                        path="/logout"
-                                        element={<Logout />}
-                                    />
-                                </Route>
-                            </Routes>
-                        </main>
-                        <Footer />
-                    </div>
-                </AuthContextProvider>
+                                <Route path="/logout" element={<Logout />} />
+                            </Route>
+                        </Routes>
+                    </main>
+                    <Footer />
+                </div>
+            </AuthContextProvider>
         </QueryClientProvider>
     );
 }
