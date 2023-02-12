@@ -1,46 +1,55 @@
 import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+
 import styles from './TipsPopUp.module.css';
 
 export const TipsPopUp = ({ destination }) => {
     const [tips, setTips] = useState('');
 
-    const onCategoryClickHandler = (text) => {
-        setTips(text);
+    const onCategoryClickHandler = (tipsInfo) => {
+        setTips(tipsInfo);
     };
 
     return (
-        <section className={styles.wrapper}>
-            <Link to="info">
-                <span
+        <>
+            <section className={styles.wrapper}>
+                <Link
+                    to="info"
                     className={styles.category}
                     onClick={() =>
-                        onCategoryClickHandler(destination.transport)
+                        onCategoryClickHandler(destination.transportInfo)
                     }
                 >
                     Transport
-                </span>
-            </Link>
+                </Link>
 
-            <span
-                className={styles.category}
-                onClick={() => onCategoryClickHandler(destination.goodToKnow)}
-            >
-                Good to Know
-            </span>
-            <span
-                className={styles.category}
-                onClick={() => onCategoryClickHandler(destination.localCustoms)}
-            >
-                Local Customs
-            </span>
-            <span
-                className={styles.category}
-                onClick={() => onCategoryClickHandler(destination.proTips)}
-            >
-                Pro Tips
-            </span>
-            <Outlet context={tips}/>
-        </section>
+                <Link
+                    to="info"
+                    className={styles.category}
+                    onClick={() =>
+                        onCategoryClickHandler(destination.goodToKnowInfo)
+                    }
+                >
+                    Good to Know
+                </Link>
+                <Link
+                    to="info"
+                    className={styles.category}
+                    onClick={() =>
+                        onCategoryClickHandler(destination.localCustomsInfo)
+                    }
+                >
+                    Local Customs
+                </Link>
+                <Link
+                    to="info"
+                    className={styles.category}
+                    onClick={() => onCategoryClickHandler(destination.proTipsInfo)}
+                >
+                    Pro Tips
+                </Link>
+            </section>
+            <Outlet context={tips} />
+        </>
     );
 };

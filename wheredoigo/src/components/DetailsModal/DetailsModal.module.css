@@ -1,4 +1,35 @@
-.modal {
+.overlay {
+    position: fixed;
+    inset: 0 0 0 0;
+    background: rgba(0, 0, 0, 0.735);
+    height: 100vh;
+    z-index: 5;
+}
+
+.wrapper {
+    padding: 2rem;
+    position: fixed;
+    inset: 5% 5% 5% 5%;
+    margin: 0 auto;
+    max-width: 30rem;
+    background: #fff;
+    overflow: hidden;
+    border-radius: 10px;
+    z-index: 10;
+    overflow: scroll;
+}
+
+.closeIcon {
     position: absolute;
-    background: #000;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.tip {
+    margin-bottom: 2rem;
+}
+
+.tipTitle {
+    margin-bottom: 0.5rem;
 }
