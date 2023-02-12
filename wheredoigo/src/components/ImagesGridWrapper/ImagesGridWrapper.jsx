@@ -3,11 +3,14 @@ import styles from './ImagesGridWrapper.module.css';
 export const ImagesGridWrapper = ({ images, alt, onClickHandler }) => {
     return (
         <div className={styles.imagesWrapper}>
-            <img
-                src={images.img1}
-                alt={alt}
-                onClick={() => onClickHandler(images.img1)}
-            />
+            <div className={styles.mainImgContainer}>
+                <img
+                    className={styles.mainImg}
+                    src={images.img1}
+                    alt={alt}
+                    onClick={() => onClickHandler(images.img1)}
+                />
+            </div>
             <div className={styles.secondaryImages}>
                 <img
                     src={images.img2}

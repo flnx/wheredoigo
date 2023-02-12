@@ -14,7 +14,7 @@ h3 {
 
 p {
     /* font-size: clamp(1rem, 0.65rem + 0.55vw, 1.025); */
-    font-size: 1rem;
+    font-size: 1.05rem;
     color: var(--text-secondary);
 }
 

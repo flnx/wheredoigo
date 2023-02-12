@@ -10,7 +10,7 @@
     padding: 2rem;
     position: fixed;
     inset: 5% 10% 5% 10%;
-    background: black;
+    background: var(--gallery-background-black);
     overflow: hidden;
     border-radius: 10px;
     z-index: 10;
@@ -31,7 +31,6 @@
     overflow: hidden;
     flex: 2.5;
     height: 100%;
-    /* background: rgb(255, 255, 255); */
     width: 100%;
     display: flex;
     align-items: center;
@@ -45,7 +44,7 @@
 .secondaryImgContainer {
     flex: 1;
     height: 100%;
-    overflow: scroll;
+    overflow-y: scroll;
     /* background: rgb(255, 255, 255); */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
