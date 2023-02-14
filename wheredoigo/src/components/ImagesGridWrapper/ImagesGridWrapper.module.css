@@ -28,4 +28,5 @@
 
 .secondaryImages > * {
     width: calc(50% - 0.5rem);
+    height: calc(50% - 0.5rem);
 }

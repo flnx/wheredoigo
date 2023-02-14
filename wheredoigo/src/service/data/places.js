@@ -7,8 +7,8 @@ export const getPlaces = async (id) => {
     return placesData.data.results;
 };
 
-export const getPlace = (id) => {
-    const placeData = axios.get(apiEndpoints.place(id));
+export const getPlace = async(id) => {
+    const placeData = await axios.get(apiEndpoints.placeById(id));
 
     return placeData.data;
 };

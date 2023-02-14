@@ -6,7 +6,7 @@ export const getDestinations = async () => {
 };
 
 export const getDestination = async (id) => {
-    const res = await axios.get(api.destinationById(id));
+    const res = await axios.get(apiEndpoints.destinationById(id));
 
     return res.data;
 };

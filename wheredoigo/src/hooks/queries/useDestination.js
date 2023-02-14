@@ -3,16 +3,16 @@ import { getDestination } from '../../service/data/destinations';
 import { getPlaces } from '../../service/data/places';
 import { queryEndpoints } from '../../constants/reactQueryEndpoints';
 
-export const useDestination = (id) => {
+export const useDestination = (destinationId) => {
     const [destination, places] = useQueries({
         queries: [
             {
-                queryKey: [queryEndpoints.destinations, id],
-                queryFn: () => getDestination(id),
+                queryKey: [queryEndpoints.destinations, destinationId],
+                queryFn: () => getDestination(destinationId),
             },
             {
-                queryKey: [queryEndpoints.places, id],
-                queryFn: () => getPlaces(id),
+                queryKey: [queryEndpoints.destinationPlaces, destinationId],
+                queryFn: () => getPlaces(destinationId),
             },
         ],
     });
