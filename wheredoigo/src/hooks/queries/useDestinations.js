@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { getDestinations } from '../../service/data/destinations';
-import { queryEndpoint } from '../../utils/constants';
+import { queryEndpoints } from '../../constants/reactQueryEndpoints';
 
 export const useDestinations = () => {
     return useQuery({
-        queryKey: [queryEndpoint.destinations],
+        queryKey: [queryEndpoints.destinations],
         queryFn: getDestinations,
     });
 };

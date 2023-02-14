@@ -1,4 +1,4 @@
-export const queryEndpoint = {
+export const queryEndpoints = {
     destinations: 'destinations',
     places: 'places',
 }
