@@ -1,0 +1,54 @@
+.reviewSection {
+    padding: 1rem 2rem;
+    border: 1px solid var(--border-gray);
+    border-radius: 10px;
+    background: var(--background);
+    max-width: 66%;
+}
+
+.totalReviews {
+    font-size: 1.55rem;
+}
+
+.intro {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.introTitle {
+    font-size: 1.85rem;
+}
+
+
+.reviews {
+    display: grid;
+    gap: 2rem;
+}
+
+.review {
+    border-top: 1px solid var(--border-gray);
+    padding-top: 2rem;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.avatar img {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.content {
+    max-width: 70ch;
+}
+
+.reviewTitle {
+    margin-bottom: 0.5rem;
+}
+
+.reviewComment {
+    font-size: 1rem;
+}
