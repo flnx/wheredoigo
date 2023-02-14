@@ -12,11 +12,11 @@ export const DestinationHeader = ({ destination }) => {
     const [gallery, setGallery] = useState([]);
 
     const images = {
-        img1: destination.imageUrl.url,
-        img2: destination.imageUrl2.url,
-        img3: destination.imageUrl3.url,
-        img4: destination.imageUrl4.url,
-        img5: destination.imageUrl5.url,
+        img1: destination.imageUrl?.url,
+        img2: destination.imageUrl2?.url,
+        img3: destination.imageUrl3?.url,
+        img4: destination.imageUrl4?.url,
+        img5: destination.imageUrl5?.url,
     };
 
     const onImageClickHandler = (clickedImage) => {

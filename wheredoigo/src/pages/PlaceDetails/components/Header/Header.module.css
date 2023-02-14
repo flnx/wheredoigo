@@ -1,0 +1,22 @@
+.titleWrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.headerContent {
+    max-height: 33rem;
+    max-width: 35rem;
+}
+
+.countryName {
+    margin-bottom: 1rem;
+}
+
+.descriptionTitle {
+    margin-bottom: 0.5rem;
+}
+
+.description {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}

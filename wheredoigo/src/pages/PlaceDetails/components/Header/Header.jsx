@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 
-
 // Components
 import { Gallery } from '../../../../components/Gallery/Gallery';
 import { ImagesGridWrapper } from '../../../../components/ImagesGridWrapper/ImagesGridWrapper';
+import { StarRating } from '../../../../components/StarRating/StarRating';
 
 import styles from './Header.module.css';
 
@@ -36,8 +36,6 @@ export const Header = ({ place }) => {
 
     return (
         <header>
-            <h1>Place Name</h1>
-            <p>Country, city</p>
             {isGalleryOpen &&
                 createPortal(
                     <Gallery
@@ -51,6 +49,15 @@ export const Header = ({ place }) => {
                 onClickHandler={onImageClickHandler}
                 images={images}
             />
+            <div className={styles.titleWrapper}>
+                <h1>Place Name</h1>
+                <StarRating rating={5} />
+            </div>
+            <div className={styles.headerContent}>
+                <p className={styles.countryName}>City</p>
+                <h3 className={styles.descriptionTitle}>Overview</h3>
+                <p className={styles.description}>Description</p>
+            </div>
         </header>
     );
 };
