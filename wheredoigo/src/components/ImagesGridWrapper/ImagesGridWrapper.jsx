@@ -6,31 +6,31 @@ export const ImagesGridWrapper = ({ images, alt, onClickHandler }) => {
             <div className={styles.mainImgContainer}>
                 <img
                     className={styles.mainImg}
-                    src={images.img1}
+                    src={images?.img1}
                     alt={alt}
-                    onClick={() => onClickHandler(images.img1)}
+                    onClick={() => onClickHandler(images?.img1)}
                 />
             </div>
             <div className={styles.secondaryImages}>
                 <img
-                    src={images.img2}
+                    src={images?.img2}
                     alt={alt}
-                    onClick={() => onClickHandler(images.img2)}
+                    onClick={() => onClickHandler(images?.img2)}
                 />
                 <img
-                    src={images.img3}
+                    src={images?.img3}
                     alt={alt}
-                    onClick={() => onClickHandler(images.img3)}
+                    onClick={() => onClickHandler(images?.img3)}
                 />
                 <img
-                    src={images.img4}
+                    src={images?.img4}
                     alt={alt}
-                    onClick={() => onClickHandler(images.img4)}
+                    onClick={() => onClickHandler(images?.img4)}
                 />
                 <img
-                    src={images.img5}
+                    src={images?.img5}
                     alt={alt}
-                    onClick={() => onClickHandler(images.img5)}
+                    onClick={() => onClickHandler(images?.img5)}
                 />
             </div>
         </div>

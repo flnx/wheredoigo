@@ -20,9 +20,9 @@ export const DestinationHeader = ({ destination }) => {
     };
 
     const onImageClickHandler = (clickedImage) => {
-        const arrayWithoutClickedImage = Object
-            .values(images)
-            .filter((x) => x !== clickedImage);
+        const arrayWithoutClickedImage = Object.values(images).filter(
+            (x) => x !== clickedImage
+        );
 
         // adding clicked img on index 0
         setGallery([clickedImage, ...arrayWithoutClickedImage]);
@@ -36,7 +36,8 @@ export const DestinationHeader = ({ destination }) => {
 
     return (
         <header className={styles.intro}>
-            {isGalleryOpen && createPortal(
+            {isGalleryOpen &&
+                createPortal(
                     <Gallery
                         images={gallery}
                         closeGalleryHandler={closeGalleryHandler}

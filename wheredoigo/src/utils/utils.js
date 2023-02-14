@@ -4,3 +4,7 @@ export const disableBodyScroll = () => {
 export const enableBodyScroll = () => {
     return (document.body.style.overflow = '');
 };
+
+export const encodeData = (data) => {
+    return encodeURIComponent(JSON.stringify(data));
+};

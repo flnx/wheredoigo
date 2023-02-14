@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { disableBodyScroll, enableBodyScroll } from '../../utils/utils';
 import styles from './Gallery.module.css';
 
-export const Gallery = ({ images, closeGalleryHandler }) => {
+export const Gallery = ({ images = [], closeGalleryHandler }) => {
     const [mainImage, setMainImage] = useState(images[0]);
 
     useEffect(() => {

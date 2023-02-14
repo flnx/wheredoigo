@@ -22,6 +22,7 @@ import { Dashboard } from './pages/Dashboard/Dashboard';
 import { AuthContextProvider } from './context/AuthContext';
 import { DestinationDetails } from './pages/DestinationDetails/DestinationDetails';
 import { DetailsModal } from './components/DetailsModal/DetailsModal';
+import { PlaceDetails } from './pages/PlaceDetails/PlaceDetails';
 
 function App() {
     return (
@@ -44,12 +45,15 @@ function App() {
                             </Route>
                             <Route path="/" element={<Home />} />
                             <Route path="/discover" element={<Discover />} />
-                            <Route path="/destinations/:destinationId" element={<DestinationDetails />}>
-                                <Route path="info" element={<DetailsModal />}/>
+                            <Route
+                                path="/destinations/:destinationId"
+                                element={<DestinationDetails />}
+                            >
+                                <Route path="info" element={<DetailsModal />} />
                             </Route>
                             <Route
                                 path="/place/:placeId"
-                                element={<h1>Place</h1>}
+                                element={<PlaceDetails />}
                             />
                             <Route element={<ProtectedRoute />}>
                                 <Route
