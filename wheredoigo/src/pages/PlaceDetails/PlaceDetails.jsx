@@ -3,6 +3,7 @@ import { usePlace } from '../../hooks/queries/usePlace';
 
 // components
 import { Header } from './components/Header/Header';
+import { Images } from './components/ImagesSection/ImagesSection';
 
 import styles from './PlaceDetails.module.css';
 
@@ -20,7 +21,8 @@ export const PlaceDetails = () => {
 
     return (
         <div className="container">
-            <Header place={data} />
+            <Images place={data} />
+            <Header place={data}/>
         </div>
     );
 };
