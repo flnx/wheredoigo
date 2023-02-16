@@ -3,18 +3,26 @@ import { Destination } from './Destination';
 import styles from './Destinations.module.css';
 
 export const Destinations = () => {
-    const {data, fetchNextPage, hasNextPage} = useInfinitePlaces();
+    const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+        useInfinitePlaces();
+
+    if (!data) return;
 
     return (
         <section>
             <div className={styles.destinations}>
-                <Destination />
-                <Destination />
-                <Destination />
-                <Destination />
-                <Destination />
+                {data.pages
+                    .flatMap((x) => x)
+                    .map((place) => (
+                        <Destination key={place.objectId} place={place} />
+                    ))}
             </div>
-            <button onClick={fetchNextPage}>Load more</button>
+            <button
+                onClick={fetchNextPage}
+                disabled={!hasNextPage || isFetchingNextPage}
+            >
+                Load more
+            </button>
         </section>
     );
 };
