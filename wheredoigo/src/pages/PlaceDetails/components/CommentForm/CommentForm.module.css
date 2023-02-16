@@ -22,7 +22,7 @@
     background: var(--button-primary);
     color: #fff;
     font-weight: 700;
-    padding: 1rem 2rem;
+    padding: 0.85rem 2rem;
     transition: all 0.25s ease-in-out;
     cursor: pointer;
 }
