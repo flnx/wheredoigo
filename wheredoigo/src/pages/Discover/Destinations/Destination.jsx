@@ -1,18 +1,15 @@
 import styles from './Destination.module.css';
 
-export const Destination = () => {
+export const Destination = ({ destination }) => {
     return (
         <div className={styles.destination}>
             <img
-                src="https://images.pexels.com/photos/61381/pexels-photo-61381.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                src={destination.imageUrl.url}
                 alt="travel place"
                 className={styles.image}
             />
-            <h3 className={styles.title}>Random Place Republic</h3>
-            <p className={styles.description}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae,
-                ab!
-            </p>
+            <h3 className={styles.title}>{destination.city}</h3>
+            <p>{destination.country}</p>
         </div>
     );
 };

@@ -8,12 +8,11 @@
 .image {
     border-radius: 5px;
     margin-bottom: 0.35rem;
+    width: 100%;
+    aspect-ratio: 1.25/1;
+    object-fit: cover;
 }
 
 .title {
     margin-bottom: 1rem;
-}
-
-.description {
-    margin-bottom: 2rem;
 }

@@ -1,27 +1,38 @@
-import { useInfinitePlaces } from '../../../hooks/queries/useInfinitePlaces';
+import { useInfiniteDestinations } from '../../../hooks/queries/useInfiniteDestinations';
 import { Destination } from './Destination';
+
 import styles from './Destinations.module.css';
 
 export const Destinations = () => {
-    const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-        useInfinitePlaces();
+    const { 
+        data, 
+        fetchNextPage, 
+        hasNextPage, 
+        isFetchingNextPage
+     } = useInfiniteDestinations();
 
     if (!data) return;
 
+    const loadingClass = (isFetchingNextPage || !hasNextPage) && styles.loading;
+
     return (
         <section>
+            <div className={styles.categories}>
+                <span>Destinations</span>
+            </div>
             <div className={styles.destinations}>
                 {data.pages
-                    .flatMap((x) => x)
-                    .map((place) => (
-                        <Destination key={place.objectId} place={place} />
+                    .flatMap((arr) => arr)
+                    .map((destination) => (
+                        <Destination key={destination.objectId} destination={destination} />
                     ))}
             </div>
             <button
                 onClick={fetchNextPage}
                 disabled={!hasNextPage || isFetchingNextPage}
+                className={`${styles.btn} ${loadingClass}`}
             >
-                Load more
+                {isFetchingNextPage ? 'Loading...' : 'Load More'}
             </button>
         </section>
     );

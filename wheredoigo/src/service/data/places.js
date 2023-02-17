@@ -13,8 +13,3 @@ export const getPlace = async (id) => {
     return placeData.data;
 };
 
-export const getPlacesPaginated = async ({ pageParam = 0}) => {
-    const placesData = await axios.get(apiEndpoints.placesByPage(pageParam));
-
-    return placesData.data.results;
-};

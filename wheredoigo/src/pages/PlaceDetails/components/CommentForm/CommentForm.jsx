@@ -1,3 +1,4 @@
+import { SecondaryButton } from '../../../../components/Buttons/Secondary-Btn/SecondaryButton';
 import styles from './CommentForm.module.css';
 
 export const CommentForm = () => {
@@ -6,7 +7,7 @@ export const CommentForm = () => {
             <h3 className={styles.title}>Leave a review</h3>
             <form className={styles.form}>
                 <textarea className={styles.textarea} />
-                <button type='submit' className={styles.btn}>Submit your review</button>
+                <SecondaryButton>Submit your Review</SecondaryButton>
             </form>
         </div>
     );

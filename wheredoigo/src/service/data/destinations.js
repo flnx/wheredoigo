@@ -10,3 +10,9 @@ export const getDestination = async (id) => {
 
     return res.data;
 };
+
+export const getDestinationsPaginated = async ({ pageParam = 0}) => {
+    const placesData = await axios.get(apiEndpoints.destinationsByPage(pageParam));
+
+    return placesData.data.results;
+};

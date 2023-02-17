@@ -6,5 +6,5 @@ export const apiEndpoints = {
     placeById: (id) => `classes/Place/${id}`,
     allDestinations: 'classes/Destination',
     destinationById: (id) => `classes/Destination/${id}`,
-    placesByPage: (skip) => `classes/Place?skip=${skip}&limit=6`
+    destinationsByPage: (skip) => `classes/Destination?skip=${skip}&limit=6`
 }
