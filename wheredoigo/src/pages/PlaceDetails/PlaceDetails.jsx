@@ -11,22 +11,22 @@ import styles from './PlaceDetails.module.css';
 
 export const PlaceDetails = () => {
     const { placeId } = useParams();
-    const { data, isLoading, error } = usePlace(placeId);
+    const { place,  comments } = usePlace(placeId);
 
-    if (isLoading) {
+    if (place.isLoading || comments.isLoading) {
         return <h1>Loading...</h1>;
     }
 
-    if (error) {
+    if (place.error) {
         return <h1>An Error Has Occured</h1>;
     }
 
     return (
         <div className="container">
             <div className={styles.wrapper}>
-                <Images place={data} />
-                <Header place={data} />
-                <Reviews />
+                <Images place={place.data} />
+                <Header place={place.data} />
+                <Reviews reviews={comments.data}/>
                 <CommentForm />
             </div>
         </div>

@@ -1,6 +1,9 @@
+import { Review } from './Review';
 import styles from './Reviews.module.css';
 
-export const Reviews = () => {
+export const Reviews = ({ reviews }) => {
+    console.log(reviews);
+
     return (
         <section className={styles.reviewSection}>
             <header className={styles.intro}>
@@ -9,46 +12,7 @@ export const Reviews = () => {
             </header>
 
             <div className={styles.reviews}>
-                <section className={styles.review}>
-                    <div className={styles.avatar}>
-                        <img
-                            src="https://media-cdn.tripadvisor.com/media/photo-l/1a/f6/eb/43/default-avatar-2020-11.jpg"
-                            alt="img"
-                        />
-                        <span className={styles.username}>Username</span>
-                    </div>
-
-                    <div className={styles.content}>
-                        <span className={styles.rating}>* * * * *</span>
-                        <h3 className={styles.reviewTitle}>Excellent!</h3>
-                        <p className={styles.reviewComment}>
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Voluptatibus accusantium inventore distinctio
-                            laboriosam rerum eveniet provident, facilis totam
-                            quis.
-                        </p>
-                    </div>
-                </section>
-                <section className={styles.review}>
-                    <div className={styles.avatar}>
-                        <img
-                            src="https://media-cdn.tripadvisor.com/media/photo-l/1a/f6/eb/43/default-avatar-2020-11.jpg"
-                            alt="img"
-                        />
-                        <span className={styles.username}>Username</span>
-                    </div>
-
-                    <div className={styles.content}>
-                        <span className={styles.rating}>* * * * *</span>
-                        <h3 className={styles.reviewTitle}>Excellent!</h3>
-                        <p className={styles.reviewComment}>
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Voluptatibus accusantium inventore distinctio
-                            laboriosam rerum eveniet provident, facilis totam
-                            quis.
-                        </p>
-                    </div>
-                </section>
+                {reviews.map(x => <Review review={x} key={x.objectId}/>)}
             </div>
         </section>
     );

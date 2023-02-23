@@ -3,8 +3,6 @@ import { StarRating } from '../../../../components/StarRating/StarRating';
 import styles from './Header.module.css';
 
 export const Header = ({ place }) => {
-    console.log(place);
-
     return (
         <header>
             <section className={styles.intro}>

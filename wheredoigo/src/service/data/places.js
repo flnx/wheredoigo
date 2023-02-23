@@ -13,3 +13,8 @@ export const getPlace = async (id) => {
     return placeData.data;
 };
 
+export const getPlaceComments = async (id) => {
+    const placeComments = await axios.get(apiEndpoints.placeComments(id));
+
+    return placeComments.data.results;
+};
