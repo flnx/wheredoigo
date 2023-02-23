@@ -47,8 +47,7 @@ export const Login = () => {
 
             navigate('/', { replace: true });
         } catch (err) {
-            const errorMessage =
-                err.response.data.message || err.response.data.error;
+            const errorMessage = err.response.data.message || err.response.data.error;
             setInputError(errorMessage);
             setIsDisabled(false);
         }

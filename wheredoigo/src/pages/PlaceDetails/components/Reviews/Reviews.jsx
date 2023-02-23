@@ -2,8 +2,6 @@ import { Review } from './Review';
 import styles from './Reviews.module.css';
 
 export const Reviews = ({ reviews }) => {
-    console.log(reviews);
-
     return (
         <section className={styles.reviewSection}>
             <header className={styles.intro}>
@@ -12,7 +10,9 @@ export const Reviews = ({ reviews }) => {
             </header>
 
             <div className={styles.reviews}>
-                {reviews.map(x => <Review review={x} key={x.objectId}/>)}
+                {reviews.map((x) => (
+                    <Review review={x} key={x.objectId} />
+                ))}
             </div>
         </section>
     );

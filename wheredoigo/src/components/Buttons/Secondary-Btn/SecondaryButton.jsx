@@ -5,5 +5,5 @@ export const SecondaryButton = ({ children: text }) => {
         <button className={styles.btn}>
             {text}
         </button>
-        );
+    );
 };
