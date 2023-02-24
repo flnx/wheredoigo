@@ -3,17 +3,18 @@ import { Destination } from './Destination';
 
 import styles from './Destinations.module.css';
 
-export const Destinations = () => {
+export const Destinations = ({ searchParams }) => {
     const { 
         data, 
         fetchNextPage, 
-        hasNextPage, 
-        isFetchingNextPage
-     } = useInfiniteDestinations();
-
-    if (!data) return;
+        hasNextPage,
+        isFetchingNextPage, 
+        isLoading 
+    } = useInfiniteDestinations(searchParams);
 
     const loadingClass = (isFetchingNextPage || !hasNextPage) && styles.loading;
+
+    if (isLoading) return <h1>Loading...</h1>
 
     return (
         <section>
@@ -24,7 +25,10 @@ export const Destinations = () => {
                 {data.pages
                     .flatMap((arr) => arr)
                     .map((destination) => (
-                        <Destination key={destination.objectId} destination={destination} />
+                        <Destination
+                            key={destination.objectId}
+                            destination={destination}
+                        />
                     ))}
             </div>
             <button

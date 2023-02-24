@@ -3,10 +3,9 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { getDestinationsPaginated } from '../../service/data/destinations';
 import { queryEndpoints } from '../../constants/reactQueryEndpoints';
 
-export const useInfiniteDestinations = () => {
-
+export const useInfiniteDestinations = (searchParams) => {
     return useInfiniteQuery({
-        queryKey: [queryEndpoints.destinations, 'infinite'],
+        queryKey: [queryEndpoints.destinations, 'infinite', searchParams],
         getNextPageParam: (_lasttPage, pages) => {
             const skip = pages.length;
             const currentPageArray = pages[skip - 1];
@@ -16,6 +15,6 @@ export const useInfiniteDestinations = () => {
             return isThereNextPage ? nextPage : undefined;
         },
         queryFn: getDestinationsPaginated,
-        cacheTime: 0
+        cacheTime: 0,
     });
 };

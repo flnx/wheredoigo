@@ -9,11 +9,8 @@ export const useAddComment = () => {
     return useMutation({
         mutationFn: (data) => addComment(data),
         onSuccess: (newComment) => {
-            console.log(newComment);
             queryClient.setQueryData([queryEndpoints.placeComments, newComment]);
             queryClient.invalidateQueries([queryEndpoints.placeComments])
         }
     });
-
-    
 }
