@@ -19,5 +19,3 @@ export const getDestinationsPaginated = async ({ pageParam, queryKey }) => {
 
     return placesData.data.results;
 };
-
-console.log('asd');
