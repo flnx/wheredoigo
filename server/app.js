@@ -1,10 +1,9 @@
 const express = require('express');
-
 const cors = require('cors');
-const authRoutes = require('./src/routes/authRoutes');
 
 const initializeDatabase = require('./src/config/mongoDB');
 const config = require('./src/config/config');
+const routesConfig = require('./src/routes/routes');
 
 start();
 
@@ -15,12 +14,13 @@ async function start() {
     app.use(cors());
     app.use(express.json());
 
-    // Routes
-    app.use(authRoutes);
+    // routes init
+    routesConfig(app);
 
+    // db init
     await initializeDatabase();
 
-    app.listen(config.port, () => console.log(`Server listens on port ${config.port}`));
+    app.listen(config.port, () =>
+        console.log(`Server listens on port ${config.port}`)
+    );
 }
-
-
