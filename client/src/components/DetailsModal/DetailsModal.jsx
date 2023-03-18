@@ -1,10 +1,5 @@
 import { useEffect } from 'react';
-import {
-    Navigate,
-    useNavigate,
-    useOutletContext,
-    useParams,
-} from 'react-router-dom';
+import { Navigate, useNavigate, useOutletContext, useParams } from 'react-router-dom';
 import { disableBodyScroll, enableBodyScroll } from '../../utils/utils';
 import { X } from 'phosphor-react';
 
