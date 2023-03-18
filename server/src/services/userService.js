@@ -29,18 +29,23 @@ async function register({ email, username, password }) {
     };
 }
 
-async function login({ email, username, password }) {
-    if (!password || password.length < 6) {
-        throw Error('Password must be at least 6 characters long');
+async function login({ email, password }) {
+    if (!email || !password || password.length < 6) {
+        throw Error('Invalid email address or password');
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await User.findOne({ email: email })
+        .select('_id hashedPassword')
+        .lean()
+        .exec();
 
-    const user = await User.create({
-        email,
-        username,
-        hashedPassword,
-    });
+        
+        console.log(password);
+        const isPasswordMatch = await bcrypt.compare(password, user?.hashedPassword);
+        
+    if (!user || !isPasswordMatch) {
+        throw new Error('Invalid email address or password');
+    }
 
     const payload = {
         ownerId: user._id,
@@ -56,4 +61,5 @@ async function login({ email, username, password }) {
 
 module.exports = {
     register,
+    login,
 };

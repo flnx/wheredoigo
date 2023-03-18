@@ -4,6 +4,7 @@ const cors = require('cors');
 const initializeDatabase = require('./src/config/mongoDB');
 const config = require('./src/config/config');
 const routesConfig = require('./src/routes/routes');
+const bodyParserErrorHandler = require('./src/middlewares/bodyParserErrorHandler');
 
 start();
 
@@ -13,6 +14,7 @@ async function start() {
     // Middlewares
     app.use(cors());
     app.use(express.json());
+    app.use(bodyParserErrorHandler())
 
     // routes init
     routesConfig(app);

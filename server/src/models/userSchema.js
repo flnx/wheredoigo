@@ -29,6 +29,16 @@ const userSchema = new Schema({
     },
 });
 
+userSchema.index(
+    // { _ownedCrypto: 1 },
+    {
+        collation: {
+            locale: 'en',
+            strength: 2,
+        },
+    }
+);
+
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
