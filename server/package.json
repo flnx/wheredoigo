@@ -6,7 +6,7 @@
     "mongoose": "^7.0.2"
   },
   "scripts": {
-    "dev": "set NODE_ENV=development&& node ./app.js",
+    "dev": "set NODE_ENV=development&& nodemon ./app.js",
     
     "build": "set NODE_ENV=production&& node ./app.js"
   },
