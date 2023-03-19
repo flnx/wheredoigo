@@ -39,8 +39,6 @@ async function login({ email, password }) {
         .lean()
         .exec();
 
-        
-        console.log(password);
         const isPasswordMatch = await bcrypt.compare(password, user?.hashedPassword);
         
     if (!user || !isPasswordMatch) {

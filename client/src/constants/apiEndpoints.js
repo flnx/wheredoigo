@@ -17,3 +17,5 @@ export const apiEndpoints = {
     addComment: 'classes/Comment',
     searchPlacesByCountry: (params) => 'classes/Place?where=' + encodeData({country: {$regex: `^${params}`}})
 }
+
+// destinations?where=skip=${skip}&limit=6'
