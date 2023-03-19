@@ -17,13 +17,11 @@ exports.paginated_destinations = async (req, res) => {
     } finally {
         res.send('hi');
     }
-
 };
 
 exports.add_new_destination = async (req, res) => {
     try {
         const destination = await addNewDestination(req.body);
-        console.log(destination);
     } catch (err) {
         console.log(handleErrors(err));
     } finally {
