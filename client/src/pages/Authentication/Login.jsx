@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
 
 import { AuthContext } from '../../context/AuthContext';
@@ -9,7 +9,6 @@ import styles from './FormLayout.module.css';
 
 export const Login = () => {
     const { setUserData } = useContext(AuthContext);
-    const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -42,15 +41,14 @@ export const Login = () => {
 
             console.log(data);
 
-            // setUserData({
-            //     username: data.username,
-            //     accessToken: data.sessionToken,
-            //     ownerId: data.objectId,
-            // });
-
-            // navigate('/', { replace: true });
+            setUserData({
+                username: data.username,
+                accessToken: data.accessToken,
+                ownerId: data.objectId,
+            });
         } catch (err) {
-            const errorMessage = err.response.data.message || err.response.data.error;
+            const errorMessage =
+                err.response.data.message || err.response.data.error;
 
             setError(errorMessage);
             setIsDisabled(false);

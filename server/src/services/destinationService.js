@@ -8,6 +8,7 @@ async function getDestinationByPage(page, limit) {
     const destination = await Destination.find()
         .skip(page * limit)
         .limit(limit)
+        .populate('country')
         .lean()
         .exec();
 

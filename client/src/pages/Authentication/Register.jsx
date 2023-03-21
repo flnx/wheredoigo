@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // api
 import * as user from '../../service/auth/register';
@@ -12,7 +12,6 @@ import styles from './FormLayout.module.css';
 
 export const Register = () => {
     const { setUserData } = useContext(AuthContext);
-    const navigate = useNavigate();
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -26,9 +25,15 @@ export const Register = () => {
 
         if (isDisabled) return;
 
-        const error = validateRegisterData({ username, email, password, repeatPassword });
+        const error = validateRegisterData({
+            username,
+            email,
+            password,
+            repeatPassword,
+        });
 
         if (error) {
+            console.log(error);
             return setInputError(error);
         }
 
@@ -36,17 +41,24 @@ export const Register = () => {
 
         try {
             const { data } = await user.register({ username, password, email });
-            console.log(data);
 
-            // setUserData({
-            //     username,
-            //     accessToken: data.sessionToken,
-            //     ownerId: data.objectId,
-            // });
-
-            // navigate('/', { replace: true });
+            setUserData({
+                username,
+                accessToken: data.accessToken,
+                ownerId: data.ownerId,
+            });
         } catch (err) {
-            const errorMessage = err.response.data.message || err.response.data.error;
+            const currentError = err.response.data.message;
+            let errorMessage;
+
+            if (typeof currentError == 'String') {
+                errorMessage = currentError;
+            } else {
+                errorMessage = currentError
+                    .flatMap((x) => Object.values(x))
+                    .join(' + ');
+            }
+
             setInputError(errorMessage);
             setIsDisabled(false);
         }

@@ -12,13 +12,15 @@ import styles from './Home.module.css';
 export const Home = () => {
     const { isLoading, error, data: destinations } = useDestinations();
 
+    console.log(destinations);
+
     if (isLoading) return;
 
     return (
         <>
             <Showcase />
             <div className={styles.grid}>
-                <CitiesSlider destinations={destinations.data.results} />
+                <CitiesSlider destinations={destinations} />
                 <Categories />
                 <Destinations />
                 <Intro />

@@ -5,6 +5,7 @@ require('dotenv').config();
 
 const { validatePassword } = require('../utils/utils');
 const { errorMessages } = require('../constants/errorMessages');
+const capitalizeEachWord = require('../utils/capitalizeWords');
 
 async function register({ email, username, password }) {
     if (!email || !username || !password) {
@@ -27,7 +28,7 @@ async function register({ email, username, password }) {
 
     const payload = {
         ownerId: user._id,
-        username: user.username
+        username: capitalizeEachWord(user.username)
     };
 
     const accessToken = await jwt.sign(payload, process.env.JWT_SECRET);
@@ -55,14 +56,13 @@ async function login({ email, password }) {
 
     const isPasswordMatch = await bcrypt.compare(password, user.hashedPassword);
 
-    console.log(isPasswordMatch);
-
     if (isPasswordMatch == false) {
         throw new Error(errorMessages.auth);
     }
 
     const payload = {
         ownerId: user._id,
+        username: capitalizeEachWord(user.username)
     };
 
     const accessToken = await jwt.sign(payload, process.env.JWT_SECRET);
