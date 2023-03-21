@@ -44,10 +44,7 @@ async function addNewDestination(data) {
     });
 
     return {
-        ...destinationData,
         _id: destination._id,
-        country: capitalizeEachWord(destinationData.country),
-        city: capitalizeEachWord(destinationData.city),
     };
 }
 

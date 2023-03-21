@@ -1,7 +1,4 @@
-const {
-    getDestinationByPage,
-    addNewDestination,
-} = require('../services/destinationService');
+const { getDestinationByPage,addNewDestination } = require('../services/destinationService');
 
 const handleErrors = require('../utils/errorHandler');
 
