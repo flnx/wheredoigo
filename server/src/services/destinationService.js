@@ -23,7 +23,6 @@ async function addNewDestination(data) {
         imageUrls: data.imageUrls || [],
     };
 
-
     const isFieldEmpty = Object.values(destinationData).some((x) => !x);
     const areCityCountryValid = matchCityAndCountry(data?.city, data?.country);
 
@@ -45,9 +44,7 @@ async function addNewDestination(data) {
     });
 
     return {
-        ...destination,
-        country: capitalizeEachWord(destinationData.country),
-        city: capitalizeEachWord(destinationData.city),
+        _id: destination._id,
     };
 }
 
