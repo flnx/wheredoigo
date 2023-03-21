@@ -1,12 +1,20 @@
 const User = require('../models/userSchema');
 const bcrypt = require('bcrypt');
 const jwt = require('../lib/jsonwebtoken');
-
 require('dotenv').config();
 
+const { validatePassword } = require('../utils/utils');
+const { errorMessages } = require('../constants/errorMessages');
+
 async function register({ email, username, password }) {
-    if (!password || password.length < 6) {
-        throw Error('Password must be at least 6 characters long');
+    if (!email || !username || !password) {
+        throw Error(errorMessages.allFieldsRequired);
+    }
+
+    const isPasswordValid = validatePassword(password);
+
+    if (isPasswordValid == false) {
+        throw new Error(errorMessages.password);
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -19,6 +27,7 @@ async function register({ email, username, password }) {
 
     const payload = {
         ownerId: user._id,
+        username: user.username
     };
 
     const accessToken = await jwt.sign(payload, process.env.JWT_SECRET);
@@ -26,23 +35,30 @@ async function register({ email, username, password }) {
     return {
         ...payload,
         accessToken,
+
     };
 }
 
 async function login({ email, password }) {
-    if (!email || !password || password.length < 6) {
-        throw Error('Invalid email address or password');
+    if (!email || !password) {
+        throw Error(errorMessages.auth);
     }
 
-    const user = await User.findOne({ email: email })
+    const user = await User.findOne({ email })
         .select('_id hashedPassword')
         .lean()
         .exec();
 
-        const isPasswordMatch = await bcrypt.compare(password, user?.hashedPassword);
-        
-    if (!user || !isPasswordMatch) {
-        throw new Error('Invalid email address or password');
+    if (!user) {
+        throw new Error(errorMessages.auth);
+    }
+
+    const isPasswordMatch = await bcrypt.compare(password, user.hashedPassword);
+
+    console.log(isPasswordMatch);
+
+    if (isPasswordMatch == false) {
+        throw new Error(errorMessages.auth);
     }
 
     const payload = {

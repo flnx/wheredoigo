@@ -6,7 +6,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as user from '../../service/auth/register';
 
 // utils
-import * as validate from '../../utils/regexValidators';
 import { validateRegisterData } from '../../utils/userDataValidators';
 
 import styles from './FormLayout.module.css';
@@ -27,17 +26,7 @@ export const Register = () => {
 
         if (isDisabled) return;
 
-        const usernameValidation = validate.username(username);
-        const passwordValidation = validate.password(password);
-        const emailValidation = validate.email(email);
-
-        const error = validateRegisterData({
-            usernameValidation,
-            passwordValidation,
-            emailValidation,
-            password,
-            repeatPassword,
-        });
+        const error = validateRegisterData({ username, email, password, repeatPassword });
 
         if (error) {
             return setInputError(error);
@@ -47,14 +36,15 @@ export const Register = () => {
 
         try {
             const { data } = await user.register({ username, password, email });
+            console.log(data);
 
-            setUserData({
-                username,
-                accessToken: data.sessionToken,
-                ownerId: data.objectId,
-            });
+            // setUserData({
+            //     username,
+            //     accessToken: data.sessionToken,
+            //     ownerId: data.objectId,
+            // });
 
-            navigate('/', { replace: true });
+            // navigate('/', { replace: true });
         } catch (err) {
             const errorMessage = err.response.data.message || err.response.data.error;
             setInputError(errorMessage);
