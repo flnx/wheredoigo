@@ -5,19 +5,19 @@ const { cityCountryRegex } = require('../utils/utils');
 const placeSchema = new Schema({
     destinationId: {
         type: Schema.Types.ObjectId,
-        required: true,
+        required: [true, 'Destination id required!'],
         ref: 'Destination',
     },
     country: {
         type: Schema.Types.ObjectId,
-        required: true,
+        required: [true, 'Country ID required!'],
         ref: 'Country',
     },
     city: {
         type: String,
         trim: true,
         lowercase: true,
-        required: true,
+        required: [true, 'City is required!'],
         match: [
             cityCountryRegex(),
             '"City" should contain only letters, spaces, or hyphens',
@@ -33,7 +33,7 @@ const placeSchema = new Schema({
         type: String,
         trim: true,
         lowercase: true,
-        required: true,
+        required: [true, 'Place name is required!'],
     },
     imageUrls: {
         type: [String],
@@ -41,7 +41,7 @@ const placeSchema = new Schema({
 });
 
 placeSchema.index(
-    { place: 1, city: 1 },
+    { place: 1, destinationId: 1 },
     { unique: true, collation: { locale: 'en', strength: 2 } }
 );
 

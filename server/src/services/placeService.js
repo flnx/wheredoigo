@@ -1,4 +1,17 @@
 const Place = require('../models/placeSchema');
+const capitalizeEachWord = require('../utils/capitalizeWords');
+
+async function getPlaceById(placeId) {
+    const place = await Place.findById(placeId).lean().exec();
+    
+    if (!place) {
+        throw new Error('404 Not Found');
+    }
+
+    place.city = capitalizeEachWord(place.city);
+
+    return place;
+}
 
 async function addNewPlace(data) {
     const placeData = {
@@ -24,5 +37,6 @@ async function addNewPlace(data) {
 }
 
 module.exports = {
-    addNewPlace
-}
+    addNewPlace,
+    getPlaceById
+};
