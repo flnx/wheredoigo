@@ -15,6 +15,13 @@ async function getDestinationByPage(page, limit) {
     return destination;
 }
 
+async function getDestinationById(destinationId) {
+    return Destination.findById(destinationId)
+        .populate('country')
+        .lean()
+        .exec();
+}
+
 async function addNewDestination(data) {
     const destinationData = {
         city: data.city,
@@ -52,4 +59,5 @@ async function addNewDestination(data) {
 module.exports = {
     getDestinationByPage,
     addNewDestination,
+    getDestinationById,
 };

@@ -34,8 +34,8 @@ export const DetailsModal = () => {
                     onClick={closeModalHandler}
                     className={styles.closeIcon}
                 />
-                {destinationInfoTips.map((x) => (
-                    <TipsTemplate tip={x} key={x.title} />
+                {destinationInfoTips.info.map((x) => (
+                    <TipsTemplate tip={x} key={x._id} />
                 ))}
             </div>
         </div>

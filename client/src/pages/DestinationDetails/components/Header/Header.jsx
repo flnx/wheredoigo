@@ -11,16 +11,8 @@ import styles from './Header.module.css';
 export const DestinationHeader = ({ destination }) => {
     const [gallery, setGallery] = useState([]);
 
-    const images = {
-        img1: destination.imageUrl?.url,
-        img2: destination.imageUrl2?.url,
-        img3: destination.imageUrl3?.url,
-        img4: destination.imageUrl4?.url,
-        img5: destination.imageUrl5?.url,
-    };
-
     const onImageClickHandler = (clickedImage) => {
-        const arrayWithoutClickedImage = Object.values(images).filter(
+        const arrayWithoutClickedImage = destination.imageUrls.filter(
             (x) => x !== clickedImage
         );
 
@@ -45,7 +37,7 @@ export const DestinationHeader = ({ destination }) => {
                     document.body
                 )}
             <ImagesGridWrapper
-                images={images}
+                images={destination.imageUrls}
                 alt={destination.city}
                 onClickHandler={onImageClickHandler}
             />
@@ -54,7 +46,7 @@ export const DestinationHeader = ({ destination }) => {
                 <StarRating rating={5} />
             </div>
             <div className={styles.headerContent}>
-                <p className={styles.countryName}>{destination.country}</p>
+                <p className={styles.countryName}>{destination.country.name}</p>
                 <h3 className={styles.descriptionTitle}>Overview</h3>
                 <p className={styles.description}>{destination.description}</p>
             </div>

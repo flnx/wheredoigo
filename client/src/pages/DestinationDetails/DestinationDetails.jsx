@@ -26,10 +26,10 @@ export const DestinationDetails = () => {
         <div className="container">
             <div className={styles.wrapper}>
                 <DestinationHeader destination={destination.data} />
-                <TipsPopUp destination={destination.data} />
-                <ExploreSection places={places.data} />
+                <TipsPopUp details={destination.data.details} />
+                {/* <ExploreSection places={places.data} />
                 <EatSection places={places.data} />
-                <PartySection places={places.data} />
+                <PartySection places={places.data} /> */}
             </div>
         </div>
     );

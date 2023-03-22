@@ -1,4 +1,8 @@
-const { getDestinationByPage,addNewDestination } = require('../services/destinationService');
+const {
+    getDestinationByPage,
+    addNewDestination,
+    getDestinationById,
+} = require('../services/destinationService');
 
 const handleErrors = require('../utils/errorHandler');
 
@@ -18,10 +22,20 @@ exports.paginated_destinations = async (req, res) => {
     }
 };
 
+exports.destination_details = async (req, res) => {
+    const { destinationId } = req.params;
+
+    try {
+        const destination = await getDestinationById(destinationId);
+        res.json(destination);
+    } catch (err) {
+        res.status(400).json(handleErrors(err));
+    }
+};
+
 exports.add_new_destination = async (req, res) => {
     try {
         const destination = await addNewDestination(req.body);
-        console.log(destination);
         res.json(destination);
     } catch (err) {
         res.status(400).json(handleErrors(err));
