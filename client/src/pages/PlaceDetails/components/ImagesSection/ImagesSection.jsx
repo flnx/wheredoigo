@@ -8,20 +8,12 @@ import { ImagesGridWrapper } from '../../../../components/ImagesGridWrapper/Imag
 export const Images = ({ place }) => {
     const [gallery, setGallery] = useState([]);
 
-    const images = {
-        img1: place.image.url,
-        img2: place.imageUrl2?.url,
-        img3: place.imageUrl3?.url,
-        img4: place.imageUrl4?.url,
-        img5: place.imageUrl5?.url,
-    };
-
     const onImageClickHandler = (clickedImage) => {
-        const arrayWithoutClickedImage = Object.values(images).filter(
+        const arrayWithoutClickedImage = place.imageUrls.filter(
             (x) => x !== clickedImage
         );
 
-        // adding clicked img on index 0
+        // adding clicked img on index 0 so when the gallery opens to showcase it
         setGallery([clickedImage, ...arrayWithoutClickedImage]);
     };
 
@@ -44,7 +36,7 @@ export const Images = ({ place }) => {
 
             <ImagesGridWrapper
                 onClickHandler={onImageClickHandler}
-                images={images}
+                images={place.imageUrls}
             />
         </section>
     );

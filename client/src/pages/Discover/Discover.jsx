@@ -1,7 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
 
-import { capitalizeFirstLetter } from '../../utils/utils';
-
 // Components
 import { CategoriesNav } from '../../components/CategoriesNav/CategoriesNav';
 import { ContinentsNav } from '../../components/ContinentsNav/ContinentsNav';
@@ -15,7 +13,7 @@ export const Discover = () => {
 
     const handleSearchParams = (e, value) => {
         e.preventDefault();
-        setSearchParams({ search: capitalizeFirstLetter(value) });
+        setSearchParams({ search: value });
     };
 
     // useEffect(() => {
@@ -33,7 +31,7 @@ export const Discover = () => {
                 <SearchBar searchParamsHandler={handleSearchParams} />
                 <ContinentsNav />
                 {/* <CitiesSlider /> */}
-                <CategoriesNav />
+                {/* <CategoriesNav /> */}
                 <Destinations searchParams={searchParams.get('search')}/>
             </div>
         </div>

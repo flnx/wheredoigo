@@ -7,7 +7,7 @@ export const Header = ({ place }) => {
         <header>
             <section className={styles.intro}>
                 <h1>{place.place}</h1>
-                <p>{place.City}</p>
+                <p>{place.city}</p>
             </section>
             <div className={styles.flexContainer}>
                 <section>

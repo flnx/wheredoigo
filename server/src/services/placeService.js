@@ -14,9 +14,7 @@ async function getPlaceById(placeId) {
 }
 
 async function getDestinationPlaces(destinationId) {
-    const places = await Place.find({ destinationId: '641890796c4ca06c578ff1af' })
-        .lean()
-        .exec();
+    const places = await Place.find({ destinationId }).lean().exec();
 
     return places;
 }

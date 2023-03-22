@@ -21,7 +21,7 @@ export const Destinations = ({ searchParams }) => {
             <div className={styles.categories}>
                 <span>Destinations</span>
             </div>
-            <div className={styles.destinations}>
+            {/* <div className={styles.destinations}>
                 {data.pages
                     .flatMap((arr) => arr)
                     .map((destination) => (
@@ -30,14 +30,14 @@ export const Destinations = ({ searchParams }) => {
                             destination={destination}
                         />
                     ))}
-            </div>
-            <button
+            </div> */}
+            {/* <button
                 onClick={fetchNextPage}
                 disabled={!hasNextPage || isFetchingNextPage}
                 className={`${styles.btn} ${loadingClass}`}
             >
                 {isFetchingNextPage ? 'Loading...' : 'Load More'}
-            </button>
+            </button> */}
         </section>
     );
 };
