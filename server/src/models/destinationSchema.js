@@ -30,18 +30,27 @@ const destinationSchema = new Schema({
                 type: String,
                 trim: true,
                 required: true,
-                enum: ['goodToKnow', 'transport', 'localCustoms', 'proTips'],
+                enum: [
+                    'Good to Know',
+                    'Transport',
+                    'Local Customs',
+                    'Pro Tips',
+                ],
             },
-            title: {
-                type: String,
-                trim: true,
-                required: true,
-            },
-            description: {
-                type: String,
-                trim: true,
-                required: true,
-            },
+            info: [
+                {
+                    title: {
+                        type: String,
+                        trim: true,
+                        required: true,
+                    },
+                    description: {
+                        type: String,
+                        trim: true,
+                        required: true,
+                    },
+                },
+            ],
         },
     ],
     imageUrls: [String],

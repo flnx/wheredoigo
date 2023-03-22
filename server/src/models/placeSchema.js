@@ -29,6 +29,12 @@ const placeSchema = new Schema({
         minLength: [10, 'Description must contain at least 10 characters'],
         required: [true, 'Description is required'],
     },
+    type: {
+        type: String,
+        trim: true,
+        enum: ['Explore', 'Eat', 'Party'],
+        required: [true, 'Type is required'],
+    },
     place: {
         type: String,
         trim: true,

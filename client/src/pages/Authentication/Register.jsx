@@ -1,19 +1,17 @@
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // api
 import * as user from '../../service/auth/register';
 
 // utils
-import * as validate from '../../utils/regexValidators';
 import { validateRegisterData } from '../../utils/userDataValidators';
 
 import styles from './FormLayout.module.css';
 
 export const Register = () => {
     const { setUserData } = useContext(AuthContext);
-    const navigate = useNavigate();
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -27,19 +25,15 @@ export const Register = () => {
 
         if (isDisabled) return;
 
-        const usernameValidation = validate.username(username);
-        const passwordValidation = validate.password(password);
-        const emailValidation = validate.email(email);
-
         const error = validateRegisterData({
-            usernameValidation,
-            passwordValidation,
-            emailValidation,
+            username,
+            email,
             password,
             repeatPassword,
         });
 
         if (error) {
+            console.log(error);
             return setInputError(error);
         }
 
@@ -50,13 +44,21 @@ export const Register = () => {
 
             setUserData({
                 username,
-                accessToken: data.sessionToken,
-                ownerId: data.objectId,
+                accessToken: data.accessToken,
+                ownerId: data.ownerId,
             });
-
-            navigate('/', { replace: true });
         } catch (err) {
-            const errorMessage = err.response.data.message || err.response.data.error;
+            const currentError = err.response.data.message;
+            let errorMessage;
+
+            if (typeof currentError == 'String') {
+                errorMessage = currentError;
+            } else {
+                errorMessage = currentError
+                    .flatMap((x) => Object.values(x))
+                    .join(' + ');
+            }
+
             setInputError(errorMessage);
             setIsDisabled(false);
         }

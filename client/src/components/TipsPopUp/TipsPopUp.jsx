@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
-import styles from './TipsPopUp.module.css';
+import styles from './TipsPopUp.module.css'; 
 
-export const TipsPopUp = ({ destination }) => {
+export const TipsPopUp = ({ details }) => {
     const [tips, setTips] = useState('');
 
     const onCategoryClickHandler = (tipsInfo) => {
@@ -13,41 +13,16 @@ export const TipsPopUp = ({ destination }) => {
     return (
         <>
             <section className={styles.wrapper}>
-                <Link
-                    to="info"
-                    className={styles.category}
-                    onClick={() =>
-                        onCategoryClickHandler(destination.transportInfo)
-                    }
-                >
-                    Transport
-                </Link>
-
-                <Link
-                    to="info"
-                    className={styles.category}
-                    onClick={() =>
-                        onCategoryClickHandler(destination.goodToKnowInfo)
-                    }
-                >
-                    Good to Know
-                </Link>
-                <Link
-                    to="info"
-                    className={styles.category}
-                    onClick={() =>
-                        onCategoryClickHandler(destination.localCustomsInfo)
-                    }
-                >
-                    Local Customs
-                </Link>
-                <Link
-                    to="info"
-                    className={styles.category}
-                    onClick={() => onCategoryClickHandler(destination.proTipsInfo)}
-                >
-                    Pro Tips
-                </Link>
+                {details.map((x) => (
+                    <Link
+                        key={x._id}
+                        to="info"
+                        className={styles.category}
+                        onClick={() => onCategoryClickHandler(x)}
+                    >
+                        {x.category}
+                    </Link>
+                ))}
             </section>
             <Outlet context={tips} />
         </>

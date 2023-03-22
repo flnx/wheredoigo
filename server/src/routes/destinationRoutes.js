@@ -1,10 +1,10 @@
 const express = require('express');
+const destinationDetails = require('../controllers/destinationController');
+
 const router = express.Router();
 
-const destinationController = require('../controllers/destinationController');
-
-
-router.get('/destinations', destinationController.paginated_destinations);
-router.post('/destinations', destinationController.add_new_destination);
+router.get('/destinations', destinationDetails.paginated_destinations);
+router.get('/destinations/:destinationId', destinationDetails.destination_details);
+router.post('/destinations', destinationDetails.add_new_destination);
 
 module.exports = router;

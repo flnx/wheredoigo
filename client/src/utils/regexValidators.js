@@ -9,11 +9,12 @@ export const email = (email) => {
     return regex.email.test(email);
 }
 
-// Minimum eight characters, at least one letter and one number:
+// Minimum 8 characters, at least one letter and one number:
 export const password = (password) => {
     return regex.password.test(password);
 }
 
+// Minimum 3 characters
 export const username = (username) => {
     return regex.username.test(username);
 }

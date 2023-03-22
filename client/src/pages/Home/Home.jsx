@@ -18,7 +18,7 @@ export const Home = () => {
         <>
             <Showcase />
             <div className={styles.grid}>
-                <CitiesSlider destinations={destinations.data.results} />
+                <CitiesSlider destinations={destinations} />
                 <Categories />
                 <Destinations />
                 <Intro />

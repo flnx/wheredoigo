@@ -7,8 +7,7 @@ const login = async (req, res) => {
         
         res.json(userData);
     } catch (err) {
-        console.error(handleErrors(err));
-        res.status(401).json({ errors: handleErrors(err) });
+        res.status(401).json({ message: handleErrors(err) });
     }
 };
 
@@ -18,8 +17,7 @@ const register = async (req, res) => {
 
         res.json(userData);
     } catch (err) {
-        // console.error(handleErrors(err));
-        res.status(401).json({ errors: handleErrors(err) });
+        res.status(401).json({ message: handleErrors(err) });
     }
 };
 

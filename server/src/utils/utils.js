@@ -2,6 +2,12 @@ function cityCountryRegex() {
     return /^[A-Za-z]+(?:[\s-][A-Za-z]+)*$/;
 }
 
+function validatePassword(password) {
+    const regex = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=[\w\d#?!@$%^&*-_]).{8,}$/;
+
+    return regex.test(password)
+}
+
 function matchCityAndCountry(city = '', country = '') {
     const pattern = cityCountryRegex();
 
@@ -18,4 +24,7 @@ function matchCityAndCountry(city = '', country = '') {
 module.exports = {
     matchCityAndCountry,
     cityCountryRegex,
+    validatePassword
 };
+
+// username: /^[a-zA-Z0-9_-]{2,25}$/,

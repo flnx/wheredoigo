@@ -2,26 +2,25 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const validator = require('validator');
+const { errorMessages } = require('../constants/errorMessages');
+errorMessages;
 
 const userSchema = new Schema({
     username: {
         type: String,
         trim: true,
-        minLength: [2, 'Username must be at least 2 characters long'],
+        minLength: [3, errorMessages.username],
         unique: [true, 'The username is already taken'],
         required: [true, 'Username is required'],
-        validate: [
-            validator.isAlphanumeric,
-            'Username must contain only numbers and letters',
-        ],
+        validate: [validator.isAlphanumeric, errorMessages.username],
     },
     email: {
         type: String,
         lowercase: true,
         trim: true,
-        required: [true, 'Email is required'],
+        required: [true, 'Email address is required'],
         unique: [true, 'The email address is already taken'],
-        validate: [validator.isEmail, 'Invalid Email Address'],
+        validate: [validator.isEmail, errorMessages.invalidEmail],
     },
     hashedPassword: {
         type: String,

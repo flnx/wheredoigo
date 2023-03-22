@@ -8,10 +8,18 @@ async function getDestinationByPage(page, limit) {
     const destination = await Destination.find()
         .skip(page * limit)
         .limit(limit)
+        .populate('country')
         .lean()
         .exec();
 
     return destination;
+}
+
+async function getDestinationById(destinationId) {
+    return Destination.findById(destinationId)
+        .populate('country')
+        .lean()
+        .exec();
 }
 
 async function addNewDestination(data) {
@@ -51,4 +59,5 @@ async function addNewDestination(data) {
 module.exports = {
     getDestinationByPage,
     addNewDestination,
+    getDestinationById,
 };

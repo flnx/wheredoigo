@@ -13,7 +13,7 @@ export const CitiesSlider = ({ destinations }) => {
                     {destinations.map((x) => (
                         <SwiperSlide
                             className={styles.sliderItem}
-                            key={x.objectId}
+                            key={x._id}
                         >
                             <SliderCard destination={x} />
                         </SwiperSlide>

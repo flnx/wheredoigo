@@ -1,13 +1,8 @@
 import styles from './ImagesGridWrapper.module.css';
 
 export const ImagesGridWrapper = ({ images, alt, onClickHandler }) => {
-    const mainImageUrl = images?.img1;
-
-    const secondaryImages = Object
-        .values(images)
-        .filter((imgUrl) => imgUrl != mainImageUrl)
-        .map((imgUrl, index) => imgUrl == undefined ? index : imgUrl);
-
+    const mainImageUrl = images[0];
+    const secondaryImages = images.slice(1);
 
     return (
         <div className={styles.imagesWrapper}>
@@ -16,7 +11,7 @@ export const ImagesGridWrapper = ({ images, alt, onClickHandler }) => {
                     className={styles.mainImg}
                     src={mainImageUrl}
                     alt={alt}
-                    onClick={() => onClickHandler(images?.img1)}
+                    onClick={() => onClickHandler(mainImageUrl)}
                 />
             </div>
             <div className={styles.secondaryImages}>

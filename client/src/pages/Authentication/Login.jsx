@@ -1,37 +1,37 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
 
+import { AuthContext } from '../../context/AuthContext';
 import * as user from '../../service/auth/login';
-import * as validate from '../../utils/regexValidators';
-
-import styles from './FormLayout.module.css';
 import { validateLoginData } from '../../utils/userDataValidators';
 
-import { AuthContext } from '../../context/AuthContext';
+import styles from './FormLayout.module.css';
 
 export const Login = () => {
     const { setUserData } = useContext(AuthContext);
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [inputError, setInputError] = useState(false);
+    const [error, setError] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
-    const navigate = useNavigate();
 
     const submitHandler = async (e) => {
         e.preventDefault();
 
         if (isDisabled) return;
 
-        const emailValidation = validate.email(email);
-        const passwordValidation = validate.password(password);
+        const validateUserData = validateLoginData({ email, password });
 
-        const error = validateLoginData({
-            emailValidation,
-            passwordValidation,
-        });
+        if (!email) {
+            return setError('Email address is required');
+        }
 
-        if (error) {
-            return setInputError(error);
+        if (!password) {
+            return setError('Password is required');
+        }
+
+        if (validateUserData) {
+            return setError(validateUserData);
         }
 
         setIsDisabled(true);
@@ -39,16 +39,18 @@ export const Login = () => {
         try {
             const { data } = await user.login({ email, password });
 
+            console.log(data);
+
             setUserData({
                 username: data.username,
-                accessToken: data.sessionToken,
+                accessToken: data.accessToken,
                 ownerId: data.objectId,
             });
-
-            navigate('/', { replace: true });
         } catch (err) {
-            const errorMessage = err.response.data.message || err.response.data.error;
-            setInputError(errorMessage);
+            const errorMessage =
+                err.response.data.message || err.response.data.error;
+
+            setError(errorMessage);
             setIsDisabled(false);
         }
     };
@@ -83,9 +85,9 @@ export const Login = () => {
                 />
             </div>
 
-            {inputError && (
+            {error && (
                 <div className={styles.formField}>
-                    <p className={styles.error}>{inputError}</p>
+                    <p className={styles.error}>{error}</p>
                 </div>
             )}
 

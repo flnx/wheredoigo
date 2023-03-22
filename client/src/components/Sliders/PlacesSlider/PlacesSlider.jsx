@@ -10,20 +10,20 @@ export const PlacesSlider = ({ places }) => {
         <section>
             <div className="container">
                 <SliderWrapper>
-                    {places.map((x) => (
+                    {places.map((place) => (
                         <SwiperSlide
                             className={styles.sliderItem}
-                            key={x.objectId}
+                            key={place._id}
                         >
-                            <Link to={`/place/${x.objectId}`}>
+                            <Link to={`/place/${place._id}`}>
                                 <img
-                                    src={x.image.url}
-                                    alt={x.place}
+                                    src={place.imageUrls[0]}
+                                    alt={place.place}
                                     className={styles.image}
                                 />
                                 <div className={styles.content}>
-                                    <h3>{x.place}</h3>
-                                    <p>{x.country}</p>
+                                    <h3>{place.place}</h3>
+                                    <p>{place.city}</p>
                                 </div>
                             </Link>
                         </SwiperSlide>

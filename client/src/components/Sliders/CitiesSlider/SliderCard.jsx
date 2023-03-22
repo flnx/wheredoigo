@@ -3,15 +3,15 @@ import styles from './CitiesSlider.module.css';
 
 export const SliderCard = ({ destination }) => {
     return (
-        <Link to={`/destinations/${destination.objectId}`}>
+        <Link to={`/destinations/${destination._id}`}>
             <img
-                src={destination.imageUrl.url}
+                src={destination.imageUrls[0]}
                 alt="city"
                 className={styles.image}
             />
             <div className={styles.content}>
                 <h3>{destination.city}</h3>
-                <p>{destination.country}</p>
+                <p>{destination.country.name}</p>
             </div>
         </Link>
     );
