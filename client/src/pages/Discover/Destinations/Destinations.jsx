@@ -16,8 +16,6 @@ export const Destinations = ({ searchParams }) => {
 
     if (isLoading) return <h1>Loading...</h1>
 
-    console.log(data)
-
     return (
         <section>
             <div className={styles.categories}>

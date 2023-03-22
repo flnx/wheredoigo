@@ -46,7 +46,6 @@ async function login({ email, password }) {
     }
 
     const user = await User.findOne({ email })
-        .select('_id hashedPassword')
         .lean()
         .exec();
 
@@ -62,6 +61,7 @@ async function login({ email, password }) {
 
     const payload = {
         ownerId: user._id,
+        email: user.email,
         username: capitalizeEachWord(user.username)
     };
 

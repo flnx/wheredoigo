@@ -14,7 +14,6 @@ exports.paginated_destinations = async (req, res) => {
 
         res.json(destinations);
     } catch (err) {
-        console.log(handleErrors(err));
         res.status(400).json(handleErrors(err));
     }
 };

@@ -8,10 +8,9 @@ export const Logout = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        user.logout(auth.accessToken).then((res) => {
-            setUserData({});
-            navigate('/', { replace: true });
-        });
+        // user.logout(auth.accessToken).then((res) => {});
+        setUserData({});
+        navigate('/', { replace: true });
     }, []);
 
     return;
