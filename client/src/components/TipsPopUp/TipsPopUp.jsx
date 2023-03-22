@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
-import styles from './TipsPopUp.module.css';
+import styles from './TipsPopUp.module.css'; 
 
 export const TipsPopUp = ({ details }) => {
     const [tips, setTips] = useState('');

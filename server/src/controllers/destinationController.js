@@ -1,8 +1,5 @@
-const {
-    getDestinationByPage,
-    addNewDestination,
-    getDestinationById,
-} = require('../services/destinationService');
+const { getDestinationByPage, addNewDestination, getDestinationById } = require('../services/destinationService');
+const { getDestinationPlaces } = require('../services/placeService');
 
 const handleErrors = require('../utils/errorHandler');
 
@@ -27,6 +24,9 @@ exports.destination_details = async (req, res) => {
 
     try {
         const destination = await getDestinationById(destinationId);
+        const places = await getDestinationPlaces(destinationId);
+        destination.places = places
+
         res.json(destination);
     } catch (err) {
         res.status(400).json(handleErrors(err));

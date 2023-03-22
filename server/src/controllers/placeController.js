@@ -1,5 +1,8 @@
 const handleErrors = require('../utils/errorHandler');
-const { addNewPlace, getPlaceById } = require('../services/placeService');
+const {
+    addNewPlace,
+    getPlaceById,
+} = require('../services/placeService');
 
 exports.place_details = async (req, res) => {
     const { placeId } = req.params;

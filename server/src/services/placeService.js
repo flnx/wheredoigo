@@ -3,7 +3,7 @@ const capitalizeEachWord = require('../utils/capitalizeWords');
 
 async function getPlaceById(placeId) {
     const place = await Place.findById(placeId).lean().exec();
-    
+
     if (!place) {
         throw new Error('404 Not Found');
     }
@@ -11,6 +11,14 @@ async function getPlaceById(placeId) {
     place.city = capitalizeEachWord(place.city);
 
     return place;
+}
+
+async function getDestinationPlaces(destinationId) {
+    const places = await Place.find({ destinationId: '641890796c4ca06c578ff1af' })
+        .lean()
+        .exec();
+
+    return places;
 }
 
 async function addNewPlace(data) {
@@ -38,5 +46,6 @@ async function addNewPlace(data) {
 
 module.exports = {
     addNewPlace,
-    getPlaceById
+    getPlaceById,
+    getDestinationPlaces,
 };

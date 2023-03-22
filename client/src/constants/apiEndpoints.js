@@ -2,9 +2,6 @@ import { createPointer } from "../utils/apiDataPointer"
 import { encodeData } from "../utils/utils"
 
 export const apiEndpoints = {
-    destinationPlaces: (id) => {
-        return 'classes/Place?where=' + encodeData({ destination: createPointer('Destination', id) });
-    },
     placeById: (id) => `places/${id}`,
     allDestinations: 'destinations',
     destinationById: (id) => `destinations/${id}`,

@@ -12,24 +12,27 @@ import styles from './DestinationDetails.module.css';
 
 export const DestinationDetails = () => {
     const { destinationId } = useParams();
-    const { destination, places } = useDestination(destinationId);
+    const destination = useDestination(destinationId);
 
-    if (places.isLoading || destination.isLoading) {
+    if (destination.isLoading) {
         return <h1>Loading...</h1>;
     }
 
-    if (destination.error || places.error) {
+    if (destination.error) {
         return <h1>An Error Has Occured</h1>;
     }
+
+    console.log(destination.data);
+    return
 
     return (
         <div className="container">
             <div className={styles.wrapper}>
                 <DestinationHeader destination={destination.data} />
                 <TipsPopUp details={destination.data.details} />
-                {/* <ExploreSection places={places.data} />
-                <EatSection places={places.data} />
-                <PartySection places={places.data} /> */}
+                {/* <ExploreSection places={places.data} /> */}
+                {/* <EatSection places={places.data} /> */}
+                {/* <PartySection places={places.data} />  */}
             </div>
         </div>
     );
