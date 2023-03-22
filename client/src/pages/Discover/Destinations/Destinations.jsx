@@ -16,28 +16,30 @@ export const Destinations = ({ searchParams }) => {
 
     if (isLoading) return <h1>Loading...</h1>
 
+    console.log(data)
+
     return (
         <section>
             <div className={styles.categories}>
                 <span>Destinations</span>
             </div>
-            {/* <div className={styles.destinations}>
+           <div className={styles.destinations}>
                 {data.pages
                     .flatMap((arr) => arr)
                     .map((destination) => (
                         <Destination
-                            key={destination.objectId}
+                            key={destination._id}
                             destination={destination}
                         />
                     ))}
-            </div> */}
-            {/* <button
+            </div> 
+            <button
                 onClick={fetchNextPage}
                 disabled={!hasNextPage || isFetchingNextPage}
                 className={`${styles.btn} ${loadingClass}`}
             >
                 {isFetchingNextPage ? 'Loading...' : 'Load More'}
-            </button> */}
+            </button>
         </section>
     );
 };

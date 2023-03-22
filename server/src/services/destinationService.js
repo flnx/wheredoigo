@@ -4,13 +4,34 @@ const Destination = require('../models/destinationSchema');
 const capitalizeEachWord = require('../utils/capitalizeWords');
 const { matchCityAndCountry } = require('../utils/utils');
 
-async function getDestinationByPage(page, limit) {
-    const destination = await Destination.find()
-        .skip(page * limit)
-        .limit(limit)
-        .populate('country')
-        .lean()
-        .exec();
+async function getDestinationByPage(page, limit, searchParams) {
+    let regex = new RegExp(searchParams, 'i');
+
+    const destination = await Destination.aggregate([
+        {
+            $lookup: {
+                from: 'countries',
+                localField: 'country',
+                foreignField: '_id',
+                as: 'country',
+            },
+        },
+        { $unwind: '$country' },
+        {
+            $match: {
+                $or: [
+                    { city: { $regex: regex } },
+                    { 'country.name': { $regex: regex } },
+                ],
+            },
+        },
+        {
+            $skip: page,
+        },
+        {
+            $limit: limit,
+        },
+    ]).exec();
 
     return destination;
 }

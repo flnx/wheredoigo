@@ -7,11 +7,10 @@ export const useInfiniteDestinations = (searchParams) => {
     return useInfiniteQuery({
         queryKey: [queryEndpoints.destinations, 'infinite', searchParams],
         getNextPageParam: (_lastPage, pages) => {
-            console.log(pages)
             const skip = pages.length;
             const currentPageArray = pages[skip - 1];
-            const isThereNextPage = currentPageArray.length == 6;
-            const nextPage = skip * 6;
+            const isThereNextPage = currentPageArray.length == 9;
+            const nextPage = skip * 9;
 
             return isThereNextPage ? nextPage : undefined;
         },
