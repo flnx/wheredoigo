@@ -1,4 +1,8 @@
 function capitalizeEachWord(name) {
+    if (!name || typeof name != 'String') {
+        throw new Error('Valid name is required!');
+    }
+
     const result = name
         .split(/[\s-]+/)
         .map((word) => {

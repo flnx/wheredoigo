@@ -15,7 +15,6 @@ async function start() {
     app.use(cors());
     app.use(express.json());
     app.use(bodyParserErrorHandler())
-
     // routes init
     routesConfig(app);
 
