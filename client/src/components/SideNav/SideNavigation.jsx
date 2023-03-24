@@ -16,7 +16,7 @@ export const SideNavigation = () => {
                 <NavLink to="add" className={styles.navLink}>
                     Add Destination
                 </NavLink>
-                <NavLink to="my-trips" className={styles.navLink}>
+                <NavLink to="" className={styles.navLink}>
                     My Trips
                 </NavLink>
                 <NavLink to="followers" className={styles.navLink}>

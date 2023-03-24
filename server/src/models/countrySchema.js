@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { cityCountryRegex } = require('../utils/utils');
 const Schema = mongoose.Schema;
 
-const CountrySchema = new Schema({
+const countrySchema = new Schema({
     name: {
         type: String,
         trim: true,
@@ -16,6 +16,6 @@ const CountrySchema = new Schema({
     },
 });
 
-const Country = mongoose.model('Country', CountrySchema);
+const Country = mongoose.model('Country', countrySchema);
 
 module.exports = Country;

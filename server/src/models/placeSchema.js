@@ -14,14 +14,9 @@ const placeSchema = new Schema({
         ref: 'Country',
     },
     city: {
-        type: String,
-        trim: true,
-        lowercase: true,
-        required: [true, 'City is required!'],
-        match: [
-            cityCountryRegex(),
-            '"City" should contain only letters, spaces, or hyphens',
-        ],
+        type: Schema.Types.ObjectId,
+        required: [true, 'Country ID required!'],
+        ref: 'City',
     },
     description: {
         type: String,

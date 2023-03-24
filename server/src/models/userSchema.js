@@ -29,7 +29,6 @@ const userSchema = new Schema({
 });
 
 userSchema.index(
-    // { _ownedCrypto: 1 },
     {
         collation: {
             locale: 'en',

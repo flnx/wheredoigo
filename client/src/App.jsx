@@ -54,8 +54,8 @@ function App() {
 
                             <Route element={<ProtectedRoute />}>
                                 <Route path="/dashboard" element={<Dashboard />} >
+                                    <Route index  element={<MyTrips index/>}/>
                                     <Route path="add" element={<AddDestination />}/>
-                                    <Route path="my-trips" element={<MyTrips />}/>
                                     <Route path="history" element={<History />}/>
                                     <Route path="settings" element={<UserSettings />}/>
                                     <Route path="followers" element={<Followers />}/>
