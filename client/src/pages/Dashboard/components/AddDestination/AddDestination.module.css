@@ -6,15 +6,15 @@
     outline: none;
 }
 
-.form > div {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
-}
-
 .form input:focus,
 .form textarea:focus {
     border: 2.25px solid #a5a4a4;
+}
+
+.formField {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
 }
 
 .validatedCity {
@@ -22,6 +22,7 @@
 }
 
 .form .categoryDetails {
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -32,7 +33,7 @@
     flex: 1 1 calc(25% - 1rem);
     cursor: pointer;
     text-align: center;
-    padding: 0.1rem 0.3rem;
+    padding: 0.35rem 0rem;
     border: 1px solid var(--text-primary);
     color: var(--text-primary);
     font-weight: 600;
