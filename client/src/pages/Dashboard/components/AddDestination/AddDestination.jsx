@@ -53,14 +53,12 @@ export const AddDestination = () => {
 
                 <div className={styles.formField}>
                     <label htmlFor="description">Description</label>
-                    <textarea
-                        id="description"
-                        rows="8"
-                        placeholder="Add destination description..."
-                    />
+                    <textarea id="description" rows="8" placeholder="Add destination description..." />
                 </div>
 
-                {/* Description */}
+                <div className={styles.formField}>
+                    <p>Help others by adding more information about the destination (not needed)</p>
+                </div>
 
                 <div className={styles.categoryDetails}>
                     <span onClick={() => onDetailsClickHandler('goodToKnow')}>
@@ -80,70 +78,78 @@ export const AddDestination = () => {
                 {showDetails.goodToKnow && (
                     <Overlay closeModalHandler={closeDetailWindowHandler}>
                         <div className={`${styles.details} ${styles.formField}`}>
-                            <label htmlFor="timezone">
-                                What is the timezone?
-                            </label>
-                            <textarea
-                                type="text"
-                                id="timezone"
-                                rows="3"
-                                placeholder="(GMT+1) / Eastern European Standard Time..."
-                            />
+                            <h3 className={styles.detailsTitle}>Good to Know</h3>
 
-                            <label htmlFor="plug-types">
-                                What are the voltage/plug types?
-                            </label>
-                            <textarea
-                                type="text"
-                                id="plug-types"
-                                rows="3"
-                                placeholder="Add destination description..."
-                            />
+                            <label htmlFor="timezone"> What is the timezone?</label>
+                            <textarea id="timezone" rows="1" placeholder="(GMT+1) / Eastern European Standard Time..."/>
 
-                            <label htmlFor="currency">
-                                What is the currency?
-                            </label>
-                            <textarea
-                                type="text"
-                                id="currency"
-                                rows="3"
-                                placeholder="Add destination description..."
-                            />
+                            <label htmlFor="plug-types">What are the voltage/plug types?</label>
+                            <textarea id="plug-types" rows="3" placeholder="Add destination description..." />
 
-                            <label htmlFor="payment">
-                                Are ATMs readily accessible?
-                            </label>
-                            <textarea
-                                type="text"
-                                id="payment"
-                                rows="3"
-                                placeholder="Add destination description..."
-                            />
-                            <label htmlFor="credit-cards">
-                                Are credit cards widely accepted?
-                            </label>
-                            <textarea
-                                type="text"
-                                id="credit-cards"
-                                rows="3"
-                                placeholder="Add destination description..."
-                            />
+                            <label htmlFor="currency">What is the currency?</label>
+                            <textarea id="currency" rows="3" placeholder="Add destination description..." />
+
+                            <label htmlFor="payment">Are ATMs readily accessible?</label>
+                            <textarea id="payment" rows="3" placeholder="Add destination description..." />
+
+                            <label htmlFor="credit-cards">Are credit cards widely accepted?</label>
+                            <textarea id="credit-cards" rows="3" placeholder="Add destination description..." />
+
                             <label htmlFor="tip">How much do I tip?</label>
-                            <textarea
-                                type="text"
-                                id="tip"
-                                rows="3"
-                                placeholder="Add destination description..."
-                            />
-                            <label htmlFor="wifi">
-                                Is WiFi widely available?
-                            </label>
-                            <textarea
-                                type="text"
-                                id="wifi"
-                                rows="3"
-                                placeholder="Add destination description..."
-                            />
+                            <textarea id="tip" rows="3" placeholder="Add destination description..." />
+
+                            <label htmlFor="wifi">Is WiFi widely available?</label>
+                            <textarea id="wifi" rows="3" placeholder="Add destination description..." />
+                        </div>
+                    </Overlay>
+                )}
+
+                {showDetails.proTips && (
+                    <Overlay closeModalHandler={closeDetailWindowHandler}>
+                        <div className={`${styles.details} ${styles.formField}`}>
+                            <h3 className={styles.detailsTitle}>Pro Tips</h3>
+                            <label htmlFor="before-you-go">Any tips you can give about this destination? 😎</label>
+                            <textarea id="before-you-go" rows="25" placeholder="Add description..." />
+                        </div>
+                    </Overlay>
+                )}
+
+                {showDetails.localCustoms && (
+                    <Overlay closeModalHandler={closeDetailWindowHandler}>
+                        <div className={`${styles.details} ${styles.formField}`}>
+                            <h3 className={styles.detailsTitle}>Local Customs</h3>
+                            <label htmlFor="drinking">Drinking</label>
+                            <textarea id="drinking" rows="6" placeholder="Add description..."/>
+
+                            <label htmlFor="drugs">Drugs</label>
+                            <textarea id="drugs" rows="6" placeholder="Add description..." />
+
+                            <label htmlFor="greetings">Greetings</label>
+                            <textarea id="greetings" rows="6" placeholder="Add description..." />
+
+                            <label htmlFor="personal-space">Personal space</label>
+                            <textarea id="personal-space" rows="6" placeholder="Add description..." />
+
+                            <label htmlFor="additional-info">Additional info</label>
+                            <textarea id="additional-info" rows="6" placeholder="Add description..." />
+                        </div>
+                    </Overlay>
+                )}
+                {showDetails.transport && (
+                    <Overlay closeModalHandler={closeDetailWindowHandler}>
+                        <div className={`${styles.details} ${styles.formField}`}>
+                            <h3 className={styles.detailsTitle}>Transport</h3>
+                            <label htmlFor="cycling">Cycling</label>
+                            <textarea id="cycling" rows="6" placeholder="Add description..."/>
+
+                            <label htmlFor="public-transport">Train, Tram and Bus</label>
+                            <textarea id="public-transport" rows="6" placeholder="Add description..." />
+
+                            <label htmlFor="taxis">Taxis</label>
+                            <textarea id="taxis" rows="6" placeholder="Add description..." />
+
+                            <label htmlFor="ridesharing">Rideesharing</label>
+                            <textarea id="ridesharing" rows="6" placeholder="Add description..." />
                         </div>
                     </Overlay>
                 )}
