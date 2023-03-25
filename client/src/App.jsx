@@ -46,23 +46,25 @@ function App() {
                             <Route path="/" element={<Home />} />
                             <Route path="/discover" element={<Discover />} />
 
-                            <Route path="/destinations/:destinationId" element={<DestinationDetails />} >
+                            <Route
+                                path="/destinations/:destinationId"
+                                element={<DestinationDetails />}
+                            >
                                 <Route path="info" element={<DetailsModal />} />
                             </Route>
 
                             <Route path="/place/:placeId" element={<PlaceDetails />} />
 
                             <Route element={<ProtectedRoute />}>
-                                <Route path="/dashboard" element={<Dashboard />} >
-                                    <Route index  element={<MyTrips index/>}/>
-                                    <Route path="add" element={<AddDestination />}/>
-                                    <Route path="history" element={<History />}/>
-                                    <Route path="settings" element={<UserSettings />}/>
-                                    <Route path="followers" element={<Followers />}/>
+                                <Route path="/dashboard" element={<Dashboard />}>
+                                    <Route index element={<MyTrips index />} />
+                                    <Route path="add" element={<AddDestination />} />
+                                    <Route path="history" element={<History />} />
+                                    <Route path="settings" element={<UserSettings />} />
+                                    <Route path="followers" element={<Followers />} />
                                 </Route>
                                 <Route path="/logout" element={<Logout />} />
                             </Route>
-
                         </Routes>
                     </main>
                     <Footer />

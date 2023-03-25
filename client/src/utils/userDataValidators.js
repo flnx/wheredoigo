@@ -1,11 +1,6 @@
 import * as validate from './regexValidators';
 
-export const validateRegisterData = ({
-    username,
-    email,
-    password,
-    repeatPassword,
-}) => {
+export const validateRegisterData = ({ username, email, password, repeatPassword }) => {
     let error = false;
 
     const isUsernameValid = validate.username(username);
@@ -15,9 +10,11 @@ export const validateRegisterData = ({
     console.log(username);
 
     if (!isUsernameValid) {
-        error = 'Username must be between 3-25 characters long and contain only latin letters and numbers';
+        error =
+            'Username must be between 3-25 characters long and contain only latin letters and numbers';
     } else if (!isPasswordValid) {
-        error = 'Password must be at least 8 characters long containing at least 1 number and 1 letter';
+        error =
+            'Password must be at least 8 characters long containing at least 1 number and 1 letter';
     } else if (password !== repeatPassword) {
         error = "Passwords don't match";
     } else if (!isEmailValid) {

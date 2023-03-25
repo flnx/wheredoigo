@@ -1,5 +1,4 @@
-import {  Outlet } from 'react-router-dom';
-
+import { Outlet } from 'react-router-dom';
 
 // Components
 import { CategoriesNav } from '../../components/CategoriesNav/CategoriesNav';
@@ -12,7 +11,6 @@ export const Dashboard = () => {
     return (
         <div className="container">
             <div className={styles.grid}>
-
                 <section className={styles.sideNav}>
                     <SideNavigation />
                 </section>
@@ -24,11 +22,9 @@ export const Dashboard = () => {
                 <section className={styles.categories}>
                     <CategoriesNav />
                 </section>
-                
 
                 <div className={styles.destinations}>
-                     <Outlet  />
-                  
+                    <Outlet />
                 </div>
                 <aside className={styles.stats}>
                     <div>
@@ -47,4 +43,3 @@ export const Dashboard = () => {
         </div>
     );
 };
-

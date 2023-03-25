@@ -28,14 +28,12 @@ const userSchema = new Schema({
     },
 });
 
-userSchema.index(
-    {
-        collation: {
-            locale: 'en',
-            strength: 2,
-        },
-    }
-);
+userSchema.index({
+    collation: {
+        locale: 'en',
+        strength: 2,
+    },
+});
 
 const User = mongoose.model('User', userSchema);
 

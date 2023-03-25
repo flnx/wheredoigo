@@ -1,10 +1,7 @@
 import { useEffect, useReducer, useState } from 'react';
 import { Overlay } from '../../../../components/Overlay/Overlay';
-import {
-    destinationFormReducer,
-    initialState,
-} from '../../../../utils/destinationReducer';
-import { ArrowCircleRight } from 'phosphor-react';
+import { destinationFormReducer, initialState } from '../../../../utils/destinationReducer';
+import { ArrowCircleRight, MagnifyingGlass, XCircle } from 'phosphor-react';
 
 import styles from './AddDestination.module.css';
 
@@ -12,10 +9,9 @@ const cities = ['sofia', 'varna', 'bourgas', 'pleven', 'bansko'];
 
 export const AddDestination = () => {
     const [state, dispatch] = useReducer(destinationFormReducer, initialState);
-    const [searchQuery, setSearchQuery] = useState('');
     const [showSearchDropdown, setShowSearchDropdown] = useState(false);
 
-    const [isCityValid, setIsCityValid] = useState(false);
+    const [validCity, setValidCity] = useState(false);
     const [showDetails, setShowDetails] = useState({});
 
     const onDetailsClickHandler = (detailName) => {
@@ -40,14 +36,20 @@ export const AddDestination = () => {
     useEffect(() => {
         let validateCity = false;
 
-        if (cities.includes(searchQuery)) {
-            validateCity = true;
+        const regex = new RegExp(state.city, 'i');
+        const result = cities.find((element) => regex.test(element));
+
+        if (result) {
+            validateCity = result;
         }
 
-        setIsCityValid(validateCity);
-    }, [searchQuery]);
+        setValidCity(validateCity);
+    }, [state.city]);
 
-    const validCityClass = `${isCityValid ? styles.validatedCity : ''}`;
+    const isCityValidated = `${validCity && state.city && styles.validCity}`;
+    const isCityInvalidated = `${state.city && !validCity && styles.invalidCity}`;
+
+    const isTyping = state.city.length != 0;
 
     return (
         <section>
@@ -59,23 +61,44 @@ export const AddDestination = () => {
                         type="search"
                         autoComplete="off"
                         placeholder="Pick a city"
+                        name="city"
                         id="city"
-                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onChange={onChangeHandler}
                         onClick={() => setShowSearchDropdown(true)}
                         onBlur={() => setShowSearchDropdown(false)}
-                        value={searchQuery}
-                        className={validCityClass}
+                        value={state.city}
+                        className={`${isCityValidated} ${isCityInvalidated}`}
                     />
                     {showSearchDropdown && (
                         <div className={styles.searchDropdown}>
-                            <div className={styles.searchResult}>
-                                <ArrowCircleRight size={28} />
-                                <span className={styles.searchQuery}>
-                                    {isCityValid
-                                        ? searchQuery
-                                        : 'Location not found'}
-                                </span>
-                            </div>
+                            {!isTyping && (
+                                <div className={styles.searchQuery}>
+                                    <MagnifyingGlass size={28} />
+                                    <span>Enter location...</span>
+                                </div>
+                            )}
+
+                            {!validCity && isTyping && (
+                                <div className={styles.searchQuery}>
+                                    <XCircle size={28} />
+                                    <span>No location found...</span>
+                                </div>
+                            )}
+
+                            {validCity && isTyping && (
+                                <div
+                                    className={styles.searchQuery}
+                                    onMouseDown={() => {
+                                        dispatch({
+                                            type: 'change',
+                                            payload: { name: 'city', value: validCity },
+                                        });
+                                    }}
+                                >
+                                    <ArrowCircleRight size={28} />
+                                    {'Add ' + validCity}
+                                </div>
+                            )}
                         </div>
                     )}
                 </div>
@@ -93,75 +116,50 @@ export const AddDestination = () => {
                 </div>
 
                 <div className={styles.formField}>
-                    <p>
-                        Help others by adding more information about the
-                        destination (not needed)
-                    </p>
+                    <p>Help others by adding more information about the destination (not needed)</p>
                 </div>
 
                 <div className={styles.categoryDetails}>
-                    <span onClick={() => onDetailsClickHandler('goodToKnow')}>
-                        Good to Know
-                    </span>
-                    <span onClick={() => onDetailsClickHandler('transport')}>
-                        Transport
-                    </span>
-                    <span onClick={() => onDetailsClickHandler('proTips')}>
-                        Pro Tips
-                    </span>
-                    <span onClick={() => onDetailsClickHandler('localCustoms')}>
-                        Local Customs
-                    </span>
+                    <span onClick={() => onDetailsClickHandler('goodToKnow')}>Good to Know</span>
+                    <span onClick={() => onDetailsClickHandler('transport')}>Transport</span>
+                    <span onClick={() => onDetailsClickHandler('proTips')}>Pro Tips</span>
+                    <span onClick={() => onDetailsClickHandler('localCustoms')}>Local Customs</span>
                 </div>
 
                 {showDetails.goodToKnow && (
                     <Overlay closeModalHandler={closeDetailWindowHandler}>
-                        <div
-                            className={`${styles.details} ${styles.formField}`}
-                        >
-                            <h3 className={styles.detailsTitle}>
-                                Good to Know
-                            </h3>
+                        <div className={`${styles.details} ${styles.formField}`}>
+                            <h3 className={styles.detailsTitle}>Good to Know</h3>
 
-                            <label htmlFor="timezone">
-                                What is the timezone?
-                            </label>
+                            <label htmlFor="timezone">What is the timezone?</label>
                             <textarea
                                 id="timezone"
                                 rows="1"
                                 placeholder="(GMT+1) / Eastern European Standard Time..."
                             />
 
-                            <label htmlFor="plug-types">
-                                What are the voltage/plug types?
-                            </label>
+                            <label htmlFor="plug-types">What are the voltage/plug types?</label>
                             <textarea
                                 id="plug-types"
                                 rows="3"
                                 placeholder="Add destination description..."
                             />
 
-                            <label htmlFor="currency">
-                                What is the currency?
-                            </label>
+                            <label htmlFor="currency">What is the currency?</label>
                             <textarea
                                 id="currency"
                                 rows="3"
                                 placeholder="Add destination description..."
                             />
 
-                            <label htmlFor="payment">
-                                Are ATMs readily accessible?
-                            </label>
+                            <label htmlFor="payment">Are ATMs readily accessible?</label>
                             <textarea
                                 id="payment"
                                 rows="3"
                                 placeholder="Add destination description..."
                             />
 
-                            <label htmlFor="credit-cards">
-                                Are credit cards widely accepted?
-                            </label>
+                            <label htmlFor="credit-cards">Are credit cards widely accepted?</label>
                             <textarea
                                 id="credit-cards"
                                 rows="3"
@@ -175,9 +173,7 @@ export const AddDestination = () => {
                                 placeholder="Add destination description..."
                             />
 
-                            <label htmlFor="wifi">
-                                Is WiFi widely available?
-                            </label>
+                            <label htmlFor="wifi">Is WiFi widely available?</label>
                             <textarea
                                 id="wifi"
                                 rows="3"
@@ -189,9 +185,7 @@ export const AddDestination = () => {
 
                 {showDetails.proTips && (
                     <Overlay closeModalHandler={closeDetailWindowHandler}>
-                        <div
-                            className={`${styles.details} ${styles.formField}`}
-                        >
+                        <div className={`${styles.details} ${styles.formField}`}>
                             <h3 className={styles.detailsTitle}>Pro Tips</h3>
                             <label htmlFor="before-you-go">
                                 Any tips you can give about this destination? 😎
@@ -207,45 +201,25 @@ export const AddDestination = () => {
 
                 {showDetails.localCustoms && (
                     <Overlay closeModalHandler={closeDetailWindowHandler}>
-                        <div
-                            className={`${styles.details} ${styles.formField}`}
-                        >
-                            <h3 className={styles.detailsTitle}>
-                                Local Customs
-                            </h3>
+                        <div className={`${styles.details} ${styles.formField}`}>
+                            <h3 className={styles.detailsTitle}>Local Customs</h3>
                             <label htmlFor="drinking">Drinking</label>
-                            <textarea
-                                id="drinking"
-                                rows="6"
-                                placeholder="Add description..."
-                            />
+                            <textarea id="drinking" rows="6" placeholder="Add description..." />
 
                             <label htmlFor="drugs">Drugs</label>
-                            <textarea
-                                id="drugs"
-                                rows="6"
-                                placeholder="Add description..."
-                            />
+                            <textarea id="drugs" rows="6" placeholder="Add description..." />
 
                             <label htmlFor="greetings">Greetings</label>
-                            <textarea
-                                id="greetings"
-                                rows="6"
-                                placeholder="Add description..."
-                            />
+                            <textarea id="greetings" rows="6" placeholder="Add description..." />
 
-                            <label htmlFor="personal-space">
-                                Personal space
-                            </label>
+                            <label htmlFor="personal-space">Personal space</label>
                             <textarea
                                 id="personal-space"
                                 rows="6"
                                 placeholder="Add description..."
                             />
 
-                            <label htmlFor="additional-info">
-                                Additional info
-                            </label>
+                            <label htmlFor="additional-info">Additional info</label>
                             <textarea
                                 id="additional-info"
                                 rows="6"
@@ -256,20 +230,12 @@ export const AddDestination = () => {
                 )}
                 {showDetails.transport && (
                     <Overlay closeModalHandler={closeDetailWindowHandler}>
-                        <div
-                            className={`${styles.details} ${styles.formField}`}
-                        >
+                        <div className={`${styles.details} ${styles.formField}`}>
                             <h3 className={styles.detailsTitle}>Transport</h3>
                             <label htmlFor="cycling">Cycling</label>
-                            <textarea
-                                id="cycling"
-                                rows="6"
-                                placeholder="Add description..."
-                            />
+                            <textarea id="cycling" rows="6" placeholder="Add description..." />
 
-                            <label htmlFor="public-transport">
-                                Train, Tram and Bus
-                            </label>
+                            <label htmlFor="public-transport">Train, Tram and Bus</label>
                             <textarea
                                 id="public-transport"
                                 rows="6"
@@ -277,18 +243,10 @@ export const AddDestination = () => {
                             />
 
                             <label htmlFor="taxis">Taxis</label>
-                            <textarea
-                                id="taxis"
-                                rows="6"
-                                placeholder="Add description..."
-                            />
+                            <textarea id="taxis" rows="6" placeholder="Add description..." />
 
                             <label htmlFor="ridesharing">Rideesharing</label>
-                            <textarea
-                                id="ridesharing"
-                                rows="6"
-                                placeholder="Add description..."
-                            />
+                            <textarea id="ridesharing" rows="6" placeholder="Add description..." />
                         </div>
                     </Overlay>
                 )}
