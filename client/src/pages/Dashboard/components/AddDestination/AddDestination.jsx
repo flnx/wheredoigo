@@ -33,6 +33,14 @@ export const AddDestination = () => {
         setShowDetails({});
     };
 
+    const onDetailsChange = (e, category) => {
+        dispatch({
+            type: 'details_change',
+            category,
+            payload: { name: e.target.name, description: e.target.value },
+        });
+    };
+
     useEffect(() => {
         let validateCity = false;
 
@@ -50,6 +58,7 @@ export const AddDestination = () => {
     const isCityInvalidated = `${state.city && !validCity && styles.invalidCity}`;
 
     const isTyping = state.city.length != 0;
+    const gtn = state.details.find((x) => x.category == 'Good to Know');
 
     return (
         <section>
@@ -131,54 +140,20 @@ export const AddDestination = () => {
                         <div className={`${styles.details} ${styles.formField}`}>
                             <h3 className={styles.detailsTitle}>Good to Know</h3>
 
-                            <label htmlFor="timezone">What is the timezone?</label>
-                            <textarea
-                                id="timezone"
-                                rows="1"
-                                placeholder="(GMT+1) / Eastern European Standard Time..."
-                            />
-
-                            <label htmlFor="plug-types">What are the voltage/plug types?</label>
-                            <textarea
-                                id="plug-types"
-                                rows="3"
-                                placeholder="Add destination description..."
-                            />
-
-                            <label htmlFor="currency">What is the currency?</label>
-                            <textarea
-                                id="currency"
-                                rows="3"
-                                placeholder="Add destination description..."
-                            />
-
-                            <label htmlFor="payment">Are ATMs readily accessible?</label>
-                            <textarea
-                                id="payment"
-                                rows="3"
-                                placeholder="Add destination description..."
-                            />
-
-                            <label htmlFor="credit-cards">Are credit cards widely accepted?</label>
-                            <textarea
-                                id="credit-cards"
-                                rows="3"
-                                placeholder="Add destination description..."
-                            />
-
-                            <label htmlFor="tip">How much do I tip?</label>
-                            <textarea
-                                id="tip"
-                                rows="3"
-                                placeholder="Add destination description..."
-                            />
-
-                            <label htmlFor="wifi">Is WiFi widely available?</label>
-                            <textarea
-                                id="wifi"
-                                rows="3"
-                                placeholder="Add destination description..."
-                            />
+                            {gtn.info.map((x) => (
+                                <div key={x.name}>
+                                    <label htmlFor={x.name}>{x.title}</label>
+                                    <textarea
+                                        key={x.name}
+                                        id={x.name}
+                                        name={x.name}
+                                        rows={x.rows}
+                                        placeholder="Add information..."
+                                        onChange={(e) => onDetailsChange(e, 'Good to Know')}
+                                        value={x.description}
+                                    />
+                                </div>
+                            ))}
                         </div>
                     </Overlay>
                 )}
