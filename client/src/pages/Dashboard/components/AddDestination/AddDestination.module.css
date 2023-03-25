@@ -52,3 +52,30 @@
     text-align: center;
     margin-bottom: 0.75rem;
 }
+
+.cityInput {
+    position: relative;
+}
+
+.searchDropdown {
+    color: var(--text-links);
+    background-color: var(--app-background-color);
+    border: 1px solid var(--border-gray);
+    border-radius: 5px;
+    position: absolute;
+    bottom: -3.55rem;
+    height: 4rem;
+    left: 0;
+    right: 0;
+}
+
+.searchResult {
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem 0.25rem;
+    cursor: pointer;
+}
+
+.searchQuery {
+    font-size: 1rem;
+}
