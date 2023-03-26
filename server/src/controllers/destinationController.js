@@ -5,14 +5,13 @@ const handleErrors = require('../utils/errorHandler');
 
 exports.paginated_destinations = async (req, res) => {
     const page = parseInt(req.query.page) || 0;
-    let limit = parseInt(req.query.limit) || 9;
+    const limit =  9;
 
-    if (limit > 9) {
-        limit = 9;
-    }
+    const search = req.query.search;
 
     try {
-        const destinations = await getDestinationByPage(page, limit);
+        const destinations = await getDestinationByPage(page, limit, search);
+
         res.json(destinations);
     } catch (err) {
         res.status(400).json(handleErrors(err));

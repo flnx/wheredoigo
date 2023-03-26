@@ -11,6 +11,11 @@ import { Footer } from './components/Footer/Footer';
 import { Logout } from './components/Logout/Logout';
 import { ProtectedRoute } from './components/ProtectedRoutes/ProtectedRoute';
 import { UnauthenticatedRoute } from './components/UnauthenticatedRoute/UnauthenticatedRoute';
+import { AddDestination } from './pages/Dashboard/components/AddDestination/AddDestination';
+import { MyTrips } from './pages/Dashboard/components/MyTrips/MyTrips';
+import { History } from './pages/Dashboard/components/History/History';
+import { UserSettings } from './pages/Dashboard/components/UserSettings/UserSettings';
+import { Followers } from './pages/Dashboard/components/Followers/Followers';
 
 // Pages
 import { Home } from './pages/Home/Home';
@@ -34,32 +39,27 @@ function App() {
                     <main>
                         <Routes>
                             <Route element={<UnauthenticatedRoute />}>
-                                <Route
-                                    path="/login"
-                                    element={<FormLayout page={Login} />}
-                                />
-                                <Route
-                                    path="/register"
-                                    element={<FormLayout page={Register} />}
-                                />
+                                <Route path="/login" element={<FormLayout page={Login} />} />
+                                <Route path="/register" element={<FormLayout page={Register} />} />
                             </Route>
+
                             <Route path="/" element={<Home />} />
                             <Route path="/discover" element={<Discover />} />
-                            <Route
-                                path="/destinations/:destinationId"
-                                element={<DestinationDetails />}
-                            >
+
+                            <Route path="/destinations/:destinationId" element={<DestinationDetails />} >
                                 <Route path="info" element={<DetailsModal />} />
                             </Route>
-                            <Route
-                                path="/place/:placeId"
-                                element={<PlaceDetails />}
-                            />
+
+                            <Route path="/place/:placeId" element={<PlaceDetails />} />
+
                             <Route element={<ProtectedRoute />}>
-                                <Route
-                                    path="/dashboard"
-                                    element={<Dashboard />}
-                                />
+                                <Route path="/dashboard" element={<Dashboard />}>
+                                    <Route index element={<MyTrips index />} />
+                                    <Route path="add" element={<AddDestination />} />
+                                    <Route path="history" element={<History />} />
+                                    <Route path="settings" element={<UserSettings />} />
+                                    <Route path="followers" element={<Followers />} />
+                                </Route>
                                 <Route path="/logout" element={<Logout />} />
                             </Route>
                         </Routes>

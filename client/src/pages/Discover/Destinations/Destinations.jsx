@@ -21,16 +21,16 @@ export const Destinations = ({ searchParams }) => {
             <div className={styles.categories}>
                 <span>Destinations</span>
             </div>
-            <div className={styles.destinations}>
+           <div className={styles.destinations}>
                 {data.pages
                     .flatMap((arr) => arr)
                     .map((destination) => (
                         <Destination
-                            key={destination.objectId}
+                            key={destination._id}
                             destination={destination}
                         />
                     ))}
-            </div>
+            </div> 
             <button
                 onClick={fetchNextPage}
                 disabled={!hasNextPage || isFetchingNextPage}

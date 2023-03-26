@@ -1,3 +1,4 @@
+const City = require('../models/citySchema');
 const Place = require('../models/placeSchema');
 const capitalizeEachWord = require('../utils/capitalizeWords');
 
@@ -14,9 +15,7 @@ async function getPlaceById(placeId) {
 }
 
 async function getDestinationPlaces(destinationId) {
-    const places = await Place.find({ destinationId: '641890796c4ca06c578ff1af' })
-        .lean()
-        .exec();
+    const places = await Place.find({ destinationId }).lean().exec();
 
     return places;
 }
@@ -25,7 +24,6 @@ async function addNewPlace(data) {
     const placeData = {
         destinationId: data.destinationId,
         country: data.country,
-        city: data.city,
         description: data.description,
         place: data.place,
         imageUrls: data.imageUrls || [],
@@ -37,7 +35,17 @@ async function addNewPlace(data) {
         throw new Error('All fields are required!');
     }
 
-    const place = await Place.create(placeData);
+    let city = await City.findOne({
+        city: { $regex: new RegExp(data.city, 'i') },
+    }).exec();
+
+    if (!city) {
+        city = await City.create({ name: data.city });
+    }
+
+    const place = await Place.create({
+        ...placeData
+    });
 
     return {
         _id: place._id,

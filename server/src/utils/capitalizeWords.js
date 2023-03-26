@@ -1,4 +1,8 @@
 function capitalizeEachWord(name) {
+    if (!name || typeof name != 'string') {
+        throw new Error('Invalid username data')
+    }
+
     const result = name
         .split(/[\s-]+/)
         .map((word) => {

@@ -1,9 +1,5 @@
-import { useEffect } from 'react';
 import { Navigate, useNavigate, useOutletContext, useParams } from 'react-router-dom';
-import { disableBodyScroll, enableBodyScroll } from '../../utils/utils';
-import { X } from 'phosphor-react';
-
-import styles from './DetailsModal.module.css';
+import { Overlay } from '../Overlay/Overlay';
 
 export const DetailsModal = () => {
     const destinationInfoTips = useOutletContext();
@@ -14,38 +10,23 @@ export const DetailsModal = () => {
         return <Navigate to={`/destinations/${destinationId}`} replace />;
     }
 
-    useEffect(() => {
-        disableBodyScroll();
-
-        return () => enableBodyScroll();
-    }, []);
-
     const closeModalHandler = () => {
         navigate(-1, { replace: true });
     };
 
     return (
-        <div className={styles.modal}>
-            <div className={styles.overlay} onClick={closeModalHandler} />
-            <div className={styles.wrapper}>
-                <X
-                    size={32}
-                    weight="duotone"
-                    onClick={closeModalHandler}
-                    className={styles.closeIcon}
-                />
-                {destinationInfoTips.info.map((x) => (
-                    <TipsTemplate tip={x} key={x._id} />
-                ))}
-            </div>
-        </div>
+        <Overlay closeModalHandler={closeModalHandler}>
+            {destinationInfoTips.info.map((x) => (
+                <TipsTemplate tip={x} key={x._id} />
+            ))}
+        </Overlay>
     );
 };
 
 const TipsTemplate = ({ tip }) => {
     return (
-        <div className={styles.tip}>
-            <h3 className={styles.tipTitle}>{tip.title}</h3>
+        <div style={{ marginBottom: '2rem' }}>
+            <h3 style={{ marginBottom: '0.5rem' }}>{tip.title}</h3>
             <p>{tip.description}</p>
         </div>
     );

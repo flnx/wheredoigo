@@ -14,10 +14,11 @@ export const getDestination = async (id) => {
 };
 
 export const getDestinationsPaginated = async ({ pageParam, queryKey }) => {
-    const params = queryKey[2] ? queryKey[2] : '';
+    const searchParams = queryKey[2] || '';
 
-    console.log(params);
-    const placesData = await axios.get(apiEndpoints.destinationsByPage(params, pageParam));
+    const destinations = await axios.get(
+        apiEndpoints.destinationsByPage(searchParams, pageParam)
+    );
 
-    return placesData.data.results;
+    return destinations.data;
 };

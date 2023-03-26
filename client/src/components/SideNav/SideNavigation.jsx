@@ -13,22 +13,19 @@ export const SideNavigation = () => {
             </header>
 
             <nav className={styles.navbar}>
-                <NavLink to="#" className={styles.navLink}>
-                    Favorites
+                <NavLink to="add" className={styles.navLink}>
+                    Add Destination
                 </NavLink>
-                <NavLink to="#" className={styles.navLink}>
+                <NavLink to="" className={styles.navLink}>
                     My Trips
                 </NavLink>
-                <NavLink to="#" className={styles.navLink}>
+                <NavLink to="followers" className={styles.navLink}>
                     Followers
                 </NavLink>
-                <NavLink to="#" className={styles.navLink}>
-                    My Trips
-                </NavLink>
-                <NavLink to="#" className={styles.navLink}>
+                <NavLink to="history" className={styles.navLink}>
                     History
                 </NavLink>
-                <NavLink to="#" className={styles.navLink}>
+                <NavLink to="settings" className={styles.navLink}>
                     Settings
                 </NavLink>
             </nav>

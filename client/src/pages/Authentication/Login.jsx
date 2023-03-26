@@ -39,18 +39,16 @@ export const Login = () => {
         try {
             const { data } = await user.login({ email, password });
 
-            console.log(data);
-
             setUserData({
                 username: data.username,
                 accessToken: data.accessToken,
-                ownerId: data.objectId,
+                email: data.email,
+                ownerId: data._id,
             });
         } catch (err) {
-            const errorMessage =
-                err.response.data.message || err.response.data.error;
+            const errMsg = err.response.data.message || err.response.data.error;
 
-            setError(errorMessage);
+            setError(errMsg);
             setIsDisabled(false);
         }
     };

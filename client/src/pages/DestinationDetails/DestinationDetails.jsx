@@ -17,7 +17,7 @@ export const DestinationDetails = () => {
     }
 
     if (error) {
-        return <h1>An Error Has Occured</h1>;
+        return <h1>404 Not Found</h1>;
     }
 
     const explorePlaces = data.places.filter(
