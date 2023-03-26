@@ -1,3 +1,38 @@
+export function destinationFormReducer(state, action) {
+    switch (action.type) {
+        case 'change':
+            return {
+                ...state,
+                [action.payload.name]: action.payload.value,
+            };
+
+        case 'details_change': {
+            return {
+                ...state,
+                details: state.details.map((detail) => {
+                    if (detail.category == action.category) {
+                        const updateInfo = detail.info.map((x) =>
+                            x.name == action.payload.name
+                                ? { ...x, description: action.payload.description }
+                                : x
+                        );
+
+                        return {
+                            ...detail,
+                            info: updateInfo,
+                        };
+                    } else {
+                        return detail;
+                    }
+                }),
+            };
+        }
+
+        default:
+            return state;
+    }
+}
+
 export const initialState = {
     description: '',
     city: '',
@@ -121,38 +156,3 @@ export const initialState = {
         },
     ],
 };
-
-export function destinationFormReducer(state, action) {
-    switch (action.type) {
-        case 'change':
-            return {
-                ...state,
-                [action.payload.name]: action.payload.value,
-            };
-
-        case 'details_change': {
-            return {
-                ...state,
-                details: state.details.map((detail) => {
-                    if (detail.category == action.category) {
-                        const updateInfo = detail.info.map((x) =>
-                            x.name == action.payload.name
-                                ? { ...x, description: action.payload.description }
-                                : x
-                        );
-
-                        return {
-                            ...detail,
-                            info: updateInfo,
-                        };
-                    } else {
-                        return detail;
-                    }
-                }),
-            };
-        }
-
-        default:
-            return state;
-    }
-}

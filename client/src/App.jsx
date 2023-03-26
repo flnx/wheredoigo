@@ -46,10 +46,7 @@ function App() {
                             <Route path="/" element={<Home />} />
                             <Route path="/discover" element={<Discover />} />
 
-                            <Route
-                                path="/destinations/:destinationId"
-                                element={<DestinationDetails />}
-                            >
+                            <Route path="/destinations/:destinationId" element={<DestinationDetails />} >
                                 <Route path="info" element={<DetailsModal />} />
                             </Route>
 
