@@ -13,6 +13,12 @@ export const getDestination = async (id) => {
     return res.data;
 };
 
+export const getCityData = async (cityData) => {
+    const res = await axios.post(apiEndpoints.getCity, cityData);
+
+    return res.data;
+};
+
 export const getDestinationsPaginated = async ({ pageParam, queryKey }) => {
     const searchParams = queryKey[2] || '';
 

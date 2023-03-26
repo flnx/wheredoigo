@@ -3,6 +3,7 @@ const Destination = require('../models/destinationSchema');
 
 const capitalizeEachWord = require('../utils/capitalizeWords');
 const { matchCityAndCountry } = require('../utils/utils');
+require('dotenv').config();
 
 async function getDestinationByPage(page, limit, searchParams) {
     let regex = new RegExp(searchParams, 'i');
@@ -76,9 +77,28 @@ async function addNewDestination(data) {
         _id: destination._id,
     };
 }
+//
+async function getCityData(city) {
+    if (!city) {
+        throw new Error('Invalid city data');
+    }
+
+    const result = await fetch(process.env.CITY_URL + city, {
+        method: 'get',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Api-Key': process.env.X_API_KEY,
+        },
+    });
+
+    const data = await result.json();
+
+    return data;
+}
 
 module.exports = {
     getDestinationByPage,
     addNewDestination,
     getDestinationById,
+    getCityData,
 };

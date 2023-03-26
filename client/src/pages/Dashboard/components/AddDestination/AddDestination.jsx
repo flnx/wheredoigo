@@ -18,11 +18,12 @@ export const AddDestination = () => {
     };
 
     const showDetailHandler = (category) => {
-        setShowDetail(category)
-    }
+        setShowDetail(category);
+    };
 
     const submitHandler = (e) => {
         e.preventDefault();
+        console.log(state);
     };
 
     const openedDetailsCategory = state.details.find((x) => x.category == showDetail.category);
@@ -32,7 +33,7 @@ export const AddDestination = () => {
             <form className={styles.form} onSubmit={submitHandler}>
                 <SearchCity dispatchHandler={dispatchHandler} state={state} />
                 <Description dispatchHandler={dispatchHandler} state={state} />
-                <Categories showDetailHandler={showDetailHandler}/>
+                <Categories showDetailHandler={showDetailHandler} />
                 {showDetail.category && (
                     <Details
                         dispatchHandler={dispatchHandler}
@@ -41,7 +42,7 @@ export const AddDestination = () => {
                     />
                 )}
                 <div>
-                    <button type="button">Add</button>
+                    <button type='submit'>Add</button>
                 </div>
             </form>
         </section>

@@ -1,25 +1,26 @@
 import { useEffect, useState } from 'react';
 import { ArrowCircleRight, MagnifyingGlass, XCircle } from 'phosphor-react';
 
-import styles from '../AddDestination.module.css';
+import { getCityData } from '../../../../../service/data/destinations';
 
-const cities = ['sofia', 'varna', 'bourgas', 'pleven', 'bansko'];
+import styles from '../AddDestination.module.css';
 
 export const SearchCity = ({ dispatchHandler, state }) => {
     const [showSearchDropdown, setShowSearchDropdown] = useState(false);
     const [validCity, setValidCity] = useState(false);
 
     useEffect(() => {
-        let validateCity = false;
+        if (state.city == '') return;
 
-        const regex = new RegExp(state.city, 'i');
-        const result = cities.find((element) => regex.test(element));
+        getCityData({ city: state.city }).then((data) => {
+            const cityData = data[0];
 
-        if (result) {
-            validateCity = result;
-        }
-
-        setValidCity(validateCity);
+            if (cityData) {
+                setValidCity(cityData.name);
+            } else {
+                setValidCity(false);
+            }
+        });
     }, [state.city]);
 
     const onChangeHandler = (e) => {
