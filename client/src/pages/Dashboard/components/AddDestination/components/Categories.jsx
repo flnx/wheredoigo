@@ -1,6 +1,10 @@
 import styles from '../AddDestination.module.css';
 
-export const Categories = ({ onDetailsClickHandler }) => {
+export const Categories = ({ showDetailHandler }) => {
+    const onDetailsClickHandler = (detailName) => {
+        showDetailHandler({ category: detailName });
+    };
+
     return (
         <>
             <div className={styles.formField}>
