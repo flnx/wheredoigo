@@ -52,15 +52,72 @@ export const initialState = {
         },
         {
             category: 'Transport',
-            info: [],
+            info: [
+                {
+                    name: 'cycling',
+                    title: 'Cycling',
+                    description: '',
+                    rows: 6,
+                },
+                {
+                    name: 'publicTransport',
+                    title: 'Public Transport',
+                    description: '',
+                    rows: 6,
+                },
+                {
+                    name: 'taxis',
+                    title: 'Taxis',
+                    description: '',
+                    rows: 6,
+                },
+                {
+                    name: 'rideesharing',
+                    title: 'Rideesharing',
+                    description: '',
+                    rows: 6,
+                },
+            ],
         },
         {
             category: 'Local Customs',
-            info: [],
+            info: [
+                {
+                    name: 'drinking',
+                    title: 'Drinking',
+                    description: '',
+                    rows: 6,
+                },
+                {
+                    name: 'greetings',
+                    title: 'Greetings',
+                    description: '',
+                    rows: 6,
+                },
+                {
+                    name: 'personalSpace',
+                    title: 'Personal Space',
+                    description: '',
+                    rows: 6,
+                },
+                {
+                    name: 'additionalInfo',
+                    title: 'Additional info',
+                    description: '',
+                    rows: 6,
+                },
+            ],
         },
         {
             category: 'Pro Tips',
-            info: [],
+            info: [
+                {
+                    name: 'beforeYouGo',
+                    title: 'Any tips you can give about this destination? 😎',
+                    description: '',
+                    rows: 25,
+                },
+            ],
         },
     ],
 };

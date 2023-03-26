@@ -12,14 +12,16 @@ export const AddDestination = () => {
     const [showSearchDropdown, setShowSearchDropdown] = useState(false);
 
     const [validCity, setValidCity] = useState(false);
-    const [showDetails, setShowDetails] = useState({});
+    const [showDetail, setShowDetail] = useState({ category: null });
 
     const onDetailsClickHandler = (detailName) => {
-        setShowDetails({ [detailName]: true });
+        setShowDetail({ category: detailName });
     };
 
-    const submitHandler = (e) => {
-        e.preventDefault();
+    console.log(state);
+
+    const closeDetailWindowHandler = (e) => {
+        setShowDetail({});
     };
 
     const onChangeHandler = (e) => {
@@ -29,16 +31,16 @@ export const AddDestination = () => {
         });
     };
 
-    const closeDetailWindowHandler = (e) => {
-        setShowDetails({});
-    };
-
     const onDetailsChange = (e, category) => {
         dispatch({
             type: 'details_change',
             category,
             payload: { name: e.target.name, description: e.target.value },
         });
+    };
+
+    const submitHandler = (e) => {
+        e.preventDefault();
     };
 
     useEffect(() => {
@@ -56,9 +58,9 @@ export const AddDestination = () => {
 
     const isCityValidated = `${validCity && state.city && styles.validCity}`;
     const isCityInvalidated = `${state.city && !validCity && styles.invalidCity}`;
-
     const isTyping = state.city.length != 0;
-    const gtn = state.details.find((x) => x.category == 'Good to Know');
+
+    const detailSection = state.details.find((x) => x.category == showDetail.category);
 
     return (
         <section>
@@ -129,19 +131,21 @@ export const AddDestination = () => {
                 </div>
 
                 <div className={styles.categoryDetails}>
-                    <span onClick={() => onDetailsClickHandler('goodToKnow')}>Good to Know</span>
-                    <span onClick={() => onDetailsClickHandler('transport')}>Transport</span>
-                    <span onClick={() => onDetailsClickHandler('proTips')}>Pro Tips</span>
-                    <span onClick={() => onDetailsClickHandler('localCustoms')}>Local Customs</span>
+                    <span onClick={() => onDetailsClickHandler('Good to Know')}>Good to Know</span>
+                    <span onClick={() => onDetailsClickHandler('Transport')}>Transport</span>
+                    <span onClick={() => onDetailsClickHandler('Pro Tips')}>Pro Tips</span>
+                    <span onClick={() => onDetailsClickHandler('Local Customs')}>
+                        Local Customs
+                    </span>
                 </div>
 
-                {showDetails.goodToKnow && (
+                {showDetail.category && (
                     <Overlay closeModalHandler={closeDetailWindowHandler}>
-                        <div className={`${styles.details} ${styles.formField}`}>
-                            <h3 className={styles.detailsTitle}>Good to Know</h3>
+                        <h3 className={styles.detailsTitle}>{showDetail.category}</h3>
 
-                            {gtn.info.map((x) => (
-                                <div key={x.name}>
+                        {detailSection.info.map((x) => {
+                            return (
+                                <div className={styles.formField} key={showDetail.category + x.name}>
                                     <label htmlFor={x.name}>{x.title}</label>
                                     <textarea
                                         key={x.name}
@@ -149,80 +153,12 @@ export const AddDestination = () => {
                                         name={x.name}
                                         rows={x.rows}
                                         placeholder="Add information..."
-                                        onChange={(e) => onDetailsChange(e, 'Good to Know')}
+                                        onChange={(e) => onDetailsChange(e, showDetail.category)}
                                         value={x.description}
                                     />
                                 </div>
-                            ))}
-                        </div>
-                    </Overlay>
-                )}
-
-                {showDetails.proTips && (
-                    <Overlay closeModalHandler={closeDetailWindowHandler}>
-                        <div className={`${styles.details} ${styles.formField}`}>
-                            <h3 className={styles.detailsTitle}>Pro Tips</h3>
-                            <label htmlFor="before-you-go">
-                                Any tips you can give about this destination? 😎
-                            </label>
-                            <textarea
-                                id="before-you-go"
-                                rows="25"
-                                placeholder="Add description..."
-                            />
-                        </div>
-                    </Overlay>
-                )}
-
-                {showDetails.localCustoms && (
-                    <Overlay closeModalHandler={closeDetailWindowHandler}>
-                        <div className={`${styles.details} ${styles.formField}`}>
-                            <h3 className={styles.detailsTitle}>Local Customs</h3>
-                            <label htmlFor="drinking">Drinking</label>
-                            <textarea id="drinking" rows="6" placeholder="Add description..." />
-
-                            <label htmlFor="drugs">Drugs</label>
-                            <textarea id="drugs" rows="6" placeholder="Add description..." />
-
-                            <label htmlFor="greetings">Greetings</label>
-                            <textarea id="greetings" rows="6" placeholder="Add description..." />
-
-                            <label htmlFor="personal-space">Personal space</label>
-                            <textarea
-                                id="personal-space"
-                                rows="6"
-                                placeholder="Add description..."
-                            />
-
-                            <label htmlFor="additional-info">Additional info</label>
-                            <textarea
-                                id="additional-info"
-                                rows="6"
-                                placeholder="Add description..."
-                            />
-                        </div>
-                    </Overlay>
-                )}
-                {showDetails.transport && (
-                    <Overlay closeModalHandler={closeDetailWindowHandler}>
-                        <div className={`${styles.details} ${styles.formField}`}>
-                            <h3 className={styles.detailsTitle}>Transport</h3>
-                            <label htmlFor="cycling">Cycling</label>
-                            <textarea id="cycling" rows="6" placeholder="Add description..." />
-
-                            <label htmlFor="public-transport">Train, Tram and Bus</label>
-                            <textarea
-                                id="public-transport"
-                                rows="6"
-                                placeholder="Add description..."
-                            />
-
-                            <label htmlFor="taxis">Taxis</label>
-                            <textarea id="taxis" rows="6" placeholder="Add description..." />
-
-                            <label htmlFor="ridesharing">Rideesharing</label>
-                            <textarea id="ridesharing" rows="6" placeholder="Add description..." />
-                        </div>
+                            );
+                        })}
                     </Overlay>
                 )}
 
