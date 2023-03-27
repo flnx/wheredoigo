@@ -42,7 +42,7 @@ export const AddDestination = () => {
                     />
                 )}
                 <div>
-                    <button type='submit'>Add</button>
+                    <button type="submit">Add</button>
                 </div>
             </form>
         </section>

@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import debounce from 'lodash.debounce';
 import { ArrowCircleRight, MagnifyingGlass, XCircle } from 'phosphor-react';
 
 import { getCityData } from '../../../../../service/data/destinations';
@@ -9,10 +10,25 @@ export const SearchCity = ({ dispatchHandler, state }) => {
     const [showSearchDropdown, setShowSearchDropdown] = useState(false);
     const [validCity, setValidCity] = useState(false);
 
+    const debouncedFunction = useCallback(
+        debounce((city) => fetchData(city), 300),
+        []
+    );
+
     useEffect(() => {
         if (state.city == '') return;
+        if (validCity && validCity.includes(state.city)) return;
 
-        getCityData({ city: state.city }).then((data) => {
+        debouncedFunction(state.city);
+    }, [state.city]);
+
+    const isCityFieldEmpty = state.city.length == 0;
+    const isCityValidated = `${!isCityFieldEmpty && validCity == state.city && styles.validCity}`;
+    const isCityInvalidated = `${!isCityFieldEmpty && !validCity && styles.invalidCity}`;
+
+    async function fetchData(city) {
+        try {
+            const data = await getCityData({ city });
             const cityData = data[0];
 
             if (cityData) {
@@ -20,30 +36,28 @@ export const SearchCity = ({ dispatchHandler, state }) => {
             } else {
                 setValidCity(false);
             }
-        });
-    }, [state.city]);
+        } catch (err) {
+            setValidCity(false);
+        }
+    }
 
-    const onChangeHandler = (e) => {
+    function onChangeHandler(e) {
         dispatchHandler({
             type: 'change',
             payload: { name: e.target.name, value: e.target.value },
         });
-    };
+    }
 
-    const onDropdownCityClickHandler = () => {
+    function onDropdownCityClickHandler() {
         dispatchHandler({
             type: 'change',
             payload: { name: 'city', value: validCity },
         });
-    };
+    }
 
-    const showSearchDropdownHandler = (boolean) => {
+    function showSearchDropdownHandler(boolean) {
         setShowSearchDropdown(boolean);
-    };
-
-    const isCityFieldEmpty = state.city.length == 0;
-    const isCityValidated = `${!isCityFieldEmpty && validCity && styles.validCity}`;
-    const isCityInvalidated = `${!isCityFieldEmpty && !validCity && styles.invalidCity}`;
+    }
 
     return (
         <div className={`${styles.formField} ${styles.cityInput}`}>
