@@ -17,13 +17,13 @@ export const SearchCity = ({ dispatchHandler, state }) => {
 
     useEffect(() => {
         if (state.city == '') return;
-        if (validCity && validCity.includes(state.city)) return;
+        if (validCity.city && validCity.city.includes(state.city)) return;
 
         debouncedFunction(state.city);
     }, [state.city]);
 
     const isCityFieldEmpty = state.city.length == 0;
-    const isCityValidated = `${!isCityFieldEmpty && validCity == state.city && styles.validCity}`;
+    const isCityValidated = `${!isCityFieldEmpty && validCity.city == state.city && styles.validCity}`;
     const isCityInvalidated = `${!isCityFieldEmpty && !validCity && styles.invalidCity}`;
 
     async function fetchData(city) {
@@ -32,7 +32,10 @@ export const SearchCity = ({ dispatchHandler, state }) => {
             const cityData = data[0];
 
             if (cityData) {
-                setValidCity(cityData.name);
+                setValidCity({
+                    city: cityData.name,
+                    country: cityData.country,
+                });
             } else {
                 setValidCity(false);
             }
@@ -51,7 +54,7 @@ export const SearchCity = ({ dispatchHandler, state }) => {
     function onDropdownCityClickHandler() {
         dispatchHandler({
             type: 'change',
-            payload: { name: 'city', value: validCity },
+            payload: { name: 'city', value: validCity.city },
         });
     }
 
@@ -96,7 +99,7 @@ export const SearchCity = ({ dispatchHandler, state }) => {
                             onMouseDown={onDropdownCityClickHandler}
                         >
                             <ArrowCircleRight size={28} />
-                            {'Add ' + validCity}
+                            <p>Add {validCity.city}, {validCity.country}</p>
                         </div>
                     )}
                 </div>
