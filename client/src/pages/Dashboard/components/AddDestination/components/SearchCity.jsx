@@ -11,8 +11,7 @@ export const SearchCity = ({ dispatchHandler, state }) => {
     const [validCity, setValidCity] = useState(false);
 
     const debouncedFunction = useCallback(
-        debounce((city) => fetchData(city), 300),
-        []
+        debounce((city) => fetchData(city), 300), []
     );
 
     useEffect(() => {
@@ -23,7 +22,9 @@ export const SearchCity = ({ dispatchHandler, state }) => {
     }, [state.city]);
 
     const isCityFieldEmpty = state.city.length == 0;
-    const isCityValidated = `${!isCityFieldEmpty && validCity.city == state.city && styles.validCity}`;
+    const isCityValidated = `${
+        !isCityFieldEmpty && validCity.city == state.city && styles.validCity
+    }`;
     const isCityInvalidated = `${!isCityFieldEmpty && !validCity && styles.invalidCity}`;
 
     async function fetchData(city) {
@@ -99,7 +100,9 @@ export const SearchCity = ({ dispatchHandler, state }) => {
                             onMouseDown={onDropdownCityClickHandler}
                         >
                             <ArrowCircleRight size={28} />
-                            <p>Add {validCity.city}, {validCity.country}</p>
+                            <p>
+                                Add {validCity.city}, {validCity.country}
+                            </p>
                         </div>
                     )}
                 </div>
