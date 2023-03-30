@@ -24,16 +24,21 @@ export const UploadImages = () => {
 
     return (
         <div className={styles.formField}>
-            <label htmlFor="description">Upload Images</label>
-            <input
-                type="file"
-                accept="image/*"
-                multiple
-                name="images"
-                id="images"
-                required
-                onChange={handleImageSelect}
-            />
+            <div style={{ marginBottom: '2rem' }}>
+                <label htmlFor="images" className={styles.uploadBtn}>
+                    Upload images
+                </label>
+                <input
+                    className={styles.file}
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    name="images"
+                    id="images"
+                    required
+                    onChange={handleImageSelect}
+                />
+            </div>
 
             <div className={styles.uploadedImages}>
                 {selectedImages.map((img, i) => (

@@ -1,117 +1,135 @@
 .form input,
 .form textarea {
-  padding: 0.2rem 0.23rem;
-  margin: 8px 0;
-  border: 2.25px solid #ccc;
-  outline: none;
+    padding: 0.2rem 0.23rem;
+    margin: 8px 0;
+    border: 2.25px solid #ccc;
+    outline: none;
 }
 
 .form input:focus,
 .form textarea:focus {
-  border: 2.25px solid #a5a4a4;
+    border: 2.25px solid #a5a4a4;
 }
 
 .formField {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
 }
 
 .validCity {
-  border: 2.25px solid #4bb543 !important;
+    border: 2.25px solid #4bb543 !important;
 }
 
 .invalidCity {
-  border: 2.25px solid #ff0000 !important;
+    border: 2.25px solid #ff0000 !important;
 }
 
 .form .categoryDetails {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .categoryDetails > * {
-  flex: 1 1 calc(25% - 1rem);
-  cursor: pointer;
-  text-align: center;
-  padding: 0.35rem 0rem;
-  border: 1px solid var(--text-primary);
-  color: var(--text-primary);
-  font-weight: 600;
-  transition: all 0.08s ease-in-out;
+    flex: 1 1 calc(25% - 1rem);
+    cursor: pointer;
+    text-align: center;
+    padding: 0.35rem 0rem;
+    border: 1px solid var(--text-primary);
+    color: var(--text-primary);
+    font-weight: 600;
+    transition: all 0.08s ease-in-out;
 }
 
 .categoryDetails > *:hover,
 .categoryDetails > *:focus {
-  background: var(--button-hover);
-  color: #fff;
-  border: 1px solid transparent;
+    background: var(--button-hover);
+    color: #fff;
+    border: 1px solid transparent;
 }
 
 .detailsTitle {
-  text-align: center;
-  margin-bottom: 0.75rem;
+    text-align: center;
+    margin-bottom: 0.75rem;
 }
 
 .cityInput {
-  position: relative;
+    position: relative;
 }
 
 .searchDropdown {
-  color: var(--text-links);
-  background-color: var(--app-background-color);
-  border: 1px solid var(--border-gray);
-  border-radius: 5px;
-  position: absolute;
-  bottom: -3.45rem;
-  left: 0;
-  right: 0;
+    color: var(--text-links);
+    background-color: var(--app-background-color);
+    border: 1px solid var(--border-gray);
+    border-radius: 5px;
+    position: absolute;
+    bottom: -3.45rem;
+    left: 0;
+    right: 0;
 }
 
 .searchQuery {
-  cursor: pointer;
-  font-size: 1rem;
-  height: 100%;
-  width: 100%;
-  padding: 1rem 0.25rem;
-  display: flex;
-  gap: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    height: 100%;
+    width: 100%;
+    padding: 1rem 0.25rem;
+    display: flex;
+    gap: 0.5rem;
 }
 
 .uploadedImages {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
 }
 
 .imgContainer {
-  position: relative;
-  cursor: pointer;
-  transition: all 0.25s ease-in-out;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.25s ease-in-out;
 }
 
 .imgContainer:focus,
 .imgContainer:hover {
-  opacity: 0.8;
+    opacity: 0.8;
 }
 
-
 .imgContainer img {
-  width: 100%;
-  aspect-ratio: 1.25/1;
-  object-fit: cover;
-  opacity: 0.95;
-  border-radius: 5px;
+    width: 100%;
+    aspect-ratio: 1.25/1;
+    object-fit: cover;
+    opacity: 0.95;
+    border-radius: 5px;
 }
 
 .uploadedImages .remove {
-  z-index: 1;
-  position: absolute;
-  top: 50%;
-  right: 50%;
-  transform: translate(50%, -50%);
-  color: #fff;
+    z-index: 1;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    color: #fff;
+}
+
+.file {
+    display: none;
+}
+
+.uploadBtn {
+    border-radius: 5px;
+    background: var(--button-primary);
+    color: #fff;
+    font-weight: 700;
+    padding: 0.85rem 2rem;
+    transition: all 0.25s ease-in-out;
+    cursor: pointer;
+}
+
+.uploadBtn:hover,
+.uploadBtn:focus {
+    background: var(--button-hover);
 }
