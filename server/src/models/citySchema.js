@@ -7,7 +7,10 @@ const citySchema = new Schema({
         type: String,
         trim: true,
         lowercase: true,
-        match: [cityCountryRegex(), '"City" should contain only letters, spaces, or hyphens'],
+        match: [
+            cityCountryRegex(),
+            '"City" should contain only letters, spaces, or hyphens',
+        ],
         required: [true, 'City is required'],
         unique: true,
     },

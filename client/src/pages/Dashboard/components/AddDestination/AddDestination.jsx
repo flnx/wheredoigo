@@ -1,4 +1,4 @@
-import { useReducer, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { destinationFormReducer, initialState } from '../../../../utils/destinationReducer';
 
 // Components
@@ -8,6 +8,7 @@ import { Categories } from './components/Categories';
 import { Details } from './components/Details';
 
 import styles from './AddDestination.module.css';
+import { UploadImages } from './components/UploadImages';
 
 export const AddDestination = () => {
     const [state, dispatch] = useReducer(destinationFormReducer, initialState);
@@ -18,8 +19,8 @@ export const AddDestination = () => {
     };
 
     const showDetailHandler = (category) => {
-        setShowDetail(category)
-    }
+        setShowDetail(category);
+    };
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -32,7 +33,8 @@ export const AddDestination = () => {
             <form className={styles.form} onSubmit={submitHandler}>
                 <SearchCity dispatchHandler={dispatchHandler} state={state} />
                 <Description dispatchHandler={dispatchHandler} state={state} />
-                <Categories showDetailHandler={showDetailHandler}/>
+                <UploadImages dispatchHandler={dispatchHandler} />
+                <Categories showDetailHandler={showDetailHandler} />
                 {showDetail.category && (
                     <Details
                         dispatchHandler={dispatchHandler}
@@ -41,7 +43,7 @@ export const AddDestination = () => {
                     />
                 )}
                 <div>
-                    <button type="button">Add</button>
+                    <button type="submit">Add</button>
                 </div>
             </form>
         </section>

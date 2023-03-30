@@ -67,4 +67,13 @@
 - "Categories" are limited to: "goodToKnow", "transport", "localCustoms", "proTips", (might be updated)
 
 # PLACES
+<method: GET>
 - endpoint: /places
+
+# FETCH CITY DATA
+<method: POST>
+
+- endpoint: /destinations/get-city-data
+- JSON Structure: {
+    city: "cityName"
+}
