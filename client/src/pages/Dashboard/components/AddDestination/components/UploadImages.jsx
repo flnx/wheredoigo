@@ -1,25 +1,21 @@
-import { useState } from 'react';
 import styles from '../AddDestination.module.css';
 import { X } from 'phosphor-react';
 
-export const UploadImages = () => {
-    const [selectedImages, setSelectedImages] = useState([]);
-    const [errorMessage, setErrorMessage] = useState('');
-
+export const UploadImages = ({ dispatchHandler, images }) => {
     const handleImageSelect = (e) => {
-        const files = Array.from(e.target.files);
-        const imageFiles = files
-            .filter((file) => file.type.startsWith('image/'))
-            .map((x) => URL.createObjectURL(x));
-
-        setSelectedImages(imageFiles);
+        dispatchHandler({
+            type: 'add_images',
+            payload: {
+                files: Array.from(e.target.files),
+            },
+        });
     };
 
-    const handleDeleteImage = (index) => {
-        const newImages = [...selectedImages];
-        URL.revokeObjectURL(newImages[index]);
-        newImages.splice(index, 1);
-        setSelectedImages(newImages);
+    const handleDeleteImage = (e, index) => {
+        dispatchHandler({
+            index,
+            type: 'delete_image',
+        });
     };
 
     return (
@@ -41,11 +37,11 @@ export const UploadImages = () => {
             </div>
 
             <div className={styles.uploadedImages}>
-                {selectedImages.map((img, i) => (
+                {images.map((img, i) => (
                     <div
                         key={i}
                         className={styles.imgContainer}
-                        onClick={() => handleDeleteImage(i)}
+                        onClick={(ev) => handleDeleteImage(ev, i)}
                     >
                         <img src={img} alt={`image preview ${i}`} />
                         <X size={80} weight="thin" className={styles.remove} />

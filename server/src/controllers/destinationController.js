@@ -38,12 +38,14 @@ exports.destination_details = async (req, res) => {
 };
 
 exports.add_new_destination = async (req, res) => {
-    try {
-        const destination = await addNewDestination(req.body);
-        res.json(destination);
-    } catch (err) {
-        res.status(400).json(handleErrors(err));
-    }
+    console.log(req.body);
+
+    // try {
+    //     const destination = await addNewDestination(req.body);
+    //     res.json(destination);
+    // } catch (err) {
+    //     res.status(400).json(handleErrors(err));
+    // }
 };
 
 exports.get_city_data = async (req, res) => {

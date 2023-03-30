@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useReducer, useState } from 'react';
 import { destinationFormReducer, initialState } from '../../../../utils/destinationReducer';
 
 // Components
@@ -33,7 +33,7 @@ export const AddDestination = () => {
             <form className={styles.form} onSubmit={submitHandler}>
                 <SearchCity dispatchHandler={dispatchHandler} state={state} />
                 <Description dispatchHandler={dispatchHandler} state={state} />
-                <UploadImages dispatchHandler={dispatchHandler} />
+                <UploadImages dispatchHandler={dispatchHandler} images={state.imageUrls} />
                 <Categories showDetailHandler={showDetailHandler} />
                 {showDetail.category && (
                     <Details
