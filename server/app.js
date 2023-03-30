@@ -14,7 +14,8 @@ async function start() {
     // Middlewares
     app.use(cors());
     app.use(express.json());
-    app.use(bodyParserErrorHandler())
+    app.use(bodyParserErrorHandler());
+    app.use(express.urlencoded({ extended: true }));
     // routes init
     routesConfig(app);
 

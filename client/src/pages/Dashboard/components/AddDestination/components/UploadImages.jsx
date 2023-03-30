@@ -13,8 +13,8 @@ export const UploadImages = ({ dispatchHandler, images }) => {
 
     const handleDeleteImage = (e, index) => {
         dispatchHandler({
-            index,
             type: 'delete_image',
+            index,
         });
     };
 
@@ -41,7 +41,7 @@ export const UploadImages = ({ dispatchHandler, images }) => {
                     <div
                         key={i}
                         className={styles.imgContainer}
-                        onClick={(ev) => handleDeleteImage(ev, i)}
+                        onClick={() => handleDeleteImage(i)}
                     >
                         <img src={img} alt={`image preview ${i}`} />
                         <X size={80} weight="thin" className={styles.remove} />

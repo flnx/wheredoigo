@@ -1,5 +1,6 @@
 import { useReducer, useState } from 'react';
 import { destinationFormReducer, initialState } from '../../../../utils/destinationReducer';
+import { createDestination } from '../../../../service/data/destinations';
 
 // Components
 import { SearchCity } from './components/SearchCity';
@@ -24,6 +25,18 @@ export const AddDestination = () => {
 
     const submitHandler = (e) => {
         e.preventDefault();
+
+        const formData = new FormData();
+
+        formData.append('city', state.city);
+        formData.append('country', state.country);
+        formData.append('description', state.description);
+        formData.append('details', state.details);
+        state.imageUrls.forEach((image) => {
+            formData.append('imageUrls', image);
+        });
+
+        createDestination(formData);
     };
 
     const openedDetailsCategory = state.details.find((x) => x.category == showDetail.category);

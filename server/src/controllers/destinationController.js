@@ -40,6 +40,8 @@ exports.destination_details = async (req, res) => {
 exports.add_new_destination = async (req, res) => {
     console.log(req.body);
 
+    res.json([]);
+
     // try {
     //     const destination = await addNewDestination(req.body);
     //     res.json(destination);
