@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styles from '../AddDestination.module.css';
+import { X } from 'phosphor-react';
 
 export const UploadImages = () => {
     const [selectedImages, setSelectedImages] = useState([]);
@@ -21,8 +22,6 @@ export const UploadImages = () => {
         setSelectedImages(newImages);
     };
 
-    console.log(selectedImages);
-
     return (
         <div className={styles.formField}>
             <label htmlFor="description">Upload Images</label>
@@ -36,11 +35,15 @@ export const UploadImages = () => {
                 onChange={handleImageSelect}
             />
 
-            <div>
+            <div className={styles.uploadedImages}>
                 {selectedImages.map((img, i) => (
-                    <div key={i}>
+                    <div
+                        key={i}
+                        className={styles.imgContainer}
+                        onClick={() => handleDeleteImage(i)}
+                    >
                         <img src={img} alt={`image preview ${i}`} />
-                        <button onClick={() => handleDeleteImage(i)}>Delete</button>
+                        <X size={80} weight="thin" className={styles.remove} />
                     </div>
                 ))}
             </div>
