@@ -44,7 +44,7 @@ export const UploadImages = ({ dispatchHandler, images }) => {
                         onClick={() => handleDeleteImage(i)}
                     >
                         <img src={img} alt={`image preview ${i}`} />
-                        <X size={80} weight="thin" className={styles.remove} />
+                        <X size={40} weight="thin" className={styles.remove} />
                     </div>
                 ))}
             </div>

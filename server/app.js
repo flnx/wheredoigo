@@ -5,6 +5,7 @@ const initializeDatabase = require('./src/config/mongoDB');
 const config = require('./src/config/config');
 const routesConfig = require('./src/routes/routes');
 const bodyParserErrorHandler = require('./src/middlewares/bodyParserErrorHandler');
+const { cloudinaryConfig } = require('./src/config/cloudinary');
 
 start();
 
@@ -16,10 +17,10 @@ async function start() {
     app.use(express.json());
     app.use(bodyParserErrorHandler());
     app.use(express.urlencoded({ extended: true }));
-    // routes init
+    
+    cloudinaryConfig()
     routesConfig(app);
-
-    // db init
+    
     await initializeDatabase();
 
     app.listen(config.port, () =>

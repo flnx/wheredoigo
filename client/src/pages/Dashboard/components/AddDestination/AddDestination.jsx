@@ -32,8 +32,10 @@ export const AddDestination = () => {
         formData.append('country', state.country);
         formData.append('description', state.description);
         formData.append('details', state.details);
-        state.imageUrls.forEach((image) => {
-            formData.append('imageUrls', image);
+
+        state.imageUrls.forEach((blob, index) => {
+            const file = new File([blob], `image-${index}.jpg`, { type: 'image/jpeg' });
+            formData.append('imageUrls', file);
         });
 
         createDestination(formData);
