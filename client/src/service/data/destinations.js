@@ -19,6 +19,16 @@ export const getCityData = async (cityData) => {
     return res.data;
 };
 
+export const createDestination = async (destinationData) => {
+    const res = await axios.post(apiEndpoints.addDestination, destinationData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+
+    return res.data;
+};
+
 export const getDestinationsPaginated = async ({ pageParam, queryKey }) => {
     const searchParams = queryKey[2] || '';
 

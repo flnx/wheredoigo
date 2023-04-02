@@ -8,6 +8,8 @@
 - bcrypt
 - jsonwebtoken
 - validator
+- cloudinary
+- multer
 
 # REGISTER
 * endpoint: /register

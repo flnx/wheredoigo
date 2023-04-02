@@ -1,46 +1,50 @@
-import { useState } from 'react';
 import styles from '../AddDestination.module.css';
+import { X } from 'phosphor-react';
 
-export const UploadImages = () => {
-    const [selectedImages, setSelectedImages] = useState([]);
-    const [errorMessage, setErrorMessage] = useState('');
-
+export const UploadImages = ({ dispatchHandler, images }) => {
     const handleImageSelect = (e) => {
-        const files = Array.from(e.target.files);
-        const imageFiles = files
-            .filter((file) => file.type.startsWith('image/'))
-            .map((x) => URL.createObjectURL(x));
-
-        setSelectedImages(imageFiles);
+        dispatchHandler({
+            type: 'add_images',
+            payload: {
+                files: Array.from(e.target.files),
+            },
+        });
     };
 
-    const handleDeleteImage = (index) => {
-        const newImages = [...selectedImages];
-        URL.revokeObjectURL(newImages[index]);
-        newImages.splice(index, 1);
-        setSelectedImages(newImages);
+    const handleDeleteImage = (e, index) => {
+        dispatchHandler({
+            type: 'delete_image',
+            index,
+        });
     };
-
-    console.log(selectedImages);
 
     return (
         <div className={styles.formField}>
-            <label htmlFor="description">Upload Images</label>
-            <input
-                type="file"
-                accept="image/*"
-                multiple
-                name="images"
-                id="images"
-                required
-                onChange={handleImageSelect}
-            />
+            <div style={{ marginBottom: '2rem' }}>
+                <label htmlFor="images" className={styles.uploadBtn}>
+                    Upload images
+                </label>
+                <input
+                    className={styles.file}
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    name="images"
+                    id="images"
+                    required
+                    onChange={handleImageSelect}
+                />
+            </div>
 
-            <div>
-                {selectedImages.map((img, i) => (
-                    <div key={i}>
+            <div className={styles.uploadedImages}>
+                {images.map((img, i) => (
+                    <div
+                        key={i}
+                        className={styles.imgContainer}
+                        onClick={() => handleDeleteImage(i)}
+                    >
                         <img src={img} alt={`image preview ${i}`} />
-                        <button onClick={() => handleDeleteImage(i)}>Delete</button>
+                        <X size={40} weight="thin" className={styles.remove} />
                     </div>
                 ))}
             </div>

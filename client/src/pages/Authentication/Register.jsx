@@ -51,7 +51,7 @@ export const Register = () => {
             const currentError = err.response.data.message;
             let errorMessage;
 
-            if (typeof currentError == 'String') {
+            if (typeof currentError == 'string') {
                 errorMessage = currentError;
             } else {
                 errorMessage = currentError

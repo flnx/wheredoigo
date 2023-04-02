@@ -1,5 +1,6 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useReducer, useState } from 'react';
 import { destinationFormReducer, initialState } from '../../../../utils/destinationReducer';
+import { createDestination } from '../../../../service/data/destinations';
 
 // Components
 import { SearchCity } from './components/SearchCity';
@@ -24,6 +25,20 @@ export const AddDestination = () => {
 
     const submitHandler = (e) => {
         e.preventDefault();
+
+        const formData = new FormData();
+
+        formData.append('city', state.city);
+        formData.append('country', state.country);
+        formData.append('description', state.description);
+        formData.append('details', state.details);
+
+        state.imageUrls.forEach((blob, index) => {
+            const file = new File([blob], `image-${index}.jpg`, { type: 'image/jpeg' });
+            formData.append('imageUrls', file);
+        });
+
+        createDestination(formData);
     };
 
     const openedDetailsCategory = state.details.find((x) => x.category == showDetail.category);
@@ -33,7 +48,7 @@ export const AddDestination = () => {
             <form className={styles.form} onSubmit={submitHandler}>
                 <SearchCity dispatchHandler={dispatchHandler} state={state} />
                 <Description dispatchHandler={dispatchHandler} state={state} />
-                <UploadImages dispatchHandler={dispatchHandler} />
+                <UploadImages dispatchHandler={dispatchHandler} images={state.imageUrls} />
                 <Categories showDetailHandler={showDetailHandler} />
                 {showDetail.category && (
                     <Details

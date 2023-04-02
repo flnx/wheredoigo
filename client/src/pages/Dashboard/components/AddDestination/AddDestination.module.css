@@ -80,3 +80,56 @@
     display: flex;
     gap: 0.5rem;
 }
+
+.uploadedImages {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.imgContainer {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.25s ease-in-out;
+}
+
+.imgContainer:focus,
+.imgContainer:hover {
+    opacity: 0.8;
+}
+
+.imgContainer img {
+    width: 100%;
+    aspect-ratio: 1.25/1;
+    object-fit: cover;
+    opacity: 0.95;
+    border-radius: 5px;
+}
+
+.uploadedImages .remove {
+    z-index: 1;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    color: #fff;
+}
+
+.file {
+    display: none;
+}
+
+.uploadBtn {
+    border-radius: 5px;
+    background: var(--button-primary);
+    color: #fff;
+    font-weight: 700;
+    padding: 0.85rem 2rem;
+    transition: all 0.25s ease-in-out;
+    cursor: pointer;
+}
+
+.uploadBtn:hover,
+.uploadBtn:focus {
+    background: var(--button-hover);
+}

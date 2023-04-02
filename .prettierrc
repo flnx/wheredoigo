@@ -11,6 +11,16 @@
         }
       },
       {
+        "files": "*.css",
+        "options": {
+          "printWidth": 100,
+          "tabWidth": 4,
+          "useTabs": false,
+          "singleQuote": false,
+          "jsxSingleQuote": false
+        }
+      },
+      {
         "files": "*.js",
         "options": {
           "printWidth": 80,

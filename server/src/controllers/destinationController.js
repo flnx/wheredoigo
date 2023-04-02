@@ -1,3 +1,4 @@
+const { cloudinary } = require('../config/cloudinary');
 const {
     getDestinationByPage,
     addNewDestination,
@@ -39,20 +40,40 @@ exports.destination_details = async (req, res) => {
 
 exports.add_new_destination = async (req, res) => {
     try {
-        const destination = await addNewDestination(req.body);
-        res.json(destination);
+        const imageUrls = [];
+        console.log(req.files)
+
+        // for (const image of req.body.imageUrls) {
+        //     const result = await cloudinary.uploader.upload(image);
+
+        //     console.log(result);
+        //     // imageUrls.push(result.secure_url);
+        // }
+
+        // console.log(imageUrls);
+
+        res.json([]);
+
     } catch (err) {
-        res.status(400).json(handleErrors(err));
+        console.log(err);
+        res.status(500).json({ err: 'an error has occured' });
     }
+
+    // try {
+    //     const destination = await addNewDestination(req.body);
+    //     res.json(destination);
+    // } catch (err) {
+    //     res.status(400).json(handleErrors(err));
+    // }
 };
 
 exports.get_city_data = async (req, res) => {
     const { city } = req.body;
 
-    try{
+    try {
         const result = await getCityData(city);
         res.json(result);
-    } catch(err) {
+    } catch (err) {
         return res.status(400).json(handleErrors(err));
     }
 };
