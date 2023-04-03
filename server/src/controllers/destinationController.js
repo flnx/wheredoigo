@@ -1,4 +1,6 @@
 const { cloudinary } = require('../config/cloudinary');
+const streamifier = require('streamifier');
+
 const {
     getDestinationByPage,
     addNewDestination,
@@ -38,35 +40,6 @@ exports.destination_details = async (req, res) => {
     }
 };
 
-exports.add_new_destination = async (req, res) => {
-    try {
-        const imageUrls = [];
-        console.log(req.files)
-
-        // for (const image of req.body.imageUrls) {
-        //     const result = await cloudinary.uploader.upload(image);
-
-        //     console.log(result);
-        //     // imageUrls.push(result.secure_url);
-        // }
-
-        // console.log(imageUrls);
-
-        res.json([]);
-
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({ err: 'an error has occured' });
-    }
-
-    // try {
-    //     const destination = await addNewDestination(req.body);
-    //     res.json(destination);
-    // } catch (err) {
-    //     res.status(400).json(handleErrors(err));
-    // }
-};
-
 exports.get_city_data = async (req, res) => {
     const { city } = req.body;
 
@@ -77,3 +50,40 @@ exports.get_city_data = async (req, res) => {
         return res.status(400).json(handleErrors(err));
     }
 };
+
+exports.add_new_destination = async (req, res) => {
+    console.log(req.files);
+    try {
+        const imageUrls = [];
+
+        for (const file of req.files) {
+            const imageUrl = await uploadImageToCloudinary(file.buffer);
+            imageUrls.push(imageUrl);
+        }
+
+        console.log(imageUrls);
+        res.json([]);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json([]);
+    }
+};
+
+function uploadImageToCloudinary(imageBuffer) {
+    const options = { folder: 'uploads' };
+
+    return new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+            options,
+            (error, result) => {
+                if (result) {
+                    resolve(result);
+                } else {
+                    reject(error);
+                }
+            }
+        );
+
+        streamifier.createReadStream(imageBuffer).pipe(uploadStream);
+    });
+}

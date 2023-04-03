@@ -1,5 +1,10 @@
+const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const config = require('./config');
+
+const storage = multer.memoryStorage();
+
+const upload = multer({ storage: storage }).array('imageUrls', 10);
 
 function cloudinaryConfig() {
     cloudinary.config({
@@ -12,4 +17,5 @@ function cloudinaryConfig() {
 module.exports = {
     cloudinary,
     cloudinaryConfig,
+    upload,
 };

@@ -17,10 +17,10 @@ async function start() {
     app.use(express.json());
     app.use(bodyParserErrorHandler());
     app.use(express.urlencoded({ extended: true }));
-    
-    cloudinaryConfig()
+
+    cloudinaryConfig();
     routesConfig(app);
-    
+
     await initializeDatabase();
 
     app.listen(config.port, () =>
