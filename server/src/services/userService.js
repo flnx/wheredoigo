@@ -24,7 +24,7 @@ async function register({ email, username, password }) {
         email,
         username,
         hashedPassword,
-    });
+    });e
 
     const payload = {
         ownerId: user._id,

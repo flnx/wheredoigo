@@ -26,6 +26,8 @@ export const AddDestination = () => {
     const submitHandler = (e) => {
         e.preventDefault();
 
+        const imagePattern = /^image\/(jpe?g|png|webp)$/i;
+
         const formData = new FormData();
 
         formData.append('city', state.city);
@@ -33,12 +35,31 @@ export const AddDestination = () => {
         formData.append('description', state.description);
         formData.append('details', state.details);
 
-        state.imageUrls.forEach((blob, index) => {
-            const file = new File([blob], `image-${index}.jpg`, { type: 'image/jpeg' });
-            formData.append('imageUrls', file);
-        });
+        state.imageUrls.forEach((url, index) => {
+            fetch(url)
+                .then((res) => res.blob())
+                .then((blob) => {
+                    const contentType = blob.type;
 
-        createDestination(formData);
+                    if (imagePattern.test(contentType) == false) {
+                        return console.log('Only image files are allowed');
+                    }
+
+                    const fileExtension = '.' + contentType.split('/')[1];
+
+                    const file = new File([blob], `image-${index}${fileExtension}`, {
+                        type: contentType,
+                    });
+
+                    console.log(file);
+
+                    formData.append('imageUrls', file);
+                    createDestination(formData);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        });
     };
 
     const openedDetailsCategory = state.details.find((x) => x.category == showDetail.category);
