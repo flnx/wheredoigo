@@ -1,11 +1,10 @@
 const Country = require('../models/countrySchema');
 const Destination = require('../models/destinationSchema');
-
-const capitalizeEachWord = require('../utils/capitalizeWords');
+const { handleImageUploads } = require('../utils/cloudinaryUploader');
 const { matchCityAndCountry } = require('../utils/utils');
 require('dotenv').config();
 
-async function getDestinationByPage(page, limit, searchParams) {
+async function getByPage(page, limit, searchParams) {
     let regex = new RegExp(searchParams, 'i');
 
     const destination = await Destination.aggregate([
@@ -37,20 +36,31 @@ async function getDestinationByPage(page, limit, searchParams) {
     return destination;
 }
 
-async function getDestinationById(destinationId) {
+async function getById(destinationId) {
     return Destination.findById(destinationId)
         .populate('country')
         .lean()
         .exec();
 }
 
-async function addNewDestination(data) {
+async function create(data, images) {
+    const imageUrls = [];
+    let imgError = null;
+
+    try {
+        const cloudinaryImagesData = await handleImageUploads(images);
+
+        cloudinaryImagesData.forEach((x) => imageUrls.push(x.url));
+    } catch (err) {
+        imgError = err;
+    }
+
     const destinationData = {
         city: data.city,
         country: data.country,
         description: data.description,
         details: data.details || [],
-        imageUrls: data.imageUrls || [],
+        imageUrls,
     };
 
     const isFieldEmpty = Object.values(destinationData).some((x) => !x);
@@ -61,7 +71,6 @@ async function addNewDestination(data) {
     }
 
     const countryName = data.country.toLowerCase();
-
     let country = await Country.findOne({ name: countryName }).exec();
 
     if (!country) {
@@ -77,8 +86,8 @@ async function addNewDestination(data) {
         _id: destination._id,
     };
 }
-//
-async function getCityData(city) {
+
+async function fetchCity(city) {
     if (!city) {
         throw new Error('Invalid city data');
     }
@@ -97,8 +106,8 @@ async function getCityData(city) {
 }
 
 module.exports = {
-    getDestinationByPage,
-    addNewDestination,
-    getDestinationById,
-    getCityData,
+    getByPage,
+    create,
+    getById,
+    fetchCity,
 };

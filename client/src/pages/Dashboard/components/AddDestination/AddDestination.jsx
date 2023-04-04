@@ -23,11 +23,10 @@ export const AddDestination = () => {
         setShowDetail(category);
     };
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
 
         const imagePattern = /^image\/(jpe?g|png|webp)$/i;
-
         const formData = new FormData();
 
         formData.append('city', state.city);
@@ -35,31 +34,29 @@ export const AddDestination = () => {
         formData.append('description', state.description);
         formData.append('details', state.details);
 
-        state.imageUrls.forEach((url, index) => {
-            fetch(url)
-                .then((res) => res.blob())
-                .then((blob) => {
-                    const contentType = blob.type;
+        for (let [index, url] of state.imageUrls.entries()) {
+            try {
+                const res = await fetch(url);
+                const blob = await res.blob();
+                const contentType = blob.type;
 
-                    if (imagePattern.test(contentType) == false) {
-                        return console.log('Only image files are allowed');
-                    }
+                if (!imagePattern.test(contentType)) {
+                    console.log('Only image files are allowed');
+                    continue;
+                }
 
-                    const fileExtension = '.' + contentType.split('/')[1];
-
-                    const file = new File([blob], `image-${index}${fileExtension}`, {
-                        type: contentType,
-                    });
-
-                    console.log(file);
-
-                    formData.append('imageUrls', file);
-                    createDestination(formData);
-                })
-                .catch((error) => {
-                    console.log(error);
+                const fileExtension = '.' + contentType.split('/')[1];
+                const file = new File([blob], `image-${index}${fileExtension}`, {
+                    type: contentType,
                 });
-        });
+
+                formData.append('imageUrls', file);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        createDestination(formData);
     };
 
     const openedDetailsCategory = state.details.find((x) => x.category == showDetail.category);

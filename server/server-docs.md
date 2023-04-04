@@ -10,6 +10,7 @@
 - validator
 - cloudinary
 - multer
+- streamifier
 
 # REGISTER
 * endpoint: /register
@@ -79,3 +80,21 @@
 - JSON Structure: {
     city: "cityName"
 }
+
+# A cloud-based image management service - Cloudinary and Image Handling
+### Info:
+- Acepts an array of files as input and returns an array of image URLs which represents the URLs of the uploaded images in Cloudinary.
+
+1. The "Destination/Places" controller looks for "imageUrls" in req.files to check if there's images. 
+
+2. The server passes the destination or place data along with the image files.
+
+3. The model controllers pass the images files to another function that handles the images: <handleImageUploads>
+    - The function iterates through the array of files using a for loop and calls the <uploadImageToCloudinary function for each file>. 
+    
+    - The <uploadImageToCloudinary function returns a Promise>, which resolves with the uploaded image URL if the upload is successful, and rejects with an error message if the upload fails.
+    - takes an image buffer as input, which represents the binary data of the image. 
+    - It then sets an options object with a folder path where the uploaded image will be stored in Cloudinary. 
+    - The function then returns a new Promise, which creates a read stream from the image buffer using the streamifier module, and pipes it to the Cloudinary uploader. 
+    - The uploader sends the image to Cloudinary, and when the upload is complete, it either resolves or rejects the Promise based on the success of the upload.
+    - In summary, the given code provides functionality to upload images to Cloudinary, making use of Promises and the streamifier and cloudinary modules. It can be integrated into any Node.js project that requires image uploading to Cloudinary.
