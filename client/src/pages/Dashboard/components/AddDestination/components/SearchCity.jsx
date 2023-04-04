@@ -22,9 +22,7 @@ export const SearchCity = ({ dispatchHandler, state }) => {
     }, [state.city]);
 
     const isCityFieldEmpty = state.city.length == 0;
-    const isCityValidated = `${
-        !isCityFieldEmpty && validCity.city == state.city && styles.validCity
-    }`;
+    const isCityValidated = `${!isCityFieldEmpty && validCity.city == state.city && styles.validCity}`;
     const isCityInvalidated = `${!isCityFieldEmpty && !validCity && styles.invalidCity}`;
 
     async function fetchData(city) {

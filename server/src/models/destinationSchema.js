@@ -42,7 +42,6 @@ const destinationSchema = new Schema({
                     description: {
                         type: String,
                         trim: true,
-                        required: true,
                     },
                 },
             ],

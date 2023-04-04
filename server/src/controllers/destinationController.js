@@ -1,10 +1,6 @@
-const {
-    getByPage,
-    create,
-    getById,
-    fetchCity,
-} = require('../services/destinationService');
+const { getByPage, create, getById } = require('../services/destinationService');
 const { getDestinationPlaces } = require('../services/placeService');
+const { fetchCity } = require('../service.js/data');
 const handleErrors = require('../utils/errorHandler');
 
 exports.paginated_destinations = async (req, res) => {
@@ -51,9 +47,9 @@ exports.add_new_destination = async (req, res) => {
     try {
         const destinationInfo = req.body;
         const images = req.files;
-        
         const result = await create(destinationInfo, images);
-        res.json([]);
+
+        res.json(result);
     } catch (error) {
         console.log(error);
         res.status(500).json([]);

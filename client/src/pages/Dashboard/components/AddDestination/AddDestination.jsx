@@ -26,13 +26,15 @@ export const AddDestination = () => {
     const submitHandler = async (e) => {
         e.preventDefault();
 
+        console.log(state.details);
+
         const imagePattern = /^image\/(jpe?g|png|webp)$/i;
         const formData = new FormData();
 
         formData.append('city', state.city);
         formData.append('country', state.country);
         formData.append('description', state.description);
-        formData.append('details', state.details);
+        formData.append('details', JSON.stringify(state.details));
 
         for (let [index, url] of state.imageUrls.entries()) {
             try {
@@ -56,7 +58,7 @@ export const AddDestination = () => {
             }
         }
 
-        createDestination(formData);
+        await createDestination(formData);
     };
 
     const openedDetailsCategory = state.details.find((x) => x.category == showDetail.category);
