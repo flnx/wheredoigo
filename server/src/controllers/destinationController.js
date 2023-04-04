@@ -50,8 +50,7 @@ exports.add_new_destination = async (req, res) => {
         const result = await create(destinationInfo, images);
 
         res.json(result);
-    } catch (error) {
-        console.log(error);
-        res.status(500).json([]);
+    } catch (err) {
+        return res.status(400).json(handleErrors(err));
     }
 };

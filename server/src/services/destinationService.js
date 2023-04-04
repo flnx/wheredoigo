@@ -90,6 +90,8 @@ async function create(data, images) {
         imgError = err;
     }
 
+    console.log(imgError);
+
     destination.imageUrls = imageUrls;
     await destination.save();
 

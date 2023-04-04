@@ -1,6 +1,7 @@
 import { useReducer, useState } from 'react';
 import { destinationFormReducer, initialState } from '../../../../utils/destinationReducer';
 import { createDestination } from '../../../../service/data/destinations';
+import { useNavigate } from 'react-router-dom';
 
 // Components
 import { SearchCity } from './components/SearchCity';
@@ -14,6 +15,8 @@ import { UploadImages } from './components/UploadImages';
 export const AddDestination = () => {
     const [state, dispatch] = useReducer(destinationFormReducer, initialState);
     const [showDetail, setShowDetail] = useState({ category: null });
+    const [errorMessage, setErrorMessage] = useState(false);
+    const navigate = useNavigate();
 
     const dispatchHandler = (actions) => {
         dispatch(actions);
@@ -57,8 +60,13 @@ export const AddDestination = () => {
                 console.log(error);
             }
         }
-
-        await createDestination(formData);
+        try {
+            const result = await createDestination(formData);
+            navigate(`/destinations/${result._id}`);
+        } catch(err) {
+            const msg = err.response.data || err.message;
+            setErrorMessage(msg);
+        }
     };
 
     const openedDetailsCategory = state.details.find((x) => x.category == showDetail.category);
@@ -77,6 +85,9 @@ export const AddDestination = () => {
                         openedDetailsCategory={openedDetailsCategory}
                     />
                 )}
+                <div>
+                    {errorMessage && errorMessage}
+                </div>
                 <div>
                     <button type="submit">Add</button>
                 </div>

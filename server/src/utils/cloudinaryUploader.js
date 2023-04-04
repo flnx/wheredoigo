@@ -4,8 +4,9 @@ const streamifier = require('streamifier');
 const options = {
     folder: 'uploads',
     transformation: [
-        { width: 1200, height: 800, crop: 'fit' },
-        { quality: 'auto:good', fetch_format: 'auto' },
+        { width: '2000', height: '1312', crop: "limit" },
+        { quality: 'auto:best', fetch_format: 'auto' },
+        { dpr: 'auto' },
     ],
 };
 
