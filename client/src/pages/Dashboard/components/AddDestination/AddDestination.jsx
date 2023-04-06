@@ -1,7 +1,8 @@
 import { useReducer, useState } from 'react';
-import { destinationFormReducer, initialState } from '../../../../utils/destinationReducer';
-import { createDestination } from '../../../../service/data/destinations';
 import { useNavigate } from 'react-router-dom';
+import { useAddNewDestination } from '../../../../hooks/queries/useAddDestination';
+import { UploadImages } from './components/UploadImages';
+import { destinationFormReducer, initialState } from '../../../../utils/destinationReducer';
 
 // Components
 import { SearchCity } from './components/SearchCity';
@@ -10,13 +11,17 @@ import { Categories } from './components/Categories';
 import { Details } from './components/Details';
 
 import styles from './AddDestination.module.css';
-import { UploadImages } from './components/UploadImages';
 
 export const AddDestination = () => {
+    const [createDestination, createError, isLoading] = useAddNewDestination();
     const [state, dispatch] = useReducer(destinationFormReducer, initialState);
     const [showDetail, setShowDetail] = useState({ category: null });
     const [errorMessage, setErrorMessage] = useState(false);
     const navigate = useNavigate();
+
+    if (createError) {
+        console.log(createError.response.data || createError.message);
+    }
 
     const dispatchHandler = (actions) => {
         dispatch(actions);
@@ -29,10 +34,12 @@ export const AddDestination = () => {
     const submitHandler = async (e) => {
         e.preventDefault();
 
-        console.log(state.details);
+        if (isLoading) {
+            return;
+        }
 
-        const imagePattern = /^image\/(jpe?g|png|webp)$/i;
         const formData = new FormData();
+        const imagePattern = /^image\/(jpe?g|png|webp)$/i;
 
         formData.append('city', state.city);
         formData.append('country', state.country);
@@ -60,13 +67,12 @@ export const AddDestination = () => {
                 console.log(error);
             }
         }
-        try {
-            const result = await createDestination(formData);
-            navigate(`/destinations/${result._id}`);
-        } catch(err) {
-            const msg = err.response.data || err.message;
-            setErrorMessage(msg);
-        }
+
+        createDestination(formData, {
+            onSuccess: (newDestination) => {
+                console.log(newDestination);
+            },
+        });
     };
 
     const openedDetailsCategory = state.details.find((x) => x.category == showDetail.category);
@@ -85,11 +91,11 @@ export const AddDestination = () => {
                         openedDetailsCategory={openedDetailsCategory}
                     />
                 )}
+                <div>{errorMessage && errorMessage}</div>
                 <div>
-                    {errorMessage && errorMessage}
-                </div>
-                <div>
-                    <button type="submit">Add</button>
+                    <button disabled={isLoading} className={styles.btn} type="submit">
+                        Add
+                    </button>
                 </div>
             </form>
         </section>

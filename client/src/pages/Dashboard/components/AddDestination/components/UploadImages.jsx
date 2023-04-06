@@ -21,7 +21,7 @@ export const UploadImages = ({ dispatchHandler, images }) => {
     return (
         <div className={styles.formField}>
             <div style={{ marginBottom: '2rem' }}>
-                <label htmlFor="images" className={styles.uploadBtn}>
+                <label htmlFor="images" className={styles.btn}>
                     Upload images
                 </label>
                 <input
