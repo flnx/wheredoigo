@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { cityCountryRegex } = require('../utils/utils');
 const Schema = mongoose.Schema;
 
 const destinationSchema = new Schema({
@@ -12,11 +11,7 @@ const destinationSchema = new Schema({
         type: String,
         trim: true,
         lowercase: true,
-        required: [true, 'City is required'],
-        match: [
-            cityCountryRegex(),
-            '"City" should contain only letters, spaces, or hyphens',
-        ],
+        required: [true, 'City is required']
     },
     description: {
         type: String,

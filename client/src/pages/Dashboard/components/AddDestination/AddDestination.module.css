@@ -21,7 +21,7 @@
     border: 2.25px solid #4bb543 !important;
 }
 
-.invalidCity {
+.error {
     border: 2.25px solid #ff0000 !important;
 }
 
@@ -70,6 +70,7 @@
     bottom: -3.45rem;
     left: 0;
     right: 0;
+    z-index: 1;
 }
 
 .searchQuery {
@@ -80,6 +81,10 @@
     padding: 1rem 0.25rem;
     display: flex;
     gap: 0.5rem;
+}
+
+.description {
+    position: relative;
 }
 
 .uploadedImages {
@@ -134,4 +139,13 @@
 .btn:hover,
 .btn:focus {
     background: var(--button-hover);
+}
+
+.errorMessage {
+    position: absolute;
+    text-align: center;
+    bottom: -1rem;
+    left: 0;
+    right: 0;
+    color: #ff0000;
 }
