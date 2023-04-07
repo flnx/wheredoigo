@@ -12,7 +12,13 @@ import styles from './Home.module.css';
 export const Home = () => {
     const { isLoading, error, data: destinations } = useDestinations();
 
-    if (isLoading) return;
+    if (isLoading) 'Fetching Data...';
+
+    if (error) {
+        return <h1>A Server Error has Occured... Please try again alater.</h1>
+        // Add error handling later
+    }
+
 
     return (
         <>

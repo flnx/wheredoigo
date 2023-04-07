@@ -1,6 +1,6 @@
-const City = require('../models/citySchema');
 const Place = require('../models/placeSchema');
 const capitalizeEachWord = require('../utils/capitalizeWords');
+const Destination = require('../models/destinationSchema');
 
 async function getPlaceById(placeId) {
     const place = await Place.findById(placeId).lean().exec();
@@ -21,13 +21,16 @@ async function getDestinationPlaces(destinationId) {
 }
 
 async function addNewPlace(data) {
+    const { destinationId, description, type, name } = data;
+
     const placeData = {
-        destinationId: data.destinationId,
-        country: data.country,
-        description: data.description,
-        place: data.place,
-        imageUrls: data.imageUrls || [],
+        destinationId,
+        description,
+        type,
+        name,
     };
+
+    return [];
 
     const isFieldEmpty = Object.values(placeData).some((x) => !x);
 
@@ -35,21 +38,19 @@ async function addNewPlace(data) {
         throw new Error('All fields are required!');
     }
 
-    let city = await City.findOne({
-        city: { $regex: new RegExp(data.city, 'i') },
-    }).exec();
+    const place = await Place.find({ destinationId }).lean().exec();
 
-    if (!city) {
-        city = await City.create({ name: data.city });
+    if (!place) {
+        throw new Error('Please enter a valid Place ID...')
     }
 
-    const place = await Place.create({
-        ...placeData
-    });
+    // const place = await Place.create({
+    //     ...placeData
+    // });
 
-    return {
-        _id: place._id,
-    };
+    // return {
+    //     _id: place._id,
+    // };
 }
 
 module.exports = {

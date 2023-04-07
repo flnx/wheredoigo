@@ -7,15 +7,23 @@ const placeSchema = new Schema({
         required: [true, 'Destination id required!'],
         ref: 'Destination',
     },
+    name: {
+        type: String,
+        trim: true,
+        lowercase: true,
+        required: [true, 'Place name is required!'],
+    },
     country: {
-        type: Schema.Types.ObjectId,
-        required: [true, 'Country ID required!'],
-        ref: 'Country',
+        type: String,
+        trim: true,
+        lowercase: true,
+        required: [true, 'Country is required!'],
     },
     city: {
-        type: Schema.Types.ObjectId,
-        required: [true, 'Country ID required!'],
-        ref: 'City',
+        type: String,
+        trim: true,
+        lowercase: true,
+        required: [true, 'City is required!'],
     },
     description: {
         type: String,
@@ -29,19 +37,13 @@ const placeSchema = new Schema({
         enum: ['Explore', 'Eat', 'Party'],
         required: [true, 'Type is required'],
     },
-    place: {
-        type: String,
-        trim: true,
-        lowercase: true,
-        required: [true, 'Place name is required!'],
-    },
     imageUrls: {
         type: [String],
     },
 });
 
 placeSchema.index(
-    { place: 1, destinationId: 1 },
+    { name: 1, destinationId: 1 },
     { unique: true, collation: { locale: 'en', strength: 2 } }
 );
 
