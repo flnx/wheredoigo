@@ -14,82 +14,97 @@
 - streamifier
 
 ### REGISTER
+- Endpoint (POST): /register
 
-- Endpoint: /register
-  <POST Request>
+{
+    email: "test",
+    password: "test",
+    username: "test",
+}
 
-* Email: Valid and unique email address
-* Password: At least 6 characters long
-* Username: At least 2 characters long and must contain only letters and numbers
+1. Email: Valid and Unique
+2. Password: At least 6 characters long
+3. Username: At least 2 characters long and must contain only letters and numbers
 
 ### LOGIN
+- Endpoint (POST): /login
 
-- endpoint: /login
-  <method: POST>
+  {
+    email: "test",
+    password: "test",
+  }
 
-* Valid Email & Password
+1. Email: Valid and Unique
+2. Password: At least 6 characters long and valid
 
 ### DESTINATIONS
+- Endpoint (GET): /destinations
 
-- endpoint: /destinations
-
-<method: GET>
-
-- returns max 9 destinations
-
-* in order too get less than 9 results use limit
+1. Returns max 9 destinations
+2. In order too get less than 9 results use limit
   - query: limit
   - example: destinations?limit=5
-* in order to achieve <PAGINATION>, use page query
+3. in order to achieve PAGINATION, use page query
   - query: page
   - example: /destinations?page=3
-* to combine them:
+4. to combine them:
   - destinations?page=3&limit=4
 
-<method: POST> - endpoint: /destinations - JSON Structure:
+
+### CREATE DESTINATION (Granted Accesss)
+- Endpoint (POST):
+
+1. JSON Info: 
+ - country: It will be automatically created on the backend after checking the city
+ - city: (required and valid)
+ - description: (required and at least 10 characters long)
+ - details: not required but it will be automatically created on the client with empty fields for each category
+ - imageUrls: At least 3 images (blobs). The server will upload them to cloudinary and store the URLS for each Image (compressed).
+ 
+
+2. Allowed Categories: (Might be Updated in Future)
+ - Good to Know
+ - Transport
+ - Local Customs
+ - Pro Tips
+
 {
-"country": "test",
-"city": "test",
-"description": "test",
-"details": [
-{
-"category": "test",
-"title": "test",
-"description": "test!",
+    country: "",
+    city: "",
+    description: "",
+    details: [
+        {
+            category: "Transport",
+            info: [
+                {
+                    title: "",
+                    description: "",
+                },
+                {
+                    title: "",
+                    description: "",
+                },
+                ...
+            ],
+        },
+        ..More Categories (if needed)
+    ],
+    imageUrls: [file1, file2, file3...] // the server will return urls,
 }
-],
-"imageUrls": [
-"https://test.com",
-"https://test2.com"
-],
-}
 
-- If the country does not exist the server will create it and append its id to the destination
-- Countries and cities must contain only letters, single spaces or single dashes "-"
-- all fields are required except "details"
-  - "Details" fields must be objects which have the following props: "category", "title", "description"
-  - You can have multiple objects in details
-- "imageUrls" is an array of strings. The strings must be valid urls.
-- "Categories" are limited to: "goodToKnow", "transport", "localCustoms", "proTips", (might be updated)
 
-### PLACES
-
-<method: GET>
-
-- endpoint: /places
+### CREATE PLACE
+- Endpoint (POST): /places
 
 ### FETCH CITY DATA
 
-<method: POST>
+- Endpoint (POST): /destinations/get-city-data
 
-- endpoint: /destinations/get-city-data
-- JSON Structure: {
-  city: "cityName"
+1. {
+     city: "cityName"
   }
 
 ### A cloud-based image management service - Cloudinary and Image Handling
-
-#### Info:
 
 - Acepts an array of files as input and returns an array of image URLs which represents the URLs of the uploaded images in Cloudinary.
 
