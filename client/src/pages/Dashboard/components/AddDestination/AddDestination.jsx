@@ -78,9 +78,9 @@ export const AddDestination = () => {
                 <SearchCity
                     city={state.city}
                     dispatchHandler={dispatchHandler}
-                    inputErrorClass={inputErrorClass}
                     validateCityHandler={validateCityHandler}
                     validCity={validCity}
+                    inputErrorClass={inputErrorClass}
                     errorMessages={errorMessages}
                 />
                 <Description

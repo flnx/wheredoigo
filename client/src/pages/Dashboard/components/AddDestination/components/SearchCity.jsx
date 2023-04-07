@@ -6,11 +6,18 @@ import { getCityData } from '../../../../../service/data/destinations';
 
 import styles from '../AddDestination.module.css';
 
-export const SearchCity = ({ dispatchHandler, city, validCity, validateCityHandler }) => {
+export const SearchCity = ({
+    dispatchHandler,
+    city,
+    validCity,
+    validateCityHandler,
+    errorMessages,
+}) => {
     const [showSearchDropdown, setShowSearchDropdown] = useState(false);
 
     const debouncedFunction = useCallback(
-        debounce((city) => fetchData(city), 300), []
+        debounce((city) => fetchData(city), 300),
+        []
     );
 
     useEffect(() => {
@@ -19,8 +26,6 @@ export const SearchCity = ({ dispatchHandler, city, validCity, validateCityHandl
 
         debouncedFunction(city);
     }, [city]);
-
-
 
     async function fetchData(city) {
         try {
@@ -57,10 +62,15 @@ export const SearchCity = ({ dispatchHandler, city, validCity, validateCityHandl
     function showSearchDropdownHandler(boolean) {
         setShowSearchDropdown(boolean);
     }
-        
+
     const isCityFieldEmpty = city.length == 0;
-    const isCityValidated = `${!isCityFieldEmpty && validCity.city?.toLowerCase() == city?.toLowerCase() && styles.validCity}`;
-    const isCityInvalidated = `${!isCityFieldEmpty && !validCity && styles.error}`;
+    const isCityValidated =
+        !isCityFieldEmpty && validCity.city?.toLowerCase() == city?.toLowerCase()
+            ? `${styles.validCity}`
+            : null;
+    const isCityInvalidated = !isCityFieldEmpty && !isCityValidated ? `${styles.error}` : null;
+
+    const error = errorMessages.find((e) => e.includes('city'));
 
     return (
         <div className={`${styles.formField} ${styles.cityInput}`}>
@@ -77,6 +87,7 @@ export const SearchCity = ({ dispatchHandler, city, validCity, validateCityHandl
                 value={city}
                 className={`${isCityValidated} ${isCityInvalidated}`}
             />
+            {error && !isCityValidated && <span className={styles.errorMessage}>{error}</span>}
             {showSearchDropdown && (
                 <div className={styles.searchDropdown}>
                     {isCityFieldEmpty && (
@@ -99,7 +110,9 @@ export const SearchCity = ({ dispatchHandler, city, validCity, validateCityHandl
                             onMouseDown={onDropdownCityClickHandler}
                         >
                             <ArrowCircleRight size={28} />
-                            <p>Add {validCity.city}, {validCity.country}</p>
+                            <p>
+                                Add {validCity.city}, {validCity.country}
+                            </p>
                         </div>
                     )}
                 </div>
