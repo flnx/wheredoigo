@@ -64,10 +64,7 @@ export const SearchCity = ({
     }
 
     const isCityFieldEmpty = city.length == 0;
-    const isCityValidated =
-        !isCityFieldEmpty && validCity.city?.toLowerCase() == city?.toLowerCase()
-            ? `${styles.validCity}`
-            : null;
+    const isCityValidated = !isCityFieldEmpty && validCity.city?.toLowerCase() == city?.toLowerCase() ? `${styles.validField}` : null;
     const isCityInvalidated = !isCityFieldEmpty && !isCityValidated ? `${styles.error}` : null;
 
     const error = errorMessages.find((e) => e.includes('city'));

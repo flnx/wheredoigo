@@ -22,11 +22,7 @@ export const AddDestination = () => {
     const [validCity, setValidCity] = useState(false);
 
     const navigate = useNavigate();
-
-    if (createError) {
-        console.log(createError.response.data || createError.message);
-    }
-
+    
     const dispatchHandler = (actions) => {
         dispatch(actions);
     };
@@ -80,7 +76,6 @@ export const AddDestination = () => {
                     dispatchHandler={dispatchHandler}
                     validateCityHandler={validateCityHandler}
                     validCity={validCity}
-                    inputErrorClass={inputErrorClass}
                     errorMessages={errorMessages}
                 />
                 <Description

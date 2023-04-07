@@ -11,6 +11,10 @@ export const Description = ({ dispatchHandler, state, inputErrorClass, errorMess
     const error = errorMessages.find((e) => e.includes('Description'));
     const errorClass = inputErrorClass('description');
 
+    const minChars = state.description.length;
+    const validClass = minChars >= 10 ? styles.validField : styles[errorClass];
+    const isValidActive = error && !validClass.includes('valid');
+
     return (
         <>
             <div className={`${styles.formField} ${styles.description}`}>
@@ -22,9 +26,9 @@ export const Description = ({ dispatchHandler, state, inputErrorClass, errorMess
                     placeholder="Add destination description..."
                     value={state.description}
                     onChange={onChangeHandler}
-                    className={styles[errorClass]}
+                    className={validClass}
                 />
-                {error && <span className={styles.errorMessage}>{error}</span>}
+                {minChars != 0 && isValidActive && <span className={styles.errorMessage}>{error}</span>}
             </div>
         </>
     );
