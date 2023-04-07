@@ -12,19 +12,18 @@ import styles from './Home.module.css';
 export const Home = () => {
     const { isLoading, error, data: destinations } = useDestinations();
 
-    if (isLoading) 'Fetching Data...';
+    if (isLoading) return 'Fetching Data...';
 
     if (error) {
         return <h1>A Server Error has Occured... Please try again alater.</h1>
         // Add error handling later
     }
 
-
     return (
         <>
             <Showcase />
             <div className={styles.grid}>
-                <CitiesSlider destinations={destinations} />
+                <CitiesSlider destinations={destinations || []} />
                 <Categories />
                 <Destinations />
                 <Intro />

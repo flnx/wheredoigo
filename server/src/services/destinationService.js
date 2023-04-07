@@ -72,7 +72,7 @@ async function create(data, images) {
     if (!country) {
         country = await Country.create({ name: countryName });
     }
-  
+
     const destination = await Destination.create({
         ...destinationData,
         country: country._id,
@@ -89,8 +89,6 @@ async function create(data, images) {
     } catch (err) {
         imgError = err;
     }
-
-    console.log(imgError);
 
     destination.imageUrls = imageUrls;
     await destination.save();

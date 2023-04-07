@@ -20,9 +20,14 @@ export const AddDestination = () => {
     const [showDetail, setShowDetail] = useState({ category: null });
     const [errorMessages, setErrorMessages] = useState([]);
     const [validCity, setValidCity] = useState(false);
+    const [serverError, setServerError] = useState(false);
 
     const navigate = useNavigate();
-    
+
+    if (createError) {
+        // setServerError(createError.response?.data || createError?.message)
+    }
+
     const dispatchHandler = (actions) => {
         dispatch(actions);
     };
@@ -49,7 +54,7 @@ export const AddDestination = () => {
             return;
         }
 
-        const formData = createFormData(state);
+        const formData = await createFormData(state);
 
         createDestination(formData, {
             onSuccess: (newDestination) => {
@@ -67,9 +72,11 @@ export const AddDestination = () => {
     };
 
     const openedDetailsCategory = state.details.find((x) => x.category == showDetail.category);
+    const errorMessage = createError?.response?.data || createError?.message;
 
     return (
         <section>
+            {createError && <span class={styles.serverError}>{errorMessage}</span>}
             <form className={styles.form} onSubmit={submitHandler}>
                 <SearchCity
                     city={state.city}

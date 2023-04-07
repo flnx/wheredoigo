@@ -149,3 +149,14 @@
     right: 0;
     color: #ff0000;
 }
+
+.serverError {
+    position: absolute;
+    left: 0;
+    right: 0;
+    color: #ff0000;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 1rem;
+}

@@ -1,8 +1,4 @@
-const {
-    getByPage,
-    create,
-    getById,
-} = require('../services/destinationService');
+const { getByPage, create, getById} = require('../services/destinationService');
 const { getDestinationPlaces } = require('../services/placeService');
 const { fetchCity } = require('../service.js/data');
 const handleErrors = require('../utils/errorHandler');
@@ -10,12 +6,10 @@ const handleErrors = require('../utils/errorHandler');
 exports.paginated_destinations = async (req, res) => {
     const page = parseInt(req.query.page) || 0;
     const limit = 9;
-
     const search = req.query.search;
-
+    
     try {
         const destinations = await getByPage(page, limit, search);
-
         res.json(destinations);
     } catch (err) {
         res.status(400).json(handleErrors(err));
@@ -49,12 +43,11 @@ exports.get_city_data = async (req, res) => {
 
 exports.add_new_destination = async (req, res) => {
     try {
-        // const destinationInfo = req.body;
-        // const images = req.files;
-        // const result = await create(destinationInfo, images);
-        setTimeout(() => {
-            res.json({ test: "who said 'yee claw' " });
-        }, 2000);
+        const destinationInfo = req.body;
+        const images = req.files;
+        const destination = await create(destinationInfo, images);
+
+        return res.json(destination);
     } catch (err) {
         return res.status(400).json(handleErrors(err));
     }
