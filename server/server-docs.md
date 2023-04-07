@@ -12,21 +12,21 @@
 - multer
 - streamifier
 
-# REGISTER
-* endpoint: /register
-<method: POST>
+### REGISTER
+* Endpoint: /register
+METHOD: POST
 
 - Email: Valid and unique email address
 - Password: At least 6 characters long
 - Username: At least 2 characters long and must contain only letters and numbers
 
-# LOGIN
+### LOGIN
 * endpoint: /login
 <method: POST>
 
 - Valid Email & Password
 
-# DESTINATIONS
+### DESTINATIONS
 * endpoint: /destinations
 
 <method: GET>
@@ -69,11 +69,11 @@
 - "imageUrls" is an array of strings. The strings must be valid urls.
 - "Categories" are limited to: "goodToKnow", "transport", "localCustoms", "proTips", (might be updated)
 
-# PLACES
+### PLACES
 <method: GET>
 - endpoint: /places
 
-# FETCH CITY DATA
+### FETCH CITY DATA
 <method: POST>
 
 - endpoint: /destinations/get-city-data
@@ -81,8 +81,8 @@
     city: "cityName"
 }
 
-# A cloud-based image management service - Cloudinary and Image Handling
-### Info:
+### A cloud-based image management service - Cloudinary and Image Handling
+#### Info:
 - Acepts an array of files as input and returns an array of image URLs which represents the URLs of the uploaded images in Cloudinary.
 
 1. The "Destination/Places" controller looks for "imageUrls" in req.files to check if there's images. 
