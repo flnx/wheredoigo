@@ -1,22 +1,33 @@
 import { useReducer } from 'react';
+import { useAddNewPlace } from '../../hooks/queries/useAddPlace';
+import { useNavigate, useParams } from 'react-router-dom';
+
 import { initialState, placeReducer } from '../../utils/placeReducer';
 
+// Components
 import { UploadImagesPreview } from '../../components/UploadImagesPreview/UploadImagesPreview';
 import { createPlaceFormData } from '../../utils/formData';
 
 import styles from './AddPlace.module.css';
-import { useParams } from 'react-router-dom';
 
 export const AddPlace = () => {
     const [state, dispatch] = useReducer(placeReducer, initialState);
     const { destinationId } = useParams();
+    const [createPlace, createError, isLoading] = useAddNewPlace();
+    const navigate = useNavigate();
 
-    
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
+        if (isLoading) return;
+
         const formData = await createPlaceFormData(state, destinationId);
-        console.log(formData);
+
+        createPlace(formData, {
+            onSuccess: (newPlace) => {
+                navigate(`/places/${newPlace._id}`);
+            },
+        });
     };
 
     const handleChange = (e) => {

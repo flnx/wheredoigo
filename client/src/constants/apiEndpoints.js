@@ -3,6 +3,7 @@ import { encodeData } from "../utils/utils"
 
 export const apiEndpoints = {
     addDestination: 'destinations',
+    addPlace: 'places',
     addComment: 'classes/Comment',
     allDestinations: 'destinations',
     getCity: 'destinations/get-city-data',

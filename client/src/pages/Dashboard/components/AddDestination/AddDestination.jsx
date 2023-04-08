@@ -38,9 +38,7 @@ export const AddDestination = () => {
     const submitHandler = async (e) => {
         e.preventDefault();
 
-        if (isLoading) {
-            return;
-        }
+        if (isLoading) return;
 
         const errors = validateForm(state, validCity);
         setErrorMessages(errors);
