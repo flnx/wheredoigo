@@ -1,4 +1,6 @@
-export const createFormData = async (state) => {
+import { createImageFiles } from "./imagesHandler";
+
+export const createDestinationFormData = async (state) => {
     const formData = new FormData();
 
     formData.append('city', state.city);
@@ -6,43 +8,32 @@ export const createFormData = async (state) => {
     formData.append('description', state.description);
     formData.append('details', JSON.stringify(state.details));
 
-    const fetchPromises = state.imageUrls.map(async (url, index) => {
-        try {
-            const res = await fetch(url);
-            const blob = await res.blob();
-            const contentType = blob.type;
-
-            if (!validateImageFile(contentType)) {
-                console.log('Only image files are allowed');
-                return;
-            }
-
-            const fileExtension = '.' + contentType.split('/')[1];
-            const file = new File([blob], `image-${index}${fileExtension}`, {
-                type: contentType,
-            });
-
-            formData.append('imageUrls', file);
-        } catch (error) {
-            console.log(error);
-        }
-    });
-
-    await Promise.all(fetchPromises);
+    await createImageFiles(state.imageUrls, formData);
 
     return formData;
 };
 
-const validateImageFile = (contentType) => {
-    const imagePattern = /^image\/(jpe?g|png|webp)$/i;
-    return imagePattern.test(contentType);
+export const createPlaceFormData = async (state, destinationId) => {
+    const formData = new FormData();
+
+    formData.append('destinationId', destinationId);
+    formData.append('name', state.name);
+    formData.append('type', state.type);
+    formData.append('description', state.description);
+
+    await createImageFiles(state.imageUrls, formData);
+
+    return formData;
 };
+
 
 export const validateForm = (state, validCity) => {
     const { city, description } = state;
     const errors = [];
 
-    const isCityValidated = !city.length == 0 && validCity.city?.toLowerCase() == city.toLowerCase();
+    const isCityValidated =
+        !city.length == 0 &&
+        validCity.city?.toLowerCase() == city.toLowerCase();
 
     if (!isCityValidated) {
         errors.push('Please enter a valid city');

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useAddNewDestination } from '../../../../hooks/queries/useAddDestination';
 import { destinationFormReducer, initialState } from '../../../../utils/destinationReducer';
-import { createFormData, validateForm } from '../../../../utils/formData';
+import { createDestinationFormData, validateForm } from '../../../../utils/formData';
 
 // Components
 import { SearchCity } from './components/SearchCity';
@@ -49,7 +49,7 @@ export const AddDestination = () => {
             return;
         }
 
-        const formData = await createFormData(state);
+        const formData = await createDestinationFormData(state);
 
         createDestination(formData, {
             onSuccess: (newDestination) => {

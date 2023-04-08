@@ -28,7 +28,7 @@ import { AuthContextProvider } from './context/AuthContext';
 import { DestinationDetails } from './pages/DestinationDetails/DestinationDetails';
 import { DetailsModal } from './components/DetailsModal/DetailsModal';
 import { PlaceDetails } from './pages/PlaceDetails/PlaceDetails';
-import { AddPlace } from './pages/DestinationDetails/components/AddPlace/AddPlace';
+import { AddPlace } from './pages/AddPlace/AddPlace';
 
 function App() {
     return (
@@ -52,7 +52,7 @@ function App() {
                             </Route>
 
                             <Route path="/destinations/:destinationId/add-place" element={<AddPlace />} />
-
+                            
                             <Route path="/place/:placeId" element={<PlaceDetails />} />
 
                             <Route element={<ProtectedRoute />}>

@@ -1,15 +1,22 @@
 import { useReducer } from 'react';
-import { initialState, placeReducer } from '../../../../utils/placeReducer';
+import { initialState, placeReducer } from '../../utils/placeReducer';
+
+import { UploadImagesPreview } from '../../components/UploadImagesPreview/UploadImagesPreview';
+import { createPlaceFormData } from '../../utils/formData';
 
 import styles from './AddPlace.module.css';
-import { UploadImagesPreview } from '../../../../components/UploadImagesPreview/UploadImagesPreview';
+import { useParams } from 'react-router-dom';
 
 export const AddPlace = () => {
     const [state, dispatch] = useReducer(placeReducer, initialState);
+    const { destinationId } = useParams();
 
-    const handleSubmit = (e) => {
+    
+    const handleSubmit = async(e) => {
         e.preventDefault();
-        // handle form submission
+        
+        const formData = await createPlaceFormData(state, destinationId);
+        console.log(formData);
     };
 
     const handleChange = (e) => {
