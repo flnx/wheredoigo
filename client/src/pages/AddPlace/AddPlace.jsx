@@ -25,7 +25,8 @@ export const AddPlace = () => {
 
         createPlace(formData, {
             onSuccess: (newPlace) => {
-                navigate(`/places/${newPlace._id}`);
+                console.log(newPlace);
+                // navigate(`/places/${newPlace._id}`);
             },
         });
     };

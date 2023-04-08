@@ -85,7 +85,13 @@ async function create(data, images) {
     try {
         const cloudinaryImagesData = await handleImageUploads(images);
 
-        cloudinaryImagesData.forEach((x) => imageUrls.push(x.url));
+        for (const imageData of cloudinaryImagesData) {
+            if (imageData.url) {
+                imageUrls.push(imageData.url);
+            } else {
+                console.log('An image failed to upload:', imageData);
+            }
+        }
     } catch (err) {
         imgError = err;
     }

@@ -4,27 +4,30 @@ const streamifier = require('streamifier');
 const options = {
     folder: 'uploads',
     transformation: [
-        { width: '2000', height: '1312', crop: "limit" },
+        { width: '2000', height: '1312', crop: 'limit' },
         { quality: 'auto:best', fetch_format: 'auto' },
         { dpr: 'auto' },
     ],
+    strip_metadata: true,
 };
 
 async function handleImageUploads(files) {
-    const imagesData = [];
+    const promises = [];
+
+    for (const file of files) {
+        const promise = uploadImageToCloudinary(file.buffer);
+        promises.push(promise);
+    }
 
     try {
-        for (const file of files) {
-            const imgData = await uploadImageToCloudinary(file.buffer);
-            imagesData.push(imgData);
-        }
-
+        const imagesData = await Promise.all(promises);
         return imagesData;
     } catch (err) {
-        throw err;
+        throw new Error(
+            'Failed to upload images to Cloudinary: ' + err.message
+        );
     }
 }
-
 function uploadImageToCloudinary(imageBuffer) {
     return new Promise((resolve, reject) => {
         const uploadStream = cloudinary.uploader.upload_stream(

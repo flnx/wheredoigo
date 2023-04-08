@@ -1,6 +1,7 @@
 const Place = require('../models/placeSchema');
 const capitalizeEachWord = require('../utils/capitalizeWords');
 const Destination = require('../models/destinationSchema');
+const { handleImageUploads } = require('../utils/cloudinaryUploader');
 
 async function getPlaceById(placeId) {
     const place = await Place.findById(placeId).lean().exec();
@@ -20,8 +21,8 @@ async function getDestinationPlaces(destinationId) {
     return places;
 }
 
-async function addNewPlace(data) {
-    const { destinationId, description, type, name } = data;
+async function addNewPlace(data, images) {
+    const { destinationId, name, description, type } = data;
 
     const placeData = {
         destinationId,
@@ -30,27 +31,53 @@ async function addNewPlace(data) {
         name,
     };
 
-    return [];
-
     const isFieldEmpty = Object.values(placeData).some((x) => !x);
 
     if (isFieldEmpty) {
-        throw new Error('All fields are required!');
+        throw new Error('Missing Fields!');
     }
 
-    const place = await Place.find({ destinationId }).lean().exec();
+    const destination = await Destination.findById(destinationId)
+        .select('city country')
+        .populate('country')
+        .lean()
+        .exec();
 
-    if (!place) {
-        throw new Error('Please enter a valid Place ID...')
+    if (!destination) {
+        throw new Error('Please enter a valid destination ID');
     }
 
-    // const place = await Place.create({
-    //     ...placeData
-    // });
+    const place = await Place.create({
+        ...placeData,
+        city: destination.city,
+        country: destination.country.name,
+        imageUrls: [],
+    });
 
-    // return {
-    //     _id: place._id,
-    // };
+    const imageUrls = [];
+    let imgError = null;
+
+    try {
+        const cloudinaryImagesData = await handleImageUploads(images);
+
+        for (const imageData of cloudinaryImagesData) {
+            if (imageData.url) {
+                imageUrls.push(imageData.url);
+            } else {
+                console.log('An image failed to upload:', imageData);
+            }
+        }
+    } catch (err) {
+        imgError = err;
+    }
+
+    place.imageUrls = imageUrls;
+    await place.save();
+
+    return {
+        _id: place._id,
+        imgError,
+    };
 }
 
 module.exports = {
