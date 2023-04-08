@@ -6,7 +6,7 @@ export const createFormData = async (state) => {
     formData.append('description', state.description);
     formData.append('details', JSON.stringify(state.details));
 
-    for (let [index, url] of state.imageUrls.entries()) {
+    const fetchPromises = state.imageUrls.map(async (url, index) => {
         try {
             const res = await fetch(url);
             const blob = await res.blob();
@@ -14,7 +14,7 @@ export const createFormData = async (state) => {
 
             if (!validateImageFile(contentType)) {
                 console.log('Only image files are allowed');
-                continue;
+                return;
             }
 
             const fileExtension = '.' + contentType.split('/')[1];
@@ -26,7 +26,9 @@ export const createFormData = async (state) => {
         } catch (error) {
             console.log(error);
         }
-    }
+    });
+
+    await Promise.all(fetchPromises);
 
     return formData;
 };
@@ -41,7 +43,6 @@ export const validateForm = (state, validCity) => {
     const errors = [];
 
     const isCityValidated = !city.length == 0 && validCity.city?.toLowerCase() == city.toLowerCase();
-    console.log(isCityValidated)
 
     if (!isCityValidated) {
         errors.push('Please enter a valid city');

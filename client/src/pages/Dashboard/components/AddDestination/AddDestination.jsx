@@ -20,13 +20,8 @@ export const AddDestination = () => {
     const [showDetail, setShowDetail] = useState({ category: null });
     const [errorMessages, setErrorMessages] = useState([]);
     const [validCity, setValidCity] = useState(false);
-    const [serverError, setServerError] = useState(false);
 
     const navigate = useNavigate();
-
-    if (createError) {
-        // setServerError(createError.response?.data || createError?.message)
-    }
 
     const dispatchHandler = (actions) => {
         dispatch(actions);
@@ -58,7 +53,7 @@ export const AddDestination = () => {
 
         createDestination(formData, {
             onSuccess: (newDestination) => {
-                console.log(newDestination);
+                navigate(`/destinations/${newDestination._id}`);
             },
         });
     };

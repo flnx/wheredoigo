@@ -5,6 +5,7 @@ import { useDestination } from '../../hooks/queries/useDestination';
 import { DestinationHeader } from './components/Header/Header';
 import { SectionSlider } from './components/ExploreSection/SectionSlider';
 import { TipsPopUp } from '../../components/TipsPopUp/TipsPopUp';
+import { SecondaryButton } from '../../components/Buttons/Secondary-Btn/SecondaryButton';
 
 import styles from './DestinationDetails.module.css';
 
@@ -18,6 +19,10 @@ export const DestinationDetails = () => {
 
     if (error) {
         return <h1>404 Not Found</h1>;
+    }
+
+    const onEdit = () => {
+        console.log('hi')
     }
 
     const explorePlaces = data.places.filter(
@@ -35,7 +40,10 @@ export const DestinationDetails = () => {
             <div className={styles.wrapper}>
                 <DestinationHeader destination={data} />
                 <TipsPopUp details={data.details} />
-                
+
+
+                <SecondaryButton clickHandler={onEdit}>Add More Places</SecondaryButton>
+
                 {explorePlaces.length > 0 && (
                     <SectionSlider
                         places={explorePlaces}
@@ -43,6 +51,7 @@ export const DestinationDetails = () => {
                         description={'lorem ipsum 10 and lorem ipsum 25'}
                     />
                 )}
+
                 {partyPlaces.length > 0 && (
                     <SectionSlider
                         places={partyPlaces}
@@ -50,6 +59,7 @@ export const DestinationDetails = () => {
                         description={'lorem ipsum 10 and lorem ipsum 25'}
                     />
                 )}
+                
                 {eatingPlaces.length > 0 && (
                     <SectionSlider
                         places={eatingPlaces}
