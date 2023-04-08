@@ -2,16 +2,17 @@ import { useReducer } from 'react';
 import { initialState, placeReducer } from '../../../../utils/placeReducer';
 
 import styles from './AddPlace.module.css';
+import { UploadImagesPreview } from '../../../../components/UploadImagesPreview/UploadImagesPreview';
 
 export const AddPlace = () => {
     const [state, dispatch] = useReducer(placeReducer, initialState);
 
-    function handleSubmit(e) {
+    const handleSubmit = (e) => {
         e.preventDefault();
         // handle form submission
-    }
+    };
 
-    function handleChange(e) {
+    const handleChange = (e) => {
         const { name, value } = e.target;
         dispatch({
             type: 'change',
@@ -20,49 +21,48 @@ export const AddPlace = () => {
                 value,
             },
         });
-    }
+    };
 
-    function handleAddImages(e) {
-        dispatch({
-            type: 'add_images',
-            payload: {
-                files: Array.from(e.target.files),
-            },
-        });
-    }
-
-    function handleDeleteImage(index) {
-        dispatch({
-            type: 'delete_image',
-            index,
-        });
-    }
+    const dispatchHandler = (actions) => {
+        dispatch(actions);
+    };
 
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.formRow}>
-                <label className={styles.formLabel}>Name:</label>
+                <label className={styles.formLabel} htmlFor="name">
+                    Name:
+                </label>
                 <input
-                    type="text"
+                    id="name"
                     name="name"
+                    type="text"
                     value={state.name}
                     onChange={handleChange}
                     className={styles.formInput}
+                    placeholder="Add place name"
                 />
             </div>
             <div className={styles.formRow}>
-                <label className={styles.formLabel}>Description:</label>
-                <input
-                    type="text"
+                <label className={styles.formLabel} htmlFor="description">
+                    Description:
+                </label>
+                <textarea
+                    id="description"
                     name="description"
+                    rows="8"
                     value={state.description}
                     onChange={handleChange}
                     className={styles.formInput}
+                    placeholder="Add place description..."
                 />
             </div>
             <div className={styles.formRow}>
-                <label className={styles.formLabel}> Type:</label>
+                <label className={styles.formLabel} htmlFor="type">
+                    Type:
+                </label>
                 <select
+                    id="type"
                     name="type"
                     value={state.type}
                     onChange={handleChange}
@@ -75,29 +75,9 @@ export const AddPlace = () => {
                 </select>
             </div>
             <div className={styles.formRow}>
-                <label className={styles.formLabel}> Images:</label>
-                <input
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    onChange={handleAddImages}
-                    className={styles.formInput}
-                />
+                <UploadImagesPreview dispatchHandler={dispatchHandler} images={state.imageUrls} />
             </div>
-            <div className={styles.formImageContainer}>
-                {state.imageUrls.map((url, index) => (
-                    <div key={index} className={styles.formImage}>
-                        <img src={url} alt={`image ${index}`} className={styles.formImagePreview} />
-                        <button
-                            type="button"
-                            onClick={() => handleDeleteImage(index)}
-                            className={styles.formImageButton}
-                        >
-                            Delete
-                        </button>
-                    </div>
-                ))}
-            </div>
+
             <button type="submit" className={styles.formButton}>
                 Submit
             </button>

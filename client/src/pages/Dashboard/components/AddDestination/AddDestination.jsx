@@ -10,7 +10,7 @@ import { SearchCity } from './components/SearchCity';
 import { Description } from './components/Description';
 import { Categories } from './components/Categories';
 import { Details } from './components/Details';
-import { UploadImages } from './components/UploadImages';
+import { UploadImagesPreview } from '../../../../components/UploadImagesPreview/UploadImagesPreview';
 
 import styles from './AddDestination.module.css';
 
@@ -86,7 +86,7 @@ export const AddDestination = () => {
                     inputErrorClass={inputErrorClass}
                     errorMessages={errorMessages}
                 />
-                <UploadImages dispatchHandler={dispatchHandler} images={state.imageUrls} />
+                <UploadImagesPreview dispatchHandler={dispatchHandler} images={state.imageUrls} />
                 <Categories showDetailHandler={showDetailHandler} />
                 {showDetail.category && (
                     <Details
