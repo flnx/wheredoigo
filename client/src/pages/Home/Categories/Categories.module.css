@@ -69,12 +69,12 @@
 
 @media (min-width: 40em) {
     .card {
-        height: 13rem;
+        height: 11rem;
     }
 }
 
 @media (min-width: 87.5em) {
     .card {
-        flex-basis: auto;
+        flex: 1;
     }
 }

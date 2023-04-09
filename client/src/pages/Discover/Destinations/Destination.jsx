@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import capitalizeEachWord from '../../../utils/capitalizeEachWord';
+
 import styles from './Destination.module.css';
 
 export const Destination = ({ destination }) => {
@@ -6,12 +8,12 @@ export const Destination = ({ destination }) => {
         <Link to={`/destinations/${destination._id}`}>
             <div className={styles.destination}>
                 <img
-                    src={destination.imageUrls[0]}
+                    src={destination.imageUrls}
                     alt={destination.city}
                     className={styles.image}
                 />
-                <h3 className={styles.title}>{destination.city}</h3>
-                <p>ADD COUNTRY NAME NOT ID</p>
+                <h3 className={styles.title}>{capitalizeEachWord(destination.city)}</h3>
+                <p>{capitalizeEachWord(destination.country.name)}</p>
             </div>
         </Link>
     );

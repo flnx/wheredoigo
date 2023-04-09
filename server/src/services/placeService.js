@@ -1,5 +1,4 @@
 const Place = require('../models/placeSchema');
-const capitalizeEachWord = require('../utils/capitalizeWords');
 const Destination = require('../models/destinationSchema');
 const { handleImageUploads } = require('../utils/cloudinaryUploader');
 
@@ -9,8 +8,6 @@ async function getPlaceById(placeId) {
     if (!place) {
         throw new Error('404 Not Found');
     }
-
-    place.city = capitalizeEachWord(place.city);
 
     return place;
 }

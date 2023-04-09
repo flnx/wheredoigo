@@ -26,6 +26,13 @@ async function getByPage(page, limit, searchParams) {
             },
         },
         {
+            $project: {
+                'country.name': 1,
+                imageUrls: { $arrayElemAt: ['$imageUrls', 0] },
+                city: 1,
+            },
+        },
+        {
             $skip: page,
         },
         {

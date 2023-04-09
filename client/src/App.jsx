@@ -33,15 +33,12 @@ function App() {
                     <main>
                         <Routes>
                             <Route path="/" element={<Home />} />
-
                             <Route element={<UnauthenticatedRoute />}>
                                 <Route path="/auth/*" element={<AuthRoutes />} />
                             </Route>
-
                             <Route element={<ProtectedRoute />}>
                                 <Route path="/dashboard/*" element={<UserDashboardRoutes />} />
                             </Route>
-
                             <Route path="/discover" element={<Discover />} />
                             <Route
                                 path="/destinations/:destinationId"
@@ -54,6 +51,7 @@ function App() {
                                 element={<AddPlace />}
                             />
                             <Route path="/places/:placeId" element={<PlaceDetails />} />
+                            <Route path="*" element={<p>404 Not Found</p>} />
                         </Routes>
                     </main>
                     <Footer />
