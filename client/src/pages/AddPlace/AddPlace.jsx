@@ -3,13 +3,13 @@ import { useAddNewPlace } from '../../hooks/queries/useAddPlace';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { initialState, placeReducer } from '../../utils/placeReducer';
+import { validatePlaceData } from '../../utils/formValidators';
 
 // Components
 import { UploadImagesPreview } from '../../components/UploadImagesPreview/UploadImagesPreview';
 import { createPlaceFormData } from '../../utils/formData';
 
 import styles from './AddPlace.module.css';
-import { validatePlaceData } from '../../utils/formValidators';
 
 export const AddPlace = () => {
     const [state, dispatch] = useReducer(placeReducer, initialState);
