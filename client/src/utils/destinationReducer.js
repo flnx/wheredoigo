@@ -13,10 +13,7 @@ export function destinationFormReducer(state, action) {
                     if (detail.category == action.category) {
                         const updateInfo = detail.info.map((x) =>
                             x.name == action.payload.name
-                                ? {
-                                      ...x,
-                                      description: action.payload.description,
-                                  }
+                                ? { ...x, description: action.payload.description }
                                 : x
                         );
 

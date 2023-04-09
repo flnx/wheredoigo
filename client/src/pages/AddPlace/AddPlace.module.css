@@ -5,11 +5,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 1.9rem;
 }
 
 .formRow {
-    display: flex;
+    position: relative;
     width: 100%;
 }
 
@@ -54,4 +54,13 @@
 
 .formButton:focus {
     outline: none;
+}
+
+.error {
+    position: absolute;
+    bottom: -1.5rem;
+    font-size: 0.95rem;
+    left: 0;
+    color: rgb(190, 19, 19);
+    text-decoration: uppercase;
 }

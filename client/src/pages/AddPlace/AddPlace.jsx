@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useReducer, useState } from 'react';
 import { useAddNewPlace } from '../../hooks/queries/useAddPlace';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -9,24 +9,36 @@ import { UploadImagesPreview } from '../../components/UploadImagesPreview/Upload
 import { createPlaceFormData } from '../../utils/formData';
 
 import styles from './AddPlace.module.css';
+import { validatePlaceData } from '../../utils/formValidators';
 
 export const AddPlace = () => {
     const [state, dispatch] = useReducer(placeReducer, initialState);
     const { destinationId } = useParams();
     const [createPlace, createError, isLoading] = useAddNewPlace();
+    const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
+
+    const dispatchHandler = (actions) => {
+        dispatch(actions);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (isLoading) return;
 
+        const dataValidationErrors = validatePlaceData(state);
+        setErrors(dataValidationErrors);
+
+        if (dataValidationErrors.length != 0) {
+            return;
+        }
+
         const formData = await createPlaceFormData(state, destinationId);
 
         createPlace(formData, {
             onSuccess: (newPlace) => {
-                console.log(newPlace);
-                // navigate(`/places/${newPlace._id}`);
+                navigate(`/places/${newPlace._id}`);
             },
         });
     };
@@ -42,9 +54,7 @@ export const AddPlace = () => {
         });
     };
 
-    const dispatchHandler = (actions) => {
-        dispatch(actions);
-    };
+    const errorMessage = createError?.response?.data || createError?.message;
 
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
@@ -61,6 +71,8 @@ export const AddPlace = () => {
                     className={styles.formInput}
                     placeholder="Add place name"
                 />
+                <ShowError errors={errors} searchParam={'name'} />
+                {errors.length == 0 && errorMessage && <span className={styles.error}>{errorMessage}</span>}
             </div>
             <div className={styles.formRow}>
                 <label className={styles.formLabel} htmlFor="description">
@@ -75,6 +87,7 @@ export const AddPlace = () => {
                     className={styles.formInput}
                     placeholder="Add place description..."
                 />
+                <ShowError errors={errors} searchParam={'description'} />
             </div>
             <div className={styles.formRow}>
                 <label className={styles.formLabel} htmlFor="type">
@@ -92,14 +105,29 @@ export const AddPlace = () => {
                     <option value="Eat">Eat</option>
                     <option value="Party">Party</option>
                 </select>
+                <ShowError errors={errors} searchParam={'type'} />
             </div>
+
             <div className={styles.formRow}>
+                <ShowError errors={errors} searchParam={'images'} />
                 <UploadImagesPreview dispatchHandler={dispatchHandler} images={state.imageUrls} />
             </div>
 
-            <button type="submit" className={styles.formButton}>
+            <button type="submit" className={styles.formButton} disabled={isLoading}>
                 Submit
             </button>
         </form>
+    );
+};
+
+const ShowError = ({ errors, searchParam }) => {
+    const errorChecker = (name) => {
+        return errors.find((e) => e.includes(name));
+    };
+
+    return (
+        errorChecker(searchParam) && (
+            <span className={styles.error}>{errorChecker(searchParam)}</span>
+        )
     );
 };

@@ -53,7 +53,7 @@ function App() {
 
                             <Route path="/destinations/:destinationId/add-place" element={<AddPlace />} />
                             
-                            <Route path="/place/:placeId" element={<PlaceDetails />} />
+                            <Route path="/places/:placeId" element={<PlaceDetails />} />
 
                             <Route element={<ProtectedRoute />}>
                                 <Route path="/dashboard" element={<Dashboard />}>

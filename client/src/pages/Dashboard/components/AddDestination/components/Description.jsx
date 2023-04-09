@@ -28,7 +28,9 @@ export const Description = ({ dispatchHandler, state, inputErrorClass, errorMess
                     onChange={onChangeHandler}
                     className={validClass}
                 />
-                {minChars != 0 && isValidActive && <span className={styles.errorMessage}>{error}</span>}
+                {minChars != 0 && isValidActive && (
+                    <span className={styles.errorMessage}>{error}</span>
+                )}
             </div>
         </>
     );

@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useDestination } from '../../hooks/queries/useDestination';
 
 // components
@@ -21,19 +21,9 @@ export const DestinationDetails = () => {
         return <h1>404 Not Found</h1>;
     }
 
-    const onEdit = () => {
-        console.log('hi')
-    }
-
-    const explorePlaces = data.places.filter(
-        (x) => x.type.toLowerCase() == 'explore'
-    );
-    const partyPlaces = data.places.filter(
-        (x) => x.type.toLowerCase() == 'party'
-    );
-    const eatingPlaces = data.places.filter(
-        (x) => x.type.toLowerCase() == 'eat'
-    );
+    const explorePlaces = data.places.filter((x) => x.type.toLowerCase() == 'explore');
+    const partyPlaces = data.places.filter((x) => x.type.toLowerCase() == 'party');
+    const eatingPlaces = data.places.filter((x) => x.type.toLowerCase() == 'eat');
 
     return (
         <div className="container">
@@ -41,8 +31,9 @@ export const DestinationDetails = () => {
                 <DestinationHeader destination={data} />
                 <TipsPopUp details={data.details} />
 
-
-                <SecondaryButton clickHandler={onEdit}>Add More Places</SecondaryButton>
+                <Link to="add-place">
+                    <SecondaryButton>Add More Places</SecondaryButton>
+                </Link>
 
                 {explorePlaces.length > 0 && (
                     <SectionSlider
@@ -59,7 +50,7 @@ export const DestinationDetails = () => {
                         description={'lorem ipsum 10 and lorem ipsum 25'}
                     />
                 )}
-                
+
                 {eatingPlaces.length > 0 && (
                     <SectionSlider
                         places={eatingPlaces}

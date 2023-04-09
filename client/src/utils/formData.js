@@ -25,23 +25,3 @@ export const createPlaceFormData = async (state, destinationId) => {
 
     return formData;
 };
-
-
-export const validateForm = (state, validCity) => {
-    const { city, description } = state;
-    const errors = [];
-
-    const isCityValidated =
-        !city.length == 0 &&
-        validCity.city?.toLowerCase() == city.toLowerCase();
-
-    if (!isCityValidated) {
-        errors.push('Please enter a valid city');
-    }
-
-    if (description.trim().length < 10) {
-        errors.push('Description must be at least 10 characters long.');
-    }
-
-    return errors;
-};

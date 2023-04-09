@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { useAddNewDestination } from '../../../../hooks/queries/useAddDestination';
 import { destinationFormReducer, initialState } from '../../../../utils/destinationReducer';
-import { createDestinationFormData, validateForm } from '../../../../utils/formData';
+import { createDestinationFormData } from '../../../../utils/formData';
+import { validateDestinationData } from '../../../../utils/formValidators';
 
 // Components
 import { SearchCity } from './components/SearchCity';
@@ -40,7 +41,7 @@ export const AddDestination = () => {
 
         if (isLoading) return;
 
-        const errors = validateForm(state, validCity);
+        const errors = validateDestinationData(state, validCity);
         setErrorMessages(errors);
 
         if (errors.length > 0) {
