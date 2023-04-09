@@ -3,11 +3,11 @@ import { addComment } from "../../service/data/comments";
 import { queryEndpoints } from "../../constants/reactQueryEndpoints";
 
 
-export const useAddComment = () => {
+export const useAddComment = (placeId) => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: (data) => addComment(data),
+        mutationFn: (data) => addComment(data, placeId),
         onSuccess: (newComment) => {
             queryClient.setQueryData([queryEndpoints.placeComments, newComment]);
             queryClient.invalidateQueries([queryEndpoints.placeComments])

@@ -40,6 +40,10 @@ const placeSchema = new Schema({
     imageUrls: {
         type: [String],
     },
+    comments: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Comment'
+    }]
 });
 
 placeSchema.index(

@@ -6,12 +6,11 @@ export const useLocalStorage = (key, defaultValue) => {
 
         return userData ? JSON.parse(userData) : defaultValue;
     });
-    
+
     const updateUser = (newValue) => {
         localStorage.setItem(key, JSON.stringify(newValue));
-
         setUser(newValue);
-    }
+    };
 
     return [user, updateUser];
 };

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../Axios';
 import { apiEndpoints } from '../../constants/apiEndpoints';
 
 export const getDestinations = async () => {

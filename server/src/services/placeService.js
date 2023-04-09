@@ -1,4 +1,6 @@
 const Place = require('../models/placeSchema');
+const Comment = require('../models/commentSchema');
+
 const Destination = require('../models/destinationSchema');
 const { handleImageUploads } = require('../utils/cloudinaryUploader');
 
@@ -13,7 +15,10 @@ async function getPlaceById(placeId) {
 }
 
 async function getDestinationPlaces(destinationId) {
-    const places = await Place.find({ destinationId }).lean().exec();
+    const places = await Place.find({ destinationId })
+        .populate('comments')
+        .lean()
+        .exec();
 
     return places;
 }
@@ -49,6 +54,7 @@ async function addNewPlace(data, images) {
         city: destination.city,
         country: destination.country.name,
         imageUrls: [],
+        comments: [],
     });
 
     const imageUrls = [];
@@ -77,8 +83,33 @@ async function addNewPlace(data, images) {
     };
 }
 
+async function addCommentToPlace(placeId, title, content, ownerId) {
+    try {
+        const place = await Place.findById(placeId).select('comments').exec();
+
+        if (!place) {
+            throw new Error('Place not found');
+        }
+
+        const comment = new Comment({
+            title: title.trim(),
+            content: content.trim(),
+            ownerId: ownerId,
+        });
+
+        place.comments.push(comment);
+
+        await Promise.all([comment.save(), place.save()]);
+
+        return comment;
+    } catch (err) {
+        throw new Error(err.message);
+    }
+}
+
 module.exports = {
     addNewPlace,
     getPlaceById,
     getDestinationPlaces,
+    addCommentToPlace,
 };

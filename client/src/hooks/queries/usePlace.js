@@ -1,21 +1,12 @@
-import { useQueries } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { queryEndpoints } from '../../constants/reactQueryEndpoints';
-import { getPlace, getPlaceComments } from '../../service/data/places';
-
+import { getPlace } from '../../service/data/places';
 
 export const usePlace = (placeId) => {
-    const [place, comments] = useQueries({
-        queries: [
-            {
-                queryKey: [queryEndpoints.places, placeId],
-                queryFn: () => getPlace(placeId),
-            },
-            {
-                queryKey: [queryEndpoints.placeComments, placeId],
-                queryFn: () => getPlaceComments(placeId),
-            },
-        ],
+    const { isLoading, data, error } = useQuery({
+        queryKey: [queryEndpoints.places, placeId],
+        queryFn: () => getPlace(placeId),
     });
 
-    return { place, comments };
+    return { data, isLoading, error };
 };

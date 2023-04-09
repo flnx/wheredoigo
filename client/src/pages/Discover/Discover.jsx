@@ -24,7 +24,6 @@ export const Discover = () => {
                 <h1>Where do you want to go?</h1>
                 <SearchBar searchParamsHandler={handleSearchParams} />
                 <ContinentsNav />
-                {/* <CitiesSlider /> */}
                 <CategoriesNav />
                 <Destinations searchParams={searchParams?.get('search')}/>
             </div>
