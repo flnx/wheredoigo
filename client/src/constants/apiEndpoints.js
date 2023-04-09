@@ -11,5 +11,4 @@ export const apiEndpoints = {
     destinationById: (id) => `destinations/${id}`,
     destinationsByPage: (searchParams, skip) => `destinations?search=${searchParams}&page=${skip}`,
     placeComments: (id) => 'comments?where=' + encodeData({ placeId: createPointer('Place', id) }),
-    searchPlacesByCountry: (params) => 'classes/Place?where=' + encodeData({country: {$regex: `^${params}`}}),
 }
