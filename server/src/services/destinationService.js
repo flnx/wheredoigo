@@ -1,11 +1,10 @@
 const Country = require('../models/countrySchema');
 const Destination = require('../models/destinationSchema');
-
-const capitalizeEachWord = require('../utils/capitalizeWords');
-const { matchCityAndCountry } = require('../utils/utils');
+const { fetchCity, fetchCountry } = require('../service.js/data');
+const { handleImageUploads } = require('../utils/cloudinaryUploader');
 require('dotenv').config();
 
-async function getDestinationByPage(page, limit, searchParams) {
+async function getByPage(page, limit, searchParams) {
     let regex = new RegExp(searchParams, 'i');
 
     const destination = await Destination.aggregate([
@@ -37,32 +36,38 @@ async function getDestinationByPage(page, limit, searchParams) {
     return destination;
 }
 
-async function getDestinationById(destinationId) {
+async function getById(destinationId) {
     return Destination.findById(destinationId)
         .populate('country')
         .lean()
         .exec();
 }
 
-async function addNewDestination(data) {
+async function create(data, images) {
     const destinationData = {
         city: data.city,
-        country: data.country,
         description: data.description,
-        details: data.details || [],
-        imageUrls: data.imageUrls || [],
+        details: JSON.parse(data.details) || [],
     };
 
-    const isFieldEmpty = Object.values(destinationData).some((x) => !x);
-    const areCityCountryValid = matchCityAndCountry(data?.city, data?.country);
+    const isMissingField = Object.values(destinationData).some((x) => !x);
 
-    if (!areCityCountryValid || isFieldEmpty) {
-        throw new Error('Invalid data!');
+    if (isMissingField) {
+        throw new Error('Missing fields!');
     }
 
-    const countryName = data.country.toLowerCase();
+    const cityData = await fetchCity(data.city);
 
-    let country = await Country.findOne({ name: countryName }).exec();
+    if (!Array.isArray(cityData) || !cityData[0].name) {
+        throw new Error('Invalid City Parameters');
+    }
+
+    const countryData = await fetchCountry(cityData[0].country);
+    const countryName = countryData[0].name;
+
+    let country = await Country.findOne({
+        name: countryName.toLowerCase(),
+    }).exec();
 
     if (!country) {
         country = await Country.create({ name: countryName });
@@ -71,34 +76,37 @@ async function addNewDestination(data) {
     const destination = await Destination.create({
         ...destinationData,
         country: country._id,
+        imageUrls: [],
     });
+
+    const imageUrls = [];
+    let imgError = null;
+
+    try {
+        const cloudinaryImagesData = await handleImageUploads(images);
+
+        for (const imageData of cloudinaryImagesData) {
+            if (imageData.url) {
+                imageUrls.push(imageData.url);
+            } else {
+                console.log('An image failed to upload:', imageData);
+            }
+        }
+    } catch (err) {
+        imgError = err;
+    }
+
+    destination.imageUrls = imageUrls;
+    await destination.save();
 
     return {
         _id: destination._id,
+        imgError,
     };
-}
-//
-async function getCityData(city) {
-    if (!city) {
-        throw new Error('Invalid city data');
-    }
-
-    const result = await fetch(process.env.CITY_URL + city, {
-        method: 'get',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-Api-Key': process.env.X_API_KEY,
-        },
-    });
-
-    const data = await result.json();
-
-    return data;
 }
 
 module.exports = {
-    getDestinationByPage,
-    addNewDestination,
-    getDestinationById,
-    getCityData,
+    getByPage,
+    create,
+    getById,
 };

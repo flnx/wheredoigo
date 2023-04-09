@@ -1,7 +1,7 @@
-import styles from '../AddDestination.module.css';
+import styles from './UploadImagesPreview.module.css';
 import { X } from 'phosphor-react';
 
-export const UploadImages = ({ dispatchHandler, images }) => {
+export const UploadImagesPreview = ({ dispatchHandler, images }) => {
     const handleImageSelect = (e) => {
         dispatchHandler({
             type: 'add_images',
@@ -20,8 +20,8 @@ export const UploadImages = ({ dispatchHandler, images }) => {
 
     return (
         <div className={styles.formField}>
-            <div style={{ marginBottom: '2rem' }}>
-                <label htmlFor="images" className={styles.uploadBtn}>
+            <div>
+                <label htmlFor="images" className={styles.btn}>
                     Upload images
                 </label>
                 <input

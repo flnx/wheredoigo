@@ -14,9 +14,13 @@ exports.place_details = async (req, res) => {
 
 exports.add_new_place = async (req, res) => {
     try {
-        const place = await addNewPlace(req.body);
+        const placeInfo = req.body;
+        const images = req.files;
+        const place = await addNewPlace(placeInfo, images);
+
         res.json(place);
     } catch (err) {
+        console.log(handleErrors(err));
         res.status(404).json(handleErrors(err));
     }
 };

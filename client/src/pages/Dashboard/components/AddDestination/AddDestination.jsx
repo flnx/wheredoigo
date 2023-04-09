@@ -1,75 +1,91 @@
 import { useReducer, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { useAddNewDestination } from '../../../../hooks/queries/useAddDestination';
 import { destinationFormReducer, initialState } from '../../../../utils/destinationReducer';
-import { createDestination } from '../../../../service/data/destinations';
+import { createDestinationFormData } from '../../../../utils/formData';
+import { validateDestinationData } from '../../../../utils/formValidators';
 
 // Components
 import { SearchCity } from './components/SearchCity';
 import { Description } from './components/Description';
 import { Categories } from './components/Categories';
 import { Details } from './components/Details';
+import { UploadImagesPreview } from '../../../../components/UploadImagesPreview/UploadImagesPreview';
 
 import styles from './AddDestination.module.css';
-import { UploadImages } from './components/UploadImages';
 
 export const AddDestination = () => {
+    const [createDestination, createError, isLoading] = useAddNewDestination();
     const [state, dispatch] = useReducer(destinationFormReducer, initialState);
     const [showDetail, setShowDetail] = useState({ category: null });
+    const [errorMessages, setErrorMessages] = useState([]);
+    const [validCity, setValidCity] = useState(false);
+
+    const navigate = useNavigate();
 
     const dispatchHandler = (actions) => {
         dispatch(actions);
+    };
+
+    const validateCityHandler = (city) => {
+        setValidCity(city);
     };
 
     const showDetailHandler = (category) => {
         setShowDetail(category);
     };
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
 
-        const imagePattern = /^image\/(jpe?g|png|webp)$/i;
+        if (isLoading) return;
 
-        const formData = new FormData();
+        const errors = validateDestinationData(state, validCity);
+        setErrorMessages(errors);
 
-        formData.append('city', state.city);
-        formData.append('country', state.country);
-        formData.append('description', state.description);
-        formData.append('details', state.details);
+        if (errors.length > 0) {
+            return;
+        }
 
-        state.imageUrls.forEach((url, index) => {
-            fetch(url)
-                .then((res) => res.blob())
-                .then((blob) => {
-                    const contentType = blob.type;
+        const formData = await createDestinationFormData(state);
 
-                    if (imagePattern.test(contentType) == false) {
-                        return console.log('Only image files are allowed');
-                    }
-
-                    const fileExtension = '.' + contentType.split('/')[1];
-
-                    const file = new File([blob], `image-${index}${fileExtension}`, {
-                        type: contentType,
-                    });
-
-                    console.log(file);
-
-                    formData.append('imageUrls', file);
-                    createDestination(formData);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+        createDestination(formData, {
+            onSuccess: (newDestination) => {
+                navigate(`/destinations/${newDestination._id}`);
+            },
         });
     };
 
+    const inputErrorClass = (name) => {
+        const isInputError = errorMessages.some((errMsg) =>
+            errMsg.toLowerCase().includes(name.toLowerCase())
+        );
+
+        return isInputError ? 'error' : null;
+    };
+
     const openedDetailsCategory = state.details.find((x) => x.category == showDetail.category);
+    const errorMessage = createError?.response?.data || createError?.message;
 
     return (
         <section>
+            {createError && <span class={styles.serverError}>{errorMessage}</span>}
             <form className={styles.form} onSubmit={submitHandler}>
-                <SearchCity dispatchHandler={dispatchHandler} state={state} />
-                <Description dispatchHandler={dispatchHandler} state={state} />
-                <UploadImages dispatchHandler={dispatchHandler} images={state.imageUrls} />
+                <SearchCity
+                    city={state.city}
+                    dispatchHandler={dispatchHandler}
+                    validateCityHandler={validateCityHandler}
+                    validCity={validCity}
+                    errorMessages={errorMessages}
+                />
+                <Description
+                    state={state}
+                    dispatchHandler={dispatchHandler}
+                    inputErrorClass={inputErrorClass}
+                    errorMessages={errorMessages}
+                />
+                <UploadImagesPreview dispatchHandler={dispatchHandler} images={state.imageUrls} />
                 <Categories showDetailHandler={showDetailHandler} />
                 {showDetail.category && (
                     <Details
@@ -79,7 +95,9 @@ export const AddDestination = () => {
                     />
                 )}
                 <div>
-                    <button type="submit">Add</button>
+                    <button disabled={isLoading} className={styles.btn} type="submit">
+                        Add
+                    </button>
                 </div>
             </form>
         </section>

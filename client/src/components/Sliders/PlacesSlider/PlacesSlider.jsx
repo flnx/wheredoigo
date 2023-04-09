@@ -15,7 +15,7 @@ export const PlacesSlider = ({ places }) => {
                             className={styles.sliderItem}
                             key={place._id}
                         >
-                            <Link to={`/place/${place._id}`}>
+                            <Link to={`/places/${place._id}`}>
                                 <img
                                     src={place.imageUrls[0]}
                                     alt={place.place}

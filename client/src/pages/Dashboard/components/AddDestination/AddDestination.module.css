@@ -17,15 +17,16 @@
     margin-bottom: 1rem;
 }
 
-.validCity {
+.validField {
     border: 2.25px solid #4bb543 !important;
 }
 
-.invalidCity {
+.error {
     border: 2.25px solid #ff0000 !important;
 }
 
 .form .categoryDetails {
+    margin-bottom: 1rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -69,6 +70,7 @@
     bottom: -3.45rem;
     left: 0;
     right: 0;
+    z-index: 1;
 }
 
 .searchQuery {
@@ -81,45 +83,11 @@
     gap: 0.5rem;
 }
 
-.uploadedImages {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 1rem;
-}
-
-.imgContainer {
+.description {
     position: relative;
-    cursor: pointer;
-    transition: all 0.25s ease-in-out;
 }
 
-.imgContainer:focus,
-.imgContainer:hover {
-    opacity: 0.8;
-}
-
-.imgContainer img {
-    width: 100%;
-    aspect-ratio: 1.25/1;
-    object-fit: cover;
-    opacity: 0.95;
-    border-radius: 5px;
-}
-
-.uploadedImages .remove {
-    z-index: 1;
-    position: absolute;
-    top: 50%;
-    right: 50%;
-    transform: translate(50%, -50%);
-    color: #fff;
-}
-
-.file {
-    display: none;
-}
-
-.uploadBtn {
+.btn {
     border-radius: 5px;
     background: var(--button-primary);
     color: #fff;
@@ -127,9 +95,30 @@
     padding: 0.85rem 2rem;
     transition: all 0.25s ease-in-out;
     cursor: pointer;
+    border: none;
 }
 
-.uploadBtn:hover,
-.uploadBtn:focus {
+.btn:hover,
+.btn:focus {
     background: var(--button-hover);
+}
+
+.errorMessage {
+    position: absolute;
+    text-align: center;
+    bottom: -1rem;
+    left: 0;
+    right: 0;
+    color: #ff0000;
+}
+
+.serverError {
+    position: absolute;
+    left: 0;
+    right: 0;
+    color: #ff0000;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 1rem;
 }

@@ -12,3 +12,13 @@ export const getPlaceComments = async (id) => {
 
     return [];
 };
+
+export const createPlace = async (placeData) => {
+    const res = await axios.post(apiEndpoints.addPlace, placeData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+
+    return res.data;
+};

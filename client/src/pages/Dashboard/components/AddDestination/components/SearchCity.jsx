@@ -6,26 +6,26 @@ import { getCityData } from '../../../../../service/data/destinations';
 
 import styles from '../AddDestination.module.css';
 
-export const SearchCity = ({ dispatchHandler, state }) => {
+export const SearchCity = ({
+    dispatchHandler,
+    city,
+    validCity,
+    validateCityHandler,
+    errorMessages,
+}) => {
     const [showSearchDropdown, setShowSearchDropdown] = useState(false);
-    const [validCity, setValidCity] = useState(false);
 
     const debouncedFunction = useCallback(
-        debounce((city) => fetchData(city), 300), []
+        debounce((city) => fetchData(city), 300),
+        []
     );
 
     useEffect(() => {
-        if (state.city == '') return;
-        if (validCity.city && validCity.city.includes(state.city)) return;
+        if (city == '') return;
+        if (validCity.city && validCity.city.includes(city)) return;
 
-        debouncedFunction(state.city);
-    }, [state.city]);
-
-    const isCityFieldEmpty = state.city.length == 0;
-    const isCityValidated = `${
-        !isCityFieldEmpty && validCity.city == state.city && styles.validCity
-    }`;
-    const isCityInvalidated = `${!isCityFieldEmpty && !validCity && styles.invalidCity}`;
+        debouncedFunction(city);
+    }, [city]);
 
     async function fetchData(city) {
         try {
@@ -33,15 +33,15 @@ export const SearchCity = ({ dispatchHandler, state }) => {
             const cityData = data[0];
 
             if (cityData) {
-                setValidCity({
+                validateCityHandler({
                     city: cityData.name,
                     country: cityData.country,
                 });
             } else {
-                setValidCity(false);
+                validateCityHandler(false);
             }
         } catch (err) {
-            setValidCity(false);
+            validateCityHandler(false);
         }
     }
 
@@ -63,6 +63,12 @@ export const SearchCity = ({ dispatchHandler, state }) => {
         setShowSearchDropdown(boolean);
     }
 
+    const isCityFieldEmpty = city.length == 0;
+    const isCityValidated = !isCityFieldEmpty && validCity.city?.toLowerCase() == city?.toLowerCase() ? `${styles.validField}` : null;
+    const isCityInvalidated = !isCityFieldEmpty && !isCityValidated ? `${styles.error}` : null;
+
+    const error = errorMessages.find((e) => e.includes('city'));
+
     return (
         <div className={`${styles.formField} ${styles.cityInput}`}>
             <label htmlFor="city">City</label>
@@ -75,9 +81,10 @@ export const SearchCity = ({ dispatchHandler, state }) => {
                 onChange={onChangeHandler}
                 onClick={() => showSearchDropdownHandler(true)}
                 onBlur={() => showSearchDropdownHandler(false)}
-                value={state.city}
+                value={city}
                 className={`${isCityValidated} ${isCityInvalidated}`}
             />
+            {error && !isCityValidated && <span className={styles.errorMessage}>{error}</span>}
             {showSearchDropdown && (
                 <div className={styles.searchDropdown}>
                     {isCityFieldEmpty && (

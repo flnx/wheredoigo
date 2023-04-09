@@ -24,11 +24,11 @@ async function register({ email, username, password }) {
         email,
         username,
         hashedPassword,
-    });e
+    });
 
     const payload = {
         ownerId: user._id,
-        username: capitalizeEachWord(user.username)
+        username: capitalizeEachWord(user.username),
     };
 
     const accessToken = await jwt.sign(payload, process.env.JWT_SECRET);
@@ -36,7 +36,6 @@ async function register({ email, username, password }) {
     return {
         ...payload,
         accessToken,
-
     };
 }
 
@@ -45,9 +44,7 @@ async function login({ email, password }) {
         throw Error(errorMessages.auth);
     }
 
-    const user = await User.findOne({ email })
-        .lean()
-        .exec();
+    const user = await User.findOne({ email }).lean().exec();
 
     if (!user) {
         throw new Error(errorMessages.auth);
@@ -62,7 +59,7 @@ async function login({ email, password }) {
     const payload = {
         ownerId: user._id,
         email: user.email,
-        username: capitalizeEachWord(user.username)
+        username: capitalizeEachWord(user.username),
     };
 
     const accessToken = await jwt.sign(payload, process.env.JWT_SECRET);

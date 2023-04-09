@@ -38,7 +38,7 @@ export function destinationFormReducer(state, action) {
 
             return {
                 ...state,
-                imageUrls: imageFiles,
+                imageUrls: [...state.imageUrls, ...imageFiles],
             };
         }
 

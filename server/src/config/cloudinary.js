@@ -4,7 +4,7 @@ const config = require('./config');
 
 const storage = multer.memoryStorage();
 
-const upload = multer({ storage: storage }).array('imageUrls', 10);
+const upload = multer({ storage: storage }).array('imageUrls', 20);
 
 function cloudinaryConfig() {
     cloudinary.config({

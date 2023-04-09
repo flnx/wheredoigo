@@ -19,20 +19,12 @@ export const NavLinks = ({ closeNavHandler }) => {
                 {!auth.accessToken ? (
                     <>
                         <li>
-                            <NavLink
-                                to="/login"
-                                onClick={closeNavHandler}
-                                className={styles.btn}
-                            >
+                            <NavLink to="/auth/login" onClick={closeNavHandler} className={styles.btn}>
                                 Log in
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink
-                                to="/register"
-                                onClick={closeNavHandler}
-                                className={styles.btn}
-                            >
+                            <NavLink to="/auth/register" onClick={closeNavHandler} className={styles.btn} >
                                 Sign up
                             </NavLink>
                         </li>
@@ -45,7 +37,7 @@ export const NavLinks = ({ closeNavHandler }) => {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/logout" onClick={closeNavHandler}>
+                            <NavLink to="/dashboard/logout" onClick={closeNavHandler}>
                                 Logout
                             </NavLink>
                         </li>

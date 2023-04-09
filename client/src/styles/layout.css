@@ -25,7 +25,6 @@ _____________________________
     width: clamp(14rem, 93.5vw, 80rem);
 }
 
-
 .sliderItem {
     background: var(--background);
     box-shadow: var(--box-shadow);
@@ -43,4 +42,10 @@ _____________________________
     object-fit: cover;
     border-radius: 20px;
     padding: 0.65rem;
+}
+
+button[disabled] {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor:context-menu !important;
 }

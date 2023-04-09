@@ -1,25 +1,15 @@
-const { cloudinary } = require('../config/cloudinary');
-const streamifier = require('streamifier');
-
-const {
-    getDestinationByPage,
-    addNewDestination,
-    getDestinationById,
-    getCityData,
-} = require('../services/destinationService');
-
+const { getByPage, create, getById} = require('../services/destinationService');
 const { getDestinationPlaces } = require('../services/placeService');
+const { fetchCity } = require('../service.js/data');
 const handleErrors = require('../utils/errorHandler');
 
 exports.paginated_destinations = async (req, res) => {
     const page = parseInt(req.query.page) || 0;
     const limit = 9;
-
     const search = req.query.search;
-
+    
     try {
-        const destinations = await getDestinationByPage(page, limit, search);
-
+        const destinations = await getByPage(page, limit, search);
         res.json(destinations);
     } catch (err) {
         res.status(400).json(handleErrors(err));
@@ -30,7 +20,7 @@ exports.destination_details = async (req, res) => {
     const { destinationId } = req.params;
 
     try {
-        const destination = await getDestinationById(destinationId);
+        const destination = await getById(destinationId);
         const places = await getDestinationPlaces(destinationId);
         destination.places = places;
 
@@ -44,7 +34,7 @@ exports.get_city_data = async (req, res) => {
     const { city } = req.body;
 
     try {
-        const result = await getCityData(city);
+        const result = await fetchCity(city);
         res.json(result);
     } catch (err) {
         return res.status(400).json(handleErrors(err));
@@ -52,38 +42,13 @@ exports.get_city_data = async (req, res) => {
 };
 
 exports.add_new_destination = async (req, res) => {
-    console.log(req.files);
     try {
-        const imageUrls = [];
+        const destinationInfo = req.body;
+        const images = req.files;
+        const destination = await create(destinationInfo, images);
 
-        for (const file of req.files) {
-            const imageUrl = await uploadImageToCloudinary(file.buffer);
-            imageUrls.push(imageUrl);
-        }
-
-        console.log(imageUrls);
-        res.json([]);
-    } catch (error) {
-        console.log(error);
-        res.status(500).json([]);
+        return res.json(destination);
+    } catch (err) {
+        return res.status(400).json(handleErrors(err));
     }
 };
-
-function uploadImageToCloudinary(imageBuffer) {
-    const options = { folder: 'uploads' };
-
-    return new Promise((resolve, reject) => {
-        const uploadStream = cloudinary.uploader.upload_stream(
-            options,
-            (error, result) => {
-                if (result) {
-                    resolve(result);
-                } else {
-                    reject(error);
-                }
-            }
-        );
-
-        streamifier.createReadStream(imageBuffer).pipe(uploadStream);
-    });
-}

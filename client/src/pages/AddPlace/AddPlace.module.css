@@ -1,0 +1,67 @@
+.form {
+    max-width: 35rem;
+    margin-inline: auto;
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.9rem;
+}
+
+.formRow {
+    position: relative;
+    width: 100%;
+}
+
+.formLabel {
+    font-size: 1.2rem;
+    width: 10rem;
+}
+
+.formInput,
+.formSelect {
+    font-size: 1rem;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.formInput:focus,
+.formSelect:focus {
+    outline: none;
+    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.2);
+}
+
+
+.formImageButton:focus {
+    outline: none;
+}
+
+.formButton {
+    font-size: 1rem;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.25rem;
+    background-color: #2979ff;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    margin-inline: auto;
+    width: 20rem;
+}
+
+.formButton:focus {
+    outline: none;
+}
+
+.error {
+    position: absolute;
+    bottom: -1.5rem;
+    font-size: 0.95rem;
+    left: 0;
+    color: rgb(190, 19, 19);
+    text-decoration: uppercase;
+}
