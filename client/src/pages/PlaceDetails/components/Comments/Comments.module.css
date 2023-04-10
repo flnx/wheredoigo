@@ -1,4 +1,4 @@
-.reviewSection {
+.commentSection {
     padding: 1rem 2rem;
     border: 1px solid var(--border-gray);
     border-radius: 10px;
@@ -6,8 +6,29 @@
     max-width: 66%;
 }
 
-.totalReviews {
+.totalComments {
     font-size: 1.55rem;
+}
+
+.comments {
+    display: grid;
+    gap: 2rem;
+}
+
+.comment {
+    border-top: 1px solid var(--border-gray);
+    padding-top: 2rem;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.commentTitle {
+    margin-bottom: 0.5rem;
+}
+
+.commentContent {
+    font-size: 1rem;
 }
 
 .intro {
@@ -20,20 +41,6 @@
     font-size: 1.85rem;
 }
 
-
-.reviews {
-    display: grid;
-    gap: 2rem;
-}
-
-.review {
-    border-top: 1px solid var(--border-gray);
-    padding-top: 2rem;
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-}
-
 .avatar img {
     width: 72px;
     height: 72px;
@@ -43,12 +50,4 @@
 
 .content {
     max-width: 70ch;
-}
-
-.reviewTitle {
-    margin-bottom: 0.5rem;
-}
-
-.reviewComment {
-    font-size: 1rem;
 }

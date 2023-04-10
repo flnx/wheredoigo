@@ -6,7 +6,13 @@ const Destination = require('../models/destinationSchema');
 const { handleImageUploads } = require('../utils/cloudinaryUploader');
 
 async function getPlaceById(placeId) {
-    const place = await Place.findById(placeId).populate('comments').lean().exec();
+    const place = await Place.findById(placeId)
+        .populate({
+            path: 'comments',
+            populate: { path: 'ownerId', select: 'username' },
+        })
+        .lean()
+        .exec();
 
     if (!place) {
         throw new Error('404 Not Found');
@@ -17,7 +23,6 @@ async function getPlaceById(placeId) {
 
 async function getDestinationPlaces(destinationId) {
     const places = await Place.find({ destinationId })
-        .populate('comments')
         .lean()
         .exec();
 
@@ -86,10 +91,13 @@ async function addNewPlace(data, images) {
 
 async function addCommentToPlace(placeId, title, content, ownerId) {
     try {
-        const user = await User.findById(ownerId).select('username').lean().exec();
+        const user = await User.findById(ownerId)
+            .select('username')
+            .lean()
+            .exec();
 
         if (!user) {
-          throw new Error('User does not exist!');
+            throw new Error('User does not exist!');
         }
 
         const place = await Place.findById(placeId).select('comments').exec();
@@ -110,7 +118,10 @@ async function addCommentToPlace(placeId, title, content, ownerId) {
 
         return {
             ...comment.toObject(),
-            username: user.username
+            ownerId: {
+                _id: user._id,
+                username: user.username
+            }
         };
     } catch (err) {
         throw new Error(err.message);

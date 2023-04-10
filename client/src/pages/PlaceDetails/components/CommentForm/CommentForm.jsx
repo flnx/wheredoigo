@@ -29,8 +29,6 @@ export const CommentForm = () => {
         addComment(data, placeId);
     };
 
-    console.log('COMMENT ADDED - FORM')
-
     return (
         <div>
             <h3 className={styles.title}>Leave a review</h3>

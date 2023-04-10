@@ -8,7 +8,6 @@ export const useAddComment = (placeId) => {
     return useMutation({
         mutationFn: (userComment) => addComment(userComment, placeId),
         onSuccess: (newComment) => {
-
             // Retrieve the current places data from the cache
             const place = queryClient.getQueryData([
                 queryEndpoints.places,

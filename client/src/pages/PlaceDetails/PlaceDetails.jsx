@@ -27,7 +27,7 @@ export const PlaceDetails = () => {
             <div className={styles.wrapper}>
                 <Images place={data} />
                 <Header place={data} />
-                {/* <Comments reviews={''}/> */}
+                <Comments comments={data.comments}/>
                 <CommentForm />
             </div>
         </div>
