@@ -4,8 +4,6 @@ const { fetchCity } = require('../service.js/data');
 const handleErrors = require('../utils/errorHandler');
 
 exports.paginated_destinations = async (req, res) => {
-    console.log(req.headers['authorization']);
-
     const page = parseInt(req.query.page) || 0;
     const limit = 9;
     const search = req.query.search;

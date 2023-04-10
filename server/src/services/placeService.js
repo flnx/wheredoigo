@@ -1,5 +1,6 @@
 const Place = require('../models/placeSchema');
 const Comment = require('../models/commentSchema');
+const User = require('../models/userSchema');
 
 const Destination = require('../models/destinationSchema');
 const { handleImageUploads } = require('../utils/cloudinaryUploader');
@@ -85,6 +86,12 @@ async function addNewPlace(data, images) {
 
 async function addCommentToPlace(placeId, title, content, ownerId) {
     try {
+        const user = await User.findById(ownerId).select('username').lean().exec();
+
+        if (!user) {
+          throw new Error('User does not exist!');
+        }
+
         const place = await Place.findById(placeId).select('comments').exec();
 
         if (!place) {
@@ -94,14 +101,17 @@ async function addCommentToPlace(placeId, title, content, ownerId) {
         const comment = new Comment({
             title: title.trim(),
             content: content.trim(),
-            ownerId: ownerId,
+            ownerId,
         });
 
         place.comments.push(comment);
 
         await Promise.all([comment.save(), place.save()]);
 
-        return comment;
+        return {
+            ...comment.toObject(),
+            username: user.username
+        };
     } catch (err) {
         throw new Error(err.message);
     }

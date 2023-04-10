@@ -28,14 +28,11 @@ exports.place_details = async (req, res) => {
 exports.post_comment = async (req, res) => {
     const { placeId } = req.params;
     const { title, content } = req.body;
-    const { ownerId, username } = req.user;
-    return res.json([]);
-
+    const { ownerId } = req.user;
     
-    // const ownerId = req.user._id; // Need to add a middleware later
     try {
-        // const comment = await addCommentToPlace(placeId, title, content, ownerId);
-        // res.json(comment);
+        const comment = await addCommentToPlace(placeId, title, content, ownerId);
+        res.json(comment);
     } catch (err) {
         res.status(401).json(handleErrors(err));
     }
