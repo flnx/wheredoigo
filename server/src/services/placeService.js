@@ -6,7 +6,7 @@ const Destination = require('../models/destinationSchema');
 const { handleImageUploads } = require('../utils/cloudinaryUploader');
 
 async function getPlaceById(placeId) {
-    const place = await Place.findById(placeId).lean().exec();
+    const place = await Place.findById(placeId).populate('comments').lean().exec();
 
     if (!place) {
         throw new Error('404 Not Found');

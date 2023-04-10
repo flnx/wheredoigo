@@ -4,7 +4,7 @@ import { usePlace } from '../../hooks/queries/usePlace';
 // components
 import { Header } from './components/Header/Header';
 import { Images } from './components/ImagesSection/ImagesSection';
-import { Reviews } from './components/Reviews/Reviews';
+import { Comments } from './components/Comments/Comments';
 import { CommentForm } from './components/CommentForm/CommentForm';
 
 
@@ -27,7 +27,7 @@ export const PlaceDetails = () => {
             <div className={styles.wrapper}>
                 <Images place={data} />
                 <Header place={data} />
-                {/* <Reviews reviews={''}/> */}
+                {/* <Comments reviews={''}/> */}
                 <CommentForm />
             </div>
         </div>

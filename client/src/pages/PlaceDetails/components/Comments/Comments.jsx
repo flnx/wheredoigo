@@ -1,7 +1,7 @@
-import { Review } from './Review';
-import styles from './Reviews.module.css';
+import { Comment } from './Comment';
+import styles from './Comments.module.css';
 
-export const Reviews = ({ reviews }) => {
+export const Comments = ({ comments }) => {
     return (
         <section className={styles.reviewSection}>
             <header className={styles.intro}>
@@ -11,7 +11,7 @@ export const Reviews = ({ reviews }) => {
 
             <div className={styles.reviews}>
                 {reviews.map((x) => (
-                    <Review review={x} key={x.objectId} />
+                    <Comment review={x} key={x.objectId} />
                 ))}
             </div>
         </section>

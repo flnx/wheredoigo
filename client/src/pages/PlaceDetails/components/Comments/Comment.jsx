@@ -1,6 +1,6 @@
-import styles from './Reviews.module.css';
+import styles from './Comments.module.css';
 
-export const Review = ({ review }) => {
+export const Comment = ({ review }) => {
     return (
         <section className={styles.review}>
             <div className={styles.avatar}>
