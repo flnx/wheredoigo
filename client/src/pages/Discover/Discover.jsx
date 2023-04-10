@@ -13,16 +13,10 @@ export const Discover = () => {
 
     const handleSearchParams = (e, value) => {
         e.preventDefault();
-        setSearchParams({ search: value });
-    };
+        const searchQuery = value ? { search: value } : {};
 
-    // useEffect(() => {
-    //     const userSearch = searchParams.get('search');
-        
-    //     getPlacesByCountry(userSearch).then((res) => {
-    //         console.log(res);
-    //     });
-    // }, [searchParams]);
+        setSearchParams(searchQuery);
+    };
 
     return (
         <div className="container">
@@ -30,9 +24,8 @@ export const Discover = () => {
                 <h1>Where do you want to go?</h1>
                 <SearchBar searchParamsHandler={handleSearchParams} />
                 <ContinentsNav />
-                {/* <CitiesSlider /> */}
-                {/* <CategoriesNav /> */}
-                <Destinations searchParams={searchParams.get('search')}/>
+                <CategoriesNav />
+                <Destinations searchParams={searchParams?.get('search')}/>
             </div>
         </div>
     );

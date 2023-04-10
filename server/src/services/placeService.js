@@ -1,22 +1,30 @@
 const Place = require('../models/placeSchema');
-const capitalizeEachWord = require('../utils/capitalizeWords');
+const Comment = require('../models/commentSchema');
+const User = require('../models/userSchema');
+
 const Destination = require('../models/destinationSchema');
 const { handleImageUploads } = require('../utils/cloudinaryUploader');
 
 async function getPlaceById(placeId) {
-    const place = await Place.findById(placeId).lean().exec();
+    const place = await Place.findById(placeId)
+        .populate({
+            path: 'comments',
+            populate: { path: 'ownerId', select: 'username' },
+        })
+        .lean()
+        .exec();
 
     if (!place) {
         throw new Error('404 Not Found');
     }
 
-    place.city = capitalizeEachWord(place.city);
-
     return place;
 }
 
 async function getDestinationPlaces(destinationId) {
-    const places = await Place.find({ destinationId }).lean().exec();
+    const places = await Place.find({ destinationId })
+        .lean()
+        .exec();
 
     return places;
 }
@@ -52,6 +60,7 @@ async function addNewPlace(data, images) {
         city: destination.city,
         country: destination.country.name,
         imageUrls: [],
+        comments: [],
     });
 
     const imageUrls = [];
@@ -80,8 +89,48 @@ async function addNewPlace(data, images) {
     };
 }
 
+async function addCommentToPlace(placeId, title, content, ownerId) {
+    try {
+        const user = await User.findById(ownerId)
+            .select('username')
+            .lean()
+            .exec();
+
+        if (!user) {
+            throw new Error('User does not exist!');
+        }
+
+        const place = await Place.findById(placeId).select('comments').exec();
+
+        if (!place) {
+            throw new Error('Place not found');
+        }
+
+        const comment = new Comment({
+            title: title.trim(),
+            content: content.trim(),
+            ownerId,
+        });
+
+        place.comments.push(comment);
+
+        await Promise.all([comment.save(), place.save()]);
+
+        return {
+            ...comment.toObject(),
+            ownerId: {
+                _id: user._id,
+                username: user.username
+            }
+        };
+    } catch (err) {
+        throw new Error(err.message);
+    }
+}
+
 module.exports = {
     addNewPlace,
     getPlaceById,
     getDestinationPlaces,
+    addCommentToPlace,
 };

@@ -11,10 +11,7 @@ export const CitiesSlider = ({ destinations }) => {
             <div className="container">
                 <SliderWrapper>
                     {destinations.map((x) => (
-                        <SwiperSlide
-                            className={styles.sliderItem}
-                            key={x._id}
-                        >
+                        <SwiperSlide className={styles.sliderItem} key={x._id}>
                             <SliderCard destination={x} />
                         </SwiperSlide>
                     ))}
