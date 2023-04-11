@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 // Components
 import { CategoriesNav } from '../../components/CategoriesNav/CategoriesNav';
 import { SearchBar } from '../../components/Serach-Bar/SearchBar';
-import { SideNavigation } from '../../components/SideNav/SideNavigation';
+import { SideNavigation } from './components/SideNav/SideNavigation';
 
 import styles from './Dashboard.module.css';
 

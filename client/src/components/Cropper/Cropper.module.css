@@ -1,0 +1,10 @@
+.actionBtns {
+    position: absolute;
+}
+
+.cropper {
+    margin-top: 2rem;
+    position: relative;
+    height: 80%;
+    width: 100%;
+}

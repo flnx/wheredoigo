@@ -16,6 +16,7 @@
     "phosphor-react": "^1.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-easy-crop": "^4.7.4",
     "react-router-dom": "^6.8.0",
     "swiper": "^9.0.3"
   },
