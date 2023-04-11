@@ -15,6 +15,8 @@ export const UserAvatar = () => {
     const [showSaveCancelButtons, setShowSaveCancelButtons] = useState(false);
     const [previousImage, setPreviousImage] = useState('');
 
+    console.log(imgAfterCrop);
+
     const canvasRef = useRef(null);
 
     useEffect(() => {
@@ -27,7 +29,7 @@ export const UserAvatar = () => {
         setShowSaveCancelButtons(true);
     };
 
-    const onCropDone = (imgCroppedArea, blob) => {
+    const onCropDone = (imgCroppedArea) => {
         const canvasEle = canvasRef.current;
         canvasEle.width = imgCroppedArea.width;
         canvasEle.height = imgCroppedArea.height;
@@ -63,9 +65,31 @@ export const UserAvatar = () => {
         setShowSaveCancelButtons(false);
     };
 
-    const handleSaveButtonClick = () => {
-        setPreviousImage(imgAfterCrop);
-        setShowSaveCancelButtons(false);
+    const handleSaveButtonClick = async () => {
+        try {
+            // Convert the base64 image to a Blob object
+            const response = await fetch(imgAfterCrop);
+            const blob = await response.blob();
+
+            // Create a File object from the Blob
+            const file = new File([blob], 'image.jpg', { type: 'image/jpeg' });
+
+            // Create a FormData object and append the File object to it
+            const formData = new FormData();
+            formData.append('file', file);
+
+            // Make the API request with the FormData object using fetch
+            const apiResponse = await fetch('test...', {
+                method: 'POST',
+                body: formData,
+            });
+
+            // Handle the API response
+            setPreviousImage(imgAfterCrop);
+            setShowSaveCancelButtons(false);
+        } catch (error) {
+            // Handle the error
+        }
     };
 
     const handleCancelButtonClick = () => {
