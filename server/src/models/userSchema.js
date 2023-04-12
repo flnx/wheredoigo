@@ -26,6 +26,10 @@ const userSchema = new Schema({
         type: String,
         required: [true, 'Password is required'],
     },
+    avatarUrl: {
+        type: String,
+        default: 'https://supercharge.info/images/avatar-placeholder.png'
+    }
 });
 
 userSchema.index({

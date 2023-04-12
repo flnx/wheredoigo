@@ -1,10 +1,12 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 
 // Components
 import { FileInput } from '../../../../components/FileInput/FileInput';
 import { ImageCropper } from '../../../../components/Cropper/Cropper';
 
 import styles from './SideNavigation.module.css';
+import { changeUserAvatar } from '../../../../service/data/user';
+import { AuthContext } from '../../../../context/AuthContext';
 
 const defaultUserPic = 'https://supercharge.info/images/avatar-placeholder.png';
 
@@ -13,15 +15,11 @@ export const UserAvatar = () => {
     const [imgAfterCrop, setImgAfterCrop] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [showSaveCancelButtons, setShowSaveCancelButtons] = useState(false);
-    const [previousImage, setPreviousImage] = useState('');
-
-    console.log(imgAfterCrop);
-
+    const { auth, setUserData } = useContext(AuthContext);
     const canvasRef = useRef(null);
 
-    useEffect(() => {
-        setPreviousImage(defaultUserPic);
-    }, []);
+    const userImage = auth.avatarUrl;
+
 
     const onImageSelected = (selectedImg) => {
         setImage(selectedImg);
@@ -67,33 +65,28 @@ export const UserAvatar = () => {
 
     const handleSaveButtonClick = async () => {
         try {
-            // Convert the base64 image to a Blob object
+            // Convert the image to a Blob object
             const response = await fetch(imgAfterCrop);
             const blob = await response.blob();
 
             // Create a File object from the Blob
-            const file = new File([blob], 'image.jpg', { type: 'image/jpeg' });
+            const image = new File([blob], 'image.jpg', { type: 'image/jpeg' });
 
             // Create a FormData object and append the File object to it
             const formData = new FormData();
-            formData.append('file', file);
+            formData.append('avatarUrl', image, 'avatar.jpg');
 
-            // Make the API request with the FormData object using fetch
-            const apiResponse = await fetch('test...', {
-                method: 'POST',
-                body: formData,
-            });
-
-            // Handle the API response
-            setPreviousImage(imgAfterCrop);
+            const updatedUserData = await changeUserAvatar(formData);
+            setUserData(updatedUserData);
             setShowSaveCancelButtons(false);
         } catch (error) {
-            // Handle the error
+            setImgAfterCrop('');
+            setShowSaveCancelButtons(false);
         }
     };
 
     const handleCancelButtonClick = () => {
-        setImgAfterCrop(previousImage);
+        setImgAfterCrop(userImage);
         setShowSaveCancelButtons(false);
     };
 
@@ -104,7 +97,7 @@ export const UserAvatar = () => {
             )}
             <div>
                 <img
-                    src={imgAfterCrop ? imgAfterCrop : previousImage}
+                    src={imgAfterCrop ? imgAfterCrop : userImage}
                     alt="User Avatar"
                     className={styles.croppedImg}
                     loading="lazy"

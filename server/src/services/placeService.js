@@ -1,9 +1,10 @@
 const Place = require('../models/placeSchema');
 const Comment = require('../models/commentSchema');
 const User = require('../models/userSchema');
-
 const Destination = require('../models/destinationSchema');
+
 const { handleImageUploads } = require('../utils/cloudinaryUploader');
+const { imagesOptions } = require('../config/cloudinary');
 
 async function getPlaceById(placeId) {
     const place = await Place.findById(placeId)
@@ -67,7 +68,7 @@ async function addNewPlace(data, images) {
     let imgError = null;
 
     try {
-        const cloudinaryImagesData = await handleImageUploads(images);
+        const cloudinaryImagesData = await handleImageUploads(images, imagesOptions);
 
         for (const imageData of cloudinaryImagesData) {
             if (imageData.url) {

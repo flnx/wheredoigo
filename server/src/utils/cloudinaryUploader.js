@@ -1,21 +1,11 @@
 const { cloudinary } = require('../config/cloudinary');
 const streamifier = require('streamifier');
 
-const options = {
-    folder: 'uploads',
-    transformation: [
-        { width: '2000', height: '1312', crop: 'limit' },
-        { quality: 'auto:best', fetch_format: 'auto' },
-        { dpr: 'auto' },
-    ],
-    strip_metadata: true,
-};
-
-async function handleImageUploads(files) {
+async function handleImageUploads(files, options = {}) {
     const promises = [];
 
     for (const file of files) {
-        const promise = uploadImageToCloudinary(file.buffer);
+        const promise = uploadImageToCloudinary(file.buffer, options);
         promises.push(promise);
     }
 
@@ -28,7 +18,7 @@ async function handleImageUploads(files) {
         );
     }
 }
-function uploadImageToCloudinary(imageBuffer) {
+function uploadImageToCloudinary(imageBuffer, options = {}) {
     return new Promise((resolve, reject) => {
         const uploadStream = cloudinary.uploader.upload_stream(
             options,
@@ -44,6 +34,7 @@ function uploadImageToCloudinary(imageBuffer) {
         streamifier.createReadStream(imageBuffer).pipe(uploadStream);
     });
 }
+
 
 module.exports = {
     handleImageUploads,

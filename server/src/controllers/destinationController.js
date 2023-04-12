@@ -1,13 +1,17 @@
-const { getByPage, create, getById} = require('../services/destinationService');
+const {
+    getByPage,
+    create,
+    getById,
+} = require('../services/destinationService');
 const { getDestinationPlaces } = require('../services/placeService');
-const { fetchCity } = require('../service.js/data');
+const { fetchCity } = require('../service/data');
 const handleErrors = require('../utils/errorHandler');
 
 exports.paginated_destinations = async (req, res) => {
     const page = parseInt(req.query.page) || 0;
     const limit = 9;
     const search = req.query.search;
-    
+
     try {
         const destinations = await getByPage(page, limit, search);
         res.json(destinations);

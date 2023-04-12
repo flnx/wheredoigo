@@ -33,7 +33,6 @@ export const Register = () => {
         });
 
         if (error) {
-            console.log(error);
             return setInputError(error);
         }
 
@@ -41,12 +40,7 @@ export const Register = () => {
 
         try {
             const { data } = await user.register({ username, password, email });
-
-            setUserData({
-                username,
-                accessToken: data.accessToken,
-                ownerId: data.ownerId,
-            });
+            setUserData(data);
         } catch (err) {
             const currentError = err.response.data.message;
             let errorMessage;

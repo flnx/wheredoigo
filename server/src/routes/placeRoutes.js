@@ -1,7 +1,7 @@
 const express = require('express');
 const placeController = require('../controllers/placeController');
-const { upload } = require('../config/cloudinary');
 const { auth } = require('../middlewares/auth');
+const { upload } = require('../middlewares/images');
 
 const router = express.Router();
 

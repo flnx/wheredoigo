@@ -1,4 +1,5 @@
 export const apiEndpoints = {
+    changeAvatar: 'change-avatar',
     addDestination: 'destinations',
     addPlace: 'places',
     addComment: (id) => `places/${id}/comment`,

@@ -1,6 +1,7 @@
 const express = require('express');
 const destinationController = require('../controllers/destinationController');
-const { upload } = require('../config/cloudinary');
+
+const { upload } = require('../middlewares/images');
 
 const router = express.Router();
 

@@ -1,7 +1,9 @@
 const Country = require('../models/countrySchema');
 const Destination = require('../models/destinationSchema');
-const { fetchCity, fetchCountry } = require('../service.js/data');
+const { fetchCity, fetchCountry } = require('../service/data');
 const { handleImageUploads } = require('../utils/cloudinaryUploader');
+const { imagesOptions } = require('../config/cloudinary');
+
 require('dotenv').config();
 
 async function getByPage(page, limit, searchParams) {
@@ -90,7 +92,7 @@ async function create(data, images) {
     let imgError = null;
 
     try {
-        const cloudinaryImagesData = await handleImageUploads(images);
+        const cloudinaryImagesData = await handleImageUploads(images, imagesOptions);
 
         for (const imageData of cloudinaryImagesData) {
             if (imageData.url) {

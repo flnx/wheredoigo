@@ -38,13 +38,7 @@ export const Login = () => {
 
         try {
             const { data } = await user.login({ email, password });
-
-            setUserData({
-                username: data.username,
-                accessToken: data.accessToken,
-                email: data.email,
-                ownerId: data._id,
-            });
+            setUserData(data);
         } catch (err) {
             const errMsg = err.response.data.message || err.response.data.error;
 
