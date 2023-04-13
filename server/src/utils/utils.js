@@ -4,8 +4,11 @@ function validatePassword(password) {
     return regex.test(password);
 }
 
+function fixInvalidFolderNameChars(city, id) {
+    return `${city}-${id}`.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+}
+
 module.exports = {
     validatePassword,
+    fixInvalidFolderNameChars
 };
-
-// username: /^[a-zA-Z0-9_-]{2,25}$/,

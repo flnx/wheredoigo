@@ -3,12 +3,14 @@ import capitalizeEachWord from '../../../utils/capitalizeEachWord';
 import styles from './CitiesSlider.module.css';
 
 export const SliderCard = ({ destination }) => {
+    const { imageUrls, city, country, _id } = destination;
+
     return (
-        <Link to={`/destinations/${destination._id}`}>
-            <img src={destination.imageUrls} alt="city" className={styles.image} />
+        <Link to={`/destinations/${_id}`}>
+            <img src={imageUrls.imageUrl} alt="city" className={styles.image} />
             <div className={styles.content}>
-                <h3>{capitalizeEachWord(destination.city)}</h3>
-                <p>{capitalizeEachWord(destination.country.name)}</p>
+                <h3>{capitalizeEachWord(city)}</h3>
+                <p>{capitalizeEachWord(country.name)}</p>
             </div>
         </Link>
     );

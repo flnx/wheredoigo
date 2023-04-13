@@ -19,7 +19,7 @@ export const Gallery = ({ images = [], closeGalleryHandler }) => {
                 <div className={styles.imagesContainer}>
                     <div className={styles.mainImgContainer}>
                         <img
-                            src={mainImage}
+                            src={mainImage.imageUrl}
                             alt="img"
                             className={styles.mainImg}
                         />
@@ -28,9 +28,9 @@ export const Gallery = ({ images = [], closeGalleryHandler }) => {
                         {images.map((x) => (
                             <img
                                 className={`${mainImage == x && isActive}`}
-                                src={x}
+                                src={x.imageUrl}
                                 alt="img"
-                                key={x}
+                                key={x._id}
                                 onClick={() => setMainImage(x)}
                             />
                         ))}

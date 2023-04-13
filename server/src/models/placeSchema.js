@@ -37,13 +37,18 @@ const placeSchema = new Schema({
         enum: ['Explore', 'Eat', 'Party'],
         required: [true, 'Type is required'],
     },
-    imageUrls: {
-        type: [String],
-    },
-    comments: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Comment'
-    }]
+    imageUrls: [
+        {
+            imageUrl: String,
+            publicId: String,
+        },
+    ],
+    comments: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Comment',
+        },
+    ],
 });
 
 placeSchema.index(

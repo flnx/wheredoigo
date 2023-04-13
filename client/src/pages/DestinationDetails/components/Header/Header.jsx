@@ -13,7 +13,7 @@ export const DestinationHeader = ({ destination }) => {
 
     const onImageClickHandler = (clickedImage) => {
         const arrayWithoutClickedImage = destination.imageUrls.filter(
-            (x) => x !== clickedImage
+            (x) => x._id !== clickedImage._id
         );
 
         // adding clicked img on index 0

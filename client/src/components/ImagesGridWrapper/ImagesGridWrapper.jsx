@@ -1,7 +1,7 @@
 import styles from './ImagesGridWrapper.module.css';
 
 export const ImagesGridWrapper = ({ images, alt, onClickHandler }) => {
-    const mainImageUrl = images[0];
+    const mainImage = images[0];
     const secondaryImages = images.slice(1);
 
     return (
@@ -9,18 +9,18 @@ export const ImagesGridWrapper = ({ images, alt, onClickHandler }) => {
             <div className={styles.mainImgContainer}>
                 <img
                     className={styles.mainImg}
-                    src={mainImageUrl}
+                    src={mainImage.imageUrl}
                     alt={alt}
-                    onClick={() => onClickHandler(mainImageUrl)}
+                    onClick={() => onClickHandler(mainImage)}
                 />
             </div>
             <div className={styles.secondaryImages}>
-                {secondaryImages.map((imgUrl) => (
+                {secondaryImages.map((x) => (
                     <img
-                        src={imgUrl}
+                        src={x.imageUrl}
                         alt={alt}
-                        onClick={() => onClickHandler(imgUrl)}
-                        key={imgUrl}
+                        onClick={() => onClickHandler(x)}
+                        key={x._id}
                     />
                 ))}
             </div>

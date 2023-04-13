@@ -49,6 +49,7 @@ exports.add_new_destination = async (req, res) => {
 
         return res.json(destination);
     } catch (err) {
+        console.log(handleErrors(err));
         return res.status(400).json(handleErrors(err));
     }
 };

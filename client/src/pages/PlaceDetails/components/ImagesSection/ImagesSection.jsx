@@ -10,7 +10,7 @@ export const Images = ({ place }) => {
 
     const onImageClickHandler = (clickedImage) => {
         const arrayWithoutClickedImage = place.imageUrls.filter(
-            (x) => x !== clickedImage
+            (x) => x._id !== clickedImage._id
         );
 
         // adding clicked img on index 0 so when the gallery opens to showcase it

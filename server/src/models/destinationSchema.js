@@ -42,7 +42,12 @@ const destinationSchema = new Schema({
             ],
         },
     ],
-    imageUrls: [String],
+    imageUrls: [
+        {
+            imageUrl: String,
+            publicId: String,
+        },
+    ],
 });
 
 destinationSchema.index(

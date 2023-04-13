@@ -3,6 +3,7 @@ const Comment = require('../models/commentSchema');
 const User = require('../models/userSchema');
 const Destination = require('../models/destinationSchema');
 
+const { fixInvalidFolderNameChars } = require('../utils/utils');
 const { handleImageUploads } = require('../utils/cloudinaryUploader');
 const { imagesOptions } = require('../config/cloudinary');
 
@@ -24,6 +25,7 @@ async function getPlaceById(placeId) {
 
 async function getDestinationPlaces(destinationId) {
     const places = await Place.find({ destinationId })
+        .select({ name: 1, city: 1, type: 1, imageUrls: { $slice: 1 } })
         .lean()
         .exec();
 
@@ -68,11 +70,20 @@ async function addNewPlace(data, images) {
     let imgError = null;
 
     try {
-        const cloudinaryImagesData = await handleImageUploads(images, imagesOptions);
+        const folder_type = 'places';
+        const folder_name = fixInvalidFolderNameChars(place.name, place._id);
+
+        const cloudinaryImagesData = await handleImageUploads(
+            images,
+            imagesOptions(folder_type, folder_name)
+        );
 
         for (const imageData of cloudinaryImagesData) {
             if (imageData.url) {
-                imageUrls.push(imageData.url);
+                imageUrls.push({
+                    imageUrl: imageData.url,
+                    public_id: imageData.public_id,
+                });
             } else {
                 console.log('An image failed to upload:', imageData);
             }
@@ -92,10 +103,7 @@ async function addNewPlace(data, images) {
 
 async function addCommentToPlace(placeId, title, content, ownerId) {
     try {
-        const user = await User.findById(ownerId)
-            .select('username')
-            .lean()
-            .exec();
+        const user = await User.findById(ownerId).select('username').lean().exec();
 
         if (!user) {
             throw new Error('User does not exist!');
@@ -121,8 +129,8 @@ async function addCommentToPlace(placeId, title, content, ownerId) {
             ...comment.toObject(),
             ownerId: {
                 _id: user._id,
-                username: user.username
-            }
+                username: user.username,
+            },
         };
     } catch (err) {
         throw new Error(err.message);

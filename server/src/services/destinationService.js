@@ -3,6 +3,7 @@ const Destination = require('../models/destinationSchema');
 const { fetchCity, fetchCountry } = require('../service/data');
 const { handleImageUploads } = require('../utils/cloudinaryUploader');
 const { imagesOptions } = require('../config/cloudinary');
+const { fixInvalidFolderNameChars } = require('../utils/utils');
 
 require('dotenv').config();
 
@@ -21,10 +22,7 @@ async function getByPage(page, limit, searchParams) {
         { $unwind: '$country' },
         {
             $match: {
-                $or: [
-                    { city: { $regex: regex } },
-                    { 'country.name': { $regex: regex } },
-                ],
+                $or: [{ city: { $regex: regex } }, { 'country.name': { $regex: regex } }],
             },
         },
         {
@@ -46,10 +44,7 @@ async function getByPage(page, limit, searchParams) {
 }
 
 async function getById(destinationId) {
-    return Destination.findById(destinationId)
-        .populate('country')
-        .lean()
-        .exec();
+    return Destination.findById(destinationId).populate('country').lean().exec();
 }
 
 async function create(data, images) {
@@ -92,11 +87,20 @@ async function create(data, images) {
     let imgError = null;
 
     try {
-        const cloudinaryImagesData = await handleImageUploads(images, imagesOptions);
+        const folder_type = 'destinations';
+        const folder_name = fixInvalidFolderNameChars(destination.city, destination._id);
+
+        const cloudinaryImagesData = await handleImageUploads(
+            images,
+            imagesOptions(folder_type, folder_name)
+        );
 
         for (const imageData of cloudinaryImagesData) {
             if (imageData.url) {
-                imageUrls.push(imageData.url);
+                imageUrls.push({
+                    imageUrl: imageData.url,
+                    public_id: imageData.public_id,
+                });
             } else {
                 console.log('An image failed to upload:', imageData);
             }

@@ -11,13 +11,10 @@ export const PlacesSlider = ({ places }) => {
             <div className="container">
                 <SliderWrapper>
                     {places.map((place) => (
-                        <SwiperSlide
-                            className={styles.sliderItem}
-                            key={place._id}
-                        >
+                        <SwiperSlide className={styles.sliderItem} key={place._id}>
                             <Link to={`/places/${place._id}`}>
                                 <img
-                                    src={place.imageUrls[0]}
+                                    src={place.imageUrls[0].imageUrl}
                                     alt={place.place}
                                     className={styles.image}
                                 />

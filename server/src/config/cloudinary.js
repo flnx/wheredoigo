@@ -9,14 +9,16 @@ function cloudinaryConfig() {
     });
 }
 
-const imagesOptions = {
-    folder: 'uploads',
-    transformation: [
-        { width: '2000', height: '1312', crop: 'limit' },
-        { quality: 'auto:best', fetch_format: 'auto' },
-        { dpr: 'auto' },
-    ],
-    strip_metadata: true,
+const imagesOptions = (folderType, folderName) => {
+    return {
+        folder: `${folderType}/${folderName}`,
+        transformation: [
+            { width: '2000', height: '1312', crop: 'limit' },
+            { quality: 'auto:best', fetch_format: 'auto' },
+            { dpr: 'auto' },
+        ],
+        strip_metadata: true,
+    };
 };
 
 const avatarOptions = {

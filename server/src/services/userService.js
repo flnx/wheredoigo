@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('../lib/jsonwebtoken');
 const { errorMessages } = require('../constants/errorMessages');
 const { validatePassword } = require('../utils/utils');
-const { handleImageUploads, deleteOldUserAvatar } = require('../utils/cloudinaryUploader');
+const { handleImageUploads, deleteImage } = require('../utils/cloudinaryUploader');
 const { avatarOptions } = require('../config/cloudinary');
 const capitalizeEachWord = require('../utils/capitalizeWords');
 
@@ -82,7 +82,7 @@ const updateUserAvatar = async (image, userData) => {
         throw new Error('User not found');
     }
 
-    await deleteOldUserAvatar(user.avatar_id);
+    await deleteImage(user.avatar_id);
     const imageData = await handleImageUploads([image], avatarOptions);
     const { url, public_id } = imageData[0];
 
