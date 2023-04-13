@@ -6,5 +6,5 @@ const uploadAvatar = multer({ storage: storage }).single('avatarUrl');
 
 module.exports = {
     upload,
-    uploadAvatar
-}
+    uploadAvatar,
+};

@@ -1,6 +1,6 @@
 function capitalizeEachWord(name) {
     if (!name || typeof name != 'string') {
-        throw new Error('Invalid username data')
+        throw new Error('Invalid username data');
     }
 
     const result = name

@@ -35,7 +35,17 @@ function uploadImageToCloudinary(imageBuffer, options = {}) {
     });
 }
 
+async function deleteOldUserAvatar(publicId) {
+    try {
+        const result = await cloudinary.uploader.destroy(publicId);
+        return result;
+    } catch (error) {
+        console.log(error);
+        return {};
+    }
+}
 
 module.exports = {
     handleImageUploads,
+    deleteOldUserAvatar,
 };

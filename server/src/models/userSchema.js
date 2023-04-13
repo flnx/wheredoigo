@@ -29,6 +29,9 @@ const userSchema = new Schema({
     avatarUrl: {
         type: String,
         default: 'https://supercharge.info/images/avatar-placeholder.png'
+    },
+    avatar_id: {
+        type: String,
     }
 });
 

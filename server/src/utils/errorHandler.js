@@ -1,4 +1,4 @@
-const capitalizeEachWord = require("./capitalizeWords");
+const capitalizeEachWord = require('./capitalizeWords');
 
 function handleErrors(err) {
     if (err.name == 'ValidationError') {

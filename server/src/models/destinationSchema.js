@@ -11,7 +11,7 @@ const destinationSchema = new Schema({
         type: String,
         trim: true,
         lowercase: true,
-        required: [true, 'City is required']
+        required: [true, 'City is required'],
     },
     description: {
         type: String,

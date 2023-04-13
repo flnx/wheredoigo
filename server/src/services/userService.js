@@ -1,12 +1,11 @@
 const User = require('../models/userSchema');
 const bcrypt = require('bcrypt');
 const jwt = require('../lib/jsonwebtoken');
-
-const capitalizeEachWord = require('../utils/capitalizeWords');
-const { validatePassword } = require('../utils/utils');
 const { errorMessages } = require('../constants/errorMessages');
-const { handleImageUploads } = require('../utils/cloudinaryUploader');
+const { validatePassword } = require('../utils/utils');
+const { handleImageUploads, deleteOldUserAvatar } = require('../utils/cloudinaryUploader');
 const { avatarOptions } = require('../config/cloudinary');
+const capitalizeEachWord = require('../utils/capitalizeWords');
 
 require('dotenv').config();
 
@@ -83,10 +82,12 @@ const updateUserAvatar = async (image, userData) => {
         throw new Error('User not found');
     }
 
+    await deleteOldUserAvatar(user.avatar_id);
     const imageData = await handleImageUploads([image], avatarOptions);
-    const newImageUrl = imageData[0].url;
+    const { url, public_id } = imageData[0];
 
-    user.avatarUrl = newImageUrl;
+    user.avatarUrl = url;
+    user.avatar_id = public_id;
     await user.save();
 
     const payload = {
@@ -100,7 +101,7 @@ const updateUserAvatar = async (image, userData) => {
     return {
         ...payload,
         accessToken,
-        avatarUrl: newImageUrl,
+        avatarUrl: url,
     };
 };
 

@@ -20,7 +20,6 @@ export const UserAvatar = () => {
 
     const userImage = auth.avatarUrl;
 
-
     const onImageSelected = (selectedImg) => {
         setImage(selectedImg);
         setShowModal(true);

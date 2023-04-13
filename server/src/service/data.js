@@ -10,7 +10,7 @@ async function fetchCity(city) {
 async function fetchCountry(country) {
     const result = await fetch(process.env.COUNTRY_URL + country, options());
     const data = await result.json();
-    
+
     return data;
 }
 

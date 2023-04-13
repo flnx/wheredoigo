@@ -1,8 +1,4 @@
-const {
-    getByPage,
-    create,
-    getById,
-} = require('../services/destinationService');
+const { getByPage, create, getById } = require('../services/destinationService');
 const { getDestinationPlaces } = require('../services/placeService');
 const { fetchCity } = require('../service/data');
 const handleErrors = require('../utils/errorHandler');
