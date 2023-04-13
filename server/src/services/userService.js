@@ -30,14 +30,15 @@ async function userRegister({ email, username, password }) {
 
     const payload = {
         ownerId: user._id,
+        email: user.email,
         username: capitalizeEachWord(user.username),
-        email,
     };
 
     const accessToken = await jwt.sign(payload, process.env.JWT_SECRET);
 
     return {
-        ...payload,
+        email: user.email,
+        username: capitalizeEachWord(user.username),
         accessToken,
         avatarUrl: user.avatarUrl,
     };
@@ -69,20 +70,18 @@ async function userLogin({ email, password }) {
     const accessToken = await jwt.sign(payload, process.env.JWT_SECRET);
 
     return {
-        ...payload,
+        email: user.email,
+        username: capitalizeEachWord(user.username),
         accessToken,
         avatarUrl: user.avatarUrl,
     };
 }
 
-const updateUserAvatar = async (image, userData) => {
-    const user = await User.findById(userData.ownerId);
-
-    if (!user) {
-        throw new Error('User not found');
+const updateUserAvatar = async (image, user) => {
+    if (user.avatar_id) {
+        await deleteImage(user.avatar_id);
     }
 
-    await deleteImage(user.avatar_id);
     const imageData = await handleImageUploads([image], avatarOptions);
     const { url, public_id } = imageData[0];
 
@@ -99,7 +98,8 @@ const updateUserAvatar = async (image, userData) => {
     const accessToken = await jwt.sign(payload, process.env.JWT_SECRET);
 
     return {
-        ...payload,
+        email: user.email,
+        username: capitalizeEachWord(user.username),
         accessToken,
         avatarUrl: url,
     };
