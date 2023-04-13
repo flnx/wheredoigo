@@ -4,16 +4,20 @@ import capitalizeEachWord from '../../../utils/capitalizeEachWord';
 import styles from './Destination.module.css';
 
 export const Destination = ({ destination }) => {
+    const { imageUrls, _id, city, country } = destination;
+
     return (
-        <Link to={`/destinations/${destination._id}`}>
+        <Link to={`/destinations/${_id}`}>
             <div className={styles.destination}>
                 <img
-                    src={destination.imageUrls}
-                    alt={destination.city}
+                    src={imageUrls.imageUrl}
+                    alt={city}
                     className={styles.image}
                 />
-                <h3 className={styles.title}>{capitalizeEachWord(destination.city)}</h3>
-                <p>{capitalizeEachWord(destination.country.name)}</p>
+                <h3 className={styles.title}>
+                    {capitalizeEachWord(city)}
+                </h3>
+                <p>{capitalizeEachWord(country.name)}</p>
             </div>
         </Link>
     );
