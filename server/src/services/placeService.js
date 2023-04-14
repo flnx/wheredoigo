@@ -6,6 +6,7 @@ const Destination = require('../models/destinationSchema');
 const { fixInvalidFolderNameChars } = require('../utils/utils');
 const { handleImageUploads } = require('../utils/cloudinaryUploader');
 const { imagesOptions } = require('../config/cloudinary');
+const { validateFields } = require('../utils/validateFields');
 
 async function getPlaceById(placeId) {
     const place = await Place.findById(placeId)
@@ -32,8 +33,9 @@ async function getDestinationPlaces(destinationId) {
     return places;
 }
 
-async function addNewPlace(data, images) {
+async function addNewPlace(data, images, user) {
     const { destinationId, name, description, type } = data;
+    let error = null;
 
     const placeData = {
         destinationId,
@@ -42,21 +44,27 @@ async function addNewPlace(data, images) {
         name,
     };
 
-    const isFieldEmpty = Object.values(placeData).some((x) => !x);
 
-    if (isFieldEmpty) {
-        throw new Error('Missing Fields!');
-    }
+    validateFields(placeData)
 
     const destination = await Destination.findById(destinationId)
-        .select('city country')
+        .select('city country ownerId')
         .populate('country')
         .lean()
         .exec();
 
     if (!destination) {
-        throw new Error('Please enter a valid destination ID');
+        error = new Error('Please enter a valid destination ID');
+        error.status = 400;
+        throw error;
     }
+
+    if (!destination.ownerId.equals(user._id)) {
+        error = new Error('Access Denied!');
+        error.status = 403;
+        throw error;
+    }
+
 
     const place = await Place.create({
         ...placeData,
@@ -64,6 +72,7 @@ async function addNewPlace(data, images) {
         country: destination.country.name,
         imageUrls: [],
         comments: [],
+        ownerId: user._id,
     });
 
     const imageUrls = [];

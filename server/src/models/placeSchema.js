@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const placeSchema = new Schema({
+    ownerId: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+    },
     destinationId: {
         type: Schema.Types.ObjectId,
         required: [true, 'Destination id required!'],

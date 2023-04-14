@@ -4,6 +4,7 @@ const { fetchCity, fetchCountry } = require('../service/data');
 const { handleImageUploads } = require('../utils/cloudinaryUploader');
 const { imagesOptions } = require('../config/cloudinary');
 const { fixInvalidFolderNameChars } = require('../utils/utils');
+const { validateFields } = require('../utils/validateFields');
 
 require('dotenv').config();
 
@@ -47,18 +48,14 @@ async function getById(destinationId) {
     return Destination.findById(destinationId).populate('country').lean().exec();
 }
 
-async function create(data, images) {
+async function create(data, images, user) {
     const destinationData = {
         city: data.city,
         description: data.description,
         details: JSON.parse(data.details) || [],
     };
 
-    const isMissingField = Object.values(destinationData).some((x) => !x);
-
-    if (isMissingField) {
-        throw new Error('Missing fields!');
-    }
+    validateFields(destinationData)
 
     const cityData = await fetchCity(data.city);
 
@@ -81,6 +78,7 @@ async function create(data, images) {
         ...destinationData,
         country: country._id,
         imageUrls: [],
+        ownerId: user._id
     });
 
     const imageUrls = [];

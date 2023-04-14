@@ -45,11 +45,12 @@ exports.add_new_destination = async (req, res) => {
     try {
         const destinationInfo = req.body;
         const images = req.files;
-        const destination = await create(destinationInfo, images);
+        const user = req.user;
+        const destination = await create(destinationInfo, images, user);
 
         return res.json(destination);
     } catch (err) {
         console.log(handleErrors(err));
-        return res.status(400).json(handleErrors(err));
+        return res.status(err.status || 400).json(handleErrors(err));
     }
 };
