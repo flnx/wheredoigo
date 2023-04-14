@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { SecondaryButton } from '../Buttons/Secondary-Btn/SecondaryButton';
 
 export const FileInput = ({ onImageSelected }) => {
     const inputRef = useRef();
@@ -25,9 +26,9 @@ export const FileInput = ({ onImageSelected }) => {
                 style={{ display: 'none' }}
             />
 
-            <button className="btn" onClick={onChooseImg}>
-                Choose Image
-            </button>
+            <SecondaryButton clickHandler={onChooseImg}>
+                Change Avatar
+            </SecondaryButton>
         </div>
     );
 };

@@ -8,8 +8,6 @@ import styles from './SideNavigation.module.css';
 import { changeUserAvatar } from '../../../../service/data/user';
 import { AuthContext } from '../../../../context/AuthContext';
 
-const defaultUserPic = 'https://supercharge.info/images/avatar-placeholder.png';
-
 export const UserAvatar = () => {
     const [image, setImage] = useState('');
     const [imgAfterCrop, setImgAfterCrop] = useState('');
