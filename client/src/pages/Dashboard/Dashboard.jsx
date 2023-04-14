@@ -1,8 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
 // Components
-import { CategoriesNav } from '../../components/CategoriesNav/CategoriesNav';
-import { SearchBar } from '../../components/Serach-Bar/SearchBar';
 import { SideNavigation } from './components/SideNav/SideNavigation';
 
 import styles from './Dashboard.module.css';
@@ -13,14 +11,6 @@ export const Dashboard = () => {
             <div className={styles.grid}>
                 <section className={styles.sideNav}>
                     <SideNavigation />
-                </section>
-
-                <section className={styles.searchBar}>
-                    <SearchBar />
-                </section>
-
-                <section className={styles.categories}>
-                    <CategoriesNav />
                 </section>
 
                 <div className={styles.destinations}>

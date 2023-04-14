@@ -12,11 +12,6 @@
     border-right: 1px solid #f4f3f2;
 }
 
-.searchBar {
-    max-width: 33rem;
-    border-bottom: 1px solid #f4f3f2;
-}
-
 .destinations {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(calc(20rem - 1rem), 1fr));
@@ -42,10 +37,7 @@
 @media (min-width: 64em) {
     .grid {
         grid-template-columns: repeat(6, 1fr);
-        grid-template-areas:
-            'snav search search search search stats'
-            'snav cat cat cat cat stats'
-            'snav dest dest dest dest stats';
+        grid-template-areas: "snav dest dest dest dest stats";
     }
 
     .grid > * {
@@ -58,15 +50,6 @@
 
     .sideNav {
         grid-area: snav;
-    }
-
-    .searchBar {
-        max-width: 33rem;
-        grid-area: search;
-    }
-
-    .categories {
-        grid-area: cat;
     }
 
     .stats {
