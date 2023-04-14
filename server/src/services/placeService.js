@@ -1,12 +1,10 @@
 const Place = require('../models/placeSchema');
 const Comment = require('../models/commentSchema');
 const User = require('../models/userSchema');
-const Destination = require('../models/destinationSchema');
 
-const { fixInvalidFolderNameChars } = require('../utils/utils');
-const { handleImageUploads } = require('../utils/cloudinaryUploader');
-const { imagesOptions } = require('../config/cloudinary');
+const { addImages } = require('../utils/cloudinaryUploader');
 const { validateFields } = require('../utils/validateFields');
+const { getDestinationAndCheckOwnership } = require('./destinationService');
 
 async function getPlaceById(placeId) {
     const place = await Place.findById(placeId)
@@ -35,7 +33,6 @@ async function getDestinationPlaces(destinationId) {
 
 async function addNewPlace(data, images, user) {
     const { destinationId, name, description, type } = data;
-    let error = null;
 
     const placeData = {
         destinationId,
@@ -44,27 +41,9 @@ async function addNewPlace(data, images, user) {
         name,
     };
 
+    validateFields(placeData);
 
-    validateFields(placeData)
-
-    const destination = await Destination.findById(destinationId)
-        .select('city country ownerId')
-        .populate('country')
-        .lean()
-        .exec();
-
-    if (!destination) {
-        error = new Error('Please enter a valid destination ID');
-        error.status = 400;
-        throw error;
-    }
-
-    if (!destination.ownerId.equals(user._id)) {
-        error = new Error('Access Denied!');
-        error.status = 403;
-        throw error;
-    }
-
+    const destination = await getDestinationAndCheckOwnership(destinationId, user._id);
 
     const place = await Place.create({
         ...placeData,
@@ -75,31 +54,8 @@ async function addNewPlace(data, images, user) {
         ownerId: user._id,
     });
 
-    const imageUrls = [];
-    let imgError = null;
-
-    try {
-        const folder_type = 'places';
-        const folder_name = fixInvalidFolderNameChars(place.name, place._id);
-
-        const cloudinaryImagesData = await handleImageUploads(
-            images,
-            imagesOptions(folder_type, folder_name)
-        );
-
-        for (const imageData of cloudinaryImagesData) {
-            if (imageData.url) {
-                imageUrls.push({
-                    imageUrl: imageData.url,
-                    public_id: imageData.public_id,
-                });
-            } else {
-                console.log('An image failed to upload:', imageData);
-            }
-        }
-    } catch (err) {
-        imgError = err;
-    }
+    const folderName = 'places';
+    const { imageUrls, imgError } = await addImages(images, place, folderName);
 
     place.imageUrls = imageUrls;
     await place.save();

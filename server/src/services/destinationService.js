@@ -1,9 +1,7 @@
 const Country = require('../models/countrySchema');
 const Destination = require('../models/destinationSchema');
 const { fetchCity, fetchCountry } = require('../service/data');
-const { handleImageUploads } = require('../utils/cloudinaryUploader');
-const { imagesOptions } = require('../config/cloudinary');
-const { fixInvalidFolderNameChars } = require('../utils/utils');
+const { addImages } = require('../utils/cloudinaryUploader');
 const { validateFields } = require('../utils/validateFields');
 
 require('dotenv').config();
@@ -55,7 +53,7 @@ async function create(data, images, user) {
         details: JSON.parse(data.details) || [],
     };
 
-    validateFields(destinationData)
+    validateFields(destinationData);
 
     const cityData = await fetchCity(data.city);
 
@@ -78,34 +76,11 @@ async function create(data, images, user) {
         ...destinationData,
         country: country._id,
         imageUrls: [],
-        ownerId: user._id
+        ownerId: user._id,
     });
 
-    const imageUrls = [];
-    let imgError = null;
-
-    try {
-        const folder_type = 'destinations';
-        const folder_name = fixInvalidFolderNameChars(destination.city, destination._id);
-
-        const cloudinaryImagesData = await handleImageUploads(
-            images,
-            imagesOptions(folder_type, folder_name)
-        );
-
-        for (const imageData of cloudinaryImagesData) {
-            if (imageData.url) {
-                imageUrls.push({
-                    imageUrl: imageData.url,
-                    public_id: imageData.public_id,
-                });
-            } else {
-                console.log('An image failed to upload:', imageData);
-            }
-        }
-    } catch (err) {
-        imgError = err;
-    }
+    const folderName = 'destinations';
+    const { imageUrls, imgError } = await addImages(images, destination, folderName);
 
     destination.imageUrls = imageUrls;
     await destination.save();
@@ -116,8 +91,30 @@ async function create(data, images, user) {
     };
 }
 
+async function getDestinationAndCheckOwnership(destinationId, userId) {
+    const destination = await Destination.findById(destinationId)
+        .select('city country ownerId')
+        .populate('country')
+        .exec();
+
+    if (!destination) {
+        const error = new Error('Please enter a valid destination ID');
+        error.status = 400;
+        throw error;
+    }
+
+    if (!destination.ownerId.equals(userId)) {
+        const error = new Error('Access Denied!');
+        error.status = 403;
+        throw error;
+    }
+
+    return destination;
+}
+
 module.exports = {
     getByPage,
     create,
     getById,
+    getDestinationAndCheckOwnership,
 };
