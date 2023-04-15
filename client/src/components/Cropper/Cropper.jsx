@@ -3,6 +3,8 @@ import Cropper from 'react-easy-crop';
 import { Overlay } from '../Overlay/Overlay';
 
 import styles from './Cropper.module.css';
+import { CancelButton } from '../Buttons/Cancel-Button/CancelButton';
+import { SaveButton } from '../Buttons/Save-Button/SaveButton';
 
 export const ImageCropper = ({ image, onCropDone, onCropCancel }) => {
     const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -27,14 +29,13 @@ export const ImageCropper = ({ image, onCropDone, onCropCancel }) => {
                 />
             </div>
 
-            <div styles={styles.actionBtns}>
-                <button className="btn btn-outline" onClick={onCropCancel}>
+            <div className={styles.actionBtns}>
+                <CancelButton onClickHandler={onCropCancel}>
                     Cancel
-                </button>
-
-                <button className="btn" onClick={() => onCropDone(croppedArea)}>
+                </CancelButton>
+                <SaveButton onClickHandler={() => onCropDone(croppedArea)}>
                     Done
-                </button>
+                </SaveButton>
             </div>
         </Overlay>
     );

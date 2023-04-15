@@ -1,0 +1,20 @@
+.save-button {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 0.25rem 0.95rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.save-button {
+    color: #fff;
+    background-color: #4caf50; /* updated color */
+}
+
+.save-button:hover,
+.save-button:focus {
+    background-color: #23910a;
+}

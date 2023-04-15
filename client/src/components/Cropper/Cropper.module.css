@@ -1,9 +1,11 @@
 .actionBtns {
-    position: absolute;
+    margin-top: 0.25rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
 }
 
 .cropper {
-    /* margin-top: 2rem; */
     position: absolute;
     z-index: -1;
     height: 100%;

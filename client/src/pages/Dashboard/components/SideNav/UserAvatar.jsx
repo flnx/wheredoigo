@@ -7,6 +7,8 @@ import { ImageCropper } from '../../../../components/Cropper/Cropper';
 import styles from './SideNavigation.module.css';
 import { changeUserAvatar } from '../../../../service/data/user';
 import { AuthContext } from '../../../../context/AuthContext';
+import { SaveButton } from '../../../../components/Buttons/Save-Button/SaveButton';
+import { CancelButton } from '../../../../components/Buttons/Cancel-Button/CancelButton';
 
 export const UserAvatar = () => {
     const [image, setImage] = useState('');
@@ -103,12 +105,12 @@ export const UserAvatar = () => {
             <FileInput setImage={setImage} onImageSelected={onImageSelected} />
             {showSaveCancelButtons && (
                 <div className={styles.buttons}>
-                    <button className={styles['save-button']} onClick={handleSaveButtonClick}>
+                    <SaveButton onClickHandler={handleSaveButtonClick}>
                         Save
-                    </button>
-                    <button className={styles['cancel-button']} onClick={handleCancelButtonClick}>
+                    </SaveButton>
+                    <CancelButton onClickHandler={handleCancelButtonClick}>
                         Cancel
-                    </button>
+                    </CancelButton>
                 </div>
             )}
             <canvas ref={canvasRef} style={{ display: 'none' }} />
