@@ -1,14 +1,18 @@
 const express = require('express');
+
+// Controllers
+const { place_details, add_new_place, post_comment } = require('../controllers/placeController');
+
+// Middlewares
 const validateMongoId = require('../middlewares/validateMongoId');
-const placeController = require('../controllers/placeController');
 const { auth } = require('../middlewares/auth');
 const { upload } = require('../middlewares/images');
 const { checkSession } = require('../middlewares/checkSession');
 
 const router = express.Router();
 
-router.get('/places/:placeId', validateMongoId, checkSession, placeController.place_details);
-router.post('/places', auth, upload, placeController.add_new_place);
-router.post('/places/:placeId/comment', validateMongoId, auth, placeController.post_comment);
+router.get('/places/:placeId', validateMongoId, checkSession, place_details);
+router.post('/places', auth, upload, add_new_place);
+router.post('/places/:placeId/comment', validateMongoId, auth, post_comment);
 
 module.exports = router;

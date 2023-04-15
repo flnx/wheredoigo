@@ -1,16 +1,24 @@
 const express = require('express');
-const destinationController = require('../controllers/destinationController');
-const validateMongoId = require('../middlewares/validateMongoId');
 
+// Controllers
+const {
+    paginated_destinations,
+    destination_details,
+    add_new_destination,
+    get_city_data,
+} = require('../controllers/destinationController');
+
+// Middlewares
+const validateMongoId = require('../middlewares/validateMongoId');
 const { auth } = require('../middlewares/auth');
 const { upload } = require('../middlewares/images');
 const { checkSession } = require('../middlewares/checkSession');
 
 const router = express.Router();
 
-router.get('/destinations', destinationController.paginated_destinations);
-router.get('/destinations/:destinationId', validateMongoId, checkSession, destinationController.destination_details);
-router.post('/destinations', auth, upload, destinationController.add_new_destination);
-router.post('/destinations/get-city-data', auth, destinationController.get_city_data);
+router.get('/destinations', paginated_destinations);
+router.get('/destinations/:destinationId', validateMongoId, checkSession, destination_details);
+router.post('/destinations', auth, upload, add_new_destination);
+router.post('/destinations/get-city-data', auth, get_city_data);
 
 module.exports = router;

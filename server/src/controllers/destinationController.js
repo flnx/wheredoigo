@@ -3,7 +3,7 @@ const { getDestinationPlaces } = require('../services/placeService');
 const { fetchCity } = require('../service/data');
 const handleErrors = require('../utils/errorHandler');
 
-exports.paginated_destinations = async (req, res) => {
+const paginated_destinations = async (req, res) => {
     const page = parseInt(req.query.page) || 0;
     const limit = 9;
     const search = req.query.search;
@@ -16,7 +16,7 @@ exports.paginated_destinations = async (req, res) => {
     }
 };
 
-exports.destination_details = async (req, res) => {
+const destination_details = async (req, res) => {
     const { destinationId } = req.params;
 
     try {
@@ -35,7 +35,7 @@ exports.destination_details = async (req, res) => {
     }
 };
 
-exports.get_city_data = async (req, res) => {
+const get_city_data = async (req, res) => {
     const { city } = req.body;
 
     try {
@@ -46,7 +46,7 @@ exports.get_city_data = async (req, res) => {
     }
 };
 
-exports.add_new_destination = async (req, res) => {
+const add_new_destination = async (req, res) => {
     try {
         const destinationInfo = req.body;
         const images = req.files;
@@ -55,7 +55,13 @@ exports.add_new_destination = async (req, res) => {
 
         return res.json(destination);
     } catch (err) {
-        console.log(handleErrors(err));
         return res.status(err.status || 400).json(handleErrors(err));
     }
+};
+
+module.exports = {
+    paginated_destinations,
+    destination_details,
+    get_city_data,
+    add_new_destination,
 };

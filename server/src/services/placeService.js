@@ -5,6 +5,7 @@ const User = require('../models/userSchema');
 const { addImages } = require('../utils/cloudinaryUploader');
 const { validateFields } = require('../utils/validateFields');
 const { getDestinationAndCheckOwnership } = require('./destinationService');
+const { validateObjectId } = require('../utils/validateObjectId');
 
 async function getPlaceById(placeId) {
     const place = await Place.findById(placeId)
@@ -44,6 +45,7 @@ async function addNewPlace(data, images, user) {
         name,
     };
 
+    validateObjectId(destinationId);
     validateFields(placeData);
 
     const destination = await getDestinationAndCheckOwnership(destinationId, ownerId);
@@ -70,43 +72,53 @@ async function addNewPlace(data, images, user) {
 }
 
 async function addCommentToPlace(placeId, title, content, ownerId) {
-    try {
-        const user = await User.findById(ownerId).select('username').lean().exec();
+    const user = await User.findById(ownerId).select('username').lean().exec();
 
-        if (!user) {
-            const error = new Error('Access Denied!');
-            error.status = 401;
-            throw error;
-        }
-
-        const place = await Place.findById(placeId).select('comments').exec();
-
-        if (!place) {
-            const error = new Error('Place not found');
-            error.status = 404;
-            throw error;
-        }
-
-        const comment = new Comment({
-            title: title.trim(),
-            content: content.trim(),
-            ownerId,
-        });
-
-        place.comments.push(comment);
-
-        await Promise.all([comment.save(), place.save()]);
-
-        return {
-            ...comment.toObject(),
-            ownerId: {
-                _id: user._id,
-                username: user.username,
-            },
-        };
-    } catch (err) {
-        throw new Error(err.message);
+    if (!user) {
+        const error = new Error('Access Denied!');
+        error.status = 401;
+        throw error;
     }
+
+    const place = await Place.findById(placeId).select('comments').exec();
+
+    if (!place) {
+        const error = new Error('Place not found');
+        error.status = 404;
+        throw error;
+    }
+
+    if (content.length < 10) {
+        const error = new Error('Title must be at least 2 characters long');
+        error.status = 400;
+        throw error;
+    }
+
+    if (title.length < 2) {
+        const error = new Error('Place not found');
+        error.status = 400;
+        throw error;
+    }
+
+    const comment = new Comment({
+        title: title.trim(),
+        content: content.trim(),
+        ownerId,
+    });
+
+    await comment.save();
+
+    place.comments.push(comment);
+
+    await place.save();
+
+    return {
+        ...comment.toObject(),
+        ownerId: {
+            _id: user._id,
+            username: user.username,
+        },
+    };
 }
 
 module.exports = {

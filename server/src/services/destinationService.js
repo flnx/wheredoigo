@@ -43,10 +43,7 @@ async function getByPage(page, limit, searchParams) {
 }
 
 async function getById(destinationId) {
-    const destination = await Destination.findById(destinationId)
-        .populate('country')
-        .lean()
-        .exec();
+    const destination = await Destination.findById(destinationId).populate('country').lean().exec();
 
     if (!destination) {
         const error = new Error('Not Found');
@@ -71,7 +68,9 @@ async function create(data, images, user) {
     const cityData = await fetchCity(data.city);
 
     if (!Array.isArray(cityData) || !cityData[0].name) {
-        throw new Error('Invalid City Parameters');
+        const error = new Error('Invalid City Parameters');
+        error.status(400);
+        throw error;
     }
 
     const countryData = await fetchCountry(cityData[0].country);
