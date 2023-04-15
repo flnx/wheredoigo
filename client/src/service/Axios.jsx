@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { useContext, useEffect, useCallback, useState } from 'react';
+import { useContext, useEffect, useCallback } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { getToken } from '../utils/getToken';
 
 const HOST = 'http://localhost:3000/';
 
@@ -8,32 +9,38 @@ const axiosInstance = axios.create({
     baseURL: HOST,
     headers: {
         'Content-Type': 'application/json',
+        Authorization: getToken(),
     },
 });
 
 function AxiosInterceptor({ children }) {
     const { auth, setUserData } = useContext(AuthContext);
 
-    const addAccessToken = useCallback((config) => {
-            if (auth?.accessToken) {
-                config.headers.Authorization = `Bearer ${auth.accessToken}`;
+    const addAccessToken = useCallback(
+        (config) => {
+            const token = auth?.accessToken;
+
+            if (token) {
+                config.headers.Authorization = `${token}`;
             }
             return config;
-        }, [auth?.accessToken]
+        },
+        [auth?.accessToken]
     );
 
-    const handleUnauthenticated = useCallback((error) => {
-        if (error.response && error.response.status === 401) {
+    const handleUnauthenticated = useCallback(
+        (error) => {
+            if (error.response && error.response.status === 401) {
                 setUserData({});
             }
             return Promise.reject(error);
-        }, [setUserData]
+        },
+        [setUserData]
     );
 
     useEffect(() => {
-        const requestInterceptor = axiosInstance.interceptors.request.use(
-            addAccessToken, 
-            (error) => Promise.reject(error)
+        const requestInterceptor = axiosInstance.interceptors.request.use(addAccessToken, (error) =>
+            Promise.reject(error)
         );
 
         const responseInterceptor = axiosInstance.interceptors.response.use(
