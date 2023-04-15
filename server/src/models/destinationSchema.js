@@ -22,7 +22,6 @@ const destinationSchema = new Schema({
         type: String,
         trim: true,
         minLength: [10, 'Description must contain at least 10 characters'],
-        required: [true, 'Description is required'],
     },
     details: [
         {
@@ -30,7 +29,12 @@ const destinationSchema = new Schema({
                 type: String,
                 trim: true,
                 required: true,
-                enum: ['Good to Know', 'Transport', 'Local Customs', 'Pro Tips'],
+                enum: [
+                    'Good to Know',
+                    'Transport',
+                    'Local Customs',
+                    'Pro Tips',
+                ],
             },
             info: [
                 {

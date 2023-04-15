@@ -1,16 +1,17 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const { errorMessages } = require('../constants/errorMessages');
 
 const commentSchema = new Schema({
     title: {
         type: String,
         trim: true,
-        minlength: [2, 'Title must be at least 2 characters long.'],
+        minlength: [2, errorMessages.commentTitle],
     },
     content: {
         type: String,
         trim: true,
-        minlength: [10, 'Content must be at least 10 characters long.'],
+        minlength: [10, errorMessages.invalidComment],
     },
     time: {
         type: Date,

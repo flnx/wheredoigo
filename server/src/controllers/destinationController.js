@@ -1,4 +1,8 @@
-const { getByPage, create, getById } = require('../services/destinationService');
+const {
+    getByPage,
+    create,
+    getById,
+} = require('../services/destinationService');
 const { getDestinationPlaces } = require('../services/placeService');
 const { fetchCity } = require('../service/data');
 const handleErrors = require('../utils/errorHandler');
@@ -17,14 +21,14 @@ const paginated_destinations = async (req, res) => {
 };
 
 const destination_details = async (req, res) => {
-    const { destinationId } = req.params;
+    const { id } = req.params;
 
     try {
         const user = req.user;
 
         const [destination, places] = await Promise.all([
-            getById(destinationId, user),
-            getDestinationPlaces(destinationId),
+            getById(id, user),
+            getDestinationPlaces(id),
         ]);
 
         destination.places = places;

@@ -11,8 +11,8 @@ const { checkSession } = require('../middlewares/checkSession');
 
 const router = express.Router();
 
-router.get('/places/:placeId', validateMongoId, checkSession, place_details);
+router.get('/places/:id', validateMongoId, checkSession, place_details);
 router.post('/places', auth, upload, add_new_place);
-router.post('/places/:placeId/comment', validateMongoId, auth, post_comment);
+router.post('/places/:id/comment', validateMongoId, auth, post_comment);
 
 module.exports = router;

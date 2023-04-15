@@ -1,8 +1,11 @@
 const Country = require('../models/countrySchema');
 const Destination = require('../models/destinationSchema');
+
 const { fetchCity, fetchCountry } = require('../service/data');
 const { addImages } = require('../utils/cloudinaryUploader');
+const { createValidationError } = require('../utils/createValidationError');
 const { validateFields } = require('../utils/validateFields');
+const { errorMessages } = require('../constants/errorMessages');
 
 require('dotenv').config();
 
@@ -21,7 +24,10 @@ async function getByPage(page, limit, searchParams) {
         { $unwind: '$country' },
         {
             $match: {
-                $or: [{ city: { $regex: regex } }, { 'country.name': { $regex: regex } }],
+                $or: [
+                    { city: { $regex: regex } },
+                    { 'country.name': { $regex: regex } },
+                ],
             },
         },
         {
@@ -43,34 +49,31 @@ async function getByPage(page, limit, searchParams) {
 }
 
 async function getById(destinationId) {
-    const destination = await Destination.findById(destinationId).populate('country').lean().exec();
+    const destination = await Destination.findById(destinationId)
+        .populate('country')
+        .lean()
+        .exec();
 
     if (!destination) {
-        const error = new Error('Not Found');
-        res.status = 404;
-        throw error;
+        throw createValidationError(errorMessages.notFound, 404);
     }
 
     return destination;
 }
 
 async function create(data, images, user) {
+    const { ownerId } = user;
     const destinationData = {
         city: data.city,
         description: data.description,
         details: JSON.parse(data.details) || [],
     };
 
-    const { ownerId } = user;
-
     validateFields(destinationData);
-
     const cityData = await fetchCity(data.city);
 
     if (!Array.isArray(cityData) || !cityData[0].name) {
-        const error = new Error('Invalid City Parameters');
-        error.status(400);
-        throw error;
+        throw createValidationError(errorMessages.invalidCity, 400);
     }
 
     const countryData = await fetchCountry(cityData[0].country);
@@ -90,9 +93,13 @@ async function create(data, images, user) {
         imageUrls: [],
         ownerId,
     });
-
+    
     const folderName = 'destinations';
-    const { imageUrls, imgError } = await addImages(images, destination, folderName);
+    const { imageUrls, imgError } = await addImages(
+        images,
+        destination,
+        folderName
+    );
 
     destination.imageUrls = imageUrls;
     await destination.save();
@@ -110,15 +117,11 @@ async function getDestinationAndCheckOwnership(destinationId, userId) {
         .exec();
 
     if (!destination) {
-        const error = new Error('Please enter a valid destination ID');
-        error.status = 400;
-        throw error;
+        throw createValidationError(errorMessages.invalidDestination, 400);
     }
 
     if (!destination.ownerId.equals(userId)) {
-        const error = new Error('Access Denied!');
-        error.status = 403;
-        throw error;
+        throw createValidationError(errorMessages.accessDenied, 403);
     }
 
     return destination;

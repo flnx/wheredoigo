@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-export const useLocalStorage = (key, defaultValue) => {
+export const useLocalStorage = (key) => {
     const [user, setUser] = useState(() => {
         const userData = localStorage.getItem(key);
 
-        return userData ? JSON.parse(userData) : defaultValue;
+        return userData ? JSON.parse(userData) : {};
     });
 
     const updateUser = (newValue) => {

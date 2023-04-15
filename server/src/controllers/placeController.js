@@ -17,10 +17,10 @@ const add_new_place = async (req, res) => {
 };
 
 const place_details = async (req, res) => {
-    const { placeId } = req.params;
+    const { id } = req.params;
 
     try {
-        const place = await getPlaceById(placeId);
+        const place = await getPlaceById(id);
         res.json(place);
     } catch (err) {
         res.status(err.status || 500).json(handleErrors(err));
@@ -28,12 +28,12 @@ const place_details = async (req, res) => {
 };
 
 const post_comment = async (req, res) => {
-    const { placeId } = req.params;
+    const { id } = req.params;
     const { title, content } = req.body;
     const { ownerId } = req.user;
 
     try {
-        const comment = await addCommentToPlace(placeId, title, content, ownerId);
+        const comment = await addCommentToPlace(id, title, content, ownerId);
         res.json(comment);
     } catch (err) {
         res.status(err.status || 500).json(handleErrors(err));

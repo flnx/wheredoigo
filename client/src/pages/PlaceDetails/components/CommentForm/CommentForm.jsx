@@ -10,6 +10,7 @@ import styles from './CommentForm.module.css';
 export const CommentForm = () => {
     const [content, setContent] = useState('');
     const [title, setTitle] = useState('');
+    const [validationError, setValidationError] = useState(false);
     const { placeId } = useParams();
     const { isLoading, error, mutate: addComment } = useAddComment(placeId);
     const { auth } = useContext(AuthContext);
@@ -17,8 +18,13 @@ export const CommentForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (content.length < 10) return;
-        if (title.length < 5) return;
+        if (title.length < 2) {
+            return setValidationError('Title must be at least 2 characters long');
+        }
+
+        if (content.length < 10) {
+            return setValidationError('Comment must contain at least 10 characters');
+        }
 
         const data = {
             title,

@@ -6,6 +6,8 @@ const { addImages } = require('../utils/cloudinaryUploader');
 const { validateFields } = require('../utils/validateFields');
 const { getDestinationAndCheckOwnership } = require('./destinationService');
 const { validateObjectId } = require('../utils/validateObjectId');
+const { createValidationError } = require('../utils/createValidationError');
+const { errorMessages } = require('../constants/errorMessages');
 
 async function getPlaceById(placeId) {
     const place = await Place.findById(placeId)
@@ -17,9 +19,7 @@ async function getPlaceById(placeId) {
         .exec();
 
     if (!place) {
-        const error = new Error('404 Not Found');
-        res.status = 404;
-        throw error;
+        throw createValidationError(errorMessages.notFound, 404);
     }
 
     return place;
@@ -75,29 +75,21 @@ async function addCommentToPlace(placeId, title, content, ownerId) {
     const user = await User.findById(ownerId).select('username').lean().exec();
 
     if (!user) {
-        const error = new Error('Access Denied!');
-        error.status = 401;
-        throw error;
+        throw createValidationError(errorMessages.accessDenied, 401);
     }
 
     const place = await Place.findById(placeId).select('comments').exec();
 
     if (!place) {
-        const error = new Error('Place not found');
-        error.status = 404;
-        throw error;
+        throw createValidationError(`Place ${errorMessages.notFound}`, 404);
     }
 
     if (content.length < 10) {
-        const error = new Error('Title must be at least 2 characters long');
-        error.status = 400;
-        throw error;
+        throw createValidationError(errorMessages.invalidComment, 400);
     }
 
     if (title.length < 2) {
-        const error = new Error('Place not found');
-        error.status = 400;
-        throw error;
+        throw createValidationError(errorMessages.commentTitle, 400);
     }
 
     const comment = new Comment({

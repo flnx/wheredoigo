@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const { errorMessages } = require('../constants/errorMessages');
 
 const placeSchema = new Schema({
     ownerId: {
@@ -33,8 +34,7 @@ const placeSchema = new Schema({
     description: {
         type: String,
         trim: true,
-        minLength: [10, 'Description must contain at least 10 characters'],
-        required: [true, 'Description is required'],
+        minLength: [10, errorMessages.placeDescription],
     },
     type: {
         type: String,

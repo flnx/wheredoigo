@@ -1,12 +1,16 @@
 const jwt = require('../lib/jsonwebtoken');
 const { isValid } = require('mongoose').Types.ObjectId;
 
-async function checkSession(req, res, next) {
-    const token = req.headers['authorization'];
+require('dotenv').config();
 
-    if (token) {
+async function checkSession(req, res, next) {
+    const authHeader = req.headers['authorization'];
+
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+        const accessToken = authHeader.slice(7);
+
         try {
-            const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
+            const decodedToken = await jwt.verify(accessToken, process.env.JWT_SECRET);
             const { ownerId } = decodedToken;
 
             if (!ownerId || !isValid(ownerId)) {
