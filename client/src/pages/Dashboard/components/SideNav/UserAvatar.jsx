@@ -102,11 +102,11 @@ export const UserAvatar = () => {
             </div>
             <FileInput setImage={setImage} onImageSelected={onImageSelected} />
             {showSaveCancelButtons && (
-                <div>
-                    <button className="btn" onClick={handleSaveButtonClick}>
+                <div className={styles.buttons}>
+                    <button className={styles['save-button']} onClick={handleSaveButtonClick}>
                         Save
                     </button>
-                    <button className="btn" onClick={handleCancelButtonClick}>
+                    <button className={styles['cancel-button']} onClick={handleCancelButtonClick}>
                         Cancel
                     </button>
                 </div>
