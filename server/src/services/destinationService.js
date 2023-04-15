@@ -43,7 +43,7 @@ async function getByPage(page, limit, searchParams) {
 }
 
 async function getById(destinationId) {
-    return Destination.findById(destinationId).populate('country').lean().exec();
+    const destination = Destination.findById(destinationId).populate('country').lean().exec();
 }
 
 async function create(data, images, user) {
@@ -52,6 +52,8 @@ async function create(data, images, user) {
         description: data.description,
         details: JSON.parse(data.details) || [],
     };
+
+    const { ownerId } = user;
 
     validateFields(destinationData);
 
@@ -76,7 +78,7 @@ async function create(data, images, user) {
         ...destinationData,
         country: country._id,
         imageUrls: [],
-        ownerId: user._id,
+        ownerId,
     });
 
     const folderName = 'destinations';

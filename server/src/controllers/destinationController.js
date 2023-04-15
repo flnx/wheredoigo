@@ -12,7 +12,7 @@ exports.paginated_destinations = async (req, res) => {
         const destinations = await getByPage(page, limit, search);
         res.json(destinations);
     } catch (err) {
-        res.status(400).json(handleErrors(err));
+        res.status(err.status || 400).json(handleErrors(err));
     }
 };
 
@@ -26,7 +26,7 @@ exports.destination_details = async (req, res) => {
 
         res.json(destination);
     } catch (err) {
-        res.status(400).json(handleErrors(err));
+        res.status(err.status || 400).json(handleErrors(err));
     }
 };
 
@@ -37,7 +37,7 @@ exports.get_city_data = async (req, res) => {
         const result = await fetchCity(city);
         res.json(result);
     } catch (err) {
-        return res.status(400).json(handleErrors(err));
+        return res.status(err.status || 400).json(handleErrors(err));
     }
 };
 

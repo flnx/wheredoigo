@@ -1,5 +1,5 @@
 const jwt = require('../lib/jsonwebtoken');
-const User = require('../models/userSchema');
+const { isValid } = require('mongoose').Types.ObjectId;
 
 require('dotenv').config();
 
@@ -11,15 +11,13 @@ const auth = async (req, res, next) => {
 
         try {
             const decodedToken = await jwt.verify(accessToken, process.env.JWT_SECRET);
+            const { ownerId } = decodedToken;
 
-            const user = await User.findById(decodedToken.ownerId).exec();
-
-            if (!user) {
+            if (!ownerId || !isValid(ownerId)) {
                 return res.status(401).json({ message: 'User Not Found' });
             }
 
-            req.user = user;
-
+            req.user = decodedToken;
             next();
         } catch (err) {
             return res.status(401).json({ message: 'Unauthorized' });

@@ -16,7 +16,9 @@ async function getPlaceById(placeId) {
         .exec();
 
     if (!place) {
-        throw new Error('404 Not Found');
+        const error = new Error('404 Not Found');
+        res.status = 404;
+        throw error;
     }
 
     return place;
@@ -33,6 +35,7 @@ async function getDestinationPlaces(destinationId) {
 
 async function addNewPlace(data, images, user) {
     const { destinationId, name, description, type } = data;
+    const { ownerId } = user;
 
     const placeData = {
         destinationId,
@@ -43,7 +46,7 @@ async function addNewPlace(data, images, user) {
 
     validateFields(placeData);
 
-    const destination = await getDestinationAndCheckOwnership(destinationId, user._id);
+    const destination = await getDestinationAndCheckOwnership(destinationId, ownerId);
 
     const place = await Place.create({
         ...placeData,
@@ -51,7 +54,7 @@ async function addNewPlace(data, images, user) {
         country: destination.country.name,
         imageUrls: [],
         comments: [],
-        ownerId: user._id,
+        ownerId,
     });
 
     const folderName = 'places';
@@ -71,13 +74,17 @@ async function addCommentToPlace(placeId, title, content, ownerId) {
         const user = await User.findById(ownerId).select('username').lean().exec();
 
         if (!user) {
-            throw new Error('User does not exist!');
+            const error = new Error('Access Denied!');
+            error.status = 401;
+            throw error;
         }
 
         const place = await Place.findById(placeId).select('comments').exec();
 
         if (!place) {
-            throw new Error('Place not found');
+            const error = new Error('Place not found');
+            error.status = 404;
+            throw error;
         }
 
         const comment = new Comment({

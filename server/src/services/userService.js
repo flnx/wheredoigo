@@ -77,7 +77,15 @@ async function userLogin({ email, password }) {
     };
 }
 
-const updateUserAvatar = async (image, user) => {
+const updateUserAvatar = async (image, jwtToken) => {
+    const user = await User.findById(jwtToken.ownerId).exec();
+
+    if (!user) {
+        const error = new Error('Access Denied!');
+        error.status = 401;
+        throw error;
+    }
+
     if (user.avatar_id) {
         await deleteImage(user.avatar_id);
     }

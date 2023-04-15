@@ -11,7 +11,7 @@ const login = async (req, res) => {
 
         res.json(userData);
     } catch (err) {
-        res.status(401).json({ message: handleErrors(err) });
+        res.status(err.status || 400).json({ message: handleErrors(err) });
     }
 };
 
@@ -21,7 +21,7 @@ const register = async (req, res) => {
 
         res.json(userData);
     } catch (err) {
-        res.status(401).json({ message: handleErrors(err) });
+        res.status(err.status || 400).json({ message: handleErrors(err) });
     }
 };
 
@@ -30,7 +30,7 @@ const change_avatar = async (req, res) => {
         const updatedUserData = await updateUserAvatar(req.file, req.user);
         res.json(updatedUserData);
     } catch (err) {
-        res.status(400).json({ message: handleErrors(err) });
+        res.status(err.status || 400).json({ message: handleErrors(err) });
     }
 };
 
