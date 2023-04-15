@@ -43,7 +43,18 @@ async function getByPage(page, limit, searchParams) {
 }
 
 async function getById(destinationId) {
-    const destination = Destination.findById(destinationId).populate('country').lean().exec();
+    const destination = await Destination.findById(destinationId)
+        .populate('country')
+        .lean()
+        .exec();
+
+    if (!destination) {
+        const error = new Error('Not Found');
+        res.status = 404;
+        throw error;
+    }
+
+    return destination;
 }
 
 async function create(data, images, user) {

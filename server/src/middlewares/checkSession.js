@@ -13,7 +13,7 @@ async function checkSession(req, res, next) {
                 return res.status(401).json({ message: 'User Not Found' });
             }
 
-            req.user = decodedToken.user;
+            req.user = decodedToken;
         } catch (err) {
             return res.status(401).json({ message: 'Invalid authorization token' });
         }

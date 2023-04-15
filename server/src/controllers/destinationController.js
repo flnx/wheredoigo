@@ -20,8 +20,13 @@ exports.destination_details = async (req, res) => {
     const { destinationId } = req.params;
 
     try {
-        const destination = await getById(destinationId);
-        const places = await getDestinationPlaces(destinationId);
+        const user = req.user;
+
+        const [destination, places] = await Promise.all([
+            getById(destinationId, user),
+            getDestinationPlaces(destinationId),
+        ]);
+
         destination.places = places;
 
         res.json(destination);
