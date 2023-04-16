@@ -15,8 +15,12 @@
     gap: 2rem;
 }
 
-.comment {
+.comments .comment:not(:first-child) {
     border-top: 1px solid var(--border-gray);
+}
+
+.comment {
+    position: relative;
     padding-top: 2rem;
     display: flex;
     gap: 2rem;
@@ -43,10 +47,10 @@
 
 .avatar {
     text-align: center;
-} 
+}
 
 .avatar span {
-    color: var(--text-secondary)
+    color: var(--text-secondary);
 }
 
 .avatar img {
@@ -56,7 +60,13 @@
     margin-bottom: 10px;
 }
 
-
 .content {
     max-width: 70ch;
+}
+
+.treeDotsDropdown {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
 }

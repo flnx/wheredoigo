@@ -24,6 +24,7 @@
     --filter-box-shadow: drop-shadow(1px 2px 3px var(--shadow-color))
     drop-shadow(2px 4px 6px var(--shadow-color))
     drop-shadow(4px 8px 12px var(--shadow-color));
+    --minimalistic-box-shadow:  0 0 0 2px rgba(218,102,123,1), 8px 8px 0 0 rgba(218,102,123,1);
 }
 
 body {

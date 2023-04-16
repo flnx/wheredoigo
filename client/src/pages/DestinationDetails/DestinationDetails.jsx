@@ -13,7 +13,6 @@ export const DestinationDetails = () => {
     const { destinationId } = useParams();
     const { isLoading, error, data } = useDestination(destinationId);
 
-    console.log(data);
     if (isLoading) {
         return <h1>Loading...</h1>;
     }
