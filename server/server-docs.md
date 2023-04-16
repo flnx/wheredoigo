@@ -12,6 +12,7 @@
 - cloudinary
 - multer
 - streamifier
+- express-rate-limit
 
 ### REGISTER
 - Endpoint (POST): /register

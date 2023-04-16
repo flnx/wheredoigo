@@ -6,6 +6,7 @@ const config = require('./src/config/config');
 const routesConfig = require('./src/routes/routes');
 const bodyParserErrorHandler = require('./src/middlewares/bodyParserErrorHandler');
 const { cloudinaryConfig } = require('./src/config/cloudinary');
+const limiter = require('./src/config/rateLimiter');
 
 start();
 
@@ -17,6 +18,7 @@ async function start() {
     app.use(express.json());
     app.use(bodyParserErrorHandler());
     app.use(express.urlencoded({ extended: true }));
+    app.use(limiter);
 
     cloudinaryConfig();
     routesConfig(app);
