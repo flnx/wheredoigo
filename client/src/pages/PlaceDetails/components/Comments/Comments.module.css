@@ -41,12 +41,21 @@
     font-size: 1.85rem;
 }
 
+.avatar {
+    text-align: center;
+} 
+
+.avatar span {
+    color: var(--text-secondary)
+}
+
 .avatar img {
     width: 72px;
     height: 72px;
     border-radius: 50%;
     margin-bottom: 10px;
 }
+
 
 .content {
     max-width: 70ch;

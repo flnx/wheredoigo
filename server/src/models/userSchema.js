@@ -32,6 +32,11 @@ const userSchema = new Schema({
     },
 });
 
+userSchema.virtual('capitalizedUsername')
+  .get(function() {
+    return this.username.replace(/\b\w/g, (l) => l.toUpperCase());
+  });
+
 userSchema.index({
     collation: {
         locale: 'en',

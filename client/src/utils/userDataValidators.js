@@ -7,8 +7,6 @@ export const validateRegisterData = ({ username, email, password, repeatPassword
     const isEmailValid = validate.email(email);
     const isPasswordValid = validate.password(password);
 
-    console.log(username);
-
     if (!isUsernameValid) {
         error =
             'Username must be between 3-25 characters long and contain only latin letters and numbers';

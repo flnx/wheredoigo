@@ -4,10 +4,9 @@ const validator = require('validator');
 const bcrypt = require('bcrypt');
 const jwt = require('../lib/jsonwebtoken');
 
-const capitalizeEachWord = require('../utils/capitalizeWords');
 const { avatarOptions } = require('../config/cloudinary');
 const { validatePassword } = require('../utils/utils');
-const { handleImageUploads, deleteImage } = require('../utils/cloudinaryUploader');
+const { handleImageUploads,deleteImage } = require('../utils/cloudinaryUploader');
 const { createValidationError } = require('../utils/createValidationError');
 const { errorMessages } = require('../constants/errorMessages');
 
@@ -43,14 +42,14 @@ async function userRegister({ email, username, password }) {
     const payload = {
         ownerId: user._id,
         email: user.email,
-        username: capitalizeEachWord(user.username),
+        username: user.capitalizedUsername,
     };
 
     const accessToken = await jwt.sign(payload, process.env.JWT_SECRET);
 
     return {
         email: user.email,
-        username: capitalizeEachWord(user.username),
+        username: user.capitalizedUsername,
         accessToken,
         avatarUrl: user.avatarUrl,
     };
@@ -67,7 +66,7 @@ async function userLogin({ email, password }) {
         throw createValidationError(errorMessages.auth, 400);
     }
 
-    const user = await User.findOne({ email }).lean().exec();
+    const user = await User.findOne({ email }).exec();
 
     if (!user) {
         throw createValidationError(errorMessages.auth, 400);
@@ -82,14 +81,14 @@ async function userLogin({ email, password }) {
     const payload = {
         ownerId: user._id,
         email: user.email,
-        username: capitalizeEachWord(user.username),
+        username: user.capitalizedUsername,
     };
 
     const accessToken = await jwt.sign(payload, process.env.JWT_SECRET);
 
     return {
         email: user.email,
-        username: capitalizeEachWord(user.username),
+        username: user.capitalizedUsername,
         accessToken,
         avatarUrl: user.avatarUrl,
     };
@@ -116,14 +115,14 @@ const updateUserAvatar = async (image, jwtToken) => {
     const payload = {
         ownerId: user._id,
         email: user.email,
-        username: capitalizeEachWord(user.username),
+        username: user.capitalizedUsername,
     };
 
     const accessToken = await jwt.sign(payload, process.env.JWT_SECRET);
 
     return {
         email: user.email,
-        username: capitalizeEachWord(user.username),
+        username: user.capitalizedUsername,
         accessToken,
         avatarUrl: url,
     };

@@ -8,6 +8,7 @@ const { getDestinationAndCheckOwnership } = require('./destinationService');
 const { validateObjectId } = require('../utils/validateObjectId');
 const { createValidationError } = require('../utils/createValidationError');
 const { errorMessages } = require('../constants/errorMessages');
+const capitalizeEachWord = require('../utils/capitalizeWords');
 
 async function getPlaceById(placeId) {
     const place = await Place.findById(placeId)
@@ -22,6 +23,10 @@ async function getPlaceById(placeId) {
         throw createValidationError(errorMessages.notFound, 404);
     }
 
+    place.comments.forEach((comment) => {
+        comment.ownerId.username = capitalizeEachWord(comment.ownerId.username);
+    });
+    
     return place;
 }
 
@@ -37,7 +42,7 @@ async function getDestinationPlaces(destinationId) {
 async function addNewPlace(data, images, user) {
     const { destinationId, name, description, type } = data;
     const { ownerId } = user;
-    
+
     validateObjectId(destinationId);
 
     const destination = await getDestinationAndCheckOwnership(
@@ -51,7 +56,6 @@ async function addNewPlace(data, images, user) {
         type,
         name,
     };
-
 
     validateFields(placeData);
 
@@ -77,7 +81,9 @@ async function addNewPlace(data, images, user) {
 }
 
 async function addCommentToPlace(placeId, title, content, ownerId) {
-    const user = await User.findById(ownerId).select('username avatarUrl').lean().exec();
+    const user = await User.findById(ownerId)
+        .select('username avatarUrl')
+        .exec();
 
     if (!user) {
         throw createValidationError(errorMessages.accessDenied, 401);
@@ -104,18 +110,17 @@ async function addCommentToPlace(placeId, title, content, ownerId) {
     });
 
     await comment.save();
-
     place.comments.push(comment);
-
     await place.save();
 
-    console.log(user);
-
     return {
-        ...comment.toObject(),
+        title: comment.title,
+        content: comment.content,
+        _id: comment._id,
+        time: comment.time,
         ownerId: {
             avatarUrl: user.avatarUrl,
-            username: user.username,
+            username: user.capitalizedUsername,
         },
     };
 }
