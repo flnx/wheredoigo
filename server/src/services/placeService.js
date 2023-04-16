@@ -13,7 +13,7 @@ async function getPlaceById(placeId) {
     const place = await Place.findById(placeId)
         .populate({
             path: 'comments',
-            populate: { path: 'ownerId', select: 'username' },
+            populate: { path: 'ownerId', select: '-_id username avatarUrl' },
         })
         .lean()
         .exec();
@@ -37,7 +37,7 @@ async function getDestinationPlaces(destinationId) {
 async function addNewPlace(data, images, user) {
     const { destinationId, name, description, type } = data;
     const { ownerId } = user;
-
+    
     validateObjectId(destinationId);
 
     const destination = await getDestinationAndCheckOwnership(
@@ -51,6 +51,7 @@ async function addNewPlace(data, images, user) {
         type,
         name,
     };
+
 
     validateFields(placeData);
 
@@ -76,7 +77,7 @@ async function addNewPlace(data, images, user) {
 }
 
 async function addCommentToPlace(placeId, title, content, ownerId) {
-    const user = await User.findById(ownerId).select('username').lean().exec();
+    const user = await User.findById(ownerId).select('username avatarUrl').lean().exec();
 
     if (!user) {
         throw createValidationError(errorMessages.accessDenied, 401);
@@ -108,10 +109,12 @@ async function addCommentToPlace(placeId, title, content, ownerId) {
 
     await place.save();
 
+    console.log(user);
+
     return {
         ...comment.toObject(),
         ownerId: {
-            _id: user._id,
+            avatarUrl: user.avatarUrl,
             username: user.username,
         },
     };

@@ -4,10 +4,10 @@ export const Comment = ({ comment }) => {
     return (
         <section className={styles.comment}>
             <div className={styles.avatar}>
-                {/* <img
-                    src={review.userImg}
+                <img
+                    src={comment.ownerId.avatarUrl}
                     alt="img"
-                /> */}
+                />
                 <span className={styles.username}>{comment.ownerId.username}</span>
             </div>
 
