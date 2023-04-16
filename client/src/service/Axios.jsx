@@ -25,7 +25,7 @@ function AxiosInterceptor({ children }) {
             }
             return config;
         },
-        [auth?.accessToken]
+        [auth.accessToken]
     );
 
     const handleUnauthenticated = useCallback(

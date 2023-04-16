@@ -8,6 +8,7 @@ export const useLocalStorage = (key) => {
     });
 
     const updateUser = (newValue) => {
+        localStorage.removeItem('userData');
         localStorage.setItem(key, JSON.stringify(newValue));
         setUser(newValue);
     };

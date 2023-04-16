@@ -12,12 +12,10 @@ import './styles/layout.css';
 import './styles/theme.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
-        <BrowserRouter>
-            <QueryClientProvider client={queryClient}>
-                <App />
-                <ReactQueryDevtools initialIsOpen={false} />
-            </QueryClientProvider>
-        </BrowserRouter>
-    </React.StrictMode>
+    <BrowserRouter>
+        <QueryClientProvider client={queryClient}>
+            <App />
+            <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+    </BrowserRouter>
 );
