@@ -48,7 +48,7 @@ async function getByPage(page, limit, searchParams) {
     return destination;
 }
 
-async function getById(destinationId) {
+async function getById(destinationId, user) {
     const destination = await Destination.findById(destinationId)
         .populate('country')
         .lean()
@@ -56,6 +56,10 @@ async function getById(destinationId) {
 
     if (!destination) {
         throw createValidationError(errorMessages.notFound, 404);
+    }
+
+    if (user && destination.ownerId.equals(user.ownerId)) {
+        destination.isOwner = true;
     }
 
     return destination;
@@ -93,7 +97,7 @@ async function create(data, images, user) {
         imageUrls: [],
         ownerId,
     });
-    
+
     const folderName = 'destinations';
     const { imageUrls, imgError } = await addImages(
         images,

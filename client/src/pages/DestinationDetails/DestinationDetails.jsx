@@ -13,6 +13,7 @@ export const DestinationDetails = () => {
     const { destinationId } = useParams();
     const { isLoading, error, data } = useDestination(destinationId);
 
+    console.log(data);
     if (isLoading) {
         return <h1>Loading...</h1>;
     }
@@ -31,9 +32,11 @@ export const DestinationDetails = () => {
                 <DestinationHeader destination={data} />
                 <TipsPopUp details={data.details} />
 
-                <Link to="add-place">
-                    <SecondaryButton>Add More Places</SecondaryButton>
-                </Link>
+                {data.isOwner && (
+                    <Link to="add-place">
+                        <SecondaryButton>Add More Places</SecondaryButton>
+                    </Link>
+                )}
 
                 {explorePlaces.length > 0 && (
                     <SectionSlider

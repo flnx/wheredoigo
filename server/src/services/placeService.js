@@ -38,6 +38,13 @@ async function addNewPlace(data, images, user) {
     const { destinationId, name, description, type } = data;
     const { ownerId } = user;
 
+    validateObjectId(destinationId);
+
+    const destination = await getDestinationAndCheckOwnership(
+        destinationId,
+        ownerId
+    );
+
     const placeData = {
         destinationId,
         description,
@@ -45,10 +52,7 @@ async function addNewPlace(data, images, user) {
         name,
     };
 
-    validateObjectId(destinationId);
     validateFields(placeData);
-
-    const destination = await getDestinationAndCheckOwnership(destinationId, ownerId);
 
     const place = await Place.create({
         ...placeData,

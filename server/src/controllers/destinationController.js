@@ -23,8 +23,7 @@ const paginated_destinations = async (req, res) => {
 const destination_details = async (req, res) => {
     const { id } = req.params;
     const user = req.user;
-    console.log(user);
-
+    
     try {
 
         const [destination, places] = await Promise.all([
