@@ -1,7 +1,4 @@
 import { Routes, Route } from 'react-router-dom';
-import { QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { queryClient } from './utils/queryClient';
 
 import UserDashboardRoutes from './routes/UserDashboardRoutes';
 import AuthRoutes from './routes/AuthRoutes';
@@ -24,8 +21,6 @@ import { AddPlace } from './pages/AddPlace/AddPlace';
 
 function App() {
     return (
-        <QueryClientProvider client={queryClient}>
-            <ReactQueryDevtools initialIsOpen={true} />
             <AuthContextProvider>
                 <AxiosInterceptor>
                     <div className="App">
@@ -58,7 +53,6 @@ function App() {
                     </div>
                 </AxiosInterceptor>
             </AuthContextProvider>
-        </QueryClientProvider>
     );
 }
 

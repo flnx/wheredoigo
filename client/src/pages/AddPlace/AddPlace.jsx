@@ -10,13 +10,24 @@ import { UploadImagesPreview } from '../../components/UploadImagesPreview/Upload
 import { createPlaceFormData } from '../../utils/formData';
 
 import styles from './AddPlace.module.css';
+import { useRequestCreatePlacePermissions } from '../../hooks/queries/useRequestCreatePlacePermissions';
 
 export const AddPlace = () => {
-    const [state, dispatch] = useReducer(placeReducer, initialState);
     const { destinationId } = useParams();
+    const permissions = useRequestCreatePlacePermissions(destinationId);
     const [createPlace, createError, isLoading] = useAddNewPlace();
+    const [state, dispatch] = useReducer(placeReducer, initialState);
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
+
+    if (permissions.isLoading) {
+        return <h1>...Loading...</h1>
+    }
+
+    if (permissions.error) {
+        navigate(-1, { replace: true });
+    }
+
 
     const dispatchHandler = (actions) => {
         dispatch(actions);

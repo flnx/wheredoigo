@@ -1,5 +1,12 @@
 const handleErrors = require('../utils/errorHandler');
-const { addNewPlace, getPlaceById, addCommentToPlace } = require('../services/placeService');
+const {
+    addNewPlace,
+    getPlaceById,
+    addCommentToPlace,
+} = require('../services/placeService');
+const {
+    getDestinationAndCheckOwnership,
+} = require('../services/destinationService');
 
 const add_new_place = async (req, res) => {
     try {
@@ -12,6 +19,18 @@ const add_new_place = async (req, res) => {
         res.json(place);
     } catch (err) {
         console.log(handleErrors(err));
+        res.status(err.status || 500).json(handleErrors(err));
+    }
+};
+
+const add_new_place_request = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { ownerId } = req.user;
+        await getDestinationAndCheckOwnership(id, ownerId);
+        res.json({ message: 'You are cool 🦖' });
+    } catch (err) {
+        console.log(err.message);
         res.status(err.status || 500).json(handleErrors(err));
     }
 };
@@ -42,6 +61,7 @@ const post_comment = async (req, res) => {
 
 module.exports = {
     add_new_place,
+    add_new_place_request,
     place_details,
     post_comment,
 };
