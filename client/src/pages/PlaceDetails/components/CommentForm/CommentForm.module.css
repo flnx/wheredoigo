@@ -27,6 +27,11 @@
     cursor: pointer;
 }
 
-.btn:hover, .btn:focus {
+.btn:hover,
+.btn:focus {
     background: var(--button-hover);
+}
+
+.error {
+    color: var(--error-message);
 }

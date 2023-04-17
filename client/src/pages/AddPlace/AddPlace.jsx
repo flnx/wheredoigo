@@ -15,7 +15,7 @@ import { useRequestCreatePlacePermissions } from '../../hooks/queries/useRequest
 export const AddPlace = () => {
     const { destinationId } = useParams();
     const permissions = useRequestCreatePlacePermissions(destinationId);
-    const [createPlace, createError, isLoading] = useAddNewPlace();
+    const [createPlace, createError, isLoading] = useAddNewPlace(destinationId);
     const [state, dispatch] = useReducer(placeReducer, initialState);
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();

@@ -1,11 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { DotsThree } from 'phosphor-react';
 import { SmallModal } from '../../../../components/SmallModal/SmallModal';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 
 import styles from './Comments.module.css';
+import { useRemoveComment } from '../../../../hooks/queries/useRemoveComment';
 
 export const Comment = ({ comment }) => {
+    const { placeId } = useParams();
+    const [removeComment, isRemoveLoading, removeError] = useRemoveComment(comment._id, placeId);
     const [isDropDownModal, setIsDropdownModalOpen] = useState(false);
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const modalRef = useRef(null);
@@ -39,8 +43,9 @@ export const Comment = ({ comment }) => {
         setIsConfirmModalOpen(false);
     };
 
-    const handleDeleteComment = () => {
+    const handleDeleteComment = async () => {
         handleCloseConfirmModalClick();
+        removeComment();
     };
 
     useEffect(() => {

@@ -11,5 +11,6 @@ exports.errorMessages = {
     commentTitle: 'Title must be at least 2 characters long',
     invalidComment: 'Comment must contain at least 10 characters',
     placeDescription: 'Description must contain at least 10 characters',
-    missingFields: 'Please fill in all required fields'
+    missingFields: 'Please fill in all required fields',
+    invalidCommentId: 'Invalid Comment ID'
 };

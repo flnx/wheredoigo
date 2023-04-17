@@ -3,6 +3,7 @@ export const apiEndpoints = {
     addDestination: 'destinations',
     addPlace: 'places',
     addComment: (id) => `places/${id}/comment`,
+    deleteComment: (placeId, commentId) => `places/${placeId}/comment?commentId=${commentId}`,
     allDestinations: 'destinations',
     getCity: 'destinations/get-city-data',
     placeById: (id) => `places/${id}`,

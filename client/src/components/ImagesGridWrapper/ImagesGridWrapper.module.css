@@ -1,5 +1,6 @@
 .imagesWrapper {
     max-height: 33rem;
+    overflow: hidden;
     display: flex;
     gap: 1rem;
 }

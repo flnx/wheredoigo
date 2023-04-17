@@ -15,7 +15,7 @@ export const ImagesGridWrapper = ({ images, alt, onClickHandler }) => {
                 />
             </div>
             <div className={styles.secondaryImages}>
-                {secondaryImages.map((x) => (
+                {secondaryImages.slice(0, 4).map((x) => (
                     <img
                         src={x.imageUrl}
                         alt={alt}

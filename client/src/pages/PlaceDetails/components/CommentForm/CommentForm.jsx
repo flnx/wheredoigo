@@ -1,9 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAddComment } from '../../../../hooks/queries/useAddComment';
-
 import { SecondaryButton } from '../../../../components/Buttons/Secondary-Btn/SecondaryButton';
-import { AuthContext } from '../../../../context/AuthContext';
 
 import styles from './CommentForm.module.css';
 
@@ -13,7 +11,6 @@ export const CommentForm = () => {
     const [validationError, setValidationError] = useState(false);
     const { placeId } = useParams();
     const { isLoading, error, mutate: addComment } = useAddComment(placeId);
-    const { auth } = useContext(AuthContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,11 +26,11 @@ export const CommentForm = () => {
         const data = {
             title,
             content,
-            token: auth.accessToken,
         };
 
         addComment(data, {
             onSuccess: () => {
+                setValidationError('');
                 setTitle('');
                 setContent('');
             },
@@ -58,6 +55,8 @@ export const CommentForm = () => {
                 />
                 <SecondaryButton clickHandler={handleSubmit}>Submit your Review</SecondaryButton>
             </form>
+            {isLoading && <span>Loading...</span>}
+            {validationError && <span className={styles.error}>{validationError}</span>}
         </div>
     );
 };

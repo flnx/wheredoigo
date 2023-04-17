@@ -1,12 +1,6 @@
 const handleErrors = require('../utils/errorHandler');
-const {
-    addNewPlace,
-    getPlaceById,
-    addCommentToPlace,
-} = require('../services/placeService');
-const {
-    getDestinationAndCheckOwnership,
-} = require('../services/destinationService');
+const { addNewPlace, getPlaceById, addCommentToPlace, deleteCommentFromPlace } = require('../services/placeService');
+const { getDestinationAndCheckOwnership } = require('../services/destinationService');
 
 const add_new_place = async (req, res) => {
     try {
@@ -60,9 +54,24 @@ const post_comment = async (req, res) => {
     }
 };
 
+const delete_comment = async (req, res) => {
+    const { id } = req.params;
+    const { commentId } = req.query;
+    const { ownerId } = req.user;
+
+    await deleteCommentFromPlace(id, commentId, ownerId);
+    res.json({ message: 'Comment deleted 🦖' });
+
+    try {
+    } catch (err) {
+        res.status(err.status || 500).json(handleErrors(err));
+    }
+};
+
 module.exports = {
     add_new_place,
     add_new_place_request,
     place_details,
     post_comment,
+    delete_comment,
 };

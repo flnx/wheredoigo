@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 const Place = require('../models/placeSchema');
 const Comment = require('../models/commentSchema');
 const User = require('../models/userSchema');
@@ -137,9 +139,52 @@ async function addCommentToPlace(placeId, title, content, ownerId) {
     };
 }
 
+async function deleteCommentFromPlace(placeId, commentId, ownerId) {
+    if (!commentId) {
+        throw createValidationError(`Place ${errorMessages.invalidCommentId}`, 400);
+    }
+
+    const session = await mongoose.startSession();
+
+    try {
+        session.startTransaction();
+
+        const comment = await Comment.findById(commentId);
+
+        if (!comment) {
+            throw createValidationError(errorMessages.notFound, 404);
+        }
+    
+        if (!comment.ownerId.equals(ownerId)) {
+            throw createValidationError(errorMessages.accessDenied, 403);
+        }
+
+        const place = await Place.findOneAndUpdate({_id: placeId, comments: commentId}, {
+            $pull: {
+                comments: commentId,
+            },
+        }, { session });
+
+        if (!place) {
+            throw createValidationError(errorMessages.notFound, 404);
+        }
+        
+        await Comment.findByIdAndDelete(commentId, { session });
+        await session.commitTransaction();
+
+        return true;
+    } catch(err) {
+        await session.abortTransaction();
+        throw err;
+    } finally {
+        session.endSession();
+    }
+}
+
 module.exports = {
     addNewPlace,
     getPlaceById,
     getDestinationPlaces,
     addCommentToPlace,
+    deleteCommentFromPlace,
 };
