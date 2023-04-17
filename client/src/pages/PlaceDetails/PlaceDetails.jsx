@@ -7,7 +7,6 @@ import { Images } from './components/ImagesSection/ImagesSection';
 import { Comments } from './components/Comments/Comments';
 import { CommentForm } from './components/CommentForm/CommentForm';
 
-
 import styles from './PlaceDetails.module.css';
 
 export const PlaceDetails = () => {
@@ -27,7 +26,7 @@ export const PlaceDetails = () => {
             <div className={styles.wrapper}>
                 <Images place={data} />
                 <Header place={data} />
-                <Comments comments={data.comments}/>
+                <Comments comments={data.comments} />
                 <CommentForm />
             </div>
         </div>

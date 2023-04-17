@@ -1,50 +1,67 @@
 import { useEffect, useRef, useState } from 'react';
 import { DotsThree } from 'phosphor-react';
 import { SmallModal } from '../../../../components/SmallModal/SmallModal';
+import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 
 import styles from './Comments.module.css';
 
 export const Comment = ({ comment }) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isDropDownModal, setIsDropdownModalOpen] = useState(false);
+    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const modalRef = useRef(null);
     const treeDotsRef = useRef(null);
 
     const handleThreeDotsDropdownClick = () => {
-        setIsModalOpen((current) => !current);
+        setIsDropdownModalOpen((current) => !current);
     };
 
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
+    const handleCloseDropdownModal = () => {
+        setIsDropdownModalOpen(false);
     };
 
-    const handleModalItemClick = (clickedDropdownItem) => {
-        handleCloseModal();
+    const handleDropdownModalItemClick = (clickedDropdownItem) => {
+        handleCloseDropdownModal();
 
-        const operations = {
-            delete: '',
-            edit: '',
-            report: '',
-        };
+        switch (clickedDropdownItem) {
+            case 'delete': {
+                return handleOpenConfirmModalClick();
+            }
+            default:
+                break;
+        }
+    };
+
+    const handleOpenConfirmModalClick = () => {
+        setIsConfirmModalOpen(true);
+    };
+
+    const handleCloseConfirmModalClick = () => {
+        setIsConfirmModalOpen(false);
+    };
+
+    const handleDeleteComment = () => {
+        handleCloseConfirmModalClick();
+        console.log(comment);
     };
 
     useEffect(() => {
-        const handleClickOutsideModal = (e) => {
+        const handleClickOutsideDropdownModal = (e) => {
             if (
-                isModalOpen &&
+                isDropDownModal &&
                 modalRef.current &&
                 !modalRef.current.contains(e.target) &&
                 !treeDotsRef.current?.contains(e.target)
             ) {
-                handleCloseModal();
+                handleCloseDropdownModal();
             }
         };
 
-        document.addEventListener('mousedown', handleClickOutsideModal);
+        document.addEventListener('mousedown', handleClickOutsideDropdownModal);
 
         return () => {
-            document.removeEventListener('mousedown', handleClickOutsideModal);
+            document.removeEventListener('mousedown', handleClickOutsideDropdownModal);
         };
-    }, [isModalOpen]);
+    }, [isDropDownModal]);
 
     return (
         <section className={styles.comment}>
@@ -65,12 +82,22 @@ export const Comment = ({ comment }) => {
                 onClick={handleThreeDotsDropdownClick}
                 ref={treeDotsRef}
             />
-            {isModalOpen && (
+
+            {isDropDownModal && (
                 <SmallModal
-                    onItemClick={handleModalItemClick}
+                    onItemClick={handleDropdownModalItemClick}
                     modalRef={modalRef}
                     isOwner={comment.isOwner}
                 />
+            )}
+
+            {isConfirmModalOpen && (
+                <ConfirmModal
+                    onCloseHandler={handleCloseConfirmModalClick}
+                    actionClickHandler={handleDeleteComment}
+                >
+                    Are you sure you wanna delete this comment?
+                </ConfirmModal>
             )}
         </section>
     );

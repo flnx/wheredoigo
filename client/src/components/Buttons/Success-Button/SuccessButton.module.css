@@ -1,4 +1,4 @@
-.save-button {
+.success-button {
     font-size: 0.9rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -9,12 +9,12 @@
     transition: all 0.2s ease-in-out;
 }
 
-.save-button {
+.success-button {
     color: #fff;
     background-color: #4caf50; /* updated color */
 }
 
-.save-button:hover,
-.save-button:focus {
+.success-button:hover,
+.success-button:focus {
     background-color: #23910a;
 }

@@ -4,7 +4,7 @@ import { Overlay } from '../Overlay/Overlay';
 
 import styles from './Cropper.module.css';
 import { CancelButton } from '../Buttons/Cancel-Button/CancelButton';
-import { SaveButton } from '../Buttons/Save-Button/SaveButton';
+import { SuccessButton } from '../Buttons/Success-Button/SuccessButton';
 
 export const ImageCropper = ({ image, onCropDone, onCropCancel }) => {
     const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -33,9 +33,9 @@ export const ImageCropper = ({ image, onCropDone, onCropCancel }) => {
                 <CancelButton onClickHandler={onCropCancel}>
                     Cancel
                 </CancelButton>
-                <SaveButton onClickHandler={() => onCropDone(croppedArea)}>
+                <SuccessButton onClickHandler={() => onCropDone(croppedArea)}>
                     Done
-                </SaveButton>
+                </SuccessButton>
             </div>
         </Overlay>
     );
