@@ -10,11 +10,11 @@ const { createValidationError } = require('../utils/createValidationError');
 const { errorMessages } = require('../constants/errorMessages');
 const capitalizeEachWord = require('../utils/capitalizeWords');
 
-async function getPlaceById(placeId) {
+async function getPlaceById(placeId, user) {
     const place = await Place.findById(placeId)
         .populate({
             path: 'comments',
-            populate: { path: 'ownerId', select: '-_id username avatarUrl' },
+            populate: { path: 'ownerId', select: 'username avatarUrl' },
         })
         .lean()
         .exec();
@@ -23,10 +23,21 @@ async function getPlaceById(placeId) {
         throw createValidationError(errorMessages.notFound, 404);
     }
 
+    // 1. Adds isOwner prop if the current user (if any) is the owner of the comment
+    // 2. Removes ownerId._id prop (the original owner id) before sending it to the client
     place.comments.forEach((comment) => {
-        comment.ownerId.username = capitalizeEachWord(comment.ownerId.username);
+        const { _id, ...ownerData } = comment.ownerId;
+
+        if (user && _id.equals(user.ownerId)) {
+            comment.isOwner = true;
+        }
+
+        comment.ownerId = {
+            ...ownerData,
+            username: capitalizeEachWord(ownerData.username),
+        };
     });
-    
+
     return place;
 }
 

@@ -37,9 +37,10 @@ const add_new_place_request = async (req, res) => {
 
 const place_details = async (req, res) => {
     const { id } = req.params;
+    const user = req.user;
 
     try {
-        const place = await getPlaceById(id);
+        const place = await getPlaceById(id, user);
         res.json(place);
     } catch (err) {
         res.status(err.status || 500).json(handleErrors(err));

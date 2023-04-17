@@ -1,6 +1,10 @@
 import styles from './SmallModal.module.css';
 
-export const SmallModal = ({ items, onItemClick, modalRef }) => {
+export const SmallModal = ({ isOwner, onItemClick, modalRef }) => {
+    const btnNames = ['Report'];
+
+    isOwner && btnNames.push(...['Delete', 'Edit']);
+
     const handleItemClick = (item) => {
         onItemClick(item);
     };
@@ -8,7 +12,7 @@ export const SmallModal = ({ items, onItemClick, modalRef }) => {
     return (
         <div className={styles.modal} ref={modalRef}>
             <ul>
-                {items.map((item) => (
+                {btnNames.map((item) => (
                     <li key={item} onClick={() => handleItemClick(item.toLowerCase())}>
                         {item}
                     </li>

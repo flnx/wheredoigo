@@ -7,6 +7,7 @@ import styles from './Comments.module.css';
 export const Comment = ({ comment }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef(null);
+    const treeDotsRef = useRef(null);
 
     const handleThreeDotsDropdownClick = () => {
         setIsModalOpen((current) => !current);
@@ -19,8 +20,6 @@ export const Comment = ({ comment }) => {
     const handleModalItemClick = (clickedDropdownItem) => {
         handleCloseModal();
 
-        console.log(clickedDropdownItem);
-
         const operations = {
             delete: '',
             edit: '',
@@ -30,7 +29,12 @@ export const Comment = ({ comment }) => {
 
     useEffect(() => {
         const handleClickOutsideModal = (e) => {
-            if (isModalOpen && modalRef.current && !modalRef.current.contains(e.target)) {
+            if (
+                isModalOpen &&
+                modalRef.current &&
+                !modalRef.current.contains(e.target) &&
+                !treeDotsRef.current?.contains(e.target)
+            ) {
                 handleCloseModal();
             }
         };
@@ -59,12 +63,13 @@ export const Comment = ({ comment }) => {
                 size={32}
                 className={styles.treeDotsDropdown}
                 onClick={handleThreeDotsDropdownClick}
+                ref={treeDotsRef}
             />
             {isModalOpen && (
                 <SmallModal
-                    items={['Delete', 'Edit', 'Report']}
                     onItemClick={handleModalItemClick}
                     modalRef={modalRef}
+                    isOwner={comment.isOwner}
                 />
             )}
         </section>
