@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAddComment } from '../../../../hooks/queries/useAddComment';
 
@@ -15,7 +15,7 @@ export const CommentForm = () => {
     const { isLoading, error, mutate: addComment } = useAddComment(placeId);
     const { auth } = useContext(AuthContext);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (title.length < 2) {
@@ -32,7 +32,12 @@ export const CommentForm = () => {
             token: auth.accessToken,
         };
 
-        addComment(data, placeId);
+        addComment(data, {
+            onSuccess: () => {
+                setTitle('');
+                setContent('');
+            },
+        });
     };
 
     return (
@@ -43,11 +48,13 @@ export const CommentForm = () => {
                     type="text"
                     placeholder="Review Title..."
                     onChange={(e) => setTitle(e.target.value)}
+                    value={title}
                 />
                 <textarea
                     className={styles.textarea}
                     onChange={(e) => setContent(e.target.value)}
                     placeholder="Add Review..."
+                    value={content}
                 />
                 <SecondaryButton clickHandler={handleSubmit}>Submit your Review</SecondaryButton>
             </form>

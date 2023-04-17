@@ -41,7 +41,6 @@ export const Comment = ({ comment }) => {
 
     const handleDeleteComment = () => {
         handleCloseConfirmModalClick();
-        console.log(comment);
     };
 
     useEffect(() => {

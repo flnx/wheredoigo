@@ -133,6 +133,7 @@ async function addCommentToPlace(placeId, title, content, ownerId) {
             avatarUrl: user.avatarUrl,
             username: user.capitalizedUsername,
         },
+        isOwner: true,
     };
 }
 
