@@ -9,11 +9,14 @@ export const SideNavigation = () => {
         <div className={styles.sideNav}>
             <UserAvatar />
             <nav className={styles.navbar}>
+                <NavLink end to="/dashboard" className={getNavLinkClass}>
+                    Dashboard
+                </NavLink>
                 <NavLink to="add" className={getNavLinkClass}>
                     Add Destination
                 </NavLink>
-                <NavLink to="my-trips" className={getNavLinkClass}>
-                    My Trips
+                <NavLink to="destinations-created-by-user" className={getNavLinkClass}>
+                    Created Destinations
                 </NavLink>
                 <NavLink to="followers" className={getNavLinkClass}>
                     Followers

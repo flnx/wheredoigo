@@ -4,7 +4,7 @@ import { queryEndpoints } from '../../constants/reactQueryEndpoints';
 
 export const useDestination = (destinationId) => {
     const destination = useQuery({
-        queryKey: [queryEndpoints.destinations, destinationId],
+        queryKey: [queryEndpoints.destination, destinationId],
         queryFn: () => getDestination(destinationId),
     });
 

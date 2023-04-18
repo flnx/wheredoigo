@@ -14,7 +14,6 @@ export const Destination = ({ destination }) => {
             <section className={styles.content}>
                 <div className={styles.flex}>
                     <h3>{destination.city}</h3>
-                    <StarRating rating={destination.rating} />
                 </div>
 
                 <div className={`${styles.flex}`}>

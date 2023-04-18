@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { isValid } = mongoose.Types.ObjectId;
 
 const Place = require('../models/placeSchema');
 const Comment = require('../models/commentSchema');
@@ -140,7 +141,7 @@ async function addCommentToPlace(placeId, title, content, ownerId) {
 }
 
 async function deleteCommentFromPlace(placeId, commentId, ownerId) {
-    if (!commentId) {
+    if (!commentId || !isValid(commentId)) {
         throw createValidationError(`Place ${errorMessages.invalidCommentId}`, 400);
     }
 

@@ -2,6 +2,7 @@ const {
     getByPage,
     create,
     getById,
+    getCreatorDestinations,
 } = require('../services/destinationService');
 const { getDestinationPlaces } = require('../services/placeService');
 const { fetchCity } = require('../service/data');
@@ -23,9 +24,8 @@ const paginated_destinations = async (req, res) => {
 const destination_details = async (req, res) => {
     const { id } = req.params;
     const user = req.user;
-    
-    try {
 
+    try {
         const [destination, places] = await Promise.all([
             getById(id, user),
             getDestinationPlaces(id),
@@ -59,7 +59,19 @@ const add_new_destination = async (req, res) => {
 
         return res.json(destination);
     } catch (err) {
-        return res.status(err.status || 400).json(handleErrors(err));
+        return res.status(err.status || 500).json(handleErrors(err));
+    }
+};
+
+const get_creator_destinations = async (req, res) => {
+    const { ownerId } = req.user;
+
+    try {
+        const result = await getCreatorDestinations(ownerId);
+
+        res.json(result);
+    } catch (err) {
+        return res.status(err.status || 500).json(handleErrors(err));
     }
 };
 
@@ -68,4 +80,5 @@ module.exports = {
     destination_details,
     get_city_data,
     add_new_destination,
+    get_creator_destinations,
 };

@@ -8,6 +8,7 @@
     border-radius: 4px;
     border: 1px solid var(--border-gray);
     box-shadow: var(--minimalistic-box-shadow);
+    background: var(--background);
 }
 
 .modal ul {

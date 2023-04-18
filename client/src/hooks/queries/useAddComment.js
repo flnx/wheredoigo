@@ -10,7 +10,7 @@ export const useAddComment = (placeId) => {
         onSuccess: (newComment) => {
             // Retrieve the current places data from the cache
             const place = queryClient.getQueryData([
-                queryEndpoints.places,
+                queryEndpoints.place,
                 placeId,
             ]);
 
@@ -22,7 +22,7 @@ export const useAddComment = (placeId) => {
             };
 
             queryClient.setQueryData(
-                [queryEndpoints.places, placeId],
+                [queryEndpoints.place, placeId],
                 updatedPlace
             );
         },

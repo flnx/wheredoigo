@@ -10,7 +10,7 @@ export const useRemoveComment = (commentId, placeId) => {
         onSuccess: () => {
             // Retrieve the current places data from the cache
             const place = queryClient.getQueryData([
-                queryEndpoints.places,
+                queryEndpoints.place,
                 placeId,
             ]);
 
@@ -23,7 +23,7 @@ export const useRemoveComment = (commentId, placeId) => {
             };
 
             queryClient.setQueryData(
-                [queryEndpoints.places, placeId],
+                [queryEndpoints.place, placeId],
                 updatedPlace
             );
         },

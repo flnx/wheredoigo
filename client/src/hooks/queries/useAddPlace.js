@@ -9,7 +9,7 @@ export const useAddNewPlace = (destinationId) => {
         mutationFn: (data) => createPlace(data),
         onSuccess: () =>
             queryClient.invalidateQueries([
-                queryEndpoints.destinations,
+                queryEndpoints.destination,
                 destinationId,
             ]),
     });

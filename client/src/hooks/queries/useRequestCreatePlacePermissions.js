@@ -6,7 +6,7 @@ export const useRequestCreatePlacePermissions = (destinationId) => {
     return useQuery({
         queryKey: [queryEndpoints.placePermissions, destinationId],
         queryFn: () => getCreatePlacePermissions(destinationId),
-        staleTime: 5 * 60 * 1000, // 5 minutes
-        cacheTime: 60 * 60 * 1000, // 1 hour
+        staleTime: 1 * 60 * 1000, // 1 minute
+        cacheTime: 2 * 60 * 1000, // 2 minutes
     });
 };

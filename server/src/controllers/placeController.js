@@ -1,6 +1,13 @@
 const handleErrors = require('../utils/errorHandler');
-const { addNewPlace, getPlaceById, addCommentToPlace, deleteCommentFromPlace } = require('../services/placeService');
-const { getDestinationAndCheckOwnership } = require('../services/destinationService');
+const {
+    addNewPlace,
+    getPlaceById,
+    addCommentToPlace,
+    deleteCommentFromPlace,
+} = require('../services/placeService');
+const {
+    getDestinationAndCheckOwnership,
+} = require('../services/destinationService');
 
 const add_new_place = async (req, res) => {
     try {

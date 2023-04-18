@@ -67,6 +67,7 @@ async function getById(destinationId, user) {
 
 async function create(data, images, user) {
     const { ownerId } = user;
+
     const destinationData = {
         city: data.city,
         description: data.description,
@@ -131,9 +132,26 @@ async function getDestinationAndCheckOwnership(destinationId, userId) {
     return destination;
 }
 
+async function getCreatorDestinations(ownerId) {
+    const destinations = await Destination.find(
+        { ownerId },
+        { city: 1, imageUrls: { $slice: 1 } }
+    )
+        .populate('country', 'name')
+        .lean()
+        .exec();
+
+    if (destinations.length == 0) {
+        throw createValidationError(errorMessages.notFound, 404);
+    }
+
+    return destinations;
+}
+
 module.exports = {
     getByPage,
     create,
     getById,
     getDestinationAndCheckOwnership,
+    getCreatorDestinations,
 };

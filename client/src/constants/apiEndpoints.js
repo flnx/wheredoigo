@@ -9,5 +9,7 @@ export const apiEndpoints = {
     placeById: (id) => `places/${id}`,
     destinationById: (id) => `destinations/${id}`,
     destinationsByPage: (searchParams, skip) => `destinations?search=${searchParams}&page=${skip}`,
-    requestCreatePlacePermissions: (id) => `places/${id}/add-place`
+    requestCreatePlacePermissions: (id) => `places/${id}/add-place`,
+    creatorDestinations: 'destinations/created-by-user'
+
 }
