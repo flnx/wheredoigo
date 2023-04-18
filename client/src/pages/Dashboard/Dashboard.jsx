@@ -13,9 +13,10 @@ export const Dashboard = () => {
                     <SideNavigation />
                 </section>
 
-                <div className={styles.destinations}>
+                <section className={styles.content}>
                     <Outlet />
-                </div>
+                </section>
+                
                 <aside className={styles.stats}>
                     <div>
                         <h2>Statistics</h2>

@@ -6,6 +6,7 @@ const { addImages } = require('../utils/cloudinaryUploader');
 const { createValidationError } = require('../utils/createValidationError');
 const { validateFields } = require('../utils/validateFields');
 const { errorMessages } = require('../constants/errorMessages');
+const capitalizeEachWord = require('../utils/capitalizeWords');
 
 require('dotenv').config();
 
@@ -119,6 +120,7 @@ async function getDestinationAndCheckOwnership(destinationId, userId) {
     const destination = await Destination.findById(destinationId)
         .select('city country ownerId')
         .populate('country')
+        .lean()
         .exec();
 
     if (!destination) {
@@ -144,6 +146,14 @@ async function getCreatorDestinations(ownerId) {
     if (destinations.length == 0) {
         throw createValidationError(errorMessages.notFound, 404);
     }
+
+    destinations.forEach(x => {
+        const { country, imageUrls } = x;
+
+        x.country = capitalizeEachWord(country.name);
+        x.city = capitalizeEachWord(x.city);
+        x.imageUrls = imageUrls[0].imageUrl;
+    })
 
     return destinations;
 }

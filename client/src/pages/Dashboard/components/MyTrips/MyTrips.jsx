@@ -1,59 +1,27 @@
 import { Destination } from '../../../../components/Destination/Destination';
+import { useCreatorDestinations } from '../../../../hooks/queries/useCreatorDestinations';
+
+import styles from './MyTrips.module.css';
 
 export const MyTrips = () => {
+    const { data, isLoading, error } = useCreatorDestinations();
 
+    if (isLoading) {
+        return <p>Loading...</p>;
+    }
 
-    
+    if (error) {
+        return <h1>An Error Has Occured</h1>;
+    }
+
     return (
         <>
-            {myDestinations.map((x) => (
-                <Destination destination={x} key={x.country} />
-            ))}
+            <h2 className={styles.title}>Highest rated destinations:</h2>
+            <div className={styles.wrapper}>
+                {data.map((destination) => (
+                    <Destination destination={destination} key={destination._id} />
+                ))}
+            </div>
         </>
     );
 };
-
-const myDestinations = [
-    {
-        country: 'Croatia',
-        city: 'Zagreb',
-        price: 499,
-        imageUrl:
-            'https://images.pexels.com/photos/161393/croatia-city-rovinje-port-161393.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=1',
-    },
-    {
-        country: 'Croatia 2',
-        city: 'Zagreb',
-        price: 499,
-        imageUrl:
-            'https://images.pexels.com/photos/14133589/pexels-photo-14133589.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=1',
-    },
-    {
-        country: 'Croatia 3',
-        city: 'Zagreb',
-        price: 499,
-        imageUrl:
-            'https://images.pexels.com/photos/4846620/pexels-photo-4846620.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=1',
-    },
-    {
-        country: 'Croatia 4',
-        city: 'Zagreb',
-        price: 499,
-        imageUrl:
-            'https://images.pexels.com/photos/3580531/pexels-photo-3580531.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
-    },
-    {
-        country: 'Croatia 5',
-        city: 'Zagreb',
-        price: 499,
-        imageUrl:
-            'https://images.pexels.com/photos/3580531/pexels-photo-3580531.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
-    },
-    {
-        country: 'Croatia 6',
-        city: 'Zagreb',
-        price: 499,
-        imageUrl:
-            'https://images.pexels.com/photos/3580531/pexels-photo-3580531.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
-    },
-];

@@ -70,7 +70,6 @@ async function deleteDestinationImages(folderName) {
     try {
         await cloudinary.api.delete_folder(folderName);
     } catch (error) {
-        console.log(error.message);
         return {};
     }
 }
@@ -80,7 +79,6 @@ async function deleteImage(publicId) {
         const result = await cloudinary.uploader.destroy(publicId);
         return result;
     } catch (error) {
-        console.log(error);
         return {};
     }
 }

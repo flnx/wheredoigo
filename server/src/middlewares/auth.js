@@ -1,5 +1,6 @@
 const jwt = require('../lib/jsonwebtoken');
 const { isValid } = require('mongoose').Types.ObjectId;
+const { errorMessages } = require('../constants/errorMessages');
 
 require('dotenv').config();
 
@@ -14,16 +15,16 @@ const auth = async (req, res, next) => {
             const { ownerId } = decodedToken;
 
             if (!ownerId || !isValid(ownerId)) {
-                return res.status(401).json({ message: 'User Not Found' });
+                return res.status(401).json({ message: `User ${errorMessages.notFound}` });
             }
 
             req.user = decodedToken;
             next();
         } catch (err) {
-            return res.status(401).json({ message: 'Unauthorized' });
+            return res.status(401).json({ message: errorMessages.unauthorized });
         }
     } else {
-        return res.status(401).json({ message: 'Unauthorized' });
+        return res.status(401).json({ message: errorMessages.unauthorized });
     }
 };
 

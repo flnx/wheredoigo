@@ -19,7 +19,6 @@ const add_new_place = async (req, res) => {
 
         res.json(place);
     } catch (err) {
-        console.log(handleErrors(err));
         res.status(err.status || 500).json(handleErrors(err));
     }
 };

@@ -12,12 +12,6 @@
     border-right: 1px solid #f4f3f2;
 }
 
-.destinations {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(calc(20rem - 1rem), 1fr));
-    gap: 1rem;
-}
-
 .stats {
     background: var(--dashboard-children-background);
     border-radius: 10px;
@@ -37,15 +31,15 @@
 @media (min-width: 64em) {
     .grid {
         grid-template-columns: repeat(6, 1fr);
-        grid-template-areas: "snav dest dest dest dest stats";
+        grid-template-areas: "snav con con con con stats";
     }
 
     .grid > * {
         padding: 1.5rem;
     }
 
-    .destinations {
-        grid-area: dest;
+    .content {
+        grid-area: con;
     }
 
     .sideNav {

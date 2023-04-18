@@ -18,8 +18,8 @@ const { checkSession } = require('../middlewares/checkSession');
 const router = express.Router();
 
 router.get('/destinations', paginated_destinations);
-router.get('/destinations/:id', validateMongoId, checkSession, destination_details);
 router.get('/destinations/created-by-user', auth, get_creator_destinations);
+router.get('/destinations/:id', validateMongoId, checkSession, destination_details);
 router.post('/destinations', auth, upload, add_new_destination);
 router.post('/destinations/get-city-data', auth, get_city_data);
 

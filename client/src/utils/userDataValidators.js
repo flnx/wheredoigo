@@ -16,7 +16,6 @@ export const validateRegisterData = ({ username, email, password, repeatPassword
     } else if (password !== repeatPassword) {
         error = "Passwords don't match";
     } else if (!isEmailValid) {
-        console.log(email);
         error = 'Invalid Email Address';
     }
 
