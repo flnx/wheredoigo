@@ -4,5 +4,5 @@ export const queryEndpoints = {
     creatorDestinations: 'creatorDestinations',
     place: 'place',
     places: 'places',
-    placePermissions: 'placePermissions',
+    permissions: 'permissions',
 }

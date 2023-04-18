@@ -59,16 +59,16 @@ async function getById(destinationId, user) {
         throw createValidationError(errorMessages.notFound, 404);
     }
 
-    if (user && destination.ownerId.equals(user.ownerId)) {
-        destination.isOwner = true;
+    const { ownerId, country, city, ...destinationWithoutOwnerId } = destination;
+
+    if (user && ownerId.equals(user.ownerId)) {
+        destinationWithoutOwnerId.isOwner = true;
     }
 
-    delete destination.ownerId;
-
     return {
-        ...destination,
-        country: capitalizeEachWord(destination.country.name),
-        city: capitalizeEachWord(destination.city),
+        ...destinationWithoutOwnerId,
+        country: capitalizeEachWord(country.name),
+        city: capitalizeEachWord(city),
     };
 }
 
@@ -124,7 +124,6 @@ async function create(data, images, user) {
 
 async function getDestinationAndCheckOwnership(destinationId, userId) {
     const destination = await Destination.findById(destinationId)
-        .select('city country ownerId')
         .populate('country')
         .lean()
         .exec();
@@ -133,11 +132,13 @@ async function getDestinationAndCheckOwnership(destinationId, userId) {
         throw createValidationError(errorMessages.invalidDestination, 400);
     }
 
-    if (!destination.ownerId.equals(userId)) {
+    const { ownerId, ...destinationWithoutOwnerId } = destination;
+
+    if (!ownerId.equals(userId)) {
         throw createValidationError(errorMessages.accessDenied, 403);
     }
 
-    return destination;
+    return destinationWithoutOwnerId;
 }
 
 async function getCreatorDestinations(ownerId) {

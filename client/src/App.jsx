@@ -18,6 +18,7 @@ import { DestinationDetails } from './pages/DestinationDetails/DestinationDetail
 import { DetailsModal } from './components/DetailsModal/DetailsModal';
 import { PlaceDetails } from './pages/PlaceDetails/PlaceDetails';
 import { AddPlace } from './pages/AddPlace/AddPlace';
+import { EditDestination } from './pages/EditDestination/EditDestination';
 
 function App() {
     return (
@@ -33,6 +34,7 @@ function App() {
                                 </Route>
                                 <Route element={<ProtectedRoute />}>
                                     <Route path="/dashboard/*" element={<UserDashboardRoutes />} />
+                                    <Route path="/destination/edit" element={<EditDestination />}/>
                                 </Route>
                                 <Route path="/discover" element={<Discover />} />
                                 <Route

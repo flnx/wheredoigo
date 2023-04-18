@@ -9,7 +9,7 @@ export const getCreatePlacePermissions = async (id) => {
 }
 
 export const getEditDestinationPermissions = async (id) => {
-    const res = await axios.get(apiEndpoints.requestCreatePlacePermissions(id));
+    const res = await axios.get(apiEndpoints.requestEditDestinationPermissions(id));
 
     return res.data;
 }

@@ -26,6 +26,7 @@ export const AddPlace = () => {
 
     if (permissions.error) {
         navigate(-1, { replace: true });
+        return null;
     }
 
 

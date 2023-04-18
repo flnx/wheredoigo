@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
 import { Dashboard } from '../pages/Dashboard/Dashboard';
-import { MyTrips } from '../pages/Dashboard/components/MyTrips/MyTrips';
+import { OwnerDestinations } from '../pages/Dashboard/components/OwnerDestinations/OwnerDestinations';
 import { UserSettings } from '../pages/Dashboard/components/UserSettings/UserSettings';
 import { Followers } from '../pages/Dashboard/components/Followers/Followers';
 import { Logout } from '../components/Logout/Logout';
@@ -14,7 +14,7 @@ const UserDashboardRoutes = () => {
             <Route element={<Dashboard />}>
                 <Route index element={<p>Hello, Friend</p>}/>
                 <Route path="add" element={<AddDestination />} />
-                <Route path="destinations-created-by-user" element={<MyTrips />} />
+                <Route path="destinations-created-by-user" element={<OwnerDestinations />} />
                 <Route path="history" element={<History />} />
                 <Route path="settings" element={<UserSettings />} />
                 <Route path="followers" element={<Followers />} />
