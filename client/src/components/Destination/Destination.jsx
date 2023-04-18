@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styles from './Destination.module.css';
+import { SuccessButton } from '../Buttons/Success-Button/SuccessButton';
 
 export const Destination = ({ destination }) => {
     const { _id, city, country, imageUrls } = destination;
@@ -17,6 +18,9 @@ export const Destination = ({ destination }) => {
 
                     <div className={`${styles.flex}`}>
                         <p className={styles.destination}>{country}</p>
+                    </div>
+                    <div>
+                        <SuccessButton>Edit</SuccessButton>
                     </div>
                 </section>
             </div>

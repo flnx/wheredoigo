@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { queryClient } from '../utils/queryClient';
+
 
 export const useLocalStorage = (key) => {
     const [user, setUser] = useState(() => {
@@ -10,6 +12,8 @@ export const useLocalStorage = (key) => {
     const updateUser = (newValue) => {
         localStorage.removeItem('userData');
         localStorage.setItem(key, JSON.stringify(newValue));
+        queryClient.invalidateQueries();
+        queryClient.clear()
         setUser(newValue);
     };
 

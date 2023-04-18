@@ -7,12 +7,6 @@ export const getPlace = async (id) => {
     return placeData.data;
 };
 
-export const getCreatePlacePermissions = async (id) => {
-    const res = await axios.get(apiEndpoints.requestCreatePlacePermissions(id));
-
-    return res.data;
-}
-
 export const createPlace = async (placeData) => {
     const res = await axios.post(apiEndpoints.addPlace, placeData, {
         headers: {

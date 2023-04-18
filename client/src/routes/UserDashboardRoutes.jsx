@@ -12,7 +12,7 @@ const UserDashboardRoutes = () => {
     return (
         <Routes>
             <Route element={<Dashboard />}>
-                <Route index element={<MyTrips index />} />
+                <Route index element={<p>Hello, Friend</p>}/>
                 <Route path="add" element={<AddDestination />} />
                 <Route path="destinations-created-by-user" element={<MyTrips />} />
                 <Route path="history" element={<History />} />
