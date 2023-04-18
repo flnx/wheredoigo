@@ -63,7 +63,13 @@ async function getById(destinationId, user) {
         destination.isOwner = true;
     }
 
-    return destination;
+    delete destination.ownerId;
+
+    return {
+        ...destination,
+        country: capitalizeEachWord(destination.country.name),
+        city: capitalizeEachWord(destination.city),
+    };
 }
 
 async function create(data, images, user) {
@@ -147,13 +153,13 @@ async function getCreatorDestinations(ownerId) {
         throw createValidationError(errorMessages.notFound, 404);
     }
 
-    destinations.forEach(x => {
+    destinations.forEach((x) => {
         const { country, imageUrls } = x;
 
         x.country = capitalizeEachWord(country.name);
         x.city = capitalizeEachWord(x.city);
         x.imageUrls = imageUrls[0].imageUrl;
-    })
+    });
 
     return destinations;
 }

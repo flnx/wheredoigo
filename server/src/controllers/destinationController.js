@@ -3,6 +3,7 @@ const {
     create,
     getById,
     getCreatorDestinations,
+    getDestinationAndCheckOwnership,
 } = require('../services/destinationService');
 const { getDestinationPlaces } = require('../services/placeService');
 const { fetchCity } = require('../service/data');
@@ -75,10 +76,25 @@ const get_creator_destinations = async (req, res) => {
     }
 };
 
+const request_edit_permissions = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { ownerId } = req.user;
+        const result = await getDestinationAndCheckOwnership(id, ownerId);
+        
+        res.json(result);
+    } catch (err) {
+        console.log(err.message);
+        res.status(err.status || 500).json(handleErrors(err));
+    }
+};
+
+
 module.exports = {
     paginated_destinations,
     destination_details,
     get_city_data,
     add_new_destination,
     get_creator_destinations,
+    request_edit_permissions
 };

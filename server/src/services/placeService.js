@@ -15,6 +15,7 @@ const capitalizeEachWord = require('../utils/capitalizeWords');
 
 async function getPlaceById(placeId, user) {
     const place = await Place.findById(placeId)
+        .select('-ownerId')
         .populate({
             path: 'comments',
             populate: { path: 'ownerId', select: 'username avatarUrl' },
@@ -41,6 +42,9 @@ async function getPlaceById(placeId, user) {
         };
     });
 
+    place.name = capitalizeEachWord(place.name);
+    place.city = capitalizeEachWord(place.city);
+
     return place;
 }
 
@@ -49,6 +53,11 @@ async function getDestinationPlaces(destinationId) {
         .select({ name: 1, city: 1, type: 1, imageUrls: { $slice: 1 } })
         .lean()
         .exec();
+
+    places.forEach(x => {
+        x.name = capitalizeEachWord(x.name);
+        x.city = capitalizeEachWord(x.name);
+    });
 
     return places;
 }

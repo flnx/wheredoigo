@@ -46,7 +46,7 @@ export const DestinationHeader = ({ destination }) => {
                 <StarRating rating={5} />
             </div>
             <div className={styles.headerContent}>
-                <p className={styles.countryName}>{destination.country.name}</p>
+                <p className={styles.countryName}>{destination.country}</p>
                 <h3 className={styles.descriptionTitle}>Overview</h3>
                 <p className={styles.description}>{destination.description}</p>
             </div>
