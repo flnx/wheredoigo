@@ -39,18 +39,19 @@ export const CommentForm = () => {
 
     return (
         <div>
-            <h3 className={styles.title}>Leave a review</h3>
+            <h3 className={styles.title}>Leave a comment</h3>
             <form className={styles.form} onSubmit={handleSubmit}>
                 <input
+                    className={styles.formInput}
                     type="text"
-                    placeholder="Review Title..."
+                    placeholder="Title"
                     onChange={(e) => setTitle(e.target.value)}
                     value={title}
                 />
                 <textarea
-                    className={styles.textarea}
+                    className={styles.formTextarea}
                     onChange={(e) => setContent(e.target.value)}
-                    placeholder="Add Review..."
+                    placeholder="Add a comment..."
                     value={content}
                 />
                 <SecondaryButton clickHandler={handleSubmit}>Submit your Review</SecondaryButton>

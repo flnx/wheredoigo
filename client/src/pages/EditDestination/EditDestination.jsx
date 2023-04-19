@@ -22,13 +22,15 @@ export const EditDestination = () => {
 
     return (
         <div className="container">
-            {destination.isLoading && <h1>Loading...</h1>}
-
-            <section>
-                <div>dasdsadasdsa</div>
-                <div>dasdsadasdsa</div>
-                <div>dasdsadasdsa</div>
-            </section>
+            {destination.isLoading ? (
+                <h1>Loading...</h1>
+            ) : (
+                <section>
+                    <div>dasdsadasdsa</div>
+                    <div>dasdsadasdsa</div>
+                    <div>dasdsadasdsa</div>
+                </section>
+            )}
         </div>
     );
 };

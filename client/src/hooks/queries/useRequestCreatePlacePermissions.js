@@ -4,7 +4,7 @@ import { getCreatePlacePermissions } from '../../service/data/permissions';
 
 export const useRequestCreatePlacePermissions = (destinationId) => {
     return useQuery({
-        queryKey: [queryEndpoints.permissions, destinationId],
+        queryKey: [queryEndpoints.placePermissions, destinationId],
         queryFn: () => getCreatePlacePermissions(destinationId),
         staleTime: 1 * 60 * 1000, // 1 minute
         cacheTime: 2 * 60 * 1000, // 2 minutes

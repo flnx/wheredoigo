@@ -44,6 +44,7 @@ async function getPlaceById(placeId, user) {
 
     place.name = capitalizeEachWord(place.name);
     place.city = capitalizeEachWord(place.city);
+    place.isAuth = user ? true : false;
 
     return place;
 }

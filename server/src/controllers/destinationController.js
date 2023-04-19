@@ -84,7 +84,6 @@ const request_edit_permissions = async (req, res) => {
         
         res.json(result);
     } catch (err) {
-        console.log(err.message);
         res.status(err.status || 500).json(handleErrors(err));
     }
 };

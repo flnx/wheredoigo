@@ -22,7 +22,10 @@ function AxiosInterceptor({ children }) {
 
             if (token) {
                 config.headers.Authorization = `Bearer ${token}`;
+            } else {
+                config.headers.Authorization = null;
             }
+
             return config;
         },
         [auth.accessToken]

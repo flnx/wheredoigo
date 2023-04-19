@@ -27,7 +27,7 @@ export const PlaceDetails = () => {
                 <Images place={data} />
                 <Header place={data} />
                 <Comments comments={data.comments} />
-                <CommentForm />
+                {data.isAuth && <CommentForm />}
             </div>
         </div>
     );
