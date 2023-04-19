@@ -138,6 +138,7 @@ async function getDestinationAndCheckOwnership(destinationId, userId) {
         throw createValidationError(errorMessages.accessDenied, 403);
     }
 
+    destinationWithoutOwnerId.country = capitalizeEachWord(destination.country.name);
     return destinationWithoutOwnerId;
 }
 

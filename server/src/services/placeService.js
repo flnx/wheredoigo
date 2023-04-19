@@ -86,7 +86,7 @@ async function addNewPlace(data, images, user) {
     const place = await Place.create({
         ...placeData,
         city: destination.city,
-        country: destination.country.name,
+        country: destination.country,
         imageUrls: [],
         comments: [],
         ownerId,
