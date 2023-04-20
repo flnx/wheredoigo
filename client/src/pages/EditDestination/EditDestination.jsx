@@ -11,9 +11,7 @@ import { useEditDestinationDetails } from '../../hooks/queries/useEditDestinatio
 export const EditDestination = () => {
     const navigate = useNavigate();
     const { state: destinationId } = useLocation();
-    const { data, error, isLoading } = destinationId
-        ? useRequestEditDestinationPermissions(destinationId)
-        : {};
+    const { data, error, isLoading } = destinationId ? useRequestEditDestinationPermissions(destinationId) : {};
     const [editDestination, isEditError, isEditLoading] = useEditDestinationDetails();
     const [editableFields, setEditableFields] = useState({});
     const [cache, setCache] = useState({});
@@ -44,7 +42,6 @@ export const EditDestination = () => {
         setEditableFields((prevState) => {
             // set the clicked field to true
             const newState = { [field]: true };
-
             // set all other fields to false
             Object.keys(prevState).forEach((key) => {
                 if (key !== field) {
@@ -59,7 +56,7 @@ export const EditDestination = () => {
     const handleSave = (e, isDescription, field, updatedValue, categoryId, infoId) => {
         e.preventDefault();
 
-        let editInfo = { id: formFields._id };
+        let editInfo = { destinationId: formFields._id };
 
         if (isDescription) {
             editInfo.description = updatedValue;
@@ -76,7 +73,6 @@ export const EditDestination = () => {
     };
 
     const handleCancel = (field) => {
-        // resets the form to its original state
         setEditableFields((prevState) => ({ ...prevState, [field]: false }));
         setFormFields(cache);
     };
@@ -135,6 +131,7 @@ export const EditDestination = () => {
                         {data.details.map((category, i) => (
                             <div className={styles.detailCategory} key={category._id}>
                                 <h2>{category.category}</h2>
+
                                 {category.info.map((detail, i2) => {
                                     const updatedValue = formFields?.details[i].info[i2].description;
 
@@ -145,14 +142,7 @@ export const EditDestination = () => {
                                             onChangeHandler={handleFormFieldsDetailsChange}
                                             isEditable={editableFields}
                                             handleSave={(e) =>
-                                                handleSave(
-                                                    e,
-                                                    false,
-                                                    detail.title,
-                                                    updatedValue,
-                                                    category._id,
-                                                    detail._id
-                                                )
+                                                handleSave(e, false, detail.title, updatedValue, category._id, detail._id)
                                             }
                                             handleCancel={handleCancel}
                                             handleEdit={handleEdit}
