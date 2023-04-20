@@ -12,9 +12,3 @@
 .cancel-button:focus {
     background-color: var(--sky-blue-darker);
 }
-
-.btn-sky:disabled {
-    background-color: #ddd;
-    color: #777;
-    cursor: not-allowed;
-}

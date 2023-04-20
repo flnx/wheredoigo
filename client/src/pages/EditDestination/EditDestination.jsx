@@ -3,9 +3,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useRequestEditDestinationPermissions } from '../../hooks/queries/useRequestEditDestinationPermissions';
 
 // Components
-import { Input, Textarea } from './EditInput';
+import { Textarea } from './EditInput';
 
 import styles from './EditDestination.module.css';
+import { useEditDestinationDetails } from '../../hooks/queries/useEditDestinationDetails';
 
 export const EditDestination = () => {
     const navigate = useNavigate();
@@ -13,8 +14,10 @@ export const EditDestination = () => {
     const { data, error, isLoading } = destinationId
         ? useRequestEditDestinationPermissions(destinationId)
         : {};
-    const [editableFields, setEditableFields] = useState(false);
-    const [formFields, setFormFields] = useState({});
+    const [editDestination, isEditError, isEditLoading] = useEditDestinationDetails();
+    const [editableFields, setEditableFields] = useState({});
+    const [cache, setCache] = useState({});
+    const [formFields, setFormFields] = useState(false);
 
     useEffect(() => {
         if (!destinationId) {
@@ -25,10 +28,11 @@ export const EditDestination = () => {
     useEffect(() => {
         if (data) {
             setFormFields(data);
+            setCache(data);
         }
     }, [data]);
 
-    if (!destinationId || !data) return;
+    if (!destinationId || !formFields) return;
 
     if (error) {
         navigate('/dashboard/destinations-created-by-user', { replace: true });
@@ -37,18 +41,44 @@ export const EditDestination = () => {
 
     const handleEdit = (field) => {
         // enables/disables the form fields
-        setEditableFields((prevState) => ({ ...prevState, [field]: true }));
+        setEditableFields((prevState) => {
+            // set the clicked field to true
+            const newState = { [field]: true };
+
+            // set all other fields to false
+            Object.keys(prevState).forEach((key) => {
+                if (key !== field) {
+                    newState[key] = false;
+                }
+            });
+
+            return newState;
+        });
     };
 
-    const handleSave = (field) => {
-        // sends the changes to the server
-        setEditableFields((prevState) => ({ ...prevState, [field]: false }));
+    const handleSave = (e, isDescription, field, updatedValue, categoryId, infoId) => {
+        e.preventDefault();
+
+        let editInfo = { id: formFields._id };
+
+        if (isDescription) {
+            editInfo.description = updatedValue;
+        } else {
+            editInfo = { ...editInfo, categoryId, infoId, updatedValue };
+        }
+
+        editDestination(editInfo, {
+            onSuccess: () => {
+                setEditableFields((prevState) => ({ ...prevState, [field]: false }));
+                setCache(formFields);
+            },
+        });
     };
 
     const handleCancel = (field) => {
         // resets the form to its original state
         setEditableFields((prevState) => ({ ...prevState, [field]: false }));
-        setFormFields(formFields);
+        setFormFields(cache);
     };
 
     const handleFormFieldsChange = (e, field) => {
@@ -88,57 +118,50 @@ export const EditDestination = () => {
                 <h1>Loading...</h1>
             ) : (
                 <section className={styles.section}>
-                    <h1>Edit Destination</h1>
+                    <h1>Update information for {`${formFields.city}, ${formFields.country}`}</h1>
                     <form className={styles.form}>
-                        <Input
-                            id={'country'}
-                            value={formFields?.country}
-                            onChangeHandler={handleFormFieldsChange}
-                            isEditable={editableFields}
-                            handleSave={handleSave}
-                            handleCancel={handleCancel}
-                            handleEdit={handleEdit}
-                            formFields={formFields}
-                        />
-
-                        <Input
-                            id={'city'}
-                            value={formFields?.city}
-                            onChangeHandler={handleFormFieldsChange}
-                            isEditable={editableFields}
-                            handleSave={handleSave}
-                            handleCancel={handleCancel}
-                            handleEdit={handleEdit}
-                            formFields={formFields}
-                        />
-
                         <Textarea
                             id={'description'}
                             value={formFields?.description}
                             onChangeHandler={handleFormFieldsChange}
                             isEditable={editableFields}
-                            handleSave={handleSave}
+                            handleSave={(e) =>
+                                handleSave(e, true, 'description', formFields?.description)
+                            }
                             handleCancel={handleCancel}
                             handleEdit={handleEdit}
-                            formFields={formFields}
+                            isLoading={isEditLoading}
                         />
                         {data.details.map((category, i) => (
                             <div className={styles.detailCategory} key={category._id}>
                                 <h2>{category.category}</h2>
-                                {category.info.map((detail, i2) => (
-                                    <Textarea
-                                        id={detail.title}
-                                        value={formFields.details[i].info[i2].description}
-                                        onChangeHandler={handleFormFieldsDetailsChange}
-                                        isEditable={editableFields}
-                                        handleSave={handleSave}
-                                        handleCancel={handleCancel}
-                                        handleEdit={handleEdit}
-                                        formFields={formFields}
-                                        categoryId={category._id}
-                                        key={detail._id}
-                                    />
-                                ))}
+                                {category.info.map((detail, i2) => {
+                                    const updatedValue = formFields?.details[i].info[i2].description;
+
+                                    return (
+                                        <Textarea
+                                            id={detail.title}
+                                            value={updatedValue}
+                                            onChangeHandler={handleFormFieldsDetailsChange}
+                                            isEditable={editableFields}
+                                            handleSave={(e) =>
+                                                handleSave(
+                                                    e,
+                                                    false,
+                                                    detail.title,
+                                                    updatedValue,
+                                                    category._id,
+                                                    detail._id
+                                                )
+                                            }
+                                            handleCancel={handleCancel}
+                                            handleEdit={handleEdit}
+                                            categoryId={category._id}
+                                            isLoading={isEditLoading}
+                                            key={detail._id}
+                                        />
+                                    );
+                                })}
                             </div>
                         ))}
                     </form>

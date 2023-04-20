@@ -29,6 +29,14 @@ export const createDestination = async (destinationData) => {
     return res.data;
 };
 
+export const editDestinationDetails = async (updatedData) => {
+    
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    
+    return [];
+    // const res = await axios.put(apiEndpoints.editDestinationDetails(id), updatedData)
+};
+
 export const getDestinationsPaginated = async ({ pageParam, queryKey }) => {
     const searchParams = queryKey[2] || '';
 
