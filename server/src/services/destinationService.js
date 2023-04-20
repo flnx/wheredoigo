@@ -139,6 +139,7 @@ async function getDestinationAndCheckOwnership(destinationId, userId) {
     }
 
     destinationWithoutOwnerId.country = capitalizeEachWord(destination.country.name);
+    destinationWithoutOwnerId.city = capitalizeEachWord(destination.city);
     return destinationWithoutOwnerId;
 }
 

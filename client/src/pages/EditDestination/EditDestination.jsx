@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRequestEditDestinationPermissions } from '../../hooks/queries/useRequestEditDestinationPermissions';
 
+// Components
+import { Input, Textarea } from './EditInput';
+
 import styles from './EditDestination.module.css';
 
 export const EditDestination = () => {
@@ -9,7 +12,7 @@ export const EditDestination = () => {
     const { state: destinationId } = useLocation();
     const { data, error, isLoading } = destinationId
         ? useRequestEditDestinationPermissions(destinationId)
-        : null;
+        : {};
     const [editableFields, setEditableFields] = useState(false);
     const [formFields, setFormFields] = useState({});
 
@@ -45,16 +48,37 @@ export const EditDestination = () => {
     const handleCancel = (field) => {
         // resets the form to its original state
         setEditableFields((prevState) => ({ ...prevState, [field]: false }));
-        setFormFields((prevState) => ({
-            ...prevState,
-            [field]: data[field],
-        }));
+        setFormFields(formFields);
     };
 
-    const handleChangeFormFields = (e, field) => {
+    const handleFormFieldsChange = (e, field) => {
         setFormFields((prevState) => ({
             ...prevState,
             [field]: e.target.value,
+        }));
+    };
+
+    const handleFormFieldsDetailsChange = (e, propName, categoryId) => {
+        setFormFields((prevState) => ({
+            ...prevState,
+            details: prevState.details.map((detail) => {
+                if (detail._id == categoryId) {
+                    const updatedInfo = detail.info.map((x) => {
+                        if (x.title === propName) {
+                            return {
+                                ...x,
+                                description: e.target.value,
+                            };
+                        } else {
+                            return x;
+                        }
+                    });
+
+                    return { ...detail, info: updatedInfo };
+                } else {
+                    return detail;
+                }
+            }),
         }));
     };
 
@@ -66,52 +90,54 @@ export const EditDestination = () => {
                 <section className={styles.section}>
                     <h1>Edit Destination</h1>
                     <form className={styles.form}>
-                        <div>
-                            <label htmlFor="country">Country:</label>
-                            <input
-                                id="country"
-                                type="text"
-                                disabled={!editableFields['country']}
-                                value={formFields?.country || ''}
-                                onChange={(e) => handleChangeFormFields(e, 'country')}
-                            />
-                            {editableFields['country'] ? (
-                                <>
-                                    <button type="button" onClick={() => handleSave('country')}>
-                                        Save
-                                    </button>
-                                    <button type="button" onClick={() => handleCancel('country')}>
-                                        Cancel
-                                    </button>
-                                </>
-                            ) : (
-                                <button type="button" onClick={(e) => handleEdit('country')}>
-                                    Edit
-                                </button>
-                            )}
-                        </div>
-                        <div>
-                            <label htmlFor="city">City:</label>
-                            <input id="city" type="text" />
-                        </div>
-                        <div>
-                            <label htmlFor="description">Description:</label>
-                            <textarea id="description" />
-                        </div>
-                        {data.details.map((detailCategory) => (
-                            <div className={styles.detailCategory} key={detailCategory._id}>
-                                <h2>{detailCategory.category}</h2>
-                                {detailCategory.info.map((detail) => (
-                                    <div className={styles.detail} key={detail._id}>
-                                        <label htmlFor={`detail-${detail._id}-title`}>
-                                            {detail.title}:
-                                        </label>
-                                        <input id={`detail-${detail._id}-title`} type="text" />
-                                        <label htmlFor={`detail-${detail._id}-description`}>
-                                            Description:
-                                        </label>
-                                        <textarea id={`detail-${detail._id}-description`} />
-                                    </div>
+                        <Input
+                            id={'country'}
+                            value={formFields?.country}
+                            onChangeHandler={handleFormFieldsChange}
+                            isEditable={editableFields}
+                            handleSave={handleSave}
+                            handleCancel={handleCancel}
+                            handleEdit={handleEdit}
+                            formFields={formFields}
+                        />
+
+                        <Input
+                            id={'city'}
+                            value={formFields?.city}
+                            onChangeHandler={handleFormFieldsChange}
+                            isEditable={editableFields}
+                            handleSave={handleSave}
+                            handleCancel={handleCancel}
+                            handleEdit={handleEdit}
+                            formFields={formFields}
+                        />
+
+                        <Textarea
+                            id={'description'}
+                            value={formFields?.description}
+                            onChangeHandler={handleFormFieldsChange}
+                            isEditable={editableFields}
+                            handleSave={handleSave}
+                            handleCancel={handleCancel}
+                            handleEdit={handleEdit}
+                            formFields={formFields}
+                        />
+                        {data.details.map((category, i) => (
+                            <div className={styles.detailCategory} key={category._id}>
+                                <h2>{category.category}</h2>
+                                {category.info.map((detail, i2) => (
+                                    <Textarea
+                                        id={detail.title}
+                                        value={formFields.details[i].info[i2].description}
+                                        onChangeHandler={handleFormFieldsDetailsChange}
+                                        isEditable={editableFields}
+                                        handleSave={handleSave}
+                                        handleCancel={handleCancel}
+                                        handleEdit={handleEdit}
+                                        formFields={formFields}
+                                        categoryId={category._id}
+                                        key={detail._id}
+                                    />
                                 ))}
                             </div>
                         ))}

@@ -1,14 +1,15 @@
 .primary {
-    background-color: var(--button-primary);
-    color: var(--text-primary-light);
-    border: none;
-    border-radius: 5px;
     padding: 0.75em 1.5em;
+    border: none;
+    color: var(--text-primary-light);
+    background-color: var(--button-primary);
+    border-radius: 5px;
     font-weight: bold;
-    transition: all 0.190s ease-in-out;
     cursor: pointer;
+    transition: all 0.19s ease-in-out;
 }
 
-.primary:hover, .primary:focus {
+.primary:hover,
+.primary:focus {
     background-color: var(--button-hover);
 }

@@ -1,0 +1,66 @@
+.wrapper {
+    display: flex;
+    border-bottom: 1px solid #7e7e7e;
+    padding: 1rem 0;
+    max-width: 50rem;
+    gap: 1rem;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.33rem;
+    width: 100%;
+}
+
+.input,
+.textarea {
+    padding: 0.4rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.textarea {
+    height: 15rem;
+    width: 100%;
+}
+
+.input:disabled {
+    background-color: #ddd;
+    color: #777;
+}
+
+.buttons {
+    display: flex;
+    gap: 0.45rem;
+}
+
+.label {
+    width: 22.5rem;
+}
+
+.label,
+.desc {
+    color: var(--text-secondary);
+}
+
+.desc {
+    display: -webkit-box;
+    max-height: 9rem;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    white-space: break-spaces;
+    -webkit-line-clamp: 5; 
+    -webkit-box-orient: vertical;
+}
+
+.edit {
+    margin-left: auto;
+    cursor: pointer;
+    color: var(--sky-blue);
+}
