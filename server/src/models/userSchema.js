@@ -9,6 +9,7 @@ const userSchema = new Schema({
         type: String,
         trim: true,
         minLength: [2, errorMessages.username],
+        maxLength: [25 , errorMessages.username],
         unique: [true, 'The username is already taken'],
         validate: [validator.isAlphanumeric, errorMessages.username],
     },

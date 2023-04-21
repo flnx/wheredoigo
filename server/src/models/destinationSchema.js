@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const { errorMessages } = require('../constants/errorMessages');
+
 const destinationSchema = new Schema({
     ownerId: {
         type: Schema.Types.ObjectId,
@@ -21,7 +23,8 @@ const destinationSchema = new Schema({
     description: {
         type: String,
         trim: true,
-        minLength: [10, 'Description must contain at least 10 characters'],
+        minLength: [10, errorMessages.description],
+        maxLength: [5000, errorMessages.description],
     },
     details: [
         {

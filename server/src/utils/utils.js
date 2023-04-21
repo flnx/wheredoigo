@@ -8,7 +8,12 @@ function fixInvalidFolderNameChars(city, id) {
     return `${city}-${id}`.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 }
 
+function isObject(value) {
+    return typeof value === 'object' && !Array.isArray(value) && value !== null;
+}
+
 module.exports = {
     validatePassword,
-    fixInvalidFolderNameChars
+    fixInvalidFolderNameChars,
+    isObject,
 };

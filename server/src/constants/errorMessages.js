@@ -10,8 +10,9 @@ exports.errorMessages = {
     invalidDestination: "Please enter a valid destination ID",
     commentTitle: 'Title must be at least 2 characters long',
     invalidComment: 'Comment must contain at least 10 characters',
-    placeDescription: 'Description must contain at least 10 characters',
+    description: 'Description must be between 10 and 5000 characters',
     missingFields: 'Please fill in all required fields',
     invalidCommentId: 'Invalid Comment ID',
-    unauthorized: 'Unauthorized'
+    unauthorized: 'Unauthorized',
+    invalidBody: 'Please send a valid object with the updated destination fields'
 };

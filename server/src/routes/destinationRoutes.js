@@ -8,6 +8,7 @@ const {
     get_city_data,
     get_creator_destinations,
     request_edit_permissions,
+    edit_destination_field,
 } = require('../controllers/destinationController');
 
 // Middlewares
@@ -24,5 +25,6 @@ router.get('/destinations/:id/request-edit-permissions', validateMongoId, auth, 
 router.get('/destinations/:id', validateMongoId, checkSession, destination_details);
 router.post('/destinations', auth, upload, add_new_destination);
 router.post('/destinations/get-city-data', auth, get_city_data);
+router.put('/destinations/:id/edit-destination-field', validateMongoId, auth, edit_destination_field);
 
 module.exports = router;

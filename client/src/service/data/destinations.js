@@ -30,10 +30,18 @@ export const createDestination = async (destinationData) => {
 };
 
 export const editDestinationDetails = async (updatedData) => {
-    console.log(updatedData);
+    const { destinationId, ...data } = updatedData;
 
-    return [];
-    // const res = await axios.put(apiEndpoints.editDestinationDetails(id), updatedData)
+    try {
+        const res = await axios.put(
+            apiEndpoints.editDestinationDetails(destinationId),
+            data
+        );
+        return [];
+    } catch (err) {
+        console.log(err);
+        return [];
+    }
 };
 
 export const getDestinationsPaginated = async ({ pageParam, queryKey }) => {

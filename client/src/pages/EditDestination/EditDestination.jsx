@@ -6,20 +6,23 @@ import { useRequestEditDestinationPermissions } from '../../hooks/queries/useReq
 import { DetailsInputs } from './components/DetailsInputsFields/DetailsInputsFields';
 import { MemoizedTextarea } from './components/Textarea/Textarea';
 
+
 export const EditDestination = () => {
     const navigate = useNavigate();
     const [isEditable, setIsEditable] = useState({});
     const { state: destinationId } = useLocation();
     const { data, error, isLoading } = useRequestEditDestinationPermissions(destinationId);
+    
+    const URL_DASHBOARD = '/dashboard/destinations-created-by-user';
 
     useEffect(() => {
         if (!destinationId) {
-            navigate('/dashboard/destinations-created-by-user', { replace: true });
+            navigate(URL_DASHBOARD, { replace: true });
         }
     }, []);
 
     if (error) {
-        navigate('/dashboard/destinations-created-by-user', { replace: true });
+        navigate(URL_DASHBOARD, { replace: true });
         return null;
     }
 
@@ -49,7 +52,7 @@ export const EditDestination = () => {
             ) : (
                 <section>
                     <h1 style={{ marginBottom: '2rem', fontSize: '2.5rem' }}>
-                        Update information for {`${data?.city}, ${data?.country}`}
+                        Edit {`${data?.city}, ${data?.country}`}
                     </h1>
                     <form>
                         <MemoizedTextarea

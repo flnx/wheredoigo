@@ -4,17 +4,18 @@ const {
     getById,
     getCreatorDestinations,
     getDestinationAndCheckOwnership,
+    editDestinationField,
 } = require('../services/destinationService');
+
 const { getDestinationPlaces } = require('../services/placeService');
 const { fetchCity } = require('../service/data');
 const handleErrors = require('../utils/errorHandler');
 
 const paginated_destinations = async (req, res) => {
-    const page = parseInt(req.query.page) || 0;
-    const limit = 9;
-    const search = req.query.search;
-
     try {
+        const page = parseInt(req.query.page) || 0;
+        const limit = 9;
+        const search = req.query.search;
         const destinations = await getByPage(page, limit, search);
         res.json(destinations);
     } catch (err) {
@@ -23,10 +24,9 @@ const paginated_destinations = async (req, res) => {
 };
 
 const destination_details = async (req, res) => {
-    const { id } = req.params;
-    const user = req.user;
-
     try {
+        const { id } = req.params;
+        const user = req.user;
         const [destination, places] = await Promise.all([
             getById(id, user),
             getDestinationPlaces(id),
@@ -41,9 +41,8 @@ const destination_details = async (req, res) => {
 };
 
 const get_city_data = async (req, res) => {
-    const { city } = req.body;
-
     try {
+        const { city } = req.body;
         const result = await fetchCity(city);
         res.json(result);
     } catch (err) {
@@ -65,9 +64,8 @@ const add_new_destination = async (req, res) => {
 };
 
 const get_creator_destinations = async (req, res) => {
-    const { ownerId } = req.user;
-
     try {
+        const { ownerId } = req.user;
         const result = await getCreatorDestinations(ownerId);
 
         res.json(result);
@@ -81,13 +79,25 @@ const request_edit_permissions = async (req, res) => {
         const { id } = req.params;
         const { ownerId } = req.user;
         const result = await getDestinationAndCheckOwnership(id, ownerId);
-        
+
         res.json(result);
     } catch (err) {
         res.status(err.status || 500).json(handleErrors(err));
     }
 };
 
+const edit_destination_field = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { ownerId } = req.user;
+        const updatedFieldData = req.body;
+
+        const result = await editDestinationField(id, ownerId, updatedFieldData);
+        res.json(result);
+    } catch (err) {
+        res.status(err.status || 500).json(handleErrors(err));
+    }
+};
 
 module.exports = {
     paginated_destinations,
@@ -95,5 +105,6 @@ module.exports = {
     get_city_data,
     add_new_destination,
     get_creator_destinations,
-    request_edit_permissions
+    request_edit_permissions,
+    edit_destination_field,
 };

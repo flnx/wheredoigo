@@ -1,6 +1,10 @@
 const Country = require('../models/countrySchema');
 const Destination = require('../models/destinationSchema');
 
+const { isValid } = require('mongoose').Types.ObjectId;
+const { isObject } = require('../utils/utils');
+const validator = require('validator');
+
 const { fetchCity, fetchCountry } = require('../service/data');
 const { addImages } = require('../utils/cloudinaryUploader');
 const { createValidationError } = require('../utils/createValidationError');
@@ -59,7 +63,8 @@ async function getById(destinationId, user) {
         throw createValidationError(errorMessages.notFound, 404);
     }
 
-    const { ownerId, country, city, ...destinationWithoutOwnerId } = destination;
+    const { ownerId, country, city, ...destinationWithoutOwnerId } =
+        destination;
 
     if (user && ownerId.equals(user.ownerId)) {
         destinationWithoutOwnerId.isOwner = true;
@@ -70,6 +75,90 @@ async function getById(destinationId, user) {
         country: capitalizeEachWord(country.name),
         city: capitalizeEachWord(city),
     };
+}
+
+async function editDestinationField(destinationId, userId, updatedFieldData) {
+    await getDestinationAndCheckOwnership(destinationId, userId);
+
+    if (!isObject(updatedFieldData)) {
+        throw createValidationError(errorMessages.invalidBody, 400);
+    }
+
+    if (!Object.hasOwn(updatedFieldData, 'description')) {
+        throw createValidationError(errorMessages.invalidBody, 400);
+    }
+
+    const { description, infoId, categoryId } = updatedFieldData;
+
+    if (!validator.isLength(description, { min: 10, max: 5000 })) {
+        throw createValidationError(errorMessages.description, 400);
+    }
+
+    if (infoId == 'Description') {
+        await editDescription(destinationId, description);
+        return true;
+    }
+
+    if (!isValid(infoId) || !isValid(categoryId)) {
+        throw createValidationError(errorMessages.invalidBody, 400);
+    }
+
+    await editDetail(destinationId, categoryId, infoId, description);
+    return true;
+}
+
+async function editDescription(destinationId, description) {
+    const result = await Destination.findByIdAndUpdate(
+        destinationId,
+        { description },
+        { new: true, select: 'description' }
+    );
+
+    if (!result) {
+        throw createValidationError(errorMessages.invalidDestination, 400);
+    }
+
+    console.log(result);
+
+    return true;
+}
+
+async function editDetail(destinationId, categoryId, infoId, description) {
+    const filter = {
+        _id: destinationId,
+        details: {
+            $elemMatch: {
+                _id: categoryId,
+                info: {
+                    $elemMatch: {
+                        _id: infoId,
+                    },
+                },
+            },
+        },
+    };
+
+    const update = {
+        $set: {
+            'details.$[category].info.$[info].description': description,
+        },
+    };
+
+    const options = {
+        arrayFilters: [{ 'category._id': categoryId }, { 'info._id': infoId }],
+        new: true,
+        projection: { _id: 1 },
+    };
+
+    const result = await Destination.findByIdAndUpdate(filter, update, options);
+
+    if (!result) {
+        throw createValidationError(errorMessages.invalidDestination, 400);
+    }
+
+    console.log(result);
+
+    return true;
 }
 
 async function create(data, images, user) {
@@ -138,7 +227,9 @@ async function getDestinationAndCheckOwnership(destinationId, userId) {
         throw createValidationError(errorMessages.accessDenied, 403);
     }
 
-    destinationWithoutOwnerId.country = capitalizeEachWord(destination.country.name);
+    destinationWithoutOwnerId.country = capitalizeEachWord(
+        destination.country.name
+    );
     destinationWithoutOwnerId.city = capitalizeEachWord(destination.city);
     return destinationWithoutOwnerId;
 }
@@ -173,4 +264,5 @@ module.exports = {
     getById,
     getDestinationAndCheckOwnership,
     getCreatorDestinations,
+    editDestinationField,
 };
