@@ -1,41 +1,13 @@
 import { useState } from 'react';
 import { memo } from 'react';
 
-import { useEditDestinationDetails } from '../../hooks/queries/useEditDestinationDetails';
+import { useEditDestinationDetails } from '../../../../hooks/queries/useEditDestinationDetails';
 
 // Components
-import { ButtonSky } from '../../components/Buttons/Button-Sky/ButtonSky';
-import { CancelButton } from '../../components/Buttons/Cancel-Button/CancelButton';
+import { ButtonSky } from '../../../../components/Buttons/Button-Sky/ButtonSky';
+import { CancelButton } from '../../../../components/Buttons/Cancel-Button/CancelButton';
 
-import styles from './DetailsInputsFields.module.css';
-
-export const DetailsInputs = ({
-    name,
-    info = [],
-    isEditable,
-    onEditClickHandler,
-    destinationId,
-    categoryId,
-}) => {
-    return (
-        <div className={styles.detailsWrapper}>
-            <h2 className={styles.catetegoryName}>{name}</h2>
-
-            {info.map((x) => (
-                <MemoizedTextarea
-                    _id={x._id}
-                    title={x.title}
-                    desc={x.description}
-                    onEditClickHandler={onEditClickHandler}
-                    isEditable={isEditable[x._id]}
-                    destinationId={destinationId}
-                    categoryId={categoryId}
-                    key={x._id}
-                />
-            ))}
-        </div>
-    );
-};
+import styles from './Textarea.module.css';
 
 const Textarea = ({
     _id,
@@ -55,7 +27,7 @@ const Textarea = ({
     };
 
     const onCancelClickHandler = () => {
-        onEditClickHandler(_id); // close the Textarea
+        onEditClickHandler(_id);
         setDescription(cache);
     };
 
@@ -106,4 +78,4 @@ const Textarea = ({
     );
 };
 
-const MemoizedTextarea = memo(Textarea);
+export const MemoizedTextarea = memo(Textarea);

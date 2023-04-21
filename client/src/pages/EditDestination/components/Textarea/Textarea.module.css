@@ -25,6 +25,7 @@
 
 .textarea, .desc {
     width: 100%;
+    width: calc(100% - 1rem);
 }
 
 .textarea {
@@ -52,6 +53,7 @@
     text-overflow: ellipsis;
     word-wrap: break-word;
     white-space: break-spaces;
+    margin-left: 1.75rem;
     -webkit-line-clamp: 3; 
     -webkit-box-orient: vertical;
 }
@@ -60,14 +62,6 @@
     margin-left: auto;
     cursor: pointer;
     color: var(--sky-blue);
-}
-
-.detailsWrapper {
-    margin-bottom: 2rem;
-}
-
-.catetegoryName {
-    margin-bottom: 1rem;
 }
 
 .detail {

@@ -3,15 +3,14 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useRequestEditDestinationPermissions } from '../../hooks/queries/useRequestEditDestinationPermissions';
 
 // Components
-import { DetailsInputs } from './DetailsInputsFields';
+import { DetailsInputs } from './components/DetailsInputsFields/DetailsInputsFields';
+import { MemoizedTextarea } from './components/Textarea/Textarea';
 
 export const EditDestination = () => {
     const navigate = useNavigate();
     const [isEditable, setIsEditable] = useState({});
     const { state: destinationId } = useLocation();
-    const { data, error, isLoading } = destinationId
-        ? useRequestEditDestinationPermissions(destinationId)
-        : {};
+    const { data, error, isLoading } = useRequestEditDestinationPermissions(destinationId);
 
     useEffect(() => {
         if (!destinationId) {
@@ -41,6 +40,8 @@ export const EditDestination = () => {
         });
     }, []);
 
+    const description = 'Description';
+
     return (
         <div className="container">
             {isLoading || !data || !destinationId ? (
@@ -51,6 +52,14 @@ export const EditDestination = () => {
                         Update information for {`${data?.city}, ${data?.country}`}
                     </h1>
                     <form>
+                        <MemoizedTextarea
+                            _id={description}
+                            title={description}
+                            desc={data.description}
+                            onEditClickHandler={onEditClickHandler}
+                            isEditable={isEditable[description]}
+                            destinationId={destinationId}
+                        />
                         {data.details.map((detail) => (
                             <DetailsInputs
                                 name={detail.category}
