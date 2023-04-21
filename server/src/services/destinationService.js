@@ -95,16 +95,21 @@ async function editDestinationField(destinationId, userId, updatedFieldData) {
     }
 
     if (infoId == 'Description') {
-        await editDescription(destinationId, description);
-        return true;
+        const result = await editDescription(destinationId, description);
+        return result;
     }
 
     if (!isValid(infoId) || !isValid(categoryId)) {
         throw createValidationError(errorMessages.invalidBody, 400);
     }
 
-    await editDetail(destinationId, categoryId, infoId, description);
-    return true;
+    const result = await editDetail(
+        destinationId,
+        categoryId,
+        infoId,
+        description
+    );
+    return result;
 }
 
 async function editDescription(destinationId, description) {
@@ -118,47 +123,30 @@ async function editDescription(destinationId, description) {
         throw createValidationError(errorMessages.invalidDestination, 400);
     }
 
-    console.log(result);
-
-    return true;
+    return result;
 }
 
-async function editDetail(destinationId, categoryId, infoId, description) {
-    const filter = {
-        _id: destinationId,
-        details: {
-            $elemMatch: {
-                _id: categoryId,
-                info: {
-                    $elemMatch: {
-                        _id: infoId,
-                    },
-                },
-            },
+async function editDetail(destinationId, categoryId, infoId, updatedValue) {
+    const result = await Destination.updateOne(
+        {
+            _id: destinationId,
+            'details._id': categoryId,
+            'details.info._id': infoId,
         },
-    };
-
-    const update = {
-        $set: {
-            'details.$[category].info.$[info].description': description,
-        },
-    };
-
-    const options = {
-        arrayFilters: [{ 'category._id': categoryId }, { 'info._id': infoId }],
-        new: true,
-        projection: { _id: 1 },
-    };
-
-    const result = await Destination.findByIdAndUpdate(filter, update, options);
+        { $set: { 'details.$[det].info.$[inf].description': updatedValue } },
+        {
+            arrayFilters: [{ 'det._id': categoryId }, { 'inf._id': infoId }],
+            projection: { 'details.$[det].info.$[inf].description': 1 },
+            new: true,
+        }
+    );
 
     if (!result) {
         throw createValidationError(errorMessages.invalidDestination, 400);
     }
 
     console.log(result);
-
-    return true;
+    return result;
 }
 
 async function create(data, images, user) {

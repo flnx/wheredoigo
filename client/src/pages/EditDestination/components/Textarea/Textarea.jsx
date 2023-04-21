@@ -42,7 +42,9 @@ const Textarea = ({
         };
 
         editDestinationDetails(editInfo, {
-            onSuccess: () => {
+            onSuccess: (up) => {
+
+                console.log(up);
                 onEditClickHandler(_id);
                 setCache(description);
             },

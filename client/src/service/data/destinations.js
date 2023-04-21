@@ -37,7 +37,8 @@ export const editDestinationDetails = async (updatedData) => {
             apiEndpoints.editDestinationDetails(destinationId),
             data
         );
-        return [];
+        
+        return res;
     } catch (err) {
         console.log(err);
         return [];
