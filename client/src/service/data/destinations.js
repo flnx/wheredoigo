@@ -31,7 +31,7 @@ export const createDestination = async (destinationData) => {
 
 export const editDestinationDetails = async (updatedData) => {
     
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1500));
     console.log(updatedData)
     
     return [];

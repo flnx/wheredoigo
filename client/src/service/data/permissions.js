@@ -9,6 +9,7 @@ export const getCreatePlacePermissions = async (id) => {
 }
 
 export const getEditDestinationPermissions = async (id) => {
+    await new Promise(resolve => setTimeout(resolve, 1000));
     const res = await axios.get(apiEndpoints.requestEditDestinationPermissions(id));
 
     return res.data;

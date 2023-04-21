@@ -1,12 +1,12 @@
 .wrapper {
     display: flex;
     border-bottom: 1px solid #7e7e7e;
-    padding: 1rem 0;
-    max-width: 50rem;
-    gap: 1rem;
+    padding: 0.85rem 0;
+    max-width: 60rem;
+    gap: 2rem;
 }
 
-.field {
+.textareaWrapper {
     display: flex;
     flex-direction: column;
     gap: 0.33rem;
@@ -23,14 +23,12 @@
     color: #333;
 }
 
-.textarea {
-    height: 15rem;
+.textarea, .desc {
     width: 100%;
 }
 
-.input:disabled {
-    background-color: #ddd;
-    color: #777;
+.textarea {
+    height: 15rem;
 }
 
 .buttons {
@@ -39,7 +37,7 @@
 }
 
 .label {
-    width: 22.5rem;
+    width: 23rem;
 }
 
 .label,
@@ -49,13 +47,12 @@
 
 .desc {
     display: -webkit-box;
-    max-height: 9rem;
-    width: 100%;
+    max-height: 4.5rem;
     overflow: hidden;
     text-overflow: ellipsis;
     word-wrap: break-word;
     white-space: break-spaces;
-    -webkit-line-clamp: 5; 
+    -webkit-line-clamp: 3; 
     -webkit-box-orient: vertical;
 }
 
@@ -63,4 +60,32 @@
     margin-left: auto;
     cursor: pointer;
     color: var(--sky-blue);
+}
+
+.detailsWrapper {
+    margin-bottom: 2rem;
+}
+
+.catetegoryName {
+    margin-bottom: 1rem;
+}
+
+.detail {
+    margin-top: 1rem;
+}
+
+.detail label {
+    font-weight: normal;
+    margin-bottom: 0.25rem;
+}
+
+.detail input,
+.detail textarea {
+    margin-top: 0.25rem;
+}
+
+.detail input:disabled,
+.detail textarea:disabled {
+    background-color: #f5f5f5;
+    color: #777;
 }
