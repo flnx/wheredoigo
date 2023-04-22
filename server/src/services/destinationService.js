@@ -145,7 +145,6 @@ async function editDetail(destinationId, categoryId, infoId, updatedValue) {
         throw createValidationError(errorMessages.invalidDestination, 400);
     }
 
-    console.log(result);
     return result;
 }
 
