@@ -5,9 +5,9 @@ import { useRequestEditDestinationPermissions } from '../../hooks/queries/useReq
 // Components
 import { DetailsInputs } from './components/DetailsInputsFields/DetailsInputsFields';
 import { MemoizedTextarea } from './components/Textarea/Textarea';
+import { MemoizedEditImages } from './components/EditImages/EditImages';
 
 import styles from './EditDestination.module.css';
-import { EditImages } from './components/EditImages/EditImages';
 
 export const EditDestination = () => {
     const navigate = useNavigate();
@@ -86,7 +86,7 @@ export const EditDestination = () => {
                         <section>
                             <h3 className={styles.sectionTitle}>Images</h3>
 
-                            <EditImages images={data?.imageUrls} />
+                            <MemoizedEditImages imagesData={data?.imageUrls} />
                         </section>
                     </div>
                 </>

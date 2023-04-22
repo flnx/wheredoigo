@@ -1,15 +1,45 @@
-import { ImagesPreviewer } from '../../../../components/ImagesPreviewer/ImagesPreviewer';
-import styles from './EditImages.module.css';
+import { memo, useState } from 'react';
 
-export const EditImages = ({ images = [] }) => {
-    const handleDeleteImage = (index) => {
-        console.log(index)
-    }
+// Components
+import { ImagesPreviewer } from '../../../../components/ImagesPreviewer/ImagesPreviewer';
+
+import styles from './EditImages.module.css';
+import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
+
+const EditImages = ({ imagesData }) => {
+    const [images, setImages] = useState(imagesData);
+    const [openModal, setOpenModal] = useState(false);
+    const [imgIndexToDelete, setImgIndexToDelete] = useState(null);
+
+    const handleOpenConfirmModal = (index) => {
+        setOpenModal(true);
+        setImgIndexToDelete(index);
+    };
+
+    const handleCloseConfirmModal = () => {
+        setOpenModal(false);
+        setImgIndexToDelete(null);
+    };
+
+    const handleConfirmDelete = () => {
+        setImages((prevState) => prevState.filter((img, i) => imgIndexToDelete !== i));
+        setOpenModal(false);
+    };
 
     return (
-        <ImagesPreviewer 
-            images={images} 
-            handleDeleteImage={handleDeleteImage}
-        />
-    )
+        <>
+            {openModal && (
+                <ConfirmModal
+                    actionClickHandler={handleConfirmDelete}
+                    onCloseHandler={handleCloseConfirmModal}
+                >
+                    Are you sure you wanna delete this image?
+                </ConfirmModal>
+            )}
+
+            <ImagesPreviewer images={images} handleDeleteImage={handleOpenConfirmModal} />
+        </>
+    );
 };
+
+export const MemoizedEditImages = memo(EditImages);
