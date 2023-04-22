@@ -6,13 +6,15 @@ import { useRequestEditDestinationPermissions } from '../../hooks/queries/useReq
 import { DetailsInputs } from './components/DetailsInputsFields/DetailsInputsFields';
 import { MemoizedTextarea } from './components/Textarea/Textarea';
 
+import styles from './EditDestination.module.css';
+import { EditImages } from './components/EditImages/EditImages';
 
 export const EditDestination = () => {
     const navigate = useNavigate();
     const [isEditable, setIsEditable] = useState({});
     const { state: destinationId } = useLocation();
     const { data, error, isLoading } = useRequestEditDestinationPermissions(destinationId);
-    
+
     const URL_DASHBOARD = '/dashboard/destinations-created-by-user';
 
     useEffect(() => {
@@ -50,32 +52,44 @@ export const EditDestination = () => {
             {isLoading || !data || !destinationId ? (
                 <h1>Loading...</h1>
             ) : (
-                <section>
-                    <h1 style={{ marginBottom: '2rem', fontSize: '2.5rem' }}>
+                <>
+                    <h1 className={styles['destination-title']}>
                         Edit {`${data?.city}, ${data?.country}`}
                     </h1>
-                    <form>
-                        <MemoizedTextarea
-                            _id={description}
-                            title={description}
-                            desc={data.description}
-                            onEditClickHandler={onEditClickHandler}
-                            isEditable={isEditable[description]}
-                            destinationId={destinationId}
-                        />
-                        {data.details.map((detail) => (
-                            <DetailsInputs
-                                name={detail.category}
-                                info={detail.info}
-                                isEditable={isEditable}
-                                onEditClickHandler={onEditClickHandler}
-                                destinationId={destinationId}
-                                categoryId={detail._id}
-                                key={detail._id}
-                            />
-                        ))}
-                    </form>
-                </section>
+
+                    <div className={styles['wrapper']}>
+                        <section>
+                            <h3 className={styles.sectionTitle}>Destination Info</h3>
+                            <form>
+                                <MemoizedTextarea
+                                    _id={description}
+                                    title={description}
+                                    desc={data.description}
+                                    onEditClickHandler={onEditClickHandler}
+                                    isEditable={isEditable[description]}
+                                    destinationId={destinationId}
+                                />
+                                {data.details.map((detail) => (
+                                    <DetailsInputs
+                                        name={detail.category}
+                                        info={detail.info}
+                                        isEditable={isEditable}
+                                        onEditClickHandler={onEditClickHandler}
+                                        destinationId={destinationId}
+                                        categoryId={detail._id}
+                                        key={detail._id}
+                                    />
+                                ))}
+                            </form>
+                        </section>
+
+                        <section>
+                            <h3 className={styles.sectionTitle}>Images</h3>
+
+                            <EditImages images={data?.imageUrls} />
+                        </section>
+                    </div>
+                </>
             )}
         </div>
     );

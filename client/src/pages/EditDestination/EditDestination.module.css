@@ -1,0 +1,13 @@
+.wrapper {
+    display: flex;
+    gap: 5rem;
+}
+
+.destination-title {
+    font-size: clamp(1.5rem, 1.45rem + 1.55vw, 2.85rem);
+    margin-bottom: 2rem;
+}
+
+.sectionTitle {
+    margin-bottom: 1rem;
+}

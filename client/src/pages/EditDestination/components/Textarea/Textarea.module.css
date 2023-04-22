@@ -2,7 +2,6 @@
     display: flex;
     border-bottom: 1px solid #7e7e7e;
     padding: 0.85rem 0;
-    max-width: 60rem;
     gap: 2rem;
 }
 

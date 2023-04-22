@@ -1,5 +1,6 @@
+import { ImagesPreviewer } from '../ImagesPreviewer/ImagesPreviewer';
+
 import styles from './UploadImagesPreview.module.css';
-import { X } from 'phosphor-react';
 
 export const UploadImagesPreview = ({ dispatchHandler, images }) => {
     const handleImageSelect = (e) => {
@@ -36,18 +37,7 @@ export const UploadImagesPreview = ({ dispatchHandler, images }) => {
                 />
             </div>
 
-            <div className={styles.uploadedImages}>
-                {images.map((img, i) => (
-                    <div
-                        key={i}
-                        className={styles.imgContainer}
-                        onClick={() => handleDeleteImage(i)}
-                    >
-                        <img src={img} alt={`image preview ${i}`} />
-                        <X size={40} weight="thin" className={styles.remove} />
-                    </div>
-                ))}
-            </div>
+            <ImagesPreviewer images={images} handleDeleteImage={handleDeleteImage} />
         </div>
     );
 };

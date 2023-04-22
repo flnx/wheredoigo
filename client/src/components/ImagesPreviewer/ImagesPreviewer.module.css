@@ -1,0 +1,33 @@
+.imagesWrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.imgContainer {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.25s ease-in-out;
+}
+
+.imgContainer:focus,
+.imgContainer:hover {
+    opacity: 0.8;
+}
+
+.imgContainer img {
+    width: 100%;
+    aspect-ratio: 1.25/1;
+    object-fit: cover;
+    opacity: 0.95;
+    border-radius: 5px;
+}
+
+.imagesWrapper .remove {
+    z-index: 1;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    color: #fff;
+}
