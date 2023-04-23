@@ -71,8 +71,7 @@ async function getById(destinationId, user) {
         throw createValidationError(errorMessages.notFound, 404);
     }
 
-    const { ownerId, country, city, imageUrls, ...destinationWithoutOwnerId } =
-        destination;
+    const { ownerId, country, city, imageUrls, ...destinationWithoutOwnerId } = destination;
     const updatedImgUrls = imageUrls.map(({ public_id, ...rest }) => rest);
 
     if (user && ownerId.equals(user.ownerId)) {
@@ -259,6 +258,7 @@ async function editDestinationField(destinationId, userId, updatedFieldData) {
         infoId,
         description
     );
+    
     return result;
 }
 

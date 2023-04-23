@@ -7,11 +7,10 @@ export const useAddNewDestination = () => {
 
     const { mutate, error, isLoading } = useMutation({
         mutationFn: (data) => createDestination(data),
-        onSuccess: () =>
-            queryClient.invalidateQueries([
-                queryEndpoints.destinations,
-                queryEndpoints.creatorDestinations,
-            ]),
+        onSuccess: () => {
+            queryClient.invalidateQueries([queryEndpoints.destinations]);
+            queryClient.invalidateQueries([queryEndpoints.creatorDestinations]);
+        },
     });
 
     return [mutate, error, isLoading];

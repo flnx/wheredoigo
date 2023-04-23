@@ -9,11 +9,8 @@ export const useDeleteDestinationImage = (destinationId) => {
         mutationFn: (imageId) => deleteDestinationImage(destinationId, imageId),
 
         onSuccess: () => {
-            queryClient.invalidateQueries([
-                queryEndpoints.destination,
-                destinationId,
-            ]);
-
+            queryClient.invalidateQueries([queryEndpoints.destination, destinationId]);
+            queryClient.invalidateQueries([queryEndpoints.destinations]);
             queryClient.invalidateQueries([queryEndpoints.creatorDestinations]);
         },
     });
