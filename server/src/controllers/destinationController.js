@@ -107,7 +107,6 @@ const delete_destination_image = async (req, res) => {
         const { imgId } = req.body;
 
         const result = await deleteDestinationImage(id, ownerId, imgId);
-
         res.json(result);
     } catch(err) {
         res.status(err.status || 500).json(handleErrors(err));

@@ -2,6 +2,8 @@ const streamifier = require('streamifier');
 const { cloudinary } = require('../config/cloudinary');
 const { fixInvalidFolderNameChars } = require('./utils');
 const { imagesOptions } = require('../config/cloudinary');
+const { createValidationError } = require('./createValidationError');
+const { errorMessages } = require('../constants/errorMessages');
 
 async function addImages(images, obj, folderName) {
     const imageUrls = [];
@@ -81,9 +83,11 @@ async function deleteDestinationImages(folderName) {
 }
 
 async function deleteImage(publicId) {
-    const result = await cloudinary.uploader.destroy(publicId);
-    
-    return result;
+    const response = await cloudinary.uploader.destroy(publicId);
+
+    if (response.result !== 'ok') {
+        throw createValidationError(errorMessages.invalidImageId);
+    }
 }
 
 module.exports = {

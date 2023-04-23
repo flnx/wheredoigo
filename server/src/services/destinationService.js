@@ -197,24 +197,22 @@ async function deleteDestinationImage(destinationId, userId, imgId) {
     }
 
     const session = await mongoose.startSession();
+    session.startTransaction();
 
     try {
-        await session.withTransaction(async () => {
-            const result = await Destination.updateOne(
-                { _id: destinationId },
-                { $pull: { imageUrls: { _id: imgId } } },
-                { session }
-            )
-                .lean()
-                .exec();
+        const result = await Destination.updateOne(
+            { _id: destinationId },
+            { $pull: { imageUrls: { _id: imgId } } },
+            { session }
+        ).lean().exec();
 
-            await deleteImage(imageData.public_id);
+        await deleteImage(imageData.public_id);
+        await session.commitTransaction();
 
-            return result;
-        });
-    } catch (err) {
+        return result;
+    } catch (error) {
         await session.abortTransaction();
-        throw err;
+        throw error;
     } finally {
         session.endSession();
     }
