@@ -1,34 +1,23 @@
 import { memo, useReducer, useState } from 'react';
 import { useDeleteDestinationImage } from '../../../../hooks/queries/useDeleteDestinationImage';
+import { useAddDestinationNewImages } from '../../../../hooks/queries/useAddDestinationNewImages';
+import { imagesReducer, initialState } from '../../../../utils/imagesReducer';
+import { createImagesFormData } from '../../../../utils/formData';
 
 // Components
 import { ImagesPreviewer } from '../../../../components/ImagesPreviewer/ImagesPreviewer';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 import { UploadImagesPreview } from '../../../../components/UploadImagesPreview/UploadImagesPreview';
-
-import { imagesReducer, initialState } from '../../../../utils/imagesReducer';
-
-import { createImagesFormData } from '../../../../utils/formData';
-import { useAddDestinationNewImages } from '../../../../hooks/queries/useAddDestinationNewImages';
 import { SuccessButton } from '../../../../components/Buttons/Success-Button/SuccessButton';
 
 import styles from './EditImages.module.css';
 
 const EditImages = ({ imagesData, destinationId }) => {
-    const [deleteImage, deleteError, isDeleteLoading] =useDeleteDestinationImage(destinationId);
-    const [uploadImages, uploadError, isUploadLoading] =useAddDestinationNewImages(destinationId);
+    const [deleteImage, error, isLoading] = useDeleteDestinationImage(destinationId);
 
     const [images, setImages] = useState(imagesData);
-    const [newImagesState, dispatch] = useReducer(imagesReducer, initialState);
     const [openModal, setOpenModal] = useState(false);
     const [imgIndexToDelete, setImgIndexToDelete] = useState(null);
-
-    const hasCurrentImages = images.length > 0;
-    const hasNewlyUploadImages = newImagesState.imageUrls.length > 0;
-
-    const dispatchHandler = (action) => {
-        dispatch(action);
-    };
 
     const handleOpenConfirmModal = (index) => {
         setOpenModal(true);
@@ -42,10 +31,13 @@ const EditImages = ({ imagesData, destinationId }) => {
 
     const handleConfirmDelete = () => {
         const imgId = images[imgIndexToDelete]._id;
-        deleteImage({ imgId },
+        deleteImage(
+            { imgId },
             {
                 onSuccess: () => {
-                    setImages((prevState) => prevState.filter((img, i) => imgIndexToDelete !== i));
+                    setImages((prevState) =>
+                        prevState.filter((img, i) => imgIndexToDelete !== i)
+                    );
                     setOpenModal(false);
                 },
                 onError: () => {
@@ -55,70 +47,86 @@ const EditImages = ({ imagesData, destinationId }) => {
         );
     };
 
+    const handleUpdateCurrentImages = (updatedImages) => {
+        setImages(updatedImages);
+    };
+
+    const hasCurrentImages = images.length > 0;
+
+    return (
+        <>
+            {hasCurrentImages && (
+                <ImagesPreviewer images={images} handleDeleteImage={handleOpenConfirmModal} />
+            )}
+
+            {!hasCurrentImages && <p>No images have been added yet.</p>}
+
+            <NewImagesUploader
+                currentImagesHandler={handleUpdateCurrentImages}
+                destinationId={destinationId}
+            />
+
+            {openModal && (
+                <ConfirmModal
+                    actionClickHandler={handleConfirmDelete}
+                    onCloseHandler={handleCloseConfirmModal}
+                    isLoading={isLoading}
+                >
+                    Are you sure you wanna delete this image?
+                </ConfirmModal>
+            )}
+        </>
+    );
+};
+
+const NewImagesUploader = ({ currentImagesHandler, destinationId }) => {
+    const [uploadImages, error, isLoading] = useAddDestinationNewImages(destinationId);
+    const [newImagesState, dispatch] = useReducer(imagesReducer, initialState);
+
+    const dispatchHandler = (action) => {
+        dispatch(action);
+    };
+
     const handleNewImagesSubmit = async (e) => {
         e.preventDefault();
 
-        if (!hasNewlyUploadImages || isUploadLoading) return;
+        if (!hasNewlyUploadImages || isLoading) return;
 
         const formData = await createImagesFormData(newImagesState);
 
         uploadImages(formData, {
             onSuccess: (result) => {
                 dispatch({ type: 'reset' });
-                setImages(result.imageUrls);
-            }, 
+                currentImagesHandler(result.imageUrls);
+            },
             onError: (e) => {
                 dispatch({ type: 'reset' });
-            }
+            },
         });
     };
 
+    const hasNewlyUploadImages = newImagesState.imageUrls.length > 0;
+
     return (
-        <>
-            <div className={styles['current-images']}>
-                {hasCurrentImages ? (
-                    <ImagesPreviewer
-                        images={images}
-                        handleDeleteImage={handleOpenConfirmModal}
-                    />
-                ) : (
-                    <p>You haven't added any images yet</p>
-                )}
-            </div>
+        <div className={styles['newly-uploaded-images']}>
+            {error && (
+                <span className={styles.uploadError}>
+                    Sorry, there was an error during the upload process. Please try again
+                    later.
+                </span>
+            )}
 
-            <div className={styles['uploaded-images']}>
-                {uploadError && (
-                    <span className={styles.uploadError}>
-                        Sorry, there was an error during the upload process.
-                        Please try again later.
-                    </span>
-                )}
-
-                <UploadImagesPreview
-                    images={newImagesState.imageUrls}
-                    dispatchHandler={dispatchHandler}
-                />
-            </div>
+            <UploadImagesPreview
+                images={newImagesState.imageUrls}
+                dispatchHandler={dispatchHandler}
+            />
 
             {hasNewlyUploadImages && (
-                <SuccessButton
-                    onClickHandler={handleNewImagesSubmit}
-                    isLoading={isUploadLoading}
-                >
+                <SuccessButton onClickHandler={handleNewImagesSubmit} isLoading={isLoading}>
                     Add
                 </SuccessButton>
             )}
-
-            {openModal && (
-                <ConfirmModal
-                    actionClickHandler={handleConfirmDelete}
-                    onCloseHandler={handleCloseConfirmModal}
-                    isLoading={isDeleteLoading}
-                >
-                    Are you sure you wanna delete this image?
-                </ConfirmModal>
-            )}
-        </>
+        </div>
     );
 };
 

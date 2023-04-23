@@ -83,7 +83,7 @@ export const EditDestination = () => {
                             </form>
                         </section>
 
-                        <section>
+                        <section className={styles.images}>
                             <h3 className={styles.sectionTitle}>Images</h3>
 
                             <MemoizedEditImages

@@ -23,7 +23,7 @@
       {
         "files": "*.js",
         "options": {
-          "printWidth": 80,
+          "printWidth": 85,
           "tabWidth": 4,
           "useTabs": false,
           "singleQuote": true,
@@ -33,7 +33,7 @@
       {
         "files": "*.jsx",
         "options": {
-          "printWidth": 80,
+          "printWidth": 95,
           "tabWidth": 4,
           "useTabs": false,
           "singleQuote": true,

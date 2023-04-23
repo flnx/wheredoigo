@@ -1,6 +1,6 @@
 .imagesWrapper {
     max-height: 30rem;
-    overflow: scroll;
+    overflow-y: scroll;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 1rem;
