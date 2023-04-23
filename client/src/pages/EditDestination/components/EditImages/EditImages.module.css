@@ -1,0 +1,10 @@
+.current-images,
+.uploaded-images,
+.uploadError {
+    margin-bottom: 1rem;
+}
+
+.uploadError {
+    display: inline-block;
+    color: var(--error-message);
+}

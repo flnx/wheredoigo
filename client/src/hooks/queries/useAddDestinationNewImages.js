@@ -1,18 +1,15 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { editDestinationDetails } from '../../service/data/destinations';
 import { queryEndpoints } from '../../constants/reactQueryEndpoints';
+import { addDestinationNewImages } from '../../service/data/destinations';
 
-export const useEditDestinationDetails = (destinationId) => {
+export const useAddDestinationNewImages = (destinationId) => {
     const queryClient = useQueryClient();
 
     const { mutate, error, isLoading } = useMutation({
-        mutationFn: (data) => editDestinationDetails(data),
+        mutationFn: (files) => addDestinationNewImages(destinationId, files),
         onSuccess: () => {
-            queryClient.invalidateQueries([
-                queryEndpoints.destination,
-                destinationId,
-            ]);
-
+            queryClient.invalidateQueries([queryEndpoints.destinations]);
+            queryClient.invalidateQueries([queryEndpoints.destination, destinationId]);
             queryClient.invalidateQueries([queryEndpoints.creatorDestinations]);
         },
     });

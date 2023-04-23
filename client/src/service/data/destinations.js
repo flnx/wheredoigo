@@ -54,6 +54,20 @@ export const deleteDestinationImage = async (destinationId, imageData) => {
     return res.data;
 };
 
+export const addDestinationNewImages = async (destinationId, files) => {
+    const res = await axios.put(
+        apiEndpoints.addDestinationImages(destinationId),
+        files,
+        {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        }
+    );
+
+    return res.data;
+};
+
 export const getDestinationsPaginated = async ({ pageParam, queryKey }) => {
     const searchParams = queryKey[2] || '';
 

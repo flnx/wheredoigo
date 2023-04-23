@@ -15,5 +15,7 @@ exports.errorMessages = {
     invalidCommentId: 'Invalid Comment ID',
     invalidImageId: 'Invalid image ID',
     unauthorized: 'Unauthorized',
-    invalidBody: 'Please send a valid object with the updated destination fields'
+    invalidBody: 'Please send a valid object with the updated destination fields',
+    invalidImages: 'In order to upload images, please send an array with valid image files.',
+    uploadError: 'Sorry, there was an error during the upload process. Please try again later.',
 };

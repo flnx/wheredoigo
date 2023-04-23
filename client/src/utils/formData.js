@@ -25,3 +25,9 @@ export const createPlaceFormData = async (state, destinationId) => {
 
     return formData;
 };
+
+export const createImagesFormData = async (state) => {
+    const formData = new FormData();
+    await createImageFiles(state.imageUrls, formData);
+    return formData;
+}

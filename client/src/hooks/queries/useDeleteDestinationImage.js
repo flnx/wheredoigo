@@ -15,5 +15,5 @@ export const useDeleteDestinationImage = (destinationId) => {
         },
     });
 
-    return [mutate, isLoading, error];
+    return [mutate, error, isLoading];
 };

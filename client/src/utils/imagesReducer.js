@@ -23,6 +23,10 @@ export function imagesReducer(state, action) {
             };
         }
 
+        case 'reset' : {
+            return initialState
+        }
+
         default:
             return state;
     }

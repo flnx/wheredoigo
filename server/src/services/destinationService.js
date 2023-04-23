@@ -71,7 +71,8 @@ async function getById(destinationId, user) {
         throw createValidationError(errorMessages.notFound, 404);
     }
 
-    const { ownerId, country, city, imageUrls, ...destinationWithoutOwnerId } = destination;
+    const { ownerId, country, city, imageUrls, ...destinationWithoutOwnerId } =
+        destination;
     const updatedImgUrls = imageUrls.map(({ public_id, ...rest }) => rest);
 
     if (user && ownerId.equals(user.ownerId)) {
@@ -183,6 +184,44 @@ async function create(data, images, user) {
     };
 }
 
+async function addDestinationNewImages(destinationId, userId, imgFiles) {
+    if (!Array.isArray(imgFiles) || imgFiles.length == 0) {
+        throw createValidationError(errorMessages.invalidImages, 400);
+    }
+
+    const { city } = await getDestinationAndCheckOwnership(
+        destinationId,
+        userId
+    );
+
+    const folderName = 'destinations';
+    const data = { city, _id: destinationId };
+
+    const imagesData = await addImages(imgFiles, data, folderName);
+    const images = imagesData.imageUrls;
+    const imgError = imagesData.imgError;
+
+    if (images.length == 0) {
+        throw new Error(errorMessages.uploadError, 500);
+    }
+
+    const result = await Destination.findOneAndUpdate(
+        { _id: destinationId },
+        { $push: { imageUrls: { $each: images } } },
+        { new: true }
+    ).lean().exec();
+
+    const { imageUrls, ...rest } = result;
+
+    const updatedImageUrls = result.imageUrls.map(({ public_id, ...x }) => x);
+
+    return {
+        ...rest,
+        imageUrls: updatedImageUrls,
+        imgError
+    };
+}
+
 async function deleteDestinationImage(destinationId, userId, imgId) {
     if (!isValid(imgId)) {
         throw createValidationError(errorMessages.invalidImageId, 400);
@@ -258,7 +297,7 @@ async function editDestinationField(destinationId, userId, updatedFieldData) {
         infoId,
         description
     );
-    
+
     return result;
 }
 
@@ -310,4 +349,5 @@ module.exports = {
     getCreatorDestinations,
     editDestinationField,
     deleteDestinationImage,
+    addDestinationNewImages,
 };

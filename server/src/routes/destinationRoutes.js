@@ -10,6 +10,7 @@ const {
     request_edit_permissions,
     edit_destination_field,
     delete_destination_image,
+    add_destination_new_images,
 } = require('../controllers/destinationController');
 
 // Middlewares
@@ -28,5 +29,6 @@ router.post('/destinations', auth, upload, add_new_destination);
 router.post('/destinations/get-city-data', auth, get_city_data);
 router.put('/destinations/:id/edit-destination-field', validateMongoId, auth, edit_destination_field);
 router.put('/destinations/:id/delete-image', validateMongoId, auth, delete_destination_image);
+router.put('/destinations/:id/add-images', validateMongoId, auth, upload, add_destination_new_images);
 
 module.exports = router;
