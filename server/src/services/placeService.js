@@ -46,7 +46,13 @@ async function getPlaceById(placeId, user) {
     place.city = capitalizeEachWord(place.city);
     place.isAuth = user ? true : false;
 
-    return place;
+    const { imageUrls, ...placeData} = place;
+    const updatedImgUrls = imageUrls.map(({ public_id, ...rest }) => rest);
+
+    return {
+        ...placeData,
+        imageUrls: updatedImgUrls
+    };
 }
 
 async function getDestinationPlaces(destinationId) {

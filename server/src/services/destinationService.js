@@ -19,7 +19,7 @@ require('dotenv').config();
 async function getByPage(page, limit, searchParams) {
     let regex = new RegExp(searchParams, 'i');
 
-    const destination = await Destination.aggregate([
+    const destinations = await Destination.aggregate([
         {
             $lookup: {
                 from: 'countries',
@@ -54,7 +54,11 @@ async function getByPage(page, limit, searchParams) {
         },
     ]).exec();
 
-    return destination;
+    destinations.forEach((item) => {
+        delete item.imageUrls.public_id;
+    });
+
+    return destinations;
 }
 
 async function getById(destinationId, user) {
@@ -67,8 +71,9 @@ async function getById(destinationId, user) {
         throw createValidationError(errorMessages.notFound, 404);
     }
 
-    const { ownerId, country, city, ...destinationWithoutOwnerId } =
+    const { ownerId, country, city, imageUrls, ...destinationWithoutOwnerId } =
         destination;
+    const updatedImgUrls = imageUrls.map(({ public_id, ...rest }) => rest);
 
     if (user && ownerId.equals(user.ownerId)) {
         destinationWithoutOwnerId.isOwner = true;
@@ -76,6 +81,7 @@ async function getById(destinationId, user) {
 
     return {
         ...destinationWithoutOwnerId,
+        imageUrls: updatedImgUrls,
         country: capitalizeEachWord(country.name),
         city: capitalizeEachWord(city),
     };
@@ -204,7 +210,9 @@ async function deleteDestinationImage(destinationId, userId, imgId) {
             { _id: destinationId },
             { $pull: { imageUrls: { _id: imgId } } },
             { session }
-        ).lean().exec();
+        )
+            .lean()
+            .exec();
 
         await deleteImage(imageData.public_id);
         await session.commitTransaction();
