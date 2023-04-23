@@ -13,6 +13,7 @@ exports.errorMessages = {
     description: 'Description must be between 10 and 5000 characters',
     missingFields: 'Please fill in all required fields',
     invalidCommentId: 'Invalid Comment ID',
+    invalidImageId: 'Invalid image ID',
     unauthorized: 'Unauthorized',
     invalidBody: 'Please send a valid object with the updated destination fields'
 };

@@ -4,7 +4,7 @@ import styles from './ConfirmModal.module.css';
 import { SuccessButton } from '../Buttons/Success-Button/SuccessButton';
 import { CancelButton } from '../Buttons/Cancel-Button/CancelButton';
 
-export const ConfirmModal = ({ children, onCloseHandler, actionClickHandler }) => {
+export const ConfirmModal = ({ children, onCloseHandler, actionClickHandler, isLoading }) => {
     useEffect(() => {
         disableBodyScroll();
 
@@ -18,7 +18,9 @@ export const ConfirmModal = ({ children, onCloseHandler, actionClickHandler }) =
                 <div className={styles.modalMain}>
                     {children}
                     <div className={styles.modalButtons}>
-                        <SuccessButton onClickHandler={actionClickHandler}>Delete</SuccessButton>
+                        <SuccessButton onClickHandler={actionClickHandler} isLoading={isLoading}>
+                            Delete
+                        </SuccessButton>
                         <CancelButton onClickHandler={onCloseHandler}>Cancel</CancelButton>
                     </div>
                 </div>

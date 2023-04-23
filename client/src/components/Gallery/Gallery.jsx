@@ -5,6 +5,10 @@ import styles from './Gallery.module.css';
 export const Gallery = ({ images = [], closeGalleryHandler }) => {
     const [mainImage, setMainImage] = useState(images[0]);
 
+    if (!Array.isArray(images) || images.length == 0) {
+        return;
+    }
+
     useEffect(() => {
         disableBodyScroll();
         return () => enableBodyScroll();

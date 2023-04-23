@@ -23,7 +23,7 @@ export const Home = () => {
         <>
             <Showcase />
             <div className={styles.grid}>
-                <CitiesSlider destinations={destinations || []} />
+                <CitiesSlider destinations={destinations} />
                 <Categories />
                 <Destinations />
                 <Intro />

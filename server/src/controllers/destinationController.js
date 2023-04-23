@@ -5,6 +5,7 @@ const {
     getCreatorDestinations,
     getDestinationAndCheckOwnership,
     editDestinationField,
+    deleteDestinationImage,
 } = require('../services/destinationService');
 
 const { getDestinationPlaces } = require('../services/placeService');
@@ -99,6 +100,20 @@ const edit_destination_field = async (req, res) => {
     }
 };
 
+const delete_destination_image = async (req, res) => {
+    try {
+        const { id } = req.params; // destination id
+        const { ownerId } = req.user;
+        const { imgId } = req.body;
+
+        const result = await deleteDestinationImage(id, ownerId, imgId);
+
+        res.json(result);
+    } catch(err) {
+        res.status(err.status || 500).json(handleErrors(err));
+    }
+}
+
 module.exports = {
     paginated_destinations,
     destination_details,
@@ -107,4 +122,5 @@ module.exports = {
     get_creator_destinations,
     request_edit_permissions,
     edit_destination_field,
+    delete_destination_image
 };

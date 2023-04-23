@@ -57,7 +57,7 @@ const destinationSchema = new Schema({
     imageUrls: [
         {
             imageUrl: String,
-            publicId: String,
+            public_id: String,
         },
     ],
 });

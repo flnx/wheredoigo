@@ -1,12 +1,14 @@
+const mongoose = require('mongoose');
+const { isValid } = mongoose.Types.ObjectId;
+
 const Country = require('../models/countrySchema');
 const Destination = require('../models/destinationSchema');
 
-const { isValid } = require('mongoose').Types.ObjectId;
 const { isObject } = require('../utils/utils');
 const validator = require('validator');
 
 const { fetchCity, fetchCountry } = require('../service/data');
-const { addImages } = require('../utils/cloudinaryUploader');
+const { addImages, deleteImage } = require('../utils/cloudinaryUploader');
 const { createValidationError } = require('../utils/createValidationError');
 const { validateFields } = require('../utils/validateFields');
 const { errorMessages } = require('../constants/errorMessages');
@@ -38,7 +40,9 @@ async function getByPage(page, limit, searchParams) {
         {
             $project: {
                 'country.name': 1,
-                imageUrls: { $arrayElemAt: ['$imageUrls', 0] },
+                imageUrls: {
+                    $ifNull: [{ $arrayElemAt: ['$imageUrls', 0] }, []],
+                },
                 city: 1,
             },
         },
@@ -77,75 +81,51 @@ async function getById(destinationId, user) {
     };
 }
 
-async function editDestinationField(destinationId, userId, updatedFieldData) {
-    await getDestinationAndCheckOwnership(destinationId, userId);
+async function getCreatorDestinations(ownerId) {
+    const destinations = await Destination.find(
+        { ownerId },
+        { city: 1, imageUrls: { $slice: 1 } }
+    )
+        .populate('country', 'name')
+        .lean()
+        .exec();
 
-    if (!isObject(updatedFieldData)) {
-        throw createValidationError(errorMessages.invalidBody, 400);
+    if (destinations.length == 0) {
+        throw createValidationError(errorMessages.notFound, 404);
     }
 
-    if (!Object.hasOwn(updatedFieldData, 'description')) {
-        throw createValidationError(errorMessages.invalidBody, 400);
-    }
+    destinations.forEach((x) => {
+        const { country, imageUrls } = x;
 
-    const { description, infoId, categoryId } = updatedFieldData;
+        x.country = capitalizeEachWord(country.name);
+        x.city = capitalizeEachWord(x.city);
+        x.imageUrls = imageUrls[0]?.imageUrl;
+    });
 
-    if (!validator.isLength(description, { min: 10, max: 5000 })) {
-        throw createValidationError(errorMessages.description, 400);
-    }
-
-    if (infoId == 'Description') {
-        const result = await editDescription(destinationId, description);
-        return result;
-    }
-
-    if (!isValid(infoId) || !isValid(categoryId)) {
-        throw createValidationError(errorMessages.invalidBody, 400);
-    }
-
-    const result = await editDetail(
-        destinationId,
-        categoryId,
-        infoId,
-        description
-    );
-    return result;
+    return destinations;
 }
 
-async function editDescription(destinationId, description) {
-    const result = await Destination.findByIdAndUpdate(
-        destinationId,
-        { description },
-        { new: true, select: 'description' }
-    );
+async function getDestinationAndCheckOwnership(destinationId, userId) {
+    const destination = await Destination.findById(destinationId)
+        .populate('country')
+        .lean()
+        .exec();
 
-    if (!result) {
+    if (!destination) {
         throw createValidationError(errorMessages.invalidDestination, 400);
     }
 
-    return result;
-}
+    const { ownerId, ...destinationWithoutOwnerId } = destination;
 
-async function editDetail(destinationId, categoryId, infoId, updatedValue) {
-    const result = await Destination.updateOne(
-        {
-            _id: destinationId,
-            'details._id': categoryId,
-            'details.info._id': infoId,
-        },
-        { $set: { 'details.$[det].info.$[inf].description': updatedValue } },
-        {
-            arrayFilters: [{ 'det._id': categoryId }, { 'inf._id': infoId }],
-            projection: { 'details.$[det].info.$[inf].description': 1 },
-            new: true,
-        }
-    );
-
-    if (!result) {
-        throw createValidationError(errorMessages.invalidDestination, 400);
+    if (!ownerId.equals(userId)) {
+        throw createValidationError(errorMessages.accessDenied, 403);
     }
 
-    return result;
+    destinationWithoutOwnerId.country = capitalizeEachWord(
+        destination.country.name
+    );
+    destinationWithoutOwnerId.city = capitalizeEachWord(destination.city);
+    return destinationWithoutOwnerId;
 }
 
 async function create(data, images, user) {
@@ -198,51 +178,122 @@ async function create(data, images, user) {
     };
 }
 
-async function getDestinationAndCheckOwnership(destinationId, userId) {
-    const destination = await Destination.findById(destinationId)
-        .populate('country')
+async function deleteDestinationImage(destinationId, userId, imgId) {
+    if (!isValid(imgId)) {
+        throw createValidationError(errorMessages.invalidImageId, 400);
+    }
+
+    const destination = await getDestinationAndCheckOwnership(
+        destinationId,
+        userId
+    );
+
+    const imageData = destination.imageUrls.find(
+        (x) => x._id.toString() === imgId
+    );
+
+    if (!imageData) {
+        throw createValidationError(errorMessages.invalidImageId, 400);
+    }
+
+    const session = await mongoose.startSession();
+
+    try {
+        await session.withTransaction(async () => {
+            const result = await Destination.updateOne(
+                { _id: destinationId },
+                { $pull: { imageUrls: { _id: imgId } } },
+                { session }
+            )
+                .lean()
+                .exec();
+
+            await deleteImage(imageData.public_id);
+
+            return result;
+        });
+    } catch (err) {
+        await session.abortTransaction();
+        throw err;
+    } finally {
+        session.endSession();
+    }
+}
+
+async function editDestinationField(destinationId, userId, updatedFieldData) {
+    await getDestinationAndCheckOwnership(destinationId, userId);
+
+    if (!isObject(updatedFieldData)) {
+        throw createValidationError(errorMessages.invalidBody, 400);
+    }
+
+    if (!Object.hasOwn(updatedFieldData, 'description')) {
+        throw createValidationError(errorMessages.invalidBody, 400);
+    }
+
+    const { description, infoId, categoryId } = updatedFieldData;
+
+    if (!validator.isLength(description, { min: 10, max: 5000 })) {
+        throw createValidationError(errorMessages.description, 400);
+    }
+
+    if (infoId == 'Description') {
+        const result = await editDescription(destinationId, description);
+
+        return result;
+    }
+
+    if (!isValid(infoId) || !isValid(categoryId)) {
+        throw createValidationError(errorMessages.invalidBody, 400);
+    }
+
+    const result = await editDetail(
+        destinationId,
+        categoryId,
+        infoId,
+        description
+    );
+    return result;
+}
+
+async function editDescription(destinationId, description) {
+    const result = await Destination.findByIdAndUpdate(
+        destinationId,
+        { description },
+        { new: true, select: 'description' }
+    )
         .lean()
         .exec();
 
-    if (!destination) {
+    if (!result) {
         throw createValidationError(errorMessages.invalidDestination, 400);
     }
 
-    const { ownerId, ...destinationWithoutOwnerId } = destination;
-
-    if (!ownerId.equals(userId)) {
-        throw createValidationError(errorMessages.accessDenied, 403);
-    }
-
-    destinationWithoutOwnerId.country = capitalizeEachWord(
-        destination.country.name
-    );
-    destinationWithoutOwnerId.city = capitalizeEachWord(destination.city);
-    return destinationWithoutOwnerId;
+    return result;
 }
 
-async function getCreatorDestinations(ownerId) {
-    const destinations = await Destination.find(
-        { ownerId },
-        { city: 1, imageUrls: { $slice: 1 } }
+async function editDetail(destinationId, categoryId, infoId, updatedValue) {
+    const result = await Destination.updateOne(
+        {
+            _id: destinationId,
+            'details._id': categoryId,
+            'details.info._id': infoId,
+        },
+        { $set: { 'details.$[det].info.$[inf].description': updatedValue } },
+        {
+            arrayFilters: [{ 'det._id': categoryId }, { 'inf._id': infoId }],
+            projection: { 'details.$[det].info.$[inf].description': 1 },
+            new: true,
+        }
     )
-        .populate('country', 'name')
         .lean()
         .exec();
 
-    if (destinations.length == 0) {
-        throw createValidationError(errorMessages.notFound, 404);
+    if (!result) {
+        throw createValidationError(errorMessages.invalidDestination, 400);
     }
 
-    destinations.forEach((x) => {
-        const { country, imageUrls } = x;
-
-        x.country = capitalizeEachWord(country.name);
-        x.city = capitalizeEachWord(x.city);
-        x.imageUrls = imageUrls[0].imageUrl;
-    });
-
-    return destinations;
+    return result;
 }
 
 module.exports = {
@@ -252,4 +303,5 @@ module.exports = {
     getDestinationAndCheckOwnership,
     getCreatorDestinations,
     editDestinationField,
+    deleteDestinationImage,
 };

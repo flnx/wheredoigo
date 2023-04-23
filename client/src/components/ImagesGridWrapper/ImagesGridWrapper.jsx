@@ -1,6 +1,10 @@
 import styles from './ImagesGridWrapper.module.css';
 
-export const ImagesGridWrapper = ({ images, alt, onClickHandler }) => {
+export const ImagesGridWrapper = ({ images = [], alt, onClickHandler }) => {
+    if (!Array.isArray(images) || images.length == 0) {
+        return;
+    }
+
     const mainImage = images[0];
     const secondaryImages = images.slice(1);
 

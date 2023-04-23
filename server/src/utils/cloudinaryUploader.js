@@ -8,8 +8,9 @@ async function addImages(images, obj, folderName) {
     let imgError = null;
 
     try {
+        const objName = obj.name || obj.city;
         const folder_type = folderName;
-        const folder_name = fixInvalidFolderNameChars(obj.name, obj._id);
+        const folder_name = fixInvalidFolderNameChars(objName, obj._id);
 
         const cloudinaryImagesData = await handleImageUploads(
             images,
@@ -48,19 +49,24 @@ async function handleImageUploads(files, options = {}) {
         const imagesData = await Promise.all(promises);
         return imagesData;
     } catch (err) {
-        throw new Error('Failed to upload images to Cloudinary: ' + err.message);
+        throw new Error(
+            'Failed to upload images to Cloudinary: ' + err.message
+        );
     }
 }
 
 function uploadImageToCloudinary(imageBuffer, options = {}) {
     return new Promise((resolve, reject) => {
-        const uploadStream = cloudinary.uploader.upload_stream(options, (error, result) => {
-            if (result) {
-                resolve(result);
-            } else {
-                reject(error);
+        const uploadStream = cloudinary.uploader.upload_stream(
+            options,
+            (error, result) => {
+                if (result) {
+                    resolve(result);
+                } else {
+                    reject(error);
+                }
             }
-        });
+        );
 
         streamifier.createReadStream(imageBuffer).pipe(uploadStream);
     });
@@ -75,12 +81,9 @@ async function deleteDestinationImages(folderName) {
 }
 
 async function deleteImage(publicId) {
-    try {
-        const result = await cloudinary.uploader.destroy(publicId);
-        return result;
-    } catch (error) {
-        return {};
-    }
+    const result = await cloudinary.uploader.destroy(publicId);
+    
+    return result;
 }
 
 module.exports = {

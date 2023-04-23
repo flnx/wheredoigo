@@ -8,11 +8,16 @@ export const OwnerDestinations = () => {
     const { data, isLoading, error } = useCreatorDestinations();
     const navigate = useNavigate();
 
+
     if (isLoading) {
         return <p>Loading...</p>;
     }
 
     if (error) {
+        if (error.response.status === 404) {
+            return <p>You haven't added any destinations yet.</p>
+        }
+
         return <h1>An Error Has Occured</h1>;
     }
 

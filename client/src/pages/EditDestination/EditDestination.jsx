@@ -86,7 +86,10 @@ export const EditDestination = () => {
                         <section>
                             <h3 className={styles.sectionTitle}>Images</h3>
 
-                            <MemoizedEditImages imagesData={data?.imageUrls} />
+                            <MemoizedEditImages
+                                imagesData={data?.imageUrls}
+                                destinationId={destinationId}
+                            />
                         </section>
                     </div>
                 </>

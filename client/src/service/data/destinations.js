@@ -37,12 +37,21 @@ export const editDestinationDetails = async (updatedData) => {
             apiEndpoints.editDestinationDetails(destinationId),
             data
         );
-        
+
         return res;
     } catch (err) {
         console.log(err);
         return [];
     }
+};
+
+export const deleteDestinationImage = async (destinationId, imageData) => {
+    const res = await axios.put(
+        apiEndpoints.deleteDestinationImage(destinationId),
+        imageData
+    );
+
+    return res.data;
 };
 
 export const getDestinationsPaginated = async ({ pageParam, queryKey }) => {
