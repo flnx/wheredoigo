@@ -7,21 +7,16 @@ export const Destination = ({ destination, onClickHandler, onDeleteClickHandler 
     const { _id, city, country, imageUrls } = destination;
 
     return (
-        <div className={styles.card}>
+        <div className={styles['card']}>
             <div className={styles.imageContainer}>
                 <Link to={`/destinations/${_id}`}>
                     <img src={imageUrls} alt={city} className={styles.image} />
                 </Link>
             </div>
             <section className={styles.content}>
-                <div className={styles.flex}>
-                    <h3>{city}</h3>
-                </div>
-
-                <div className={`${styles.flex}`}>
-                    <p className={styles.destination}>{country}</p>
-                </div>
-                <div>
+                <h3>{city}</h3>
+                <p className={styles.destination}>{country}</p>
+                <div className={styles.buttons}>
                     <SuccessButton onClickHandler={() => onClickHandler(_id)}>
                         Edit
                     </SuccessButton>

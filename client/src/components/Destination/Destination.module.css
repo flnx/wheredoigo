@@ -16,6 +16,7 @@
     padding: 0.35rem;
     flex: 1;
     display: flex;
+    gap: 0.35rem;
     flex-direction: column;
     justify-content: space-between;
 }
@@ -27,13 +28,7 @@
     object-fit: cover;
 }
 
-.flex {
+.buttons {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.price {
-    color: var(--text-secondary-dark);
-    font-weight: 800;
+    gap: 0.65rem;
 }
