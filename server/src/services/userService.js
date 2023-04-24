@@ -6,7 +6,7 @@ const jwt = require('../lib/jsonwebtoken');
 
 const { avatarOptions } = require('../config/cloudinary');
 const { validatePassword } = require('../utils/utils');
-const { handleImageUploads,deleteImage } = require('../utils/cloudinaryUploader');
+const { handleImageUploads, deleteImage } = require('../utils/cloudinaryUploader');
 const { createValidationError } = require('../utils/createValidationError');
 const { errorMessages } = require('../constants/errorMessages');
 
@@ -101,12 +101,22 @@ const updateUserAvatar = async (image, jwtToken) => {
         throw createValidationError(errorMessages.accessDenied, 401);
     }
 
-    if (user.avatar_id) {
-        await deleteImage(user.avatar_id);
+    if (!image) {
+        throw createValidationError(errorMessages.invalidImages);
     }
 
-    const imageData = await handleImageUploads([image], avatarOptions);
-    const { url, public_id } = imageData[0];
+    const promises = [
+        handleImageUploads([image], avatarOptions),
+        deleteImage(user.avatar_id),
+    ];
+
+    const [imageData, _] = await Promise.allSettled(promises);
+
+    if (imageData.status !== 'fulfilled') {
+        throw createValidationError(errorMessages.uploadError ,500)
+    }
+
+    const { url, public_id } = imageData.value[0];
 
     user.avatarUrl = url;
     user.avatar_id = public_id;

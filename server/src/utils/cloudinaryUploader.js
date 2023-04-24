@@ -72,7 +72,7 @@ function uploadImageToCloudinary(imageBuffer, options = {}) {
     });
 }
 
-async function deleteDestinationImages(public_ids, folderNames) {
+async function deleteMultipleImages(public_ids, folderNames) {
     try {
         const promises_ids = public_ids.map((x) => deleteImage(x));
         await Promise.all(promises_ids);
@@ -84,8 +84,6 @@ async function deleteDestinationImages(public_ids, folderNames) {
         throw error;
     }
 }
-
-async function deleteFolders() {}
 
 async function deleteImage(publicId) {
     const res = await cloudinary.uploader.destroy(publicId);
@@ -99,5 +97,5 @@ module.exports = {
     addImages,
     handleImageUploads,
     deleteImage,
-    deleteDestinationImages,
+    deleteMultipleImages,
 };

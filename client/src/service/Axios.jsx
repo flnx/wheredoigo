@@ -42,8 +42,9 @@ function AxiosInterceptor({ children }) {
     );
 
     useEffect(() => {
-        const requestInterceptor = axiosInstance.interceptors.request.use(addAccessToken, (error) =>
-            Promise.reject(error)
+        const requestInterceptor = axiosInstance.interceptors.request.use(
+            addAccessToken,
+            (error) => Promise.reject(error)
         );
 
         const responseInterceptor = axiosInstance.interceptors.response.use(

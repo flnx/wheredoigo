@@ -24,6 +24,27 @@ export const createImageFiles = async (imageUrls, formData) => {
     await Promise.all(fetchPromises);
 };
 
+export const createAvatarImage = async (imgAfterCrop) => {
+    // Convert the image to a Blob object
+    const response = await fetch(imgAfterCrop);
+    const blob = await response.blob();
+    const contentType = blob.type;
+
+    if (!validateImageFile(contentType)) {
+        throw new Error('Only image files are allowed')
+    }
+
+
+    // Create a File object from the Blob
+    const image = new File([blob], 'image.jpg', { type: 'image/jpeg' });
+
+    // Create a FormData object and append the File object to it
+    const formData = new FormData();
+    formData.append('avatarUrl', image, 'avatar.jpg');
+
+    return formData;
+};
+
 const validateImageFile = (contentType) => {
     const imagePattern = /^image\/(jpe?g|png|webp)$/i;
     return imagePattern.test(contentType);

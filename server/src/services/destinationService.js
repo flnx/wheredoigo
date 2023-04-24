@@ -17,7 +17,7 @@ const { fetchCity, fetchCountry } = require('../service/data');
 const {
     addImages,
     deleteImage,
-    deleteDestinationImages,
+    deleteMultipleImages,
 } = require('../utils/cloudinaryUploader');
 const { createValidationError } = require('../utils/createValidationError');
 const { validateFields } = require('../utils/validateFields');
@@ -277,16 +277,19 @@ async function deleteDestination(destinationId, userId) {
 
     const public_ids = extractAllPublicIds();
     const folderNames = extractFolderNames();
+
     const comments_ids = places.flatMap((p) => p.comments.map((c) => c.toString()));
 
     const promises = [
         Destination.findByIdAndDelete(destinationId),
         Place.deleteMany({ destinationId }),
-        deleteDestinationImages(public_ids, folderNames),
+        deleteMultipleImages(public_ids, folderNames),
         Comment.deleteMany({ _id: { $in: comments_ids } }),
     ];
 
     await Promise.all(promises);
+
+    return true;
 
     function extractAllPublicIds() {
         const destPublicIds = destination.imageUrls.map(
@@ -302,7 +305,7 @@ async function deleteDestination(destinationId, userId) {
     }
 
     function extractFolderNames() {
-        const d_path = 'destination';
+        const d_path = 'destinations';
         const { city } = destination;
         const destFolderName = extractCloudinaryFolderName(
             d_path,
@@ -310,7 +313,7 @@ async function deleteDestination(destinationId, userId) {
             destinationId
         );
 
-        const p_path = 'place';
+        const p_path = 'places';
 
         const placesFolderNames = places.map((place) => {
             let { name, _id } = place;
@@ -352,48 +355,47 @@ async function editDestinationField(destinationId, userId, updatedFieldData) {
     }
 
     const result = await editDetail(destinationId, categoryId, infoId, description);
-
     return result;
-}
 
-async function editDescription(destinationId, description) {
-    const result = await Destination.findByIdAndUpdate(
-        destinationId,
-        { description },
-        { new: true, select: 'description' }
-    )
-        .lean()
-        .exec();
+    async function editDescription(destinationId, description) {
+        const result = await Destination.findByIdAndUpdate(
+            destinationId,
+            { description },
+            { new: true, select: 'description' }
+        )
+            .lean()
+            .exec();
 
-    if (!result) {
-        throw createValidationError(errorMessages.invalidDestination, 400);
-    }
-
-    return result;
-}
-
-async function editDetail(destinationId, categoryId, infoId, updatedValue) {
-    const result = await Destination.updateOne(
-        {
-            _id: destinationId,
-            'details._id': categoryId,
-            'details.info._id': infoId,
-        },
-        { $set: { 'details.$[det].info.$[inf].description': updatedValue } },
-        {
-            arrayFilters: [{ 'det._id': categoryId }, { 'inf._id': infoId }],
-            projection: { 'details.$[det].info.$[inf].description': 1 },
-            new: true,
+        if (!result) {
+            throw createValidationError(errorMessages.invalidDestination, 400);
         }
-    )
-        .lean()
-        .exec();
 
-    if (!result) {
-        throw createValidationError(errorMessages.invalidDestination, 400);
+        return result;
     }
 
-    return result;
+    async function editDetail(destinationId, categoryId, infoId, updatedValue) {
+        const result = await Destination.updateOne(
+            {
+                _id: destinationId,
+                'details._id': categoryId,
+                'details.info._id': infoId,
+            },
+            { $set: { 'details.$[det].info.$[inf].description': updatedValue } },
+            {
+                arrayFilters: [{ 'det._id': categoryId }, { 'inf._id': infoId }],
+                projection: { 'details.$[det].info.$[inf].description': 1 },
+                new: true,
+            }
+        )
+            .lean()
+            .exec();
+
+        if (!result) {
+            throw createValidationError(errorMessages.invalidDestination, 400);
+        }
+
+        return result;
+    }
 }
 
 module.exports = {

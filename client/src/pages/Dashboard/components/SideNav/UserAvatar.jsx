@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useContext } from 'react';
+import { useState, useRef, useContext } from 'react';
 
 // Components
 import { FileInput } from '../../../../components/FileInput/FileInput';
@@ -9,14 +9,15 @@ import { changeUserAvatar } from '../../../../service/data/user';
 import { AuthContext } from '../../../../context/AuthContext';
 import { CancelButton } from '../../../../components/Buttons/Cancel-Button/CancelButton';
 import { SuccessButton } from '../../../../components/Buttons/Success-Button/SuccessButton';
+import { createAvatarImage } from '../../../../utils/imagesHandler';
 
 export const UserAvatar = () => {
     const [image, setImage] = useState('');
     const [imgAfterCrop, setImgAfterCrop] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [showSaveCancelButtons, setShowSaveCancelButtons] = useState(false);
-    const { auth, setUserData } = useContext(AuthContext);
     const canvasRef = useRef(null);
+    const { auth, setUserData } = useContext(AuthContext);
 
     const userImage = auth.avatarUrl;
 
@@ -65,16 +66,7 @@ export const UserAvatar = () => {
     const handleSaveButtonClick = async () => {
         try {
             // Convert the image to a Blob object
-            const response = await fetch(imgAfterCrop);
-            const blob = await response.blob();
-
-            // Create a File object from the Blob
-            const image = new File([blob], 'image.jpg', { type: 'image/jpeg' });
-
-            // Create a FormData object and append the File object to it
-            const formData = new FormData();
-            formData.append('avatarUrl', image, 'avatar.jpg');
-
+            const formData = await createAvatarImage(imgAfterCrop);
             const updatedUserData = await changeUserAvatar(formData);
             setUserData(updatedUserData);
             setShowSaveCancelButtons(false);
@@ -92,7 +84,11 @@ export const UserAvatar = () => {
     return (
         <header className={styles.userInfo}>
             {showModal && (
-                <ImageCropper image={image} onCropDone={onCropDone} onCropCancel={onCropCancel} />
+                <ImageCropper
+                    image={image}
+                    onCropDone={onCropDone}
+                    onCropCancel={onCropCancel}
+                />
             )}
             <div>
                 <img
@@ -105,9 +101,7 @@ export const UserAvatar = () => {
             <FileInput setImage={setImage} onImageSelected={onImageSelected} />
             {showSaveCancelButtons && (
                 <div className={styles.buttons}>
-                    <SuccessButton onClickHandler={handleSaveButtonClick}>
-                        Save
-                    </SuccessButton>
+                    <SuccessButton onClickHandler={handleSaveButtonClick}>Save</SuccessButton>
                     <CancelButton onClickHandler={handleCancelButtonClick}>
                         Cancel
                     </CancelButton>
