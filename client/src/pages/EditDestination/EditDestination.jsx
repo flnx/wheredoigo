@@ -31,7 +31,6 @@ export const EditDestination = () => {
     const onEditClickHandler = useCallback((clickedId) => {
         // enables/disables the form fields
         setIsEditable((prevState) => {
-            // set the clicked field to true/false (opens/closes it)
             const newState = { [clickedId]: !prevState[clickedId] };
 
             // set all other fields to false (closes the rest (if any opened))
@@ -40,7 +39,6 @@ export const EditDestination = () => {
                     newState[fieldId] = false;
                 }
             });
-
             return newState;
         });
     }, []);

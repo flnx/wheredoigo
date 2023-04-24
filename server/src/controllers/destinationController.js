@@ -81,9 +81,17 @@ const request_edit_permissions = async (req, res) => {
     try {
         const { id } = req.params;
         const { ownerId } = req.user;
-        const result = await getDestinationAndCheckOwnership(id, ownerId);
 
-        res.json(result);
+        const promises = [
+            getDestinationAndCheckOwnership(id, ownerId),
+            getDestinationPlaces(id),
+        ];
+
+        const [destination, places] = await Promise.all(promises);
+
+        destination.places = places;
+
+        res.json(destination);
     } catch (err) {
         res.status(err.status || 500).json(handleErrors(err));
     }
