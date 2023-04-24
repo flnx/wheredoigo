@@ -6,6 +6,8 @@ import { ImagesPreviewer } from '../../../../components/ImagesPreviewer/ImagesPr
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 import { NewImagesUploader } from './NewImagesUploader';
 
+import styles from './EditImages.module.css';
+
 const EditImages = ({ imagesData, destinationId }) => {
     const [deleteImage, error, isLoading] = useDeleteDestinationImage(destinationId);
 
@@ -13,7 +15,7 @@ const EditImages = ({ imagesData, destinationId }) => {
     const [openModal, setOpenModal] = useState(false);
     const [imgIndexToDelete, setImgIndexToDelete] = useState(null);
 
-    const handleOpenConfirmModal = (index) => {
+    const onDeleteClickOpenConfirmModalHandler = (index) => {
         setOpenModal(true);
         setImgIndexToDelete(index);
     };
@@ -48,28 +50,35 @@ const EditImages = ({ imagesData, destinationId }) => {
     const hasCurrentImages = images.length > 0;
 
     return (
-        <>
-            {hasCurrentImages && (
-                <ImagesPreviewer images={images} handleDeleteImage={handleOpenConfirmModal} />
-            )}
+        <section>
+            <h3 className={styles.sectionTitle}>Images</h3>
 
-            {!hasCurrentImages && <p>No images have been added yet.</p>}
+            <div className={styles['images-container']}>
+                {hasCurrentImages && (
+                    <ImagesPreviewer
+                        images={images}
+                        handleDeleteImage={onDeleteClickOpenConfirmModalHandler}
+                    />
+                )}
 
-            <NewImagesUploader
-                currentImagesHandler={handleUpdateCurrentImages}
-                destinationId={destinationId}
-            />
+                {!hasCurrentImages && <p>No images have been added yet.</p>}
 
-            {openModal && (
-                <ConfirmModal
-                    actionClickHandler={handleConfirmDelete}
-                    onCloseHandler={handleCloseConfirmModal}
-                    isLoading={isLoading}
-                >
-                    Are you sure you wanna delete this image?
-                </ConfirmModal>
-            )}
-        </>
+                <NewImagesUploader
+                    currentImagesHandler={handleUpdateCurrentImages}
+                    destinationId={destinationId}
+                />
+
+                {openModal && (
+                    <ConfirmModal
+                        actionClickHandler={handleConfirmDelete}
+                        onCloseHandler={handleCloseConfirmModal}
+                        isLoading={isLoading}
+                    >
+                        Are you sure you wanna delete this image?
+                    </ConfirmModal>
+                )}
+            </div>
+        </section>
     );
 };
 

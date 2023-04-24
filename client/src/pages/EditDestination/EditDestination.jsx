@@ -49,11 +49,11 @@ export const EditDestination = () => {
                 <h1>Loading...</h1>
             ) : (
                 <>
-                    <h1 className={styles['destination-title']}>
+                    <h1 className={styles.destinationTitle}>
                         Edit {`${data?.city}, ${data?.country}`}
                     </h1>
 
-                    <div className={styles['wrapper']}>
+                    <div className={styles['flex-container']}>
                         <section>
                             <h3 className={styles.sectionTitle}>Destination Info</h3>
                             <form>
@@ -79,16 +79,12 @@ export const EditDestination = () => {
                             </form>
                         </section>
 
-                        <section className={styles['images']}>
-                            <h3 className={styles.sectionTitle}>Images</h3>
-
-                            <MemoizedEditImages
-                                imagesData={data?.imageUrls}
-                                destinationId={data?._id}
-                            />
-                        </section>
+                        <MemoizedEditImages
+                            imagesData={data?.imageUrls}
+                            destinationId={data?._id}
+                        />
                     </div>
-                    <MemoizedPlaces places={data?.places} destinationId={data?._id} />
+                    <MemoizedPlaces placesData={data?.places} destinationId={data?._id} />
                 </>
             )}
         </div>
