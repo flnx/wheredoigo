@@ -6,14 +6,17 @@ import { useRequestEditDestinationPermissions } from '../../hooks/queries/useReq
 import { DetailsInputs } from './components/DetailsInputsFields/DetailsInputsFields';
 import { MemoizedTextarea } from './components/Textarea/Textarea';
 import { MemoizedEditImages } from './components/EditImages/EditImages';
+import { MemoizedPlaces } from './components/Places/places';
 
 import styles from './EditDestination.module.css';
 const URL_DASHBOARD = '/dashboard/destinations-created-by-user';
 
 export const EditDestination = () => {
     const searchParams = new URLSearchParams(location.search);
-    
-    const { data, error, isLoading } = useRequestEditDestinationPermissions(searchParams.get('id'));
+
+    const { data, error, isLoading } = useRequestEditDestinationPermissions(
+        searchParams.get('id')
+    );
     const navigate = useNavigate();
     const [isEditable, setIsEditable] = useState({});
 
@@ -76,7 +79,7 @@ export const EditDestination = () => {
                             </form>
                         </section>
 
-                        <section className={styles.images}>
+                        <section className={styles['images']}>
                             <h3 className={styles.sectionTitle}>Images</h3>
 
                             <MemoizedEditImages
@@ -85,6 +88,7 @@ export const EditDestination = () => {
                             />
                         </section>
                     </div>
+                    <MemoizedPlaces places={data?.places} destinationId={data?._id} />
                 </>
             )}
         </div>
