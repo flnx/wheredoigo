@@ -17,7 +17,7 @@ export const Destination = ({ destination, onClickHandler, onDeleteClickHandler 
                 <h3>{city}</h3>
                 <p className={styles.destination}>{country}</p>
                 <div className={styles.buttons}>
-                    <SuccessButton onClickHandler={() => onClickHandler(_id)}>
+                    <SuccessButton onClickHandler={() => onClickHandler(_id, city)}>
                         Edit
                     </SuccessButton>
                     <WarningButton onClickHandler={() => onDeleteClickHandler(_id)}>

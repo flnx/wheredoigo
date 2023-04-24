@@ -50,8 +50,8 @@ export const OwnerDestinations = () => {
         });
     };
 
-    const onEditHandler = (destinationId) => {
-        navigate('/destination/edit', { state: destinationId });
+    const onEditHandler = (destinationId, city) => {
+        navigate(`/destinations/edit?id=${city}`);
     };
 
     return (

@@ -7,9 +7,8 @@ export const useRequestEditDestinationPermissions = (destinationId) => {
         queryKey: [queryEndpoints.destPermissions, destinationId],
         queryFn: () => {
             if (!destinationId) {
-                throw new Error('Destination ID is undefined');
-            }
-            
+                throw new Error('Invalid destination name');
+            }            
             return getEditDestinationPermissions(destinationId);
         },
         staleTime: 1 * 60 * 1000, // 1 minute

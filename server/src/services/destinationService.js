@@ -121,10 +121,12 @@ async function getCreatorDestinations(ownerId) {
 }
 
 async function getDestinationAndCheckOwnership(destinationId, userId) {
-    const destination = await Destination.findById(destinationId)
-        .populate('country')
-        .lean()
-        .exec();
+    const destination = await Destination.findOne({
+        $or: [
+            { _id: isValid(destinationId) ? destinationId : null },
+            { city: destinationId },
+        ],
+    }).populate('country').lean().exec();
 
     if (!destination) {
         throw createValidationError(errorMessages.invalidDestination, 400);

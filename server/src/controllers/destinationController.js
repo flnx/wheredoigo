@@ -79,16 +79,15 @@ const get_creator_destinations = async (req, res) => {
 
 const request_edit_permissions = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { city } = req.params;
         const { ownerId } = req.user;
 
         const promises = [
-            getDestinationAndCheckOwnership(id, ownerId),
-            getDestinationPlaces(id),
+            getDestinationAndCheckOwnership(city, ownerId),
+            getDestinationPlaces(city),
         ];
 
         const [destination, places] = await Promise.all(promises);
-
         destination.places = places;
 
         res.json(destination);

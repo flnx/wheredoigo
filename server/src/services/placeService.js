@@ -46,22 +46,27 @@ async function getPlaceById(placeId, user) {
     place.city = capitalizeEachWord(place.city);
     place.isAuth = user ? true : false;
 
-    const { imageUrls, ...placeData} = place;
+    const { imageUrls, ...placeData } = place;
     const updatedImgUrls = imageUrls.map(({ public_id, ...rest }) => rest);
 
     return {
         ...placeData,
-        imageUrls: updatedImgUrls
+        imageUrls: updatedImgUrls,
     };
 }
 
 async function getDestinationPlaces(destinationId) {
-    const places = await Place.find({ destinationId })
+    const places = await Place.find({
+        $or: [
+            { _id: isValid(destinationId) ? destinationId : null },
+            { city: destinationId },
+        ],
+    })
         .select({ name: 1, city: 1, type: 1, imageUrls: { $slice: 1 } })
         .lean()
         .exec();
 
-    places.forEach(x => {
+    places.forEach((x) => {
         x.name = capitalizeEachWord(x.name);
         x.city = capitalizeEachWord(x.name);
     });
@@ -111,9 +116,7 @@ async function addNewPlace(data, images, user) {
 }
 
 async function addCommentToPlace(placeId, title, content, ownerId) {
-    const user = await User.findById(ownerId)
-        .select('username avatarUrl')
-        .exec();
+    const user = await User.findById(ownerId).select('username avatarUrl').exec();
 
     if (!user) {
         throw createValidationError(errorMessages.accessDenied, 401);
@@ -171,26 +174,30 @@ async function deleteCommentFromPlace(placeId, commentId, ownerId) {
         if (!comment) {
             throw createValidationError(errorMessages.notFound, 404);
         }
-    
+
         if (!comment.ownerId.equals(ownerId)) {
             throw createValidationError(errorMessages.accessDenied, 403);
         }
 
-        const place = await Place.findOneAndUpdate({_id: placeId, comments: commentId}, {
-            $pull: {
-                comments: commentId,
+        const place = await Place.findOneAndUpdate(
+            { _id: placeId, comments: commentId },
+            {
+                $pull: {
+                    comments: commentId,
+                },
             },
-        }, { session });
+            { session }
+        );
 
         if (!place) {
             throw createValidationError(errorMessages.notFound, 404);
         }
-        
+
         await Comment.findByIdAndDelete(commentId, { session });
         await session.commitTransaction();
 
         return true;
-    } catch(err) {
+    } catch (err) {
         await session.abortTransaction();
         throw err;
     } finally {

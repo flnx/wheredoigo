@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useRequestEditDestinationPermissions } from '../../hooks/queries/useRequestEditDestinationPermissions';
 
 // Components
@@ -8,25 +8,20 @@ import { MemoizedTextarea } from './components/Textarea/Textarea';
 import { MemoizedEditImages } from './components/EditImages/EditImages';
 
 import styles from './EditDestination.module.css';
+const URL_DASHBOARD = '/dashboard/destinations-created-by-user';
 
 export const EditDestination = () => {
+    const searchParams = new URLSearchParams(location.search);
+    
+    const { data, error, isLoading } = useRequestEditDestinationPermissions(searchParams.get('id'));
     const navigate = useNavigate();
     const [isEditable, setIsEditable] = useState({});
-    const { state: destinationId } = useLocation();
-    const { data, error, isLoading } = useRequestEditDestinationPermissions(destinationId);
-
-    const URL_DASHBOARD = '/dashboard/destinations-created-by-user';
 
     useEffect(() => {
-        if (!destinationId) {
+        if (!searchParams.get('id') || error) {
             navigate(URL_DASHBOARD, { replace: true });
         }
-    }, []);
-
-    if (error) {
-        navigate(URL_DASHBOARD, { replace: true });
-        return null;
-    }
+    }, [searchParams, error]);
 
     const onEditClickHandler = useCallback((clickedId) => {
         // enables/disables the form fields
@@ -47,7 +42,7 @@ export const EditDestination = () => {
 
     return (
         <div className="container">
-            {isLoading || !data || !destinationId ? (
+            {isLoading || !data ? (
                 <h1>Loading...</h1>
             ) : (
                 <>
@@ -65,7 +60,7 @@ export const EditDestination = () => {
                                     desc={data.description}
                                     onEditClickHandler={onEditClickHandler}
                                     isEditable={isEditable[description]}
-                                    destinationId={destinationId}
+                                    destinationId={data?._id}
                                 />
                                 {data.details.map((detail) => (
                                     <DetailsInputs
@@ -73,7 +68,7 @@ export const EditDestination = () => {
                                         info={detail.info}
                                         isEditable={isEditable}
                                         onEditClickHandler={onEditClickHandler}
-                                        destinationId={destinationId}
+                                        destinationId={data?._id}
                                         categoryId={detail._id}
                                         key={detail._id}
                                     />
@@ -86,7 +81,7 @@ export const EditDestination = () => {
 
                             <MemoizedEditImages
                                 imagesData={data?.imageUrls}
-                                destinationId={destinationId}
+                                destinationId={data?._id}
                             />
                         </section>
                     </div>

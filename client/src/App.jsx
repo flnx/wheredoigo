@@ -34,7 +34,7 @@ function App() {
                                 </Route>
                                 <Route element={<ProtectedRoute />}>
                                     <Route path="/dashboard/*" element={<UserDashboardRoutes />} />
-                                    <Route path="/destination/edit" element={<EditDestination />}/>
+                                    <Route path="/destinations/edit" element={<EditDestination />}/>
                                 </Route>
                                 <Route path="/discover" element={<Discover />} />
                                 <Route
