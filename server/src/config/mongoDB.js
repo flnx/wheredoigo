@@ -9,6 +9,18 @@ async function initializeDatabase() {
         console.error(err.message);
         process.exit(1);
     }
+
+    // Listen for a SIGINT signal (Ctrl+C) and gracefully shut down the connection
+    process.on('SIGINT', async () => {
+        try {
+            await mongoose.connection.close();
+            console.log('Database connection closed.');
+            process.exit(0);
+        } catch (err) {
+            console.error(err.message);
+            process.exit(1);
+        }
+    });
 }
 
 module.exports = initializeDatabase;
