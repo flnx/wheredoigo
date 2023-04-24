@@ -51,9 +51,7 @@ async function handleImageUploads(files, options = {}) {
         const imagesData = await Promise.all(promises);
         return imagesData;
     } catch (err) {
-        throw new Error(
-            'Failed to upload images to Cloudinary: ' + err.message
-        );
+        throw new Error('Failed to upload images to Cloudinary: ' + err.message);
     }
 }
 
@@ -74,19 +72,26 @@ function uploadImageToCloudinary(imageBuffer, options = {}) {
     });
 }
 
-async function deleteDestinationImages(folderName) {
+async function deleteDestinationImages(public_ids, folderNames) {
     try {
-        await cloudinary.api.delete_folder(folderName);
+        const promises_ids = public_ids.map((x) => deleteImage(x));
+        await Promise.all(promises_ids);
+
+        folderNames.forEach((folder) => cloudinary.api.delete_folder(folder));
+
+        return true;
     } catch (error) {
-        return {};
+        throw error;
     }
 }
 
-async function deleteImage(publicId) {
-    const response = await cloudinary.uploader.destroy(publicId);
+async function deleteFolders() {}
 
-    if (response.result !== 'ok') {
-        throw createValidationError(errorMessages.invalidImageId);
+async function deleteImage(publicId) {
+    const res = await cloudinary.uploader.destroy(publicId);
+
+    if (res.result !== 'ok') {
+        throw createValidationError(errorMessages.invalidImageId, 404);
     }
 }
 
@@ -94,4 +99,5 @@ module.exports = {
     addImages,
     handleImageUploads,
     deleteImage,
+    deleteDestinationImages,
 };

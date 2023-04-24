@@ -3,17 +3,26 @@ const { isValid } = mongoose.Types.ObjectId;
 
 const Country = require('../models/countrySchema');
 const Destination = require('../models/destinationSchema');
+const Place = require('../models/placeSchema');
+const Comment = require('../models/commentSchema');
 
-const { isObject } = require('../utils/utils');
+const {
+    isObject,
+    fixInvalidFolderNameChars,
+    extractCloudinaryFolderName,
+} = require('../utils/utils');
 const validator = require('validator');
 
 const { fetchCity, fetchCountry } = require('../service/data');
-const { addImages, deleteImage } = require('../utils/cloudinaryUploader');
+const {
+    addImages,
+    deleteImage,
+    deleteDestinationImages,
+} = require('../utils/cloudinaryUploader');
 const { createValidationError } = require('../utils/createValidationError');
 const { validateFields } = require('../utils/validateFields');
 const { errorMessages } = require('../constants/errorMessages');
 const capitalizeEachWord = require('../utils/capitalizeWords');
-
 require('dotenv').config();
 
 async function getByPage(page, limit, searchParams) {
@@ -127,9 +136,7 @@ async function getDestinationAndCheckOwnership(destinationId, userId) {
         throw createValidationError(errorMessages.accessDenied, 403);
     }
 
-    destinationWithoutOwnerId.country = capitalizeEachWord(
-        destination.country.name
-    );
+    destinationWithoutOwnerId.country = capitalizeEachWord(destination.country.name);
     destinationWithoutOwnerId.city = capitalizeEachWord(destination.city);
     return destinationWithoutOwnerId;
 }
@@ -169,11 +176,7 @@ async function create(data, images, user) {
     });
 
     const folderName = 'destinations';
-    const { imageUrls, imgError } = await addImages(
-        images,
-        destination,
-        folderName
-    );
+    const { imageUrls, imgError } = await addImages(images, destination, folderName);
 
     destination.imageUrls = imageUrls;
     await destination.save();
@@ -189,10 +192,7 @@ async function addDestinationNewImages(destinationId, userId, imgFiles) {
         throw createValidationError(errorMessages.invalidImages, 400);
     }
 
-    const { city } = await getDestinationAndCheckOwnership(
-        destinationId,
-        userId
-    );
+    const { city } = await getDestinationAndCheckOwnership(destinationId, userId);
 
     const folderName = 'destinations';
     const data = { city, _id: destinationId };
@@ -209,7 +209,9 @@ async function addDestinationNewImages(destinationId, userId, imgFiles) {
         { _id: destinationId },
         { $push: { imageUrls: { $each: images } } },
         { new: true }
-    ).lean().exec();
+    )
+        .lean()
+        .exec();
 
     const { imageUrls, ...rest } = result;
 
@@ -218,7 +220,7 @@ async function addDestinationNewImages(destinationId, userId, imgFiles) {
     return {
         ...rest,
         imageUrls: updatedImageUrls,
-        imgError
+        imgError,
     };
 }
 
@@ -227,14 +229,9 @@ async function deleteDestinationImage(destinationId, userId, imgId) {
         throw createValidationError(errorMessages.invalidImageId, 400);
     }
 
-    const destination = await getDestinationAndCheckOwnership(
-        destinationId,
-        userId
-    );
+    const destination = await getDestinationAndCheckOwnership(destinationId, userId);
 
-    const imageData = destination.imageUrls.find(
-        (x) => x._id.toString() === imgId
-    );
+    const imageData = destination.imageUrls.find((x) => x._id.toString() === imgId);
 
     if (!imageData) {
         throw createValidationError(errorMessages.invalidImageId, 400);
@@ -261,6 +258,69 @@ async function deleteDestinationImage(destinationId, userId, imgId) {
         throw error;
     } finally {
         session.endSession();
+    }
+}
+
+async function deleteDestination(destinationId, userId) {
+    const [destination, places] = await Promise.all([
+        Destination.findById(destinationId).lean().exec(),
+        Place.find({ destinationId }).lean().exec(),
+    ]);
+
+    if (!destination) {
+        throw createValidationError(errorMessages.invalidDestination, 400);
+    }
+
+    if (!destination.ownerId.equals(userId)) {
+        throw createValidationError(errorMessages.accessDenied, 403);
+    }
+
+    const public_ids = extractAllPublicIds();
+    const folderNames = extractFolderNames();
+    const comments_ids = places.flatMap((p) => p.comments.map((c) => c.toString()));
+
+    const promises = [
+        Destination.findByIdAndDelete(destinationId),
+        Place.deleteMany({ destinationId }),
+        deleteDestinationImages(public_ids, folderNames),
+        Comment.deleteMany({ _id: { $in: comments_ids } }),
+    ];
+
+    await Promise.all(promises);
+
+    function extractAllPublicIds() {
+        const destPublicIds = destination.imageUrls.map(
+            ({ public_id, ...rest }) => public_id
+        );
+
+        const placesPublicIds = places.flatMap((x) => {
+            const ids = x.imageUrls.map(({ public_id, ...rest }) => public_id);
+            return ids;
+        });
+
+        return destPublicIds.concat(placesPublicIds);
+    }
+
+    function extractFolderNames() {
+        const d_path = 'destination';
+        const { city } = destination;
+        const destFolderName = extractCloudinaryFolderName(
+            d_path,
+            city,
+            destinationId
+        );
+
+        const p_path = 'place';
+
+        const placesFolderNames = places.map((place) => {
+            let { name, _id } = place;
+            _id = _id.toString();
+
+            const placeFolderName = extractCloudinaryFolderName(p_path, name, _id);
+            return placeFolderName;
+        });
+
+        return [destFolderName, ...placesFolderNames];
     }
 }
 
@@ -291,12 +351,7 @@ async function editDestinationField(destinationId, userId, updatedFieldData) {
         throw createValidationError(errorMessages.invalidBody, 400);
     }
 
-    const result = await editDetail(
-        destinationId,
-        categoryId,
-        infoId,
-        description
-    );
+    const result = await editDetail(destinationId, categoryId, infoId, description);
 
     return result;
 }
@@ -350,4 +405,5 @@ module.exports = {
     editDestinationField,
     deleteDestinationImage,
     addDestinationNewImages,
+    deleteDestination,
 };

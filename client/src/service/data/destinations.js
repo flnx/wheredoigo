@@ -54,6 +54,12 @@ export const deleteDestinationImage = async (destinationId, imageData) => {
     return res.data;
 };
 
+export const deleteDestination = async (destinationId) => {
+    const result = await axios.delete(apiEndpoints.deleteDestination(destinationId));
+
+    return result.data;
+};
+
 export const addDestinationNewImages = async (destinationId, files) => {
     const res = await axios.put(
         apiEndpoints.addDestinationImages(destinationId),

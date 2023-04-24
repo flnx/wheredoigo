@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import styles from './Destination.module.css';
 import { SuccessButton } from '../Buttons/Success-Button/SuccessButton';
+import { WarningButton } from '../Buttons/Button-Warning/WarningButton';
 
-export const Destination = ({ destination, onClickHandler }) => {
+export const Destination = ({ destination, onClickHandler, onDeleteClickHandler }) => {
     const { _id, city, country, imageUrls } = destination;
 
     return (
@@ -24,6 +25,9 @@ export const Destination = ({ destination, onClickHandler }) => {
                     <SuccessButton onClickHandler={() => onClickHandler(_id)}>
                         Edit
                     </SuccessButton>
+                    <WarningButton onClickHandler={() => onDeleteClickHandler(_id)}>
+                        Delete
+                    </WarningButton>
                 </div>
             </section>
         </div>

@@ -14,5 +14,6 @@ export const apiEndpoints = {
     requestEditDestinationPermissions: (id) => `destinations/${id}/request-edit-permissions`,
     editDestinationDetails: (id) => `destinations/${id}/edit-destination-field`,
     deleteDestinationImage: (id) => `destinations/${id}/delete-image`,
+    deleteDestination: (id) => `destinations/${id}/delete`,
     addDestinationImages: (id) => `destinations/${id}/add-images`
 }
