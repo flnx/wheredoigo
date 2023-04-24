@@ -6,11 +6,7 @@ const Destination = require('../models/destinationSchema');
 const Place = require('../models/placeSchema');
 const Comment = require('../models/commentSchema');
 
-const {
-    isObject,
-    fixInvalidFolderNameChars,
-    extractCloudinaryFolderName,
-} = require('../utils/utils');
+const { isObject, extractCloudinaryFolderName } = require('../utils/utils');
 const validator = require('validator');
 
 const { fetchCity, fetchCountry } = require('../service/data');
@@ -120,13 +116,29 @@ async function getCreatorDestinations(ownerId) {
     return destinations;
 }
 
+async function getDestinationEditDetails(destinationId, userId) {
+    const destination = await getDestinationAndCheckOwnership(destinationId, userId);
+
+    const imgsWithoutPublicId = destination.imageUrls.map(
+        ({ public_id, ...rest }) => ({ ...rest })
+    );
+
+    return {
+        ...destination,
+        imageUrls: imgsWithoutPublicId,
+    };
+}
+
 async function getDestinationAndCheckOwnership(destinationId, userId) {
     const destination = await Destination.findOne({
         $or: [
             { _id: isValid(destinationId) ? destinationId : null },
             { city: destinationId },
         ],
-    }).populate('country').lean().exec();
+    })
+        .populate('country')
+        .lean()
+        .exec();
 
     if (!destination) {
         throw createValidationError(errorMessages.invalidDestination, 400);
@@ -410,4 +422,5 @@ module.exports = {
     deleteDestinationImage,
     addDestinationNewImages,
     deleteDestination,
+    getDestinationEditDetails,
 };

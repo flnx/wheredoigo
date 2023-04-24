@@ -58,11 +58,16 @@ async function getPlaceById(placeId, user) {
 async function getDestinationPlaces(destinationId) {
     const places = await Place.find({
         $or: [
-            { _id: isValid(destinationId) ? destinationId : null },
+            { destinationId: isValid(destinationId) ? destinationId : null },
             { city: destinationId },
         ],
     })
-        .select({ name: 1, city: 1, type: 1, imageUrls: { $slice: 1 } })
+        .select({
+            name: 1,
+            city: 1,
+            type: 1,
+            imageUrl: { $arrayElemAt: ['$imageUrls.imageUrl', 0] },
+        })
         .lean()
         .exec();
 

@@ -3,11 +3,11 @@ const {
     create,
     getById,
     getCreatorDestinations,
-    getDestinationAndCheckOwnership,
     editDestinationField,
     deleteDestinationImage,
     addDestinationNewImages,
     deleteDestination,
+    getDestinationEditDetails,
 } = require('../services/destinationService');
 
 const { getDestinationPlaces } = require('../services/placeService');
@@ -83,7 +83,7 @@ const request_edit_permissions = async (req, res) => {
         const { ownerId } = req.user;
 
         const promises = [
-            getDestinationAndCheckOwnership(city, ownerId),
+            getDestinationEditDetails(city, ownerId),
             getDestinationPlaces(city),
         ];
 

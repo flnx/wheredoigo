@@ -1,11 +1,11 @@
-import { memo } from "react"
+import { memo } from 'react';
+import { Place } from '../../../../components/Place/Place';
 
-const Places = (places) => {
-    console.log(places);
+const Places = ({ places, destinationId }) => {
 
-  return (
-    <div>Hello Places World</div>
-  )
-}
+    return (
+        places.map(place => <Place place={place} />)
+    )
+};
 
 export const MemoizedPlaces = memo(Places);

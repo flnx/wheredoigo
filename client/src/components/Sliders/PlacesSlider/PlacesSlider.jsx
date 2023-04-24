@@ -14,7 +14,7 @@ export const PlacesSlider = ({ places }) => {
                         <SwiperSlide className={styles.sliderItem} key={place._id}>
                             <Link to={`/places/${place._id}`}>
                                 <img
-                                    src={place.imageUrls[0].imageUrl}
+                                    src={place.imageUrl}
                                     alt={place.place}
                                     className={styles.image}
                                 />

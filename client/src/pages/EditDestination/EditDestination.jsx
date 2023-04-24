@@ -6,7 +6,7 @@ import { useRequestEditDestinationPermissions } from '../../hooks/queries/useReq
 import { DetailsInputs } from './components/DetailsInputsFields/DetailsInputsFields';
 import { MemoizedTextarea } from './components/Textarea/Textarea';
 import { MemoizedEditImages } from './components/EditImages/EditImages';
-import { MemoizedPlaces } from './components/Places/places';
+import { MemoizedPlaces } from './components/Places/Places';
 
 import styles from './EditDestination.module.css';
 const URL_DASHBOARD = '/dashboard/destinations-created-by-user';
