@@ -6,8 +6,11 @@ import { Place } from '../../../../components/Place/Place';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 
 import styles from './Places.module.css';
+import { useDeletePlace } from '../../../../hooks/queries/useDeletePlace';
 
 const Places = ({ placesData, destinationId }) => {
+    const [deletePlace, error, IsLoading] = useDeletePlace(destinationId);
+
     const [places, setPlace] = useState(placesData);
     const [openModal, setOpenModal] = useState(false);
     const [placeToDelete, setPlaceToDelete] = useState(null);

@@ -15,5 +15,6 @@ export const apiEndpoints = {
     editDestinationDetails: (id) => `destinations/${id}/edit-destination-field`,
     deleteDestinationImage: (id) => `destinations/${id}/delete-image`,
     deleteDestination: (id) => `destinations/${id}/delete`,
-    addDestinationImages: (id) => `destinations/${id}/add-images`
+    addDestinationImages: (id) => `destinations/${id}/add-images`,
+    deletePlace: (id) => `places/${id}/delete`
 }
