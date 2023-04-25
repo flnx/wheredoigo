@@ -10,7 +10,11 @@ const { isObject, extractCloudinaryFolderName } = require('../utils/utils');
 const validator = require('validator');
 
 const { fetchCity, fetchCountry } = require('../service/data');
-const { addImages, deleteImage, deleteMultipleImages } = require('../utils/cloudinaryUploader');
+const {
+    addImages,
+    deleteImage,
+    deleteMultipleImages,
+} = require('../utils/cloudinaryUploader');
 const { createValidationError } = require('../utils/createValidationError');
 const { validateFields } = require('../utils/validateFields');
 const { errorMessages } = require('../constants/errorMessages');
@@ -231,7 +235,7 @@ async function addDestinationNewImages(destinationId, userId, imgFiles) {
 }
 
 async function deleteDestinationImage(destinationId, userId, imgId) {
-    if (!isValid(imgId)) {
+    if (!imgId || !isValid(imgId)) {
         throw createValidationError(errorMessages.invalidImageId, 400);
     }
 
@@ -246,7 +250,9 @@ async function deleteDestinationImage(destinationId, userId, imgId) {
     const result = await Destination.updateOne(
         { _id: destinationId },
         { $pull: { imageUrls: { _id: imgId } } }
-    ).lean().exec();
+    )
+        .lean()
+        .exec();
 
     let cloudinary_error = null;
 
@@ -349,7 +355,8 @@ async function editDestinationField(destinationId, userId, updatedFieldData) {
         return result;
     }
 
-    if (!isValid(infoId) || !isValid(categoryId)) {
+    if (!infoId || !categoryId || !isValid(infoId) || !isValid(categoryId)) {
+          // if either infoId or categoryId is missing or not a valid ObjectId, throw a validation error
         throw createValidationError(errorMessages.invalidBody, 400);
     }
 

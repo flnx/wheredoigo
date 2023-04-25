@@ -15,7 +15,7 @@ const auth = async (req, res, next) => {
             const { ownerId } = decodedToken;
 
             if (!ownerId || !isValid(ownerId)) {
-                return res.status(401).json({ message: `User ${errorMessages.notFound}` });
+                return res.status(404).json({ message: `User ${errorMessages.notFound}` });
             }
 
             req.user = decodedToken;

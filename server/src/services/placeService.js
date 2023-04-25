@@ -192,7 +192,7 @@ async function deletePlace(placeId, userId) {
 }
 
 async function deleteCommentFromPlace(placeId, commentId, ownerId) {
-    if (!isValid(commentId)) {
+    if (!commentId || !isValid(commentId)) {
         throw createValidationError(`Place ${errorMessages.notFound}`, 404);
     }
 

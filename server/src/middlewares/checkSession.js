@@ -1,4 +1,5 @@
 const jwt = require('../lib/jsonwebtoken');
+const { errorMessages } = require('../constants/errorMessages');
 const { isValid } = require('mongoose').Types.ObjectId;
 
 require('dotenv').config();
@@ -14,12 +15,12 @@ async function checkSession(req, res, next) {
             const { ownerId } = decodedToken;
 
             if (!ownerId || !isValid(ownerId)) {
-                return res.status(401).json({ message: 'User Not Found' });
+                return res.status(401).json({ message: errorMessages.unauthorized });
             }
 
             req.user = decodedToken;
         } catch (err) {
-            return res.status(401).json({ message: 'Invalid authorization token' });
+            return res.status(401).json({ message: errorMessages.unauthorized });
         }
     }
 
