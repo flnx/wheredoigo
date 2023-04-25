@@ -13,10 +13,9 @@ const URL_DASHBOARD = '/dashboard/destinations-created-by-user';
 
 export const EditDestination = () => {
     const searchParams = new URLSearchParams(location.search);
+    const queryParam = searchParams?.get('id')?.toLowerCase();
 
-    const { data, error, isLoading } = useRequestEditDestinationPermissions(
-        searchParams.get('id')
-    );
+    const { data, error, isLoading } = useRequestEditDestinationPermissions(queryParam);
     const navigate = useNavigate();
     const [isEditable, setIsEditable] = useState({});
 
@@ -84,7 +83,11 @@ export const EditDestination = () => {
                             destinationId={data?._id}
                         />
                     </div>
-                    <MemoizedPlaces placesData={data?.places} destinationId={data?._id} />
+                    <MemoizedPlaces
+                        placesData={data?.places}
+                        destinationId={data?._id}
+                        queryParam={queryParam}
+                    />
                 </>
             )}
         </div>

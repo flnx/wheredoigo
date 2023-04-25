@@ -1,16 +1,16 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteDestination } from '../../service/data/destinations';
 import { queryEndpoints } from '../../constants/reactQueryEndpoints';
+import { deletePlace } from '../../service/data/places';
 
-export const useDeletePlace = (destinationId) => {
+export const useDeletePlace = (destinationId, queryParam) => {
     const queryClient = useQueryClient();
 
     const { mutate, error, isLoading } = useMutation({
-        mutationFn: (destinationId) => deleteDestination(destinationId),
-        onSuccess: () => {
-            queryClient.invalidateQueries([queryEndpoints.place, destinationId]);
+        mutationFn: (placeId) => deletePlace(placeId),
+        onSuccess: (placeId) => {
+            queryClient.invalidateQueries([queryEndpoints.place, placeId]);
             queryClient.invalidateQueries([queryEndpoints.destination, destinationId]);
-            queryClient.invalidateQueries([queryEndpoints.destPermissions, destinationId]);
+            queryClient.invalidateQueries([queryEndpoints.destPermissions, queryParam]);
         },
     });
 

@@ -27,6 +27,7 @@ const EditImages = ({ imagesData, destinationId }) => {
 
     const handleConfirmDelete = () => {
         const imgId = images[imgIndexToDelete]._id;
+        
         deleteImage(
             { imgId },
             {
