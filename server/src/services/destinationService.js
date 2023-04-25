@@ -282,7 +282,7 @@ async function deleteDestination(destinationId, userId) {
     ]);
 
     if (!destination) {
-        throw createValidationError(errorMessages.invalidDestination, 400);
+        throw createValidationError(errorMessages.notFound, 404);
     }
 
     if (!destination.ownerId.equals(userId)) {

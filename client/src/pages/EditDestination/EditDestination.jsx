@@ -20,7 +20,7 @@ export const EditDestination = () => {
     const [isEditable, setIsEditable] = useState({});
 
     useEffect(() => {
-        if (!searchParams.get('id') || error) {
+        if (!queryParam || error) {
             navigate(URL_DASHBOARD, { replace: true });
         }
     }, [searchParams, error]);

@@ -101,8 +101,8 @@ const edit_destination_field = async (req, res) => {
         const { id } = req.params;
         const { ownerId } = req.user;
         const updatedFieldData = req.body;
-
         const result = await editDestinationField(id, ownerId, updatedFieldData);
+
         res.json(result);
     } catch (err) {
         res.status(err.status || 500).json(handleErrors(err));
@@ -113,8 +113,8 @@ const delete_destination = async (req, res) => {
     try {
         const { id } = req.params; // destination id
         const { ownerId } = req.user;
-
         const result = await deleteDestination(id, ownerId);
+
         res.json(result);
     } catch (err) {
         res.status(err.status || 500).json(handleErrors(err));
@@ -126,11 +126,10 @@ const delete_destination_image = async (req, res) => {
         const { id } = req.params; // destination id
         const { ownerId } = req.user;
         const { imgId } = req.body;
-
         const result = await deleteDestinationImage(id, ownerId, imgId);
+
         res.json(result);
     } catch (err) {
-        console.log(err);
         res.status(err.status || 500).json(handleErrors(err));
     }
 };
@@ -140,8 +139,8 @@ const add_destination_new_images = async (req, res) => {
         const { id } = req.params; // destination id
         const { ownerId } = req.user;
         const images = req.files;
-
         const result = await addDestinationNewImages(id, ownerId, images);
+        
         res.json(result);
     } catch (err) {
         res.status(err.status || 500).json(handleErrors(err));

@@ -73,6 +73,10 @@ function uploadImageToCloudinary(imageBuffer, options = {}) {
 }
 
 async function deleteMultipleImages(public_ids, folderNames) {
+    if (!Array.isArray(public_ids) || !Array.isArray(folderNames)) {
+        throw createValidationError(errorMessages.cloudinaryValidation, 400)
+    }
+
     try {
         const promises_ids = public_ids.map((x) => deleteImage(x));
         await Promise.all(promises_ids);

@@ -5,13 +5,14 @@ const Place = require('../models/placeSchema');
 const Comment = require('../models/commentSchema');
 const User = require('../models/userSchema');
 
-const { addImages } = require('../utils/cloudinaryUploader');
+const { addImages, deleteMultipleImages } = require('../utils/cloudinaryUploader');
 const { validateFields } = require('../utils/validateFields');
 const { getDestinationAndCheckOwnership } = require('./destinationService');
 const { validateObjectId } = require('../utils/validateObjectId');
 const { createValidationError } = require('../utils/createValidationError');
 const { errorMessages } = require('../constants/errorMessages');
 const capitalizeEachWord = require('../utils/capitalizeWords');
+const { extractCloudinaryFolderName } = require('../utils/utils');
 
 async function getPlaceById(placeId, user) {
     const place = await Place.findById(placeId)
@@ -164,6 +165,36 @@ async function addCommentToPlace(placeId, title, content, ownerId) {
     };
 }
 
+async function deletePlace(placeId, userId) {
+    const place = await Place.findById(placeId).lean().exec();
+
+    if (!place) {
+        throw createValidationError(errorMessages.notFound, 404);
+    }
+
+    if (!place.ownerId.equals(userId)) {
+        throw createValidationError(errorMessages.accessDenied, 403);
+    }
+
+    const comments_ids = place.comments.map((c) => c.toString());
+
+    // get correct cloudinary folder name
+    const path = 'places';
+    let { name } = place;
+    const folderName = extractCloudinaryFolderName(path, name, placeId);
+
+    // extract all cloudinary public ids for the specific place
+    const image_ids = place.imageUrls.map(({ public_id, ...rest }) => public_id);
+
+    await Promise.all([
+        Place.findByIdAndDelete(placeId),
+        Comment.deleteMany({ _id: { $in: comments_ids } }),
+        deleteMultipleImages(image_ids, [folderName]),
+    ]);
+
+    return true;
+}
+
 async function deleteCommentFromPlace(placeId, commentId, ownerId) {
     if (!commentId || !isValid(commentId)) {
         throw createValidationError(`Place ${errorMessages.invalidCommentId}`, 400);
@@ -216,4 +247,5 @@ module.exports = {
     getDestinationPlaces,
     addCommentToPlace,
     deleteCommentFromPlace,
+    deletePlace
 };
