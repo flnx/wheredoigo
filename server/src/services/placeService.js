@@ -57,12 +57,7 @@ async function getPlaceById(placeId, user) {
 }
 
 async function getDestinationPlaces(destinationId) {
-    const places = await Place.find({
-        $or: [
-            { destinationId: isValid(destinationId) ? destinationId : null },
-            { city: destinationId },
-        ],
-    })
+    const places = await Place.find({ destinationId })
         .select({
             name: 1,
             city: 1,
@@ -125,7 +120,7 @@ async function addCommentToPlace(placeId, title, content, ownerId) {
     const user = await User.findById(ownerId).select('username avatarUrl').exec();
 
     if (!user) {
-        throw createValidationError(errorMessages.accessDenied, 401);
+        throw createValidationError(errorMessages.notFound, 404);
     }
 
     const place = await Place.findById(placeId).select('comments').exec();
@@ -187,7 +182,7 @@ async function deletePlace(placeId, userId) {
     const image_ids = place.imageUrls.map(({ public_id, ...rest }) => public_id);
 
     await Place.findByIdAndDelete(placeId);
-    
+
     await Promise.allSettled([
         Comment.deleteMany({ _id: { $in: comments_ids } }),
         deleteMultipleImages(image_ids, [folderName]),
@@ -197,8 +192,8 @@ async function deletePlace(placeId, userId) {
 }
 
 async function deleteCommentFromPlace(placeId, commentId, ownerId) {
-    if (!commentId || !isValid(commentId)) {
-        throw createValidationError(`Place ${errorMessages.invalidCommentId}`, 400);
+    if (!isValid(commentId)) {
+        throw createValidationError(`Place ${errorMessages.notFound}`, 404);
     }
 
     const session = await mongoose.startSession();

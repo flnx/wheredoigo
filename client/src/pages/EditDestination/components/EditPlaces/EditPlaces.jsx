@@ -10,8 +10,8 @@ import styles from './Places.module.css';
 import { SecondaryButton } from '../../../../components/Buttons/Secondary-Btn/SecondaryButton';
 import { useNavigate } from 'react-router-dom';
 
-const EditPlaces = ({ placesData, destinationId, queryParam }) => {
-    const [deletePlace, error, isLoading] = useDeletePlace(destinationId, queryParam);
+const EditPlaces = ({ placesData, destinationId }) => {
+    const [deletePlace, error, isLoading] = useDeletePlace(destinationId);
     const [places, setPlace] = useState(placesData);
     const [openModal, setOpenModal] = useState(false);
     const [placeToDelete, setPlaceToDelete] = useState(null);
@@ -43,6 +43,10 @@ const EditPlaces = ({ placesData, destinationId, queryParam }) => {
         navigate(`/destinations/${destinationId}/add-place`);
     };
 
+    const onEditClickHandler = (placeId) => {
+        navigate(`/places/${placeId}/edit`);
+    };
+
     const hasPlaces = places.length != 0;
 
     return (
@@ -57,6 +61,7 @@ const EditPlaces = ({ placesData, destinationId, queryParam }) => {
                         place={place}
                         key={place._id}
                         onDeleteClickHandler={onDeleteClickOpenConfirmModalHandler}
+                        onClickHandler={onEditClickHandler}
                     />
                 ))}
             </div>

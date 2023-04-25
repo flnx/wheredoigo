@@ -6,8 +6,9 @@ export const ImagesPreviewer = ({ images = [], handleDeleteImage }) => {
     return (
         <div className={styles.imagesWrapper}>
             {images.map((img, i) => (
-                <div key={i} 
-                    className={styles.imgContainer} 
+                <div
+                    key={i}
+                    className={styles.imgContainer}
                     onClick={() => handleDeleteImage(i)}
                 >
                     <img src={extractUrl(img)} alt={`image preview ${i}`} />

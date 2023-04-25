@@ -98,7 +98,7 @@ const updateUserAvatar = async (image, jwtToken) => {
     const user = await User.findById(jwtToken.ownerId).exec();
 
     if (!user) {
-        throw createValidationError(errorMessages.accessDenied, 401);
+        throw createValidationError(errorMessages.notFound, 404);
     }
 
     if (!image) {
@@ -113,7 +113,7 @@ const updateUserAvatar = async (image, jwtToken) => {
     const [imageData, _] = await Promise.allSettled(promises);
 
     if (imageData.status !== 'fulfilled') {
-        throw createValidationError(errorMessages.uploadError ,500)
+        throw createValidationError(errorMessages.uploadError, 500)
     }
 
     const { url, public_id } = imageData.value[0];

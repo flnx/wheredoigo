@@ -42,8 +42,7 @@ export const NewImagesUploader = ({ currentImagesHandler, destinationId }) => {
         <div className={styles['newly-uploaded-images']}>
             {error && (
                 <span className={styles.uploadError}>
-                    'You have uploaded too many images. Please limit your upload to 20 images
-                    or less.'
+                    'You have uploaded too many images. Please limit your upload to 20 images or less.'
                 </span>
             )}
 

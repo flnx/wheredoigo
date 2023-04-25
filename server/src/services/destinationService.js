@@ -10,15 +10,12 @@ const { isObject, extractCloudinaryFolderName } = require('../utils/utils');
 const validator = require('validator');
 
 const { fetchCity, fetchCountry } = require('../service/data');
-const {
-    addImages,
-    deleteImage,
-    deleteMultipleImages,
-} = require('../utils/cloudinaryUploader');
+const { addImages, deleteImage, deleteMultipleImages } = require('../utils/cloudinaryUploader');
 const { createValidationError } = require('../utils/createValidationError');
 const { validateFields } = require('../utils/validateFields');
 const { errorMessages } = require('../constants/errorMessages');
 const capitalizeEachWord = require('../utils/capitalizeWords');
+
 require('dotenv').config();
 
 async function getByPage(page, limit, searchParams) {
@@ -130,18 +127,13 @@ async function getDestinationEditDetails(destinationId, userId) {
 }
 
 async function getDestinationAndCheckOwnership(destinationId, userId) {
-    const destination = await Destination.findOne({
-        $or: [
-            { _id: isValid(destinationId) ? destinationId : null },
-            { city: destinationId },
-        ],
-    })
+    const destination = await Destination.findById(destinationId)
         .populate('country')
         .lean()
         .exec();
 
     if (!destination) {
-        throw createValidationError(errorMessages.invalidDestination, 400);
+        throw createValidationError(errorMessages.notFound, 404);
     }
 
     const { ownerId, ...destinationWithoutOwnerId } = destination;
@@ -168,7 +160,7 @@ async function create(data, images, user) {
     const cityData = await fetchCity(data.city);
 
     if (!Array.isArray(cityData) || !cityData[0].name) {
-        throw createValidationError(errorMessages.invalidCity, 400);
+        throw createValidationError(errorMessages.notFound, 404);
     }
 
     const countryData = await fetchCountry(cityData[0].country);
@@ -374,7 +366,7 @@ async function editDestinationField(destinationId, userId, updatedFieldData) {
             .exec();
 
         if (!result) {
-            throw createValidationError(errorMessages.invalidDestination, 400);
+            throw createValidationError(errorMessages.notFound, 404);
         }
 
         return result;
@@ -398,7 +390,7 @@ async function editDestinationField(destinationId, userId, updatedFieldData) {
             .exec();
 
         if (!result) {
-            throw createValidationError(errorMessages.invalidDestination, 400);
+            throw createValidationError(errorMessages.notFound, 404);
         }
 
         return result;

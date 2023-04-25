@@ -19,6 +19,7 @@ import { DetailsModal } from './components/DetailsModal/DetailsModal';
 import { PlaceDetails } from './pages/PlaceDetails/PlaceDetails';
 import { AddPlace } from './pages/AddPlace/AddPlace';
 import { EditDestination } from './pages/EditDestination/EditDestination';
+import { EditPlace } from './pages/EditPlace/EditPlace';
 
 function App() {
     return (
@@ -34,19 +35,14 @@ function App() {
                                 </Route>
                                 <Route element={<ProtectedRoute />}>
                                     <Route path="/dashboard/*" element={<UserDashboardRoutes />} />
-                                    <Route path="/destinations/edit" element={<EditDestination />}/>
+                                    <Route path="/destinations/:destinationId/edit" element={<EditDestination />}/>
+                                    <Route path="/places/:placeId/edit" element={<EditPlace />}/>
+                                    <Route path="/destinations/:destinationId/add-place" element={<AddPlace />} />
                                 </Route>
                                 <Route path="/discover" element={<Discover />} />
-                                <Route
-                                    path="/destinations/:destinationId"
-                                    element={<DestinationDetails />}
-                                >
+                                <Route path="/destinations/:destinationId" element={<DestinationDetails />}>
                                     <Route path="info" element={<DetailsModal />} />
                                 </Route>
-                                <Route
-                                    path="/destinations/:destinationId/add-place"
-                                    element={<AddPlace />}
-                                />
                                 <Route path="/places/:placeId" element={<PlaceDetails />} />
                                 <Route path="*" element={<p>404 Not Found</p>} />
                             </Routes>

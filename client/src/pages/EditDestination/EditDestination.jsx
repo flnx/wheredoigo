@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useCallback, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useRequestEditDestinationPermissions } from '../../hooks/queries/useRequestEditDestinationPermissions';
 
 // Components
@@ -9,21 +9,11 @@ import { MemoizedEditImages } from './components/EditImages/EditImages';
 import { MemoizedEditPlaces } from './components/EditPlaces/EditPlaces';
 
 import styles from './EditDestination.module.css';
-const URL_DASHBOARD = '/dashboard/destinations-created-by-user';
 
 export const EditDestination = () => {
-    const searchParams = new URLSearchParams(location.search);
-    const queryParam = searchParams?.get('id')?.toLowerCase();
-
-    const { data, error, isLoading } = useRequestEditDestinationPermissions(queryParam);
-    const navigate = useNavigate();
+    const { destinationId } = useParams();
+    const { data, error, isLoading } = useRequestEditDestinationPermissions(destinationId);
     const [isEditable, setIsEditable] = useState({});
-
-    useEffect(() => {
-        if (!queryParam || error) {
-            navigate(URL_DASHBOARD, { replace: true });
-        }
-    }, [searchParams, error]);
 
     const onEditClickHandler = useCallback((clickedId) => {
         // enables/disables the form fields
@@ -41,6 +31,10 @@ export const EditDestination = () => {
     }, []);
 
     const description = 'Description';
+
+    if (error) {
+        return (<h1>404 Not Found :(</h1>)
+    }
 
     return (
         <div className="container">
@@ -86,7 +80,6 @@ export const EditDestination = () => {
                     <MemoizedEditPlaces
                         placesData={data?.places}
                         destinationId={data?._id}
-                        queryParam={queryParam}
                     />
                 </>
             )}

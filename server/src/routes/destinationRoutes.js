@@ -24,13 +24,16 @@ const router = express.Router();
 
 router.get('/destinations', paginated_destinations);
 router.get('/destinations/created-by-user', auth, get_creator_destinations);
-router.get('/destinations/:city/request-edit-permissions', auth, request_edit_permissions);
+router.get('/destinations/:id/request-edit-permissions', validateMongoId, auth, request_edit_permissions);
 router.get('/destinations/:id', validateMongoId, checkSession, destination_details);
+
 router.post('/destinations', auth, upload, add_new_destination);
 router.post('/destinations/get-city-data', auth, get_city_data);
+
 router.put('/destinations/:id/edit-destination-field', validateMongoId, auth, edit_destination_field);
 router.put('/destinations/:id/delete-image', validateMongoId, auth, delete_destination_image);
 router.put('/destinations/:id/add-images', validateMongoId, auth, upload, add_destination_new_images);
+
 router.delete('/destinations/:id/delete', validateMongoId, auth, delete_destination);
 
 module.exports = router;

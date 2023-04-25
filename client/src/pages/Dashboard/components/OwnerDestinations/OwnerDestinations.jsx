@@ -41,17 +41,18 @@ export const OwnerDestinations = () => {
 
     const onDeleteConfirmHandler = () => {
         deleteDestination(destinationToDelete, {
-            onSuccess: (result) => {
+            onSuccess: () => {
                 setOpenConfirmModal(false);
             }, 
-            onError: (err) => {
+            
+            onError: () => {
                 setOpenConfirmModal(false);
             }
         });
     };
 
-    const onEditHandler = (destinationId, city) => {
-        navigate(`/destinations/edit?id=${city}`);
+    const onEditHandler = (destinationId) => {
+        navigate(`/destinations/${destinationId}/edit`);
     };
 
     return (

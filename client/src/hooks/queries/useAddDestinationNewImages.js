@@ -8,8 +8,8 @@ export const useAddDestinationNewImages = (destinationId) => {
     const { mutate, error, isLoading } = useMutation({
         mutationFn: (files) => addDestinationNewImages(destinationId, files),
         onSuccess: () => {
-            queryClient.invalidateQueries([queryEndpoints.destinations]);
             queryClient.invalidateQueries([queryEndpoints.destination, destinationId]);
+            queryClient.invalidateQueries([queryEndpoints.destinations]);
             queryClient.invalidateQueries([queryEndpoints.creatorDestinations]);
         },
     });

@@ -8,11 +8,7 @@ export const useEditDestinationDetails = (destinationId) => {
     const { mutate, error, isLoading } = useMutation({
         mutationFn: (data) => editDestinationDetails(data),
         onSuccess: () => {
-            queryClient.invalidateQueries([
-                queryEndpoints.destination,
-                destinationId,
-            ]);
-
+            queryClient.invalidateQueries([queryEndpoints.destination, destinationId]);
             queryClient.invalidateQueries([queryEndpoints.creatorDestinations]);
         },
     });
