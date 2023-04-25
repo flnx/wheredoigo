@@ -1,5 +1,11 @@
 const express = require('express');
 
+// Middlewares
+const validateMongoId = require('../middlewares/validateMongoId');
+const { auth } = require('../middlewares/auth');
+const { upload } = require('../middlewares/images');
+const { checkSession } = require('../middlewares/checkSession');
+
 // Controllers
 const {
     paginated_destinations,
@@ -13,12 +19,6 @@ const {
     add_destination_new_images,
     delete_destination,
 } = require('../controllers/destinationController');
-
-// Middlewares
-const validateMongoId = require('../middlewares/validateMongoId');
-const { auth } = require('../middlewares/auth');
-const { upload } = require('../middlewares/images');
-const { checkSession } = require('../middlewares/checkSession');
 
 const router = express.Router();
 

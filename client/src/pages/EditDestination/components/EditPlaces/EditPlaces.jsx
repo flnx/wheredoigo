@@ -8,12 +8,14 @@ import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 
 import styles from './Places.module.css';
 import { SecondaryButton } from '../../../../components/Buttons/Secondary-Btn/SecondaryButton';
+import { useNavigate } from 'react-router-dom';
 
 const EditPlaces = ({ placesData, destinationId, queryParam }) => {
     const [deletePlace, error, isLoading] = useDeletePlace(destinationId, queryParam);
     const [places, setPlace] = useState(placesData);
     const [openModal, setOpenModal] = useState(false);
     const [placeToDelete, setPlaceToDelete] = useState(null);
+    const navigate = useNavigate();
 
     const onConfirmDeleteClickHandler = () => {
         deletePlace(placeToDelete, {
@@ -38,7 +40,7 @@ const EditPlaces = ({ placesData, destinationId, queryParam }) => {
     };
 
     const onAddPlaceClickHandler = () => {
-        console.log('hi');
+        navigate(`/destinations/${destinationId}/add-place`);
     };
 
     const hasPlaces = places.length != 0;
@@ -59,9 +61,7 @@ const EditPlaces = ({ placesData, destinationId, queryParam }) => {
                 ))}
             </div>
 
-            <SecondaryButton clickHandler={onAddPlaceClickHandler}>
-                Add Places
-            </SecondaryButton>
+            <SecondaryButton clickHandler={onAddPlaceClickHandler}>Add Places</SecondaryButton>
 
             {openModal && (
                 <ConfirmModal
