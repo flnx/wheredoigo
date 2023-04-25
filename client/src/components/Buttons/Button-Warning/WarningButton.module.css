@@ -8,7 +8,6 @@
     transition: background-color 0.15s ease;
 }
 
-.warning-button:hover,
-.warning-button:focus {
+.warning-button:hover {
     background-color: var(--error-message);
 }

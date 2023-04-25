@@ -251,28 +251,21 @@ async function deleteDestinationImage(destinationId, userId, imgId) {
         throw createValidationError(errorMessages.invalidImageId, 400);
     }
 
-    const session = await mongoose.startSession();
-    session.startTransaction();
+    const result = await Destination.updateOne(
+        { _id: destinationId },
+        { $pull: { imageUrls: { _id: imgId } } }
+    ).lean().exec();
+
+    let cloudinary_error = null;
 
     try {
-        const result = await Destination.updateOne(
-            { _id: destinationId },
-            { $pull: { imageUrls: { _id: imgId } } },
-            { session }
-        )
-            .lean()
-            .exec();
-
         await deleteImage(imageData.public_id);
-        await session.commitTransaction();
-
-        return result;
-    } catch (error) {
-        await session.abortTransaction();
-        throw error;
-    } finally {
-        session.endSession();
+    } catch (err) {
+        cloudinary_error = err.message;
     }
+
+    result.cloud_error = cloudinary_error;
+    return result;
 }
 
 async function deleteDestination(destinationId, userId) {

@@ -7,8 +7,9 @@ import { Place } from '../../../../components/Place/Place';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 
 import styles from './Places.module.css';
+import { SecondaryButton } from '../../../../components/Buttons/Secondary-Btn/SecondaryButton';
 
-const Places = ({ placesData, destinationId, queryParam }) => {
+const EditPlaces = ({ placesData, destinationId, queryParam }) => {
     const [deletePlace, error, isLoading] = useDeletePlace(destinationId, queryParam);
     const [places, setPlace] = useState(placesData);
     const [openModal, setOpenModal] = useState(false);
@@ -19,7 +20,7 @@ const Places = ({ placesData, destinationId, queryParam }) => {
             onSuccess: () => {
                 setPlace((prevState) => {
                     const deleted_id = placeToDelete.placeId;
-                    return prevState.filter(x => x._id !== deleted_id);
+                    return prevState.filter((x) => x._id !== deleted_id);
                 });
                 setOpenModal(false);
             },
@@ -36,9 +37,17 @@ const Places = ({ placesData, destinationId, queryParam }) => {
         setPlaceToDelete(null);
     };
 
+    const onAddPlaceClickHandler = () => {
+        console.log('hi');
+    };
+
+    const hasPlaces = places.length != 0;
+
     return (
-        <section>
+        <section className={styles.section}>
             <h2 className={styles.sectionTitle}>Places</h2>
+
+            {!hasPlaces && <p>No places have been added yet.</p>}
 
             <div className={styles['places-container']}>
                 {places.map((place) => (
@@ -49,6 +58,10 @@ const Places = ({ placesData, destinationId, queryParam }) => {
                     />
                 ))}
             </div>
+
+            <SecondaryButton clickHandler={onAddPlaceClickHandler}>
+                Add Places
+            </SecondaryButton>
 
             {openModal && (
                 <ConfirmModal
@@ -63,4 +76,4 @@ const Places = ({ placesData, destinationId, queryParam }) => {
     );
 };
 
-export const MemoizedPlaces = memo(Places);
+export const MemoizedEditPlaces = memo(EditPlaces);

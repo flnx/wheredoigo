@@ -186,8 +186,9 @@ async function deletePlace(placeId, userId) {
     // extract all cloudinary public ids for the specific place
     const image_ids = place.imageUrls.map(({ public_id, ...rest }) => public_id);
 
-    await Promise.all([
-        Place.findByIdAndDelete(placeId),
+    await Place.findByIdAndDelete(placeId);
+    
+    await Promise.allSettled([
         Comment.deleteMany({ _id: { $in: comments_ids } }),
         deleteMultipleImages(image_ids, [folderName]),
     ]);
@@ -247,5 +248,5 @@ module.exports = {
     getDestinationPlaces,
     addCommentToPlace,
     deleteCommentFromPlace,
-    deletePlace
+    deletePlace,
 };

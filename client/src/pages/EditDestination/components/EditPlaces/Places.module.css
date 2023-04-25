@@ -1,10 +1,14 @@
+.section {
+    margin-bottom: 1.5rem;
+}
+
 .places-container {
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 1rem;
 }
 
 .sectionTitle {
-    margin-bottom: 1rem;
+    margin-bottom: 0.15rem;
 }

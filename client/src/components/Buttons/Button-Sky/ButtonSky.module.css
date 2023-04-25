@@ -8,7 +8,6 @@
     transition: background-color 0.15s ease;
 }
 
-.btn-sky:hover,
-.cancel-button:focus {
+.btn-sky:hover {
     background-color: var(--sky-blue-darker);
 }

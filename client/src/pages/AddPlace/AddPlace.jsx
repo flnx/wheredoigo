@@ -1,16 +1,16 @@
 import { useReducer, useState } from 'react';
 import { useAddNewPlace } from '../../hooks/queries/useAddPlace';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useRequestCreatePlacePermissions } from '../../hooks/queries/useRequestCreatePlacePermissions';
 
 import { initialState, placeReducer } from '../../utils/placeReducer';
 import { validatePlaceData } from '../../utils/formValidators';
+import { createPlaceFormData } from '../../utils/formData';
 
 // Components
 import { UploadImagesPreview } from '../../components/UploadImagesPreview/UploadImagesPreview';
-import { createPlaceFormData } from '../../utils/formData';
 
 import styles from './AddPlace.module.css';
-import { useRequestCreatePlacePermissions } from '../../hooks/queries/useRequestCreatePlacePermissions';
 
 export const AddPlace = () => {
     const { destinationId } = useParams();

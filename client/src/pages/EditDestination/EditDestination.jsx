@@ -6,7 +6,7 @@ import { useRequestEditDestinationPermissions } from '../../hooks/queries/useReq
 import { DetailsInputs } from './components/DetailsInputsFields/DetailsInputsFields';
 import { MemoizedTextarea } from './components/Textarea/Textarea';
 import { MemoizedEditImages } from './components/EditImages/EditImages';
-import { MemoizedPlaces } from './components/Places/Places';
+import { MemoizedEditPlaces } from './components/EditPlaces/EditPlaces';
 
 import styles from './EditDestination.module.css';
 const URL_DASHBOARD = '/dashboard/destinations-created-by-user';
@@ -83,7 +83,7 @@ export const EditDestination = () => {
                             destinationId={data?._id}
                         />
                     </div>
-                    <MemoizedPlaces
+                    <MemoizedEditPlaces
                         placesData={data?.places}
                         destinationId={data?._id}
                         queryParam={queryParam}

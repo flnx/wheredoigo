@@ -8,7 +8,6 @@
     transition: background-color 0.15s ease;
 }
 
-.cancel-button:hover,
-.cancel-button:focus {
+.cancel-button:hover {
     background-color: rgb(196, 198, 198);
 }

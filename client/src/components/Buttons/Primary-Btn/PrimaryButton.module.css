@@ -9,7 +9,6 @@
     transition: all 0.19s ease-in-out;
 }
 
-.primary:hover,
-.primary:focus {
+.primary:hover {
     background-color: var(--button-hover);
 }
