@@ -8,25 +8,26 @@ import { Intro } from './Intro/Intro';
 import { Destinations } from './Destinations/Destinations';
 
 import styles from './Home.module.css';
+import { extractServerErrorMessage } from '../../utils/utils';
 
 export const Home = () => {
     const { isLoading, error, data: destinations } = useDestinations();
 
-    if (isLoading) return 'Fetching Data...';
-
-    if (error) {
-        return <h1>A Server Error has Occured... Please try again alater.</h1>
-    }
+    if (isLoading) return 'Loading...';
 
     return (
         <>
             <Showcase />
-            <div className={styles.grid}>
-                <CitiesSlider destinations={destinations} />
-                <Categories />
-                <Destinations />
-                <Intro />
-            </div>
+            {error ? (
+                <p>{extractServerErrorMessage(error)}</p>
+            ) : (
+                <div className={styles.grid}>
+                    <CitiesSlider destinations={destinations} />
+                    <Categories />
+                    <Destinations />
+                    <Intro />
+                </div>
+            )}
         </>
     );
 };

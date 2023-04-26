@@ -18,15 +18,6 @@ export const OwnerDestinations = () => {
 
     const navigate = useNavigate();
 
-    if (isLoading) {
-        return <p>Loading...</p>;
-    }
-
-    if (error) {
-        const errorMessage = extractServerErrorMessage(error);
-        return errorMessage;
-    }
-
     const openConfirmModalHandler = (destinationId) => {
         setOpenConfirmModal(true);
         setDestinationToDelete(destinationId);
@@ -41,11 +32,11 @@ export const OwnerDestinations = () => {
         deleteDestination(destinationToDelete, {
             onSuccess: () => {
                 setOpenConfirmModal(false);
-            }, 
-            
+            },
+
             onError: () => {
                 setOpenConfirmModal(false);
-            }
+            },
         });
     };
 
@@ -53,7 +44,14 @@ export const OwnerDestinations = () => {
         navigate(`/destinations/${destinationId}/edit`);
     };
 
-    return (
+    if (error) {
+        const errorMessage = extractServerErrorMessage(error);
+        return errorMessage;
+    }
+
+    return isLoading ? (
+        <h2>Loading....</h2>
+    ) : (
         <>
             <h2 className={styles.title}>Highest rated destinations:</h2>
             <div className={styles.wrapper}>
