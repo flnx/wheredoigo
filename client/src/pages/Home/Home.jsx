@@ -13,9 +13,9 @@ import { extractServerErrorMessage } from '../../utils/utils';
 export const Home = () => {
     const { isLoading, error, data: destinations } = useDestinations();
 
-    if (isLoading) return 'Loading...';
-
-    return (
+    return isLoading ? (
+        <p>Loading...</p>
+    ) : (
         <>
             <Showcase />
             {error ? (
