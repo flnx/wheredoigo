@@ -5,14 +5,14 @@ import { deleteDestinationImage } from '../../service/data/destinations';
 export const useDeleteDestinationImage = (destinationId) => {
     const queryClient = useQueryClient();
 
-    const { mutate, isLoading, isSuccess, error } = useMutation({
+    const { mutate, isLoading, error } = useMutation({
         mutationFn: (imageId) => deleteDestinationImage(destinationId, imageId),
 
         onSuccess: () => {
             queryClient.invalidateQueries([queryEndpoints.destination, destinationId]);
             queryClient.invalidateQueries([queryEndpoints.destinations]);
             queryClient.invalidateQueries([queryEndpoints.creatorDestinations]);
-            queryClient.invalidateQueries([queryEndpoints.editDestPermissions]);
+            queryClient.invalidateQueries([queryEndpoints.editDestination]);
         },
     });
 

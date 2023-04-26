@@ -11,7 +11,7 @@ export const apiEndpoints = {
     destinationById: (id) => `destinations/${id}`,
     destinationsByPage: (searchParams, skip) => `destinations?search=${searchParams}&page=${skip}`,
     requestCreatePlacePermissions: (id) => `places/${id}/add-place`,
-    requestEditDestinationPermissions: (id) => `destinations/${id}/request-edit-permissions`,
+    requestDestinationToEdit: (id) => `destinations/${id}/request-edit-permissions`,
     requestEditPlacePermissions: (id) => `places/${id}/request-edit-permissions`,
     editDestinationDetails: (id) => `destinations/${id}/edit-destination-field`,
     deleteDestinationImage: (id) => `destinations/${id}/delete-image`,

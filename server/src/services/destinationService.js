@@ -77,14 +77,15 @@ async function getById(destinationId, user) {
         throw createValidationError(errorMessages.notFound, 404);
     }
 
-    const { ownerId, country, city, imageUrls, ...destinationWithoutOwnerId } = destination;
-    
+    const { ownerId, country, city, imageUrls, ...destinationWithoutOwnerId } =
+        destination;
+
     if (user && ownerId.equals(user.ownerId)) {
         destinationWithoutOwnerId.isOwner = true;
     }
-    
+
     const updatedImgUrls = imageUrls.map(({ public_id, ...rest }) => rest);
-    
+
     return {
         ...destinationWithoutOwnerId,
         imageUrls: updatedImgUrls,
@@ -323,12 +324,10 @@ async function editDestinationField(destinationId, userId, updatedFieldData) {
     if (!isObject(updatedFieldData)) {
         throw createValidationError(errorMessages.invalidBody, 400);
     }
-    
+
     if (!Object.hasOwn(updatedFieldData, 'description')) {
         throw createValidationError(errorMessages.invalidBody, 400);
     }
-
-    await getDestinationAndCheckOwnership(destinationId, userId);
 
     const { description, infoId, categoryId } = updatedFieldData;
 
@@ -376,14 +375,14 @@ async function editDestinationField(destinationId, userId, updatedFieldData) {
             { $set: { 'details.$[det].info.$[inf].description': updatedValue } },
             {
                 arrayFilters: [{ 'det._id': categoryId }, { 'inf._id': infoId }],
-                projection: { 'details.$[det].info.$[inf].description': 1 },
-                new: true,
             }
-        )
-            .lean()
-            .exec();
+        ).lean().exec();
 
         if (!result) {
+            throw createValidationError(errorMessages.notFound, 404);
+        }
+
+        if (result.matchedCount === 0) {
             throw createValidationError(errorMessages.notFound, 404);
         }
 

@@ -2,7 +2,7 @@ export const queryEndpoints = {
     destination: 'destination',
     destinations: 'destinations',
     creatorDestinations: 'creatorDestinations',
-    editDestPermissions: 'editDestPermissions',
+    editDestination: 'editDestination',
     place: 'place',
     createPlacePermissions: 'createPlacePermissions',
     editPlacePermissions: 'editPlacePermissions',

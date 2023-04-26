@@ -22,7 +22,8 @@
     color: #333;
 }
 
-.textarea, .desc {
+.textarea,
+.desc {
     width: 100%;
     width: calc(100% - 1rem);
 }
@@ -53,7 +54,7 @@
     word-wrap: break-word;
     white-space: break-spaces;
     margin-left: 1.75rem;
-    -webkit-line-clamp: 3; 
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
 }
 

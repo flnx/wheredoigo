@@ -31,17 +31,12 @@ export const createDestination = async (destinationData) => {
 
 export const editDestinationDetails = async (updatedData) => {
     const { destinationId, ...data } = updatedData;
-
     try {
-        const res = await axios.put(
-            apiEndpoints.editDestinationDetails(destinationId),
-            data
-        );
+        await axios.put(apiEndpoints.editDestinationDetails(destinationId), data);
 
-        return res;
+        return updatedData;
     } catch (err) {
-        console.log(err);
-        return [];
+        throw new Error(updatedData);
     }
 };
 

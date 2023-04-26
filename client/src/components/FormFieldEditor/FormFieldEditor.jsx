@@ -5,9 +5,9 @@ import { memo } from 'react';
 import { ButtonSky } from '../../components/Buttons/Button-Sky/ButtonSky';
 import { CancelButton } from '../../components/Buttons/Cancel-Button/CancelButton';
 
-import styles from './FormTextareaEditor.module.css';
+import styles from './FormFieldEditor.module.css';
 
-const TextareaEditor = ({
+const FormFieldEditor = ({
     fieldId,
     title,
     desc,
@@ -83,4 +83,4 @@ const TextareaEditor = ({
     );
 };
 
-export const MemoizedFormTextareaEditor = memo(TextareaEditor);
+export const MemoizedFormFieldEditor = memo(FormFieldEditor);

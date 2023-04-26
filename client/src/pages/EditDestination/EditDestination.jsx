@@ -1,19 +1,20 @@
 import { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useRequestEditDestinationPermissions } from '../../hooks/queries/useRequestEditDestinationPermissions';
+import { useGetDestinationToEdit } from '../../hooks/queries/useGetDestinationToEdit';
 import { useEditDestinationDetails } from '../../hooks/queries/useEditDestinationDetails';
 
 // Components
 import { MemoizedEditImages } from './components/EditImages/EditImages';
 import { MemoizedEditPlaces } from './components/EditPlaces/EditPlaces';
-import { MemoizedFormTextareaEditor } from '../../components/FormTextareaEditor/FormTextAreaEditor';
+import { MemoizedFormFieldEditor } from '../../components/FormFieldEditor/FormFieldEditor';
+
 
 import styles from './EditDestination.module.css';
 import { extractServerErrorMessage } from '../../utils/utils';
 
 export const EditDestination = () => {
     const { destinationId } = useParams();
-    const [data, error, isLoading] = useRequestEditDestinationPermissions(destinationId);
+    const [data, error, isLoading] = useGetDestinationToEdit(destinationId);
     const [editDetails, editError, isEditLoading] = useEditDestinationDetails(destinationId);
 
     const [isEditable, setIsEditable] = useState({});
@@ -65,7 +66,7 @@ export const EditDestination = () => {
                         <section>
                             <h3 className={styles.sectionTitle}>Destination Info</h3>
                             <form>
-                                <MemoizedFormTextareaEditor
+                                <MemoizedFormFieldEditor
                                     fieldId={descriptionID}
                                     title={descriptionID}
                                     desc={data.description}
@@ -80,7 +81,7 @@ export const EditDestination = () => {
                                     <div className={styles.detailsWrapper} key={detail._id}>
                                         <h2 className={styles.catetegoryName}>{detail.category}</h2>
                                         {detail.info.map((x) => (
-                                            <MemoizedFormTextareaEditor
+                                            <MemoizedFormFieldEditor
                                                 fieldId={x._id}
                                                 title={x.title}
                                                 desc={x.description}
