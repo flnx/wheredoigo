@@ -1,22 +1,25 @@
 const capitalizeEachWord = require('./capitalizeWords');
 
-function handleErrors(err) {
-    if (err.name == 'ValidationError') {
-        const errors = Object.keys(err.errors).map((key) => {
-            return err.errors[key].message;
+function errorHandler(err, req, res, next) {
+    if (err.name === 'SyntaxError') {
+        res.status(400).json({ message: 'Invalid JSON payload' });
+    } else if (err.name === 'ValidationError') {
+        const errors = Object.values(err.errors).map((error) => error.message);
+        const error = errors[0];
+        res.status(400).json({ message: error });
+    } else if (err.name === 'CastError') {
+        res.status(400).json({ message: 'Invalid ID format' });
+    } else if (err.name === 'MongoError' && err.code === 11000) {
+        const key = Object.keys(err.keyValue)[0];
+        res.status(400).json({
+            message: `${capitalizeEachWord(key)} already exists`,
         });
-
-        return errors[0];
-    } else if (err.code == 11000 && 'MongoServerError') {
-        let key = Object.keys(err.keyValue)[0];
-        key = capitalizeEachWord(key);
-
-        return `${key} is already taken`;
-    } else if (err.name == 'CastError') {
-        return 'ID Not Found';
     } else {
-        return err.message;
+        res.status(err.status || 500).json({
+            message: err.message || 'Internal server error',
+            error: err,
+        });
     }
 }
 
-module.exports = handleErrors;
+module.exports = errorHandler;

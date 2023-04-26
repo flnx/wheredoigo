@@ -7,10 +7,13 @@ export const useDeletePlace = (destinationId) => {
 
     const { mutate, error, isLoading } = useMutation({
         mutationFn: (placeId) => deletePlace(placeId),
-        onSuccess: (placeId) => {
-            queryClient.invalidateQueries([queryEndpoints.place, placeId]);
+        onSuccess: (data) => {
+            const { placeId } = data;
+
             queryClient.invalidateQueries([queryEndpoints.destination, destinationId]);
-            queryClient.invalidateQueries([queryEndpoints.destPermissions, destinationId]);
+            queryClient.invalidateQueries([queryEndpoints.editDestPermissions, destinationId]);
+            queryClient.invalidateQueries([queryEndpoints.place, placeId]);
+            queryClient.invalidateQueries([queryEndpoints.editPlacePermissions, placeId]);
         },
     });
 

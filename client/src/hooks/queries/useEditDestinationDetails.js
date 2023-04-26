@@ -10,6 +10,7 @@ export const useEditDestinationDetails = (destinationId) => {
         onSuccess: () => {
             queryClient.invalidateQueries([queryEndpoints.destination, destinationId]);
             queryClient.invalidateQueries([queryEndpoints.creatorDestinations]);
+            queryClient.invalidateQueries([queryEndpoints.editDestPermissions, destinationId]);
         },
     });
 

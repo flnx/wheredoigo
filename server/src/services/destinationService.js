@@ -93,6 +93,25 @@ async function getById(destinationId, user) {
     };
 }
 
+async function getDestinationEditPermissions(destinationId, user) {
+    const destination = await Destination.findOne(
+        { _id: destinationId },
+        { ownerId: 1 }
+    )
+        .lean()
+        .exec();
+
+    if (!destination) {
+        throw createValidationError(errorMessages.notFound, 404);
+    }
+
+    if (!destination.ownerId.equals(user.ownerId)) {
+        throw createValidationError(errorMessages.accessDenied, 403);
+    }
+
+    return { confirmed: true };
+}
+
 async function getCreatorDestinations(ownerId) {
     const destinations = await Destination.find(
         { ownerId },
@@ -115,19 +134,6 @@ async function getCreatorDestinations(ownerId) {
     });
 
     return destinations;
-}
-
-async function getDestinationEditDetails(destinationId, userId) {
-    const destination = await getDestinationAndCheckOwnership(destinationId, userId);
-
-    const imgsWithoutPublicId = destination.imageUrls.map(
-        ({ public_id, ...rest }) => ({ ...rest })
-    );
-
-    return {
-        ...destination,
-        imageUrls: imgsWithoutPublicId,
-    };
 }
 
 async function getDestinationAndCheckOwnership(destinationId, userId) {
@@ -333,15 +339,15 @@ async function deleteDestination(destinationId, userId) {
 }
 
 async function editDestinationField(destinationId, userId, updatedFieldData) {
-    await getDestinationAndCheckOwnership(destinationId, userId);
-
     if (!isObject(updatedFieldData)) {
         throw createValidationError(errorMessages.invalidBody, 400);
     }
-
+    
     if (!Object.hasOwn(updatedFieldData, 'description')) {
         throw createValidationError(errorMessages.invalidBody, 400);
     }
+
+    await getDestinationAndCheckOwnership(destinationId, userId);
 
     const { description, infoId, categoryId } = updatedFieldData;
 
@@ -356,7 +362,7 @@ async function editDestinationField(destinationId, userId, updatedFieldData) {
     }
 
     if (!infoId || !categoryId || !isValid(infoId) || !isValid(categoryId)) {
-          // if either infoId or categoryId is missing or not a valid ObjectId, throw a validation error
+        // if either infoId or categoryId is missing or not a valid ObjectId, throw a validation error
         throw createValidationError(errorMessages.invalidBody, 400);
     }
 
@@ -414,5 +420,5 @@ module.exports = {
     deleteDestinationImage,
     addDestinationNewImages,
     deleteDestination,
-    getDestinationEditDetails,
+    getDestinationEditPermissions,
 };

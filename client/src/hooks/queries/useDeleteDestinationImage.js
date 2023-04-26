@@ -12,6 +12,7 @@ export const useDeleteDestinationImage = (destinationId) => {
             queryClient.invalidateQueries([queryEndpoints.destination, destinationId]);
             queryClient.invalidateQueries([queryEndpoints.destinations]);
             queryClient.invalidateQueries([queryEndpoints.creatorDestinations]);
+            queryClient.invalidateQueries([queryEndpoints.editDestPermissions]);
         },
     });
 

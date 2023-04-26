@@ -20,5 +20,8 @@ export const createPlace = async (placeData) => {
 export const deletePlace = async ({ placeId }) => {
     const res = await axios.delete(apiEndpoints.deletePlace(placeId));
 
-    return res.data;
+    return {
+        data: res.data,
+        placeId,
+    };
 };
