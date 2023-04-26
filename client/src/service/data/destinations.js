@@ -41,12 +41,9 @@ export const editDestinationDetails = async (updatedData) => {
 };
 
 export const deleteDestinationImage = async (destinationId, imageData) => {
-    const res = await axios.put(
-        apiEndpoints.deleteDestinationImage(destinationId),
-        imageData
-    );
+    await axios.put(apiEndpoints.deleteDestinationImage(destinationId), imageData);
 
-    return res.data;
+    return imageData;
 };
 
 export const deleteDestination = async (destinationId) => {
