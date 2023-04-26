@@ -65,7 +65,7 @@ export const AddDestination = () => {
     };
 
     const openedDetailsCategory = state.details.find((x) => x.category == showDetail.category);
-    const errorMessage = createError?.response?.data || createError?.message;
+    const errorMessage = createError && extractServerErrorMessage(createError);
 
     return (
         <section>

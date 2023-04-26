@@ -6,6 +6,7 @@ exports.errorMessages = {
     invalidEmail: 'Invalid Email Address',
     accessDenied: 'Access Denied!',
     notFound: 'Not Found',
+    notAddedYet: 'No destinations have been added yet 🦖',
     commentTitle: 'Title must be at least 2 characters long',
     invalidComment: 'Comment must contain at least 10 characters',
     description: 'Description must be between 10 and 5000 characters',

@@ -122,7 +122,7 @@ async function getCreatorDestinations(ownerId) {
         .exec();
 
     if (destinations.length == 0) {
-        throw createValidationError(errorMessages.notFound, 404);
+        throw createValidationError(errorMessages.notAddedYet, 404);
     }
 
     destinations.forEach((x) => {

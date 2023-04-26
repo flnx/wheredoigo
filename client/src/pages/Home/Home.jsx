@@ -16,7 +16,6 @@ export const Home = () => {
 
     if (error) {
         return <h1>A Server Error has Occured... Please try again alater.</h1>
-        // Add error handling later
     }
 
     return (

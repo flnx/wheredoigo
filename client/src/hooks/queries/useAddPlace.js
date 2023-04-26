@@ -5,7 +5,7 @@ import { createPlace } from '../../service/data/places';
 export const useAddNewPlace = (destinationId) => {
     const queryClient = useQueryClient();
 
-    const { mutate, error, isLoading } = useMutation({
+    const { mutate, isLoading } = useMutation({
         mutationFn: (data) => createPlace(data),
         onSuccess: () => {
             queryClient.invalidateQueries([queryEndpoints.destination, destinationId])
@@ -13,5 +13,5 @@ export const useAddNewPlace = (destinationId) => {
         }
     });
 
-    return [mutate, error, isLoading];
+    return [mutate, isLoading];
 };

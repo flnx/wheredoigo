@@ -8,6 +8,7 @@ import { Destination } from '../../../../components/Destination/Destination';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 
 import styles from './OwnerDestinations.module.css';
+import { extractServerErrorMessage } from '../../../../utils/utils';
 
 export const OwnerDestinations = () => {
     const { data, isLoading, error } = useCreatorDestinations();
@@ -22,11 +23,8 @@ export const OwnerDestinations = () => {
     }
 
     if (error) {
-        if (error?.response?.status === 404) {
-            return <p>You haven't added any destinations yet.</p>;
-        }
-
-        return <h1>An Error Has Occured</h1>;
+        const errorMessage = extractServerErrorMessage(error);
+        return errorMessage;
     }
 
     const openConfirmModalHandler = (destinationId) => {
