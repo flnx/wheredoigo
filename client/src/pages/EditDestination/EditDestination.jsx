@@ -9,6 +9,7 @@ import { MemoizedEditPlaces } from './components/EditPlaces/EditPlaces';
 import { MemoizedFormTextareaEditor } from '../../components/FormTextareaEditor/FormTextAreaEditor';
 
 import styles from './EditDestination.module.css';
+import { extractServerErrorMessage } from '../../utils/utils';
 
 export const EditDestination = () => {
     const { destinationId } = useParams();
@@ -47,7 +48,7 @@ export const EditDestination = () => {
     const descriptionID = 'Description';
 
     if (error) {
-        return <h1>404 Not Found 🦖</h1>;
+        return <h1>{extractServerErrorMessage(error)}</h1>;
     }
 
     return (

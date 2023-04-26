@@ -4,7 +4,7 @@ exports.errorMessages = {
     allFieldsRequired: 'All fields are required!',
     username: 'Username must be between 3-25 characters long and contain only latin letters and numbers',
     invalidEmail: 'Invalid Email Address',
-    accessDenied: 'Access Denied!',
+    accessDenied: 'Whoopsie. Something went wrong... 🦖',
     notFound: 'Not Found',
     notAddedYet: 'No destinations have been added yet 🦖',
     commentTitle: 'Title must be at least 2 characters long',

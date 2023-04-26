@@ -7,7 +7,6 @@ const {
     deleteDestinationImage,
     addDestinationNewImages,
     deleteDestination,
-    getDestinationEditDetails,
 } = require('../services/destinationService');
 
 const { getDestinationPlaces } = require('../services/placeService');
@@ -79,12 +78,9 @@ const get_creator_destinations = async (req, res, next) => {
 };
 
 const request_edit_permissions = async (req, res, next) => {
-    try {
-        const permissions = await getDestinationEditDetails(req.params, req.user);
-        res.json(permissions);
-    } catch (err) {
-        next(err);
-    }
+    const destination = req.destination;
+    
+    res.status(200).json(destination);
 };
 
 const edit_destination_field = async (req, res, next) => {

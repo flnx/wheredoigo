@@ -77,39 +77,20 @@ async function getById(destinationId, user) {
         throw createValidationError(errorMessages.notFound, 404);
     }
 
-    const { ownerId, country, city, imageUrls, ...destinationWithoutOwnerId } =
-        destination;
-    const updatedImgUrls = imageUrls.map(({ public_id, ...rest }) => rest);
-
+    const { ownerId, country, city, imageUrls, ...destinationWithoutOwnerId } = destination;
+    
     if (user && ownerId.equals(user.ownerId)) {
         destinationWithoutOwnerId.isOwner = true;
     }
-
+    
+    const updatedImgUrls = imageUrls.map(({ public_id, ...rest }) => rest);
+    
     return {
         ...destinationWithoutOwnerId,
         imageUrls: updatedImgUrls,
         country: capitalizeEachWord(country.name),
         city: capitalizeEachWord(city),
     };
-}
-
-async function getDestinationEditPermissions(destinationId, user) {
-    const destination = await Destination.findOne(
-        { _id: destinationId },
-        { ownerId: 1 }
-    )
-        .lean()
-        .exec();
-
-    if (!destination) {
-        throw createValidationError(errorMessages.notFound, 404);
-    }
-
-    if (!destination.ownerId.equals(user.ownerId)) {
-        throw createValidationError(errorMessages.accessDenied, 403);
-    }
-
-    return { confirmed: true };
 }
 
 async function getCreatorDestinations(ownerId) {
@@ -420,5 +401,4 @@ module.exports = {
     deleteDestinationImage,
     addDestinationNewImages,
     deleteDestination,
-    getDestinationEditPermissions,
 };
