@@ -10,12 +10,34 @@ export const useDeletePlace = (destinationId) => {
         onSuccess: (data) => {
             const { placeId } = data;
 
-            queryClient.invalidateQueries([queryEndpoints.destination, destinationId]);
-            queryClient.invalidateQueries([queryEndpoints.editDestPermissions, destinationId]);
+            const destination = queryClient.getQueryData([
+                queryEndpoints.editDestination,
+                destinationId,
+            ]);
+
+            const updatedDestination = {
+                ...destination,
+                places: destination.places.filter((p) => p._id !== placeId),
+            };
+
+            queryClient.setQueryData(
+                [queryEndpoints.editDestination, destinationId],
+                updatedDestination
+            );
+
+            queryClient.invalidateQueries([
+                queryEndpoints.destination,
+                destinationId,
+            ]);
+
+            queryClient.invalidateQueries([
+                queryEndpoints.editPlacePermissions,
+                placeId,
+            ]);
+
             queryClient.invalidateQueries([queryEndpoints.place, placeId]);
-            queryClient.invalidateQueries([queryEndpoints.editPlacePermissions, placeId]);
         },
     });
 
-    return [mutate, error, isLoading]
+    return [mutate, error, isLoading];
 };
