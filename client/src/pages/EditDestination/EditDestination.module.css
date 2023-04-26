@@ -19,3 +19,11 @@
 .sectionTitle {
     margin-bottom: calc(2rem - 0.85rem);
 }
+
+.detailsWrapper {
+    margin-bottom: 2rem;
+}
+
+.catetegoryName {
+    margin: 2rem 0 0.225rem 0;
+}

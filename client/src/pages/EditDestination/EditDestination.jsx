@@ -1,21 +1,23 @@
 import { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRequestEditDestinationPermissions } from '../../hooks/queries/useRequestEditDestinationPermissions';
+import { useEditDestinationDetails } from '../../hooks/queries/useEditDestinationDetails';
 
 // Components
-import { DetailsInputs } from './components/DetailsInputsFields/DetailsInputsFields';
-import { MemoizedTextarea } from './components/Textarea/Textarea';
 import { MemoizedEditImages } from './components/EditImages/EditImages';
 import { MemoizedEditPlaces } from './components/EditPlaces/EditPlaces';
+import { MemoizedFormTextareaEditor } from '../../components/FormTextareaEditor/FormTextAreaEditor';
 
 import styles from './EditDestination.module.css';
 
 export const EditDestination = () => {
     const { destinationId } = useParams();
-    const { data, error, isLoading } = useRequestEditDestinationPermissions(destinationId);
+    const [data, error, isLoading] = useRequestEditDestinationPermissions(destinationId);
+    const [editDetails, editError, isEditLoading] = useEditDestinationDetails(destinationId);
+
     const [isEditable, setIsEditable] = useState({});
 
-    const onEditClickHandler = useCallback((clickedId) => {
+    const onEditButtonClickHandler = useCallback((clickedId) => {
         // enables/disables the form fields
         setIsEditable((prevState) => {
             const newState = { [clickedId]: !prevState[clickedId] };
@@ -30,10 +32,22 @@ export const EditDestination = () => {
         });
     }, []);
 
-    const description = 'Description';
+    const sendEditedFieldClickHandler = useCallback(
+        (fieldId, description, editedInfo, cbCacheHandler) => {
+            editDetails(editedInfo, {
+                onSuccess: () => {
+                    onEditButtonClickHandler(fieldId);
+                    cbCacheHandler(description);
+                },
+            });
+        },
+        []
+    );
+
+    const descriptionID = 'Description';
 
     if (error) {
-        return (<h1>404 Not Found :(</h1>)
+        return <h1>404 Not Found 🦖</h1>;
     }
 
     return (
@@ -50,37 +64,43 @@ export const EditDestination = () => {
                         <section>
                             <h3 className={styles.sectionTitle}>Destination Info</h3>
                             <form>
-                                <MemoizedTextarea
-                                    _id={description}
-                                    title={description}
+                                <MemoizedFormTextareaEditor
+                                    fieldId={descriptionID}
+                                    title={descriptionID}
                                     desc={data.description}
-                                    onEditClickHandler={onEditClickHandler}
-                                    isEditable={isEditable[description]}
-                                    destinationId={data?._id}
+                                    onEditButtonClickHandler={onEditButtonClickHandler}
+                                    isEditable={isEditable[descriptionID]}
+                                    _mongo_id={data?._id}
+                                    sendEditedFieldClickHandler={sendEditedFieldClickHandler}
+                                    isLoading={isEditLoading}
+                                    error={editError}
                                 />
                                 {data.details.map((detail) => (
-                                    <DetailsInputs
-                                        name={detail.category}
-                                        info={detail.info}
-                                        isEditable={isEditable}
-                                        onEditClickHandler={onEditClickHandler}
-                                        destinationId={data?._id}
-                                        categoryId={detail._id}
-                                        key={detail._id}
-                                    />
+                                    <div className={styles.detailsWrapper} key={detail._id}>
+                                        <h2 className={styles.catetegoryName}>{detail.category}</h2>
+                                        {detail.info.map((x) => (
+                                            <MemoizedFormTextareaEditor
+                                                fieldId={x._id}
+                                                title={x.title}
+                                                desc={x.description}
+                                                onEditButtonClickHandler={onEditButtonClickHandler}
+                                                isEditable={isEditable[x._id]}
+                                                _mongo_id={data?._id}
+                                                sendEditedFieldClickHandler={sendEditedFieldClickHandler}
+                                                isLoading={isEditLoading}
+                                                error={error}
+                                                categoryId={detail._id}
+                                                key={x._id}
+                                            />
+                                        ))}
+                                    </div>
                                 ))}
                             </form>
                         </section>
 
-                        <MemoizedEditImages
-                            imagesData={data?.imageUrls}
-                            destinationId={data?._id}
-                        />
+                        <MemoizedEditImages imagesData={data?.imageUrls} destinationId={data?._id} />
                     </div>
-                    <MemoizedEditPlaces
-                        placesData={data?.places}
-                        destinationId={data?._id}
-                    />
+                    <MemoizedEditPlaces placesData={data?.places} destinationId={data?._id} />
                 </>
             )}
         </div>

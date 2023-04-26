@@ -1,52 +1,49 @@
 import { useState } from 'react';
 import { memo } from 'react';
 
-import { useEditDestinationDetails } from '../../../../hooks/queries/useEditDestinationDetails';
-
 // Components
-import { ButtonSky } from '../../../../components/Buttons/Button-Sky/ButtonSky';
-import { CancelButton } from '../../../../components/Buttons/Cancel-Button/CancelButton';
+import { ButtonSky } from '../../components/Buttons/Button-Sky/ButtonSky';
+import { CancelButton } from '../../components/Buttons/Cancel-Button/CancelButton';
 
-import styles from './Textarea.module.css';
+import styles from './FormTextareaEditor.module.css';
 
-const Textarea = ({
-    _id,
+const TextareaEditor = ({
+    fieldId,
     title,
     desc,
-    onEditClickHandler,
+    onEditButtonClickHandler,
     isEditable,
-    destinationId,
+    _mongo_id,
+    sendEditedFieldClickHandler,
+    isLoading,
+    error,
     categoryId,
 }) => {
     const [description, setDescription] = useState(desc);
     const [cache, setCache] = useState(desc);
-    const [editDestinationDetails, error, isLoading] = useEditDestinationDetails(destinationId);
 
     const onChangeHandler = (e) => {
         setDescription(e.target.value);
     };
 
     const onCancelClickHandler = () => {
-        onEditClickHandler(_id);
+        onEditButtonClickHandler(fieldId);
         setDescription(cache);
     };
+
+    const setCacheHandler = (data) => setCache(data);
 
     const onSaveButtonClickHandler = (e) => {
         e.preventDefault();
 
         const editInfo = {
-            destinationId,
+            destinationId: _mongo_id,
             categoryId,
-            infoId: _id,
+            infoId: fieldId,
             description,
         };
 
-        editDestinationDetails(editInfo, {
-            onSuccess: () => {
-                onEditClickHandler(_id);
-                setCache(description);
-            },
-        });
+        sendEditedFieldClickHandler(fieldId, description, editInfo, setCacheHandler);
     };
 
     return (
@@ -60,16 +57,24 @@ const Textarea = ({
                         className={styles.textarea}
                     />
                     <div className={styles.buttons}>
-                        <ButtonSky onClickHandler={onSaveButtonClickHandler} disabled={isLoading}>
+                        <ButtonSky
+                            onClickHandler={onSaveButtonClickHandler}
+                            disabled={isLoading}
+                        >
                             Save
                         </ButtonSky>
-                        <CancelButton onClickHandler={onCancelClickHandler}>Cancel</CancelButton>
+                        <CancelButton onClickHandler={onCancelClickHandler}>
+                            Cancel
+                        </CancelButton>
                     </div>
                 </div>
             ) : (
                 <>
                     <span className={styles.desc}>{description}</span>
-                    <span className={styles.edit} onClick={() => onEditClickHandler(_id)}>
+                    <span
+                        className={styles.edit}
+                        onClick={() => onEditButtonClickHandler(fieldId)}
+                    >
                         Edit
                     </span>
                 </>
@@ -78,4 +83,4 @@ const Textarea = ({
     );
 };
 
-export const MemoizedTextarea = memo(Textarea);
+export const MemoizedFormTextareaEditor = memo(TextareaEditor);
