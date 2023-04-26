@@ -6,6 +6,7 @@ import * as user from '../../service/auth/login';
 import { validateLoginData } from '../../utils/userDataValidators';
 
 import styles from './FormLayout.module.css';
+import { getServerErrorMessage } from '../../utils/utils';
 
 export const Login = () => {
     const { setUserData } = useContext(AuthContext);
@@ -33,16 +34,18 @@ export const Login = () => {
         if (validateUserData) {
             return setError(validateUserData);
         }
-
+        
         setIsDisabled(true);
-
+        
         try {
             const { data } = await user.login({ email, password });
             setUserData(data);
         } catch (err) {
-            const errMsg = err.response.data.message || err.response.data.error;
+            const errorMessage = getServerErrorMessage(err);
 
-            setError(errMsg);
+            console.log(errorMessage);
+            
+            setError(errorMessage);
             setIsDisabled(false);
         }
     };

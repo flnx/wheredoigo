@@ -36,6 +36,7 @@ export const Register = () => {
             return setInputError(error);
         }
 
+
         setIsDisabled(true);
 
         try {
