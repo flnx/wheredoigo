@@ -22,7 +22,6 @@ async function start() {
     app.use(express.urlencoded({ extended: true }));
     app.use(limiter);
     
-    
     cloudinaryConfig();
     routesConfig(app);
     await initializeDatabase();

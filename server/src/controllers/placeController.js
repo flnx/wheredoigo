@@ -1,22 +1,13 @@
-const {
-    addNewPlace,
-    getPlaceById,
-    addCommentToPlace,
-    deleteCommentFromPlace,
-    deletePlace,
-} = require('../services/placeService');
-const {
-    getDestinationAndCheckOwnership,
-} = require('../services/destinationService');
+const { addNewPlace, getPlaceById, addCommentToPlace, deleteCommentFromPlace, deletePlace } = require('../services/placeService');
+const { getDestinationAndCheckOwnership } = require('../services/destinationService');
 
 const add_new_place = async (req, res, next) => {
     const placeInfo = req.body;
     const images = req.files;
     const user = req.user;
-    
+
     try {
         const place = await addNewPlace(placeInfo, images, user);
-
         res.json(place);
     } catch (err) {
         next(err);
@@ -29,7 +20,6 @@ const add_new_place_request = async (req, res, next) => {
 
     try {
         await getDestinationAndCheckOwnership(id, ownerId);
-
         res.json({ message: 'You are cool 🦖' });
     } catch (err) {
         next(err);

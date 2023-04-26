@@ -1,38 +1,38 @@
 const express = require('express');
+const validateMongoId = require('../middlewares/validateMongoId');
 
 // Middlewares
-const validateMongoId = require('../middlewares/validateMongoId');
 const { auth } = require('../middlewares/auth');
 const { upload } = require('../middlewares/images');
 const { checkSession } = require('../middlewares/checkSession');
 
 // Controllers
 const {
-    paginated_destinations,
-    destination_details,
-    add_new_destination,
+    paginated_destinations: paginated,
+    destination_details: details,
+    add_new_destination: add_new,
+    get_creator_destinations: creator_destinations,
+    request_edit_permissions: permissions,
+    edit_destination_field: edit_field,
+    delete_destination_image: delete_image,
+    add_destination_new_images: add_images,
     get_city_data,
-    get_creator_destinations,
-    request_edit_permissions,
-    edit_destination_field,
-    delete_destination_image,
-    add_destination_new_images,
     delete_destination,
 } = require('../controllers/destinationController');
 
 const router = express.Router();
 
-router.get('/destinations', paginated_destinations);
-router.get('/destinations/created-by-user', auth, get_creator_destinations);
-router.get('/destinations/:id/request-edit-permissions', validateMongoId, auth, request_edit_permissions);
-router.get('/destinations/:id', validateMongoId, checkSession, destination_details);
+router.get('/destinations', paginated);
+router.get('/destinations/created-by-user', auth, creator_destinations);
+router.get('/destinations/:id/request-edit-permissions', validateMongoId, auth, permissions);
+router.get('/destinations/:id', validateMongoId, checkSession, details);
 
-router.post('/destinations', auth, upload, add_new_destination);
+router.post('/destinations', auth, upload, add_new);
 router.post('/destinations/get-city-data', auth, get_city_data);
 
-router.put('/destinations/:id/edit-destination-field', validateMongoId, auth, edit_destination_field);
-router.put('/destinations/:id/delete-image', validateMongoId, auth, delete_destination_image);
-router.put('/destinations/:id/add-images', validateMongoId, auth, upload, add_destination_new_images);
+router.put('/destinations/:id/edit-destination-field', validateMongoId, auth, edit_field);
+router.put('/destinations/:id/delete-image', validateMongoId, auth, delete_image);
+router.put('/destinations/:id/add-images', validateMongoId, auth, upload, add_images);
 
 router.delete('/destinations/:id/delete', validateMongoId, auth, delete_destination);
 

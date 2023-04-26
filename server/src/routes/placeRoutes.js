@@ -1,4 +1,10 @@
 const express = require('express');
+const validateMongoId = require('../middlewares/validateMongoId');
+
+// Middlewares
+const { auth } = require('../middlewares/auth');
+const { upload } = require('../middlewares/images');
+const { checkSession } = require('../middlewares/checkSession');
 
 // Controllers
 const {
@@ -9,12 +15,6 @@ const {
     delete_comment,
     delete_place
 } = require('../controllers/placeController');
-
-// Middlewares
-const validateMongoId = require('../middlewares/validateMongoId');
-const { auth } = require('../middlewares/auth');
-const { upload } = require('../middlewares/images');
-const { checkSession } = require('../middlewares/checkSession');
 
 const router = express.Router();
 
