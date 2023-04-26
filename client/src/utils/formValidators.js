@@ -5,7 +5,7 @@ export function validatePlaceData(state) {
     const errors = [];
 
     if (description.trim().length < 10) {
-        errors.push('The description must be at least 10 characters long');
+        errors.push('Description must be between 10 and 5000 characters');
     }
 
     if (name.trim() < 1) {
@@ -28,8 +28,7 @@ export const validateDestinationData = (state, validCity) => {
     const errors = [];
 
     const isCityValidated =
-        !city.length == 0 &&
-        validCity.city?.toLowerCase() == city.toLowerCase();
+        !city.length == 0 && validCity.city?.toLowerCase() == city.toLowerCase();
 
     if (!isCityValidated) {
         errors.push('Please enter a valid city');

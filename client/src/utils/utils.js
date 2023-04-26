@@ -9,7 +9,7 @@ export const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
-export function getServerErrorMessage(error) {
+export function extractServerErrorMessage(error) {
     const { response } = error;
 
     if (!response) {

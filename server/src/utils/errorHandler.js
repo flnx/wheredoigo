@@ -1,6 +1,7 @@
 const capitalizeEachWord = require('./capitalizeWords');
 
 function errorHandler(err, req, res, next) {
+    console.log(err.name || err);
     switch (err.name) {
         case 'SyntaxError':
             res.status(400).json({ message: 'Invalid JSON payload' });
@@ -13,11 +14,18 @@ function errorHandler(err, req, res, next) {
         case 'CastError':
             res.status(400).json({ message: 'Invalid ID format' });
             break;
-        case 'MongoError' && err.code === 11000:
-            const key = Object.keys(err.keyValue)[0];
-            res.status(400).json({
-                message: `${capitalizeEachWord(key)} already exists`,
-            });
+        case 'MongoServerError':
+            if (err.code === 11000) {
+                const key = Object.keys(err.keyValue)[0];
+                res.status(400).json({
+                    message: `${capitalizeEachWord(key)} already exists`,
+                });
+            } else {
+                res.status(500).json({
+                    message: 'An error occurred',
+                    error: err,
+                });
+            }
             break;
         default:
             res.status(err.status || 500).json({

@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
+import { extractServerErrorMessage } from '../../utils/utils';
 
-import { AuthContext } from '../../context/AuthContext';
 import * as user from '../../service/auth/login';
+import { AuthContext } from '../../context/AuthContext';
 import { validateLoginData } from '../../utils/userDataValidators';
 
 import styles from './FormLayout.module.css';
-import { getServerErrorMessage } from '../../utils/utils';
 
 export const Login = () => {
     const { setUserData } = useContext(AuthContext);
@@ -21,18 +21,19 @@ export const Login = () => {
 
         if (isDisabled) return;
 
-        const validateUserData = validateLoginData({ email, password });
-
+        
         if (!email) {
             return setError('Email address is required');
         }
-
+        
         if (!password) {
             return setError('Password is required');
         }
+        
+        const loginErrors = validateLoginData({ email, password });
 
-        if (validateUserData) {
-            return setError(validateUserData);
+        if (loginErrors) {
+            return setError(loginErrors);
         }
         
         setIsDisabled(true);
@@ -41,11 +42,9 @@ export const Login = () => {
             const { data } = await user.login({ email, password });
             setUserData(data);
         } catch (err) {
-            const errorMessage = getServerErrorMessage(err);
-
-            console.log(errorMessage);
-            
+            const errorMessage = extractServerErrorMessage(err);
             setError(errorMessage);
+        } finally {
             setIsDisabled(false);
         }
     };

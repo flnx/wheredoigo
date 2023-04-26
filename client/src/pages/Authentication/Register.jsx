@@ -9,6 +9,7 @@ import * as user from '../../service/auth/register';
 import { validateRegisterData } from '../../utils/userDataValidators';
 
 import styles from './FormLayout.module.css';
+import { extractServerErrorMessage } from '../../utils/utils';
 
 export const Register = () => {
     const { setUserData } = useContext(AuthContext);
@@ -36,25 +37,15 @@ export const Register = () => {
             return setInputError(error);
         }
 
-
         setIsDisabled(true);
 
         try {
             const { data } = await user.register({ username, password, email });
             setUserData(data);
         } catch (err) {
-            const currentError = err.response.data.message;
-            let errorMessage;
-
-            if (typeof currentError == 'string') {
-                errorMessage = currentError;
-            } else {
-                errorMessage = currentError
-                    .flatMap((x) => Object.values(x))
-                    .join(' + ');
-            }
-
+            const errorMessage = extractServerErrorMessage(err);
             setInputError(errorMessage);
+        } finally {
             setIsDisabled(false);
         }
     };

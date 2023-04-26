@@ -6,6 +6,7 @@ import { useRequestCreatePlacePermissions } from '../../hooks/queries/useRequest
 import { initialState, placeReducer } from '../../utils/placeReducer';
 import { validatePlaceData } from '../../utils/formValidators';
 import { createPlaceFormData } from '../../utils/formData';
+import { extractServerErrorMessage } from '../../utils/utils';
 
 // Components
 import { UploadImagesPreview } from '../../components/UploadImagesPreview/UploadImagesPreview';
@@ -21,14 +22,13 @@ export const AddPlace = () => {
     const navigate = useNavigate();
 
     if (permissions.isLoading) {
-        return <h1>...Loading...</h1>
+        return <h1>...Loading...</h1>;
     }
 
     if (permissions.error) {
         navigate(-1, { replace: true });
         return null;
     }
-
 
     const dispatchHandler = (actions) => {
         dispatch(actions);
@@ -42,7 +42,7 @@ export const AddPlace = () => {
         const dataValidationErrors = validatePlaceData(state);
         setErrors(dataValidationErrors);
 
-        if (dataValidationErrors.length != 0) {
+        if (dataValidationErrors.length !== 0) {
             return;
         }
 
@@ -51,6 +51,10 @@ export const AddPlace = () => {
         createPlace(formData, {
             onSuccess: (newPlace) => {
                 navigate(`/places/${newPlace._id}`);
+            },
+            onError: (err) => {
+                const errorMessage = extractServerErrorMessage(err);
+                setErrors([errorMessage]);
             },
         });
     };
@@ -65,8 +69,6 @@ export const AddPlace = () => {
             },
         });
     };
-
-    const errorMessage = createError?.response?.data || createError?.message;
 
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
@@ -83,8 +85,7 @@ export const AddPlace = () => {
                     className={styles.formInput}
                     placeholder="Add place name"
                 />
-                <ShowError errors={errors} searchParam={'name'} />
-                {errors.length == 0 && errorMessage && <span className={styles.error}>{errorMessage}</span>}
+                <ShowError errors={errors} errorParam={'name'} />
             </div>
             <div className={styles.formRow}>
                 <label className={styles.formLabel} htmlFor="description">
@@ -99,7 +100,7 @@ export const AddPlace = () => {
                     className={styles.formInput}
                     placeholder="Add place description..."
                 />
-                <ShowError errors={errors} searchParam={'description'} />
+                <ShowError errors={errors} errorParam={'description'} />
             </div>
             <div className={styles.formRow}>
                 <label className={styles.formLabel} htmlFor="type">
@@ -117,12 +118,16 @@ export const AddPlace = () => {
                     <option value="Eat">Eat</option>
                     <option value="Party">Party</option>
                 </select>
-                <ShowError errors={errors} searchParam={'type'} />
+                <ShowError errors={errors} errorParam={'type'} />
+                <ShowError errors={errors} errorParam={'all'} />
             </div>
 
             <div className={styles.formRow}>
-                <ShowError errors={errors} searchParam={'images'} />
-                <UploadImagesPreview dispatchHandler={dispatchHandler} images={state.imageUrls} />
+                <ShowError errors={errors} errorParam={'images'} />
+                <UploadImagesPreview
+                    dispatchHandler={dispatchHandler}
+                    images={state.imageUrls}
+                />
             </div>
 
             <button type="submit" className={styles.formButton} disabled={isLoading}>
@@ -132,14 +137,13 @@ export const AddPlace = () => {
     );
 };
 
-const ShowError = ({ errors, searchParam }) => {
+const ShowError = ({ errors, errorParam }) => {
     const errorChecker = (name) => {
-        return errors.find((e) => e.includes(name));
+        name = name.toLowerCase();
+        return errors.find((e) => e.toLowerCase().includes(name));
     };
 
-    return (
-        errorChecker(searchParam) && (
-            <span className={styles.error}>{errorChecker(searchParam)}</span>
-        )
-    );
+    const hasError = errorChecker(errorParam);
+
+    return hasError && <span className={styles.error}>{errorChecker(errorParam)}</span>;
 };
