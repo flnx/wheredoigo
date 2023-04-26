@@ -44,8 +44,8 @@ const EditImages = ({ imagesData, destinationId }) => {
         );
     };
 
-    const handleUpdateCurrentImages = (updatedImages) => {
-        setImages(updatedImages);
+    const handleUpdateCurrentImages = (newImages) => {
+        setImages((prevState) => [...prevState, ...newImages]);
     };
 
     const hasCurrentImages = images.length > 0;

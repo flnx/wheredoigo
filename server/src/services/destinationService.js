@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
 const { isValid } = mongoose.Types.ObjectId;
 
 const Country = require('../models/countrySchema');
@@ -6,19 +7,18 @@ const Destination = require('../models/destinationSchema');
 const Place = require('../models/placeSchema');
 const Comment = require('../models/commentSchema');
 
-const { isObject, extractCloudinaryFolderName } = require('../utils/utils');
-const validator = require('validator');
-
 const { fetchCity, fetchCountry } = require('../service/data');
 const {
     addImages,
     deleteImage,
     deleteMultipleImages,
 } = require('../utils/cloudinaryUploader');
+
+const capitalizeEachWord = require('../utils/capitalizeWords');
+const { isObject, extractCloudinaryFolderName } = require('../utils/utils');
 const { createValidationError } = require('../utils/createValidationError');
 const { validateFields } = require('../utils/validateFields');
 const { errorMessages } = require('../constants/errorMessages');
-const capitalizeEachWord = require('../utils/capitalizeWords');
 
 require('dotenv').config();
 
@@ -185,12 +185,12 @@ async function create(data, images, user) {
     };
 }
 
-async function addDestinationNewImages(destinationId, userId, imgFiles) {
+async function addDestinationNewImages(destinationId, imgFiles, destination) {
     if (!Array.isArray(imgFiles) || imgFiles.length == 0) {
         throw createValidationError(errorMessages.invalidImages, 400);
     }
 
-    const { city } = await getDestinationAndCheckOwnership(destinationId, userId);
+    const { city } = destination;
 
     const folderName = 'destinations';
     const data = { city, _id: destinationId };
@@ -205,19 +205,17 @@ async function addDestinationNewImages(destinationId, userId, imgFiles) {
 
     const result = await Destination.findOneAndUpdate(
         { _id: destinationId },
-        { $push: { imageUrls: { $each: images } } },
-        { new: true }
+        { $push: { imageUrls: { $each: images }, $slice: -images.length } },
+        { new: true, projection: { _id: 0, imageUrls: { $slice: -images.length } } }
     )
+        .select('-ownerId -country -city -description -details -info -__v')
         .lean()
         .exec();
 
-    const { imageUrls, ...rest } = result;
-
-    const updatedImageUrls = result.imageUrls.map(({ public_id, ...x }) => x);
+    const imageUrls = result.imageUrls.map(({ public_id, ...rest }) => rest);
 
     return {
-        ...rest,
-        imageUrls: updatedImageUrls,
+        imageUrls,
         imgError,
     };
 }
@@ -376,7 +374,9 @@ async function editDestinationField(destinationId, userId, updatedFieldData) {
             {
                 arrayFilters: [{ 'det._id': categoryId }, { 'inf._id': infoId }],
             }
-        ).lean().exec();
+        )
+            .lean()
+            .exec();
 
         if (!result) {
             throw createValidationError(errorMessages.notFound, 404);

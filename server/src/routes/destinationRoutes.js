@@ -33,7 +33,7 @@ router.post('/destinations/get-city-data', auth, get_city_data);
 
 router.put('/destinations/:id/edit-destination-field', validateMongoId, auth, checkDestinationOwnership, edit_field);
 router.put('/destinations/:id/delete-image', validateMongoId, auth, delete_image);
-router.put('/destinations/:id/add-images', validateMongoId, auth, upload, add_images);
+router.put('/destinations/:id/add-images', validateMongoId, auth, checkDestinationOwnership, upload, add_images);
 
 router.delete('/destinations/:id/delete', validateMongoId, auth, delete_destination);
 

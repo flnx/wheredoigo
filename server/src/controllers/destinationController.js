@@ -122,12 +122,12 @@ const delete_destination_image = async (req, res, next) => {
 };
 
 const add_destination_new_images = async (req, res, next) => {
-    const { id } = req.params; // destination id
-    const { ownerId } = req.user;
+    const { id } = req.params;
     const images = req.files;
+    const destination = req.destination;
 
     try {
-        const result = await addDestinationNewImages(id, ownerId, images);
+        const result = await addDestinationNewImages(id, images, destination);
         res.json(result);
     } catch (err) {
         next(err);
