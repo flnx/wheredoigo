@@ -94,6 +94,14 @@ async function getById(destinationId, user) {
     };
 }
 
+async function getDestinationOwnerIdOnly(destinationId) {
+    return Destination.findById(destinationId)
+        .select('ownerId city country')
+        .populate('country', 'name')
+        .lean()
+        .exec();
+}
+
 async function getCreatorDestinations(ownerId) {
     const destinations = await Destination.find(
         { ownerId },
@@ -220,17 +228,15 @@ async function addDestinationNewImages(destinationId, imgFiles, destination) {
     };
 }
 
-async function deleteDestinationImage(destinationId, userId, imgId) {
+async function deleteDestinationImage(destinationId, imgId, destination) {
     if (!imgId || !isValid(imgId)) {
-        throw createValidationError(errorMessages.invalidImageId, 400);
+        throw createValidationError(errorMessages.notFound, 404);
     }
-
-    const destination = await getDestinationAndCheckOwnership(destinationId, userId);
 
     const imageData = destination.imageUrls.find((x) => x._id.toString() === imgId);
 
     if (!imageData) {
-        throw createValidationError(errorMessages.invalidImageId, 400);
+        throw createValidationError(errorMessages.notFound, 404);
     }
 
     const result = await Destination.updateOne(
@@ -400,4 +406,5 @@ module.exports = {
     deleteDestinationImage,
     addDestinationNewImages,
     deleteDestination,
+    getDestinationOwnerIdOnly,
 };

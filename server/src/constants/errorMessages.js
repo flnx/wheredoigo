@@ -11,7 +11,6 @@ exports.errorMessages = {
     invalidComment: 'Comment must contain at least 10 characters',
     description: 'Description must be between 10 and 5000 characters',
     missingFields: 'Please fill in all required fields',
-    invalidImageId: 'Invalid image ID',
     unauthorized: 'Unauthorized',
     invalidBody: 'Please send a valid object with the updated destination fields',
     invalidImages: 'In order to upload images, please send an array with valid image files.',

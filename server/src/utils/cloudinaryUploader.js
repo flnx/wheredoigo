@@ -93,7 +93,7 @@ async function deleteImage(publicId) {
     const res = await cloudinary.uploader.destroy(publicId);
 
     if (res.result !== 'ok') {
-        throw createValidationError(errorMessages.invalidImageId, 404);
+        throw createValidationError(errorMessages.notFound, 404);
     }
 }
 
