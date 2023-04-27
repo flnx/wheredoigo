@@ -32,7 +32,7 @@ export const DestinationDetails = () => {
                             <TipsPopUp details={data.details} />
 
                             {data.isOwner && (
-                                <Link to="add-place">
+                                <Link to="places/add">
                                     <SecondaryButton>Add More Places</SecondaryButton>
                                 </Link>
                             )}

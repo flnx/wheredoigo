@@ -79,8 +79,7 @@ const get_creator_destinations = async (req, res, next) => {
 
 const request_edit_permissions = async (req, res, next) => {
     const destination = req.destination;
-    
-    res.status(200).json(destination);
+    res.json(destination);
 };
 
 const edit_destination_field = async (req, res, next) => {

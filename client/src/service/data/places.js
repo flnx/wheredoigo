@@ -7,8 +7,8 @@ export const getPlace = async (id) => {
     return placeData.data;
 };
 
-export const createPlace = async (placeData) => {
-    const res = await axios.post(apiEndpoints.addPlace, placeData, {
+export const createPlace = async (placeData, destinationId) => {
+    const res = await axios.post(apiEndpoints.addPlace(destinationId), placeData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },

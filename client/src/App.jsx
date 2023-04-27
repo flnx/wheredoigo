@@ -37,7 +37,7 @@ function App() {
                                     <Route path="/dashboard/*" element={<UserDashboardRoutes />} />
                                     <Route path="/destinations/:destinationId/edit" element={<EditDestination />}/>
                                     <Route path="/places/:placeId/edit" element={<EditPlace />}/>
-                                    <Route path="/destinations/:destinationId/add-place" element={<AddPlace />} />
+                                    <Route path="/destinations/:destinationId/places/add" element={<AddPlace />} />
                                 </Route>
                                 <Route path="/discover" element={<Discover />} />
                                 <Route path="/destinations/:destinationId" element={<DestinationDetails />}>

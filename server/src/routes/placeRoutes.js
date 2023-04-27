@@ -1,5 +1,6 @@
 const express = require('express');
 const validateMongoId = require('../middlewares/validateMongoId');
+const { checkDestinationOwnershipOnly } = require('../middlewares/checkDestinationOwnership');
 
 // Middlewares
 const { auth } = require('../middlewares/auth');
@@ -19,9 +20,11 @@ const {
 const router = express.Router();
 
 router.get('/places/:id', validateMongoId, checkSession, place_details);
-router.get('/places/:id/add-place', validateMongoId, auth, add_new_place_request);
-router.post('/places', auth, upload, add_new_place);
+router.get('/destinations/:id/places/add', validateMongoId, auth, checkDestinationOwnershipOnly, add_new_place_request);
+
+router.post('/destinations/:id/places/add', validateMongoId, auth, checkDestinationOwnershipOnly, upload, add_new_place);
 router.post('/places/:id/comment', validateMongoId, auth, post_comment);
+
 router.delete('/places/:id/comment', validateMongoId, auth, delete_comment);
 router.delete('/places/:id/delete', validateMongoId, auth, delete_place);
 

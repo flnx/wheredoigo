@@ -4,10 +4,11 @@ const { getDestinationAndCheckOwnership } = require('../services/destinationServ
 const add_new_place = async (req, res, next) => {
     const placeInfo = req.body;
     const images = req.files;
-    const user = req.user;
+    const { ownerId } = req.user;
+    const destination = req.destination;
 
     try {
-        const place = await addNewPlace(placeInfo, images, user);
+        const place = await addNewPlace(placeInfo, images, destination, ownerId);
         res.json(place);
     } catch (err) {
         next(err);
@@ -15,15 +16,7 @@ const add_new_place = async (req, res, next) => {
 };
 
 const add_new_place_request = async (req, res, next) => {
-    const { id } = req.params;
-    const { ownerId } = req.user;
-
-    try {
-        await getDestinationAndCheckOwnership(id, ownerId);
-        res.json({ message: 'You are cool 🦖' });
-    } catch (err) {
-        next(err);
-    }
+    res.json({ message: 'You are cool 🦖' });
 };
 
 const place_details = async (req, res, next) => {

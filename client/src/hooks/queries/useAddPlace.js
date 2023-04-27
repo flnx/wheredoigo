@@ -6,7 +6,7 @@ export const useAddNewPlace = (destinationId) => {
     const queryClient = useQueryClient();
 
     const { mutate, isLoading } = useMutation({
-        mutationFn: (data) => createPlace(data),
+        mutationFn: (data) => createPlace(data, destinationId),
         onSuccess: () => {
             queryClient.invalidateQueries([queryEndpoints.destination, destinationId])
             queryClient.invalidateQueries([queryEndpoints.editDestination, destinationId])

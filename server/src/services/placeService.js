@@ -7,8 +7,6 @@ const User = require('../models/userSchema');
 
 const { addImages, deleteMultipleImages } = require('../utils/cloudinaryUploader');
 const { validateFields } = require('../utils/validateFields');
-const { getDestinationAndCheckOwnership } = require('./destinationService');
-const { validateObjectId } = require('../utils/validateObjectId');
 const { createValidationError } = require('../utils/createValidationError');
 const { errorMessages } = require('../constants/errorMessages');
 const capitalizeEachWord = require('../utils/capitalizeWords');
@@ -75,16 +73,8 @@ async function getDestinationPlaces(destinationId) {
     return places;
 }
 
-async function addNewPlace(data, images, user) {
+async function addNewPlace(data, images, destination, ownerId) {
     const { destinationId, name, description, type } = data;
-    const { ownerId } = user;
-
-    validateObjectId(destinationId);
-
-    const destination = await getDestinationAndCheckOwnership(
-        destinationId,
-        ownerId
-    );
 
     const placeData = {
         destinationId,
