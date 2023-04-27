@@ -8,11 +8,7 @@ const Place = require('../models/placeSchema');
 const Comment = require('../models/commentSchema');
 
 const { fetchCity, fetchCountry } = require('../service/data');
-const {
-    addImages,
-    deleteImage,
-    deleteMultipleImages,
-} = require('../utils/cloudinaryUploader');
+const { addImages, deleteImage, deleteMultipleImages } = require('../utils/cloudinaryUploader');
 
 const capitalizeEachWord = require('../utils/capitalizeWords');
 const { isObject, extractCloudinaryFolderName } = require('../utils/utils');
@@ -124,27 +120,6 @@ async function getCreatorDestinations(ownerId) {
     });
 
     return destinations;
-}
-
-async function getDestinationAndCheckOwnership(destinationId, userId) {
-    const destination = await Destination.findById(destinationId)
-        .populate('country')
-        .lean()
-        .exec();
-
-    if (!destination) {
-        throw createValidationError(errorMessages.notFound, 404);
-    }
-
-    const { ownerId, ...destinationWithoutOwnerId } = destination;
-
-    if (!ownerId.equals(userId)) {
-        throw createValidationError(errorMessages.accessDenied, 403);
-    }
-
-    destinationWithoutOwnerId.country = capitalizeEachWord(destination.country.name);
-    destinationWithoutOwnerId.city = capitalizeEachWord(destination.city);
-    return destinationWithoutOwnerId;
 }
 
 async function create(data, images, user) {
@@ -324,12 +299,16 @@ async function deleteDestination(destinationId, userId) {
     }
 }
 
-async function editDestinationField(destinationId, userId, updatedFieldData) {
+async function editDestinationField(destinationId, updatedFieldData) {
     if (!isObject(updatedFieldData)) {
         throw createValidationError(errorMessages.invalidBody, 400);
     }
 
     if (!Object.hasOwn(updatedFieldData, 'description')) {
+        throw createValidationError(errorMessages.invalidBody, 400);
+    }
+    
+    if (typeof updatedFieldData.description !== 'string') {
         throw createValidationError(errorMessages.invalidBody, 400);
     }
 
@@ -346,7 +325,6 @@ async function editDestinationField(destinationId, userId, updatedFieldData) {
     }
 
     if (!infoId || !categoryId || !isValid(infoId) || !isValid(categoryId)) {
-        // if either infoId or categoryId is missing or not a valid ObjectId, throw a validation error
         throw createValidationError(errorMessages.invalidBody, 400);
     }
 
@@ -400,7 +378,6 @@ module.exports = {
     getByPage,
     create,
     getById,
-    getDestinationAndCheckOwnership,
     getCreatorDestinations,
     editDestinationField,
     deleteDestinationImage,

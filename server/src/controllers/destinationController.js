@@ -84,11 +84,10 @@ const request_edit_permissions = async (req, res, next) => {
 
 const edit_destination_field = async (req, res, next) => {
     const { id } = req.params;
-    const { ownerId } = req.user;
     const updatedFieldData = req.body;
 
     try {
-        const result = await editDestinationField(id, ownerId, updatedFieldData);
+        const result = await editDestinationField(id, updatedFieldData);
         res.json(result);
     } catch (err) {
         next(err);

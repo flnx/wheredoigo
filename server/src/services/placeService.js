@@ -5,11 +5,11 @@ const Place = require('../models/placeSchema');
 const Comment = require('../models/commentSchema');
 const User = require('../models/userSchema');
 
+const capitalizeEachWord = require('../utils/capitalizeWords');
 const { addImages, deleteMultipleImages } = require('../utils/cloudinaryUploader');
 const { validateFields } = require('../utils/validateFields');
 const { createValidationError } = require('../utils/createValidationError');
 const { errorMessages } = require('../constants/errorMessages');
-const capitalizeEachWord = require('../utils/capitalizeWords');
 const { extractCloudinaryFolderName } = require('../utils/utils');
 
 async function getPlaceById(placeId, user) {
@@ -110,13 +110,13 @@ async function addCommentToPlace(placeId, title, content, ownerId) {
     const user = await User.findById(ownerId).select('username avatarUrl').exec();
 
     if (!user) {
-        throw createValidationError(errorMessages.notFound, 404);
+        throw createValidationError(errorMessages.unauthorized, 401);
     }
 
     const place = await Place.findById(placeId).select('comments').exec();
 
     if (!place) {
-        throw createValidationError(`Place ${errorMessages.notFound}`, 404);
+        throw createValidationError(errorMessages.notFound, 404);
     }
 
     if (content.length < 10) {
@@ -148,37 +148,6 @@ async function addCommentToPlace(placeId, title, content, ownerId) {
         },
         isOwner: true,
     };
-}
-
-async function deletePlace(placeId, userId) {
-    const place = await Place.findById(placeId).lean().exec();
-
-    if (!place) {
-        throw createValidationError(errorMessages.notFound, 404);
-    }
-
-    if (!place.ownerId.equals(userId)) {
-        throw createValidationError(errorMessages.accessDenied, 403);
-    }
-
-    const comments_ids = place.comments.map((c) => c.toString());
-
-    // get correct cloudinary folder name
-    const path = 'places';
-    let { name } = place;
-    const folderName = extractCloudinaryFolderName(path, name, placeId);
-
-    // extract all cloudinary public ids for the specific place
-    const image_ids = place.imageUrls.map(({ public_id, ...rest }) => public_id);
-
-    await Place.findByIdAndDelete(placeId);
-
-    await Promise.allSettled([
-        Comment.deleteMany({ _id: { $in: comments_ids } }),
-        deleteMultipleImages(image_ids, [folderName]),
-    ]);
-
-    return true;
 }
 
 async function deleteCommentFromPlace(placeId, commentId, ownerId) {
@@ -226,6 +195,38 @@ async function deleteCommentFromPlace(placeId, commentId, ownerId) {
         session.endSession();
     }
 }
+
+async function deletePlace(placeId, userId) {
+    const place = await Place.findById(placeId).lean().exec();
+
+    if (!place) {
+        throw createValidationError(errorMessages.notFound, 404);
+    }
+
+    if (!place.ownerId.equals(userId)) {
+        throw createValidationError(errorMessages.accessDenied, 403);
+    }
+
+    const comments_ids = place.comments.map((c) => c.toString());
+
+    // get correct cloudinary folder name
+    const path = 'places';
+    let { name } = place;
+    const folderName = extractCloudinaryFolderName(path, name, placeId);
+
+    // extract all cloudinary public ids for the specific place
+    const image_ids = place.imageUrls.map(({ public_id, ...rest }) => public_id);
+
+    await Place.findByIdAndDelete(placeId);
+
+    await Promise.allSettled([
+        Comment.deleteMany({ _id: { $in: comments_ids } }),
+        deleteMultipleImages(image_ids, [folderName]),
+    ]);
+
+    return true;
+}
+
 
 module.exports = {
     addNewPlace,

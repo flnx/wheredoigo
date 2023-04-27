@@ -1,5 +1,10 @@
-const { addNewPlace, getPlaceById, addCommentToPlace, deleteCommentFromPlace, deletePlace } = require('../services/placeService');
-const { getDestinationAndCheckOwnership } = require('../services/destinationService');
+const {
+    addNewPlace,
+    getPlaceById,
+    addCommentToPlace,
+    deleteCommentFromPlace,
+    deletePlace,
+} = require('../services/placeService');
 
 const add_new_place = async (req, res, next) => {
     const placeInfo = req.body;
