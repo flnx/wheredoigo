@@ -15,9 +15,15 @@ export const SelectType = ({
     onEditButtonClickHandler,
 }) => {
     const [type, setType] = useState(selectedType);
+    const [cache, setCache] = useState(selectedType);
 
     const onChangeHandler = (e) => {
         setType(e.target.value);
+    };
+
+    const onCancelClickHandler = () => {
+        onEditButtonClickHandler(typeId);
+        setType(cache);
     };
 
     return (
@@ -42,14 +48,12 @@ export const SelectType = ({
 
                     <div className={styles.buttons}>
                         <ButtonSky
-                            // onClickHandler={onSaveButtonClickHandler}
-                            // disabled={isLoading}
+                        // onClickHandler={onSaveButtonClickHandler}
+                        // disabled={isLoading}
                         >
                             Save
                         </ButtonSky>
-                        <CancelButton 
-                            // onClickHandler={onCancelClickHandler}
-                        >
+                        <CancelButton onClickHandler={onCancelClickHandler}>
                             Cancel
                         </CancelButton>
                     </div>
