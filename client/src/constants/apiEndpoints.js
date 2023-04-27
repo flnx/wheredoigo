@@ -17,6 +17,7 @@ export const apiEndpoints = {
     addPlace: (destinationId) => `destinations/${destinationId}/places/add`,
     requestCreatePlacePermissions: (destinationId) => `destinations/${destinationId}/places/add`,
     requestPlaceToEdit: (id) => `places/${id}/request-edit-permissions`,
+    editPlaceDetails: (id) => `places/${id}/edit-place-field`,
     deletePlace: (id) => `places/${id}/delete`,
 
     deleteComment: (placeId, commentId) => `places/${placeId}/comment?commentId=${commentId}`,

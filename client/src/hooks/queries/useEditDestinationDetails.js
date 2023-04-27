@@ -6,7 +6,7 @@ export const useEditDestinationDetails = (destinationId) => {
     const queryClient = useQueryClient();
 
     const { mutate, error, isLoading } = useMutation({
-        mutationFn: (data) => editDestinationDetails(data),
+        mutationFn: (data) => editDestinationDetails(destinationId, data),
         onSuccess: (updatedField) => {
             const { categoryId, infoId, description } = updatedField;
 

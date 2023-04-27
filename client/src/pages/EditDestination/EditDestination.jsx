@@ -72,7 +72,6 @@ export const EditDestination = () => {
                                     desc={data.description}
                                     onEditButtonClickHandler={onEditButtonClickHandler}
                                     isEditable={isEditable[descriptionID]}
-                                    _mongo_id={data?._id}
                                     sendEditedFieldClickHandler={sendEditedFieldClickHandler}
                                     isLoading={isEditLoading}
                                     error={editError}
@@ -87,7 +86,6 @@ export const EditDestination = () => {
                                                 desc={x.description}
                                                 onEditButtonClickHandler={onEditButtonClickHandler}
                                                 isEditable={isEditable[x._id]}
-                                                _mongo_id={data?._id}
                                                 sendEditedFieldClickHandler={sendEditedFieldClickHandler}
                                                 isLoading={isEditLoading}
                                                 error={error}

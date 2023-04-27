@@ -14,7 +14,6 @@ const FormFieldEditor = ({
     desc,
     onEditButtonClickHandler,
     isEditable,
-    _mongo_id,
     sendEditedFieldClickHandler,
     isLoading,
     error,
@@ -38,7 +37,6 @@ const FormFieldEditor = ({
         e.preventDefault();
 
         const editInfo = {
-            destinationId: _mongo_id,
             categoryId,
             infoId: fieldId,
             description,

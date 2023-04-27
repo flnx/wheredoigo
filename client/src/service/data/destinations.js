@@ -29,15 +29,10 @@ export const createDestination = async (destinationData) => {
     return res.data;
 };
 
-export const editDestinationDetails = async (updatedData) => {
-    const { destinationId, ...data } = updatedData;
-    try {
-        await axios.put(apiEndpoints.editDestinationDetails(destinationId), data);
-
-        return updatedData;
-    } catch (err) {
-        throw new Error(updatedData);
-    }
+export const editDestinationDetails = async (destinationId, updatedData) => {
+    await axios.put(apiEndpoints.editDestinationDetails(destinationId), updatedData);
+    
+    return updatedData;
 };
 
 export const deleteDestinationImage = async (destinationId, imageData) => {

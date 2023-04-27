@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useCallback, useState } from 'react';
 import { useGetPlaceToEdit } from '../../hooks/queries/useGetPlaceToEdit';
+import { useEditPlaceDetails } from '../../hooks/queries/useEditPlaceDetails';
 
 import { capitalizeFirstLetter, extractServerErrorMessage } from '../../utils/utils';
 
@@ -13,8 +14,8 @@ import styles from './EditPlace.module.css';
 export const EditPlace = () => {
     const { placeId } = useParams();
     const [data, error, isLoading] = useGetPlaceToEdit(placeId);
+    const [editDetails, editError, isEditLoading] = useEditPlaceDetails(placeId);
     const [isEditable, setIsEditable] = useState({});
-    // const [editDetails, editError, isEditLoading] = useEditDestinationDetails(destinationId);
 
     const onEditButtonClickHandler = useCallback((clickedId) => {
         // enables/disables the form fields
@@ -33,27 +34,24 @@ export const EditPlace = () => {
     }, []);
 
     const sendEditedFieldClickHandler = useCallback(
-        (fieldId, description, editedInfo, cbCacheHandler) => {
+        (fieldId, newContent, editedInfo, cbCacheHandler) => {
+            editedInfo.destinationId = data.destinationId
+
             editDetails(editedInfo, {
                 onSuccess: () => {
                     onEditButtonClickHandler(fieldId);
-                    cbCacheHandler(description);
+                    cbCacheHandler(newContent);
                 },
             });
         },
         []
     );
 
-    if (error) {
-        return <h1>{extractServerErrorMessage(error)}</h1>;
-    }
-
-    if (isLoading) {
-        return <h1>Loading...</h1>;
-    }
+    if (error) return <h1>{extractServerErrorMessage(error)}</h1>;
+    if (isLoading) return <h1>Loading...</h1>;
 
     const types = ['Explore', 'Eat', 'Party'];
-    const typeId = 'Types';
+    const typeId = 'type';
 
     return (
         <div className="container">
@@ -71,12 +69,9 @@ export const EditPlace = () => {
                                 desc={data[key]}
                                 onEditButtonClickHandler={onEditButtonClickHandler}
                                 isEditable={isEditable[key]}
-                                _mongo_id={data._id}
                                 sendEditedFieldClickHandler={sendEditedFieldClickHandler}
-                                // isLoading={isEditLoading}
-                                isLoading={false}
-                                // error={editError}
-                                error={null}
+                                isLoading={isEditLoading}
+                                error={editError}
                                 key={key}
                             />
                         ))}
@@ -87,9 +82,11 @@ export const EditPlace = () => {
                             <SelectType
                                 typeId={typeId}
                                 isEditable={isEditable[typeId]}
-                                selectedType={'Explore'}
+                                selectedType={data.type}
                                 types={types}
                                 onEditButtonClickHandler={onEditButtonClickHandler}
+                                sendEditedFieldClickHandler={sendEditedFieldClickHandler}
+                                isLoading={isEditLoading}
                             />
                         </div>
                     </form>

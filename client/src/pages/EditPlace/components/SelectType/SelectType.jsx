@@ -13,6 +13,8 @@ export const SelectType = ({
     selectedType,
     types,
     onEditButtonClickHandler,
+    sendEditedFieldClickHandler,
+    isLoading,
 }) => {
     const [type, setType] = useState(selectedType);
     const [cache, setCache] = useState(selectedType);
@@ -24,6 +26,19 @@ export const SelectType = ({
     const onCancelClickHandler = () => {
         onEditButtonClickHandler(typeId);
         setType(cache);
+    };
+
+    const setCacheHandler = (data) => setCache(data);
+
+    const onSaveButtonClickHandler = (e) => {
+        e.preventDefault();
+
+        const editInfo = {
+            infoId: typeId,
+            description: type,
+        };
+
+        sendEditedFieldClickHandler(typeId, type, editInfo, setCacheHandler);
     };
 
     return (
@@ -48,8 +63,8 @@ export const SelectType = ({
 
                     <div className={styles.buttons}>
                         <ButtonSky
-                        // onClickHandler={onSaveButtonClickHandler}
-                        // disabled={isLoading}
+                            onClickHandler={onSaveButtonClickHandler}
+                            disabled={isLoading}
                         >
                             Save
                         </ButtonSky>
