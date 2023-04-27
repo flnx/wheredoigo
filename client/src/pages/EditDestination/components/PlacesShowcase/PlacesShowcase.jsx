@@ -1,16 +1,15 @@
 import { memo, useState } from 'react';
 import { useDeletePlace } from '../../../../hooks/queries/useDeletePlace';
-
-// Components
-
-import { Place } from '../../../../components/Place/Place';
-import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
-
-import styles from './Places.module.css';
-import { SecondaryButton } from '../../../../components/Buttons/Secondary-Btn/SecondaryButton';
 import { useNavigate } from 'react-router-dom';
 
-const EditPlaces = ({ placesData, destinationId }) => {
+// Components
+import { Place } from '../../../../components/Place/Place';
+import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
+import { SecondaryButton } from '../../../../components/Buttons/Secondary-Btn/SecondaryButton';
+
+import styles from './PlacesShowcase.module.css';
+
+const PlacesShowcase = ({ placesData, destinationId }) => {
     const [deletePlace, error, isLoading] = useDeletePlace(destinationId);
     const [places, setPlace] = useState(placesData);
     const [openModal, setOpenModal] = useState(false);
@@ -81,4 +80,4 @@ const EditPlaces = ({ placesData, destinationId }) => {
     );
 };
 
-export const MemoizedEditPlaces = memo(EditPlaces);
+export const MemoizedPlacesShowcase = memo(PlacesShowcase);

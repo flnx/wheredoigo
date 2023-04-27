@@ -1,5 +1,5 @@
 .card {
-    padding: 0.35rem;
+    padding: 0.55rem;
     border: 1px solid var(--border-dark);
     border-radius: 10px;
     display: flex;
@@ -19,7 +19,7 @@
 }
 
 .content {
-    padding: 0.35rem;
+    padding: 0.45rem;
     flex: 1;
     display: flex;
     gap: 0.35rem;

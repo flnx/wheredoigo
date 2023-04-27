@@ -1,21 +1,24 @@
 export const apiEndpoints = {
-    changeAvatar: 'change-avatar',
-    addDestination: 'destinations',
-    addComment: (id) => `places/${id}/comment`,
-    deleteComment: (placeId, commentId) => `places/${placeId}/comment?commentId=${commentId}`,
     allDestinations: 'destinations',
-    getCity: 'destinations/get-city-data',
     creatorDestinations: 'destinations/created-by-user',
-    addPlace: (destinationId) => `destinations/${destinationId}/places/add`,
-    requestCreatePlacePermissions: (destinationId) => `destinations/${destinationId}/places/add`,
-    placeById: (id) => `places/${id}`,
     destinationById: (id) => `destinations/${id}`,
     destinationsByPage: (searchParams, skip) => `destinations?search=${searchParams}&page=${skip}`,
+    addDestination: 'destinations',
+    addDestinationImages: (id) => `destinations/${id}/add-images`,
     requestDestinationToEdit: (id) => `destinations/${id}/request-edit-permissions`,
-    requestEditPlacePermissions: (id) => `places/${id}/request-edit-permissions`,
     editDestinationDetails: (id) => `destinations/${id}/edit-destination-field`,
     deleteDestinationImage: (id) => `destinations/${id}/delete-image`,
     deleteDestination: (id) => `destinations/${id}/delete`,
-    addDestinationImages: (id) => `destinations/${id}/add-images`,
-    deletePlace: (id) => `places/${id}/delete`
+    
+    changeAvatar: 'change-avatar',
+    getCity: 'destinations/get-city-data',
+    
+    placeById: (id) => `places/${id}`,
+    addPlace: (destinationId) => `destinations/${destinationId}/places/add`,
+    requestCreatePlacePermissions: (destinationId) => `destinations/${destinationId}/places/add`,
+    requestPlaceToEdit: (id) => `places/${id}/request-edit-permissions`,
+    deletePlace: (id) => `places/${id}/delete`,
+
+    deleteComment: (placeId, commentId) => `places/${placeId}/comment?commentId=${commentId}`,
+    addComment: (id) => `places/${id}/comment`,
 }

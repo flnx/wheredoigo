@@ -73,8 +73,7 @@ async function getById(destinationId, user) {
         throw createValidationError(errorMessages.notFound, 404);
     }
 
-    const { ownerId, country, city, imageUrls, ...destinationWithoutOwnerId } =
-        destination;
+    const { ownerId, country, city, imageUrls, ...destinationWithoutOwnerId } = destination;
 
     if (user && ownerId.equals(user.ownerId)) {
         destinationWithoutOwnerId.isOwner = true;

@@ -4,6 +4,7 @@ import { memo } from 'react';
 // Components
 import { ButtonSky } from '../../components/Buttons/Button-Sky/ButtonSky';
 import { CancelButton } from '../../components/Buttons/Cancel-Button/CancelButton';
+import { EditTextareaPairs } from '../Buttons/EditTextareaPairs/EditTextareaPairs';
 
 import styles from './FormFieldEditor.module.css';
 
@@ -69,15 +70,10 @@ const FormFieldEditor = ({
                     </div>
                 </div>
             ) : (
-                <>
-                    <span className={styles.desc}>{description}</span>
-                    <span
-                        className={styles.edit}
-                        onClick={() => onEditButtonClickHandler(fieldId)}
-                    >
-                        Edit
-                    </span>
-                </>
+                <EditTextareaPairs
+                    selected={description}
+                    onClickHandler={() => onEditButtonClickHandler(fieldId)}
+                />
             )}
         </div>
     );

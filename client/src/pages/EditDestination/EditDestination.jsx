@@ -2,15 +2,14 @@ import { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetDestinationToEdit } from '../../hooks/queries/useGetDestinationToEdit';
 import { useEditDestinationDetails } from '../../hooks/queries/useEditDestinationDetails';
+import { extractServerErrorMessage } from '../../utils/utils';
 
 // Components
 import { MemoizedEditImages } from './components/EditImages/EditImages';
-import { MemoizedEditPlaces } from './components/EditPlaces/EditPlaces';
 import { MemoizedFormFieldEditor } from '../../components/FormFieldEditor/FormFieldEditor';
-
+import { MemoizedPlacesShowcase } from './components/PlacesShowcase/PlacesShowcase';
 
 import styles from './EditDestination.module.css';
-import { extractServerErrorMessage } from '../../utils/utils';
 
 export const EditDestination = () => {
     const { destinationId } = useParams();
@@ -22,9 +21,10 @@ export const EditDestination = () => {
     const onEditButtonClickHandler = useCallback((clickedId) => {
         // enables/disables the form fields
         setIsEditable((prevState) => {
+            // opens/closes the field related to the "edit" button
             const newState = { [clickedId]: !prevState[clickedId] };
 
-            // set all other fields to false (closes the rest (if any opened))
+            // closes all previously opened edit formfields if any
             Object.keys(prevState).forEach((fieldId) => {
                 if (fieldId !== clickedId) {
                     newState[fieldId] = false;
@@ -102,7 +102,7 @@ export const EditDestination = () => {
 
                         <MemoizedEditImages imagesData={data?.imageUrls} destinationId={data?._id} />
                     </div>
-                    <MemoizedEditPlaces placesData={data?.places} destinationId={data?._id} />
+                    <MemoizedPlacesShowcase placesData={data?.places} destinationId={data?._id} />
                 </>
             )}
         </div>

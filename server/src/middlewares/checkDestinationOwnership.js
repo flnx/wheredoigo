@@ -7,7 +7,7 @@ const { getDestinationPlaces } = require('../services/placeService');
 const { createValidationError } = require('../utils/createValidationError');
 const capitalizeEachWord = require('../utils/capitalizeWords');
 
-async function checkDestinationOwnership(req, res, next) {
+async function fetchDestinationAndCheckOwnership(req, res, next) {
     const { id } = req.params;
     const user = req.user;
 
@@ -55,6 +55,6 @@ async function checkDestinationOwnershipOnly(req, res, next) {
 }
 
 module.exports = {
-    checkDestinationOwnership,
+    fetchDestinationAndCheckOwnership,
     checkDestinationOwnershipOnly,
 };

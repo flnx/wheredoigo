@@ -22,9 +22,7 @@
     color: #333;
 }
 
-.textarea,
-.desc {
-    width: 100%;
+.textarea {
     width: calc(100% - 1rem);
 }
 
@@ -39,29 +37,7 @@
 
 .label {
     width: 23rem;
-}
-
-.label,
-.desc {
     color: var(--text-secondary);
-}
-
-.desc {
-    display: -webkit-box;
-    max-height: 4.5rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-wrap: break-word;
-    white-space: break-spaces;
-    margin-left: 1.75rem;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-}
-
-.edit {
-    margin-left: auto;
-    cursor: pointer;
-    color: var(--sky-blue);
 }
 
 .detail {

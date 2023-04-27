@@ -77,7 +77,7 @@ const get_creator_destinations = async (req, res, next) => {
     }
 };
 
-const request_edit_permissions = async (req, res, next) => {
+const request_destination_to_edit = async (req, res, next) => {
     const destination = req.destination;
     res.json(destination);
 };
@@ -138,7 +138,7 @@ module.exports = {
     get_city_data,
     add_new_destination,
     get_creator_destinations,
-    request_edit_permissions,
+    request_destination_to_edit,
     edit_destination_field,
     delete_destination_image,
     add_destination_new_images,

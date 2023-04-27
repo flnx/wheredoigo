@@ -1,0 +1,24 @@
+.pairs {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+}
+
+.desc {
+    display: -webkit-box;
+    width: calc(100% - 1rem);
+    color: var(--text-secondary);
+    max-height: 4.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    white-space: break-spaces;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.edit {
+    margin-left: auto;
+    cursor: pointer;
+    color: var(--sky-blue);
+}

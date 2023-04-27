@@ -36,6 +36,15 @@ const place_details = async (req, res, next) => {
     }
 };
 
+const request_place_to_edit = async (req, res, next) => {
+    const place = req.place;
+    const fieldKeys = ['name', 'description'];
+    place.fieldKeys = fieldKeys;
+
+    res.json(place);
+};
+
+
 const delete_place = async (req, res, next) => {
     const { id } = req.params;
     const { ownerId } = req.user;
@@ -78,6 +87,7 @@ module.exports = {
     add_new_place,
     add_new_place_request,
     place_details,
+    request_place_to_edit,
     post_comment,
     delete_comment,
     delete_place,

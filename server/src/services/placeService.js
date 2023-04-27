@@ -14,7 +14,6 @@ const { extractCloudinaryFolderName } = require('../utils/utils');
 
 async function getPlaceById(placeId, user) {
     const place = await Place.findById(placeId)
-        .select('-ownerId')
         .populate({
             path: 'comments',
             populate: { path: 'ownerId', select: 'username avatarUrl' },
@@ -26,9 +25,13 @@ async function getPlaceById(placeId, user) {
         throw createValidationError(errorMessages.notFound, 404);
     }
 
-    // 1. Adds isOwner prop if the current user (if any) is the owner of the comment
-    // 2. Removes ownerId._id prop (the original owner id) before sending it to the client
+    if (user && place.ownerId.equals(user.ownerId)) {
+        place.isOwner = true;
+    }
+
+    // Adds isOwner boolean if the current user (if any) is the owner of the comment
     place.comments.forEach((comment) => {
+        // Removes ownerId._id prop (the original owner id) before sending it to the client
         const { _id, ...ownerData } = comment.ownerId;
 
         if (user && _id.equals(user.ownerId)) {
@@ -43,9 +46,10 @@ async function getPlaceById(placeId, user) {
 
     place.name = capitalizeEachWord(place.name);
     place.city = capitalizeEachWord(place.city);
+    place.country = capitalizeEachWord(place.country);
     place.isAuth = user ? true : false;
 
-    const { imageUrls, ...placeData } = place;
+    const { imageUrls, ownerId, ...placeData } = place;
     const updatedImgUrls = imageUrls.map(({ public_id, ...rest }) => rest);
 
     return {
@@ -226,7 +230,6 @@ async function deletePlace(placeId, userId) {
 
     return true;
 }
-
 
 module.exports = {
     addNewPlace,
