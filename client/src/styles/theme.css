@@ -8,12 +8,13 @@
     --text-primary: #25161a;
     --text-primary-light: #fff;
     --text-secondary: rgb(113, 113, 113);
-    --text-secondary-dark: #c05e2b;
+    --text-secondary-dark: #8a543f;
     --text-links: #737373;
     --text-selection: #559ce3;
     --error-message: rgb(190, 19, 19);
     --danger:  #d9534f;
     --border-gray: #e0e0e0;
+    --border-dark: #25161a;
     --sky-blue: #0077cc;
     --sky-blue-darker: #005fa3;
     --button-primary: #c05e2b;
