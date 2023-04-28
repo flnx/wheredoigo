@@ -1,6 +1,6 @@
-const jwt = require('../lib/jsonwebtoken');
-const { errorMessages } = require('../constants/errorMessages');
 const { isValid } = require('mongoose').Types.ObjectId;
+const { errorMessages } = require('../constants/errorMessages');
+const jwt = require('../lib/jsonwebtoken');
 
 require('dotenv').config();
 

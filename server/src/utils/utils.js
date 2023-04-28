@@ -19,9 +19,14 @@ function extractCloudinaryFolderName(path, name, id) {
     return folderName;
 }
 
+function isString(str) {
+    return typeof str === 'string' && str.trim().length > 0;
+}
+
 module.exports = {
     validatePassword,
     fixInvalidFolderNameChars,
     isObject,
-    extractCloudinaryFolderName
+    extractCloudinaryFolderName,
+    isString
 };

@@ -49,8 +49,9 @@ export const EditPlace = () => {
     if (error) return <h1>{extractServerErrorMessage(error)}</h1>;
     if (isLoading) return <h1>Loading...</h1>;
 
-    const types = ['Explore', 'Eat', 'Party'];
     const typeId = 'type';
+    const allowedCategories = data.allowedPlaceCategories;
+    const allowedFieldsToUpdate = data.allowedFieldsToUpdate.filter(x => x !== 'type');
 
     return (
         <div className="container">
@@ -61,17 +62,17 @@ export const EditPlace = () => {
                 <section>
                     <h3 className={styles.sectionTitle}>Place Info</h3>
                     <form>
-                        {data.fieldKeys.map((key) => (
+                        {allowedFieldsToUpdate.map((fieldName) => (
                             <MemoizedFormFieldEditor
-                                fieldId={key}
-                                title={capitalizeFirstLetter(key)}
-                                desc={data[key]}
+                                fieldId={fieldName}
+                                title={capitalizeFirstLetter(fieldName)}
+                                desc={data[fieldName]}
                                 onEditButtonClickHandler={onEditButtonClickHandler}
-                                isEditable={isEditable[key]}
+                                isEditable={isEditable[fieldName]}
                                 sendEditedFieldClickHandler={sendEditedFieldClickHandler}
                                 isLoading={isEditLoading}
                                 error={editError}
-                                key={key}
+                                key={fieldName}
                             />
                         ))}
 
@@ -82,7 +83,7 @@ export const EditPlace = () => {
                                 typeId={typeId}
                                 isEditable={isEditable[typeId]}
                                 selectedType={data.type}
-                                types={types}
+                                types={allowedCategories}
                                 onEditButtonClickHandler={onEditButtonClickHandler}
                                 sendEditedFieldClickHandler={sendEditedFieldClickHandler}
                                 isLoading={isEditLoading}

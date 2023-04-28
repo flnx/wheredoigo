@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCreatorDestinations } from '../../../../hooks/queries/useCreatorDestinations';
 import { useDeleteDestination } from '../../../../hooks/queries/useDeleteDestination';
+import { extractServerErrorMessage } from '../../../../utils/utils';
 
 // Components
 import { Destination } from '../../../../components/Destination/Destination';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 
 import styles from './OwnerDestinations.module.css';
-import { extractServerErrorMessage } from '../../../../utils/utils';
 
 export const OwnerDestinations = () => {
     const { data, isLoading, error } = useCreatorDestinations();

@@ -6,10 +6,9 @@ const editDestinationField = require('../services/destinationServices/editDestin
 const getCreatorDestinations = require('../services/destinationServices/getCreatorDestinations');
 const getDestinationById = require('../services/destinationServices/getDestinationById');
 const getDestinationsPaginated = require('../services/destinationServices/getDestinationsPaginated');
+const getDestinationPlaces = require('../services/placeServices/getDestinationPlaces');
 
 const { fetchCity } = require('../services/getCityCountryData');
-
-const { getDestinationPlaces } = require('../services/placeService');
 
 const paginated_destinations = async (req, res, next) => {
     const page = parseInt(req.query.page) || 0;

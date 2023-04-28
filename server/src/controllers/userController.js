@@ -1,4 +1,6 @@
-const { userLogin, userRegister, updateUserAvatar } = require('../services/userService');
+const updateUserAvatar = require("../services/userServices/updateUserAvatar");
+const userLogin = require("../services/userServices/userLogin");
+const userRegister = require("../services/userServices/userRegister");
 
 const login = async (req, res, next) => {
     try {
