@@ -10,6 +10,7 @@ import { MemoizedFormFieldEditor } from '../../components/FormFieldEditor/FormFi
 import { SelectType } from './components/SelectType/SelectType';
 
 import styles from './EditPlace.module.css';
+import { validateFieldsOnEdit } from '../../utils/editValidators';
 
 export const EditPlace = () => {
     const { placeId } = useParams();
@@ -18,6 +19,10 @@ export const EditPlace = () => {
     const [editError, setEditError] = useState('');
     const [isEditable, setIsEditable] = useState({});
     const destinationId = data?.destinationId;
+
+    const typeId = 'type';
+    const allowedCategories = data?.allowedPlaceCategories;
+    const allowedFieldsToUpdate = data?.allowedFieldsToUpdate.filter((x) => x !== 'type');
 
     const onEditButtonClickHandler = useCallback((clickedId) => {
         // enables/disables the form fields
@@ -39,28 +44,31 @@ export const EditPlace = () => {
 
     const sendEditedFieldClickHandler = useCallback(
         (fieldId, newContent, editedInfo, cbCacheHandler) => {
-            editDetails(
-                { ...editedInfo, destinationId },
-                {
-                    onSuccess: () => {
-                        onEditButtonClickHandler(fieldId);
-                        cbCacheHandler(newContent);
-                    },
-                    onError: (err) => {
-                        setEditError(extractServerErrorMessage(err));
-                    },
-                }
-            );
+            try {
+                validateFieldsOnEdit(editedInfo, allowedFieldsToUpdate);
+
+                editDetails(
+                    { ...editedInfo, destinationId },
+                    {
+                        onSuccess: () => {
+                            onEditButtonClickHandler(fieldId);
+                            cbCacheHandler(newContent);
+                        },
+                        onError: (err) => {
+                            setEditError(extractServerErrorMessage(err));
+                        },
+                    }
+                );
+
+            } catch(err) {
+                setEditError(err.message);
+            }  
         },
         [destinationId]
     );
 
     if (error) return <h1>{extractServerErrorMessage(error)}</h1>;
     if (isLoading) return <h1>Loading...</h1>;
-
-    const typeId = 'type';
-    const allowedCategories = data.allowedPlaceCategories;
-    const allowedFieldsToUpdate = data.allowedFieldsToUpdate.filter((x) => x !== 'type');
 
     return (
         <div className="container">
@@ -96,6 +104,7 @@ export const EditPlace = () => {
                                 onEditButtonClickHandler={onEditButtonClickHandler}
                                 sendEditedFieldClickHandler={sendEditedFieldClickHandler}
                                 isLoading={isEditLoading}
+                                error={editError}
                             />
                         </div>
                     </form>

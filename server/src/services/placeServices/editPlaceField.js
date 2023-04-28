@@ -10,7 +10,6 @@ const { createValidationError } = require('../../utils/createValidationError');
 async function editPlaceField(placeId, updatedField) {
     const { description, infoId } = validateFieldsOnEdit(updatedField);
 
-
     if (!allowedFieldsToUpdate.includes(infoId)) {
         throw createValidationError(errorMessages.invalidBody, 400);
     }

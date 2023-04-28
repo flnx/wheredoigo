@@ -15,6 +15,7 @@ export const SelectType = ({
     onEditButtonClickHandler,
     sendEditedFieldClickHandler,
     isLoading,
+    error
 }) => {
     const [type, setType] = useState(selectedType);
     const [cache, setCache] = useState(selectedType);
@@ -60,7 +61,7 @@ export const SelectType = ({
                             </option>
                         ))}
                     </select>
-
+                    {error && <span className="error-message">{error}</span>}
                     <div className={styles.buttons}>
                         <ButtonSky
                             onClickHandler={onSaveButtonClickHandler}

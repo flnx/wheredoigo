@@ -10,6 +10,7 @@ import { MemoizedFormFieldEditor } from '../../components/FormFieldEditor/FormFi
 import { MemoizedPlacesShowcase } from './components/PlacesShowcase/PlacesShowcase';
 
 import styles from './EditDestination.module.css';
+import { validateFieldsOnEdit } from '../../utils/editValidators';
 
 export const EditDestination = () => {
     const { destinationId } = useParams();
@@ -19,35 +20,44 @@ export const EditDestination = () => {
 
     const [isEditable, setIsEditable] = useState({});
 
-    const onEditButtonClickHandler = useCallback((clickedId) => {
-        // enables/disables the form fields
-        setIsEditable((prevState) => {
-            // opens/closes the field related to the "edit" button
-            const newState = { [clickedId]: !prevState[clickedId] };
+    const onEditButtonClickHandler = useCallback(
+        (clickedId) => {
+            // enables/disables the form fields
+            setIsEditable((prevState) => {
+                // opens/closes the field related to the "edit" button
+                const newState = { [clickedId]: !prevState[clickedId] };
 
-            // closes all previously opened edit formfields if any
-            Object.keys(prevState).forEach((fieldId) => {
-                if (fieldId !== clickedId) {
-                    newState[fieldId] = false;
-                }
+                // closes all previously opened edit formfields if any
+                Object.keys(prevState).forEach((fieldId) => {
+                    if (fieldId !== clickedId) {
+                        newState[fieldId] = false;
+                    }
+                });
+                return newState;
             });
-            return newState;
-        });
 
-        editError && setEditError('');
-    }, [editError]);
+            editError && setEditError('');
+        },
+        [editError]
+    );
 
     const sendEditedFieldClickHandler = useCallback(
         (fieldId, description, editedInfo, cbCacheHandler) => {
-            editDetails(editedInfo, {
-                onSuccess: () => {
-                    onEditButtonClickHandler(fieldId);
-                    cbCacheHandler(description);
-                },
-                onError: (err) => {
-                    setEditError(extractServerErrorMessage(err));
-                }
-            });
+            try {
+                validateFieldsOnEdit(editedInfo);
+
+                editDetails(editedInfo, {
+                    onSuccess: () => {
+                        onEditButtonClickHandler(fieldId);
+                        cbCacheHandler(description);
+                    },
+                    onError: (err) => {
+                        setEditError(extractServerErrorMessage(err));
+                    },
+                });
+            } catch (err) {
+                setEditError(err.message);
+            }
         },
         []
     );
@@ -84,15 +94,21 @@ export const EditDestination = () => {
                                 />
                                 {data.details.map((detail) => (
                                     <div className={styles.detailsWrapper} key={detail._id}>
-                                        <h2 className={styles.catetegoryName}>{detail.category}</h2>
+                                        <h2 className={styles.catetegoryName}>
+                                            {detail.category}
+                                        </h2>
                                         {detail.info.map((x) => (
                                             <MemoizedFormFieldEditor
                                                 fieldId={x._id}
                                                 title={x.title}
                                                 desc={x.description}
-                                                onEditButtonClickHandler={onEditButtonClickHandler}
+                                                onEditButtonClickHandler={
+                                                    onEditButtonClickHandler
+                                                }
                                                 isEditable={isEditable[x._id]}
-                                                sendEditedFieldClickHandler={sendEditedFieldClickHandler}
+                                                sendEditedFieldClickHandler={
+                                                    sendEditedFieldClickHandler
+                                                }
                                                 isLoading={isEditLoading}
                                                 error={editError}
                                                 categoryId={detail._id}
@@ -104,9 +120,15 @@ export const EditDestination = () => {
                             </form>
                         </section>
 
-                        <MemoizedEditImages imagesData={data?.imageUrls} destinationId={data?._id} />
+                        <MemoizedEditImages
+                            imagesData={data?.imageUrls}
+                            destinationId={data?._id}
+                        />
                     </div>
-                    <MemoizedPlacesShowcase placesData={data?.places} destinationId={data?._id} />
+                    <MemoizedPlacesShowcase
+                        placesData={data?.places}
+                        destinationId={data?._id}
+                    />
                 </>
             )}
         </div>
