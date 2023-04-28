@@ -316,16 +316,15 @@ async function editDestinationField(destinationId, updatedFields) {
     return result;
 
     async function editDescription(destinationId, description) {
-        const result = await Destination.findByIdAndUpdate(
-            destinationId,
-            { description },
-            { new: true, select: 'description' }
+        const result = await Place.updateOne(
+            { _id: destinationId },
+            { $set: { description } }
         )
             .lean()
             .exec();
 
-        if (!result) {
-            throw createValidationError(errorMessages.notFound, 404);
+        if (!result || result.modifiedCount === 0 || result.matchedCount === 0) {
+            throw createValidationError(errorMessages.couldNotUpdate(infoId), 404);
         }
 
         return result;
@@ -346,12 +345,8 @@ async function editDestinationField(destinationId, updatedFields) {
             .lean()
             .exec();
 
-        if (!result) {
-            throw createValidationError(errorMessages.notFound, 404);
-        }
-
-        if (result.matchedCount === 0) {
-            throw createValidationError(errorMessages.notFound, 404);
+        if (!result || result.modifiedCount === 0 || result.matchedCount === 0) {
+            throw createValidationError(errorMessages.couldNotUpdate(infoId), 404);
         }
 
         return result;
