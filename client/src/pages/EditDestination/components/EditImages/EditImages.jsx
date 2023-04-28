@@ -1,5 +1,4 @@
 import { memo, useState } from 'react';
-import { useDeleteDestinationImage } from '../../../../hooks/queries/useDeleteDestinationImage';
 
 // Components
 import { ImagesPreviewer } from '../../../../components/ImagesPreviewer/ImagesPreviewer';
@@ -8,9 +7,7 @@ import { NewImagesUploader } from './NewImagesUploader';
 
 import styles from './EditImages.module.css';
 
-const EditImages = ({ imagesData, destinationId }) => {
-    const [deleteImage, error, isLoading] = useDeleteDestinationImage(destinationId);
-
+const EditImages = ({ imagesData, destinationId, deleteImageHandler, isLoading }) => {
     const [images, setImages] = useState(imagesData);
     const [openModal, setOpenModal] = useState(false);
     const [imgIndexToDelete, setImgIndexToDelete] = useState(null);
@@ -27,21 +24,13 @@ const EditImages = ({ imagesData, destinationId }) => {
 
     const handleConfirmDelete = () => {
         const imgId = images[imgIndexToDelete]._id;
-        
-        deleteImage(
-            { imgId },
-            {
-                onSuccess: () => {
-                    setImages((prevState) =>
-                        prevState.filter((img, i) => imgIndexToDelete !== i)
-                    );
-                    setOpenModal(false);
-                },
-                onError: () => {
-                    setOpenModal(false);
-                },
-            }
-        );
+
+        const setImagesHandler = () => {
+            setImages((prevState) => prevState.filter((img, i) => imgIndexToDelete !== i));
+            handleCloseConfirmModal();
+        };
+
+        deleteImageHandler({ imgId }, setImagesHandler);
     };
 
     const handleUpdateCurrentImages = (newImages) => {

@@ -4,13 +4,13 @@ import { useGetPlaceToEdit } from '../../hooks/queries/useGetPlaceToEdit';
 import { useEditPlaceDetails } from '../../hooks/queries/useEditPlaceDetails';
 
 import { capitalizeFirstLetter, extractServerErrorMessage } from '../../utils/utils';
+import { validateFieldsOnEdit } from '../../utils/editValidators';
 
 // Components
 import { MemoizedFormFieldEditor } from '../../components/FormFieldEditor/FormFieldEditor';
 import { SelectType } from './components/SelectType/SelectType';
 
 import styles from './EditPlace.module.css';
-import { validateFieldsOnEdit } from '../../utils/editValidators';
 
 export const EditPlace = () => {
     const { placeId } = useParams();

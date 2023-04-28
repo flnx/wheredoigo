@@ -12,26 +12,34 @@ async function deleteDestinationImage(destinationId, imgId) {
         throw createValidationError(errorMessages.notFound, 404);
     }
 
-    const result = await Destination.updateOne(
-        { _id: destinationId },
-        { $pull: { imageUrls: { _id: imgId } } }
+    const result = await Destination.findOneAndUpdate(
+        { _id: destinationId, 'imageUrls._id': imgId },
+        { $pull: { imageUrls: { _id: imgId } } },
+        {
+            projection: { imageUrls: 1 },
+        }
     )
         .lean()
         .exec();
 
+    if (!result) {
+        throw createValidationError(errorMessages.notFound, 404);
+    }
+
+    const deletedImage = result.imageUrls.find(({ _id }) => _id.equals(imgId));
+
+    if (!deletedImage) {
+        throw createValidationError(errorMessages.couldNotDelete(`this image`), 404);
+    }
+
+    const { public_id } = deletedImage;
+    
     let cloudinary_error = null;
 
     try {
-        await deleteImage(imageData.public_id);
+        await deleteImage(public_id);
     } catch (err) {
         cloudinary_error = err.message;
-    }
-
-    if (!result ||  result.matchedCount === 0) {
-        throw createValidationError(
-            errorMessages.couldNotDelete(`Image with ID: ${imgId}`),
-            404
-        );
     }
 
     result.cloud_error = cloudinary_error;

@@ -11,11 +11,14 @@ import { MemoizedPlacesShowcase } from './components/PlacesShowcase/PlacesShowca
 
 import styles from './EditDestination.module.css';
 import { validateFieldsOnEdit } from '../../utils/editValidators';
+import { useDeleteDestinationImage } from '../../hooks/queries/useDeleteDestinationImage';
 
 export const EditDestination = () => {
     const { destinationId } = useParams();
     const [data, error, isLoading] = useGetDestinationToEdit(destinationId);
     const [editDetails, isEditLoading] = useEditDestinationDetails(destinationId);
+    const [deleteImage, deleteImgError, isDeleteImgLoading] =
+        useDeleteDestinationImage(destinationId);
     const [editError, setEditError] = useState('');
 
     const [isEditable, setIsEditable] = useState({});
@@ -62,11 +65,15 @@ export const EditDestination = () => {
         []
     );
 
+    const deleteImageHandler = useCallback((imgId, cbSetImages) => {
+        deleteImage(imgId, {
+            onSuccess: () => cbSetImages(),
+        });
+    }, []);
+
     const descriptionID = 'Description';
 
-    if (error) {
-        return <h1>{extractServerErrorMessage(error)}</h1>;
-    }
+    if (error) return <h1>{extractServerErrorMessage(error)}</h1>;
 
     return (
         <div className="container">
@@ -123,6 +130,8 @@ export const EditDestination = () => {
                         <MemoizedEditImages
                             imagesData={data?.imageUrls}
                             destinationId={data?._id}
+                            deleteImageHandler={deleteImageHandler}
+                            isLoading={isDeleteImgLoading}
                         />
                     </div>
                     <MemoizedPlacesShowcase
