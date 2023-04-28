@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const { isValid } = mongoose.Types.ObjectId;
 
 const Destination = require('../../models/destinationSchema');
-const Place = require('../../models/placeSchema');
 const { errorMessages } = require('../../constants/errorMessages');
 
 // utils
@@ -13,7 +12,7 @@ async function editDestinationField(destinationId, updatedFields) {
     const { description, infoId, categoryId } = validateFieldsOnEdit(updatedFields);
 
     if (infoId == 'Description') {
-        const result = await editDescription(destinationId, description);
+        const result = await editDescription(destinationId, description, infoId);
 
         return result;
     }
@@ -48,10 +47,10 @@ async function editDetail(destinationId, categoryId, infoId, updatedValue) {
     return result;
 }
 
-async function editDescription(destinationId, description) {
-    const result = await Place.updateOne(
+async function editDescription(destinationId, description, infoId) {
+    const result = await Destination.updateOne(
         { _id: destinationId },
-        { $set: { description } }
+        { $set: { description: description } }
     )
         .lean()
         .exec();

@@ -1,11 +1,10 @@
 const jwt = require('../../lib/jsonwebtoken');
-
 const User = require('../../models/userSchema');
+const { errorMessages } = require('../../constants/errorMessages');
 
 const { avatarOptions } = require('../../config/cloudinary');
 const { handleImageUploads, deleteImage } = require('../../utils/cloudinaryUploader');
 const { createValidationError } = require('../../utils/createValidationError');
-const { errorMessages } = require('../../constants/errorMessages');
 
 require('dotenv').config();
 

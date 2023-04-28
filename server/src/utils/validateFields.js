@@ -1,3 +1,5 @@
+const validator = require('validator');
+
 const { allowedPlaceCategories } = require('../constants/allowedPlaceCategories');
 const { errorMessages } = require('../constants/errorMessages');
 const { createValidationError } = require('./createValidationError');

@@ -1,12 +1,11 @@
 const getDestinationById = require('../services/destinationServices/getDestinationById');
 const getDestinationOwnerIdOnly = require('../services/destinationServices/getDestinationOwnerId');
-const { getDestinationPlaces } = require('../services/placeService');
-
+const getDestinationPlaces = require('../services/placeServices/getDestinationPlaces');
 const { errorMessages } = require('../constants/errorMessages');
 
 // utils
-const { createValidationError } = require('../utils/createValidationError');
 const capitalizeEachWord = require('../utils/capitalizeWords');
+const { createValidationError } = require('../utils/createValidationError');
 
 async function fetchDestinationAndCheckOwnership(req, res, next) {
     const { id } = req.params;
