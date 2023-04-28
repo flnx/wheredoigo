@@ -1,8 +1,11 @@
 import { useEffect } from 'react';
 import { disableBodyScroll, enableBodyScroll } from '../../utils/utils';
-import styles from './ConfirmModal.module.css';
+
+// Components
 import { SuccessButton } from '../Buttons/Success-Button/SuccessButton';
 import { CancelButton } from '../Buttons/Cancel-Button/CancelButton';
+
+import styles from './ConfirmModal.module.css';
 
 export const ConfirmModal = ({ children, onCloseHandler, actionClickHandler, isLoading }) => {
     useEffect(() => {
@@ -21,7 +24,9 @@ export const ConfirmModal = ({ children, onCloseHandler, actionClickHandler, isL
                         <SuccessButton onClickHandler={actionClickHandler} isLoading={isLoading}>
                             Delete
                         </SuccessButton>
-                        <CancelButton onClickHandler={onCloseHandler}>Cancel</CancelButton>
+                        <CancelButton onClickHandler={onCloseHandler}>
+                            Cancel
+                        </CancelButton>
                     </div>
                 </div>
             </div>

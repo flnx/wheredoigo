@@ -16,6 +16,8 @@ export const EditDestination = () => {
 
     if (error) return <h1>{extractServerErrorMessage(error)}</h1>;
 
+    const destinationTitle = `${data?.city}, ${data?.country}`;
+
     return (
         <div className="container">
             {isLoading || !data ? (
@@ -23,21 +25,23 @@ export const EditDestination = () => {
             ) : (
                 <>
                     <h1 className={styles.destinationTitle}>
-                        Edit {`${data?.city}, ${data?.country}`}
+                        Edit {destinationTitle}
                     </h1>
-
                     <div className={styles['flex-container']}>
                         <Form 
                             data={data} 
                             destinationId={destinationId} 
                         />
-                        
+
                         <EditImages
                             imagesData={data.imageUrls}
                             destinationId={destinationId}
                         />
                     </div>
-                    <PlacesShowcase placesData={data.places} destinationId={destinationId} />
+                    <PlacesShowcase 
+                        placesData={data.places} 
+                        destinationId={destinationId} 
+                    />
                 </>
             )}
         </div>
