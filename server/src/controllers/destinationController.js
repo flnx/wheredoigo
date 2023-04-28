@@ -84,10 +84,9 @@ const request_destination_to_edit = async (req, res, next) => {
 
 const edit_destination_field = async (req, res, next) => {
     const { id } = req.params;
-    const updatedFieldData = req.body;
 
     try {
-        const result = await editDestinationField(id, updatedFieldData);
+        const result = await editDestinationField(id, req.body);
         res.json(result);
     } catch (err) {
         next(err);
@@ -109,10 +108,9 @@ const delete_destination = async (req, res, next) => {
 const delete_destination_image = async (req, res, next) => {
     const { id } = req.params; // destination id
     const { imgId } = req.body;
-    const destination = req.destination;
 
     try {
-        const result = await deleteDestinationImage(id, imgId, destination);
+        const result = await deleteDestinationImage(id, imgId);
         res.json(result);
     } catch (err) {
         next(err);

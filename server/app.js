@@ -8,6 +8,8 @@ const bodyParserErrorHandler = require('./src/middlewares/bodyParserErrorHandler
 const { cloudinaryConfig } = require('./src/config/cloudinary');
 const limiter = require('./src/config/rateLimiter');
 const errorHandler = require('./src/utils/errorHandler');
+const { requireObjectBody } = require('./src/middlewares/requireObjectBody');
+
 
 
 start();
@@ -21,6 +23,7 @@ async function start() {
     app.use(bodyParserErrorHandler);
     app.use(express.urlencoded({ extended: true }));
     app.use(limiter);
+    app.use(['PUT', 'POST'], requireObjectBody);
     
     cloudinaryConfig();
     routesConfig(app);

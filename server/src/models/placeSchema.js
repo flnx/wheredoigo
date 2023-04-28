@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+
 const { errorMessages } = require('../constants/errorMessages');
+const { allowedPlaceCategories } = require('../constants/allowedPlaceCategories');
 
 const placeSchema = new Schema({
     ownerId: {
@@ -40,7 +42,7 @@ const placeSchema = new Schema({
     type: {
         type: String,
         trim: true,
-        enum: ['Explore', 'Eat', 'Party'],
+        enum: allowedPlaceCategories,
         required: [true, 'Type is required'],
     },
     imageUrls: [

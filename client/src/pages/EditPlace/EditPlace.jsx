@@ -16,6 +16,7 @@ export const EditPlace = () => {
     const [data, error, isLoading] = useGetPlaceToEdit(placeId);
     const [editDetails, editError, isEditLoading] = useEditPlaceDetails(placeId);
     const [isEditable, setIsEditable] = useState({});
+    const destinationId = data?.destinationId;
 
     const onEditButtonClickHandler = useCallback((clickedId) => {
         // enables/disables the form fields
@@ -35,16 +36,14 @@ export const EditPlace = () => {
 
     const sendEditedFieldClickHandler = useCallback(
         (fieldId, newContent, editedInfo, cbCacheHandler) => {
-            editedInfo.destinationId = data.destinationId
-
-            editDetails(editedInfo, {
+            editDetails({...editedInfo, destinationId }, {
                 onSuccess: () => {
                     onEditButtonClickHandler(fieldId);
                     cbCacheHandler(newContent);
                 },
             });
         },
-        []
+        [destinationId]
     );
 
     if (error) return <h1>{extractServerErrorMessage(error)}</h1>;

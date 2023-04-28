@@ -1,11 +1,11 @@
 const express = require('express');
-const validateMongoId = require('../middlewares/validateMongoId');
 
 // Middlewares
 const { auth } = require('../middlewares/auth');
 const { upload } = require('../middlewares/images');
 const { checkSession } = require('../middlewares/checkSession');
 const { fetchDestinationAndCheckOwnership, checkDestinationOwnershipOnly } = require('../middlewares/checkDestinationOwnership');
+const validateMongoId = require('../middlewares/validateMongoId');
 
 // Controllers
 const {
@@ -31,7 +31,7 @@ router.get('/destinations/:id', validateMongoId, checkSession, details);
 router.post('/destinations', auth, upload, add_new_destination);
 router.post('/destinations/get-city-data', auth, get_city_data);
 
-router.put('/destinations/:id/delete-image', validateMongoId, auth, fetchDestinationAndCheckOwnership, delete_image);
+router.put('/destinations/:id/delete-image', validateMongoId, auth, checkDestinationOwnershipOnly, delete_image);
 router.put('/destinations/:id/add-images', validateMongoId, auth, checkDestinationOwnershipOnly, upload, add_images);
 router.put('/destinations/:id/edit-destination-field', validateMongoId, auth, checkDestinationOwnershipOnly, edit_field);
 

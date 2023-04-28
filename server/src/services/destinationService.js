@@ -8,12 +8,16 @@ const Place = require('../models/placeSchema');
 const Comment = require('../models/commentSchema');
 
 const { fetchCity, fetchCountry } = require('../service/data');
-const { addImages, deleteImage, deleteMultipleImages } = require('../utils/cloudinaryUploader');
+const {
+    addImages,
+    deleteImage,
+    deleteMultipleImages,
+} = require('../utils/cloudinaryUploader');
 
 const capitalizeEachWord = require('../utils/capitalizeWords');
 const { isObject, extractCloudinaryFolderName } = require('../utils/utils');
 const { createValidationError } = require('../utils/createValidationError');
-const { validateFields } = require('../utils/validateFields');
+const { validateFields, validateFieldsOnEdit } = require('../utils/validateFields');
 const { errorMessages } = require('../constants/errorMessages');
 
 require('dotenv').config();
@@ -73,7 +77,8 @@ async function getById(destinationId, user) {
         throw createValidationError(errorMessages.notFound, 404);
     }
 
-    const { ownerId, country, city, imageUrls, ...destinationWithoutOwnerId } = destination;
+    const { ownerId, country, city, imageUrls, ...destinationWithoutOwnerId } =
+        destination;
 
     if (user && ownerId.equals(user.ownerId)) {
         destinationWithoutOwnerId.isOwner = true;
@@ -202,14 +207,8 @@ async function addDestinationNewImages(destinationId, imgFiles, destination) {
     };
 }
 
-async function deleteDestinationImage(destinationId, imgId, destination) {
+async function deleteDestinationImage(destinationId, imgId) {
     if (!imgId || !isValid(imgId)) {
-        throw createValidationError(errorMessages.notFound, 404);
-    }
-
-    const imageData = destination.imageUrls.find((x) => x._id.toString() === imgId);
-
-    if (!imageData) {
         throw createValidationError(errorMessages.notFound, 404);
     }
 
@@ -221,6 +220,8 @@ async function deleteDestinationImage(destinationId, imgId, destination) {
         .exec();
 
     let cloudinary_error = null;
+
+    // To Do: Check if the image was actually deleted.
 
     try {
         await deleteImage(imageData.public_id);
@@ -298,24 +299,8 @@ async function deleteDestination(destinationId, userId) {
     }
 }
 
-async function editDestinationField(destinationId, updatedFieldData) {
-    if (!isObject(updatedFieldData)) {
-        throw createValidationError(errorMessages.invalidBody, 400);
-    }
-
-    if (!Object.hasOwn(updatedFieldData, 'description')) {
-        throw createValidationError(errorMessages.invalidBody, 400);
-    }
-    
-    if (typeof updatedFieldData.description !== 'string') {
-        throw createValidationError(errorMessages.invalidBody, 400);
-    }
-
-    const { description, infoId, categoryId } = updatedFieldData;
-
-    if (!validator.isLength(description, { min: 10, max: 5000 })) {
-        throw createValidationError(errorMessages.description, 400);
-    }
+async function editDestinationField(destinationId, updatedFields) {
+    const { description, infoId, categoryId } = validateFieldsOnEdit(updatedFields);
 
     if (infoId == 'Description') {
         const result = await editDescription(destinationId, description);
@@ -323,7 +308,7 @@ async function editDestinationField(destinationId, updatedFieldData) {
         return result;
     }
 
-    if (!infoId || !categoryId || !isValid(infoId) || !isValid(categoryId)) {
+    if (!categoryId || !isValid(infoId) || !isValid(categoryId)) {
         throw createValidationError(errorMessages.invalidBody, 400);
     }
 

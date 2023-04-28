@@ -44,6 +44,17 @@ const request_place_to_edit = async (req, res, next) => {
     res.json(place);
 };
 
+const edit_place_field = async (req, res, next) => {
+    const { id } = req.params;
+    const updatedFields = req.body;
+
+    try {
+        const result = await deletePlace(id, req.body);
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
+};
 
 const delete_place = async (req, res, next) => {
     const { id } = req.params;
@@ -91,4 +102,5 @@ module.exports = {
     post_comment,
     delete_comment,
     delete_place,
+    edit_place_field
 };
