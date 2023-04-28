@@ -1,27 +1,18 @@
-import { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetDestinationToEdit } from '../../hooks/queries/useGetDestinationToEdit';
-import { extractServerErrorMessage } from '../../utils/utils';
 
 // Components
-import { MemoizedEditImages } from './components/EditImages/EditImages';
-import { MemoizedPlacesShowcase } from './components/PlacesShowcase/PlacesShowcase';
+import { PlacesShowcase } from './components/PlacesShowcase/PlacesShowcase';
+import { EditImages } from './components/EditImages/EditImages';
 import { Form } from './components/Form/Form';
 
-import { useDeleteDestinationImage } from '../../hooks/queries/useDeleteDestinationImage';
+import { extractServerErrorMessage } from '../../utils/utils';
 
 import styles from './EditDestination.module.css';
 
 export const EditDestination = () => {
     const { destinationId } = useParams();
     const [data, error, isLoading] = useGetDestinationToEdit(destinationId);
-    const [deleteImage, deleteImgError, isDeleteImgLoading] = useDeleteDestinationImage(destinationId);
-
-    const deleteImageHandler = useCallback((imgId, cbSetImages) => {
-        deleteImage(imgId, {
-            onSuccess: () => cbSetImages(),
-        });
-    }, []);
 
     if (error) return <h1>{extractServerErrorMessage(error)}</h1>;
 
@@ -36,21 +27,17 @@ export const EditDestination = () => {
                     </h1>
 
                     <div className={styles['flex-container']}>
-                        <section>
-                            <h3 className={styles.sectionTitle}>Destination Info</h3>
-                            <Form data={data} destinationId={destinationId} />
-                        </section>
-                        <MemoizedEditImages
-                            imagesData={data?.imageUrls}
-                            destinationId={data?._id}
-                            deleteImageHandler={deleteImageHandler}
-                            isLoading={isDeleteImgLoading}
+                        <Form 
+                            data={data} 
+                            destinationId={destinationId} 
+                        />
+                        
+                        <EditImages
+                            imagesData={data.imageUrls}
+                            destinationId={destinationId}
                         />
                     </div>
-                    <MemoizedPlacesShowcase
-                        placesData={data?.places}
-                        destinationId={data?._id}
-                    />
+                    <PlacesShowcase placesData={data.places} destinationId={destinationId} />
                 </>
             )}
         </div>

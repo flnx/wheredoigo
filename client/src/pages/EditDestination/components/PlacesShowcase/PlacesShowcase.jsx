@@ -9,7 +9,7 @@ import { SecondaryButton } from '../../../../components/Buttons/Secondary-Btn/Se
 
 import styles from './PlacesShowcase.module.css';
 
-const PlacesShowcase = ({ placesData, destinationId }) => {
+export const PlacesShowcase = ({ placesData, destinationId }) => {
     const [deletePlace, error, isLoading] = useDeletePlace(destinationId);
     const [places, setPlace] = useState(placesData);
     const [openModal, setOpenModal] = useState(false);
@@ -79,5 +79,3 @@ const PlacesShowcase = ({ placesData, destinationId }) => {
         </section>
     );
 };
-
-export const MemoizedPlacesShowcase = memo(PlacesShowcase);

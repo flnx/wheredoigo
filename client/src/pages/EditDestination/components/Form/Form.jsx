@@ -57,25 +57,28 @@ export const Form = ({ data, destinationId }) => {
     const descriptionID = 'Description';
 
     return (
-        <form>
-            <MemoizedFormFieldEditor
-                fieldId={descriptionID}
-                title={descriptionID}
-                desc={data.description}
-                onEditButtonClickHandler={onEditButtonClickHandler}
-                isEditable={isEditable[descriptionID]}
-                sendEditedFieldClickHandler={sendEditedFieldClickHandler}
-                isLoading={isEditLoading}
-                error={editError}
-            />
-            <DetailsFormFields
-                onEditButtonClickHandler={onEditButtonClickHandler}
-                isEditable={isEditable}
-                sendEditedFieldClickHandler={sendEditedFieldClickHandler}
-                isLoading={isEditLoading}
-                error={editError}
-                details={data.details}
-            />
-        </form>
+        <section>
+            <h3 style={{ marginBottom: '1rem' }}>Destination Info</h3>
+            <form>
+                <MemoizedFormFieldEditor
+                    fieldId={descriptionID}
+                    title={descriptionID}
+                    desc={data.description}
+                    onEditButtonClickHandler={onEditButtonClickHandler}
+                    isEditable={isEditable[descriptionID]}
+                    sendEditedFieldClickHandler={sendEditedFieldClickHandler}
+                    isLoading={isEditLoading}
+                    error={editError}
+                />
+                <DetailsFormFields
+                    onEditButtonClickHandler={onEditButtonClickHandler}
+                    isEditable={isEditable}
+                    sendEditedFieldClickHandler={sendEditedFieldClickHandler}
+                    isLoading={isEditLoading}
+                    error={editError}
+                    details={data.details}
+                />
+            </form>
+        </section>
     );
 };
