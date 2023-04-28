@@ -14,7 +14,8 @@ import styles from './EditPlace.module.css';
 export const EditPlace = () => {
     const { placeId } = useParams();
     const [data, error, isLoading] = useGetPlaceToEdit(placeId);
-    const [editDetails, editError, isEditLoading] = useEditPlaceDetails(placeId);
+    const [editDetails, isEditLoading] = useEditPlaceDetails(placeId);
+    const [editError, setEditError] = useState('');
     const [isEditable, setIsEditable] = useState({});
     const destinationId = data?.destinationId;
 
@@ -32,16 +33,24 @@ export const EditPlace = () => {
             });
             return newState;
         });
-    }, []);
+
+        editError && setEditError('');
+    }, [editError]);
 
     const sendEditedFieldClickHandler = useCallback(
         (fieldId, newContent, editedInfo, cbCacheHandler) => {
-            editDetails({...editedInfo, destinationId }, {
-                onSuccess: () => {
-                    onEditButtonClickHandler(fieldId);
-                    cbCacheHandler(newContent);
-                },
-            });
+            editDetails(
+                { ...editedInfo, destinationId },
+                {
+                    onSuccess: () => {
+                        onEditButtonClickHandler(fieldId);
+                        cbCacheHandler(newContent);
+                    },
+                    onError: (err) => {
+                        setEditError(extractServerErrorMessage(err));
+                    },
+                }
+            );
         },
         [destinationId]
     );
@@ -51,7 +60,7 @@ export const EditPlace = () => {
 
     const typeId = 'type';
     const allowedCategories = data.allowedPlaceCategories;
-    const allowedFieldsToUpdate = data.allowedFieldsToUpdate.filter(x => x !== 'type');
+    const allowedFieldsToUpdate = data.allowedFieldsToUpdate.filter((x) => x !== 'type');
 
     return (
         <div className="container">

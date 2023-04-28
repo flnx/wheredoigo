@@ -7,6 +7,7 @@ import { CancelButton } from '../../components/Buttons/Cancel-Button/CancelButto
 import { EditTextareaPairs } from '../Buttons/EditTextareaPairs/EditTextareaPairs';
 
 import styles from './FormFieldEditor.module.css';
+import { extractServerErrorMessage } from '../../utils/utils';
 
 const FormFieldEditor = ({
     fieldId,
@@ -66,6 +67,7 @@ const FormFieldEditor = ({
                             Cancel
                         </CancelButton>
                     </div>
+                    {error && <span className="error-message">{error}</span>}
                 </div>
             ) : (
                 <EditTextareaPairs

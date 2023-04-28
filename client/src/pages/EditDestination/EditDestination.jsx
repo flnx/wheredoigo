@@ -14,7 +14,8 @@ import styles from './EditDestination.module.css';
 export const EditDestination = () => {
     const { destinationId } = useParams();
     const [data, error, isLoading] = useGetDestinationToEdit(destinationId);
-    const [editDetails, editError, isEditLoading] = useEditDestinationDetails(destinationId);
+    const [editDetails, isEditLoading] = useEditDestinationDetails(destinationId);
+    const [editError, setEditError] = useState('');
 
     const [isEditable, setIsEditable] = useState({});
 
@@ -32,7 +33,9 @@ export const EditDestination = () => {
             });
             return newState;
         });
-    }, []);
+
+        editError && setEditError('');
+    }, [editError]);
 
     const sendEditedFieldClickHandler = useCallback(
         (fieldId, description, editedInfo, cbCacheHandler) => {
@@ -41,6 +44,9 @@ export const EditDestination = () => {
                     onEditButtonClickHandler(fieldId);
                     cbCacheHandler(description);
                 },
+                onError: (err) => {
+                    setEditError(extractServerErrorMessage(err));
+                }
             });
         },
         []
@@ -88,7 +94,7 @@ export const EditDestination = () => {
                                                 isEditable={isEditable[x._id]}
                                                 sendEditedFieldClickHandler={sendEditedFieldClickHandler}
                                                 isLoading={isEditLoading}
-                                                error={error}
+                                                error={editError}
                                                 categoryId={detail._id}
                                                 key={x._id}
                                             />

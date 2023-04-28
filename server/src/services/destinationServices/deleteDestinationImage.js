@@ -27,7 +27,7 @@ async function deleteDestinationImage(destinationId, imgId) {
         cloudinary_error = err.message;
     }
 
-    if (!result || result.modifiedCount === 0 || result.matchedCount === 0) {
+    if (!result ||  result.matchedCount === 0) {
         throw createValidationError(
             errorMessages.couldNotDelete(`Image with ID: ${imgId}`),
             404

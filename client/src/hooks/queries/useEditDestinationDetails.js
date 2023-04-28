@@ -5,7 +5,7 @@ import { queryEndpoints } from '../../constants/reactQueryEndpoints';
 export const useEditDestinationDetails = (destinationId) => {
     const queryClient = useQueryClient();
 
-    const { mutate, error, isLoading } = useMutation({
+    const { mutate, isLoading } = useMutation({
         mutationFn: (data) => editDestinationDetails(destinationId, data),
         onSuccess: (updatedField) => {
             const { categoryId, infoId, description } = updatedField;
@@ -52,5 +52,5 @@ export const useEditDestinationDetails = (destinationId) => {
         },
     });
 
-    return [mutate, error, isLoading];
+    return [mutate, isLoading];
 };

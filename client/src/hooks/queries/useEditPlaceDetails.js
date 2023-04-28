@@ -5,7 +5,7 @@ import { editPlaceDetails } from '../../service/data/places';
 export const useEditPlaceDetails = (placeId) => {
     const queryClient = useQueryClient();
 
-    const { mutate, error, isLoading } = useMutation({
+    const { mutate, isLoading } = useMutation({
         mutationFn: (data) => editPlaceDetails(placeId, data),
         onSuccess: (updatedField) => {
             const { infoId, description, destinationId } = updatedField;
@@ -37,5 +37,5 @@ export const useEditPlaceDetails = (placeId) => {
         },
     });
 
-    return [mutate, error, isLoading];
+    return [mutate, isLoading];
 };

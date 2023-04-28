@@ -40,7 +40,7 @@ async function editDetail(destinationId, categoryId, infoId, updatedValue) {
         .lean()
         .exec();
 
-    if (!result || result.modifiedCount === 0 || result.matchedCount === 0) {
+    if (!result || result.matchedCount === 0) {
         throw createValidationError(errorMessages.couldNotUpdate(infoId), 404);
     }
 
@@ -55,7 +55,7 @@ async function editDescription(destinationId, description, infoId) {
         .lean()
         .exec();
 
-    if (!result || result.modifiedCount === 0 || result.matchedCount === 0) {
+    if (!result || result.matchedCount === 0) {
         throw createValidationError(errorMessages.couldNotUpdate(infoId), 404);
     }
 

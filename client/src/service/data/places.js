@@ -18,11 +18,7 @@ export const createPlace = async (placeData, destinationId) => {
 };
 
 export const editPlaceDetails = async (placeId, updatedData) => {
-    // await axios.put(apiEndpoints.editPlaceDetails(placeId), updatedData);
-    console.log(updatedData);
-
-    await new Promise(res => setTimeout(res, 1500));
-    
+    await axios.put(apiEndpoints.editPlaceDetails(placeId), updatedData);
     return updatedData;
 };
 

@@ -6,7 +6,7 @@ const { checkDestinationOwnershipOnly } = require('../middlewares/checkDestinati
 const { auth } = require('../middlewares/auth');
 const { upload } = require('../middlewares/images');
 const { checkSession } = require('../middlewares/checkSession');
-const { fetchPlaceAndCheckOwnership } = require('../middlewares/checkPlaceOwnership');
+const { fetchPlaceAndCheckOwnership, checkPlaceOwnershipOnly } = require('../middlewares/checkPlaceOwnership');
 
 // Controllers
 const {
@@ -32,6 +32,6 @@ router.post('/places/:id/comment', validateMongoId, auth, post_comment);
 router.delete('/places/:id/comment', validateMongoId, auth, delete_comment);
 router.delete('/places/:id/delete', validateMongoId, auth, delete_place);
 
-router.put('places/:id/edit-place-field', validateMongoId, auth, checkDestinationOwnershipOnly, edit_place_field)
+router.put('/places/:id/edit-place-field', validateMongoId, auth, checkPlaceOwnershipOnly, edit_place_field)
 
 module.exports = router;

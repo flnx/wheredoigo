@@ -44,6 +44,12 @@ _____________________________
     padding: 0.65rem;
 }
 
+.error-message {
+    font-size: 0.95rem;
+    color: var(--error-message);
+    text-decoration: uppercase;
+}
+
 button[disabled] {
     pointer-events: none;
     opacity: 0.5;
