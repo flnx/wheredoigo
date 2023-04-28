@@ -4,6 +4,7 @@ const {
     addCommentToPlace,
     deleteCommentFromPlace,
     deletePlace,
+    editPlaceField,
 } = require('../services/placeService');
 
 const add_new_place = async (req, res, next) => {
@@ -46,10 +47,9 @@ const request_place_to_edit = async (req, res, next) => {
 
 const edit_place_field = async (req, res, next) => {
     const { id } = req.params;
-    const updatedFields = req.body;
 
     try {
-        const result = await deletePlace(id, req.body);
+        const result = await editPlaceField(id, req.body);
         res.json(result);
     } catch (err) {
         next(err);

@@ -1,9 +1,10 @@
-const {
-    getById,
-    getDestinationOwnerIdOnly,
-} = require('../services/destinationService');
-const { errorMessages } = require('../constants/errorMessages');
+const getDestinationById = require('../services/destinationServices/getDestinationById');
+const getDestinationOwnerIdOnly = require('../services/destinationServices/getDestinationOwnerId');
 const { getDestinationPlaces } = require('../services/placeService');
+
+const { errorMessages } = require('../constants/errorMessages');
+
+// utils
 const { createValidationError } = require('../utils/createValidationError');
 const capitalizeEachWord = require('../utils/capitalizeWords');
 
@@ -12,7 +13,11 @@ async function fetchDestinationAndCheckOwnership(req, res, next) {
     const user = req.user;
 
     try {
-        const promises = [getById(id, user), getDestinationPlaces(id)];
+        const promises = [
+            getDestinationById(id, user), 
+            getDestinationPlaces(id)
+        ];
+        
         const [destination, places] = await Promise.all(promises);
 
         if (!destination.isOwner) {

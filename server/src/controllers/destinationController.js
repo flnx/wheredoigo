@@ -1,16 +1,15 @@
-const {
-    getByPage,
-    create,
-    getById,
-    getCreatorDestinations,
-    editDestinationField,
-    deleteDestinationImage,
-    addDestinationNewImages,
-    deleteDestination,
-} = require('../services/destinationService');
+const addDestinationNewImages = require('../services/destinationServices/addDestinationNewImages');
+const createDestination = require('../services/destinationServices/createDestination');
+const deleteDestination = require('../services/destinationServices/deleteDestination');
+const deleteDestinationImage = require('../services/destinationServices/deleteDestinationImage');
+const editDestinationField = require('../services/destinationServices/editDestinationField');
+const getCreatorDestinations = require('../services/destinationServices/getCreatorDestinations');
+const getDestinationById = require('../services/destinationServices/getDestinationById');
+const getDestinationsPaginated = require('../services/destinationServices/getDestinationsPaginated');
+
+const { fetchCity } = require('../services/getCityCountryData');
 
 const { getDestinationPlaces } = require('../services/placeService');
-const { fetchCity } = require('../service/data');
 
 const paginated_destinations = async (req, res, next) => {
     const page = parseInt(req.query.page) || 0;
@@ -18,7 +17,7 @@ const paginated_destinations = async (req, res, next) => {
     const search = req.query.search;
 
     try {
-        const destinations = await getByPage(page, limit, search);
+        const destinations = await getDestinationsPaginated(page, limit, search);
         res.json(destinations);
     } catch (err) {
         next(err);
@@ -31,7 +30,7 @@ const destination_details = async (req, res, next) => {
 
     try {
         const [destination, places] = await Promise.all([
-            getById(id, user),
+            getDestinationById(id, user),
             getDestinationPlaces(id),
         ]);
 
@@ -59,7 +58,7 @@ const add_new_destination = async (req, res, next) => {
     const user = req.user;
 
     try {
-        const destination = await create(destinationInfo, images, user);
+        const destination = await createDestination(destinationInfo, images, user);
         return res.json(destination);
     } catch (err) {
         next(err);

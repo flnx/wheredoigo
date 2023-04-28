@@ -1,7 +1,7 @@
 const { errorMessages } = require('../constants/errorMessages');
 const { createValidationError } = require('../utils/createValidationError');
-const capitalizeEachWord = require('../utils/capitalizeWords');
 const { getPlaceById } = require('../services/placeService');
+const capitalizeEachWord = require('../utils/capitalizeWords');
 
 async function fetchPlaceAndCheckOwnership(req, res, next) {
     const { id } = req.params;

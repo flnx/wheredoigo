@@ -7,7 +7,7 @@ const User = require('../models/userSchema');
 
 const capitalizeEachWord = require('../utils/capitalizeWords');
 const { addImages, deleteMultipleImages } = require('../utils/cloudinaryUploader');
-const { validateFields } = require('../utils/validateFields');
+const { validateFields, validateFieldsOnEdit } = require('../utils/validateFields');
 const { createValidationError } = require('../utils/createValidationError');
 const { errorMessages } = require('../constants/errorMessages');
 const { extractCloudinaryFolderName } = require('../utils/utils');
@@ -231,6 +231,29 @@ async function deletePlace(placeId, userId) {
     return true;
 }
 
+async function editPlaceField(placeId, updatedField) {
+    const { description, infoId } = validateFieldsOnEdit(updatedField);
+
+    const allowedFieldsToUpdate = ['type', 'name', 'description'];
+
+    if (!allowedFieldsToUpdate.includes(infoId)) {
+        throw createValidationError(errorMessages.invalidBody, 400);
+    }
+
+    const updated = {};
+    updated[infoId] = description;
+
+    const result = await Place.updateOne({ _id: placeId }, { $set: updated })
+        .lean()
+        .exec();
+
+    if (!result || result.modifiedCount === 0 || result.matchedCount === 0) {
+        throw createValidationError(errorMessages.couldNotUpdate(infoId), 404);
+    }
+
+    return result;
+}
+
 module.exports = {
     addNewPlace,
     getPlaceById,
@@ -238,4 +261,5 @@ module.exports = {
     addCommentToPlace,
     deleteCommentFromPlace,
     deletePlace,
+    editPlaceField
 };
