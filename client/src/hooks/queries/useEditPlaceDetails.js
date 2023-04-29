@@ -34,7 +34,7 @@ export const useEditPlaceDetails = (placeId) => {
                 const updatedDestination = {
                     ...destination,
                     places: destination.places.map((p) => {
-                        if ((p) => p._id === placeId) {
+                        if (p._id === placeId) {
                             return {
                                 ...p,
                                 [infoId]: description,
