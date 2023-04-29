@@ -1,15 +1,21 @@
 import { useParams } from 'react-router-dom';
 import { useGetPlaceToEdit } from '../../hooks/queries/useGetPlaceToEdit';
-import { extractServerErrorMessage } from '../../utils/utils';
+import { useDeletePlaceImage } from '../../hooks/queries/useDeletePlaceImage';
+import { useAddPlaceNewImages } from '../../hooks/queries/useAddPlaceNewImages';
 
 // Components
 import { Container } from '../../components/Containers/Container/Container';
 import { Form } from './components/Form/Form';
 import { FlexSectionContainer } from '../../components/Containers/FlexSectionContainer/FlexSectionContainer';
+import { ImagesManager } from '../../components/ImagesManager/ImagesManager';
+
+import { extractServerErrorMessage } from '../../utils/utils';
 
 export const EditPlace = () => {
     const { placeId } = useParams();
     const [data, error, isLoading, isSuccess] = useGetPlaceToEdit(placeId);
+    const deleteImageHook = useDeletePlaceImage;
+    const addImageHook = useAddPlaceNewImages;
 
     const placeTitle = `${data?.name}, ${data?.city}`;
 
@@ -21,7 +27,12 @@ export const EditPlace = () => {
 
                     <FlexSectionContainer>
                         <Form data={data} placeId={placeId} destinationId={data._id} />
-                        <section>Images</section>
+                        <ImagesManager
+                            imagesData={data.imageUrls}
+                            destinationId={placeId}
+                            deleteImageHook={deleteImageHook}
+                            addImageHook={addImageHook}
+                        />
                     </FlexSectionContainer>
                 </>
             )}

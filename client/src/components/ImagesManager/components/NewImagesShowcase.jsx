@@ -1,13 +1,13 @@
 import { useReducer } from 'react';
 
-import { imagesReducer, initialState } from '../../utils/imagesReducer';
-import { createImagesFormData } from '../../utils/formData';
+import { imagesReducer, initialState } from '../../../utils/imagesReducer';
+import { createImagesFormData } from '../../../utils/formData';
 
 // Components
-import { UploadImagesPreview } from '../UploadImagesPreview/UploadImagesPreview';
-import { SuccessButton } from '../Buttons/Success-Button/SuccessButton';
+import { UploadImagesPreview } from '../../UploadImagesPreview/UploadImagesPreview';
+import { SuccessButton } from '../../Buttons/Success-Button/SuccessButton';
 
-import styles from './NewImagesUploader.module.css';
+import styles from './NewImagesShowcase.module.css';
 
 export const NewImagesShowcase = ({
     currentImagesHandler,

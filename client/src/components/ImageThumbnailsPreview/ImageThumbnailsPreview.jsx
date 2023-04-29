@@ -1,8 +1,8 @@
 import { X } from 'phosphor-react';
 
-import styles from './ImagesPreviewer.module.css';
+import styles from './ImageThumbnailsPreview.module.css';
 
-export const ImagesPreviewer = ({ images = [], handleDeleteImage }) => {
+export const ImageThumbnailsPreview = ({ images = [], handleDeleteImage }) => {
     return (
         <div className={styles.imagesWrapper}>
             {images.map((img, i) => (

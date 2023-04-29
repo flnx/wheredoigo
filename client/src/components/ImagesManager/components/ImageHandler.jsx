@@ -1,13 +1,13 @@
 import { useState } from 'react';
+
 // Components
-
+import { ConfirmModal } from '../../ConfirmModal/ConfirmModal';
+import { ImageThumbnailsPreview } from '../../ImageThumbnailsPreview/ImageThumbnailsPreview';
 import { NewImagesShowcase } from './NewImagesShowcase';
-import { ConfirmModal } from '../ConfirmModal/ConfirmModal';
-import { ImagesPreviewer } from '../ImagesPreviewer/ImagesPreviewer';
 
-import styles from './ImagesHandler.module.css';
+import styles from './ImageHandler.module.css';
 
-export const ImagesHandler = ({
+export const ImageHandler = ({
     imagesData,
     uploadImagesHandler,
     deleteImageHandler,
@@ -53,7 +53,7 @@ export const ImagesHandler = ({
 
             <div className={styles['images-container']}>
                 {hasCurrentImages && (
-                    <ImagesPreviewer
+                    <ImageThumbnailsPreview
                         images={images}
                         handleDeleteImage={onDeleteClickOpenConfirmModalHandler}
                     />

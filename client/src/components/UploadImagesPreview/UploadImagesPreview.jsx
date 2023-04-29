@@ -1,4 +1,4 @@
-import { ImagesPreviewer } from '../ImagesPreviewer/ImagesPreviewer';
+import { ImageThumbnailsPreview } from '../ImageThumbnailsPreview/ImageThumbnailsPreview';
 
 import styles from './UploadImagesPreview.module.css';
 
@@ -37,7 +37,10 @@ export const UploadImagesPreview = ({ dispatchHandler, images }) => {
                 />
             </div>
 
-            <ImagesPreviewer images={images} handleDeleteImage={handleDeleteImage} />
+            <ImageThumbnailsPreview 
+                images={images} 
+                handleDeleteImage={handleDeleteImage} 
+            />
         </div>
     );
 };

@@ -1,14 +1,8 @@
+import { ImageHandler } from './components/ImageHandler';
 
-import { useDeleteDestinationImage } from '../../../../hooks/queries/useDeleteDestinationImage';
-import { useAddDestinationNewImages } from '../../../../hooks/queries/useAddDestinationNewImages';
-
-import { ImagesHandler } from '../../../../components/ImagesHandler/ImagesHandler';
-
-// Components
-
-export const EditImages = ({ imagesData, destinationId }) => {
-    const [deleteImage, deleteError, isDeleting] = useDeleteDestinationImage(destinationId);
-    const [uploadImages, uploadError, isUploading] = useAddDestinationNewImages(destinationId);
+export const ImagesManager = ({ imagesData, destinationId, deleteImageHook, addImageHook }) => {
+    const [deleteImage, deleteError, isDeleting] = deleteImageHook(destinationId);
+    const [uploadImages, uploadError, isUploading] = addImageHook(destinationId);
 
     const deleteImageHandler = (imgId, cbSetImages) => {
         deleteImage(imgId, {
@@ -29,7 +23,7 @@ export const EditImages = ({ imagesData, destinationId }) => {
     };
 
     return (
-        <ImagesHandler
+        <ImageHandler
             imagesData={imagesData}
             uploadImagesHandler={uploadImagesHandler}
             deleteImageHandler={deleteImageHandler}
