@@ -1,8 +1,8 @@
 import { ImageHandler } from './components/ImageHandler';
 
-export const ImagesManager = ({ imagesData, destinationId, deleteImageHook, addImageHook }) => {
-    const [deleteImage, deleteError, isDeleting] = deleteImageHook(destinationId);
-    const [uploadImages, uploadError, isUploading] = addImageHook(destinationId);
+export const ImagesManager = ({ _id, _id2, imagesData, deleteImageHook, addImageHook }) => {
+    const [deleteImage, deleteError, isDeleting] = deleteImageHook(_id, _id2);
+    const [uploadImages, uploadError, isUploading] = addImageHook(_id, _id2);
 
     const deleteImageHandler = (imgId, cbSetImages) => {
         deleteImage(imgId, {

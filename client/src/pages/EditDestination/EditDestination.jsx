@@ -30,7 +30,7 @@ export const EditDestination = () => {
 
                         <ImagesManager
                             imagesData={data.imageUrls}
-                            destinationId={destinationId}
+                            _id={destinationId}
                             deleteImageHook={deleteImageHook}
                             addImageHook={addImageHook}
                         />

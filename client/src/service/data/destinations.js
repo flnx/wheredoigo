@@ -31,7 +31,7 @@ export const createDestination = async (destinationData) => {
 
 export const editDestinationDetails = async (destinationId, updatedData) => {
     await axios.put(apiEndpoints.editDestinationDetails(destinationId), updatedData);
-    
+
     return updatedData;
 };
 
@@ -39,12 +39,6 @@ export const deleteDestinationImage = async (destinationId, imageData) => {
     await axios.put(apiEndpoints.deleteDestinationImage(destinationId), imageData);
 
     return imageData;
-};
-
-export const deleteDestination = async (destinationId) => {
-    const result = await axios.delete(apiEndpoints.deleteDestination(destinationId));
-
-    return result.data;
 };
 
 export const addDestinationNewImages = async (destinationId, files) => {
@@ -59,6 +53,12 @@ export const addDestinationNewImages = async (destinationId, files) => {
     );
 
     return res.data;
+};
+
+export const deleteDestination = async (destinationId) => {
+    const result = await axios.delete(apiEndpoints.deleteDestination(destinationId));
+
+    return result.data;
 };
 
 export const getDestinationsPaginated = async ({ pageParam, queryKey }) => {

@@ -2,34 +2,40 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { queryEndpoints } from '../../constants/reactQueryEndpoints';
 import { addDestinationNewImages } from '../../service/data/destinations';
 
-export const useAddPlaceNewImages = (destinationId) => {
+export const useAddPlaceNewImages = (placeId, destinationId) => {
     const queryClient = useQueryClient();
 
     const { mutate, error, isLoading } = useMutation({
-        mutationFn: (files) => addDestinationNewImages(destinationId, files),
+        mutationFn: (files) => addDestinationNewImages(placeId, files),
         onSuccess: (newImages) => {
-            const destination = queryClient.getQueryData([
-                queryEndpoints.editDestination,
-                destinationId,
+            // To Do: Caching instead of invalidating
+
+            const place = queryClient.getQueryData([
+                queryEndpoints.editPlace,
+                placeId,
             ]);
 
-            const updatedDestination = {
-                ...destination,
-                imageUrls: [...destination.imageUrls, ...newImages.imageUrls],
+            const updatedPlace = {
+                ...place,
+                imageUrls: [...place.imageUrls, ...newImages.imageUrls],
             };
 
             queryClient.setQueryData(
-                [queryEndpoints.editDestination, destinationId],
-                updatedDestination
+                [queryEndpoints.editPlace, placeId],
+                updatedPlace
             );
 
+            queryClient.invalidateQueries([queryEndpoints.place, placeId]);
+            
             queryClient.invalidateQueries([
                 queryEndpoints.destination,
                 destinationId,
             ]);
 
-            queryClient.invalidateQueries([queryEndpoints.destinations]);
-            queryClient.invalidateQueries([queryEndpoints.creatorDestinations]);
+            queryClient.invalidateQueries([
+                queryEndpoints.editDestination,
+                destinationId,
+            ]);
         },
     });
 

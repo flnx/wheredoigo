@@ -17,7 +17,9 @@ const {
     delete_comment,
     delete_place,
     request_place_to_edit,
-    edit_place_field
+    edit_place_field,
+    add_place_new_images,
+    delete_place_image
 } = require('../controllers/placeController');
 
 const router = express.Router();
@@ -32,6 +34,8 @@ router.post('/places/:id/comment', validateMongoId, auth, post_comment);
 router.delete('/places/:id/comment', validateMongoId, auth, delete_comment);
 router.delete('/places/:id/delete', validateMongoId, auth, delete_place);
 
-router.put('/places/:id/edit-place-field', validateMongoId, auth, checkPlaceOwnershipOnly, edit_place_field)
+router.put('/places/:id/edit-place-field', validateMongoId, auth, checkPlaceOwnershipOnly, edit_place_field);
+router.put('/places/:id/add-images', validateMongoId, auth, checkPlaceOwnershipOnly, add_place_new_images);
+router.put('/places/:id/delete-image', validateMongoId, auth, checkPlaceOwnershipOnly, delete_place_image);
 
 module.exports = router;

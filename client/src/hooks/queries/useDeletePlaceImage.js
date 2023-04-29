@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { queryEndpoints } from '../../constants/reactQueryEndpoints';
 import { deleteDestinationImage } from '../../service/data/destinations';
 
-export const useDeletePlaceImage = (destinationId) => {
+export const useDeletePlaceImage = (placeId, destinationId) => {
     const queryClient = useQueryClient();
 
     const { mutate, isLoading, error } = useMutation({
@@ -11,24 +11,30 @@ export const useDeletePlaceImage = (destinationId) => {
         onSuccess: (imageData) => {
             const { imgId } = imageData;
 
-            const destination = queryClient.getQueryData([
+            const place = queryClient.getQueryData([
+                queryEndpoints.editPlace,
+                placeId,
+            ]);
+
+            const updatePlace = {
+                ...place,
+                imageUrls: place.imageUrls.filter((x) => x._id !== imgId),
+            };
+
+            queryClient.setQueryData(
+                [queryEndpoints.editPlace, placeId],
+                updatePlace
+            );
+
+            queryClient.invalidateQueries([queryEndpoints.place, placeId]);
+            queryClient.invalidateQueries([
+                queryEndpoints.destination,
+                destinationId,
+            ]);
+            queryClient.invalidateQueries([
                 queryEndpoints.editDestination,
                 destinationId,
             ]);
-
-            const updatedDestination = {
-                ...destination,
-                imageUrls: destination.imageUrls.filter(x => x._id !== imgId)
-            }
-
-            queryClient.setQueryData(
-                [queryEndpoints.editDestination, destinationId],
-                updatedDestination
-            );
-
-            queryClient.invalidateQueries([queryEndpoints.destination, destinationId]);
-            queryClient.invalidateQueries([queryEndpoints.destinations]);
-            queryClient.invalidateQueries([queryEndpoints.creatorDestinations]);
         },
     });
 

@@ -4,11 +4,11 @@ export const apiEndpoints = {
     destinationById: (id) => `destinations/${id}`,
     destinationsByPage: (searchParams, skip) => `destinations?search=${searchParams}&page=${skip}`,
     addDestination: 'destinations',
-    addDestinationImages: (id) => `destinations/${id}/add-images`,
     requestDestinationToEdit: (id) => `destinations/${id}/request-edit-permissions`,
     editDestinationDetails: (id) => `destinations/${id}/edit-destination-field`,
-    deleteDestinationImage: (id) => `destinations/${id}/delete-image`,
     deleteDestination: (id) => `destinations/${id}/delete`,
+    addDestinationImages: (id) => `destinations/${id}/add-images`,
+    deleteDestinationImage: (id) => `destinations/${id}/delete-image`,
     
     changeAvatar: 'change-avatar',
     getCity: 'destinations/get-city-data',
@@ -19,6 +19,8 @@ export const apiEndpoints = {
     requestPlaceToEdit: (id) => `places/${id}/request-edit-permissions`,
     editPlaceDetails: (id) => `places/${id}/edit-place-field`,
     deletePlace: (id) => `places/${id}/delete`,
+    addPlaceImages: (id) => `places/${id}/add-images`,
+    deletePlaceImage: (id) => `places/${id}/delete-image`,
 
     deleteComment: (placeId, commentId) => `places/${placeId}/comment?commentId=${commentId}`,
     addComment: (id) => `places/${id}/comment`,

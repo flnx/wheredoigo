@@ -30,3 +30,19 @@ export const deletePlace = async ({ placeId }) => {
         placeId,
     };
 };
+
+export const deletePlaceImage = async (placeId, imageData) => {
+    await axios.put(apiEndpoints.deletePlaceImage(placeId), imageData);
+
+    return imageData;
+};
+
+export const addPlaceNewImages = async (placeId, files) => {
+    const res = await axios.put(apiEndpoints.addPlaceImages(placeId), files, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+
+    return res.data;
+};

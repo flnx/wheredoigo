@@ -29,7 +29,8 @@ export const EditPlace = () => {
                         <Form data={data} placeId={placeId} destinationId={data._id} />
                         <ImagesManager
                             imagesData={data.imageUrls}
-                            destinationId={placeId}
+                            _id={placeId}
+                            _id2={destinationId}
                             deleteImageHook={deleteImageHook}
                             addImageHook={addImageHook}
                         />

@@ -4,6 +4,8 @@ const editPlaceField = require("../services/placeServices/editPlaceField");
 const deletePlace = require("../services/placeServices/deletePlace");
 const addCommentToPlace = require("../services/placeServices/addCommentToPlace");
 const deleteCommentFromPlace = require("../services/placeServices/deleteCommentFromPlace");
+const deletePlaceImage = require("../services/placeServices/deletePlaceImage");
+const addPlaceNewImages = require("../services/placeServices/addPlaceNewImages");
 
 const { allowedPlaceCategories, allowedFieldsToUpdate } = require("../constants/allowedPlaceCategories");
 
@@ -96,6 +98,31 @@ const delete_comment = async (req, res, next) => {
     }
 };
 
+const delete_place_image = async (req, res, next) => {
+    const { id } = req.params; 
+    const { imgId } = req.body;
+
+    try {
+        const result = await deletePlaceImage(id, imgId);
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
+};
+
+const add_place_new_images = async (req, res, next) => {
+    const { id } = req.params;
+    const images = req.files;
+    const place = req.place;
+
+    try {
+        const result = await addPlaceNewImages(id, images, place);
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
+};
+
 module.exports = {
     add_new_place,
     add_new_place_request,
@@ -104,5 +131,7 @@ module.exports = {
     post_comment,
     delete_comment,
     delete_place,
-    edit_place_field
+    edit_place_field,
+    add_place_new_images,
+    delete_place_image
 };
