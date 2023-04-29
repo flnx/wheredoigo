@@ -9,13 +9,14 @@ import { Comments } from './components/Comments/Comments';
 import { CommentForm } from './components/CommentForm/CommentForm';
 
 import styles from './PlaceDetails.module.css';
+import { Container } from '../../components/Containers/Container/Container';
 
 export const PlaceDetails = () => {
     const { placeId } = useParams();
     const { data, isLoading, error } = usePlace(placeId);
 
     return (
-        <div className="container">
+        <Container>
             {isLoading ? (
                 <p>Loading...</p>
             ) : (
@@ -32,6 +33,6 @@ export const PlaceDetails = () => {
                     )}
                 </>
             )}
-        </div>
+        </Container>
     );
 };

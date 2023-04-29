@@ -4,10 +4,11 @@ import { Outlet } from 'react-router-dom';
 import { SideNavigation } from './components/SideNav/SideNavigation';
 
 import styles from './Dashboard.module.css';
+import { Container } from '../../components/Containers/Container/Container';
 
 export const Dashboard = () => {
     return (
-        <div className="container">
+        <Container>
             <div className={styles.grid}>
                 <section className={styles.sideNav}>
                     <SideNavigation />
@@ -16,7 +17,7 @@ export const Dashboard = () => {
                 <section className={styles.content}>
                     <Outlet />
                 </section>
-                
+
                 <aside className={styles.stats}>
                     <div>
                         <h2>Statistics</h2>
@@ -31,6 +32,6 @@ export const Dashboard = () => {
                     </div>
                 </aside>
             </div>
-        </div>
+        </Container>
     );
 };

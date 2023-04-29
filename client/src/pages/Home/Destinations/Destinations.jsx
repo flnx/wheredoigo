@@ -1,17 +1,18 @@
+import { Container } from '../../../components/Containers/Container/Container';
 import { Destination } from '../../../components/Destination/Destination';
 import styles from './Destinations.module.css';
 
 export const Destinations = () => {
     return (
         <section>
-            <div className="container">
+            <Container>
                 <h2 className={styles.title}>Highest rated destinations:</h2>
                 <div className={styles.wrapper}>
                     {/* {topDestinationsByRating.map((x) => (
                         <Destination key={x.country} destination={x} />
                     ))} */}
                 </div>
-            </div>
+            </Container>
         </section>
     );
 };

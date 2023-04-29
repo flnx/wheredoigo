@@ -2,12 +2,13 @@ import { useParams } from 'react-router-dom';
 import { useGetDestinationToEdit } from '../../hooks/queries/useGetDestinationToEdit';
 
 // Components
-import { FlexSectionContainer } from '../../components/FlexSectionContainer/FlexSectionContainer';
+import { FlexSectionContainer } from '../../components/Containers/FlexSectionContainer/FlexSectionContainer';
 import { PlacesShowcase } from './components/PlacesShowcase/PlacesShowcase';
 import { EditImages } from './components/EditImages/EditImages';
 import { Form } from './components/Form/Form';
 
 import { extractServerErrorMessage } from '../../utils/utils';
+import { Container } from '../../components/Containers/Container/Container';
 
 export const EditDestination = () => {
     const { destinationId } = useParams();
@@ -18,7 +19,7 @@ export const EditDestination = () => {
     const destinationTitle = `${data?.city}, ${data?.country}`;
 
     return (
-        <div className="container">
+        <Container>
             {isLoading || !data ? (
                 <h1>Loading...</h1>
             ) : (
@@ -35,6 +36,6 @@ export const EditDestination = () => {
                     <PlacesShowcase placesData={data.places} destinationId={destinationId} />
                 </>
             )}
-        </div>
+        </Container>
     );
 };

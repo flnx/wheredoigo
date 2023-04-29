@@ -20,11 +20,6 @@ _____________________________
     flex-direction: column;
 }
 
-.container {
-    margin: 0 auto;
-    width: clamp(14rem, 93.5vw, 80rem);
-}
-
 .sliderItem {
     background: var(--background);
     box-shadow: var(--box-shadow);

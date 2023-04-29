@@ -11,6 +11,7 @@ import { MemoizedFormFieldEditor } from '../../components/FormFieldEditor/FormFi
 import { SelectType } from './components/SelectType/SelectType';
 
 import styles from './EditPlace.module.css';
+import { Container } from '../../components/Containers/Container/Container';
 
 export const EditPlace = () => {
     const { placeId } = useParams();
@@ -24,23 +25,26 @@ export const EditPlace = () => {
     const allowedCategories = data?.allowedPlaceCategories;
     const allowedFieldsToUpdate = data?.allowedFieldsToUpdate.filter((x) => x !== 'type');
 
-    const onEditButtonClickHandler = useCallback((clickedId) => {
-        // enables/disables the form fields
-        setIsEditable((prevState) => {
-            // opens/closes the field related to the "edit" button
-            const newState = { [clickedId]: !prevState[clickedId] };
+    const onEditButtonClickHandler = useCallback(
+        (clickedId) => {
+            // enables/disables the form fields
+            setIsEditable((prevState) => {
+                // opens/closes the field related to the "edit" button
+                const newState = { [clickedId]: !prevState[clickedId] };
 
-            // closes all previously opened edit formfields if any
-            Object.keys(prevState).forEach((fieldId) => {
-                if (fieldId !== clickedId) {
-                    newState[fieldId] = false;
-                }
+                // closes all previously opened edit formfields if any
+                Object.keys(prevState).forEach((fieldId) => {
+                    if (fieldId !== clickedId) {
+                        newState[fieldId] = false;
+                    }
+                });
+                return newState;
             });
-            return newState;
-        });
 
-        editError && setEditError('');
-    }, [editError]);
+            editError && setEditError('');
+        },
+        [editError]
+    );
 
     const sendEditedFieldClickHandler = useCallback(
         (fieldId, newContent, editedInfo, cbCacheHandler) => {
@@ -59,10 +63,9 @@ export const EditPlace = () => {
                         },
                     }
                 );
-
-            } catch(err) {
+            } catch (err) {
                 setEditError(err.message);
-            }  
+            }
         },
         [destinationId]
     );
@@ -71,7 +74,7 @@ export const EditPlace = () => {
     if (isLoading) return <h1>Loading...</h1>;
 
     return (
-        <div className="container">
+        <Container>
             <h1 className={styles.placeTitle}>
                 Edit {data.name}, {data.city}
             </h1>
@@ -112,6 +115,6 @@ export const EditPlace = () => {
 
                 <section>Images</section>
             </div>
-        </div>
+        </Container>
     );
 };

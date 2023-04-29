@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 import { SliderWrapper } from './SwiperSettings';
 
 import styles from './PlacesSlider.module.css';
+import { Container } from '../../Containers/Container/Container';
 
 export const PlacesSlider = ({ places }) => {
     return (
         <section>
-            <div className="container">
+            <Container>
                 <SliderWrapper>
                     {places.map((place) => (
                         <SwiperSlide className={styles.sliderItem} key={place._id}>
@@ -26,7 +27,7 @@ export const PlacesSlider = ({ places }) => {
                         </SwiperSlide>
                     ))}
                 </SliderWrapper>
-            </div>
+            </Container>
         </section>
     );
 };

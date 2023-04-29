@@ -7,6 +7,7 @@ import { SearchBar } from '../../components/Serach-Bar/SearchBar';
 import { Destinations } from './Destinations/Destinations';
 
 import styles from './Discover.module.css';
+import { Container } from '../../components/Containers/Container/Container';
 
 export const Discover = () => {
     const [searchParams, setSearchParams] = useSearchParams('');
@@ -19,14 +20,14 @@ export const Discover = () => {
     };
 
     return (
-        <div className="container">
+        <Container>
             <div className={styles.grid}>
                 <h1>Where do you want to go?</h1>
                 <SearchBar searchParamsHandler={handleSearchParams} />
                 <ContinentsNav />
                 <CategoriesNav />
-                <Destinations searchParams={searchParams?.get('search')}/>
+                <Destinations searchParams={searchParams?.get('search')} />
             </div>
-        </div>
+        </Container>
     );
 };

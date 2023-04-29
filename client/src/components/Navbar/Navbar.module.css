@@ -34,6 +34,11 @@
     color: var(--text-primary-light);
 }
 
+.container {
+    margin: 0 auto;
+    width: clamp(14rem, 93.5vw, 80rem);
+}
+
 @media (min-width: 40em) {
     .flex {
         display: flex;

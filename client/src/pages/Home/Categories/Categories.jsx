@@ -1,9 +1,10 @@
+import { Container } from '../../../components/Containers/Container/Container';
 import styles from './Categories.module.css';
 
 export const Categories = () => {
     return (
         <section>
-            <div className="container">
+            <Container>
                 <h2 className={styles.title}>Categories</h2>
                 <div className={styles.categories}>
                     <Category>Lake</Category>
@@ -13,7 +14,7 @@ export const Categories = () => {
                     <Category>Snow</Category>
                     <Category>Summer</Category>
                 </div>
-            </div>
+            </Container>
         </section>
     );
 };

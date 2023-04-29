@@ -7,7 +7,6 @@ import { HamburgerIconMenu } from './Hamburger-Icon/HamburgerIcon';
 
 // assets
 import logo from '../../assets/logo/logo.png';
-
 import styles from './Navbar.module.css';
 
 export const Navbar = () => {
@@ -35,8 +34,8 @@ export const Navbar = () => {
     };
 
     const isMobile = screenWidth < 640;
-    const desktopContainer = !isMobile && 'container';
-    const mobileContainer = isMobile && 'container';
+    const desktopContainer = !isMobile && styles.container;
+    const mobileContainer = isMobile && styles.container;
 
     return (
         <header>

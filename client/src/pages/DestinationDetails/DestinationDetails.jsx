@@ -9,6 +9,7 @@ import { SecondaryButton } from '../../components/Buttons/Secondary-Btn/Secondar
 
 import styles from './DestinationDetails.module.css';
 import { extractServerErrorMessage } from '../../utils/utils';
+import { Container } from '../../components/Containers/Container/Container';
 
 export const DestinationDetails = () => {
     const { destinationId } = useParams();
@@ -19,7 +20,7 @@ export const DestinationDetails = () => {
     const eatingPlaces = data?.places.filter((x) => x.type.toLowerCase() == 'eat');
 
     return (
-        <div className="container">
+        <Container>
             {isLoading ? (
                 <p>Loading...</p>
             ) : (
@@ -64,6 +65,6 @@ export const DestinationDetails = () => {
                     )}
                 </>
             )}
-        </div>
+        </Container>
     );
 };
