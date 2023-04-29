@@ -10,6 +10,7 @@ import './styles/reset.css';
 import './styles/typography.css';
 import './styles/layout.css';
 import './styles/theme.css';
+import './styles/utils.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>

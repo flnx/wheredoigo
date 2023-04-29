@@ -1,0 +1,25 @@
+.flexContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.flexContainer section:nth-child(1) {
+    flex: 1.1;
+}
+
+.flexContainer section:nth-child(2) {
+    flex: 1;
+}
+
+@media (min-width: 64em) {
+    .flexContainer {
+        flex-direction: row;
+        gap: 4.5rem;
+    }
+}
+
+@media (min-width: 81em) {
+    .flexContainer {
+        gap: 5.5rem;
+    }
+}
