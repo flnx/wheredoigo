@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { queryEndpoints } from '../../constants/reactQueryEndpoints';
-import { addDestinationNewImages } from '../../service/data/destinations';
+import { addPlaceNewImages } from '../../service/data/places';
 
 export const useAddPlaceNewImages = (placeId, destinationId) => {
     const queryClient = useQueryClient();
 
     const { mutate, error, isLoading } = useMutation({
-        mutationFn: (files) => addDestinationNewImages(placeId, files),
+        mutationFn: (files) => addPlaceNewImages(placeId, files),
         onSuccess: (newImages) => {
             // To Do: Caching instead of invalidating
 

@@ -35,7 +35,7 @@ router.delete('/places/:id/comment', validateMongoId, auth, delete_comment);
 router.delete('/places/:id/delete', validateMongoId, auth, delete_place);
 
 router.put('/places/:id/edit-place-field', validateMongoId, auth, checkPlaceOwnershipOnly, edit_place_field);
-router.put('/places/:id/add-images', validateMongoId, auth, checkPlaceOwnershipOnly, add_place_new_images);
+router.put('/places/:id/add-images', validateMongoId, auth, checkPlaceOwnershipOnly, upload, add_place_new_images);
 router.put('/places/:id/delete-image', validateMongoId, auth, checkPlaceOwnershipOnly, delete_place_image);
 
 module.exports = router;

@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { queryEndpoints } from '../../constants/reactQueryEndpoints';
-import { deleteDestinationImage } from '../../service/data/destinations';
+import { deletePlaceImage } from '../../service/data/places';
 
 export const useDeletePlaceImage = (placeId, destinationId) => {
     const queryClient = useQueryClient();
 
     const { mutate, isLoading, error } = useMutation({
-        mutationFn: (imageId) => deleteDestinationImage(destinationId, imageId),
+        mutationFn: (imageId) => deletePlaceImage(placeId, imageId),
 
         onSuccess: (imageData) => {
             const { imgId } = imageData;

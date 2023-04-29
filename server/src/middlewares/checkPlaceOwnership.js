@@ -31,8 +31,9 @@ async function checkPlaceOwnershipOnly(req, res, next) {
 
         const place = await getPlaceOwnerIdOnly(id);
 
+
         if (!place) {
-            throw createValidationError(errorMessages.notFound, 404);
+            throw createValidationError('Place ' + errorMessages.notFound, 404);
         }
 
         if (!place.ownerId.equals(ownerId || '')) {
