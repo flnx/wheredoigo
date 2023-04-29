@@ -4,8 +4,9 @@
 }
 
 .headerContent {
-    max-height: 33rem;
+    max-height: 21rem;
     max-width: 35rem;
+    overflow-y: scroll;
 }
 
 .countryName {
