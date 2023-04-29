@@ -7,7 +7,7 @@ const routesConfig = require('./src/routes/routes');
 const bodyParserErrorHandler = require('./src/middlewares/bodyParserErrorHandler');
 const { cloudinaryConfig } = require('./src/config/cloudinary');
 const limiter = require('./src/config/rateLimiter');
-const errorHandler = require('./src/utils/errorHandler');
+const errorHandler = require('./src/middlewares/errorHandler');
 const { requireObjectBody } = require('./src/middlewares/requireObjectBody');
 
 

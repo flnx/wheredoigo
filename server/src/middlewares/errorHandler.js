@@ -1,4 +1,4 @@
-const capitalizeEachWord = require('./capitalizeWords');
+const capitalizeEachWord = require('../utils/capitalizeWords');
 
 function errorHandler(err, req, res, next) {
     switch (err.name) {

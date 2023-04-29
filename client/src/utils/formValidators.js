@@ -12,7 +12,7 @@ export function validatePlaceData(state) {
         errors.push('Please add a place name');
     }
 
-    if (imageUrls.length < 3) {
+    if (imageUrls.length < 1) {
         errors.push('You need to add at least 3 images in order to continue');
     }
 

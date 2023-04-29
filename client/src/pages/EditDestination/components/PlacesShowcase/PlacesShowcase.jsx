@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useDeletePlace } from '../../../../hooks/queries/useDeletePlace';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,22 +9,15 @@ import { SecondaryButton } from '../../../../components/Buttons/Secondary-Btn/Se
 
 import styles from './PlacesShowcase.module.css';
 
-export const PlacesShowcase = ({ placesData, destinationId }) => {
+export const PlacesShowcase = ({ places, destinationId }) => {
     const [deletePlace, error, isLoading] = useDeletePlace(destinationId);
-    const [places, setPlace] = useState(placesData);
     const [openModal, setOpenModal] = useState(false);
     const [placeToDelete, setPlaceToDelete] = useState(null);
     const navigate = useNavigate();
 
     const onConfirmDeleteClickHandler = () => {
         deletePlace(placeToDelete, {
-            onSuccess: () => {
-                setPlace((prevState) => {
-                    const deleted_id = placeToDelete.placeId;
-                    return prevState.filter((x) => x._id !== deleted_id);
-                });
-                setOpenModal(false);
-            },
+            onSuccess: () => setOpenModal(false),
         });
     };
 
@@ -39,7 +32,7 @@ export const PlacesShowcase = ({ placesData, destinationId }) => {
     };
 
     const onAddPlaceClickHandler = () => {
-        navigate(`/destinations/${destinationId}/add-place`);
+        navigate(`/destinations/${destinationId}/places/add`);
     };
 
     const onEditClickHandler = (placeId) => {

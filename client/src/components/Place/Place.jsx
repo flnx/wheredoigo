@@ -9,6 +9,8 @@ import { WarningButton } from '../Buttons/Button-Warning/WarningButton';
 export const Place = ({ place, onClickHandler, onDeleteClickHandler }) => {
     const { _id, name, country, imageUrl } = place;
 
+    console.log(place);
+
     return (
         <div className={styles['card']}>
             <div className={styles.imageContainer}>

@@ -25,10 +25,31 @@ export const useEditPlaceDetails = (placeId) => {
                 updatedPlace
             );
 
-            queryClient.invalidateQueries([
+            const destination = queryClient.getQueryData([
                 queryEndpoints.editDestination,
                 destinationId,
             ]);
+
+            if (destination) {
+                const updatedDestination = {
+                    ...destination,
+                    places: destination.places.map((p) => {
+                        if ((p) => p._id === placeId) {
+                            return {
+                                ...p,
+                                [infoId]: description,
+                            };
+                        } else {
+                            return p;
+                        }
+                    }),
+                };
+
+                queryClient.setQueriesData(
+                    [queryEndpoints.editDestination, destinationId],
+                    updatedDestination
+                );
+            }
 
             queryClient.invalidateQueries([
                 queryEndpoints.destination,

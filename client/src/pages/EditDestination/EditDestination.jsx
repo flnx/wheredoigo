@@ -33,7 +33,7 @@ export const EditDestination = () => {
                             destinationId={destinationId}
                         />
                     </FlexSectionContainer>
-                    <PlacesShowcase placesData={data.places} destinationId={destinationId} />
+                    <PlacesShowcase places={data.places} destinationId={destinationId} />
                 </>
             )}
         </Container>

@@ -7,8 +7,9 @@ import { Categories } from './Categories/Categories';
 import { Intro } from './Intro/Intro';
 import { Destinations } from './Destinations/Destinations';
 
-import styles from './Home.module.css';
 import { extractServerErrorMessage } from '../../utils/utils';
+
+import styles from './Home.module.css';
 
 export const Home = () => {
     const { isLoading, error, data: destinations } = useDestinations();

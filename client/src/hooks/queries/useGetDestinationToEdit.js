@@ -3,6 +3,7 @@ import { queryEndpoints } from '../../constants/reactQueryEndpoints';
 import { getDestinationToEdit } from '../../service/data/permissions';
 
 export const useGetDestinationToEdit = (destinationId) => {
+    console.log(destinationId)
 
     const { data, error, isLoading } = useQuery({
         queryKey: [queryEndpoints.editDestination, destinationId],
