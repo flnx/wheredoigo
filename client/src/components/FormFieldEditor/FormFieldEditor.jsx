@@ -20,6 +20,7 @@ const FormFieldEditor = ({
     error,
     categoryId,
 }) => {
+
     const [description, setDescription] = useState(desc);
     const [cache, setCache] = useState(desc);
 

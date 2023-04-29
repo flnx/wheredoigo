@@ -8,9 +8,10 @@ export const DetailsFormFields = ({
     error,
     details,
 }) => {
+
     return details.map((detail) => (
-        <div style={{ marginBottom: '2rem' }} key={detail._id}>
-            <h2 style={{ margin: '2rem 0 0.225rem 0' }}>{detail.category}</h2>
+        <div key={detail._id}>
+            <h3>{detail.category}</h3>
             {detail.info.map((x) => (
                 <MemoizedFormFieldEditor
                     fieldId={x._id}

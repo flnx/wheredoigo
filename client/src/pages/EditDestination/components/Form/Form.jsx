@@ -7,6 +7,8 @@ import { validateFieldsOnEdit } from '../../../../utils/editValidators';
 import { MemoizedFormFieldEditor } from '../../../../components/FormFieldEditor/FormFieldEditor';
 import { DetailsFormFields } from './DetailsFormFields';
 
+import styles from './Form.module.css';
+
 export const Form = ({ data, destinationId }) => {
     const [editDetails, isEditLoading] = useEditDestinationDetails(destinationId);
     const [editError, setEditError] = useState('');
@@ -58,8 +60,8 @@ export const Form = ({ data, destinationId }) => {
 
     return (
         <section>
-            <h3 style={{ marginBottom: '1rem' }}>Destination Info</h3>
-            <form>
+            <h3>Destination Info</h3>
+            <form className={styles.form}>
                 <MemoizedFormFieldEditor
                     fieldId={descriptionID}
                     title={descriptionID}
