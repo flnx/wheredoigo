@@ -10,7 +10,6 @@ export const getCreatePlacePermissions = async (id) => {
 
 export const getDestinationToEdit = async (id) => {
     const res = await axios.get(apiEndpoints.requestDestinationToEdit(id));
-
     return res.data;
 }
 

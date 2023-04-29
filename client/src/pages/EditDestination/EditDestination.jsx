@@ -2,25 +2,23 @@ import { useParams } from 'react-router-dom';
 import { useGetDestinationToEdit } from '../../hooks/queries/useGetDestinationToEdit';
 
 // Components
+import { Container } from '../../components/Containers/Container/Container';
 import { FlexSectionContainer } from '../../components/Containers/FlexSectionContainer/FlexSectionContainer';
 import { PlacesShowcase } from './components/PlacesShowcase/PlacesShowcase';
 import { EditImages } from './components/EditImages/EditImages';
 import { Form } from './components/Form/Form';
 
 import { extractServerErrorMessage } from '../../utils/utils';
-import { Container } from '../../components/Containers/Container/Container';
 
 export const EditDestination = () => {
     const { destinationId } = useParams();
-    const [data, error, isLoading] = useGetDestinationToEdit(destinationId);
-
-    if (error) return <h1>{extractServerErrorMessage(error)}</h1>;
+    const [data, error, isLoading, isSuccess] = useGetDestinationToEdit(destinationId);
 
     const destinationTitle = `${data?.city}, ${data?.country}`;
 
     return (
         <Container>
-            {!error && !isLoading && data && (
+            {isSuccess && (
                 <>
                     <h1 className="smaller mb-2">Edit {destinationTitle}</h1>
                     <FlexSectionContainer>
@@ -35,8 +33,8 @@ export const EditDestination = () => {
                 </>
             )}
 
+            {isLoading && <h1>Loading...</h1>}
             {error && extractServerErrorMessage(error)}
-            {isLoading || !data && (<h1>Loading...</h1>)}
         </Container>
     );
 };

@@ -3,10 +3,10 @@ import { getPlaceToEdit } from '../../service/data/permissions';
 import { queryEndpoints } from '../../constants/reactQueryEndpoints';
 
 export const useGetPlaceToEdit = (placeId) => {
-    const { data, error, isLoading } = useQuery({
+    const { data, error, isLoading, isSuccess } = useQuery({
         queryKey: [queryEndpoints.editPlace, placeId],
         queryFn: () => getPlaceToEdit(placeId),
     });
 
-    return [data, error, isLoading];
+    return [data, error, isLoading, isSuccess];
 };

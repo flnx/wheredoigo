@@ -15,7 +15,7 @@ export const SelectType = ({
     onEditButtonClickHandler,
     sendEditedFieldClickHandler,
     isLoading,
-    error
+    error,
 }) => {
     const [type, setType] = useState(selectedType);
     const [cache, setCache] = useState(selectedType);
@@ -43,43 +43,46 @@ export const SelectType = ({
     };
 
     return (
-        <div className={styles['wrapper']}>
-            <span className={styles.label}>Type: </span>
+        <div>
+            <h3>Category</h3>
+            <div className={styles['wrapper']}>
+                <span className={styles.label}>Type: </span>
 
-            {isEditable ? (
-                <div className={styles.selectWrapper}>
-                    <select
-                        id="type"
-                        name="type"
-                        value={type}
-                        onChange={onChangeHandler}
-                        className={styles.select}
-                    >
-                        {types.map((type) => (
-                            <option value={type} key={type}>
-                                {type}
-                            </option>
-                        ))}
-                    </select>
-                    {error && <span className="error-message">{error}</span>}
-                    <div className={styles.buttons}>
-                        <ButtonSky
-                            onClickHandler={onSaveButtonClickHandler}
-                            disabled={isLoading}
+                {isEditable ? (
+                    <div className={styles.selectWrapper}>
+                        <select
+                            id="type"
+                            name="type"
+                            value={type}
+                            onChange={onChangeHandler}
+                            className={styles.select}
                         >
-                            Save
-                        </ButtonSky>
-                        <CancelButton onClickHandler={onCancelClickHandler}>
-                            Cancel
-                        </CancelButton>
+                            {types.map((type) => (
+                                <option value={type} key={type}>
+                                    {type}
+                                </option>
+                            ))}
+                        </select>
+                        {error && <span className="error-message">{error}</span>}
+                        <div className={styles.buttons}>
+                            <ButtonSky
+                                onClickHandler={onSaveButtonClickHandler}
+                                disabled={isLoading}
+                            >
+                                Save
+                            </ButtonSky>
+                            <CancelButton onClickHandler={onCancelClickHandler}>
+                                Cancel
+                            </CancelButton>
+                        </div>
                     </div>
-                </div>
-            ) : (
-                <EditTextareaPairs
-                    selected={selectedType}
-                    onClickHandler={() => onEditButtonClickHandler(typeId)}
-                />
-            )}
+                ) : (
+                    <EditTextareaPairs
+                        selected={selectedType}
+                        onClickHandler={() => onEditButtonClickHandler(typeId)}
+                    />
+                )}
+            </div>
         </div>
     );
 };
