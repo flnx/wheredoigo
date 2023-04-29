@@ -20,9 +20,7 @@ export const EditDestination = () => {
 
     return (
         <Container>
-            {isLoading || !data ? (
-                <h1>Loading...</h1>
-            ) : (
+            {!error && !isLoading && data && (
                 <>
                     <h1 className="smaller mb-2">Edit {destinationTitle}</h1>
                     <FlexSectionContainer>
@@ -36,6 +34,9 @@ export const EditDestination = () => {
                     <PlacesShowcase places={data.places} destinationId={destinationId} />
                 </>
             )}
+
+            {error && extractServerErrorMessage(error)}
+            {isLoading || !data && (<h1>Loading...</h1>)}
         </Container>
     );
 };
