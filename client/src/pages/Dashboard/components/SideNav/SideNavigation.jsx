@@ -7,6 +7,8 @@ import { AppWindow } from 'phosphor-react';
 import { Plus } from 'phosphor-react';
 import { Browsers } from 'phosphor-react';
 import { UserCircle } from 'phosphor-react';
+import { GearSix } from 'phosphor-react';
+import { ClockCounterClockwise  } from 'phosphor-react';
 
 import styles from './SideNavigation.module.css';
 
@@ -28,10 +30,10 @@ export const SideNavigation = () => {
                     Followers
                 </DashboardLink>
 
-                <DashboardLink to={'/dashboard/history'} Icon={UserCircle}>
+                <DashboardLink to={'/dashboard/history'} Icon={ClockCounterClockwise}>
                     History
                 </DashboardLink>
-                <DashboardLink to={'/dashboard/settings'} Icon={UserCircle}>
+                <DashboardLink to={'/dashboard/settings'} Icon={GearSix}>
                     Settings
                 </DashboardLink>
             </nav>
