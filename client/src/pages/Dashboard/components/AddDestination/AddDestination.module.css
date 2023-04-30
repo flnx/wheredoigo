@@ -1,14 +1,15 @@
 .form input,
 .form textarea {
-    padding: 0.2rem 0.23rem;
+    padding: 0.35rem 0.4725rem;
     margin: 8px 0;
-    border: 2.25px solid #ccc;
+    border: 1.25px solid var(--border-brown);
+    border-radius: 5px;
     outline: none;
 }
 
 .form input:focus,
 .form textarea:focus {
-    border: 2.25px solid #a5a4a4;
+    background: #fffffab6;
 }
 
 .formField {
@@ -18,11 +19,11 @@
 }
 
 .validField {
-    border: 2.25px solid #4bb543 !important;
+    border-color: #4bb543 !important;
 }
 
 .error {
-    border: 2.25px solid #ff0000 !important;
+    border-color: #ff0000 !important;
 }
 
 .form .categoryDetails {
