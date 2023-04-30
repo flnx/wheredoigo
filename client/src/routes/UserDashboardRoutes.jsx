@@ -14,7 +14,7 @@ const UserDashboardRoutes = () => {
             <Route element={<Dashboard />}>
                 <Route index element={<p>Hello, Friend</p>}/>
                 <Route path="add" element={<AddDestination />} />
-                <Route path="destinations-created-by-user" element={<OwnerDestinations />} />
+                <Route path="my-destinations" element={<OwnerDestinations />} />
                 <Route path="history" element={<History />} />
                 <Route path="settings" element={<UserSettings />} />
                 <Route path="followers" element={<Followers />} />

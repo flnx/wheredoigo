@@ -13,6 +13,12 @@
     margin: 0 auto;
 }
 
+.buttons {
+    position: absolute;
+    bottom: -2.65rem;
+    width: 100%;
+}
+
 .buttons :first-child {
     margin-right: 0.35rem;
 }

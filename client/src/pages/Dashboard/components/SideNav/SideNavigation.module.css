@@ -1,16 +1,13 @@
 .sideNav {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 4.125rem;
 }
 
 .navbar {
     display: flex;
     flex-direction:column;
-    flex-wrap: wrap;
     gap: 2rem;
-    justify-content: space-between;
-    text-align: center;
 }
 
 .navLink {
@@ -18,23 +15,21 @@
     flex-basis: calc(33% - 2rem);
     color: var(--text-primary);
     font-weight: 600;
-    font-size: 0.85rem;
+    font-size: 0.8345rem;
+    transition: 0.25s all ease-in-out;
 }
 
+.iconFlex {
+    display: flex;
+    gap: 0.35rem;
+    align-items: center;
+}
 
 .activeLink {
     color: var(--text-secondary-dark);
 }
 
 @media (min-width: 64em) {
-    .sideNav {
-        gap: 5rem;
-    }
-
-    .navbar {
-        flex-direction: column;
-    }
-
     .navLink {
         min-width: 10rem;
     }
