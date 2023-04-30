@@ -1,12 +1,13 @@
 .sideNav {
     height: 100%;
     padding: 1.125rem 0;
-    border-right: 1px solid #222;
+    border-right: 1px solid #f4f3f2;
     width: 55px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4.125rem;
+    gap: 3.425rem;
+    background: var(--app-background-color);
     
 }
 

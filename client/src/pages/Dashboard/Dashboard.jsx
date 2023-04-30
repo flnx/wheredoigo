@@ -8,12 +8,11 @@ import { Container } from '../../components/Containers/Container/Container';
 
 export const Dashboard = () => {
     return (
-        <Container mb={3}>
-            <div className={styles.grid}>
-                <section className={styles.sideNav}>
-                    <SideNavigation />
-                </section>
-
+        <div className={styles.dashboard}>
+            <section className={styles.sideNav}>
+                <SideNavigation />
+            </section>
+            <div className={styles.flexContainer}>
                 <section className={styles.content}>
                     <Outlet />
                 </section>
@@ -32,6 +31,6 @@ export const Dashboard = () => {
                     </div>
                 </aside>
             </div>
-        </Container>
+        </div>
     );
 };
