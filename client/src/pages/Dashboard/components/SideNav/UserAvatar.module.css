@@ -7,10 +7,10 @@
 }
 
 .croppedImg {
-    width: 100px;
-    height: 100px;
+    width: 36.5px;
+    height: 36.5px;
     border-radius: 50%;
-    margin: 0 auto;
+    /* margin: 0 auto; */
 }
 
 .buttons {

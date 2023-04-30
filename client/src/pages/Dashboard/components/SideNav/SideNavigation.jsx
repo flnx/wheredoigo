@@ -8,7 +8,7 @@ import { Plus } from 'phosphor-react';
 import { Browsers } from 'phosphor-react';
 import { UserCircle } from 'phosphor-react';
 import { GearSix } from 'phosphor-react';
-import { ClockCounterClockwise  } from 'phosphor-react';
+import { ClockCounterClockwise } from 'phosphor-react';
 
 import styles from './SideNavigation.module.css';
 
@@ -55,7 +55,7 @@ const DashboardLink = ({ children, Icon, to }) => {
         <NavLink to={path} className={`${styles.navLink} ${activeClass}`}>
             <div className={styles.iconFlex}>
                 <Icon size={26} weight={activeClass ? 'fill' : 'regular'} />
-                {children}
+                <span className={styles.navText}>{children}</span>
             </div>
         </NavLink>
     );

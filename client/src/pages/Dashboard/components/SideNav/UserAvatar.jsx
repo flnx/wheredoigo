@@ -98,7 +98,7 @@ export const UserAvatar = () => {
                     loading="lazy"
                 />
             </div>
-            <FileInput setImage={setImage} onImageSelected={onImageSelected} />
+            {/* <FileInput setImage={setImage} onImageSelected={onImageSelected} /> */}
             {showSaveCancelButtons && (
                 <div className={styles.buttons}>
                     <SuccessButton onClickHandler={handleSaveButtonClick}>Save</SuccessButton>

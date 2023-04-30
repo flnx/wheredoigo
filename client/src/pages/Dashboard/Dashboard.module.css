@@ -1,15 +1,23 @@
 .grid {
+    position: relative;
     margin-top: 3rem;
     background: var(--dashboard-background);
     box-shadow: var(--box-shadow);
-    padding: 3rem 1.25rem;
-    border-radius: 20px;
+    /* padding: 3rem 1.25rem; */
+    border-radius: 10px;
+    height: 50rem;
     display: grid;
     gap: 1.25rem;
+    grid-template-columns: repeat(1fr, 1fr, 1fr, 1fr);
+    grid-template-areas:
+        "snav con con con"
+        "stats stats stats stats";
 }
 
 .sideNav {
     border-right: 1px solid #f4f3f2;
+    grid-area: snav;
+    /* background: red; */
 }
 
 .stats {
@@ -19,6 +27,11 @@
     flex-direction: column;
     align-items: center;
     border-left: 1px solid #f4f3f2;
+    grid-area: stats;
+}
+
+.content {
+    grid-area: con;
 }
 
 .stats p,
@@ -34,19 +47,9 @@
         grid-template-areas: "snav con con con con stats";
     }
 
-    .grid > * {
+    /* .grid > * {
         padding: 1.5rem;
-    }
+    } */
 
-    .content {
-        grid-area: con;
-    }
 
-    .sideNav {
-        grid-area: snav;
-    }
-
-    .stats {
-        grid-area: stats;
-    }
 }
