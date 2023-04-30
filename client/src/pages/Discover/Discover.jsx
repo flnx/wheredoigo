@@ -20,7 +20,7 @@ export const Discover = () => {
     };
 
     return (
-        <Container>
+        <Container mb={3}>
             <div className={styles.grid}>
                 <h1>Where do you want to go?</h1>
                 <SearchBar searchParamsHandler={handleSearchParams} />

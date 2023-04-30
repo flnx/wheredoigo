@@ -8,7 +8,7 @@ import { Container } from '../../components/Containers/Container/Container';
 
 export const Dashboard = () => {
     return (
-        <Container>
+        <Container mb={3}>
             <div className={styles.grid}>
                 <section className={styles.sideNav}>
                     <SideNavigation />

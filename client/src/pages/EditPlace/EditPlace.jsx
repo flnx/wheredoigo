@@ -20,7 +20,7 @@ export const EditPlace = () => {
     const placeTitle = `${data?.name}, ${data?.city}`;
 
     return (
-        <Container>
+        <Container mb={3}>
             {isSuccess && (
                 <>
                     <h1 className="smaller mb-2">Edit {placeTitle}</h1>
