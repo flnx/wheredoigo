@@ -1,15 +1,15 @@
 import { useState, useRef, useContext } from 'react';
+import { AuthContext } from '../../../../context/AuthContext';
+import { changeUserAvatar } from '../../../../service/data/user';
+import { createAvatarImage } from '../../../../utils/imagesHandler';
 
 // Components
 import { FileInput } from '../../../../components/FileInput/FileInput';
 import { ImageCropper } from '../../../../components/Cropper/Cropper';
-
-import styles from './SideNavigation.module.css';
-import { changeUserAvatar } from '../../../../service/data/user';
-import { AuthContext } from '../../../../context/AuthContext';
 import { CancelButton } from '../../../../components/Buttons/Cancel-Button/CancelButton';
 import { SuccessButton } from '../../../../components/Buttons/Success-Button/SuccessButton';
-import { createAvatarImage } from '../../../../utils/imagesHandler';
+
+import styles from './UserAvatar.module.css';
 
 export const UserAvatar = () => {
     const [image, setImage] = useState('');
