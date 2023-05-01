@@ -1,7 +1,7 @@
 .form {
     display: flex;
     flex-direction: column;
-    gap: 1.35rem;
+    gap: 2rem;
 }
 
 .form input,
@@ -11,6 +11,10 @@
     border: 1.25px solid var(--border-brown);
     border-radius: 5px;
     outline: none;
+}
+
+.form .formField:first-child {
+    margin-bottom: 2rem;
 }
 
 .form input:focus,
@@ -26,7 +30,6 @@
     display: flex;
     gap: 0.2rem;
     flex-direction: column;
-    /* background: #fffffab6; */
     background: var(--app-background-color);
 }
 
@@ -35,17 +38,18 @@
 }
 
 .error {
-    border-color: #ff0000 !important;
+    border-color: var(--danger) !important;
 }
 
 .form .categoryDetails {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    flex-direction: row;
     gap: 1.25rem;
 }
 
 .categoryDetails > * {
-    /* flex: 1 1 calc(25% - 1rem); */
+    flex: 1 1 calc(50% - 1rem);
     cursor: pointer;
     text-align: center;
     padding: 0.55rem 0rem;
@@ -53,7 +57,6 @@
     border-radius: 5px;
     color: var(--text-primary);
     transition: all 0.08s ease-in-out;
-    max-width: 375px;
 }
 
 .categoryDetails > *:hover,
@@ -69,7 +72,7 @@
 }
 
 .detailsContainer {
-    padding: 1rem;
+    padding: 1.5rem 2.5rem;
 }
 
 .detailsContainer > * {
@@ -84,11 +87,15 @@
 .searchDropdown {
     color: var(--text-links);
     background-color: var(--app-background-color);
-    border: 1px solid var(--border-gray);
-    border-radius: 5px;
+    /* background-color: var(--danger); */
+    border-top: 2px solid var(--border-brown);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 0.40rem;
     position: absolute;
-    bottom: -3.45rem;
+    bottom: -2.7rem;
     left: 0;
+    height: 45px;
     right: 0;
     z-index: 1;
 }
@@ -98,7 +105,6 @@
     font-size: 1rem;
     height: 100%;
     width: 100%;
-    padding: 1rem 0.25rem;
     display: flex;
     gap: 0.5rem;
 }
@@ -111,19 +117,25 @@
 .errorMessage {
     position: absolute;
     text-align: center;
-    bottom: -1rem;
+    bottom: -1.65rem;
     left: 0;
     right: 0;
-    color: #ff0000;
+    color: var(--error-message);
 }
 
 .serverError {
     position: absolute;
     left: 0;
     right: 0;
-    color: #ff0000;
+    color: var(--error-message);
     text-align: center;
     text-transform: uppercase;
     font-weight: 800;
     font-size: 1rem;
+}
+
+@media (min-width: 81em) {
+    .categoryDetails > * {
+        flex: 1 1 calc(25% - 1rem);
+    }
 }
