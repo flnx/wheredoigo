@@ -1,32 +1,31 @@
 .imagesWrapper {
-    padding: 1rem;
-    max-height: 30rem;
-    overflow-y: scroll;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 0.8rem;
-    background: var(--gallery-background-black);
+    grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+    gap: 0.3rem;
     border-radius: 10px;
-
-      
+    max-height: 50rem;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-bar) #e7e4e4;
 }
 
 .imagesWrapper::-webkit-scrollbar {
-  width: 5px;
+    width: 6px;
 }
 
 .imagesWrapper::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
+    background: #e7e4e4;
+} 
 
 .imagesWrapper::-webkit-scrollbar-thumb {
-  background: #c26916;
-  border-radius: 10px;
-}
+    background: var(--scroll-bar);
+    border-radius: 5px;
+} 
 
 .imagesWrapper::-webkit-scrollbar-thumb:hover {
-  background: #555;
+    background: var(--scroll-bar-hover);
 }
+
 
 .imgContainer {
     position: relative;
@@ -69,4 +68,12 @@
     text-transform: uppercase;
     font-size: 0.85rem;
     font-weight: 800;
+}
+
+
+@media (min-width: 40em) {
+    .imagesWrapper {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 0.5rem;
+    }
 }

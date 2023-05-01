@@ -13,6 +13,10 @@
     --text-selection: #559ce3;
     --error-message: rgb(190, 19, 19);
     --danger:  #d9534f;
+
+    --scroll-bar: #d9534f;
+    --scroll-bar-hover: #d9544fb9;
+    
     --border-gray: #e0e0e0;
     --border-dark: #25161a;
     --border-brown: #a35d3894;
