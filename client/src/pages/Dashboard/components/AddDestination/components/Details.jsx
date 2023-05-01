@@ -16,27 +16,31 @@ export const Details = ({ showDetailHandler, openedDetailsCategory, dispatchHand
 
     return (
         <Overlay closeModalHandler={closeDetailWindowHandler}>
-            <h3 className={styles.detailsTitle}>{openedDetailsCategory.category}</h3>
+            <div className={styles.detailsContainer}>
+                <h3 className={styles.detailsTitle}>{openedDetailsCategory.category}</h3>
 
-            {openedDetailsCategory.info.map((x) => {
-                return (
-                    <div
-                        className={styles.formField}
-                        key={openedDetailsCategory.category + x.name}
-                    >
-                        <label htmlFor={x.name}>{x.title}</label>
-                        <textarea
-                            key={x.name}
-                            id={x.name}
-                            name={x.name}
-                            rows={x.rows}
-                            placeholder="Add information..."
-                            onChange={(e) => onDetailsChange(e, openedDetailsCategory.category)}
-                            value={x.description}
-                        />
-                    </div>
-                );
-            })}
+                {openedDetailsCategory.info.map((x) => {
+                    return (
+                        <div
+                            className={styles.formField}
+                            key={openedDetailsCategory.category + x.name}
+                        >
+                            <label htmlFor={x.name}>{x.title}</label>
+                            <textarea
+                                key={x.name}
+                                id={x.name}
+                                name={x.name}
+                                rows={x.rows}
+                                placeholder="Add information..."
+                                onChange={(e) =>
+                                    onDetailsChange(e, openedDetailsCategory.category)
+                                }
+                                value={x.description}
+                            />
+                        </div>
+                    );
+                })}
+            </div>
         </Overlay>
     );
 };

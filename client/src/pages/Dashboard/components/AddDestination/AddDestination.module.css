@@ -20,6 +20,7 @@
 
 .formField {
     display: flex;
+    gap: 0.2rem;
     flex-direction: column;
 }
 
@@ -59,6 +60,14 @@
 .detailsTitle {
     text-align: center;
     margin-bottom: 0.75rem;
+}
+
+.detailsContainer {
+    padding: 1rem;
+}
+
+.detailsContainer > * {
+    margin-bottom: 1rem;
 }
 
 .cityInput {
