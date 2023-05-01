@@ -2,7 +2,6 @@
     border-radius: 10px;
     padding: 0.65rem;
     background: var(--background);
-    filter: var(--filter-box-shadow);
     display: flex;
     gap: 1rem;
 }

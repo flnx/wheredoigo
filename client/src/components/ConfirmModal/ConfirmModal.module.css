@@ -22,7 +22,6 @@
     background-color: white;
     padding: 1.5rem 2rem;
     border-radius: 5px;
-    box-shadow: var(--filter-box-shadow);
     z-index: 10;
 }
 

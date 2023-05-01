@@ -18,10 +18,16 @@
     background: #fffffab6;
 }
 
+
 .formField {
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: var(--box-shadow-ease);
     display: flex;
     gap: 0.2rem;
     flex-direction: column;
+    /* background: #fffffab6; */
+    background: var(--app-background-color);
 }
 
 .validField {
@@ -72,6 +78,7 @@
 
 .cityInput {
     position: relative;
+    border-radius: 5px;
 }
 
 .searchDropdown {

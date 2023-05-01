@@ -6,7 +6,6 @@
     flex-direction: column;
     align-items: center;
     gap: 3.425rem;
-    background: var(--app-background-color);
     margin: 0 auto;
 }
 
@@ -41,7 +40,7 @@
 
 @media (min-width: 64em) {
     .sideNav {
-        width: 13rem;
+        width: 15.5rem;
     }
 
 

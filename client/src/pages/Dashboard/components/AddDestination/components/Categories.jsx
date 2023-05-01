@@ -7,7 +7,7 @@ export const Categories = ({ showDetailHandler }) => {
 
     return (
         <>
-            <div className={styles.formField}>
+            <div>
                 <p>Help others by adding more information about the destination (not needed)</p>
             </div>
 
