@@ -33,6 +33,12 @@
     background: var(--app-background-color);
 }
 
+.formField label {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
 .validField {
     border-color: #4bb543 !important;
 }
@@ -87,8 +93,7 @@
 .searchDropdown {
     color: var(--text-links);
     background-color: var(--app-background-color);
-    /* background-color: var(--danger); */
-    border-top: 2px solid var(--border-brown);
+    border-top: 1px solid var(--border-brown);
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     padding: 0.40rem;
