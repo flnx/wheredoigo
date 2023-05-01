@@ -8,6 +8,7 @@ import { FileInput } from '../../../../components/FileInput/FileInput';
 import { ImageCropper } from '../../../../components/Cropper/Cropper';
 import { CancelButton } from '../../../../components/Buttons/Cancel-Button/CancelButton';
 import { SuccessButton } from '../../../../components/Buttons/Success-Button/SuccessButton';
+import { CameraPlus } from '@phosphor-icons/react';
 
 import styles from './UserAvatar.module.css';
 
@@ -16,6 +17,7 @@ export const UserAvatar = () => {
     const [imgAfterCrop, setImgAfterCrop] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [showSaveCancelButtons, setShowSaveCancelButtons] = useState(false);
+    const inputRef = useRef();
     const canvasRef = useRef(null);
     const { auth, setUserData } = useContext(AuthContext);
 
@@ -90,15 +92,26 @@ export const UserAvatar = () => {
                     onCropCancel={onCropCancel}
                 />
             )}
-            <div>
+            <div className={styles.avatarContainer}>
                 <img
                     src={imgAfterCrop ? imgAfterCrop : userImage}
                     alt="User Avatar"
-                    className={styles.croppedImg}
+                    className={styles.avatar}
                     loading="lazy"
                 />
+                <div className={styles.iconContainer}>
+                    <CameraPlus
+                        size={25}
+                        className={styles.cameraIcon}
+                        onClick={() => inputRef.current.click()}
+                    />
+                </div>
             </div>
-            {/* <FileInput setImage={setImage} onImageSelected={onImageSelected} /> */}
+            <FileInput
+                setImage={setImage}
+                onImageSelected={onImageSelected}
+                inputRef={inputRef}
+            />
             {showSaveCancelButtons && (
                 <div className={styles.buttons}>
                     <SuccessButton onClickHandler={handleSaveButtonClick}>Save</SuccessButton>

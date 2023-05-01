@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { DotsThree } from 'phosphor-react';
+import { DotsThree } from '@phosphor-icons/react';
 import { SmallModal } from '../../../../components/SmallModal/SmallModal';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 

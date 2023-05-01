@@ -14,6 +14,9 @@
     --error-message: rgb(190, 19, 19);
     --danger:  #d9534f;
 
+    --minimalistic-red: #d9534f;
+    --minimalistic-red-hover: #c0403b;
+
     --scroll-bar: #d9534f;
     --scroll-bar-hover: #d9544fb9;
     

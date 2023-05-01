@@ -1,5 +1,5 @@
 import styles from './SearchBar.module.css';
-import { MagnifyingGlass } from 'phosphor-react';
+import { MagnifyingGlass } from '@phosphor-icons/react';
 import { useState } from 'react';
 
 export const SearchBar = ({ searchParamsHandler }) => {

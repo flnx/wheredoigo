@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { disableBodyScroll, enableBodyScroll } from '../../utils/utils';
-import { X } from 'phosphor-react';
+import { X } from '@phosphor-icons/react';
 import styles from './Overlay.module.css';
 
 export const Overlay = ({ children, closeModalHandler }) => {

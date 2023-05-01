@@ -1,19 +1,10 @@
-import { useRef } from 'react';
-import { SecondaryButton } from '../Buttons/Secondary-Btn/SecondaryButton';
-
-export const FileInput = ({ onImageSelected }) => {
-    const inputRef = useRef();
-
+export const FileInput = ({ onImageSelected, inputRef }) => {
     const onChangeHandler = (e) => {
         if (e.target.files && e.target.files.length > 0) {
             const file = e.target.files[0];
             const imageUrl = URL.createObjectURL(file);
             onImageSelected(imageUrl);
         }
-    };
-
-    const onChooseImg = () => {
-        inputRef.current.click();
     };
 
     return (
@@ -25,10 +16,6 @@ export const FileInput = ({ onImageSelected }) => {
                 onChange={onChangeHandler}
                 style={{ display: 'none' }}
             />
-
-            <SecondaryButton clickHandler={onChooseImg}>
-                Change Avatar
-            </SecondaryButton>
         </div>
     );
 };

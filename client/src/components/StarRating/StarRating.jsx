@@ -1,4 +1,4 @@
-import { Star } from 'phosphor-react';
+import { Star } from '@phosphor-icons/react';
 import styles from './StarRating.module.css';
 
 export const StarRating = ({ rating }) => {

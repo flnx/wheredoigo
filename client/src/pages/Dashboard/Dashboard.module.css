@@ -3,6 +3,12 @@
     background: var(--dashboard-background);
     box-shadow: var(--box-shadow);
     border-top: 1px solid var(--border-brown);
+    height: 100rem;
+}
+
+.sideNavSection {
+    width: auto;
+    background: var(--app-background-color);
 }
 
 
@@ -14,11 +20,6 @@
 
 }
 
-.sideNav {
-    grid-area: snav;
-    /* background: red; */
-}
-
 .stats {
     background: var(--dashboard-children-background);
     border-radius: 10px;
@@ -26,11 +27,9 @@
     flex-direction: column;
     align-items: center;
     border-left: 1px solid #f4f3f2;
-    grid-area: stats;
 }
 
 .content {
-    grid-area: con;
     padding: 0;
 }
 
@@ -39,9 +38,4 @@
 .stats h2,
 .stats h3 {
     color: var(--text-primary);
-}
-
-@media (min-width: 64em) {
-  
-
 }

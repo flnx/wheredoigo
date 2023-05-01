@@ -1,14 +1,13 @@
 .sideNav {
     height: 100%;
-    padding: 1.125rem 0;
-    border-right: 1px solid #f4f3f2;
     width: 55px;
+    padding: 1.125rem 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 3.425rem;
     background: var(--app-background-color);
-    
+    margin: 0 auto;
 }
 
 .navbar {
@@ -41,6 +40,11 @@
 }
 
 @media (min-width: 64em) {
+    .sideNav {
+        width: 13rem;
+    }
+
+
     .navLink {
         min-width: 10rem;
     }

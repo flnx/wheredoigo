@@ -1,4 +1,4 @@
-import { List, X } from 'phosphor-react';
+import { List, X } from '@phosphor-icons/react';
 import styles from './HamburgerIcon.module.css'
 
 export const HamburgerIconMenu = ({ hamburgerClickHandler, isNavToggled }) => {

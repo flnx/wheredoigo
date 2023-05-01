@@ -3,12 +3,12 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { UserAvatar } from './UserAvatar';
 
 // Icons
-import { AppWindow } from 'phosphor-react';
-import { Plus } from 'phosphor-react';
-import { Browsers } from 'phosphor-react';
-import { UserCircle } from 'phosphor-react';
-import { GearSix } from 'phosphor-react';
-import { ClockCounterClockwise } from 'phosphor-react';
+import { AppWindow } from '@phosphor-icons/react';
+import { Plus } from '@phosphor-icons/react';
+import { Browsers } from '@phosphor-icons/react';
+import { UserCircle } from '@phosphor-icons/react';
+import { GearSix } from '@phosphor-icons/react';
+import { ClockCounterClockwise } from '@phosphor-icons/react';
 
 import styles from './SideNavigation.module.css';
 

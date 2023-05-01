@@ -1,4 +1,4 @@
-import { X } from 'phosphor-react';
+import { X } from '@phosphor-icons/react';
 
 import styles from './ImageThumbnailsPreview.module.css';
 

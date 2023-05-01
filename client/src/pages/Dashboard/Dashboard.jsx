@@ -8,13 +8,11 @@ import styles from './Dashboard.module.css';
 export const Dashboard = () => {
     return (
         <div className={styles.dashboard}>
-            <section className={styles.sideNav}>
+            <section className={styles.sideNavSection}>
                 <SideNavigation />
             </section>
             <div className={styles.flexContainer}>
-                <section className={styles.content}>
-                    <Outlet />
-                </section>
+                <Outlet />
 
                 <aside className={styles.stats}>
                     <div>

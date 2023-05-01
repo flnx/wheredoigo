@@ -2,23 +2,80 @@
     text-align: center;
     position: relative;
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
     gap: 0.65rem;
+    width: 100%;
 }
 
-.croppedImg {
-    width: 36.5px;
-    height: 36.5px;
+.avatarContainer {
+    position: relative;
+}
+
+.avatar {
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    /* margin: 0 auto; */
+    margin: 0 auto 0.5rem auto;
+}
+
+.iconContainer {
+    margin: 0 auto;
+    bottom: 5px;
+    right: 0;
+    width: 36px;
+    height: 36px;
+    background: var(--minimalistic-red);
+    cursor: pointer;
+    color: #fff;
+    transition: 0.15s background ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.iconContainer:hover,
+.iconContainer:focus {
+    background: var(--minimalistic-red-hover);
 }
 
 .buttons {
     position: absolute;
-    bottom: -2.65rem;
-    width: 100%;
+    top: 0;
+    left: 60px;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    justify-content: center;
+    background: #fff;
+    background: var(--background-intro);
+    border: 1px solid var(--danger);
+    border-radius: 10px;
+    width: 200px;
+    height: 88px;
+    z-index: 1;
 }
 
-.buttons :first-child {
-    margin-right: 0.35rem;
+@media (min-width: 64em) {
+    .buttons {
+        bottom: -2rem;
+        top: auto;
+        left: auto;
+        background: transparent;
+        width: auto;
+        height: auto;
+        border: none;
+    }
+
+
+    .iconContainer {
+        position: absolute;
+    }
+
+    .avatar {
+        width: 100px;
+        height: 100px;
+    }
 }

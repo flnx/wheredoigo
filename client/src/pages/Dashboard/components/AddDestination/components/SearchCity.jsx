@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import debounce from 'lodash.debounce';
-import { ArrowCircleRight, MagnifyingGlass, XCircle } from 'phosphor-react';
+import { ArrowCircleRight, MagnifyingGlass, XCircle } from '@phosphor-icons/react';
 
 import { getCityData } from '../../../../../service/data/destinations';
 
