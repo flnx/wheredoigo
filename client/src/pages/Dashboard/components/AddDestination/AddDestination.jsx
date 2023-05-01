@@ -69,7 +69,7 @@ export const AddDestination = () => {
     const errorMessage = createError && extractServerErrorMessage(createError);
 
     return (
-        <section>
+        <div className={styles.container}>
             {createError && <span class={styles.serverError}>{errorMessage}</span>}
             <form className={styles.form} onSubmit={submitHandler}>
                 <SearchCity
@@ -108,6 +108,6 @@ export const AddDestination = () => {
                     </SuccessButton>
                 </div>
             </form>
-        </section>
+        </div>
     );
 };

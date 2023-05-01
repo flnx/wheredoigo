@@ -1,3 +1,11 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 0;
+    max-width: 45rem;
+    margin: 0 auto;
+}
+
 .form {
     display: flex;
     flex-direction: column;
@@ -21,7 +29,6 @@
 .form textarea:focus {
     background: #fffffab6;
 }
-
 
 .formField {
     padding: 1rem;
@@ -96,7 +103,7 @@
     border-top: 1px solid var(--border-brown);
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    padding: 0.40rem;
+    padding: 0.4rem;
     position: absolute;
     bottom: -2.7rem;
     left: 0;
@@ -117,7 +124,6 @@
 .description {
     position: relative;
 }
-
 
 .errorMessage {
     position: absolute;

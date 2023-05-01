@@ -52,8 +52,8 @@ export const OwnerDestinations = () => {
     return isLoading ? (
         <h2>Loading....</h2>
     ) : (
-        <>
-            <h2 className={styles.title}>Highest rated destinations:</h2>
+        <div className={styles.container}>
+            <h2 className={styles.title}>My stuff 🦖</h2>
             <div className={styles.wrapper}>
                 {data.map((destination) => (
                     <Destination
@@ -73,6 +73,6 @@ export const OwnerDestinations = () => {
                     Are you sure you wanna delete this destination?
                 </ConfirmModal>
             )}
-        </>
+        </div>
     );
 };

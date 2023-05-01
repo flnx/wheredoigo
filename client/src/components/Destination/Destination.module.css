@@ -1,7 +1,8 @@
 .card {
     border-radius: 10px;
     padding: 0.65rem;
-    background: var(--background);
+    background: var(--app-background-color);
+    box-shadow: var(--box-shadow-ease);
     display: flex;
     gap: 1rem;
 }
