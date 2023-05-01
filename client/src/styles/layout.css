@@ -48,7 +48,7 @@ _____________________________
 button[disabled] {
     pointer-events: none;
     opacity: 0.5;
-    cursor:context-menu !important;
+    cursor: context-menu !important;
 }
 
 .fill {

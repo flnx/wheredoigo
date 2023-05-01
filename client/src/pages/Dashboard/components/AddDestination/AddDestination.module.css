@@ -1,3 +1,9 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.35rem;
+}
+
 .form input,
 .form textarea {
     padding: 0.35rem 0.4725rem;
@@ -15,7 +21,6 @@
 .formField {
     display: flex;
     flex-direction: column;
-    margin-bottom: 1rem;
 }
 
 .validField {
@@ -27,23 +32,21 @@
 }
 
 .form .categoryDetails {
-    margin-bottom: 1rem;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 1.25rem;
 }
 
 .categoryDetails > * {
-    flex: 1 1 calc(25% - 1rem);
+    /* flex: 1 1 calc(25% - 1rem); */
     cursor: pointer;
     text-align: center;
-    padding: 0.35rem 0rem;
-    border: 1px solid var(--text-primary);
+    padding: 0.55rem 0rem;
+    border: 1px solid var(--border-dark);
+    border-radius: 5px;
     color: var(--text-primary);
-    font-weight: 600;
     transition: all 0.08s ease-in-out;
+    max-width: 375px;
 }
 
 .categoryDetails > *:hover,

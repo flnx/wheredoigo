@@ -9,18 +9,19 @@
 
 .btn {
     display: inline-block;
-    margin-bottom: 0.5rem;
-    border-radius: 5px;
-    background: var(--button-primary);
-    color: #fff;
-    font-weight: 700;
-    padding: 0.85rem 2rem;
-    transition: all 0.25s ease-in-out;
-    cursor: pointer;
+    margin-bottom: 1.5rem;
+    padding: 0.5925rem 1.1725rem;
     border: none;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9725rem;
+    border-radius: 0.25rem;
+    background: var(--sky-blue);
+    transition: background-color 0.15s ease;
+    cursor: pointer;
 }
 
 .btn:hover,
 .btn:focus {
-    background: var(--button-hover);
+    background: var(--sky-blue-darker);
 }
