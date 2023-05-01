@@ -4,7 +4,6 @@ import { Outlet } from 'react-router-dom';
 import { SideNavigation } from './components/SideNav/SideNavigation';
 
 import styles from './Dashboard.module.css';
-import { Container } from '../../components/Containers/Container/Container';
 
 export const Dashboard = () => {
     return (

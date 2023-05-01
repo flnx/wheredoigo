@@ -12,6 +12,7 @@ import { Description } from './components/Description';
 import { Categories } from './components/Categories';
 import { Details } from './components/Details';
 import { UploadImagesPreview } from '../../../../components/UploadImagesPreview/UploadImagesPreview';
+import { SuccessButton } from '../../../../components/Buttons/Success-Button/SuccessButton';
 
 import styles from './AddDestination.module.css';
 
@@ -84,7 +85,10 @@ export const AddDestination = () => {
                     inputErrorClass={inputErrorClass}
                     errorMessages={errorMessages}
                 />
-                <UploadImagesPreview dispatchHandler={dispatchHandler} images={state.imageUrls} />
+                <UploadImagesPreview
+                    dispatchHandler={dispatchHandler}
+                    images={state.imageUrls}
+                />
                 <Categories showDetailHandler={showDetailHandler} />
                 {showDetail.category && (
                     <Details
@@ -94,9 +98,14 @@ export const AddDestination = () => {
                     />
                 )}
                 <div>
-                    <button disabled={isLoading} className={styles.btn} type="submit">
-                        Add
-                    </button>
+                    <SuccessButton
+                        disabled={isLoading}
+                        type="submit"
+                        fw="600"
+                        p="0.6rem 1.15rem"
+                    >
+                        Create Destination
+                    </SuccessButton>
                 </div>
             </form>
         </section>

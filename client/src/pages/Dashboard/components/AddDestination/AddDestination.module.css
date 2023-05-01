@@ -100,21 +100,6 @@
     position: relative;
 }
 
-.btn {
-    border-radius: 5px;
-    background: var(--button-primary);
-    color: #fff;
-    font-weight: 700;
-    padding: 0.85rem 2rem;
-    transition: all 0.25s ease-in-out;
-    cursor: pointer;
-    border: none;
-}
-
-.btn:hover,
-.btn:focus {
-    background: var(--button-hover);
-}
 
 .errorMessage {
     position: absolute;

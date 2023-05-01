@@ -1,10 +1,17 @@
 import styles from './SuccessButton.module.css';
 
-export const SuccessButton = ({ children, onClickHandler, isLoading }) => {
+export const SuccessButton = ({ children, onClickHandler, isLoading, type, fw, p }) => {
+    const buttonStyle = {
+        fontWeight: fw ? fw : '',
+        padding: p ? p : '',
+    };
+
     return (
-        <button 
-            className={styles['success-button']} 
-            onClick={onClickHandler} 
+        <button
+            type={type}
+            className={styles['success-button']}
+            style={buttonStyle}
+            onClick={onClickHandler}
             disabled={isLoading}
         >
             {children}
