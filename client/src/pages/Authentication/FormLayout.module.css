@@ -29,30 +29,6 @@
     margin-top: 5rem;
 }
 
-.formField {
-    margin-bottom: 40px;
-}
-
-.formFieldLabel {
-    display: block;
-    text-transform: uppercase;
-    font-size: 0.9em;
-    color: white;
-}
-
-.formFieldInput {
-    width: 100%;
-    background-color: transparent;
-    border: none;
-    color: white;
-    outline: none;
-    border-bottom: 1px solid #445366;
-    padding: 0.75rem 0;
-}
-
-.formFieldInput::placeholder {
-    color: #616e7f;
-}
 
 .formFieldButton {
     margin-right: 1rem;
@@ -76,22 +52,6 @@
     text-decoration: none;
     border-bottom: 1.5px solid #6b5b95;
     padding-bottom: 0.5em;
-}
-
-.formFieldCheckboxLabel {
-    color: #646f7d;
-    font-size: 0.9rem;
-}
-
-.formFieldCheckbox {
-    margin-right: 0.5rem;
-}
-
-.formFieldTermsLink {
-    color: white;
-    border-bottom: 1px solid #6b5b95;
-    padding-bottom: 0.3em;
-    margin-left: 5px;
 }
 
 .socialMediaButtons {

@@ -9,7 +9,9 @@ import { TipsPopUp } from '../../components/TipsPopUp/TipsPopUp';
 import { Container } from '../../components/Containers/Container/Container';
 import { LinkButtonSecondary } from '../../components/Buttons/Secondary-Btn/LinkButtonSecondary';
 
+import routeConstants from '../../constants/routeConstants';
 import styles from './DestinationDetails.module.css';
+const { PLACES } = routeConstants;
 
 export const DestinationDetails = () => {
     const { destinationId } = useParams();
@@ -33,7 +35,7 @@ export const DestinationDetails = () => {
                             <TipsPopUp details={data.details} />
 
                             {data.isOwner && (
-                                <LinkButtonSecondary to={'places/add'}>
+                                <LinkButtonSecondary to={PLACES.ADD.routePath(destinationId)}>
                                     Add More Places
                                 </LinkButtonSecondary>
                             )}

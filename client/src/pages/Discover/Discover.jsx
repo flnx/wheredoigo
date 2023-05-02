@@ -4,9 +4,9 @@ import { useSearchParams } from 'react-router-dom';
 import { CategoriesNav } from '../../components/CategoriesNav/CategoriesNav';
 import { SearchBar } from '../../components/Serach-Bar/SearchBar';
 import { Destinations } from './Destinations/Destinations';
+import { Container } from '../../components/Containers/Container/Container';
 
 import styles from './Discover.module.css';
-import { Container } from '../../components/Containers/Container/Container';
 
 export const Discover = () => {
     const [searchParams, setSearchParams] = useSearchParams('');
