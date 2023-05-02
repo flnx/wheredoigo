@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useCreatorDestinations } from '../../../../hooks/queries/useCreatorDestinations';
 import { useDeleteDestination } from '../../../../hooks/queries/useDeleteDestination';
 import { extractServerErrorMessage } from '../../../../utils/utils';
@@ -15,8 +14,6 @@ export const OwnerDestinations = () => {
     const [deleteDestination, deleteError, isDeleteLoading] = useDeleteDestination();
     const [destinationToDelete, setDestinationToDelete] = useState(null);
     const [openConfirmModal, setOpenConfirmModal] = useState(false);
-
-    const navigate = useNavigate();
 
     const openConfirmModalHandler = (destinationId) => {
         setOpenConfirmModal(true);
@@ -40,10 +37,6 @@ export const OwnerDestinations = () => {
         });
     };
 
-    const onEditHandler = (destinationId) => {
-        navigate(`/destinations/${destinationId}/edit`);
-    };
-
     if (error) {
         const errorMessage = extractServerErrorMessage(error);
         return errorMessage;
@@ -59,7 +52,6 @@ export const OwnerDestinations = () => {
                     <Destination
                         destination={destination}
                         key={destination._id}
-                        onClickHandler={onEditHandler}
                         onDeleteClickHandler={openConfirmModalHandler}
                     />
                 ))}

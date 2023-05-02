@@ -1,15 +1,15 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDestination } from '../../hooks/queries/useDestination';
+import { extractServerErrorMessage } from '../../utils/utils';
 
 // components
 import { DestinationHeader } from './components/Header/Header';
 import { SectionSlider } from './components/ExploreSection/SectionSlider';
 import { TipsPopUp } from '../../components/TipsPopUp/TipsPopUp';
-import { SecondaryButton } from '../../components/Buttons/Secondary-Btn/SecondaryButton';
+import { Container } from '../../components/Containers/Container/Container';
+import { LinkButtonSecondary } from '../../components/Buttons/Secondary-Btn/LinkButtonSecondary';
 
 import styles from './DestinationDetails.module.css';
-import { extractServerErrorMessage } from '../../utils/utils';
-import { Container } from '../../components/Containers/Container/Container';
 
 export const DestinationDetails = () => {
     const { destinationId } = useParams();
@@ -33,9 +33,9 @@ export const DestinationDetails = () => {
                             <TipsPopUp details={data.details} />
 
                             {data.isOwner && (
-                                <Link to="places/add">
-                                    <SecondaryButton>Add More Places</SecondaryButton>
-                                </Link>
+                                <LinkButtonSecondary to={'places/add'}>
+                                    Add More Places
+                                </LinkButtonSecondary>
                             )}
 
                             {explorePlaces.length > 0 && (

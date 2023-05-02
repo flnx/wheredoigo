@@ -12,3 +12,7 @@
 .btn:hover {
     background: var(--button-hover);
 }
+
+.link {
+    display: inline-block;
+}

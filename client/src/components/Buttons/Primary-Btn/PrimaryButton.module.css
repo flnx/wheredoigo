@@ -12,3 +12,7 @@
 .primary:hover {
     background-color: var(--button-hover);
 }
+
+.link {
+    display: inline-block;
+}

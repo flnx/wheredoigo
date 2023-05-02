@@ -9,7 +9,7 @@ export const SuccessButton = ({ children, onClickHandler, isLoading, type, fw, p
     return (
         <button
             type={type}
-            className={styles['success-button']}
+            className={styles.btn}
             style={buttonStyle}
             onClick={onClickHandler}
             disabled={isLoading}

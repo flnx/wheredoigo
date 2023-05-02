@@ -1,18 +1,19 @@
-import styles from './Place.module.css';
-
+// Components
+import { WarningButton } from '../Buttons/Button-Warning/WarningButton';
+import { LinkButtonSuccess } from '../Buttons/Success-Button/LinkButtonSuccess';
 import { Link } from 'react-router-dom';
 
-// Components
-import { SuccessButton } from '../Buttons/Success-Button/SuccessButton';
-import { WarningButton } from '../Buttons/Button-Warning/WarningButton';
+import styles from './Place.module.css';
 
-export const Place = ({ place, onClickHandler, onDeleteClickHandler }) => {
+export const Place = ({ place, onDeleteClickHandler }) => {
     const { _id, name, country, imageUrl } = place;
+
+    const link = `/places/${_id}`;
 
     return (
         <div className={styles['card']}>
             <div className={styles.imageContainer}>
-                <Link to={`/places/${_id}`}>
+                <Link to={link}>
                     <img src={imageUrl} alt={name} />
                 </Link>
             </div>
@@ -20,9 +21,7 @@ export const Place = ({ place, onClickHandler, onDeleteClickHandler }) => {
                 <h4 className={styles.placeName}>{name}</h4>
                 <p>{country}</p>
                 <div className={styles.buttons}>
-                    <SuccessButton onClickHandler={() => onClickHandler(_id)}>
-                        Edit
-                    </SuccessButton>
+                    <LinkButtonSuccess to={`${link}/edit`}>Edit</LinkButtonSuccess>
                     <WarningButton onClickHandler={() => onDeleteClickHandler(_id)}>
                         Delete
                     </WarningButton>

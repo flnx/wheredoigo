@@ -1,4 +1,4 @@
-.success-button {
+.btn {
     padding: 0.35rem 0.95rem;
     border: none;
     color: #fff;
@@ -8,7 +8,10 @@
     transition: background-color 0.15s ease;
 }
 
-.success-button:hover,
-.success-button:focus {
+.btn:hover {
     background-color: #23910a;
+}
+
+.link {
+    display: inline-block;
 }

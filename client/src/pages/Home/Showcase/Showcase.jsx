@@ -1,4 +1,4 @@
-import { PrimaryButton } from '../../../components/Buttons/Primary-Btn/PrimaryButton';
+import { ButtonLinkPrimary } from '../../../components/Buttons/Primary-Btn/LinkButtonPrimary';
 import { Container } from '../../../components/Containers/Container/Container';
 import { SearchBar } from '../../../components/Serach-Bar/SearchBar';
 import styles from './Showcase.module.css';
@@ -16,7 +16,7 @@ export const Showcase = () => {
                         voluptates.
                     </p>
                     <div className={styles.buttons}>
-                        <PrimaryButton>Discover</PrimaryButton>
+                        <ButtonLinkPrimary to="/discover">Discover</ButtonLinkPrimary>
                     </div>
                     <SearchBar />
                 </div>

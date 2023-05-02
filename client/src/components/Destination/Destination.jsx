@@ -1,15 +1,18 @@
 import { Link } from 'react-router-dom';
-import styles from './Destination.module.css';
-import { SuccessButton } from '../Buttons/Success-Button/SuccessButton';
 import { WarningButton } from '../Buttons/Button-Warning/WarningButton';
+import { LinkButtonSuccess } from '../Buttons/Success-Button/LinkButtonSuccess';
 
-export const Destination = ({ destination, onClickHandler, onDeleteClickHandler }) => {
+import styles from './Destination.module.css';
+
+export const Destination = ({ destination, onDeleteClickHandler }) => {
     const { _id, city, country, imageUrls } = destination;
+
+    const link = `/destinations/${_id}`;
 
     return (
         <div className={styles['card']}>
             <div className={styles.imageContainer}>
-                <Link to={`/destinations/${_id}`}>
+                <Link to={link}>
                     <img src={imageUrls} alt={city} />
                 </Link>
             </div>
@@ -17,9 +20,7 @@ export const Destination = ({ destination, onClickHandler, onDeleteClickHandler 
                 <h3>{city}</h3>
                 <p>{country}</p>
                 <div className={styles.buttons}>
-                    <SuccessButton onClickHandler={() => onClickHandler(_id)}>
-                        Edit
-                    </SuccessButton>
+                    <LinkButtonSuccess to={`${link}/edit`}>Edit</LinkButtonSuccess>
                     <WarningButton onClickHandler={() => onDeleteClickHandler(_id)}>
                         Delete
                     </WarningButton>
