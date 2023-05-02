@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { WarningButton } from '../Buttons/Button-Warning/WarningButton';
-import { LinkButtonSuccess } from '../Buttons/Success-Button/LinkButtonSuccess';
+import { WarningButton } from '../../../../../components/Buttons/Button-Warning/WarningButton';
+import { LinkButtonSuccess } from '../../../../../components/Buttons/Success-Button/LinkButtonSuccess';
 
-import routeConstants from '../../constants/routeConstants';
+import routeConstants from '../../../../../constants/routeConstants';
 import styles from './Destination.module.css';
 
 const { BY_ID, EDIT } = routeConstants.DESTINATIONS;

@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import capitalizeEachWord from '../../../utils/capitalizeEachWord';
 
 import routeConstants from '../../../constants/routeConstants';
 import styles from './CitiesSlider.module.css';
@@ -11,10 +10,10 @@ export const SliderCard = ({ destination }) => {
 
     return (
         <Link to={BY_ID.routePath(_id)}>
-            <img src={imageUrls.imageUrl} alt="city" className={styles.image} />
+            <img src={imageUrls.imageUrl} alt={city} className={styles.image} />
             <div className={styles.content}>
-                <h3>{capitalizeEachWord(city)}</h3>
-                <p>{capitalizeEachWord(country.name)}</p>
+                <h3>{city}</h3>
+                <p>{country.name}</p>
             </div>
         </Link>
     );

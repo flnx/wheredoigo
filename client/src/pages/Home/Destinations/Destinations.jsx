@@ -1,5 +1,5 @@
 import { Container } from '../../../components/Containers/Container/Container';
-import { Destination } from '../../../components/Destination/Destination';
+import { Destination } from '../../Dashboard/components/OwnerDestinations/components/Destination';
 import styles from './Destinations.module.css';
 
 export const Destinations = () => {

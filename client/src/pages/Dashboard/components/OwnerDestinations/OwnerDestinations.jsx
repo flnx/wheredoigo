@@ -4,7 +4,7 @@ import { useDeleteDestination } from '../../../../hooks/queries/useDeleteDestina
 import { extractServerErrorMessage } from '../../../../utils/utils';
 
 // Components
-import { Destination } from '../../../../components/Destination/Destination';
+import { Destination } from './components/Destination';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 
 import styles from './OwnerDestinations.module.css';

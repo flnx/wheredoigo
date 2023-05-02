@@ -34,7 +34,6 @@ export const createAvatarImage = async (imgAfterCrop) => {
         throw new Error('Only image files are allowed')
     }
 
-
     // Create a File object from the Blob
     const image = new File([blob], 'image.jpg', { type: 'image/jpeg' });
 

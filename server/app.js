@@ -10,8 +10,6 @@ const limiter = require('./src/config/rateLimiter');
 const errorHandler = require('./src/middlewares/errorHandler');
 const { requireObjectBody } = require('./src/middlewares/requireObjectBody');
 
-
-
 start();
 
 async function start() {

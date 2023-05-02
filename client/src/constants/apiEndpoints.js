@@ -1,4 +1,8 @@
 export const apiEndpoints = {
+    login: '/login',
+    register: '/register',
+    logout: '/logout',
+
     allDestinations: 'destinations',
     creatorDestinations: 'destinations/created-by-user',
     destinationById: (id) => `destinations/${id}`,

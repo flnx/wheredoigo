@@ -1,4 +1,5 @@
 const Destination = require('../../models/destinationSchema');
+const capitalizeEachWord = require('../../utils/capitalizeWords');
 
 async function getDestinationsPaginated(page, limit, searchParams) {
     let regex = new RegExp(searchParams, 'i');
@@ -38,8 +39,10 @@ async function getDestinationsPaginated(page, limit, searchParams) {
         },
     ]).exec();
 
-    destinations.forEach((item) => {
-        delete item.imageUrls.public_id;
+    destinations.forEach((x) => {
+        x.city = capitalizeEachWord(x.city);
+        x.country.name = capitalizeEachWord(x.country.name);
+        delete x.imageUrls.public_id;
     });
 
     return destinations;

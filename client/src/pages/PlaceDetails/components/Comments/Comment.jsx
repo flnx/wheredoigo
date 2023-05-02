@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
+import { useRemoveComment } from '../../../../hooks/queries/useRemoveComment';
 import { useParams } from 'react-router-dom';
 import { DotsThree } from '@phosphor-icons/react';
 import { SmallModal } from '../../../../components/SmallModal/SmallModal';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 
 import styles from './Comments.module.css';
-import { useRemoveComment } from '../../../../hooks/queries/useRemoveComment';
 
 export const Comment = ({ comment }) => {
     const { placeId } = useParams();
