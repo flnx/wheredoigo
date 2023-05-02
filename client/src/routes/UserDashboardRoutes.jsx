@@ -17,7 +17,7 @@ const {
     FOLLOWERS 
 } = routeConstants.DASHBOARD;
 
-const UserDashboardRoutes = () => {
+export const UserDashboardRoutes = () => {
     return (
         <Routes>
             <Route element={<Dashboard />}>
@@ -31,5 +31,3 @@ const UserDashboardRoutes = () => {
         </Routes>
     );
 };
-
-export default UserDashboardRoutes;

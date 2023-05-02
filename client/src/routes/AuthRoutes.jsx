@@ -8,7 +8,7 @@ import routeConstants from '../constants/routeConstants';
 
 const { AUTH } = routeConstants;
 
-const AuthRoutes = () => {
+export const AuthRoutes = () => {
     return (
         <Routes>
             <Route 
@@ -22,5 +22,3 @@ const AuthRoutes = () => {
         </Routes>
     );
 };
-
-export default AuthRoutes;
