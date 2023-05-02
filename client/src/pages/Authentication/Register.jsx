@@ -1,15 +1,14 @@
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { Link } from 'react-router-dom';
-
-// api
+import { extractServerErrorMessage } from '../../utils/utils';
 import * as user from '../../service/auth/register';
-
-// utils
 import { validateRegisterData } from '../../utils/userDataValidators';
 
+import routeConstants from '../../constants/routeConstants';
 import styles from './FormLayout.module.css';
-import { extractServerErrorMessage } from '../../utils/utils';
+
+const { AUTH } = routeConstants;
 
 export const Register = () => {
     const { setUserData } = useContext(AuthContext);
@@ -133,14 +132,12 @@ export const Register = () => {
 
             <div className={styles.formField}>
                 <button
-                    className={`${styles.formFieldButton} ${
-                        isDisabled && styles.disabled
-                    }`}
+                    className={`${styles.formFieldButton} ${isDisabled && styles.disabled}`}
                     disabled={isDisabled}
                 >
-                    Register
+                    {AUTH.REGISTER.name}
                 </button>
-                <Link to="/login" className={styles.formFieldLink}>
+                <Link to={AUTH.LOGIN.routePath} className={styles.formFieldLink}>
                     I'm already member
                 </Link>
             </div>

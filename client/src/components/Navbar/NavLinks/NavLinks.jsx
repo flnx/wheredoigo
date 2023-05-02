@@ -1,49 +1,45 @@
-import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useContext } from 'react';
 import { AuthContext } from '../../../context/AuthContext';
 
+import routeConstants from '../../../constants/routeConstants';
 import styles from '../Navbar.module.css';
 
-export const NavLinks = ({ closeNavHandler }) => {
+const { DISCOVER, DASHBOARD, AUTH } = routeConstants;
+
+export const NavLinks = () => {
     const { auth } = useContext(AuthContext);
 
     return (
         <nav>
             <ul className={styles.navbar}>
-                <li>
-                    <NavLink to="/discover" onClick={closeNavHandler}>
-                        Discover
-                    </NavLink>
-                </li>
-
+                <Link to={DISCOVER.route}>{DISCOVER.name}</Link>
                 {!auth.accessToken ? (
                     <>
-                        <li>
-                            <NavLink to="/auth/login" onClick={closeNavHandler} className={styles.btn}>
-                                Log in
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/auth/register" onClick={closeNavHandler} className={styles.btn} >
-                                Sign up
-                            </NavLink>
-                        </li>
+                        <Link to={AUTH.LOGIN.routePath} className={styles.btn}>
+                            {AUTH.LOGIN.name}
+                        </Link>
+                        <Link to={AUTH.REGISTER.routePath} className={styles.btn}>
+                            {AUTH.REGISTER.name}
+                        </Link>
                     </>
                 ) : (
                     <>
-                        <li>
-                            <NavLink to="/dashboard" onClick={closeNavHandler}>
-                                Dashboard
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/dashboard/logout" onClick={closeNavHandler}>
-                                Logout
-                            </NavLink>
-                        </li>
+                        <Link to={DASHBOARD.route}>{DASHBOARD.name}</Link>
+                        <Link to={AUTH.LOGOUT.route}>{AUTH.LOGOUT.name}</Link>
                     </>
                 )}
             </ul>
         </nav>
+    );
+};
+
+const Link = ({ children, to, className }) => {
+    return (
+        <li>
+            <NavLink to={to} className={className}>
+                {children}
+            </NavLink>
+        </li>
     );
 };

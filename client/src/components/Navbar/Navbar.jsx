@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 // components
 import { NavLinks } from './NavLinks/NavLinks';
@@ -8,10 +8,14 @@ import { HamburgerIconMenu } from './Hamburger-Icon/HamburgerIcon';
 // assets
 import logo from '../../assets/logo/logo.png';
 import styles from './Navbar.module.css';
+import routeConstants from '../../constants/routeConstants';
+
+const { HOME } = routeConstants;
 
 export const Navbar = () => {
     const [isNavToggled, setIsNavToggled] = useState(false);
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+    const location = useLocation();
 
     useEffect(() => {
         const changeWidth = () => {
@@ -25,12 +29,13 @@ export const Navbar = () => {
         };
     });
 
+    useEffect(() => {
+        setIsNavToggled(false);
+    }, [location]);
+
+
     const hamburgerClickHandler = () => {
         setIsNavToggled(!isNavToggled);
-    };
-
-    const closeNavClickHandler = () => {
-        setIsNavToggled(false);
     };
 
     const isMobile = screenWidth < 640;
@@ -41,7 +46,7 @@ export const Navbar = () => {
         <header>
             <div className={`${styles.flex} ${desktopContainer}`}>
                 <div className={`${styles.wrapper} ${mobileContainer}`}>
-                    <Link to="/" onClick={closeNavClickHandler}>
+                    <Link to={HOME.route}>
                         <img src={logo} alt="logo" />
                     </Link>
                     {isMobile && (
@@ -52,7 +57,7 @@ export const Navbar = () => {
                     )}
                 </div>
                 {(isNavToggled || !isMobile) && (
-                    <NavLinks closeNavHandler={closeNavClickHandler} />
+                    <NavLinks />
                 )}
             </div>
         </header>

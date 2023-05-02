@@ -4,11 +4,15 @@ import { FormLayout } from '../pages/Authentication/FormLayout';
 import { Login } from '../pages/Authentication/Login';
 import { Register } from '../pages/Authentication/Register';
 
+import routeConstants from '../constants/routeConstants';
+
+const { AUTH } = routeConstants;
+
 const AuthRoutes = () => {
     return (
         <Routes>
-            <Route path="/login" element={<FormLayout page={Login} />} />
-            <Route path="/register" element={<FormLayout page={Register} />} />
+            <Route path={AUTH.LOGIN.route} element={<FormLayout page={Login} />} />
+            <Route path={AUTH.REGISTER.route} element={<FormLayout page={Register} />} />
         </Routes>
     );
 };

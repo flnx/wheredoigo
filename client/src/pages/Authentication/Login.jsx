@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { extractServerErrorMessage } from '../../utils/utils';
-
 import * as user from '../../service/auth/login';
 import { AuthContext } from '../../context/AuthContext';
 import { validateLoginData } from '../../utils/userDataValidators';
 
+import routeConstants from '../../constants/routeConstants';
 import styles from './FormLayout.module.css';
+
+const { AUTH } = routeConstants;
 
 export const Login = () => {
     const { setUserData } = useContext(AuthContext);
@@ -21,23 +23,22 @@ export const Login = () => {
 
         if (isDisabled) return;
 
-        
         if (!email) {
             return setError('Email address is required');
         }
-        
+
         if (!password) {
             return setError('Password is required');
         }
-        
+
         const loginErrors = validateLoginData({ email, password });
 
         if (loginErrors) {
             return setError(loginErrors);
         }
-        
+
         setIsDisabled(true);
-        
+
         try {
             const { data } = await user.login({ email, password });
             setUserData(data);
@@ -87,15 +88,13 @@ export const Login = () => {
 
             <div className={styles.formField}>
                 <button
-                    className={`${styles.formFieldButton} ${
-                        isDisabled && styles.disabled
-                    }`}
+                    className={`${styles.formFieldButton} ${isDisabled && styles.disabled}`}
                     type="submit"
                     disabled={isDisabled}
                 >
-                    Login
+                    {AUTH.LOGIN.name}
                 </button>
-                <Link to="/register" className={styles.formFieldLink}>
+                <Link to={AUTH.REGISTER.routePath} className={styles.formFieldLink}>
                     Create an account
                 </Link>
             </div>
