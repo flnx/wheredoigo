@@ -79,7 +79,7 @@ export default Object.freeze({
         ADD: {
             name: 'Add More Places',
             route: '/destinations/:destinationId/places/add',
-            routePath: (destinationId) => `/destinations/${destinationId}/places/add'`,
+            routePath: (destinationId) => `/destinations/${destinationId}/places/add`,
         },
         EDIT: {
             name: 'Edit',

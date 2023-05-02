@@ -16,7 +16,6 @@ export const Overlay = ({ children, closeModalHandler }) => {
             <div className={styles.wrapper}>
                 <X
                     size={32}
-                    weight="duotone"
                     onClick={closeModalHandler}
                     className={styles.closeIcon}
                 />

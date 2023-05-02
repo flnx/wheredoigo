@@ -13,7 +13,7 @@ export const Destination = ({ destination, onDeleteClickHandler }) => {
     return (
         <div className={styles['card']}>
             <div className={styles.imageContainer}>
-                <Link to={BY_ID.route_id(_id)}>
+                <Link to={BY_ID.routePath(_id)}>
                     <img src={imageUrls} alt={city} />
                 </Link>
             </div>
@@ -21,7 +21,7 @@ export const Destination = ({ destination, onDeleteClickHandler }) => {
                 <h3>{city}</h3>
                 <p>{country}</p>
                 <div className={styles.buttons}>
-                    <LinkButtonSuccess to={EDIT.route_id(_id)}>
+                    <LinkButtonSuccess to={EDIT.routePath(_id)}>
                         Edit
                     </LinkButtonSuccess>
                     <WarningButton onClickHandler={() => onDeleteClickHandler(_id)}>

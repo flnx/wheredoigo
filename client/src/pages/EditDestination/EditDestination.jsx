@@ -26,7 +26,10 @@ export const EditDestination = () => {
                 <>
                     <h1 className="smaller mb-2">Edit {destinationTitle}</h1>
                     <FlexSectionContainer>
-                        <Form data={data} destinationId={destinationId} />
+                        <Form 
+                            data={data} 
+                            destinationId={destinationId} 
+                        />
 
                         <ImagesManager
                             imagesData={data.imageUrls}
@@ -36,7 +39,10 @@ export const EditDestination = () => {
                         />
                     </FlexSectionContainer>
 
-                    <PlacesShowcase places={data.places} destinationId={destinationId} />
+                    <PlacesShowcase 
+                        places={data.places} 
+                        destinationId={destinationId} 
+                    />
                 </>
             )}
 

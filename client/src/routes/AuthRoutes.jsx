@@ -11,8 +11,14 @@ const { AUTH } = routeConstants;
 const AuthRoutes = () => {
     return (
         <Routes>
-            <Route path={AUTH.LOGIN.route} element={<FormLayout page={Login} />} />
-            <Route path={AUTH.REGISTER.route} element={<FormLayout page={Register} />} />
+            <Route 
+                path={AUTH.LOGIN.route} 
+                element={<FormLayout page={Login} />} 
+            />
+            <Route 
+                path={AUTH.REGISTER.route} 
+                element={<FormLayout page={Register} />} 
+            />
         </Routes>
     );
 };

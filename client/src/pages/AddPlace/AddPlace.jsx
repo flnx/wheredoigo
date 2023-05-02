@@ -53,7 +53,7 @@ export const AddPlace = () => {
 
         createPlace(formData, {
             onSuccess: (newPlace) => {
-                navigate(`${PLACES.BY_ID.route_id(newPlace._id)}`);
+                navigate(`${PLACES.BY_ID.routePath(newPlace._id)}`);
             },
             onError: (err) => {
                 const errorMessage = extractServerErrorMessage(err);

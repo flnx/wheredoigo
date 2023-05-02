@@ -24,8 +24,8 @@ export const DetailsModal = () => {
 
 const TipsTemplate = ({ tip }) => {
     return (
-        <div style={{ marginBottom: '2rem' }}>
-            <h3 style={{ marginBottom: '0.5rem' }}>{tip.title}</h3>
+        <div style={{ marginBottom: '1rem', padding: '1rem 1.5rem' }}>
+            <h3 style={{ marginBottom: '0.85rem' }}>{tip.title}</h3>
             <p>{tip.description}</p>
         </div>
     );
