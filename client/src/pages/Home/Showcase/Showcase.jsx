@@ -1,7 +1,10 @@
 import { ButtonLinkPrimary } from '../../../components/Buttons/Primary-Btn/LinkButtonPrimary';
 import { Container } from '../../../components/Containers/Container/Container';
 import { SearchBar } from '../../../components/Serach-Bar/SearchBar';
+import routeConstants from '../../../constants/routeConstants';
 import styles from './Showcase.module.css';
+
+const { DISCOVER } = routeConstants;
 
 export const Showcase = () => {
     return (
@@ -16,7 +19,9 @@ export const Showcase = () => {
                         voluptates.
                     </p>
                     <div className={styles.buttons}>
-                        <ButtonLinkPrimary to="/discover">Discover</ButtonLinkPrimary>
+                        <ButtonLinkPrimary to={DISCOVER.route}>
+                            {DISCOVER.name}
+                        </ButtonLinkPrimary>
                     </div>
                     <SearchBar />
                 </div>

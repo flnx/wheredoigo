@@ -1,13 +1,12 @@
-import { Navigate, useNavigate, useOutletContext, useParams } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { Overlay } from '../Overlay/Overlay';
 
 export const DetailsModal = () => {
     const destinationInfoTips = useOutletContext();
     const navigate = useNavigate();
-    const { destinationId } = useParams();
 
     if (!destinationInfoTips) {
-        return <Navigate to={`/destinations/${destinationId}`} replace />;
+        return navigate(-1, { replace: true });
     }
 
     const closeModalHandler = () => {

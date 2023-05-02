@@ -11,7 +11,10 @@ import { extractServerErrorMessage } from '../../utils/utils';
 // Components
 import { UploadImagesPreview } from '../../components/UploadImagesPreview/UploadImagesPreview';
 
+import routeConstants from '../../constants/routeConstants';
 import styles from './AddPlace.module.css';
+
+const { PLACES } = routeConstants;
 
 export const AddPlace = () => {
     const { destinationId } = useParams();
@@ -50,7 +53,7 @@ export const AddPlace = () => {
 
         createPlace(formData, {
             onSuccess: (newPlace) => {
-                navigate(`/places/${newPlace._id}`);
+                navigate(`${PLACES.BY_ID.route_id(newPlace._id)}`);
             },
             onError: (err) => {
                 const errorMessage = extractServerErrorMessage(err);

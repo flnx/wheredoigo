@@ -7,30 +7,27 @@ export const Destinations = ({ searchParams }) => {
     const { 
         data, 
         fetchNextPage, 
-        hasNextPage,
+        hasNextPage, 
         isFetchingNextPage, 
         isLoading 
     } = useInfiniteDestinations(searchParams);
 
     const loadingClass = (isFetchingNextPage || !hasNextPage) && styles.loading;
 
-    if (isLoading) return <h1>Loading...</h1>
+    if (isLoading) return <h1>Loading...</h1>;
 
     return (
         <section>
             <div className={styles.categories}>
                 <span>Destinations</span>
             </div>
-           <div className={styles.destinations}>
+            <div className={styles.destinations}>
                 {data.pages
                     .flatMap((arr) => arr)
                     .map((destination) => (
-                        <Destination
-                            key={destination._id}
-                            destination={destination}
-                        />
+                        <Destination key={destination._id} destination={destination} />
                     ))}
-            </div> 
+            </div>
             <button
                 onClick={fetchNextPage}
                 disabled={!hasNextPage || isFetchingNextPage}

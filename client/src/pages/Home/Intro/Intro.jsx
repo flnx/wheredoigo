@@ -2,8 +2,11 @@ import introImage from '../../../assets/pictures/homepage/intro.png';
 import { Container } from '../../../components/Containers/Container/Container';
 import { ButtonLinkPrimary } from '../../../components/Buttons/Primary-Btn/LinkButtonPrimary';
 
-
+import routeConstants from '../../../constants/routeConstants';
 import styles from './Intro.module.css';
+
+const { DISCOVER } = routeConstants;
+
 export const Intro = () => {
     return (
         <section className={styles.introSection}>
@@ -17,7 +20,7 @@ export const Intro = () => {
                         <p className={styles.content}>
                             Take a vacation with your friends and get rid of the boredom!
                         </p>
-                        <ButtonLinkPrimary to={`/discover`}>
+                        <ButtonLinkPrimary to={DISCOVER.route}>
                             Discover (change it)
                         </ButtonLinkPrimary>
                     </div>

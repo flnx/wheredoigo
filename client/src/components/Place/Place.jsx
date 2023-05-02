@@ -3,17 +3,18 @@ import { WarningButton } from '../Buttons/Button-Warning/WarningButton';
 import { LinkButtonSuccess } from '../Buttons/Success-Button/LinkButtonSuccess';
 import { Link } from 'react-router-dom';
 
+import routeConstants from '../../constants/routeConstants';
 import styles from './Place.module.css';
+
+const { BY_ID, EDIT } = routeConstants.PLACES;
 
 export const Place = ({ place, onDeleteClickHandler }) => {
     const { _id, name, country, imageUrl } = place;
 
-    const link = `/places/${_id}`;
-
     return (
         <div className={styles['card']}>
             <div className={styles.imageContainer}>
-                <Link to={link}>
+                <Link to={BY_ID.routePath(_id)}>
                     <img src={imageUrl} alt={name} />
                 </Link>
             </div>
@@ -21,7 +22,9 @@ export const Place = ({ place, onDeleteClickHandler }) => {
                 <h4 className={styles.placeName}>{name}</h4>
                 <p>{country}</p>
                 <div className={styles.buttons}>
-                    <LinkButtonSuccess to={`${link}/edit`}>Edit</LinkButtonSuccess>
+                    <LinkButtonSuccess to={EDIT.routePath(_id)}>
+                        Edit
+                    </LinkButtonSuccess>
                     <WarningButton onClickHandler={() => onDeleteClickHandler(_id)}>
                         Delete
                     </WarningButton>

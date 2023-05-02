@@ -10,31 +10,38 @@ import { UserCircle } from '@phosphor-icons/react';
 import { GearSix } from '@phosphor-icons/react';
 import { ClockCounterClockwise } from '@phosphor-icons/react';
 
+import routeConstants from '../../../../constants/routeConstants';
 import styles from './SideNavigation.module.css';
+
+const { ADD_DESTINATION, MY_DESTINATIONS, FOLLOWERS, HISTORY, SETTINGS } = routeConstants.DASHBOARD;
 
 export const SideNavigation = () => {
     return (
         <div className={styles.sideNav}>
             <UserAvatar />
             <nav className={styles.navbar}>
-                <DashboardLink to={'/dashboard'} Icon={AppWindow}>
-                    Dashboard
-                </DashboardLink>
-                <DashboardLink to={'/dashboard/add'} Icon={Plus}>
-                    Add Destination
-                </DashboardLink>
-                <DashboardLink to={'/dashboard/my-destinations'} Icon={Browsers}>
-                    My Destinations
-                </DashboardLink>
-                <DashboardLink to={'/dashboard/followers'} Icon={UserCircle}>
-                    Followers
+                <DashboardLink to={routeConstants.DASHBOARD.route} Icon={AppWindow}>
+                    {routeConstants.DASHBOARD.name}
                 </DashboardLink>
 
-                <DashboardLink to={'/dashboard/history'} Icon={ClockCounterClockwise}>
-                    History
+                <DashboardLink to={ADD_DESTINATION.routePath} Icon={Plus}>
+                    {ADD_DESTINATION.name}
                 </DashboardLink>
-                <DashboardLink to={'/dashboard/settings'} Icon={GearSix}>
-                    Settings
+
+                <DashboardLink to={MY_DESTINATIONS.routePath} Icon={Browsers}>
+                    {MY_DESTINATIONS.name}
+                </DashboardLink>
+
+                <DashboardLink to={FOLLOWERS.routePath} Icon={UserCircle}>
+                    {FOLLOWERS.name}
+                </DashboardLink>
+
+                <DashboardLink to={HISTORY.routePath} Icon={ClockCounterClockwise}>
+                    {HISTORY.name}
+                </DashboardLink>
+
+                <DashboardLink to={SETTINGS.routePath} Icon={GearSix}>
+                    {SETTINGS.name}
                 </DashboardLink>
             </nav>
         </div>

@@ -31,22 +31,27 @@ export default Object.freeze({
         ADD_DESTINATION: {
             name: 'Add Destination',
             route: '/add',
+            routePath: '/dashboard/add',
         },
         MY_DESTINATIONS: {
             name: 'My Destinations',
             route: '/my-destinations',
+            routePath: '/dashboard/my-destinations',
         },
         FOLLOWERS: {
             name: 'Followers',
             route: '/followers',
+            routePath: '/dashboard/followers',
         },
         HISTORY: {
             name: 'History',
             route: '/history',
+            routePath: '/dashboard/history',
         },
         SETTINGS: {
             name: 'Settings',
             route: '/settings',
+            routePath: '/dashboard/settings',
         },
     },
     DESTINATIONS: {
@@ -54,27 +59,32 @@ export default Object.freeze({
         route: '/destinations',
         BY_ID: {
             route: '/destinations/:destinationId',
+            routePath: (destinationId) => `/destinations/${destinationId}`,
         },
         EDIT: {
             route: '/destinations/:destinationId/edit',
+            routePath: (destinationId) => `/destinations/${destinationId}/edit`,
         },
         INFO: {
-            route: '/info'
-        }
+            route: 'info',
+        },
     },
     PLACES: {
         name: 'Places',
         route: '/places',
         BY_ID: {
-            route: '/places/:placeId'
+            route: '/places/:placeId',
+            routePath: (placeId) => `/places/${placeId}`,
         },
         ADD: {
-            name: 'Add Place',
+            name: 'Add More Places',
             route: '/destinations/:destinationId/places/add',
+            routePath: (destinationId) => `/destinations/${destinationId}/places/add'`,
         },
         EDIT: {
             name: 'Edit',
             route: '/places/:placeId/edit',
+            routePath: (placeId) => `/places/${placeId}/edit`,
         },
-    }
+    },
 });

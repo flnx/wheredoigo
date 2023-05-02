@@ -2,9 +2,12 @@ import { SwiperSlide } from 'swiper/react';
 import { Link } from 'react-router-dom';
 
 import { SliderWrapper } from './SwiperSettings';
+import { Container } from '../../Containers/Container/Container';
+import routeConstants from '../../../constants/routeConstants';
 
 import styles from './PlacesSlider.module.css';
-import { Container } from '../../Containers/Container/Container';
+
+const { BY_ID } = routeConstants.PLACES;
 
 export const PlacesSlider = ({ places }) => {
     return (
@@ -13,7 +16,7 @@ export const PlacesSlider = ({ places }) => {
                 <SliderWrapper>
                     {places.map((place) => (
                         <SwiperSlide className={styles.sliderItem} key={place._id}>
-                            <Link to={`/places/${place._id}`}>
+                            <Link to={BY_ID.routePath(place._id)}>
                                 <img
                                     src={place.imageUrl}
                                     alt={place.place}

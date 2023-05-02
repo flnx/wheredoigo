@@ -1,23 +1,19 @@
 import { Link } from 'react-router-dom';
-import capitalizeEachWord from '../../../utils/capitalizeEachWord';
 
+import routeConstants from '../../../constants/routeConstants';
 import styles from './Destination.module.css';
+
+const { BY_ID } = routeConstants.DESTINATIONS;
 
 export const Destination = ({ destination }) => {
     const { imageUrls, _id, city, country } = destination;
 
     return (
-        <Link to={`/destinations/${_id}`}>
+        <Link to={BY_ID.routePath(_id)}>
             <div className={styles.destination}>
-                <img
-                    src={imageUrls.imageUrl}
-                    alt={city}
-                    className={styles.image}
-                />
-                <h3 className={styles.title}>
-                    {capitalizeEachWord(city)}
-                </h3>
-                <p>{capitalizeEachWord(country.name)}</p>
+                <img src={imageUrls.imageUrl} alt={city} className={styles.image} />
+                <h3 className={styles.title}>{city}</h3>
+                <p>{country.name}</p>
             </div>
         </Link>
     );

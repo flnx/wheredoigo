@@ -6,7 +6,10 @@ import { Place } from '../../../../components/Place/Place';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 import { LinkButtonSecondary } from '../../../../components/Buttons/Secondary-Btn/LinkButtonSecondary';
 
+import routeConstants from '../../../../constants/routeConstants';
 import styles from './PlacesShowcase.module.css';
+
+const { PLACES } = routeConstants;
 
 export const PlacesShowcase = ({ places, destinationId }) => {
     const [deletePlace, error, isLoading] = useDeletePlace(destinationId);
@@ -47,10 +50,9 @@ export const PlacesShowcase = ({ places, destinationId }) => {
                 ))}
             </div>
 
-            <LinkButtonSecondary to={`/destinations/${destinationId}/places/add`}>
-                Add Places
+            <LinkButtonSecondary to={PLACES.ADD.routePath(destinationId)}>
+                {PLACES.ADD.name}
             </LinkButtonSecondary>
-
             {openModal && (
                 <ConfirmModal
                     onCloseHandler={handleCloseConfirmModal}
