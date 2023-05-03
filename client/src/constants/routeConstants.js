@@ -68,6 +68,10 @@ export default Object.freeze({
         INFO: {
             route: 'info',
         },
+        OVERVIEW: {
+            name: 'Overview',
+            route: 'overview'
+        }
     },
     PLACES: {
         name: 'Places',

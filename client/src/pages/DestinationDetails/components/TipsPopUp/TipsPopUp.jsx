@@ -1,15 +1,18 @@
 import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
-import styles from './TipsPopUp.module.css'; 
+import routeConstants from '../../../../constants/routeConstants';
+import styles from './TipsPopUp.module.css';
 
-export const TipsPopUp = ({ details, route }) => {
+const { INFO } = routeConstants.DESTINATIONS;
+
+export const TipsPopUp = ({ details, pageRoute }) => {
     const [tips, setTips] = useState('');
 
     const onCategoryClickHandler = (tipsInfo) => {
         setTips({
             ...tipsInfo,
-            route
+            pageRoute,
         });
     };
 
@@ -19,7 +22,7 @@ export const TipsPopUp = ({ details, route }) => {
                 {details.map((x) => (
                     <Link
                         key={x._id}
-                        to="info"
+                        to={INFO.route}
                         className={styles.category}
                         onClick={() => onCategoryClickHandler(x)}
                     >

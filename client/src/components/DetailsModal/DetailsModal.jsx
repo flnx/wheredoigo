@@ -8,18 +8,16 @@ export const DetailsModal = () => {
     const context = useOutletContext();
     const navigate = useNavigate();
 
-    const { route } = context;
-
-    console.log(context);
+    const { pageRoute } = context;
 
     useEffect(() => {
         if (!context) {
-            return navigate(route, { replace: true });
+            return navigate(pageRoute, { replace: true });
         }
     }, [context]);
 
     const closeModalHandler = () => {
-        navigate(route, { replace: true });
+        navigate(pageRoute, { replace: true });
     };
 
     if (!context) return;

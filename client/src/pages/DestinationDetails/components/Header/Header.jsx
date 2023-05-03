@@ -6,10 +6,18 @@ import { Gallery } from '../../../../components/Gallery/Gallery';
 import { ImagesGridWrapper } from '../../../../components/ImagesGridWrapper/ImagesGridWrapper';
 import { StarRating } from '../../../../components/StarRating/StarRating';
 
-import styles from './Header.module.css';
+import routeConstants from '../../../../constants/routeConstants';
 
-export const DestinationHeader = ({ destination }) => {
+import styles from './Header.module.css';
+import { ShowMoreButton } from '../../../../components/Buttons/ShowMoreButton/ShowMoreButton';
+import { Outlet } from 'react-router-dom';
+
+const { OVERVIEW } = routeConstants.DESTINATIONS;
+
+export const DestinationHeader = ({ destination, pageRoute }) => {
     const [gallery, setGallery] = useState([]);
+
+    const { city, country, description, imageUrls } = destination;
 
     const onImageClickHandler = (clickedImage) => {
         const arrayWithoutClickedImage = destination.imageUrls.filter(
@@ -30,26 +38,37 @@ export const DestinationHeader = ({ destination }) => {
         <header className={styles.intro}>
             {isGalleryOpen &&
                 createPortal(
-                    <Gallery
-                        images={gallery}
-                        closeGalleryHandler={closeGalleryHandler}
-                    />,
+                    <Gallery images={gallery} closeGalleryHandler={closeGalleryHandler} />,
                     document.body
                 )}
             <ImagesGridWrapper
-                images={destination.imageUrls}
-                alt={destination.city}
+                images={imageUrls}
+                alt={city}
                 onClickHandler={onImageClickHandler}
             />
             <div className={styles.titleWrapper}>
-                <h1>{destination.city}</h1>
+                <h1>{city}</h1>
                 <StarRating rating={5} />
             </div>
             <div className={styles.headerContent}>
-                <p className={styles.countryName}>{destination.country}</p>
-                <h3 className={styles.descriptionTitle}>Overview</h3>
-                <p className={styles.description}>{destination.description}</p>
+                <p className={styles.countryName}>{country}</p>
+                <h3 className={styles.descriptionTitle}>{OVERVIEW.name}</h3>
+                <p className={styles.description}>{description}</p>
+                <ShowMoreButton path={OVERVIEW.route} />
             </div>
+
+            <Outlet
+                context={{
+                    pageRoute,
+                    info: [
+                        {
+                            _id: 1,
+                            title: OVERVIEW.name,
+                            description,
+                        },
+                    ],
+                }}
+            />
         </header>
     );
 };

@@ -37,6 +37,7 @@ export const AppRoutes = () => {
                 <Route path={DISCOVER.route} element={<Discover />} />
                 <Route path={DESTINATIONS.BY_ID.route} element={<DestinationDetails />}>
                     <Route path={DESTINATIONS.INFO.route} element={<DetailsModal />} />
+                    <Route path={DESTINATIONS.OVERVIEW.route} element={<DetailsModal />} />
                 </Route>
                 <Route path={PLACES.BY_ID.route} element={<PlaceDetails />}> 
                     <Route path={PLACES.ABOUT.route} element={<DetailsModal />}/>

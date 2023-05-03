@@ -10,7 +10,7 @@ const { ABOUT, BY_ID } = routeConstants.PLACES;
 export const Header = ({ place }) => {
     const { name, city, description } = place;
 
-    const route = BY_ID.routePath(place._id);
+    const pageRoute = BY_ID.routePath(place._id);
 
     return (
         <header>
@@ -36,7 +36,7 @@ export const Header = ({ place }) => {
 
             <Outlet
                 context={{
-                    route,
+                    pageRoute,
                     info: [
                         {
                             _id: 1,

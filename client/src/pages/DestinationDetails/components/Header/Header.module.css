@@ -6,7 +6,8 @@
 .headerContent {
     max-height: 21rem;
     max-width: 35rem;
-    overflow-y: scroll;
+    white-space: pre-wrap;
+
 }
 
 .countryName {
@@ -19,6 +20,11 @@
 
 .description {
     font-size: 1.1rem;
-    color: var(--text-primary);
-    white-space: pre-wrap;
+    margin-bottom: 0.75rem;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
 }
