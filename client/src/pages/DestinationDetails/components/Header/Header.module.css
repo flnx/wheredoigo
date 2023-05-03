@@ -1,16 +1,16 @@
-.titleWrapper {
+.intro {
     display: flex;
     justify-content: space-between;
 }
 
-.headerContent {
+.content {
     max-width: 35rem;
     white-space: pre-wrap;
     margin-bottom: 2rem;
 
 }
 
-.countryName {
+.country{
     margin-bottom: 1rem;
 }
 

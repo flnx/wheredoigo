@@ -1,5 +1,9 @@
-.wrapper > *:not(:last-child) {
+.wrapper > *:not(:first-child) {
     margin-bottom: 3.5rem;
+}
+
+.wrapper section:first-child {
+    margin-bottom: 1.5rem;
 }
 
 .sectionTitle {

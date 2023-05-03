@@ -1,25 +1,20 @@
 import { useState } from 'react';
-import { createPortal } from 'react-dom';
+import { Outlet } from 'react-router-dom';
 
 // components
-import { Gallery } from '../../../../components/Gallery/Gallery';
-import { ImagesGridWrapper } from '../../../../components/ImagesGridWrapper/ImagesGridWrapper';
 import { StarRating } from '../../../../components/StarRating/StarRating';
+import { ShowMoreButton } from '../../../../components/Buttons/ShowMoreButton/ShowMoreButton';
+import { TipsPopUp } from '../TipsPopUp/TipsPopUp';
 
 import routeConstants from '../../../../constants/routeConstants';
-
 import styles from './Header.module.css';
-import { ShowMoreButton } from '../../../../components/Buttons/ShowMoreButton/ShowMoreButton';
-import { Outlet } from 'react-router-dom';
-import { TipsPopUp } from '../TipsPopUp/TipsPopUp';
 
 const { OVERVIEW } = routeConstants.DESTINATIONS;
 
 export const DestinationHeader = ({ destination, pageRoute }) => {
-    const [gallery, setGallery] = useState([]);
     const [modalPopUpInfo, setModalPopUpInfo] = useState('');
 
-    const { city, country, description, imageUrls } = destination;
+    const { city, country, description } = destination;
 
     const onCategoryClickHandler = (tipsInfo) => {
         setModalPopUpInfo({
@@ -35,39 +30,14 @@ export const DestinationHeader = ({ destination, pageRoute }) => {
         });
     };
 
-    const onImageClickHandler = (clickedImage) => {
-        const arrayWithoutClickedImage = destination.imageUrls.filter(
-            (x) => x._id !== clickedImage._id
-        );
-
-        // adding clicked img on index 0
-        setGallery([clickedImage, ...arrayWithoutClickedImage]);
-    };
-
-    const closeGalleryHandler = () => {
-        setGallery([]);
-    };
-
-    const isGalleryOpen = gallery.length > 0;
-
     return (
-        <header className={styles.intro}>
-            {isGalleryOpen &&
-                createPortal(
-                    <Gallery images={gallery} closeGalleryHandler={closeGalleryHandler} />,
-                    document.body
-                )}
-            <ImagesGridWrapper
-                images={imageUrls}
-                alt={city}
-                onClickHandler={onImageClickHandler}
-            />
-            <div className={styles.titleWrapper}>
+        <header>
+            <div className={styles.intro}>
                 <h1>{city}</h1>
                 <StarRating rating={5} />
             </div>
-            <div className={styles.headerContent}>
-                <p className={styles.countryName}>{country}</p>
+            <div className={styles.content}>
+                <p className={styles.country}>{country}</p>
                 <h3 className={styles.descriptionTitle}>{OVERVIEW.name}</h3>
                 <p className={styles.description}>{description}</p>
                 <ShowMoreButton path={OVERVIEW.route} onClick={onOverviewClickHandler} />

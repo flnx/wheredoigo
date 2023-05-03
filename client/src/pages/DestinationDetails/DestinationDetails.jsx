@@ -10,6 +10,7 @@ import { LinkButtonSecondary } from '../../components/Buttons/Secondary-Btn/Link
 
 import routeConstants from '../../constants/routeConstants';
 import styles from './DestinationDetails.module.css';
+import { ImagesSection } from './components/ImagesSection/ImagesSection';
 const { PLACES, DESTINATIONS } = routeConstants;
 
 export const DestinationDetails = () => {
@@ -32,7 +33,8 @@ export const DestinationDetails = () => {
                         <h1>{extractServerErrorMessage(error)}</h1>
                     ) : (
                         <div className={styles.wrapper}>
-                            <DestinationHeader destination={data} pageRoute={pageRoute}/>
+                            <ImagesSection imageUrls={data.imageUrls} city={data.city} />
+                            <DestinationHeader destination={data} pageRoute={pageRoute} />
 
                             {data.isOwner && (
                                 <LinkButtonSecondary to={PLACES.ADD.routePath(destinationId)}>
