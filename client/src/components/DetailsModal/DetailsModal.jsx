@@ -1,23 +1,32 @@
 import { useNavigate, useOutletContext } from 'react-router-dom';
+import { useEffect } from 'react';
 import { Overlay } from '../Overlay/Overlay';
 
 import styles from './DetailsModal.module.css';
 
 export const DetailsModal = () => {
-    const destinationInfoTips = useOutletContext();
+    const context = useOutletContext();
     const navigate = useNavigate();
 
-    if (!destinationInfoTips) {
-        return navigate(-1, { replace: true });
-    }
+    const { route } = context;
+
+    console.log(context);
+
+    useEffect(() => {
+        if (!context) {
+            return navigate(route, { replace: true });
+        }
+    }, [context]);
 
     const closeModalHandler = () => {
-        navigate(-1, { replace: true });
+        navigate(route, { replace: true });
     };
+
+    if (!context) return;
 
     return (
         <Overlay closeModalHandler={closeModalHandler}>
-            {destinationInfoTips.info.map((x) => (
+            {context.info.map((x) => (
                 <TipsTemplate tip={x} key={x._id} />
             ))}
         </Overlay>

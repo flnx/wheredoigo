@@ -11,7 +11,7 @@ import { LinkButtonSecondary } from '../../components/Buttons/Secondary-Btn/Link
 
 import routeConstants from '../../constants/routeConstants';
 import styles from './DestinationDetails.module.css';
-const { PLACES } = routeConstants;
+const { PLACES, DESTINATIONS } = routeConstants;
 
 export const DestinationDetails = () => {
     const { destinationId } = useParams();
@@ -20,6 +20,8 @@ export const DestinationDetails = () => {
     const explorePlaces = data?.places.filter((x) => x.type.toLowerCase() == 'explore');
     const partyPlaces = data?.places.filter((x) => x.type.toLowerCase() == 'party');
     const eatingPlaces = data?.places.filter((x) => x.type.toLowerCase() == 'eat');
+
+    const route = DESTINATIONS.BY_ID.routePath(destinationId);
 
     return (
         <Container>
@@ -32,7 +34,7 @@ export const DestinationDetails = () => {
                     ) : (
                         <div className={styles.wrapper}>
                             <DestinationHeader destination={data} />
-                            <TipsPopUp details={data.details} />
+                            <TipsPopUp details={data.details} route={route} />
 
                             {data.isOwner && (
                                 <LinkButtonSecondary to={PLACES.ADD.routePath(destinationId)}>

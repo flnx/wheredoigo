@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom';
 import { CaretRight } from '@phosphor-icons/react';
 import styles from './ShowMoreButton.module.css';
 
-export const ShowMoreButton = () => {
+export const ShowMoreButton = ({ path }) => {
     return (
         <div>
-            <Link to="about" className={styles.btn}>
+            <Link to={path} className={styles.btn}>
                 <span className={styles.text}>Show more</span>
 
                 <span className={styles.icon}>

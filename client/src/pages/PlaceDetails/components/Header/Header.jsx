@@ -1,10 +1,16 @@
+import { Outlet } from 'react-router-dom';
 import { ShowMoreButton } from '../../../../components/Buttons/ShowMoreButton/ShowMoreButton';
 import { StarRating } from '../../../../components/StarRating/StarRating';
 
+import routeConstants from '../../../../constants/routeConstants';
 import styles from './Header.module.css';
+
+const { ABOUT, BY_ID } = routeConstants.PLACES;
 
 export const Header = ({ place }) => {
     const { name, city, description } = place;
+
+    const route = BY_ID.routePath(place._id);
 
     return (
         <header>
@@ -16,7 +22,7 @@ export const Header = ({ place }) => {
                 <section className={styles.flexChild}>
                     <h3 className={styles.title}>About</h3>
                     <p>{description}</p>
-                    <ShowMoreButton />
+                    <ShowMoreButton path={ABOUT.route} />
                 </section>
                 <section className={styles.flexChild}>
                     <h3 className={styles.title}>Ratings and Reviews</h3>
@@ -27,6 +33,19 @@ export const Header = ({ place }) => {
                     <p>🦖🦖🦖</p>
                 </section>
             </div>
+
+            <Outlet
+                context={{
+                    route,
+                    info: [
+                        {
+                            _id: 1,
+                            title: ABOUT.name,
+                            description,
+                        },
+                    ],
+                }}
+            />
         </header>
     );
 };

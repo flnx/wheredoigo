@@ -86,5 +86,9 @@ export default Object.freeze({
             route: '/places/:placeId/edit',
             routePath: (placeId) => `/places/${placeId}/edit`,
         },
+        ABOUT: {
+            name: 'About',
+            route: 'about',
+        }
     },
 });

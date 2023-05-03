@@ -3,11 +3,14 @@ import { Link, Outlet } from 'react-router-dom';
 
 import styles from './TipsPopUp.module.css'; 
 
-export const TipsPopUp = ({ details }) => {
+export const TipsPopUp = ({ details, route }) => {
     const [tips, setTips] = useState('');
 
     const onCategoryClickHandler = (tipsInfo) => {
-        setTips(tipsInfo);
+        setTips({
+            ...tipsInfo,
+            route
+        });
     };
 
     return (
