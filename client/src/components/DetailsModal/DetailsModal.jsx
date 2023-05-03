@@ -1,6 +1,8 @@
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { Overlay } from '../Overlay/Overlay';
 
+import styles from './DetailsModal.module.css';
+
 export const DetailsModal = () => {
     const destinationInfoTips = useOutletContext();
     const navigate = useNavigate();
@@ -24,9 +26,9 @@ export const DetailsModal = () => {
 
 const TipsTemplate = ({ tip }) => {
     return (
-        <div style={{ marginBottom: '1rem', padding: '1rem 1.5rem' }}>
-            <h3 style={{ marginBottom: '0.85rem' }}>{tip.title}</h3>
-            <p>{tip.description}</p>
+        <div className={styles.tips}>
+            <h3 className={styles.title}>{tip.title}</h3>
+            <p className={styles.description}>{tip.description}</p>
         </div>
     );
 };

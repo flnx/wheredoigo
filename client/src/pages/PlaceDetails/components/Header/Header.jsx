@@ -12,15 +12,15 @@ export const Header = ({ place }) => {
                 <p>{city}</p>
             </section>
             <div className={styles.flexContainer}>
-                <section>
+                <section className={styles.flexChild}>
                     <h3 className={styles.title}>About</h3>
                     <p>{description}</p>
                 </section>
-                <section>
+                <section className={styles.flexChild}>
                     <h3 className={styles.title}>Ratings and Reviews</h3>
                     <StarRating rating={5} />
                 </section>
-                <section>
+                <section className={styles.flexChild}>
                     <h3 className={styles.title}>In Progress..</h3>
                     <p>🦖🦖🦖</p>
                 </section>

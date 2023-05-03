@@ -5,14 +5,22 @@
 .flexContainer {
     display: flex;
     gap: 2rem;
+    white-space: pre-wrap;
 }
 
-.flexContainer > * {
+.flexChild {
     padding: 1.5rem;
     background: var(--background);
     border: 1px solid var(--border-gray);
     border-radius: 10px;
     width: 33.33%;
+    overflow: hidden;
+}
+
+.flexChild p {
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 6;
+    -moz-box-orient: vertical;
 }
 
 .title {

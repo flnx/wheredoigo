@@ -35,6 +35,7 @@
     text-overflow: ellipsis;
     word-wrap: break-word;
     white-space: break-spaces;
+    /* white-space: pre-wrap; */
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
 }
