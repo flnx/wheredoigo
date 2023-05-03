@@ -3,13 +3,13 @@ import { usePlace } from '../../hooks/queries/usePlace';
 import { extractServerErrorMessage } from '../../utils/utils';
 
 // components
+import { Container } from '../../components/Containers/Container/Container';
 import { Header } from './components/Header/Header';
 import { Images } from './components/ImagesSection/ImagesSection';
 import { Comments } from './components/Comments/Comments';
 import { CommentForm } from './components/CommentForm/CommentForm';
 
 import styles from './PlaceDetails.module.css';
-import { Container } from '../../components/Containers/Container/Container';
 
 export const PlaceDetails = () => {
     const { placeId } = useParams();

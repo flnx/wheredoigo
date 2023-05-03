@@ -1,0 +1,20 @@
+.btn {
+    color: var(--text-primary);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.text {
+    border-bottom: 1px solid var(--text-primary);
+}
+
+.icon {
+    position: relative;
+    top: 3.9px;
+    margin-left: 3px;
+}
+
+
+.btn:hover {
+    opacity: 0.8;
+}

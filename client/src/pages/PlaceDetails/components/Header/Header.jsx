@@ -1,3 +1,4 @@
+import { ShowMoreButton } from '../../../../components/Buttons/ShowMoreButton/ShowMoreButton';
 import { StarRating } from '../../../../components/StarRating/StarRating';
 
 import styles from './Header.module.css';
@@ -15,6 +16,7 @@ export const Header = ({ place }) => {
                 <section className={styles.flexChild}>
                     <h3 className={styles.title}>About</h3>
                     <p>{description}</p>
+                    <ShowMoreButton />
                 </section>
                 <section className={styles.flexChild}>
                     <h3 className={styles.title}>Ratings and Reviews</h3>

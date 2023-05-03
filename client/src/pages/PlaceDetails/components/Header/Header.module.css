@@ -14,12 +14,15 @@
     border: 1px solid var(--border-gray);
     border-radius: 10px;
     width: 33.33%;
-    overflow: hidden;
 }
 
 .flexChild p {
+    margin-bottom: 0.75rem;
+    display: -webkit-box;
+    overflow: hidden;
     text-overflow: ellipsis;
     -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
     -moz-box-orient: vertical;
 }
 
