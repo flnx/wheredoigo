@@ -1,20 +1,22 @@
 import { ImageHandler } from './components/ImageHandler';
+import { NewImagesShowcase } from './components/NewImagesShowcase';
+
+import styles from './ImagesManager.module.css';
 
 export const ImagesManager = ({ _id, _id2, imagesData, deleteImageHook, addImageHook }) => {
     const [deleteImage, deleteError, isDeleting] = deleteImageHook(_id, _id2);
     const [uploadImages, uploadError, isUploading] = addImageHook(_id, _id2);
 
-    const deleteImageHandler = (imgId, cbSetImages) => {
+    const deleteImageHandler = (imgId, cbCloseConfirmModal) => {
         deleteImage(imgId, {
-            onSuccess: () => cbSetImages(),
+            onSuccess: () => cbCloseConfirmModal(),
         });
     };
 
-    const uploadImagesHandler = (formData, currentImagesHandler, cbDispatch) => {
+    const uploadImagesHandler = (formData, cbDispatch) => {
         uploadImages(formData, {
-            onSuccess: (result) => {
+            onSuccess: () => {
                 cbDispatch();
-                currentImagesHandler(result.imageUrls);
             },
             onError: () => {
                 cbDispatch();
@@ -23,14 +25,20 @@ export const ImagesManager = ({ _id, _id2, imagesData, deleteImageHook, addImage
     };
 
     return (
-        <ImageHandler
-            imagesData={imagesData}
-            uploadImagesHandler={uploadImagesHandler}
-            deleteImageHandler={deleteImageHandler}
-            deleteError={deleteError}
-            uploadError={uploadError}
-            isUploading={isUploading}
-            isDeleting={isDeleting}
-        />
+        <section>
+            <div className={styles['images-container']}>
+                <ImageHandler
+                    imagesData={imagesData}
+                    deleteImageHandler={deleteImageHandler}
+                    isDeleting={isDeleting}
+                />
+
+                <NewImagesShowcase
+                    uploadImagesHandler={uploadImagesHandler}
+                    isUploading={isUploading}
+                    uploadError={uploadError}
+                />
+            </div>
+        </section>
     );
 };

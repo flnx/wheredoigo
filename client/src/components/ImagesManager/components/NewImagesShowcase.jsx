@@ -9,12 +9,7 @@ import { SuccessButton } from '../../Buttons/Success-Button/SuccessButton';
 
 import styles from './NewImagesShowcase.module.css';
 
-export const NewImagesShowcase = ({
-    currentImagesHandler,
-    uploadImagesHandler,
-    isUploading,
-    uploadError,
-}) => {
+export const NewImagesShowcase = ({ uploadImagesHandler, isUploading, uploadError }) => {
     const [newImagesState, dispatch] = useReducer(imagesReducer, initialState);
     const hasNewlyUploadImages = newImagesState.imageUrls.length > 0;
 
@@ -31,7 +26,7 @@ export const NewImagesShowcase = ({
 
         const dispatchReset = () => dispatch({ type: 'reset' });
 
-        uploadImagesHandler(formData, currentImagesHandler, dispatchReset);
+        uploadImagesHandler(formData, dispatchReset);
     };
 
     return (
