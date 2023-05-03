@@ -5,7 +5,6 @@ import { extractServerErrorMessage } from '../../utils/utils';
 // components
 import { DestinationHeader } from './components/Header/Header';
 import { SectionSlider } from './components/ExploreSection/SectionSlider';
-import { TipsPopUp } from './components/TipsPopUp/TipsPopUp';
 import { Container } from '../../components/Containers/Container/Container';
 import { LinkButtonSecondary } from '../../components/Buttons/Secondary-Btn/LinkButtonSecondary';
 
@@ -34,7 +33,6 @@ export const DestinationDetails = () => {
                     ) : (
                         <div className={styles.wrapper}>
                             <DestinationHeader destination={data} pageRoute={pageRoute}/>
-                            <TipsPopUp details={data.details} pageRoute={pageRoute} />
 
                             {data.isOwner && (
                                 <LinkButtonSecondary to={PLACES.ADD.routePath(destinationId)}>

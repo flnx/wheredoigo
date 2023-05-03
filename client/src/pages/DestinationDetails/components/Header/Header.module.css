@@ -4,9 +4,9 @@
 }
 
 .headerContent {
-    max-height: 21rem;
     max-width: 35rem;
     white-space: pre-wrap;
+    margin-bottom: 2rem;
 
 }
 
@@ -24,7 +24,7 @@
     display: -webkit-box;
     overflow: hidden;
     text-overflow: ellipsis;
-    -webkit-line-clamp: 6;
+    -webkit-line-clamp: 9;
     -webkit-box-orient: vertical;
     -moz-box-orient: vertical;
 }
