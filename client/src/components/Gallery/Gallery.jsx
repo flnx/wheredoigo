@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { disableBodyScroll, enableBodyScroll } from '../../utils/utils';
+import { CaretLeft } from '@phosphor-icons/react'; 
+
 import styles from './Gallery.module.css';
 
 export const Gallery = ({ images = [], closeGalleryHandler }) => {
@@ -20,6 +22,7 @@ export const Gallery = ({ images = [], closeGalleryHandler }) => {
         <section>
             <div className={styles.overlay} onClick={closeGalleryHandler} />
             <div className={styles.wrapper}>
+                <CaretLeft size={30} className={styles.closeIcon}/>
                 <div className={styles.imagesContainer}>
                     <div className={styles.mainImgContainer}>
                         <img
