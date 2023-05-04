@@ -7,37 +7,52 @@ import { CaretRight } from '@phosphor-icons/react';
 import styles from './Gallery.module.css';
 
 export const Gallery = ({ images = [], closeGalleryHandler }) => {
-    const [mainImage, setMainImage] = useState(images[0]);
-    const mainImgIndex = images.findIndex((i) => i._id == mainImage._id);
+    const [currentIndex, setCurrentIndex] = useState(0);
 
     if (!Array.isArray(images) || images.length == 0) {
         return;
     }
 
     const onLeftArrowClickHandler = () => {
-        const previousImage = images[mainImgIndex - 1];
+        const previousImage = images[currentIndex - 1];
 
         if (previousImage) {
-            setMainImage(previousImage);
+            setCurrentIndex(currentIndex - 1);
         }
     };
 
     const onRightArrowClickHandler = () => {
-        const nextImage = images[mainImgIndex + 1];
+        const nextImage = images[currentIndex + 1];
 
         if (nextImage) {
-            setMainImage(nextImage);
+            setCurrentIndex(currentIndex + 1);
         }
     };
+
+    useEffect(() => {
+        const detectKeyDown = (e) => {
+            if (e.code == 'Escape') {
+                closeGalleryHandler();
+            } else if (e.code === 'ArrowLeft') {
+                onLeftArrowClickHandler();
+            } else if (e.code == 'ArrowRight') {
+                onRightArrowClickHandler();
+            }
+        };
+
+        document.addEventListener('keydown', detectKeyDown);
+        return () => document.removeEventListener('keydown', detectKeyDown);
+    }, [currentIndex]);
 
     useEffect(() => {
         disableBodyScroll();
         return () => enableBodyScroll();
     }, []);
 
+    const mainImage = images[currentIndex];
     const isActive = styles.isActive;
-    const isFirstImage = mainImgIndex == 0;
-    const isLastImage = mainImgIndex == images.length - 1;
+    const isFirstImage = currentIndex == 0;
+    const isLastImage = currentIndex == images.length - 1;
 
     return (
         <section>
@@ -67,13 +82,13 @@ export const Gallery = ({ images = [], closeGalleryHandler }) => {
                         )}
                     </div>
                     <div className={styles.secondaryImgContainer}>
-                        {images.map((x) => (
+                        {images.map((x, i) => (
                             <img
                                 className={`${mainImage == x && isActive}`}
                                 src={x.imageUrl}
                                 alt="img"
                                 key={x._id}
-                                onClick={() => setMainImage(x)}
+                                onClick={() => setCurrentIndex(i)}
                             />
                         ))}
                     </div>
