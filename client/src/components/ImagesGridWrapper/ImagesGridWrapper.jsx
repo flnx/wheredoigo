@@ -1,14 +1,19 @@
+import { useWindowSize } from '../../hooks/useWindowSize';
 import styles from './ImagesGridWrapper.module.css';
 
 import { Image } from '@phosphor-icons/react';
 
 export const ImagesGridWrapper = ({ images = [], alt, onClickHandler }) => {
+    const screenWidth = useWindowSize();
+
     if (!Array.isArray(images) || images.length == 0) {
         return;
     }
 
     const mainImage = images[0];
     const secondaryImages = images.slice(1);
+
+    const isDesktop = screenWidth >= 798;
 
     return (
         <div className={styles['images']}>
@@ -20,16 +25,18 @@ export const ImagesGridWrapper = ({ images = [], alt, onClickHandler }) => {
                     onClick={() => onClickHandler(mainImage)}
                 />
             </div>
-            <div className={styles.secondaryImages}>
-                {secondaryImages.slice(0, 4).map((x) => (
-                    <img
-                        src={x.imageUrl}
-                        alt={alt}
-                        onClick={() => onClickHandler(x)}
-                        key={x._id}
-                    />
-                ))}
-            </div>
+            {isDesktop && (
+                <div className={styles.secondaryImages}>
+                    {secondaryImages.slice(0, 4).map((x) => (
+                        <img
+                            src={x.imageUrl}
+                            alt={alt}
+                            onClick={() => onClickHandler(x)}
+                            key={x._id}
+                        />
+                    ))}
+                </div>
+            )}
             <div className={styles['show-all-btn']}>
                 <button className={styles.btn}>
                     <span className={styles.imgIcon}>

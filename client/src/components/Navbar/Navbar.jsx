@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useWindowSize } from '../../hooks/useWindowSize';
 import { Link, useLocation } from 'react-router-dom';
 
 // components
@@ -7,32 +8,20 @@ import { HamburgerIconMenu } from './Hamburger-Icon/HamburgerIcon';
 
 // assets
 import logo from '../../assets/logo/logo.png';
-import styles from './Navbar.module.css';
 import routeConstants from '../../constants/routeConstants';
+import styles from './Navbar.module.css';
 
 const { HOME } = routeConstants;
 
 export const Navbar = () => {
     const [isNavToggled, setIsNavToggled] = useState(false);
-    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+    const screenWidth = useWindowSize();
+
     const location = useLocation();
-
-    useEffect(() => {
-        const changeWidth = () => {
-            setScreenWidth(window.innerWidth);
-        };
-
-        window.addEventListener('resize', changeWidth);
-
-        return () => {
-            window.removeEventListener('resize', changeWidth);
-        };
-    });
 
     useEffect(() => {
         setIsNavToggled(false);
     }, [location]);
-
 
     const hamburgerClickHandler = () => {
         setIsNavToggled(!isNavToggled);
@@ -56,9 +45,7 @@ export const Navbar = () => {
                         />
                     )}
                 </div>
-                {(isNavToggled || !isMobile) && (
-                    <NavLinks />
-                )}
+                {(isNavToggled || !isMobile) && <NavLinks />}
             </div>
         </header>
     );
