@@ -6,6 +6,7 @@
 
 .text {
     border-bottom: 1px solid var(--text-primary);
+    font-size: 1.05rem;
 }
 
 .icon {

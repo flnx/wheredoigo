@@ -6,13 +6,11 @@ import { createPortal } from 'react-dom';
 export const ImagesSection = ({ imageUrls, city }) => {
     const [gallery, setGallery] = useState([]);
 
-    const onImageClickHandler = (clickedImage) => {
-        const arrayWithoutClickedImage = destination.imageUrls.filter(
-            (x) => x._id !== clickedImage._id
-        );
+    const onImageClickHandler = (clickedImg) => {
+        const arrayWithoutClickedImage = imageUrls.filter((x) => x._id !== clickedImg._id);
 
         // adding clicked img on index 0
-        setGallery([clickedImage, ...arrayWithoutClickedImage]);
+        setGallery([clickedImg, ...arrayWithoutClickedImage]);
     };
 
     const closeGalleryHandler = () => {
@@ -25,10 +23,7 @@ export const ImagesSection = ({ imageUrls, city }) => {
         <section>
             {isGalleryOpen &&
                 createPortal(
-                    <Gallery 
-                        images={gallery} 
-                        closeGalleryHandler={closeGalleryHandler} 
-                    />,
+                    <Gallery images={gallery} closeGalleryHandler={closeGalleryHandler} />,
                     document.body
                 )}
             <ImagesGridWrapper

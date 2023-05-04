@@ -1,5 +1,7 @@
 import styles from './ImagesGridWrapper.module.css';
 
+import { Image } from '@phosphor-icons/react';
+
 export const ImagesGridWrapper = ({ images = [], alt, onClickHandler }) => {
     if (!Array.isArray(images) || images.length == 0) {
         return;
@@ -9,7 +11,7 @@ export const ImagesGridWrapper = ({ images = [], alt, onClickHandler }) => {
     const secondaryImages = images.slice(1);
 
     return (
-        <div className={styles.imagesWrapper}>
+        <div className={styles['images']}>
             <div className={styles.mainImgContainer}>
                 <img
                     className={styles.mainImg}
@@ -27,6 +29,14 @@ export const ImagesGridWrapper = ({ images = [], alt, onClickHandler }) => {
                         key={x._id}
                     />
                 ))}
+            </div>
+            <div className={styles['show-all-btn']}>
+                <button className={styles.btn}>
+                    <span className={styles.imgIcon}>
+                        <Image size={20} />
+                    </span>
+                    <span>Show all images</span>
+                </button>
             </div>
         </div>
     );

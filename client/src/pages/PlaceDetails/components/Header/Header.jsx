@@ -16,7 +16,7 @@ export const Header = ({ place }) => {
         <header>
             <section className={styles.intro}>
                 <h1>{name}</h1>
-                <p>{city}</p>
+                <p className={styles.city}>{city}</p>
             </section>
             <div className={styles.flexContainer}>
                 <section className={styles.flexChild}>

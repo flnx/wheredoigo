@@ -26,6 +26,10 @@
     -moz-box-orient: vertical;
 }
 
+.city {
+    font-size: 1.25rem;
+}
+
 .title {
     margin-bottom: 1rem;
 }
