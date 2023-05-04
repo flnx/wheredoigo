@@ -38,7 +38,7 @@ export const ImagesGridWrapper = ({ images = [], alt, onClickHandler }) => {
                 </div>
             )}
             <div className={styles['show-all-btn']}>
-                <button className={styles.btn}>
+                <button className={styles.btn} onClick={() => onClickHandler(mainImage)}>
                     <span className={styles.imgIcon}>
                         <Image size={20} />
                     </span>
