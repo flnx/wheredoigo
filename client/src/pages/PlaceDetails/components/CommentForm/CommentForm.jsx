@@ -9,6 +9,7 @@ export const CommentForm = () => {
     const [content, setContent] = useState('');
     const [title, setTitle] = useState('');
     const [validationError, setValidationError] = useState(false);
+    const [rating, setRating] = useState(0);
     const { placeId } = useParams();
     const { isLoading, error, mutate: addComment } = useAddComment(placeId);
 
