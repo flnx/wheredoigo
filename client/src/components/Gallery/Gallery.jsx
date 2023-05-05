@@ -50,7 +50,7 @@ export const Gallery = ({ images = [], closeGalleryHandler }) => {
     }, []);
 
     const mainImage = images[currentIndex];
-    const isActive = styles.isActive;
+    const isActive = `${styles.isActive}`;
     const isFirstImage = currentIndex == 0;
     const isLastImage = currentIndex == images.length - 1;
 
@@ -58,7 +58,7 @@ export const Gallery = ({ images = [], closeGalleryHandler }) => {
         <section>
             <div className={styles.overlay} onClick={closeGalleryHandler} />
             <div className={styles.wrapper}>
-                <div className={styles.xIcon} onClick={closeGalleryHandler}>
+                <div className={styles.xIcon} onClick={closeGalleryHandler} tabIndex={0}>
                     <X size={30} />
                 </div>
                 <div className={styles.imagesContainer}>
@@ -67,6 +67,7 @@ export const Gallery = ({ images = [], closeGalleryHandler }) => {
                             <div
                                 className={styles.leftArrow}
                                 onClick={onLeftArrowClickHandler}
+                                tabIndex={0}
                             >
                                 <CaretLeft size={32} />
                             </div>
@@ -76,6 +77,7 @@ export const Gallery = ({ images = [], closeGalleryHandler }) => {
                             <div
                                 className={styles.rightArrow}
                                 onClick={onRightArrowClickHandler}
+                                tabIndex={0}
                             >
                                 <CaretRight size={32} />
                             </div>
