@@ -11,6 +11,7 @@ export const StarRating = ({ rating }) => {
                     size={18}
                     weight={rating >= starRate ? 'fill' : 'light'}
                     className={styles.star}
+                    key={starRate}
                 />
             ))}
         </div>

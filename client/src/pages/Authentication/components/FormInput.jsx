@@ -14,6 +14,7 @@ export const FormInput = ({
                 {label}
             </label>
             <input
+                id={name}
                 type={type}
                 placeholder={placeholder}
                 name={name}

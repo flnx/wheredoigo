@@ -7,6 +7,7 @@ const { createValidationError } = require('../../utils/createValidationError');
 
 async function getPlaceById(placeId, user) {
     const place = await Place.findById(placeId)
+        .select('-commentedBy')
         .populate({
             path: 'comments',
             populate: { path: 'ownerId', select: 'username avatarUrl' },
@@ -37,17 +38,29 @@ async function getPlaceById(placeId, user) {
         };
     });
 
-    place.name = capitalizeEachWord(place.name);
-    place.city = capitalizeEachWord(place.city);
-    place.country = capitalizeEachWord(place.country);
-    place.isAuth = user ? true : false;
+    const { imageUrls, ownerId, rating, ...placeData } = place;
 
-    const { imageUrls, ownerId, ...placeData } = place;
+    // remove public_id from images
     const updatedImgUrls = imageUrls.map(({ public_id, ...rest }) => rest);
+
+    // remove rating info and add average rating
+    const { sumOfRates, numRates } = rating;
+    const averageRating = +(sumOfRates / numRates).toFixed(2);
+
+    const hasCommented = user && await Place.exists({
+        _id: placeId,
+        commentedBy: { $in: [user.ownerId] },
+    });
 
     return {
         ...placeData,
+        name: capitalizeEachWord(place.name),
+        city: capitalizeEachWord(place.city),
+        country: capitalizeEachWord(place.country),
         imageUrls: updatedImgUrls,
+        averageRating,
+        isAuth: !!user,
+        hasCommented: !!hasCommented,
     };
 }
 

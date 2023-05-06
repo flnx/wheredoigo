@@ -20,14 +20,26 @@ const commentSchema = new Schema({
     ownerId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
+        required: true,
     },
+    placeId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Place',
+        required: true,
+    },
+
     rating: {
         type: Number,
         min: 0,
         max: 5,
         default: 0,
-    }
+    },
 });
+
+commentSchema.index(
+    { placeId: 1, ownerId: 1 },
+    { unique: true, collation: { locale: 'en', strength: 2 } }
+);
 
 const Comment = mongoose.model('Comment', commentSchema);
 

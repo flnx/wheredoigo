@@ -82,9 +82,9 @@ export const RegisterPage = () => {
             />
             <FormInput
                 name={'email'}
-                label={'Enter your email address'}
+                label={'Email'}
                 type={'password'}
-                placeholder={'Repeat password'}
+                placeholder={'Enter your email address'}
                 value={state.email}
                 onChangeHandler={onChangeHandler}
             />

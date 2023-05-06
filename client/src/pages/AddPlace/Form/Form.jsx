@@ -12,11 +12,13 @@ import routeConstants from '../../../constants/routeConstants';
 const { PLACES } = routeConstants;
 
 import styles from './Form.module.css';
+import { useNavigate } from 'react-router-dom';
 
 export const Form = ({ destinationId }) => {
     const [createPlace, isLoading] = useAddNewPlace(destinationId);
     const [state, dispatch] = useReducer(placeReducer, initialState);
     const [errors, setErrors] = useState([]);
+    const navigate = useNavigate();
 
     const dispatchHandler = (actions) => {
         dispatch(actions);
