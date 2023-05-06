@@ -23,10 +23,15 @@ function isString(str) {
     return typeof str === 'string' && str.trim().length > 0;
 }
 
+function isValidInteger(value) {
+    return typeof value === 'number' && Number.isInteger(value);
+}
+
 module.exports = {
     validatePassword,
     fixInvalidFolderNameChars,
     isObject,
     extractCloudinaryFolderName,
-    isString
+    isString,
+    isValidInteger,
 };

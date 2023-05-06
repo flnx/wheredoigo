@@ -18,6 +18,7 @@ exports.errorMessages = {
     cloudinaryValidation: 'Arg1 & Arg2 must be arrays',
     imagesLimitError: 'You have uploaded too many images. Please limit your upload to 20 images or less.',
     invalidCategory: 'Please select a valid category',
+    invalidRating: 'Invalid rating value',
     couldNotUpdate: (fieldName) => `Couldn't update ${fieldName}`,
     couldNotDelete: (name) => `Couldn't delete ${name}`
 };

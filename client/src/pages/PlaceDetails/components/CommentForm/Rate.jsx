@@ -2,13 +2,12 @@ import { Star } from '@phosphor-icons/react';
 import { useState } from 'react';
 import styles from './Rate.module.css';
 
-export const Rate = ({ userRating, changeRateHandler }) => {
-    const [cachedRate, setCachedRate] = useState(userRating);
+export const Rate = ({ userRating, changeRateHandler, cachedRate, handleRateCache }) => {
     const [hovered, setHovered] = useState(false);
 
     const onStarClickHandler = (rating) => {
         changeRateHandler(rating);
-        setCachedRate(rating);
+        handleRateCache(rating);
         setHovered(false);
     };
 

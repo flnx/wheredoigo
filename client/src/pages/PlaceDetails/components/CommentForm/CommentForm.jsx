@@ -10,12 +10,17 @@ export const CommentForm = () => {
     const [content, setContent] = useState('');
     const [title, setTitle] = useState('');
     const [validationError, setValidationError] = useState(false);
-    const [rate, setRate] = useState(0);
+    const [rating, setRating] = useState(0);
+    const [cachedRate, setCachedRate] = useState(0);
     const { placeId } = useParams();
     const { isLoading, error, mutate: addComment } = useAddComment(placeId);
 
+    const cacheRateHandler = (value) => {
+        setCachedRate(value);
+    };
+
     const onRateChangeHandler = (clickedStarValue) => {
-        setRate(clickedStarValue);
+        setRating(clickedStarValue);
     };
 
     const handleSubmit = async (e) => {
@@ -32,6 +37,7 @@ export const CommentForm = () => {
         const data = {
             title,
             content,
+            rating,
         };
 
         addComment(data, {
@@ -39,6 +45,8 @@ export const CommentForm = () => {
                 setValidationError('');
                 setTitle('');
                 setContent('');
+                onRateChangeHandler(0);
+                cacheRateHandler(0);
             },
         });
     };
@@ -47,7 +55,12 @@ export const CommentForm = () => {
         <div>
             <h3 className={styles.title}>Leave a comment</h3>
             <form className={styles.form} onSubmit={handleSubmit}>
-                <Rate userRating={rate} changeRateHandler={onRateChangeHandler} />
+                <Rate
+                    userRating={rating}
+                    changeRateHandler={onRateChangeHandler}
+                    handleRateCache={cacheRateHandler}
+                    cachedRate={cachedRate}
+                />
 
                 <input
                     className={styles.formInput}
@@ -58,13 +71,13 @@ export const CommentForm = () => {
                 />
                 <textarea
                     className={styles.formTextarea}
-                    onChange={(e) => setContent(e.target.value)}
+                    onChange={(e) => {
+                        setContent(e.target.value);
+                    }}
                     placeholder="Add a comment..."
                     value={content}
                 />
-                <SecondaryButton clickHandler={handleSubmit}>
-                    Submit your Review
-                </SecondaryButton>
+                <SecondaryButton>Submit your Review</SecondaryButton>
             </form>
             {isLoading && <span>Loading...</span>}
             {validationError && <span className={styles.error}>{validationError}</span>}
