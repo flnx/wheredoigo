@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAddComment } from '../../../../hooks/queries/useAddComment';
 import { SecondaryButton } from '../../../../components/Buttons/Secondary-Btn/SecondaryButton';
+import { Rate } from './Rate';
 
 import styles from './CommentForm.module.css';
 
@@ -38,10 +39,15 @@ export const CommentForm = () => {
         });
     };
 
+    const ratingPoints = new Array(5);
+    console.log(ratingPoints);
+
     return (
         <div>
             <h3 className={styles.title}>Leave a comment</h3>
             <form className={styles.form} onSubmit={handleSubmit}>
+                <Rate />
+
                 <input
                     className={styles.formInput}
                     type="text"
@@ -55,7 +61,9 @@ export const CommentForm = () => {
                     placeholder="Add a comment..."
                     value={content}
                 />
-                <SecondaryButton clickHandler={handleSubmit}>Submit your Review</SecondaryButton>
+                <SecondaryButton clickHandler={handleSubmit}>
+                    Submit your Review
+                </SecondaryButton>
             </form>
             {isLoading && <span>Loading...</span>}
             {validationError && <span className={styles.error}>{validationError}</span>}

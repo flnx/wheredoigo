@@ -1,0 +1,9 @@
+.star {
+    cursor: pointer;
+    padding-left: 0.15rem;
+    color: rgb(228, 35, 10);
+}
+
+.hovered {
+    opacity: 0.7;
+}
