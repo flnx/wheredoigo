@@ -1,7 +1,8 @@
-.rating {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.35rem;
-    max-width: 2.4rem;
+.stars {
+    margin-bottom: 0.25rem;
+}
+
+.star {
+    padding-left: 0.15rem;
+    color: rgb(228, 35, 10);
 }

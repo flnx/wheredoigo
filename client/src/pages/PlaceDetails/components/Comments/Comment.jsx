@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { DotsThree } from '@phosphor-icons/react';
 import { SmallModal } from '../../../../components/SmallModal/SmallModal';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
+import { StarRating } from '../../../../components/StarRating/StarRating';
 
 import styles from './Comments.module.css';
 
@@ -75,7 +76,7 @@ export const Comment = ({ comment }) => {
             </div>
 
             <div className={styles.content}>
-                <span className={styles.rating}>* * * * *</span>
+                <StarRating rating={comment.rating}/>
                 <h3 className={styles.commentTitle}>{comment.title}</h3>
                 <p className={styles.commentContent}>{comment.content}</p>
             </div>
