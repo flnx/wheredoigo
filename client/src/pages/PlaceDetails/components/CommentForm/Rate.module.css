@@ -1,3 +1,7 @@
+.stars {
+    margin-bottom: 0.25rem;
+}
+
 .star {
     cursor: pointer;
     padding-left: 0.15rem;

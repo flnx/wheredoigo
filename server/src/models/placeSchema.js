@@ -57,6 +57,20 @@ const placeSchema = new Schema({
             ref: 'Comment',
         },
     ],
+    rating: {
+        totalPlaceRates: {
+            type: Number,
+            default: 0,
+        },
+        totalSumOfRateValues: {
+            type: Number,
+            default: 0,
+        },
+        average: {
+            type: Number,
+            default: 0,
+        },
+    },
 });
 
 placeSchema.index(
@@ -67,3 +81,28 @@ placeSchema.index(
 const Place = mongoose.model('Place', placeSchema);
 
 module.exports = Place;
+
+// Notes /Rating/ (Delete it when finished)
+
+// - sum(rating) / total people
+
+// Calculate rating update
+// 1 - find the comment rating id (this happens outside the placeSchema with B tree indexing which will be O(log n)
+
+// Efficient operation with O(1) time complexity to recalculate total rating:
+
+// 2 - subtract the rating value from totalSumOfRateValues
+// 3 - add the new rate value to totalSumOfRateValues
+// 4 - recalc average
+
+// Example: 
+
+// 5 people rated - [5, 5, 4, 4, 2]
+// total sum: 20
+
+// 20 / 5 = 4
+// average rating: 4
+
+// index 0 has changed changed to 3
+// new sum = 18
+// recalc avg = 18 / 5 = 3.6

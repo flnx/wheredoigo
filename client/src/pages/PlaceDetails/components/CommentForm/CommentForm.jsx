@@ -10,9 +10,13 @@ export const CommentForm = () => {
     const [content, setContent] = useState('');
     const [title, setTitle] = useState('');
     const [validationError, setValidationError] = useState(false);
-    const [rating, setRating] = useState(0);
+    const [rate, setRate] = useState(0);
     const { placeId } = useParams();
     const { isLoading, error, mutate: addComment } = useAddComment(placeId);
+
+    const onRateChangeHandler = (clickedStarValue) => {
+        setRate(clickedStarValue);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -39,14 +43,11 @@ export const CommentForm = () => {
         });
     };
 
-    const ratingPoints = new Array(5);
-    console.log(ratingPoints);
-
     return (
         <div>
             <h3 className={styles.title}>Leave a comment</h3>
             <form className={styles.form} onSubmit={handleSubmit}>
-                <Rate />
+                <Rate userRating={rate} changeRateHandler={onRateChangeHandler} />
 
                 <input
                     className={styles.formInput}

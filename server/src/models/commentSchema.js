@@ -21,6 +21,12 @@ const commentSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
     },
+    rating: {
+        type: Number,
+        min: 0,
+        max: 5,
+        default: 0,
+    }
 });
 
 const Comment = mongoose.model('Comment', commentSchema);

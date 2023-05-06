@@ -1,38 +1,40 @@
 import { Star } from '@phosphor-icons/react';
-import styles from './Rate.module.css';
 import { useState } from 'react';
+import styles from './Rate.module.css';
 
-export const Rate = () => {
-    const [rateByUser, setRateByUser] = useState(0);
-    const [cachedRate, setCachedRate] = useState(rateByUser);
+export const Rate = ({ userRating, changeRateHandler }) => {
+    const [cachedRate, setCachedRate] = useState(userRating);
     const [hovered, setHovered] = useState(false);
 
     const onStarClickHandler = (rating) => {
-        setRateByUser(rating);
+        changeRateHandler(rating);
         setCachedRate(rating);
+        setHovered(false);
     };
 
     const onRatingHover = (rating) => {
-        setRateByUser(rating);
+        changeRateHandler(rating);
         setHovered(rating);
     };
 
     const onRatingUnhover = () => {
-        setRateByUser(cachedRate);
+        changeRateHandler(cachedRate);
         setHovered(false);
     };
 
     const ratingPoints = new Array(5).fill().map((_, i) => i + 1);
 
     return (
-        <div>
+        <div className={styles.stars}>
             {ratingPoints.map((rate) => (
                 <Star
                     size={28}
                     key={rate}
                     onClick={() => onStarClickHandler(rate)}
-                    className={`${styles.star} ${hovered &&  rateByUser >= rate? styles.hovered : ''}`}
-                    weight={rateByUser >= rate ? 'fill' : 'light'}
+                    className={`${styles.star} ${
+                        hovered && userRating >= rate ? `${styles.hovered}` : ''
+                    }`}
+                    weight={userRating >= rate ? 'fill' : 'light'}
                     onMouseEnter={() => onRatingHover(rate)}
                     onMouseLeave={onRatingUnhover}
                 />
