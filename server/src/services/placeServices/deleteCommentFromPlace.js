@@ -16,6 +16,7 @@ async function deleteCommentFromPlace(placeId, commentId, ownerId) {
     const session = await mongoose.startSession();
 
     let retries = 3;
+    let delay = 100; // initial delay of 100ms
 
     while (retries > 0) {
         try {
@@ -33,7 +34,14 @@ async function deleteCommentFromPlace(placeId, commentId, ownerId) {
 
             const numRate = comment.rating > 0 ? 1 : 0;
 
-            const place = await updatePlace(placeId, commentId, numRate, comment, session, ownerId);
+            const place = await updatePlace(
+                placeId,
+                commentId,
+                numRate,
+                comment,
+                session,
+                ownerId
+            );
 
             console.log(place);
 
@@ -48,8 +56,15 @@ async function deleteCommentFromPlace(placeId, commentId, ownerId) {
         } catch (err) {
             await session.abortTransaction();
 
-            if (err.code === 11000 && err.codeName === 'DuplicateKey' && retries > 0) {
+            if (
+                err.code === 11000 &&
+                err.codeName === 'DuplicateKey' &&
+                retries > 0
+            ) {
                 retries--;
+                // exponential backoff
+                delay *= 2;
+                await new Promise((resolve) => setTimeout(resolve, delay));
                 continue;
             }
 
