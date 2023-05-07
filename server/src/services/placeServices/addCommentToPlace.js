@@ -30,14 +30,16 @@ async function addCommentToPlace({ id, title, content, ownerId, rating }) {
 
     const numRate = rating > 0 ? 1 : 0;
 
-    const place = await updatePlace(id, ownerId, comment, numRate, rating);
+    const place = await updatePlaceWithRetry(id, ownerId, comment, numRate, rating);
 
     if (!place) {
         throw createValidationError(errorMessages.notFound, 404);
     }
 
     await comment.save();
-    const avg = calcAverageRating(place.rating, rating);
+
+     // avg place rating
+    const averageRating = calcAverageRating(place.rating, rating);
 
     return {
         title: comment.title,
@@ -50,14 +52,15 @@ async function addCommentToPlace({ id, title, content, ownerId, rating }) {
             username: user.capitalizedUsername,
         },
         isOwner: true,
-        avg,
+        averageRating
     };
 }
 
-async function updatePlace(id, ownerId, comment, numRate, rating) {
+async function updatePlaceWithRetry(id, ownerId, comment, numRate, rating) {
     let retries = 3;
     let delay = 100;
 
+     // Retry mechanism with exponential backoff
     while (retries > 0) {
         try {
             const place = await Place.findOneAndUpdate(
@@ -80,8 +83,7 @@ async function updatePlace(id, ownerId, comment, numRate, rating) {
         } catch (err) {
             if (err.code === 11000 && retries > 0) {
                 retries--;
-                // Retry mechanism with exponential backoff
-                delay *= 2;
+                delay *= 2; // <- exponential backoff
                 await new Promise((resolve) => setTimeout(resolve, delay));
                 continue;
             }

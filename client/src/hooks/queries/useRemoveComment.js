@@ -7,7 +7,7 @@ export const useRemoveComment = (commentId, placeId) => {
 
     const { mutate, isLoading, isSuccess, error } = useMutation({
         mutationFn: () => removeComment(placeId, commentId),
-        onSuccess: () => {
+        onSuccess: (result) => {
             // Retrieve the current places data from the cache
             const place = queryClient.getQueryData([
                 queryEndpoints.place,
@@ -18,6 +18,7 @@ export const useRemoveComment = (commentId, placeId) => {
             const updatedPlace = {
                 ...place,
                 hasCommented: false,
+                averageRating: result.averageRating,
                 comments: place.comments.filter(
                     (comment) => comment._id != commentId
                 ),

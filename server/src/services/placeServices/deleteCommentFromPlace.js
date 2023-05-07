@@ -36,7 +36,7 @@ async function deleteCommentFromPlace(placeId, commentId, ownerId) {
             throw createValidationError(errorMessages.notFound, 404);
         }
         
-        // return the current avg place rating
+        // avg place rating
         const averageRating = calcAverageRating(place.rating, 0);
 
         await Comment.findByIdAndDelete(commentId, { session });
@@ -58,6 +58,7 @@ async function updatePlaceWithRetry(placeId, commentId, numRate, comment, sessio
     let retries = 3;
     let delay = 100;
 
+    // Retry mechanism with exponential backoff
     while (retries > 0) {
         try {
             const place = await updatePlace(placeId, commentId, numRate, comment, session, ownerId);
@@ -70,11 +71,11 @@ async function updatePlaceWithRetry(placeId, commentId, numRate, comment, sessio
         } catch (err) {
             if (err.code === 11000 && retries > 0) {
                 retries--;
-                delay *= 2;
+                delay *= 2; // <- exponential backoff
                 await new Promise((resolve) => setTimeout(resolve, delay));
                 continue;
             }
-            
+
             throw err;
         }
     }

@@ -76,7 +76,7 @@ export const Comment = ({ comment }) => {
             </div>
 
             <div className={styles.content}>
-                <StarRating rating={comment.rating}/>
+                <StarRating averageRating={comment.rating}/>
                 <h3 className={styles.commentTitle}>{comment.title}</h3>
                 <p className={styles.commentContent}>{comment.content}</p>
             </div>

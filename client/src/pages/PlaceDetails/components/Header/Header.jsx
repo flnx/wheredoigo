@@ -8,7 +8,8 @@ import styles from './Header.module.css';
 const { ABOUT, BY_ID } = routeConstants.PLACES;
 
 export const Header = ({ place }) => {
-    const { name, city, description } = place;
+    const { name, city, description, averageRating } = place;
+    console.log(place);
 
     const pageRoute = BY_ID.routePath(place._id);
 
@@ -26,7 +27,7 @@ export const Header = ({ place }) => {
                 </section>
                 <section className={styles.flexChild}>
                     <h3 className={styles.title}>Ratings and Reviews</h3>
-                    <StarRating rating={5} />
+                    <StarRating averageRating={averageRating} />
                 </section>
                 <section className={styles.flexChild}>
                     <h3 className={styles.title}>In Progress..</h3>

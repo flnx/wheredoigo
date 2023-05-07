@@ -19,6 +19,7 @@ export const useAddComment = (placeId) => {
             const updatedPlace = {
                 ...place,
                 hasCommented: true,
+                averageRating: newComment.averageRating,
                 comments: [...place.comments, newComment],
             };
 
