@@ -32,6 +32,7 @@ async function getPlaceComments(placeId, user, currentPage) {
     // determine if there is next page to be requested in order to notify the client
     const hasNextPage = skip + perPage < count;
     const hasPreviousPage = page > 1;
+    const totalPages = Math.ceil(count / perPage);
 
     // Adds isOwner boolean if the current user (if any) is the owner of the comment
     placeComments.comments.forEach((comment) => {
@@ -52,7 +53,8 @@ async function getPlaceComments(placeId, user, currentPage) {
         data: placeComments.comments,
         totalComments: count,
         hasNextPage,
-        hasPreviousPage
+        hasPreviousPage,
+        totalPages
     }
 }
 
