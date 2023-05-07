@@ -11,9 +11,12 @@ import { CommentForm } from './components/CommentForm/CommentForm';
 
 import styles from './PlaceDetails.module.css';
 
+
 export const PlaceDetails = () => {
     const { placeId } = useParams();
     const { data, isLoading, error } = usePlace(placeId);
+
+    const { isAuth, hasCommented } = data || {};
 
     return (
         <Container>
@@ -28,7 +31,7 @@ export const PlaceDetails = () => {
                             <Images place={data} />
                             <Header place={data} />
                             <Comments comments={data.comments} />
-                            {data.isAuth && <CommentForm />}
+                            {isAuth && !hasCommented && <CommentForm />}
                         </div>
                     )}
                 </>

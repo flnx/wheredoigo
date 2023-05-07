@@ -11,6 +11,7 @@ async function getPlaceById(placeId, user) {
         .populate({
             path: 'comments',
             populate: { path: 'ownerId', select: 'username avatarUrl' },
+            options: { limit: 10 },
         })
         .lean()
         .exec();
@@ -47,10 +48,13 @@ async function getPlaceById(placeId, user) {
     const { sumOfRates, numRates } = rating;
     const averageRating = +(sumOfRates / numRates).toFixed(2);
 
-    const hasCommented = user && await Place.exists({
-        _id: placeId,
-        commentedBy: { $in: [user.ownerId] },
-    });
+    // check if the user already commented/rated the place
+    const hasCommented =
+        user &&
+        (await Place.exists({
+            _id: placeId,
+            commentedBy: { $in: [user.ownerId] },
+        }));
 
     return {
         ...placeData,
