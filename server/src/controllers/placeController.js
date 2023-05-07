@@ -1,13 +1,17 @@
-const createNewPlace = require("../services/placeServices/createNewPlace");
-const getPlaceById = require("../services/placeServices/getPlaceById");
-const editPlaceField = require("../services/placeServices/editPlaceField");
-const deletePlace = require("../services/placeServices/deletePlace");
-const addCommentToPlace = require("../services/placeServices/addCommentToPlace");
-const deleteCommentFromPlace = require("../services/placeServices/deleteCommentFromPlace");
-const deletePlaceImage = require("../services/placeServices/deletePlaceImage");
-const addPlaceNewImages = require("../services/placeServices/addPlaceNewImages");
+const createNewPlace = require('../services/placeServices/createNewPlace');
+const getPlaceById = require('../services/placeServices/getPlaceById');
+const editPlaceField = require('../services/placeServices/editPlaceField');
+const deletePlace = require('../services/placeServices/deletePlace');
+const addCommentToPlace = require('../services/placeServices/addCommentToPlace');
+const deleteCommentFromPlace = require('../services/placeServices/deleteCommentFromPlace');
+const deletePlaceImage = require('../services/placeServices/deletePlaceImage');
+const addPlaceNewImages = require('../services/placeServices/addPlaceNewImages');
 
-const { allowedPlaceCategories, allowedFieldsToUpdate } = require("../constants/allowedPlaceCategories");
+const {
+    allowedPlaceCategories,
+    allowedFieldsToUpdate,
+} = require('../constants/allowedPlaceCategories');
+const getPlaceComments = require('../services/placeServices/getPlaceComments');
 
 const add_new_place = async (req, res, next) => {
     const placeInfo = req.body;
@@ -32,7 +36,14 @@ const place_details = async (req, res, next) => {
     const user = req.user;
 
     try {
-        const place = await getPlaceById(id, user);
+        const promises = [
+            getPlaceById(id, user),
+            getPlaceComments(id, user)
+        ];
+
+        const [place, comments] = await Promise.all(promises);
+        place.comments = comments;
+
         res.json(place);
     } catch (err) {
         next(err);
@@ -45,7 +56,7 @@ const request_place_to_edit = async (req, res, next) => {
     res.json({
         ...place,
         allowedPlaceCategories,
-        allowedFieldsToUpdate
+        allowedFieldsToUpdate,
     });
 };
 
@@ -78,7 +89,13 @@ const post_comment = async (req, res, next) => {
     const { ownerId } = req.user;
 
     try {
-        const comment = await addCommentToPlace({ id, title, content, ownerId, rating });
+        const comment = await addCommentToPlace({
+            id,
+            title,
+            content,
+            ownerId,
+            rating,
+        });
         res.json(comment);
     } catch (err) {
         next(err);
@@ -99,7 +116,7 @@ const delete_comment = async (req, res, next) => {
 };
 
 const delete_place_image = async (req, res, next) => {
-    const { id } = req.params; 
+    const { id } = req.params;
     const { imgId } = req.body;
 
     try {
@@ -133,5 +150,5 @@ module.exports = {
     delete_place,
     edit_place_field,
     add_place_new_images,
-    delete_place_image
+    delete_place_image,
 };

@@ -7,12 +7,7 @@ const { createValidationError } = require('../../utils/createValidationError');
 
 async function getPlaceById(placeId, user) {
     const place = await Place.findById(placeId)
-        .select('-commentedBy')
-        .populate({
-            path: 'comments',
-            populate: { path: 'ownerId', select: 'username avatarUrl' },
-            options: { limit: 10 },
-        })
+        .select('-commentedBy -comments')
         .lean()
         .exec();
 
@@ -24,37 +19,24 @@ async function getPlaceById(placeId, user) {
         place.isOwner = true;
     }
 
-    // Adds isOwner boolean if the current user (if any) is the owner of the comment
-    place.comments.forEach((comment) => {
-        // Removes ownerId._id prop (the original owner id) before sending it to the client
-        const { _id, ...ownerData } = comment.ownerId;
+    // checks if the user already commented/rated the place
+    let hasCommented = null;
 
-        if (user && _id.equals(user.ownerId)) {
-            comment.isOwner = true;
-        }
-
-        comment.ownerId = {
-            ...ownerData,
-            username: capitalizeEachWord(ownerData.username),
-        };
-    });
+    if (user) {
+        hasCommented = await Place.exists({
+            _id: placeId,
+            commentedBy: { $in: [user.ownerId] },
+        });
+    }
 
     const { imageUrls, ownerId, rating, ...placeData } = place;
 
     // remove public_id from images
     const updatedImgUrls = imageUrls.map(({ public_id, ...rest }) => rest);
 
-    // remove rating info and add average rating
+    // calc the avg place rating
     const { sumOfRates, numRates } = rating;
     const averageRating = +(sumOfRates / numRates).toFixed(2);
-
-    // check if the user already commented/rated the place
-    const hasCommented =
-        user &&
-        (await Place.exists({
-            _id: placeId,
-            commentedBy: { $in: [user.ownerId] },
-        }));
 
     return {
         ...placeData,
@@ -62,9 +44,9 @@ async function getPlaceById(placeId, user) {
         city: capitalizeEachWord(place.city),
         country: capitalizeEachWord(place.country),
         imageUrls: updatedImgUrls,
-        averageRating,
         isAuth: !!user,
         hasCommented: !!hasCommented,
+        averageRating,
     };
 }
 
