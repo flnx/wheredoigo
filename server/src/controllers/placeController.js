@@ -7,10 +7,7 @@ const deleteCommentFromPlace = require('../services/placeServices/deleteCommentF
 const deletePlaceImage = require('../services/placeServices/deletePlaceImage');
 const addPlaceNewImages = require('../services/placeServices/addPlaceNewImages');
 
-const {
-    allowedPlaceCategories,
-    allowedFieldsToUpdate,
-} = require('../constants/allowedPlaceCategories');
+const {allowedPlaceCategories, allowedFieldsToUpdate } = require('../constants/allowedPlaceCategories');
 const getPlaceComments = require('../services/placeServices/getPlaceComments');
 
 const add_new_place = async (req, res, next) => {
@@ -36,15 +33,25 @@ const place_details = async (req, res, next) => {
     const user = req.user;
 
     try {
-        const promises = [
-            getPlaceById(id, user),
-            getPlaceComments(id, user)
-        ];
+        const promises = [getPlaceById(id, user), getPlaceComments(id, user)];
 
         const [place, comments] = await Promise.all(promises);
         place.comments = comments;
 
         res.json(place);
+    } catch (err) {
+        next(err);
+    }
+};
+
+const place_comments = async (req, res, next) => {
+    const { id } = req.params;
+    const user = req.user;
+
+    try {
+        const comments = await getPlaceComments(id, user);
+
+        res.json(comments);
     } catch (err) {
         next(err);
     }

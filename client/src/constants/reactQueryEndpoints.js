@@ -6,4 +6,5 @@ export const queryEndpoints = {
     place: 'place',
     createPlacePermissions: 'createPlacePermissions',
     editPlace: 'editPlace',
+    placeComments: 'placeComments'
 }

@@ -7,6 +7,12 @@ export const getPlace = async (id) => {
     return placeData.data;
 };
 
+export const getPlaceComments = async (id, page) => {
+    const placeData = await axios.get(apiEndpoints.placeComments(id, page));
+
+    return placeData.data;
+};
+
 export const createPlace = async (placeData, destinationId) => {
     const res = await axios.post(apiEndpoints.addPlace(destinationId), placeData, {
         headers: {

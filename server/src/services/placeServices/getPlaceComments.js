@@ -5,20 +5,33 @@ const { errorMessages } = require('../../constants/errorMessages');
 const capitalizeEachWord = require('../../utils/capitalizeWords');
 const { createValidationError } = require('../../utils/createValidationError');
 
-async function getPlaceComments(placeId, user) {
-    const placeComments = await Place.findById(placeId)
-        .select('comments')
-        .populate({
-            path: 'comments',
-            populate: { path: 'ownerId', select: 'username avatarUrl' },
-            options: { limit: 10 },
-        })
-        .lean()
-        .exec();
+async function getPlaceComments(placeId, user, currentPage) {
+    const page = currentPage || 1;
+    const perPage = 10;
+    const skip = (page - 1) * perPage;
+
+    const promises = [
+        Place.findById(placeId).select('comments').count().lean().exec(),
+        Place.findById(placeId)
+            .select('comments')
+            .populate({
+                path: 'comments',
+                populate: { path: 'ownerId', select: 'username avatarUrl' },
+                options: { skip: skip, limit: perPage },
+            })
+            .lean()
+            .exec(),
+    ];
+
+    const [count, placeComments] = await Promise.all(promises);
 
     if (!placeComments) {
         throw createValidationError(errorMessages.notFound, 404);
     }
+
+    // determine if there is next page to be requested in order to notify the client
+    const hasNextPage = skip + perPage < count;
+    const hasPreviousPage = page > 1;
 
     // Adds isOwner boolean if the current user (if any) is the owner of the comment
     placeComments.comments.forEach((comment) => {
@@ -35,7 +48,12 @@ async function getPlaceComments(placeId, user) {
         };
     });
 
-    return placeComments.comments;
+    return {
+        data: placeComments.comments,
+        totalComments: count,
+        hasNextPage,
+        hasPreviousPage
+    }
 }
 
 module.exports = getPlaceComments;

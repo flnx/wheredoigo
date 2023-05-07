@@ -10,7 +10,7 @@ export const Comments = ({ comments }) => {
             </header>
 
             <div className={styles.comments}>
-                {comments.map((c) => (
+                {comments.data.map((c) => (
                     <Comment comment={c} key={c._id} />
                 ))}
             </div>
