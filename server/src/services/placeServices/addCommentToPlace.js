@@ -6,11 +6,15 @@ const { errorMessages } = require('../../constants/errorMessages');
 // utils
 const { createValidationError } = require('../../utils/createValidationError');
 const { isString, isValidInteger } = require('../../utils/utils');
+const { calcAverageRating } = require('../../utils/calcPlaceAvgRating');
 
 async function addCommentToPlace({ id, title, content, ownerId, rating }) {
     validateFields({ content, title, rating });
 
-    const user = await User.findById(ownerId).select('username avatarUrl').exec();
+    const user = await User.findById(ownerId)
+        .select('username avatarUrl')
+        .lean()
+        .exec();
 
     if (!user) {
         throw createValidationError(errorMessages.unauthorized, 401);
@@ -26,23 +30,7 @@ async function addCommentToPlace({ id, title, content, ownerId, rating }) {
 
     const numRate = rating > 0 ? 1 : 0;
 
-    const place = await Place.findOneAndUpdate(
-        { _id: id, commentedBy: { $ne: ownerId } },
-        {
-            $push: {
-                comments: comment._id,
-                commentedBy: ownerId,
-            },
-            $inc: {
-                'rating.numRates': numRate,
-                'rating.sumOfRates': rating,
-                __v: 1,
-            },
-        },
-        { new: true }
-    )
-        .select('rating')
-        .lean();
+    const place = await updatePlace(id, ownerId, comment, numRate, rating);
 
     if (!place) {
         throw createValidationError(errorMessages.notFound, 404);
@@ -66,6 +54,43 @@ async function addCommentToPlace({ id, title, content, ownerId, rating }) {
     };
 }
 
+async function updatePlace(id, ownerId, comment, numRate, rating) {
+    let retries = 3;
+    let delay = 100;
+
+    while (retries > 0) {
+        try {
+            const place = await Place.findOneAndUpdate(
+                { _id: id, commentedBy: { $ne: ownerId } },
+                {
+                    $push: {
+                        comments: comment._id,
+                        commentedBy: ownerId,
+                    },
+                    $inc: {
+                        'rating.numRates': numRate,
+                        'rating.sumOfRates': rating,
+                        __v: 1,
+                    },
+                },
+                { new: true }
+            ).select('rating').lean().exec();
+
+            return place;
+        } catch (err) {
+            if (err.code === 11000 && retries > 0) {
+                retries--;
+                // Retry mechanism with exponential backoff
+                delay *= 2;
+                await new Promise((resolve) => setTimeout(resolve, delay));
+                continue;
+            }
+
+            throw err;
+        }
+    }
+}
+
 function validateFields({ content, title, rating }) {
     if (!isString(content) || content.length < 10) {
         throw createValidationError(errorMessages.invalidComment, 400);
@@ -81,22 +106,3 @@ function validateFields({ content, title, rating }) {
 }
 
 module.exports = addCommentToPlace;
-
-// add comment
-
-function calcAverageRating(placeRating, commentRating) {
-    let { numRates, sumOfRates } = placeRating;
-
-    if (commentRating > 0) {
-        sumOfRates = sumOfRates + commentRating;
-        numRates = numRates + 1;
-    }
-
-    const result = +(sumOfRates / numRates).toFixed(2);
-
-    return result;
-}
-
-module.exports = addCommentToPlace;
-
-// add comment

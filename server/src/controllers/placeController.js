@@ -91,8 +91,8 @@ const delete_comment = async (req, res, next) => {
     const { ownerId } = req.user;
 
     try {
-        await deleteCommentFromPlace(id, commentId, ownerId);
-        res.json({ message: 'Comment deleted 🦖' });
+        const result = await deleteCommentFromPlace(id, commentId, ownerId);
+        res.json(result);
     } catch (err) {
         next(err);
     }

@@ -7,6 +7,7 @@ const { errorMessages } = require('../../constants/errorMessages');
 
 // utils
 const { createValidationError } = require('../../utils/createValidationError');
+const { calcAverageRating } = require('../../utils/calcPlaceAvgRating');
 
 async function deleteCommentFromPlace(placeId, commentId, ownerId) {
     if (!commentId || !isValid(commentId)) {
@@ -14,61 +15,71 @@ async function deleteCommentFromPlace(placeId, commentId, ownerId) {
     }
 
     const session = await mongoose.startSession();
+    session.startTransaction();
 
+    try {
+        const comment = await Comment.findById(commentId);
+
+        if (!comment) {
+            throw createValidationError(errorMessages.notFound, 404);
+        }
+
+        if (!comment.ownerId.equals(ownerId)) {
+            throw createValidationError(errorMessages.accessDenied, 403);
+        }
+
+        const numRate = comment.rating > 0 ? 1 : 0;
+
+        const place = await updatePlaceWithRetry(placeId, commentId, numRate, comment, session, ownerId);
+
+        if (!place) {
+            throw createValidationError(errorMessages.notFound, 404);
+        }
+        
+        // return the current avg place rating
+        const averageRating = calcAverageRating(place.rating, 0);
+
+        await Comment.findByIdAndDelete(commentId, { session });
+        await session.commitTransaction();
+
+        return {
+            averageRating,
+            message: "Comment deleted 🦖"
+        };
+    } catch (err) {
+        await session.abortTransaction();
+        throw err;
+    } finally {
+        session.endSession();
+    }
+}
+
+async function updatePlaceWithRetry(placeId, commentId, numRate, comment, session, ownerId) {
     let retries = 3;
-    let delay = 100; // initial delay of 100ms
+    let delay = 100;
 
     while (retries > 0) {
         try {
-            session.startTransaction();
-
-            const comment = await Comment.findById(commentId);
-
-            if (!comment) {
-                throw createValidationError(errorMessages.notFound, 404);
-            }
-
-            if (!comment.ownerId.equals(ownerId)) {
-                throw createValidationError(errorMessages.accessDenied, 403);
-            }
-
-            const numRate = comment.rating > 0 ? 1 : 0;
-
-            const place = await updatePlace(
-                placeId,
-                commentId,
-                numRate,
-                comment,
-                session,
-                ownerId
-            );
+            const place = await updatePlace(placeId, commentId, numRate, comment, session, ownerId);
 
             if (!place) {
                 throw createValidationError(errorMessages.notFound, 404);
             }
 
-            await Comment.findByIdAndDelete(commentId, { session });
-            await session.commitTransaction();
-
             return place;
         } catch (err) {
-            await session.abortTransaction();
-
             if (err.code === 11000 && retries > 0) {
                 retries--;
-                // exponential backoff
                 delay *= 2;
                 await new Promise((resolve) => setTimeout(resolve, delay));
                 continue;
             }
-
+            
             throw err;
-        } finally {
-            session.endSession();
         }
     }
 
-    throw createValidationError(errorMessages.couldNotDelete('this comment'), 404);
+    throw createValidationError(errorMessages.couldNotUpdate('place'), 500);
 }
 
 async function updatePlace(placeId, commentId, numRate, comment, session, ownerId) {
@@ -86,11 +97,7 @@ async function updatePlace(placeId, commentId, numRate, comment, session, ownerI
             },
         },
         { session, new: true, select: 'rating' }
-    )
-        .lean()
-        .exec();
-
-    // Mark the 'comments' field as modified to trigger versioning
+    ).lean().exec();
 }
 
 module.exports = deleteCommentFromPlace;

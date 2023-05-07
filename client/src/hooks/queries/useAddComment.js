@@ -18,6 +18,7 @@ export const useAddComment = (placeId) => {
 
             const updatedPlace = {
                 ...place,
+                hasCommented: true,
                 comments: [...place.comments, newComment],
             };
 

@@ -17,6 +17,7 @@ export const useRemoveComment = (commentId, placeId) => {
             // Update the places query data in the cache
             const updatedPlace = {
                 ...place,
+                hasCommented: false,
                 comments: place.comments.filter(
                     (comment) => comment._id != commentId
                 ),

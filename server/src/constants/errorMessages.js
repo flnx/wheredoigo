@@ -20,5 +20,6 @@ exports.errorMessages = {
     invalidCategory: 'Please select a valid category',
     invalidRating: 'Invalid rating value',
     couldNotUpdate: (fieldName) => `Couldn't update ${fieldName}`,
-    couldNotDelete: (name) => `Couldn't delete ${name}`
+    couldNotDelete: (name) => `Couldn't delete ${name}`,
+    couldNotAddComment: 'Could not add the comment. Please try again later...'
 };
