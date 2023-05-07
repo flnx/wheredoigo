@@ -33,7 +33,11 @@ async function addCommentToPlace({ id, title, content, ownerId, rating }) {
                 comments: comment._id,
                 commentedBy: ownerId,
             },
-            $inc: { 'rating.numRates': numRate, 'rating.sumOfRates': rating },
+            $inc: {
+                'rating.numRates': numRate,
+                'rating.sumOfRates': rating,
+                __v: 1,
+            },
         },
         { new: true }
     )

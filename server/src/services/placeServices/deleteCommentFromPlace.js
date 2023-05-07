@@ -43,8 +43,6 @@ async function deleteCommentFromPlace(placeId, commentId, ownerId) {
                 ownerId
             );
 
-            console.log(place);
-
             if (!place) {
                 throw createValidationError(errorMessages.notFound, 404);
             }
@@ -52,15 +50,11 @@ async function deleteCommentFromPlace(placeId, commentId, ownerId) {
             await Comment.findByIdAndDelete(commentId, { session });
             await session.commitTransaction();
 
-            return true;
+            return place;
         } catch (err) {
             await session.abortTransaction();
 
-            if (
-                err.code === 11000 &&
-                err.codeName === 'DuplicateKey' &&
-                retries > 0
-            ) {
+            if (err.code === 11000 && retries > 0) {
                 retries--;
                 // exponential backoff
                 delay *= 2;
@@ -88,10 +82,15 @@ async function updatePlace(placeId, commentId, numRate, comment, session, ownerI
             $inc: {
                 'rating.numRates': -numRate,
                 'rating.sumOfRates': -comment.rating,
+                __v: 1,
             },
         },
-        { session }
-    );
+        { session, new: true, select: 'rating' }
+    )
+        .lean()
+        .exec();
+
+    // Mark the 'comments' field as modified to trigger versioning
 }
 
 module.exports = deleteCommentFromPlace;
