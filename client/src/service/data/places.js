@@ -8,6 +8,10 @@ export const getPlace = async (id) => {
 };
 
 export const getPlaceComments = async (id, page) => {
+
+    console.log(id);
+    console.log(page);
+
     const placeData = await axios.get(apiEndpoints.placeComments(id, page));
 
     return placeData.data;

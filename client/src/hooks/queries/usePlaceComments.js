@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { queryEndpoints } from '../../constants/reactQueryEndpoints';
-import getPlaceComments from '../../../../server/src/services/placeServices/getPlaceComments';
+import { getPlaceComments } from '../../service/data/places';
 
 export const usePlaceComments = (placeId, page) => {
     const { data, error, isLoading, isPreviousData, isFetching } = useQuery({
         queryKey: [queryEndpoints.placeComments, page],
-        queryFn: () => getPlaceComments(placeId),
+        queryFn: () => getPlaceComments(placeId, page),
         keepPreviousData: true,
     });
 

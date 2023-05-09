@@ -1,15 +1,14 @@
-import { useEffect, useState } from 'react';
 import { PaginationBar } from '../PaginationBar/PaginationBar';
 import { Comment } from './Comment';
 import { useSearchParams } from 'react-router-dom';
 import { getPageFromSearchParams } from '../../../../utils/getPageFromSearchParams';
+import { usePlaceComments } from '../../../../hooks/queries/usePlaceComments';
 import styles from './Comments.module.css';
 
-export const Comments = ({ comments }) => {
-    const { hasNextPage, hasPreviousPage, totalPages } = comments;
+export const Comments = ({ placeId }) => {
     const [currentPage, setCurrentPage] = useSearchParams({});
     const page = getPageFromSearchParams(currentPage);
-    const { data, error, isLoading } = useInfiniteDestinations(page); 
+    const [comments, error, isLoading, isPreviousData, isFetching] = usePlaceComments(placeId, page);
 
     const onPageClickHandler = (value) => {
         const page = parseInt(value);
@@ -23,6 +22,12 @@ export const Comments = ({ comments }) => {
         }
     };
 
+    if (isLoading || error) {
+        return 'Loading || Error';
+    }
+
+    const { data, hasNextPage, hasPreviousPage, totalPages } = comments;
+
     return (
         <section className={styles.commentSection}>
             <header className={styles.intro}>
@@ -31,16 +36,18 @@ export const Comments = ({ comments }) => {
             </header>
 
             <div className={styles.comments}>
-                {comments.data.map((c) => (
+                {data.map((c) => (
                     <Comment comment={c} key={c._id} />
                 ))}
             </div>
             <PaginationBar
-                currentPage={98}
-                totalPages={100}
+                currentPage={page}
+                totalPages={totalPages}
                 onPageClickHandler={onPageClickHandler}
-                hasNextPage={true}
-                hasPreviousPage={true}
+                hasNextPage={hasNextPage}
+                hasPreviousPage={hasPreviousPage}
+                isPreviousData={isPreviousData}
+                isFetching={isFetching}
             />
         </section>
     );

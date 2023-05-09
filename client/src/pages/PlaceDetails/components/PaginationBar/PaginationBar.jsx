@@ -6,6 +6,8 @@ export function PaginationBar({
     onPageClickHandler,
     hasNextPage,
     hasPreviousPage,
+    isPreviousData,
+    isFetching
 }) {
     const [displayedPages, setDisplayedPages] = useState([]);
 
@@ -28,21 +30,28 @@ export function PaginationBar({
 
     return (
         <div className="pagination-bar">
-            {hasPreviousPage && (
-                <button onClick={() => onPageClickHandler(currentPage - 1)}>{'<'}</button>
-            )}
+            <button
+                onClick={() => onPageClickHandler(currentPage - 1)}
+                disabled={isPreviousData || !hasPreviousPage}
+            >
+                {'<'}
+            </button>
             {displayedPages.map((page) => (
                 <button
                     key={page}
                     onClick={() => onPageClickHandler(page)}
                     className={page === currentPage ? 'active' : ''}
+                    disabled={isFetching}
                 >
                     {page}
                 </button>
             ))}
-            {hasNextPage && (
-                <button onClick={() => onPageClickHandler(currentPage + 1)}>{'>'}</button>
-            )}
+            <button
+                onClick={() => onPageClickHandler(currentPage + 1)}
+                disabled={isPreviousData || !hasNextPage}
+            >
+                {'>'}
+            </button>
         </div>
     );
 }

@@ -30,7 +30,7 @@ export const PlaceDetails = () => {
                         <div className={styles.wrapper}>
                             <Images place={data} />
                             <Header place={data} />
-                            <Comments comments={data.comments} />
+                            <Comments placeId={placeId}/>
                             {isAuth && !hasCommented && <CommentForm />}
                         </div>
                     )}

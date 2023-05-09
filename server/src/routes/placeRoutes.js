@@ -19,12 +19,14 @@ const {
     request_place_to_edit,
     edit_place_field,
     add_place_new_images,
-    delete_place_image
+    delete_place_image,
+    place_comments
 } = require('../controllers/placeController');
 
 const router = express.Router();
 
 router.get('/places/:id', validateMongoId, checkSession, place_details);
+router.get('/places/:id/comments/', validateMongoId, checkSession, place_comments);
 router.get('/places/:id/request-edit-permissions', validateMongoId, auth, fetchPlaceAndCheckOwnership, request_place_to_edit)
 router.get('/destinations/:id/places/add', validateMongoId, auth, checkDestinationOwnershipOnly, add_new_place_request);
 

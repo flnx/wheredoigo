@@ -9,6 +9,7 @@ const addPlaceNewImages = require('../services/placeServices/addPlaceNewImages')
 
 const {allowedPlaceCategories, allowedFieldsToUpdate } = require('../constants/allowedPlaceCategories');
 const getPlaceComments = require('../services/placeServices/getPlaceComments');
+const { extractPageFromQuery } = require('../utils/extractPageFromQuery');
 
 const add_new_place = async (req, res, next) => {
     const placeInfo = req.body;
@@ -33,11 +34,7 @@ const place_details = async (req, res, next) => {
     const user = req.user;
 
     try {
-        const promises = [getPlaceById(id, user), getPlaceComments(id, user)];
-
-        const [place, comments] = await Promise.all(promises);
-        place.comments = comments;
-
+        const place = await getPlaceById(id, user);
         res.json(place);
     } catch (err) {
         next(err);
@@ -47,10 +44,12 @@ const place_details = async (req, res, next) => {
 const place_comments = async (req, res, next) => {
     const { id } = req.params;
     const user = req.user;
+    const page = extractPageFromQuery(req.query.page);
+
+    console.log(page)
 
     try {
-        const comments = await getPlaceComments(id, user);
-
+        const comments = await getPlaceComments(id, user, page);
         res.json(comments);
     } catch (err) {
         next(err);
@@ -151,6 +150,7 @@ module.exports = {
     add_new_place,
     add_new_place_request,
     place_details,
+    place_comments,
     request_place_to_edit,
     post_comment,
     delete_comment,
