@@ -9,7 +9,6 @@ const { ABOUT, BY_ID } = routeConstants.PLACES;
 
 export const Header = ({ place }) => {
     const { name, city, description, averageRating } = place;
-    console.log(place);
 
     const pageRoute = BY_ID.routePath(place._id);
 

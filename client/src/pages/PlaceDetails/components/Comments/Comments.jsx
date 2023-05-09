@@ -1,15 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PaginationBar } from '../PaginationBar/PaginationBar';
 import { Comment } from './Comment';
+import { useSearchParams } from 'react-router-dom';
+import { getPageFromSearchParams } from '../../../../utils/getPageFromSearchParams';
 import styles from './Comments.module.css';
 
 export const Comments = ({ comments }) => {
-    const [currentPage, setCurrentPage] = useState(0);
     const { hasNextPage, hasPreviousPage, totalPages } = comments;
+    const [currentPage, setCurrentPage] = useSearchParams({});
+    const page = getPageFromSearchParams(currentPage);
+    const { data, error, isLoading } = useInfiniteDestinations(page); 
 
-    const onPageClickHandler = (page) => {
-        setCurrentPage(page);
-    }
+    const onPageClickHandler = (value) => {
+        const page = parseInt(value);
+
+        if (!Number.isInteger(page) || page < 1) {
+            // if page is not a valid integer or less than 1, set default page to 1
+            setCurrentPage({});
+        } else {
+            // update current page with the new page value
+            setCurrentPage({ page });
+        }
+    };
 
     return (
         <section className={styles.commentSection}>
