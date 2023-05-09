@@ -46,8 +46,6 @@ const place_comments = async (req, res, next) => {
     const user = req.user;
     const page = extractPageFromQuery(req.query.page);
 
-    console.log(page)
-
     try {
         const comments = await getPlaceComments(id, user, page);
         res.json(comments);

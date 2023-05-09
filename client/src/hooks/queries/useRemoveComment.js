@@ -7,27 +7,8 @@ export const useRemoveComment = (commentId, placeId) => {
 
     const { mutate, isLoading, isSuccess, error } = useMutation({
         mutationFn: () => removeComment(placeId, commentId),
-        onSuccess: (result) => {
-            // Retrieve the current places data from the cache
-            const place = queryClient.getQueryData([
-                queryEndpoints.place,
-                placeId,
-            ]);
-
-            // Update the places query data in the cache
-            const updatedPlace = {
-                ...place,
-                hasCommented: false,
-                averageRating: result.averageRating,
-                comments: place.comments.filter(
-                    (comment) => comment._id != commentId
-                ),
-            };
-
-            queryClient.setQueryData(
-                [queryEndpoints.place, placeId],
-                updatedPlace
-            );
+        onSuccess: () => {
+            queryClient.invalidateQueries([queryEndpoints.placeComments, placeId]);
         },
     });
 

@@ -8,7 +8,7 @@ import styles from './Comments.module.css';
 export const Comments = ({ placeId }) => {
     const [currentPage, setCurrentPage] = useSearchParams({});
     const page = getPageFromSearchParams(currentPage);
-    const [comments, error, isLoading, isPreviousData, isFetching] = usePlaceComments(placeId, page);
+    const [comments, error, isLoading, isPreviousData, isFetching] = usePlaceComments({ placeId, page });
 
     const onPageClickHandler = (value) => {
         const page = parseInt(value);

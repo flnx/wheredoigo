@@ -7,26 +7,8 @@ export const useAddComment = (placeId) => {
 
     return useMutation({
         mutationFn: (userComment) => addComment(userComment, placeId),
-        onSuccess: (newComment) => {
-            // Retrieve the current places data from the cache
-            const place = queryClient.getQueryData([
-                queryEndpoints.place,
-                placeId,
-            ]);
-
-            // Update the places query data in the cache
-
-            const updatedPlace = {
-                ...place,
-                hasCommented: true,
-                averageRating: newComment.averageRating,
-                comments: [...place.comments, newComment],
-            };
-
-            queryClient.setQueryData(
-                [queryEndpoints.place, placeId],
-                updatedPlace
-            );
+        onSuccess: () => {
+            queryClient.invalidateQueries([queryEndpoints.placeComments, placeId]);
         },
     });
 };

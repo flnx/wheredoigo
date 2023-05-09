@@ -37,7 +37,7 @@ async function getPlaceComments(placeId, user, page) {
           ownerId: {
             _id: "6456c8b6f6e5b35a5c99ca36",
             username: "Julia",
-            avatarUrl: "https://w7.pngwing.com/pngs/574/369/png-transparent-avatar-computer-icons-user-random-icons-purple-blue-heroes.png"
+            avatarUrl: "https://randomuser.me/api/portraits/women/65.jpg"
           },
           placeId: "6457b3ee96f821ade13e034e",
           rating: 3,
