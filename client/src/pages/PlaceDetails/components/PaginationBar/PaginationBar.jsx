@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import styles from './PaginationBar.module.css';
+
 export function PaginationBar({
     currentPage,
     totalPages,
@@ -7,7 +9,7 @@ export function PaginationBar({
     hasNextPage,
     hasPreviousPage,
     isPreviousData,
-    isFetching
+    isFetching,
 }) {
     const [displayedPages, setDisplayedPages] = useState([]);
 
@@ -29,18 +31,18 @@ export function PaginationBar({
     }, [currentPage, totalPages]);
 
     return (
-        <div className="pagination-bar">
+        <div className={styles['pagination-bar']}>
             <button
                 onClick={() => onPageClickHandler(currentPage - 1)}
                 disabled={isPreviousData || !hasPreviousPage}
             >
-                {'<'}
+                {'Prev'}
             </button>
             {displayedPages.map((page) => (
                 <button
                     key={page}
                     onClick={() => onPageClickHandler(page)}
-                    className={page === currentPage ? 'active' : ''}
+                    className={page === currentPage ? styles.active : ''}
                     disabled={isFetching}
                 >
                     {page}
@@ -50,7 +52,7 @@ export function PaginationBar({
                 onClick={() => onPageClickHandler(currentPage + 1)}
                 disabled={isPreviousData || !hasNextPage}
             >
-                {'>'}
+                {'Next'}
             </button>
         </div>
     );
