@@ -16,7 +16,7 @@ async function getPlaces() {
         imageUrl: { $arrayElemAt: ['$imageUrls.imageUrl', 0] }, // selects the main image only
     };
 
-    const options = { limit: 8 };
+    const options = { limit: 9 };
 
     const places = await Place.find(query, projection, options).lean().exec();
 
