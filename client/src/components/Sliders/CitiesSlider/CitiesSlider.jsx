@@ -6,7 +6,7 @@ import { SliderCard } from './SliderCard';
 import styles from './CitiesSlider.module.css';
 import { Container } from '../../Containers/Container/Container';
 
-export const CitiesSlider = ({ destinations }) => {
+export const CitiesSlider = ({ destinations = [] }) => {
     return (
         <section>
             <Container>

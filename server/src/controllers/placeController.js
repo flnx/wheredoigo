@@ -10,6 +10,16 @@ const addPlaceNewImages = require('../services/placeServices/addPlaceNewImages')
 const {allowedPlaceCategories, allowedFieldsToUpdate } = require('../constants/allowedPlaceCategories');
 const getPlaceComments = require('../services/placeServices/getPlaceComments');
 const { extractPageFromQuery } = require('../utils/extractPageFromQuery');
+const getPlaces = require('../services/placeServices/getPlaces');
+
+const get_places = async(req, res, next) => {
+    try {
+        const places = await getPlaces();
+        res.json(places);
+    } catch(err) {
+        next(err);
+    }
+}
 
 const add_new_place = async (req, res, next) => {
     const placeInfo = req.body;
@@ -156,4 +166,5 @@ module.exports = {
     edit_place_field,
     add_place_new_images,
     delete_place_image,
+    get_places
 };

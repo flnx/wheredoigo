@@ -8,6 +8,7 @@ async function getDestinationPlaces(destinationId) {
         .select({
             name: 1,
             city: 1,
+            country: 1,
             type: 1,
             imageUrl: { $arrayElemAt: ['$imageUrls.imageUrl', 0] },
         })
@@ -17,6 +18,7 @@ async function getDestinationPlaces(destinationId) {
     places.forEach((x) => {
         x.name = capitalizeEachWord(x.name);
         x.city = capitalizeEachWord(x.name);
+        x.country = capitalizeEachWord(x.country);
     });
 
     return places;

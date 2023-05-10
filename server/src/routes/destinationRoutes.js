@@ -9,13 +9,13 @@ const validateMongoId = require('../middlewares/validateMongoId');
 
 // Controllers
 const {
-    paginated_destinations: paginated,
     destination_details: details,
     get_creator_destinations: creator_destinations,
     request_destination_to_edit: request_edit,
     edit_destination_field: edit_field,
     delete_destination_image: delete_image,
     add_destination_new_images: add_images,
+    paginated_destinations,
     get_city_data,
     delete_destination,
     add_new_destination,
@@ -23,7 +23,7 @@ const {
 
 const router = express.Router();
 
-router.get('/destinations', paginated);
+router.get('/destinations', paginated_destinations);
 router.get('/destinations/created-by-user', auth, creator_destinations);
 router.get('/destinations/:id/request-edit-permissions', validateMongoId, auth, fetchDestinationAndCheckOwnership, request_edit);
 router.get('/destinations/:id', validateMongoId, checkSession, details);

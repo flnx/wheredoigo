@@ -47,6 +47,11 @@
     -webkit-box-orient: vertical;
 }
 
+.location {
+    font-size: 1.075rem;
+    color: var(--text-links)
+}
+
 .buttons {
     display: flex;
     gap: 0.65rem;

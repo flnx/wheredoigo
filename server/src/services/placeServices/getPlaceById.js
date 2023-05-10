@@ -36,7 +36,7 @@ async function getPlaceById(placeId, user) {
 
     // calc the avg place rating
     const { sumOfRates, numRates } = rating;
-    const averageRating = +(sumOfRates / numRates).toFixed(2);
+    const averageRating = +(sumOfRates / numRates).toFixed(2) || 0;
 
     return {
         ...placeData,

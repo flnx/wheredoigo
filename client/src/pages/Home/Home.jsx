@@ -1,4 +1,4 @@
-import { useDestinations } from '../../hooks/queries/useDestinations';
+import { useDestinationsAndPlaces } from '../../hooks/queries/useDestinations';
 import { extractServerErrorMessage } from '../../utils/utils';
 
 // Components
@@ -11,23 +11,29 @@ import { TopPlaces } from './TopPlaces/TopPlaces';
 import styles from './Home.module.css';
 
 export const Home = () => {
-    const { isLoading, error, data: destinations } = useDestinations();
+    const [destinations, places] = useDestinationsAndPlaces();
 
-    return isLoading ? (
-        <p>Loading...</p>
-    ) : (
+    if (destinations.isLoading || places.isLoading) {
+        return 'Loading...';
+    }
+
+    console.log(places?.data);
+
+    return (
         <>
             <Showcase />
-            {error ? (
-                <p>{extractServerErrorMessage(error)}</p>
-            ) : (
-                <div className={styles.grid}>
-                    <CitiesSlider destinations={destinations} />
-                    <Categories />
-                    <TopPlaces />
-                    <Intro />
-                </div>
-            )}
+            <div className={styles.grid}>
+                {destinations.error ? (
+                    <p>{extractServerErrorMessage(destinations.error)}</p>
+                ) : (
+                    <CitiesSlider destinations={destinations.data} />
+                )}
+
+                <Categories />
+                <TopPlaces places={places} />
+
+                <Intro />
+            </div>
         </>
     );
 };
