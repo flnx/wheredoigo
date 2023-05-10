@@ -9,12 +9,13 @@ import { validateDestinationData } from '../../../../utils/formValidators';
 // Components
 import { SearchCity } from './components/SearchCity';
 import { Description } from './components/Description';
-import { Categories } from './components/Categories';
+import { DetailsButtons } from './components/DetailsButtons';
 import { Details } from './components/Details';
 import { UploadImagesPreview } from '../../../../components/UploadImagesPreview/UploadImagesPreview';
 import { SuccessButton } from '../../../../components/Buttons/Success-Button/SuccessButton';
 
 import styles from './AddDestination.module.css';
+import { CategoriesSelect } from './components/CategoriesSelect';
 
 export const AddDestination = () => {
     const [createDestination, createError, isLoading] = useAddNewDestination();
@@ -89,7 +90,7 @@ export const AddDestination = () => {
                     dispatchHandler={dispatchHandler}
                     images={state.imageUrls}
                 />
-                <Categories showDetailHandler={showDetailHandler} />
+                <DetailsButtons showDetailHandler={showDetailHandler} />
                 {showDetail.category && (
                     <Details
                         dispatchHandler={dispatchHandler}
@@ -97,6 +98,8 @@ export const AddDestination = () => {
                         openedDetailsCategory={openedDetailsCategory}
                     />
                 )}
+
+                <CategoriesSelect dispatchHandler={dispatchHandler} state={state} />
                 <div>
                     <SuccessButton
                         disabled={isLoading}

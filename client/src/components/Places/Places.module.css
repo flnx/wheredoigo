@@ -36,9 +36,10 @@
 }
 
 .content .placeName {
-    display: -webkit-box;
-    height: 3.4rem;
+    height: 3.25rem;
+    color: var(--text-primary);
     overflow: hidden;
+    display: -webkit-box;
     text-overflow: ellipsis;
     word-wrap: break-word;
     white-space: break-spaces;

@@ -21,6 +21,16 @@
     outline: none;
 }
 
+.select {
+    width: 100%;
+    margin-bottom: 0.33rem;
+    font-size: 1rem;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.1);
+}
+
 .form .formField:first-child {
     margin-bottom: 2rem;
 }

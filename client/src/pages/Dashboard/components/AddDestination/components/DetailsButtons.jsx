@@ -1,6 +1,6 @@
 import styles from '../AddDestination.module.css';
 
-export const Categories = ({ showDetailHandler }) => {
+export const DetailsButtons = ({ showDetailHandler }) => {
     const onDetailsClickHandler = (detailName) => {
         showDetailHandler({ category: detailName });
     };

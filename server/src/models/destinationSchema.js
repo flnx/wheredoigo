@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+
 const { errorMessages } = require('../constants/errorMessages');
+const { destinationCategories } = require('../constants/allowedDestinationCategories');
 
 const destinationSchema = new Schema({
     ownerId: {
@@ -25,6 +27,11 @@ const destinationSchema = new Schema({
         trim: true,
         minLength: [10, errorMessages.description],
         maxLength: [5000, errorMessages.description],
+    },
+    category: {
+        type: String,
+        trim: true,
+        enum: destinationCategories
     },
     details: [
         {
