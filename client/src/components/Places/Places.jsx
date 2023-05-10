@@ -21,25 +21,27 @@ export const Places = ({ places = [], onDeleteClickHandler, isOwner }) => {
                     </div>
                     <section className={styles.content}>
                         <h4 className={styles.placeName}>{name}</h4>
-                        {averageRating !== undefined && <StarRating averageRating={averageRating} />}
+                        {averageRating !== undefined && (
+                            <StarRating averageRating={averageRating} />
+                        )}
                         <span className={styles.location}>
                             {city}, {country}
                         </span>
-                        {isOwner && (
-                            <div className={styles.buttons}>
-                                <LinkButtonSuccess to={EDIT.routePath(_id)}>
-                                    Edit
-                                </LinkButtonSuccess>
-                                <WarningButton
-                                    onClickHandler={() => onDeleteClickHandler(_id)}
-                                >
-                                    Delete
-                                </WarningButton>
-                            </div>
-                        )}
+                        {isOwner && <OwnerButtons _id={_id}/>}
                     </section>
                 </div>
             ))}
+        </div>
+    );
+};
+
+const OwnerButtons = (_id) => {
+    return (
+        <div className={styles.buttons}>
+            <LinkButtonSuccess to={EDIT.routePath(_id)}>Edit</LinkButtonSuccess>
+            <WarningButton onClickHandler={() => onDeleteClickHandler(_id)}>
+                Delete
+            </WarningButton>
         </div>
     );
 };

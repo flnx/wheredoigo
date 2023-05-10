@@ -9,6 +9,7 @@ export const useRemoveComment = (commentId, placeId) => {
         mutationFn: () => removeComment(placeId, commentId),
         onSuccess: () => {
             queryClient.invalidateQueries([queryEndpoints.placeComments, placeId]);
+            queryClient.invalidateQueries([queryEndpoints.places]);
         },
     });
 

@@ -1,6 +1,7 @@
 :root {
     --app-background-color: #ecdbcc;
     --background: #fff;
+    --card: #fff;
     --dashboard-background: #fff;
     --dashboard-title-background: #faf5ee;
     --gallery-background-black: #000;
@@ -50,6 +51,9 @@
         0 16px 16px hsl(0deg 0% 0% / 0.045);
     --minimalistic-box-shadow: 0 0 0 2px rgba(218, 102, 123, 1), 8px 8px 0 0 rgba(218, 102, 123, 1);
     --box-shadow-ease: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1);
+
+
+    --fs-header-big: 1.6875rem;
 }
 
 body {

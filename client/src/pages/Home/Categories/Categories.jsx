@@ -1,11 +1,12 @@
 import { Container } from '../../../components/Containers/Container/Container';
 import styles from './Categories.module.css';
+import homeStyles from '../Home.module.css';
 
 export const Categories = () => {
     return (
         <section>
             <Container>
-                <h2 className={styles.title}>Categories</h2>
+                <h2 className={homeStyles.title}>Have something in mind..?</h2>
                 <div className={styles.categories}>
                     <Category>Lake</Category>
                     <Category>Beach</Category>

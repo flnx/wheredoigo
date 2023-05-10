@@ -9,6 +9,7 @@ export const useAddComment = (placeId) => {
         mutationFn: (userComment) => addComment(userComment, placeId),
         onSuccess: () => {
             queryClient.invalidateQueries([queryEndpoints.placeComments, placeId]);
+            queryClient.invalidateQueries([queryEndpoints.places]);
         },
     });
 };

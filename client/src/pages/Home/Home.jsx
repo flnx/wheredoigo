@@ -17,8 +17,6 @@ export const Home = () => {
         return 'Loading...';
     }
 
-    console.log(places?.data);
-
     return (
         <>
             <Showcase />
@@ -28,7 +26,6 @@ export const Home = () => {
                 ) : (
                     <CitiesSlider destinations={destinations.data} />
                 )}
-
                 <Categories />
                 <TopPlaces places={places} />
 
