@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDeletePlace } from '../../../../hooks/queries/useDeletePlace';
 
 // Components
-import { Place } from '../../../../components/Place/Place';
+import { Places } from '../../../../components/Places/Places';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 import { LinkButtonSecondary } from '../../../../components/Buttons/Secondary-Btn/LinkButtonSecondary';
 
@@ -40,19 +40,16 @@ export const PlacesShowcase = ({ places, destinationId }) => {
 
             {!hasPlaces && <p>No places have been added yet.</p>}
 
-            <div className={styles['places-container']}>
-                {places.map((place) => (
-                    <Place
-                        place={place}
-                        onDeleteClickHandler={onDeleteClickOpenConfirmModalHandler}
-                        key={place._id}
-                    />
-                ))}
-            </div>
+            <Places
+                places={places}
+                onDeleteClickHandler={onDeleteClickOpenConfirmModalHandler}
+                isOwner={true}
+            />
 
             <LinkButtonSecondary to={PLACES.ADD.routePath(destinationId)}>
                 {PLACES.ADD.name}
             </LinkButtonSecondary>
+
             {openModal && (
                 <ConfirmModal
                     onCloseHandler={handleCloseConfirmModal}

@@ -1,13 +1,12 @@
 import { useDestinations } from '../../hooks/queries/useDestinations';
+import { extractServerErrorMessage } from '../../utils/utils';
 
 // Components
 import { Showcase } from './Showcase/Showcase';
 import { CitiesSlider } from '../../components/Sliders/CitiesSlider/CitiesSlider';
 import { Categories } from './Categories/Categories';
 import { Intro } from './Intro/Intro';
-import { Destinations } from './Destinations/Destinations';
-
-import { extractServerErrorMessage } from '../../utils/utils';
+import { TopPlaces } from './TopPlaces/TopPlaces';
 
 import styles from './Home.module.css';
 
@@ -25,7 +24,7 @@ export const Home = () => {
                 <div className={styles.grid}>
                     <CitiesSlider destinations={destinations} />
                     <Categories />
-                    <Destinations />
+                    <TopPlaces />
                     <Intro />
                 </div>
             )}

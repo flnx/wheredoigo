@@ -13,6 +13,8 @@ export const useAddNewPlace = (destinationId) => {
                 destinationId,
             ]);
 
+            queryClient.invalidateQueries([queryEndpoints.places]);
+
             queryClient.invalidateQueries([
                 queryEndpoints.editDestination,
                 destinationId,

@@ -8,6 +8,10 @@
     padding: 0rem 0.65rem 0.65rem;
 }
 
+.content h3 {
+    margin-bottom: 2px;
+}
+
 .image {
     cursor: grab;
     width: 100%;

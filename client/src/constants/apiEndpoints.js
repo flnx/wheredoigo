@@ -17,6 +17,7 @@ export const apiEndpoints = {
     changeAvatar: 'change-avatar',
     getCity: 'destinations/get-city-data',
 
+    places: `places`,
     placeById: (id) => `places/${id}`,
     placeComments: (id, page) => `places/${id}/comments?page=${page}`,
     addPlace: (destinationId) => `destinations/${destinationId}/places/add`,

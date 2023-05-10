@@ -1,6 +1,12 @@
 import axios from '../Axios';
 import { apiEndpoints } from '../../constants/apiEndpoints';
 
+export const getPlaces = async () => {
+    const res = await axios.get(apiEndpoints.places);
+
+    return res.data;
+}
+
 export const getPlace = async (id) => {
     const placeData = await axios.get(apiEndpoints.placeById(id));
 

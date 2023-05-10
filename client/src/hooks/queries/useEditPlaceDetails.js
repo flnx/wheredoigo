@@ -51,6 +51,8 @@ export const useEditPlaceDetails = (placeId) => {
                 );
             }
 
+            queryClient.invalidateQueries([queryEndpoints.places]);
+
             queryClient.invalidateQueries([
                 queryEndpoints.destination,
                 destinationId,
