@@ -3,6 +3,7 @@ const validator = require('validator');
 const { allowedPlaceCategories } = require('../constants/allowedPlaceCategories');
 const { errorMessages } = require('../constants/errorMessages');
 const { createValidationError } = require('./createValidationError');
+const { isString } = require('./utils');
 
 function validateFields(placeData) {
     const isFieldEmpty = Object.values(placeData).some((x) => !x);
@@ -10,20 +11,30 @@ function validateFields(placeData) {
     if (isFieldEmpty) {
         throw createValidationError(errorMessages.missingFields, 400);
     }
+    
+    if (placeData.city && !isString(placeData.city)) {
+        throw createValidationError(errorMessages.missingFields, 400);
+    }
+
+    if (placeData.description && !isString(placeData.description)) {
+        throw createValidationError(errorMessages.missingFields, 400);
+    }
+
+    if (placeData.category && !isString(placeData.category)) {
+        throw createValidationError(errorMessages.missingFields, 400);
+    }
+
+    return true;
 }
 
 function validateFieldsOnEdit(data) {
     const { description, infoId, categoryId } = data;
 
-    if (typeof description !== 'string') {
+    if (!isString(description) || !isString(infoId)) {
         throw createValidationError(errorMessages.invalidBody, 400);
     }
 
-    if (typeof infoId !== 'string') {
-        throw createValidationError(errorMessages.invalidBody, 400);
-    }
-    
-    if (categoryId && typeof categoryId !== 'string') {
+    if (categoryId && isString(categoryId)) {
         throw createValidationError(errorMessages.invalidBody, 400);
     }
 

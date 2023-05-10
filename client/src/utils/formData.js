@@ -6,6 +6,7 @@ export const createDestinationFormData = async (state) => {
     formData.append('city', state.city);
     formData.append('country', state.country);
     formData.append('description', state.description);
+    formData.append('category', state.category);
     formData.append('details', JSON.stringify(state.details));
 
     await createImageFiles(state.imageUrls, formData);

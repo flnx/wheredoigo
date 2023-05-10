@@ -1,10 +1,8 @@
 const Destination = require('../../models/destinationSchema');
 const Country = require('../../models/countrySchema');
-const { errorMessages } = require('../../constants/errorMessages');
 
 // utils
 const { validateFields } = require('../../utils/validateFields');
-const { createValidationError } = require('../../utils/createValidationError');
 const { addImages } = require('../../utils/cloudinaryUploader');
 
 // Services
@@ -13,29 +11,19 @@ const { fetchCity, fetchCountry } = require('../getCityCountryData');
 async function createDestination(data, images, user) {
     const { ownerId } = user;
 
+    console.log(data);
+
     const destinationData = {
         city: data.city,
         description: data.description,
         details: JSON.parse(data.details) || [],
+        category: data.category,
     };
 
     validateFields(destinationData);
+
     const cityData = await fetchCity(data.city);
-
-    if (!Array.isArray(cityData) || !cityData[0].name) {
-        throw createValidationError(errorMessages.notFound, 404);
-    }
-
-    const countryData = await fetchCountry(cityData[0].country);
-    const countryName = countryData[0].name;
-
-    let country = await Country.findOne({
-        name: countryName.toLowerCase(),
-    }).exec();
-
-    if (!country) {
-        country = await Country.create({ name: countryName });
-    }
+    const country = await addCountry(cityData);
 
     const destination = await Destination.create({
         ...destinationData,
@@ -54,6 +42,23 @@ async function createDestination(data, images, user) {
         _id: destination._id,
         imgError,
     };
+
+    async function addCountry(cityData) {
+        const countryData = await fetchCountry(cityData[0].country);
+        const countryName = countryData[0].name;
+
+        let checkCountryInDB = await Country.findOne({
+            name: countryName.toLowerCase(),
+        })
+            .lean()
+            .exec();
+
+        if (!checkCountryInDB) {
+            checkCountryInDB = await Country.create({ name: countryName });
+        }
+
+        return checkCountryInDB;
+    }
 }
 
 module.exports = createDestination;

@@ -1,8 +1,15 @@
+const { errorMessages } = require('../constants/errorMessages');
+const { createValidationError } = require('../utils/createValidationError');
+
 require('dotenv').config();
 
 async function fetchCity(city) {
     const result = await fetch(process.env.CITY_URL + city, options());
     const data = await result.json();
+
+    if (!Array.isArray(data) || !data[0].name) {
+        throw createValidationError(errorMessages.notFound, 404);
+    }
 
     return data;
 }

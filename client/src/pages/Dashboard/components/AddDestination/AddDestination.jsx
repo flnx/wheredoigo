@@ -16,6 +16,7 @@ import { SuccessButton } from '../../../../components/Buttons/Success-Button/Suc
 
 import styles from './AddDestination.module.css';
 import { CategoriesSelect } from './components/CategoriesSelect';
+import { extractServerErrorMessage } from '../../../../utils/utils';
 
 export const AddDestination = () => {
     const [createDestination, createError, isLoading] = useAddNewDestination();
