@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg width="800px" height="800px" viewBox="0 0 64 64" id="Layer_1_1_" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g>
+<polygon points="62,7 58,5 54,7 54,10 50,10 50,7 46,5 40,7 40,10 36,10 36,4 32,2 28,4 28,10 24,10 24,7    18,5 14,7 14,10 10,10 10,7 6,5 2,7 2,62 62,62  " style="fill:#F0D0B4;"/>
+<rect height="2" style="fill:#ECC19C;" width="60" x="2" y="20"/>
+<rect height="52" style="fill:#ECC19C;" width="2" x="12" y="10"/>
+<rect height="52" style="fill:#ECC19C;" width="2" x="50" y="10"/>
+<rect height="52" style="fill:#F5E0CD;" width="36" x="14" y="10"/>
+<polygon points="54,7 54,10 50,10 50,7 46,5 40,7 40,10 36,10 36,4 32,2 28,4 28,10 24,10 24,7 18,5 14,7    14,10 10,10 10,7 6,5 2,7 2,20 62,20 62,7 58,5  " style="fill:#DFB28B;"/>
+<path d="M20,62V38c0-3.314,2.686-6,6-6h12c3.314,0,6,2.686,6,6v24H20z" style="fill:#CF9E76;"/>
+<rect height="24" style="fill:#B27946;" width="12" x="26" y="38"/>
+<path d="M62,27v-2h-3v-5h-2v5h-2v-5h-2v5h-3v2h5v4h-5v2h3v4h-3v2h5v4h-5v2h3v4h-3v2h5v4h-5v2h3v5h2v-5h2v5h2   v-5h3v-2h-5v-4h5v-2h-3v-4h3v-2h-5v-4h5v-2h-3v-4h3v-2h-5v-4H62z M57,49h-2v-4h2V49z M57,37h-2v-4h2V37z" style="fill:#DFB28B;"/>
+<path d="M11,20H9v5H7v-5H5v5H2v2h5v4H2v2h3v4H2v2h5v4H2v2h3v4H2v2h5v4H2v2h3v5h2v-5h2v5h2v-5h3v-2H9v-4h5v-2   h-3v-4h3v-2H9v-4h5v-2h-3v-4h3v-2H9v-4h5v-2h-3V20z M9,49H7v-4h2V49z M9,37H7v-4h2V37z" style="fill:#DFB28B;"/>
+<rect height="4" style="fill:#AAB2BD;" width="14" x="25" y="24"/>
+<rect height="6" style="fill:#CF9E76;" width="4" x="20" y="14"/>
+<rect height="6" style="fill:#CF9E76;" width="4" x="30" y="14"/>
+<rect height="6" style="fill:#CF9E76;" width="4" x="40" y="14"/>
+<rect height="2" style="fill:#F0D0B4;" width="36" x="14" y="20"/>
+<rect height="2" style="fill:#CF9E76;" width="2" x="12" y="49"/>
+<rect height="2" style="fill:#CF9E76;" width="2" x="12" y="43"/>
+<rect height="2" style="fill:#CF9E76;" width="2" x="12" y="55"/>
+<rect height="2" style="fill:#CF9E76;" width="2" x="12" y="31"/>
+<rect height="2" style="fill:#CF9E76;" width="2" x="12" y="37"/>
+<rect height="2" style="fill:#CF9E76;" width="2" x="12" y="25"/>
+<rect height="2" style="fill:#CF9E76;" width="2" x="50" y="49"/>
+<rect height="2" style="fill:#CF9E76;" width="2" x="50" y="43"/>
+<rect height="2" style="fill:#CF9E76;" width="2" x="50" y="55"/>
+<rect height="2" style="fill:#CF9E76;" width="2" x="50" y="31"/>
+<rect height="2" style="fill:#CF9E76;" width="2" x="50" y="37"/>
+<rect height="2" style="fill:#CF9E76;" width="2" x="50" y="25"/>
+<rect height="10" style="fill:#CF9E76;" width="2" x="50" y="10"/>
+<rect height="10" style="fill:#CF9E76;" width="2" x="12" y="10"/>
+</g>
+</svg>

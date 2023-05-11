@@ -11,8 +11,6 @@ const { fetchCity, fetchCountry } = require('../getCityCountryData');
 async function createDestination(data, images, user) {
     const { ownerId } = user;
 
-    console.log(data);
-
     const destinationData = {
         city: data.city,
         description: data.description,

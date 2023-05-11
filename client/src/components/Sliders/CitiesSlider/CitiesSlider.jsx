@@ -2,9 +2,9 @@ import { SwiperSlide } from 'swiper/react';
 
 import { SliderWrapper } from './SwiperSettings';
 import { SliderCard } from './SliderCard';
+import { Container } from '../../Containers/Container/Container';
 
 import styles from './CitiesSlider.module.css';
-import { Container } from '../../Containers/Container/Container';
 
 export const CitiesSlider = ({ destinations = [] }) => {
     return (

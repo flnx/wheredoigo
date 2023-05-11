@@ -2,18 +2,19 @@ import { Container } from '../../../components/Containers/Container/Container';
 import styles from './Categories.module.css';
 import homeStyles from '../Home.module.css';
 
-export const Categories = () => {
+export const Categories = ({ categories = [] }) => {
     return (
         <section>
             <Container>
                 <h2 className={homeStyles.title}>Have something in mind..?</h2>
                 <div className={styles.categories}>
-                    <Category>Lake</Category>
-                    <Category>Beach</Category>
-                    <Category>Mountain</Category>
-                    <Category>History</Category>
-                    <Category>Snow</Category>
-                    <Category>Summer</Category>
+                    {categories.map((categoryName) => (
+                        <Category
+                            key={categoryName}
+                        >
+                            {categoryName}
+                        </Category>
+                    ))}
                 </div>
             </Container>
         </section>
@@ -22,7 +23,7 @@ export const Categories = () => {
 
 export const Category = ({ children: categoryName }) => {
     return (
-        <div className={styles.card}>
+        <div className={`${styles.card} ${styles[categoryName]}`}>
             <span>{categoryName}</span>
         </div>
     );

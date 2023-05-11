@@ -28,38 +28,40 @@
     transform: scale(1.025);
 }
 
-.categories div:nth-child(1) {
+.categories .Beach {
     background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.7)),
-        url('https://images.pexels.com/photos/516863/pexels-photo-516863.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
-            no-repeat 50% 50% / cover;
-}
-.categories div:nth-child(2) {
-    background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.7)),
-        url('https://images.pexels.com/photos/1049298/pexels-photo-1049298.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
+        url("https://images.pexels.com/photos/1049298/pexels-photo-1049298.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")
             no-repeat 80% 100% / cover;
 }
-.categories div:nth-child(3) {
+
+.categories .Mountains {
     background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.7)),
-        url('https://images.pexels.com/photos/913215/pexels-photo-913215.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
+        url("https://images.pexels.com/photos/913215/pexels-photo-913215.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")
             no-repeat 100% 100% / cover;
 }
 
-.categories div:nth-child(4) {
+.categories .Cultural {
     background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.7)),
-        url('https://images.pexels.com/photos/1624735/pexels-photo-1624735.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
+        url("https://images.pexels.com/photos/1624735/pexels-photo-1624735.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")
             no-repeat 50% 20% / cover;
 }
 
-.categories div:nth-child(5) {
+.categories .Snow {
     background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.7)),
-        url('https://images.pexels.com/photos/2097087/pexels-photo-2097087.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
-            no-repeat 50% 65% / cover;
+        url("https://images.pexels.com/photos/2097087/pexels-photo-2097087.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")
+            no-repeat 50% 62% / cover;
 }
 
-.categories div:nth-child(6) {
+.categories .Islands {
     background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.7)),
-        url('https://images.pexels.com/photos/67566/palm-tree-palm-ocean-summer-67566.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
-            no-repeat 100% 100% / cover;
+        url("https://images.pexels.com/photos/2549017/pexels-photo-2549017.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")
+            no-repeat 50% 100% / cover;
+}
+
+.categories .Adventure {
+    background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.7)),
+        url("https://images.pexels.com/photos/1230302/pexels-photo-1230302.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")
+            no-repeat 100% 50% / cover;
 }
 
 @media (min-width: 40em) {

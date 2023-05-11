@@ -9,6 +9,7 @@ const getDestinationsPaginated = require('../services/destinationServices/getDes
 const getDestinationPlaces = require('../services/placeServices/getDestinationPlaces');
 
 const { fetchCity } = require('../services/getCityCountryData');
+const { destinationCategories } = require('../constants/allowedDestinationCategories');
 
 const paginated_destinations = async (req, res, next) => {
     const page = parseInt(req.query.page) || 0;
@@ -17,7 +18,10 @@ const paginated_destinations = async (req, res, next) => {
 
     try {
         const destinations = await getDestinationsPaginated(page, limit, search);
-        res.json(destinations);
+        res.json({
+            result: destinations,
+            allowedCategories: destinationCategories
+        });
     } catch (err) {
         next(err);
     }
@@ -77,6 +81,7 @@ const get_creator_destinations = async (req, res, next) => {
 
 const request_destination_to_edit = async (req, res, next) => {
     const destination = req.destination;
+    destination.allowedCategories = destinationCategories;
     res.json(destination);
 };
 

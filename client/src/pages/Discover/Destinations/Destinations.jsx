@@ -23,7 +23,7 @@ export const Destinations = ({ searchParams }) => {
             </div>
             <div className={styles.destinations}>
                 {data.pages
-                    .flatMap((arr) => arr)
+                    .flatMap((arr) => arr.result)
                     .map((destination) => (
                         <Destination key={destination._id} destination={destination} />
                     ))}

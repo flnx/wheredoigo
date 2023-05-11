@@ -24,9 +24,9 @@ export const Home = () => {
                 {destinations.error ? (
                     <p>{extractServerErrorMessage(destinations.error)}</p>
                 ) : (
-                    <CitiesSlider destinations={destinations.data} />
+                    <CitiesSlider destinations={destinations?.data?.result} />
                 )}
-                <Categories />
+                <Categories categories={destinations?.data?.allowedCategories}/>
                 <TopPlaces places={places} />
 
                 <Intro />

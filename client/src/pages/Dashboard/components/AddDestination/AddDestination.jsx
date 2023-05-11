@@ -13,10 +13,13 @@ import { DetailsButtons } from './components/DetailsButtons';
 import { Details } from './components/Details';
 import { UploadImagesPreview } from '../../../../components/UploadImagesPreview/UploadImagesPreview';
 import { SuccessButton } from '../../../../components/Buttons/Success-Button/SuccessButton';
-
-import styles from './AddDestination.module.css';
 import { CategoriesSelect } from './components/CategoriesSelect';
+
 import { extractServerErrorMessage } from '../../../../utils/utils';
+
+import routeConstants from '../../../../constants/routeConstants';
+import styles from './AddDestination.module.css';
+
 
 export const AddDestination = () => {
     const [createDestination, createError, isLoading] = useAddNewDestination();
@@ -25,7 +28,7 @@ export const AddDestination = () => {
     const [errorMessages, setErrorMessages] = useState([]);
     const [validCity, setValidCity] = useState(false);
     const navigate = useNavigate();
-
+    
     const dispatchHandler = (actions) => {
         dispatch(actions);
     };
@@ -45,16 +48,19 @@ export const AddDestination = () => {
 
         const errors = validateDestinationData(state, validCity);
         setErrorMessages(errors);
-
+        
         if (errors.length > 0) {
             return;
         }
-
+        
         const formData = await createDestinationFormData(state);
-
+        
         createDestination(formData, {
             onSuccess: (newDestination) => {
-                navigate(`/destinations/${newDestination._id}`);
+                const { _id } = newDestination;
+                const { DESTINATIONS } = routeConstants;
+                
+                navigate(DESTINATIONS.BY_ID.routePath(_id));
             },
         });
     };
@@ -69,6 +75,7 @@ export const AddDestination = () => {
 
     const openedDetailsCategory = state.details.find((x) => x.category == showDetail.category);
     const errorMessage = createError && extractServerErrorMessage(createError);
+
 
     return (
         <div className={styles.container}>

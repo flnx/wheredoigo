@@ -1,4 +1,4 @@
-const destinationCategories = ['Beach', 'Nature', 'Cultural', 'Snow', 'Islands', 'Adventure'];
+const destinationCategories = ['Beach', 'Mountains', 'Cultural', 'Snow', 'Islands', 'Adventure'];
 
 module.exports = {
     destinationCategories,
