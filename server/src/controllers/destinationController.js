@@ -9,18 +9,31 @@ const getDestinationsPaginated = require('../services/destinationServices/getDes
 const getDestinationPlaces = require('../services/placeServices/getDestinationPlaces');
 
 const { fetchCity } = require('../services/getCityCountryData');
-const { destinationCategories } = require('../constants/allowedDestinationCategories');
+const {
+    destinationCategories,
+} = require('../constants/allowedDestinationCategories');
 
 const paginated_destinations = async (req, res, next) => {
     const page = parseInt(req.query.page) || 0;
     const limit = 9;
     const search = req.query.search;
+    let categories = req.query.categories;
 
     try {
-        const destinations = await getDestinationsPaginated(page, limit, search);
+        if (categories) {
+            categories = JSON.parse(categories);
+        }
+
+        const destinations = await getDestinationsPaginated(
+            page,
+            limit,
+            search,
+            categories
+        );
+
         res.json({
             result: destinations,
-            allowedCategories: destinationCategories
+            allowedCategories: destinationCategories,
         });
     } catch (err) {
         next(err);

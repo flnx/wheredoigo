@@ -22,9 +22,9 @@ export const CategoriesNav = ({ onCategoryClickHandler }) => {
             <div>
                 <Culture
                     className={styles.icon}
-                    onClick={() => onCategoryClickHandler('Culture')}
+                    onClick={() => onCategoryClickHandler('Cultural')}
                 />
-                <span>Culture</span>
+                <span>Cultural</span>
             </div>
             <div>
                 <Islands

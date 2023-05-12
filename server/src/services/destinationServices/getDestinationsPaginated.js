@@ -1,43 +1,59 @@
 const Destination = require('../../models/destinationSchema');
 const capitalizeEachWord = require('../../utils/capitalizeWords');
+const { validateCategories } = require('../../utils/validateFields');
 
-async function getDestinationsPaginated(page, limit, searchParams) {
+async function getDestinationsPaginated(page, limit, searchParams, categories) {
     let regex = new RegExp(searchParams, 'i');
 
-    const destinations = await Destination.aggregate([
-        {
-            $lookup: {
-                from: 'countries',
-                localField: 'country',
-                foreignField: '_id',
-                as: 'country',
+    const filteredCategories = validateCategories(categories);
+
+    const lookupStage = {
+        $lookup: {
+            from: 'countries',
+            localField: 'country',
+            foreignField: '_id',
+            as: 'country',
+        },
+    };
+
+    const unwindStage = { $unwind: '$country' };
+
+    const matchStage = {
+        $match: {
+            $or: [
+                { city: { $regex: regex } },
+                { 'country.name': { $regex: regex } },
+            ],
+        },
+    };
+
+    if (filteredCategories.length > 0) {
+        matchStage.$match.category = { $in: filteredCategories };
+    }
+
+    const projectStage = {
+        $project: {
+            'country.name': 1,
+            imageUrls: {
+                $ifNull: [{ $arrayElemAt: ['$imageUrls', 0] }, []],
             },
+            city: 1,
         },
-        { $unwind: '$country' },
-        {
-            $match: {
-                $or: [
-                    { city: { $regex: regex } },
-                    { 'country.name': { $regex: regex } },
-                ],
-            },
-        },
-        {
-            $project: {
-                'country.name': 1,
-                imageUrls: {
-                    $ifNull: [{ $arrayElemAt: ['$imageUrls', 0] }, []],
-                },
-                city: 1,
-            },
-        },
-        {
-            $skip: page,
-        },
-        {
-            $limit: limit,
-        },
-    ]).exec();
+    };
+
+    const skipStage = { $skip: page };
+    const limitStage = { $limit: limit };
+
+    const pipeline = [
+        lookupStage,
+        unwindStage,
+        matchStage,
+        projectStage,
+        skipStage,
+        limitStage,
+    ];
+
+    const destinations = await Destination.aggregate(pipeline).exec();
 
     destinations.forEach((x) => {
         x.city = capitalizeEachWord(x.city);

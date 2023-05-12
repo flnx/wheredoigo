@@ -8,12 +8,13 @@ import { Container } from '../../components/Containers/Container/Container';
 import { HashTagCategories } from '../../components/HashTagCategories/HashTagCategories';
 
 import styles from './Discover.module.css';
+import { validateCategories } from '../../utils/formValidators';
 
 export const Discover = () => {
     const [searchParams, setSearchParams] = useSearchParams({});
 
     const searchParam = searchParams.get('search') || '';
-    const categories = searchParams.getAll('category') || [];
+    const categories = validateCategories(searchParams);
 
     const handleSearchParams = (e, newSearch) => {
         e.preventDefault();
