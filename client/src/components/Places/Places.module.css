@@ -28,9 +28,7 @@
 
 .content {
     width: calc(60% - 1.55rem);
-    padding: 0.45rem 0;
     display: flex;
-    gap: 0.35rem;
     flex-direction: column;
     justify-content: space-between;
 }
@@ -62,4 +60,5 @@
 .buttons {
     display: flex;
     gap: 0.65rem;
+    margin-top: 0.35rem;
 }

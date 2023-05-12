@@ -27,7 +27,12 @@ export const Places = ({ places = [], onDeleteClickHandler, isOwner }) => {
                         <span className={styles.location}>
                             {city}, {country}
                         </span>
-                        {isOwner && <OwnerButtons _id={_id}/>}
+                        {isOwner && (
+                            <OwnerButtons
+                                _id={_id}
+                                onDeleteClickHandler={onDeleteClickHandler}
+                            />
+                        )}
                     </section>
                 </div>
             ))}
@@ -35,7 +40,7 @@ export const Places = ({ places = [], onDeleteClickHandler, isOwner }) => {
     );
 };
 
-const OwnerButtons = (_id) => {
+const OwnerButtons = ({ _id, onDeleteClickHandler }) => {
     return (
         <div className={styles.buttons}>
             <LinkButtonSuccess to={EDIT.routePath(_id)}>Edit</LinkButtonSuccess>
