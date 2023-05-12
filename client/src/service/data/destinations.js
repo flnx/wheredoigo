@@ -61,11 +61,13 @@ export const deleteDestination = async (destinationId) => {
     return result.data;
 };
 
-export const getDestinationsPaginated = async ({ pageParam, queryKey }) => {
-    const searchParams = queryKey[2] || '';
+export const getDestinationsPaginated = async (d) => {
+    // const searchParams = queryKey[2] || '';
+
+    console.log(d);
 
     const destinations = await axios.get(
-        apiEndpoints.destinationsByPage(searchParams, pageParam)
+        apiEndpoints.destinationsByPage("", 0)
     );
 
     return destinations.data;

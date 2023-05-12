@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 // Components
@@ -11,28 +10,49 @@ import { HashTagCategories } from '../../components/HashTagCategories/HashTagCat
 import styles from './Discover.module.css';
 
 export const Discover = () => {
-    const [searchParams, setSearchParams] = useSearchParams('');
-    const [hashTagCategories, setHashTagCategories] = useState([]);
+    const [searchParams, setSearchParams] = useSearchParams({});
 
-    const handleSearchParams = (e, value) => {
+    const searchParam = searchParams.get('search') || '';
+    const categories = searchParams.getAll('category') || [];
+
+    const handleSearchParams = (e, newSearch) => {
         e.preventDefault();
-        const searchQuery = value ? { search: value } : {};
 
-        setSearchParams(searchQuery);
+        const updatedParams = {
+            category: categories,
+        };
+
+        if (newSearch) {
+            updatedParams.search = newSearch;
+        }
+
+        setSearchParams(updatedParams);
     };
 
     const onHashTagClickHandler = (hashTag) => {
-        setHashTagCategories((prev) => prev.filter((tag) => tag !== hashTag));
+        const updatedParams = {
+            category: categories.filter((tag) => tag !== hashTag),
+        };
+
+        if (searchParam) {
+            updatedParams.search = searchParam;
+        }
+
+        setSearchParams(updatedParams);
     };
 
     const onCategoryClickHandler = (category) => {
-        setHashTagCategories((prev) => {
-            if (prev.includes(category)) {
-                return prev;
-            }
+        if (categories.includes(category)) return;
 
-            return [...prev, category];
-        });
+        const updatedParams = {
+            category: [...categories, category],
+        };
+
+        if (searchParam) {
+            updatedParams.search = searchParam;
+        }
+
+        setSearchParams(updatedParams);
     };
 
     return (
@@ -41,11 +61,11 @@ export const Discover = () => {
                 <h1>Where do you want to go?</h1>
                 <SearchBar searchParamsHandler={handleSearchParams} />
                 <HashTagCategories
-                    tags={hashTagCategories}
+                    tags={categories}
                     onHashTagClickHandler={onHashTagClickHandler}
                 />
                 <CategoriesNav onCategoryClickHandler={onCategoryClickHandler} />
-                <Destinations searchParams={searchParams?.get('search')} />
+                <Destinations searchParam={searchParam} categoryParams={categories.join()} />
             </div>
         </Container>
     );

@@ -3,14 +3,15 @@ import { Destination } from './Destination';
 
 import styles from './Destinations.module.css';
 
-export const Destinations = ({ searchParams }) => {
+export const Destinations = ({ searchParam, categoryParams }) => {
     const { 
         data, 
         fetchNextPage, 
         hasNextPage, 
         isFetchingNextPage, 
         isLoading 
-    } = useInfiniteDestinations(searchParams);
+    } = useInfiniteDestinations(searchParam, categoryParams);
+
 
     const loadingClass = (isFetchingNextPage || !hasNextPage) && styles.loading;
 
