@@ -22,8 +22,8 @@ async function deletePlace(placeId, userId) {
 
     // get correct cloudinary folder name
     const path = 'places';
-    let { name } = place;
-    const folderName = extractCloudinaryFolderName(path, name, placeId);
+    let { city } = place;
+    const folderName = extractCloudinaryFolderName(path, city, placeId);
 
     // extract all cloudinary public ids for the specific place
     const image_ids = place.imageUrls.map(({ public_id, ...rest }) => public_id);

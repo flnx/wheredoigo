@@ -28,7 +28,7 @@ export const AddDestination = () => {
     const [errorMessages, setErrorMessages] = useState([]);
     const [validCity, setValidCity] = useState(false);
     const navigate = useNavigate();
-    
+
     const dispatchHandler = (actions) => {
         dispatch(actions);
     };

@@ -10,10 +10,11 @@ async function addPlaceNewImages(placeId, imgFiles, place) {
         throw createValidationError(errorMessages.invalidImages, 400);
     }
 
-    const { name } = place;
+    console.log(place);
+    const { city } = place;
 
     const folderName = 'places';
-    const data = { name, _id: placeId };
+    const data = { city, _id: placeId };
 
     const imagesData = await addImages(imgFiles, data, folderName);
     const images = imagesData.imageUrls;

@@ -10,9 +10,8 @@ async function addImages(images, obj, folderName) {
     let imgError = null;
 
     try {
-        const objName = obj.name || obj.city;
         const folder_type = folderName;
-        const folder_name = fixInvalidFolderNameChars(objName, obj._id);
+        const folder_name = fixInvalidFolderNameChars(obj.city, obj._id);
 
         const cloudinaryImagesData = await handleImageUploads(
             images,
@@ -74,7 +73,7 @@ function uploadImageToCloudinary(imageBuffer, options = {}) {
 
 async function deleteMultipleImages(public_ids, folderNames) {
     if (!Array.isArray(public_ids) || !Array.isArray(folderNames)) {
-        throw createValidationError(errorMessages.cloudinaryValidation, 400)
+        throw createValidationError(errorMessages.cloudinaryValidation, 400);
     }
 
     try {
@@ -88,6 +87,7 @@ async function deleteMultipleImages(public_ids, folderNames) {
         throw error;
     }
 }
+
 
 async function deleteImage(publicId) {
     const res = await cloudinary.uploader.destroy(publicId);

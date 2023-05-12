@@ -63,7 +63,7 @@ export const initialState = {
     description: '',
     city: '',
     country: '',
-    category: '',
+    category: 'Beach',
     details: [
         {
             category: 'Good to Know',

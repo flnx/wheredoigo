@@ -63,10 +63,10 @@ async function deleteDestination(destinationId, userId) {
         const p_path = 'places';
 
         const placesFolderNames = places.map((place) => {
-            let { name, _id } = place;
+            let { city, _id } = place;
             _id = _id.toString();
 
-            const placeFolderName = extractCloudinaryFolderName(p_path, name, _id);
+            const placeFolderName = extractCloudinaryFolderName(p_path, city, _id);
             return placeFolderName;
         });
 
