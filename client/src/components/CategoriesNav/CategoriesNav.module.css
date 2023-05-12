@@ -1,39 +1,55 @@
 .categories {
     max-width: 38rem;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     gap: 0.85rem;
     overflow: hidden;
 }
 
-.categories .icon {
-    width: 80px;
-    height: 80px;
-    border: 1px solid #fff;
-    border-radius: 50%;
-    cursor: pointer;
+.categories > div {
+    flex-basis: 30%;
     display: flex;
-    align-items: center;
+    gap: 0.5rem;
+    flex-direction: column;
     justify-content: center;
-    overflow: hidden;
+    align-items: center;
 }
 
-.icon:nth-child(3) {
-    padding: 0.75rem;
+.categories span {
+    color: var(--text-primary);
+    font-size: 0.8rem;
+    font-weight: 600;
 }
 
-.icon:nth-child(4) {
-    padding: 0.8rem;
-}
-
-.categories .icon > * {
+.categories .icon {
     width: 60px;
     height: 60px;
+    padding: 0.35rem;
+    border: 1px solid #fff;
+    cursor: pointer;
+    border-radius: 50%;
     transition: background-color 0.125s ease-in-out;
 }
 
-.categories > *:hover,
-focus {
+.categories .icon:nth-child(1) {
+    padding: 0.35rem 0.3rem 0.35rem 0.35rem;
+}
+
+.categories .icon:hover,
+.categories .icon:focus {
     background-color: #fff;
+}
+
+@media (min-width: 40em) {
+    .categories {
+        flex-wrap: nowrap;
+        gap: 0.85rem;
+    }
+
+    .categories .icon {
+        width: 70px;
+        height: 70px;
+    }
 }
