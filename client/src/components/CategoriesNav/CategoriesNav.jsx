@@ -5,12 +5,24 @@ import { Adventure, Beach, Culture, Islands, Mountain, Snow } from '../../utils/
 export const CategoriesNav = () => {
     return (
         <div className={styles.categories}>
-            <Adventure />
-            <Beach />
-            <Culture />
-            <Islands />
-            <Mountain />
-            <Snow />
+            <div className={styles.icon}>
+                <Adventure />
+            </div>
+            <div className={styles.icon}>
+                <Beach />
+            </div>
+            <div className={styles.icon}>
+                <Culture />
+            </div>
+            <div className={styles.icon}>
+                <Islands />
+            </div>
+            <div className={styles.icon}>
+                <Mountain />
+            </div>
+            <div className={styles.icon}>
+                <Snow />
+            </div>
         </div>
     );
 };
