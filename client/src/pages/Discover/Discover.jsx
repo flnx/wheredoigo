@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 // Components
@@ -11,6 +12,7 @@ import styles from './Discover.module.css';
 
 export const Discover = () => {
     const [searchParams, setSearchParams] = useSearchParams('');
+    const [hashTagCategories, setHashTagCategories] = useState([]);
 
     const handleSearchParams = (e, value) => {
         e.preventDefault();
@@ -19,8 +21,18 @@ export const Discover = () => {
         setSearchParams(searchQuery);
     };
 
+    const onHashTagClickHandler = (hashTag) => {
+        setHashTagCategories((prev) => prev.filter((tag) => tag !== hashTag));
+    };
+
     const onCategoryClickHandler = (category) => {
-        console.log(category);
+        setHashTagCategories((prev) => {
+            if (prev.includes(category)) {
+                return prev;
+            }
+
+            return [...prev, category];
+        });
     };
 
     return (
@@ -28,7 +40,10 @@ export const Discover = () => {
             <div className={styles.grid}>
                 <h1>Where do you want to go?</h1>
                 <SearchBar searchParamsHandler={handleSearchParams} />
-                <HashTagCategories tags={['Island', 'Beach', 'Island', 'Beach', 'Island', 'Beach']}/>
+                <HashTagCategories
+                    tags={hashTagCategories}
+                    onHashTagClickHandler={onHashTagClickHandler}
+                />
                 <CategoriesNav onCategoryClickHandler={onCategoryClickHandler} />
                 <Destinations searchParams={searchParams?.get('search')} />
             </div>

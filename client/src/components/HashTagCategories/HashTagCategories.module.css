@@ -4,6 +4,16 @@
     height: 1.5rem;
 }
 
+.tag {
+    cursor: pointer;
+    background: #fff;
+    border-radius: 5px;
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+    justify-content: center;
+}
+
 .header {
     background: var(--danger);
     border-top-left-radius: 5px;
@@ -13,16 +23,6 @@
     align-items: center;
     justify-content: center;
     padding: 0 0.3rem;
-}
-
-.tag {
-    position: relative;
-    background: #fff;
-    border-radius: 5px;
-    display: flex;
-    gap: 0.3rem;
-    align-items: center;
-    justify-content: center;
 }
 
 .icon {
