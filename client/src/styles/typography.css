@@ -17,12 +17,11 @@ h3 {
 }
 
 h4 {
-    font-size: clamp(1.10rem, 0.9rem + 1.4vw, 1rem);
+    font-size: clamp(0.8rem, 0.8rem + 0.85vw, 1.055rem);
     font-weight: 600;
 }
 
 p {
-    /* font-size: clamp(1rem, 0.65rem + 0.55vw, 1.025); */
     font-size: 1.05rem;
     color: var(--text-secondary);
 }

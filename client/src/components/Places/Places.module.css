@@ -11,7 +11,6 @@
     border-radius: 10px;
     display: flex;
     gap: 1rem;
-    min-height: 9.75rem;
 }
 
 .imageContainer {
@@ -54,11 +53,17 @@
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     font-size: 1.075rem;
-    color: var(--text-links)
+    color: var(--text-links);
 }
 
 .buttons {
     display: flex;
     gap: 0.65rem;
     margin-top: 0.35rem;
+}
+
+@media (min-width: 87.5em) {
+    .card {
+        min-height: 8.45rem;
+    }
 }
