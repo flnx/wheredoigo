@@ -1,19 +1,22 @@
 .categories {
-    max-width: 23.5rem;
+    max-width: 40rem;
     display: flex;
     justify-content: space-between;
-    gap: 0.75rem;
+    align-items: center;
+    gap: 1rem;
 }
 
 .categories > * {
+    width: 80px;
+    height: 80px;
+    border: 1px solid #fff;
     border-radius: 50%;
-    border: 1px solid rgb(239, 239, 244);
-    padding: 0.35rem;
+    padding: 0.5rem;
     transition: background-color 0.125s ease-in-out;
     cursor: pointer;
 }
 
 .categories > *:hover,
 focus {
-    background-color: rgb(243, 235, 235);
+    background-color: #fff;
 }

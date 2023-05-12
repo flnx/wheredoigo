@@ -1,6 +1,8 @@
-import BEACH from '../assets/icons/beach.png';
-import CAMP from '../assets/icons/camping.png';
-import MOUNTAINS from '../assets/icons/mountains.png';
-import FOREST from '../assets/icons/forest.png';
+import { ReactComponent as Adventure } from '../assets/icons/adventure.svg';
+import { ReactComponent as Beach } from '../assets/icons/beach.svg';
+import { ReactComponent as Culture } from '../assets/icons/culture.svg';
+import { ReactComponent as Islands } from '../assets/icons/islands.svg';
+import { ReactComponent as Mountain } from '../assets/icons/mountain.svg';
+import { ReactComponent as Snow } from '../assets/icons/snow.svg';
 
-export const icons = { BEACH, CAMP, MOUNTAINS, FOREST };
+export { Adventure, Beach, Culture, Islands, Mountain, Snow };
