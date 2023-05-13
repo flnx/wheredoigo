@@ -12,6 +12,11 @@
     margin-bottom: 2px;
 }
 
+.imageContainer {
+    width: 100%;
+    aspect-ratio: 1.5 / 1;
+}
+
 .image {
     cursor: grab;
     width: 100%;

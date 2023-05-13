@@ -18,14 +18,14 @@ export const Home = () => {
 
     return (
         <>
-            <Showcase isLoading={isLoading} />
+            <Showcase isLoading={true} />
             <div className={styles.grid}>
                 {destinations.error ? (
                     <p>{extractServerErrorMessage(destinations.error)}</p>
                 ) : (
-                    <CitiesSlider
-                        destinations={destinations?.data?.result}
-                        isLoading={isLoading}
+                    <CitiesSlider 
+                        destinations={destinations?.data?.result} 
+                        isLoading={true} 
                     />
                 )}
                 <Categories categories={destinations?.data?.allowedCategories} />
