@@ -1,4 +1,6 @@
 import { Container } from '../Containers/Container/Container';
+import { GithubLogo } from '@phosphor-icons/react';
+
 import styles from './Footer.module.css';
 
 export const Footer = () => {
@@ -7,15 +9,22 @@ export const Footer = () => {
             <Container>
                 <div className={styles.wrapper}>
                     <section className={styles.intro}>
-                        <h3 className={styles.title}> Where Do I Go?</h3>
-                        <p className={styles.link}>
-                            We always strive to make our customers happy by providing the best
-                            choices possible!
-                        </p>
-                        <div className="socials">
-                            <span>X</span>
-                            <span>Y</span>
-                            <span>Z</span>
+                        <h3 className={styles.title}> Where Do I Go</h3>
+                        <p className={styles.link}>Created By</p>
+                        <div className={styles.socials}>
+                            <a
+                                href="https://github.com/flnx"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={styles.githubLink}
+                            >
+                                <GithubLogo
+                                    size={24}
+                                    weight="fill"
+                                    className={styles.githubLogo}
+                                />
+                                <span>Kaloyan Georgiev</span>
+                            </a>
                         </div>
                     </section>
                     <section className={styles.about}>

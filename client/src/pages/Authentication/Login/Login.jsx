@@ -34,7 +34,6 @@ export const LoginPage = () => {
             const { data } = await user.login(state);
             setUserData(data);
         } catch (err) {
-            console.log(err);
             const errorMessage = extractServerErrorMessage(err);
             setError(errorMessage);
         } finally {

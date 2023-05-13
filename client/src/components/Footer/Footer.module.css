@@ -17,13 +17,36 @@
     font-size: 0.9rem;
 }
 
-.title, .link {
+.title,
+.link {
     color: var(--text-primary-light);
 }
 
 .link:not(:last-child) {
     margin-bottom: 0.325rem;
 }
+
+.githubLink {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--background-footer);
+    margin-top: 0.35rem;
+}
+
+.socials .githubLogo {
+    /* color: #fff; */
+    border-radius: 50%;
+    background: #fff;
+}
+
+.socials span {
+    font-size: 0.75rem;
+    color: #fff;
+    border-bottom: 1px solid var(--danger);
+    /* padding-bottom: 3px; */
+}
+
 
 @media (min-width: 40em) {
     .wrapper {
@@ -35,7 +58,6 @@
 @media (min-width: 64em) {
     .wrapper {
         grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-
     }
 
     .wrapper > section {
