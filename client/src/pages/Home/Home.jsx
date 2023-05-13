@@ -14,20 +14,19 @@ import styles from './Home.module.css';
 export const Home = () => {
     const [destinations, places] = useDestinationsAndPlaces();
 
-    // return <HomeLoadingSkeleton />;
-
-    if (destinations.isLoading || places.isLoading) {
-        return <LoadingSkeleton />;
-    }
+    const isLoading = destinations.isLoading || places.isLoading;
 
     return (
         <>
-            <Showcase isLoading={false}/>
+            <Showcase isLoading={isLoading} />
             <div className={styles.grid}>
                 {destinations.error ? (
                     <p>{extractServerErrorMessage(destinations.error)}</p>
                 ) : (
-                    <CitiesSlider destinations={destinations?.data?.result} />
+                    <CitiesSlider
+                        destinations={destinations?.data?.result}
+                        isLoading={isLoading}
+                    />
                 )}
                 <Categories categories={destinations?.data?.allowedCategories} />
                 <TopPlaces places={places} />
