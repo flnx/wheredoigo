@@ -15,8 +15,6 @@ CitiesSlider.propTypes = {
 export function CitiesSlider({ destinations = [], isLoading = true }) {
     const validatedData = validateDestinationsData(destinations);
 
-    console.log(destinations);
-
     return (
         <section>
             <Container>
@@ -32,12 +30,14 @@ export function CitiesSlider({ destinations = [], isLoading = true }) {
     );
 }
 
-// Ensure that there is an array with 4 elements when is fetching or loading in order to render the Loading skeleton.
-function validateDestinationsData(destinations) {
-    const hasDestinations = Array.isArray(destinations);
-    const hasData = hasDestinations && destinations.length > 0;
-    const DEFAULT_ARR = [0, 1, 2, 3];
-    const validatedData = hasDestinations && hasData ? destinations : DEFAULT_ARR;
+// Validates the input
+// 1. If there is no data or the data is invalid it returns an array with 4 elements
+// 1.1 This behavior ensures that Slider will always render 4 elements (even if there is no data)
+// 1.2 It also ensures that the loading skeleton will always be rendered with 4 elements if isLoading = true. 
 
-    return validatedData;
+function validateDestinationsData(destinations = [0, 1, 2, 3]) {
+    if (Array.isArray(destinations) && destinations.length > 0) {
+        return destinations;
+    }
+    return [0, 1, 2, 3];
 }
