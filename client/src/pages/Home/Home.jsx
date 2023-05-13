@@ -7,7 +7,6 @@ import { CitiesSlider } from '../../components/Sliders/CitiesSlider/CitiesSlider
 import { Categories } from './Categories/Categories';
 import { Intro } from './Intro/Intro';
 import { TopPlaces } from './TopPlaces/TopPlaces';
-import { LoadingSkeleton } from '../../components/LoadingSkeletons/LoadingSkeleton';
 
 import styles from './Home.module.css';
 
@@ -15,17 +14,18 @@ export const Home = () => {
     const [destinations, places] = useDestinationsAndPlaces();
 
     const isLoading = destinations.isLoading || places.isLoading;
+    const destinationsData = destinations?.data?.result || [];
 
     return (
         <>
-            <Showcase isLoading={true} />
+            <Showcase isLoading={isLoading} />
             <div className={styles.grid}>
                 {destinations.error ? (
                     <p>{extractServerErrorMessage(destinations.error)}</p>
                 ) : (
                     <CitiesSlider 
-                        destinations={destinations?.data?.result} 
-                        isLoading={true} 
+                        destinations={destinationsData} 
+                        isLoading={isLoading} 
                     />
                 )}
                 <Categories categories={destinations?.data?.allowedCategories} />

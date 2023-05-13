@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { SwiperSlide } from 'swiper/react';
 
 import { SliderWrapper } from './SwiperSettings';
@@ -6,8 +7,15 @@ import { Container } from '../../Containers/Container/Container';
 
 import styles from './CitiesSlider.module.css';
 
-export const CitiesSlider = ({ destinations = [], isLoading }) => {
-    const validatedData = validateDestinations(destinations);
+CitiesSlider.propTypes = {
+    destinations: PropTypes.array.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+};
+
+export function CitiesSlider({ destinations = [], isLoading = true }) {
+    const validatedData = validateDestinationsData(destinations);
+
+    console.log(destinations);
 
     return (
         <section>
@@ -22,14 +30,14 @@ export const CitiesSlider = ({ destinations = [], isLoading }) => {
             </Container>
         </section>
     );
-};
+}
 
-const validateDestinations = (destinations) => {
+// Ensure that there is an array with 4 elements when is fetching or loading in order to render the Loading skeleton.
+function validateDestinationsData(destinations) {
     const hasDestinations = Array.isArray(destinations);
     const hasData = hasDestinations && destinations.length > 0;
     const DEFAULT_ARR = [0, 1, 2, 3];
-
     const validatedData = hasDestinations && hasData ? destinations : DEFAULT_ARR;
 
     return validatedData;
-};
+}
