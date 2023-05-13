@@ -1,8 +1,11 @@
 .showcase {
     height: 38rem;
+}
+
+.showcase-image {
+    height: 100%;
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)),
-        url('../../../assets/pictures/homepage/showcase.jpg') no-repeat 50% 50% /
-            cover;
+        url("../../../assets/pictures/homepage/showcase.jpg") no-repeat 50% 50% / cover;
 }
 
 .intro {

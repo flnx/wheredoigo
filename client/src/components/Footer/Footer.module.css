@@ -35,7 +35,6 @@
 }
 
 .socials .githubLogo {
-    /* color: #fff; */
     border-radius: 50%;
     background: #fff;
 }
@@ -44,7 +43,6 @@
     font-size: 0.75rem;
     color: #fff;
     border-bottom: 1px solid var(--danger);
-    /* padding-bottom: 3px; */
 }
 
 
