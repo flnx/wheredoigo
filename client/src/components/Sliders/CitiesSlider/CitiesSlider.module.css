@@ -15,13 +15,21 @@
 .imageContainer {
     width: 100%;
     aspect-ratio: 1.5 / 1;
+    padding: 0.65rem;
 }
 
 .image {
+    border-radius: 5px;
     cursor: grab;
     width: 100%;
     aspect-ratio: 1.5 / 1;
     object-fit: cover;
-    border-radius: 20px;
-    padding: 0.65rem;
+}
+
+.loading {
+    padding: 0.33rem;
+}
+
+.loading h3 {
+    margin-bottom: 0.33rem;
 }

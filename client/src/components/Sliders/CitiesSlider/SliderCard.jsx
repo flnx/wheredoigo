@@ -20,10 +20,15 @@ export const SliderCard = ({ destination = {}, isLoading = true }) => {
                     />
                 }
             </div>
-            <div className={styles.content}>
-                <h3>{isLoading ? <LoadingSkeleton /> : city}</h3>
-                <p>{isLoading ? <LoadingSkeleton /> : country?.name}</p>
-            </div>
+            {isLoading 
+                ?  <div className={styles.loading}>
+                        <h3><LoadingSkeleton /></h3>
+                        <p><LoadingSkeleton /></p>
+                   </div> 
+                :   <div className={styles.content}>
+                        <h3>{city}</h3>
+                        <p>{country?.name}</p>
+                    </div>}
         </Card>
     );
 };
