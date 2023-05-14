@@ -9,11 +9,10 @@ export const TopPlaces = ({ places }) => {
         <section>
             <Container>
                 <h2 className={styles.title}>Europe awaits you!</h2>
-                {places.error ? (
-                    <p>{extractServerErrorMessage(places.error)}</p>
-                ) : (
-                    <Places places={places.data} />
-                )}
+                {places.error 
+                    ? <p>{extractServerErrorMessage(places.error)}</p>
+                    : <Places places={places} />
+                }
             </Container>
         </section>
     );

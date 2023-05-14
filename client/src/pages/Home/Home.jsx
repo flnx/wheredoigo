@@ -14,7 +14,10 @@ export const Home = () => {
     const [destinations, places] = useDestinationsAndPlaces();
 
     const isLoading = destinations.isLoading || places.isLoading;
+
     const destinationsData = destinations?.data?.result || [];
+    const placesData = places?.data || [];
+    const allowedCategories = destinations?.data?.allowedCategories || [];
 
     return (
         <>
@@ -28,8 +31,8 @@ export const Home = () => {
                         isLoading={isLoading} 
                     />
                 )}
-                <Categories categories={destinations?.data?.allowedCategories} />
-                <TopPlaces places={places} />
+                <Categories categories={allowedCategories} isLoading={isLoading}/>
+                <TopPlaces places={placesData} />
 
                 <Intro />
             </div>
