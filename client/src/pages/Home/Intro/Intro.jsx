@@ -1,4 +1,5 @@
 import introImage from '../../../assets/pictures/homepage/intro.png';
+
 import { Container } from '../../../components/Containers/Container/Container';
 import { ButtonLinkPrimary } from '../../../components/Buttons/Primary-Btn/LinkButtonPrimary';
 import { LoadingSkeleton } from '../../../components/LoadingSkeletons/LoadingSkeleton';

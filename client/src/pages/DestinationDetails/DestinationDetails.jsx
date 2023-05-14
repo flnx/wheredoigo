@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useDestination } from '../../hooks/queries/useDestination';
 import { extractServerErrorMessage } from '../../utils/utils';
 
-// components
+// Components
 import { DestinationHeader } from './components/Header/Header';
 import { SectionSlider } from './components/ExploreSection/SectionSlider';
 import { Container } from '../../components/Containers/Container/Container';
@@ -33,7 +33,11 @@ export const DestinationDetails = () => {
                         <h1>{extractServerErrorMessage(error)}</h1>
                     ) : (
                         <div className={styles.wrapper}>
-                            <ImagesSection imageUrls={data.imageUrls} city={data.city} />
+                            <ImagesSection
+                                imageUrls={data.imageUrls}
+                                city={data.city}
+                                isLoading={false}
+                            />
                             <DestinationHeader destination={data} pageRoute={pageRoute} />
 
                             {data.isOwner && (
