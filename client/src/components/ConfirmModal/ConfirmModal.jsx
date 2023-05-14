@@ -4,19 +4,19 @@ import { disableBodyScroll, enableBodyScroll } from '../../utils/utils';
 // Components
 import { SuccessButton } from '../Buttons/Success-Button/SuccessButton';
 import { CancelButton } from '../Buttons/Cancel-Button/CancelButton';
+import { DarkOverlay } from '../DarkOverlay/DarkOverlay';
 
 import styles from './ConfirmModal.module.css';
 
 export const ConfirmModal = ({ children, onCloseHandler, actionClickHandler, isLoading }) => {
     useEffect(() => {
         disableBodyScroll();
-
         return () => enableBodyScroll();
     }, []);
 
     return (
         <>
-            <div className={styles.overlay} onClick={onCloseHandler}></div>
+            <DarkOverlay  onClickHandler={onCloseHandler}/>
             <div className={styles.modal}>
                 <div className={styles.modalMain}>
                     {children}

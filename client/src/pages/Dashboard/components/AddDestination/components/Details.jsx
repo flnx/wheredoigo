@@ -1,5 +1,5 @@
 import styles from '../AddDestination.module.css';
-import { Overlay } from '../../../../../components/Overlay/Overlay';
+import { OverlayDisabledBodyScroll } from '../../../../../components/OverlayDisabledBodyScroll/OverlayDisabledBodyScroll';
 
 export const Details = ({ showDetailHandler, openedDetailsCategory, dispatchHandler }) => {
     const onDetailsChange = (e, category) => {
@@ -15,7 +15,7 @@ export const Details = ({ showDetailHandler, openedDetailsCategory, dispatchHand
     };
 
     return (
-        <Overlay closeModalHandler={closeDetailWindowHandler}>
+        <OverlayDisabledBodyScroll closeModalHandler={closeDetailWindowHandler}>
             <div className={styles.detailsContainer}>
                 <h3 className={styles.detailsTitle}>{openedDetailsCategory.category}</h3>
 
@@ -41,6 +41,6 @@ export const Details = ({ showDetailHandler, openedDetailsCategory, dispatchHand
                     );
                 })}
             </div>
-        </Overlay>
+        </OverlayDisabledBodyScroll>
     );
 };

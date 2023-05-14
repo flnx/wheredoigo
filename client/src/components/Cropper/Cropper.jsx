@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Cropper from 'react-easy-crop';
-import { Overlay } from '../Overlay/Overlay';
+import { OverlayDisabledBodyScroll } from '../OverlayDisabledBodyScroll/OverlayDisabledBodyScroll';
 
 import styles from './Cropper.module.css';
 import { CancelButton } from '../Buttons/Cancel-Button/CancelButton';
@@ -16,7 +16,7 @@ export const ImageCropper = ({ image, onCropDone, onCropCancel }) => {
     };
 
     return (
-        <Overlay closeModalHandler={onCropCancel}>
+        <OverlayDisabledBodyScroll closeModalHandler={onCropCancel}>
             <div className={styles.cropper}>
                 <Cropper
                     image={image}
@@ -37,6 +37,6 @@ export const ImageCropper = ({ image, onCropDone, onCropCancel }) => {
                     Done
                 </SuccessButton>
             </div>
-        </Overlay>
+        </OverlayDisabledBodyScroll>
     );
 };
