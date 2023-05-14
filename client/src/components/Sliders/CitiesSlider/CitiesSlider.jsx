@@ -20,7 +20,7 @@ export function CitiesSlider({ destinations = [], isLoading = true }) {
             <Container>
                 <SliderWrapper>
                     {validatedData.map((x) => (
-                        <SwiperSlide className={styles.sliderItem} key={x._id || x}>
+                        <SwiperSlide className={styles.sliderItem} key={x._id}>
                             <SliderCard destination={x} isLoading={isLoading} />
                         </SwiperSlide>
                     ))}
@@ -31,13 +31,15 @@ export function CitiesSlider({ destinations = [], isLoading = true }) {
 }
 
 // Validates the input
-// 1. If there is no data or the data is invalid it returns an array with 4 elements
-// 1.1 This behavior ensures that Slider will always render 4 elements (even if there is no data)
-// 1.2 It also ensures that the loading skeleton will always be rendered with 4 elements if isLoading = true. 
+// 1. If destinations data is invalid (not an array) or its length is 0, it returns a new array with 4 elements
+// 1.1 This behavior ensures that Slider will render 4 div boxes when there is invalid input or arr length of 0 
+// 1.2 I did it in order the loading skeleton to be rendered properly with 4 elements if isLoading (from RTK) = true and the data is being fetched. 
 
-function validateDestinationsData(destinations = [0, 1, 2, 3]) {
+function validateDestinationsData(destinations) {
     if (Array.isArray(destinations) && destinations.length > 0) {
         return destinations;
     }
-    return [0, 1, 2, 3];
+
+    // returns an array of 4 objects with ids from 0 to 3
+    return new Array(4).fill(null).map((_, i) => ({ _id: i }));
 }

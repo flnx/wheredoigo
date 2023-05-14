@@ -1,8 +1,10 @@
+import PropTypes from 'prop-types';
+
+// Components
 import { Link } from 'react-router-dom';
 import { LoadingSkeleton } from '../../LoadingSkeletons/LoadingSkeleton';
-import routeConstants from '../../../constants/routeConstants';
-const { BY_ID } = routeConstants.DESTINATIONS;
 
+import routeConstants from '../../../constants/routeConstants';
 import styles from './CitiesSlider.module.css';
 
 export const SliderCard = ({ destination = {}, isLoading = true }) => {
@@ -34,10 +36,17 @@ export const SliderCard = ({ destination = {}, isLoading = true }) => {
 };
 
 const Card = ({ children, _id, isLoading }) => {
+    const { BY_ID } = routeConstants.DESTINATIONS;
+    
     return (
         !isLoading && _id 
             ? <Link to={BY_ID.routePath(_id)}>{children}</Link> 
             : children
         );
+};
+
+SliderCard.propTypes = {
+    destinations: PropTypes.object.isRequired,
+    isLoading: PropTypes.bool.isRequired,
 };
 
