@@ -26,12 +26,11 @@ export const ImagesSection = ({ imageUrls, city, isLoading }) => {
         setGallery([]);
     };
 
-    const isGalleryOpen = gallery.length > 0;
+    const isGalleryOpen = gallery.length > 0 && !isLoading;
 
     return (
         <section>
             {isGalleryOpen &&
-                !isLoading &&
                 createPortal(
                     <Gallery
                         images={gallery}

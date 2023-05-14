@@ -1,6 +1,16 @@
+import { useContext } from 'react';
+import { GalleryContext } from '../../context/GalleryContext';
+
 import styles from './SecondaryImages.module.css';
 
-export const SecondaryImages = ({ images, onClickHandler, alt, currentIndex }) => {
+export const SecondaryImages = () => {
+    const {
+        images,
+        currentIndex,
+        handleCurrentImageIndex,
+        alt
+    } = useContext(GalleryContext);
+
     const mainImage = images[currentIndex];
     const isActive = styles.isActive;
 
@@ -12,7 +22,7 @@ export const SecondaryImages = ({ images, onClickHandler, alt, currentIndex }) =
                     src={x.imageUrl}
                     alt={alt || 'image'}
                     key={x._id}
-                    onClick={() => onClickHandler(i)}
+                    onClick={() => handleCurrentImageIndex(i)}
                 />
             ))}
         </div>
