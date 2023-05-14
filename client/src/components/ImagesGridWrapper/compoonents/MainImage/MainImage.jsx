@@ -1,4 +1,12 @@
+import PropTypes from 'prop-types';
 import { LoadingWrapper } from '../LoadingWrapper/LoadingWrapper';
+
+const propTypes = {
+    onClickHandler: PropTypes.func.isRequired,
+    mainImage: PropTypes.object.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    alt: PropTypes.string,
+};
 
 export const MainImage = ({ onClickHandler, mainImage, isLoading, alt }) => {
     const imageStyles = {
@@ -20,3 +28,5 @@ export const MainImage = ({ onClickHandler, mainImage, isLoading, alt }) => {
         </div>
     );
 };
+
+MainImage.propTypes = propTypes;

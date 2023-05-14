@@ -1,6 +1,14 @@
+import PropTypes from 'prop-types';
 import { LoadingWrapper } from '../LoadingWrapper/LoadingWrapper';
 
 import styles from './SecondaryImages.module.css';
+
+const propTypes = {
+    onClickHandler: PropTypes.func.isRequired,
+    secondaryImages: PropTypes.array.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    alt: PropTypes.string,
+};
 
 export const SecondaryImages = ({ secondaryImages, alt, onClickHandler, isLoading }) => {
     return (
@@ -20,3 +28,5 @@ export const SecondaryImages = ({ secondaryImages, alt, onClickHandler, isLoadin
         </div>
     );
 };
+
+SecondaryImages.propTypes = propTypes;

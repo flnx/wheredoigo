@@ -1,4 +1,5 @@
 import { LoadingSkeleton } from '../../../LoadingSkeletons/LoadingSkeleton';
+
 import styles from '../../ImagesGridWrapper.module.css';
 
 export const LoadingWrapper = () => {
