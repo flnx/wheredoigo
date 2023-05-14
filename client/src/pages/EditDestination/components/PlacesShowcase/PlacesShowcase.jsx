@@ -44,6 +44,7 @@ export const PlacesShowcase = ({ places, destinationId }) => {
                 places={places}
                 onDeleteClickHandler={onDeleteClickOpenConfirmModalHandler}
                 isOwner={true}
+                isLoading={isLoading}
             />
 
             <LinkButtonSecondary to={PLACES.ADD.routePath(destinationId)}>

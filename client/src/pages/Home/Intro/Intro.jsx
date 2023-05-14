@@ -1,15 +1,21 @@
 import introImage from '../../../assets/pictures/homepage/intro.png';
 import { Container } from '../../../components/Containers/Container/Container';
 import { ButtonLinkPrimary } from '../../../components/Buttons/Primary-Btn/LinkButtonPrimary';
+import { LoadingSkeleton } from '../../../components/LoadingSkeletons/LoadingSkeleton';
 
 import routeConstants from '../../../constants/routeConstants';
 import styles from './Intro.module.css';
 
 const { DISCOVER } = routeConstants;
 
-export const Intro = () => {
+export const Intro = ({ isLoading }) => {
     return (
         <section className={styles.introSection}>
+            {isLoading && (
+                <div className={styles.overlay}>
+                    <LoadingSkeleton />
+                </div>
+            )}
             <Container>
                 <div className={styles.wrapper}>
                     <div className={styles.imageContainer}>

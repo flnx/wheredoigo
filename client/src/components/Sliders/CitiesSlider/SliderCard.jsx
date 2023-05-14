@@ -7,7 +7,7 @@ import { LoadingSkeleton } from '../../LoadingSkeletons/LoadingSkeleton';
 import routeConstants from '../../../constants/routeConstants';
 import styles from './CitiesSlider.module.css';
 
-export const SliderCard = ({ destination = {}, isLoading = true }) => {
+export const SliderCard = ({ destination, isLoading }) => {
     const { imageUrls, city, country, _id } = destination;
 
     return (
@@ -27,7 +27,7 @@ export const SliderCard = ({ destination = {}, isLoading = true }) => {
                         <h3><LoadingSkeleton /></h3>
                         <p><LoadingSkeleton /></p>
                    </div> 
-                :   <div className={styles.content}>
+                :  <div className={styles.content}>
                         <h3>{city}</h3>
                         <p>{country?.name}</p>
                     </div>}
@@ -46,7 +46,7 @@ const Card = ({ children, _id, isLoading }) => {
 };
 
 SliderCard.propTypes = {
-    destinations: PropTypes.object.isRequired,
+    destination: PropTypes.object.isRequired,
     isLoading: PropTypes.bool.isRequired,
 };
 

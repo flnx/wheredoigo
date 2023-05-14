@@ -27,6 +27,18 @@ export const isValidArrayOfStrings = (arr) => {
     return true;
 };
 
+export function checkArrayAndPreloadElements(arr, prefillNum) {
+    if (!Number.isInteger(prefillNum)) {
+        prefillNum = 4; // Set default value to 4
+    }
+
+    if (Array.isArray(arr) && arr.length > 0) {
+        return arr;
+    }
+
+    // returns an array of X objects with ids from 0 to X
+    return new Array(prefillNum).fill(null).map((_, i) => ({ _id: i }));
+}
 
 export function extractServerErrorMessage(error) {
     const { response } = error;

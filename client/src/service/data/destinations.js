@@ -4,6 +4,8 @@ import { apiEndpoints } from '../../constants/apiEndpoints';
 export const getDestinations = async () => {
     const res = await axios.get(apiEndpoints.allDestinations);
 
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
     return res.data;
 };
 

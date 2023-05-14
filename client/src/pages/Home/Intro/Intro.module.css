@@ -1,7 +1,18 @@
 .introSection {
+    position: relative;
     background-image: var(--background-intro);
     padding: 3em 0;
 }
+
+.overlay {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
 
 .wrapper {
     display: flex;
