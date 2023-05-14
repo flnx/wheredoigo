@@ -18,7 +18,7 @@ export const ImagesSection = ({ imageUrls, city, isLoading }) => {
     const onImageClickHandler = (clickedImg) => {
         const arrayWithoutClickedImage = imageUrls.filter((x) => x._id !== clickedImg._id);
 
-        // adding clicked img on index 0
+        // adding the clicked img on index 0
         setGallery([clickedImg, ...arrayWithoutClickedImage]);
     };
 
@@ -30,9 +30,14 @@ export const ImagesSection = ({ imageUrls, city, isLoading }) => {
 
     return (
         <section>
-            {isGalleryOpen && !isLoading &&
+            {isGalleryOpen &&
+                !isLoading &&
                 createPortal(
-                    <Gallery images={gallery} closeGalleryHandler={closeGalleryHandler} />,
+                    <Gallery
+                        images={gallery}
+                        closeGalleryHandler={closeGalleryHandler}
+                        alt={city}
+                    />,
                     document.body
                 )}
             <ImagesGridWrapper

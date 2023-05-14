@@ -16,12 +16,13 @@ const { PLACES, DESTINATIONS } = routeConstants;
 export const DestinationDetails = () => {
     const { destinationId } = useParams();
     const { isLoading, error, data } = useDestination(destinationId);
+    const pageRoute = DESTINATIONS.BY_ID.routePath(destinationId);
 
     const explorePlaces = data?.places.filter((x) => x.type.toLowerCase() == 'explore');
     const partyPlaces = data?.places.filter((x) => x.type.toLowerCase() == 'party');
     const eatingPlaces = data?.places.filter((x) => x.type.toLowerCase() == 'eat');
 
-    const pageRoute = DESTINATIONS.BY_ID.routePath(destinationId);
+    const images = data?.imageUrls || [];
 
     return (
         <Container>
@@ -34,9 +35,9 @@ export const DestinationDetails = () => {
                     ) : (
                         <div className={styles.wrapper}>
                             <ImagesSection
-                                imageUrls={data.imageUrls}
-                                city={data.city}
-                                isLoading={false}
+                                imageUrls={images}
+                                city={data?.city}
+                                isLoading={isLoading}
                             />
                             <DestinationHeader destination={data} pageRoute={pageRoute} />
 

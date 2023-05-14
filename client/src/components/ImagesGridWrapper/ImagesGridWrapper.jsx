@@ -1,18 +1,26 @@
+import PropTypes from 'prop-types';
 import { useWindowSize } from '../../hooks/useWindowSize';
+import { checkArrayAndPreloadElements } from '../../utils/utils';
 
 // Components
 import { Image } from '@phosphor-icons/react';
 import { LoadingSkeleton } from '../LoadingSkeletons/LoadingSkeleton';
 
 import styles from './ImagesGridWrapper.module.css';
-import { checkArrayAndPreloadElements } from '../../utils/utils';
+
+const propTypes = {
+    images: PropTypes.array.isRequired,
+    alt: PropTypes.string.isRequired,
+    onClickHandler: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool,
+};
 
 export const ImagesGridWrapper = ({ images, alt, onClickHandler, isLoading }) => {
     const screenWidth = useWindowSize();
     const isDesktop = screenWidth >= 798;
 
-    // 1. If data is loading - it returns a new array with X elements
-    // 1.1 This ensures that the section will render (X) amount of div boxes when the data is being fetched in order the loading skeleton to visualize inside them
+    // If data is loading - it returns a new array with X elements
+    // This ensures that the loading skeleton will be rendered with X amount of div boxes during fetching
     const imagesArr = checkArrayAndPreloadElements(images, 5);
 
     const mainImage = imagesArr[0];
@@ -60,3 +68,5 @@ export const ImagesGridWrapper = ({ images, alt, onClickHandler, isLoading }) =>
         </div>
     );
 };
+
+ImagesGridWrapper.propTypes = propTypes;

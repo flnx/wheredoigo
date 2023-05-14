@@ -1,6 +1,6 @@
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useEffect } from 'react';
-import { Overlay } from '../Overlay/Overlay';
+import { OverlayDisabledBodyScroll } from '../OverlayDisabledBodyScroll/OverlayDisabledBodyScroll';
 
 import styles from './DetailsModal.module.css';
 
@@ -23,11 +23,11 @@ export const DetailsModal = () => {
     if (!context) return;
 
     return (
-        <Overlay closeModalHandler={closeModalHandler}>
+        <OverlayDisabledBodyScroll closeModalHandler={closeModalHandler}>
             {context.info.map((x) => (
                 <TipsTemplate tip={x} key={x._id} />
             ))}
-        </Overlay>
+        </OverlayDisabledBodyScroll>
     );
 };
 

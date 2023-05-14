@@ -1,0 +1,45 @@
+.leftArrow,
+.rightArrow {
+    position: absolute;
+    top: 47.5%;
+    cursor: pointer;
+    z-index: 10;
+    padding: 0.15rem;
+    border-radius: 50%;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.541);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.leftArrow {
+    left: 0;
+}
+
+.rightArrow {
+    right: 0;
+}
+
+.leftArrow:hover,
+.rightArrow:hover {
+    opacity: 0.85;
+}
+
+@media (min-width: 64em) {
+    .leftArrow {
+        left: 15px;
+    }
+
+    .rightArrow {
+        right: 15px;
+    }
+}
+
+@media (min-width: 81em) {
+    .leftArrow,
+    .rightArrow {
+        background: #222222ad;
+        padding: 0.75rem;
+    }
+}
