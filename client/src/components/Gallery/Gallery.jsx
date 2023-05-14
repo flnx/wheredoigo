@@ -1,7 +1,6 @@
+import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { disableBodyScroll, enableBodyScroll } from '../../utils/utils';
-
-// Context
 import { GalleryContextProvider } from './context/GalleryContext';
 
 // Components
@@ -12,7 +11,18 @@ import { DarkOverlay } from '../DarkOverlay/DarkOverlay';
 
 import styles from './Gallery.module.css';
 
-export const Gallery = ({ images = [], closeGalleryHandler, alt }) => {
+const propTypes = {
+    images: PropTypes.arrayOf(
+        PropTypes.shape({
+            imageUrl: PropTypes.string.isRequired,
+            _id: PropTypes.string.isRequired,
+        })
+    ).isRequired,
+    closeGalleryHandler: PropTypes.func.isRequired,
+    alt: PropTypes.string.isRequired,
+}
+
+export const Gallery = ({ images, closeGalleryHandler, alt }) => {
     if (images.length == 0) {
         return null;
     }
@@ -26,7 +36,7 @@ export const Gallery = ({ images = [], closeGalleryHandler, alt }) => {
         <section>
             <DarkOverlay onClickHandler={closeGalleryHandler} />
             <div className={styles.wrapper}>
-                <div className={styles.xIcon} onClick={closeGalleryHandler} tabIndex={0}>
+                <div className={styles.closeIcon} onClick={closeGalleryHandler} tabIndex={0}>
                     <X size={30} />
                 </div>
                 <GalleryContextProvider
@@ -43,3 +53,5 @@ export const Gallery = ({ images = [], closeGalleryHandler, alt }) => {
         </section>
     );
 };
+
+Gallery.propTypes = propTypes;

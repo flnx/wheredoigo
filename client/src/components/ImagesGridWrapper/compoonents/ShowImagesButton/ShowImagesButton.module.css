@@ -1,0 +1,27 @@
+.button-wrapper {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+}
+
+.btn {
+    cursor: pointer;
+    border: 1px solid var(--border-dark);
+    border-radius: 10px;
+    background: #fff;
+    font-size: 1rem;
+    padding: 0.25rem 0.95rem 0.35rem;
+    transition: background-color 0.15s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.imgIcon {
+    position: relative;
+    top: 3.6px;
+}
+
+.btn:hover {
+    background-color: #ebebeb;
+}

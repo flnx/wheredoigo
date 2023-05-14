@@ -1,0 +1,15 @@
+.secondaryImages {
+    display: none;
+}
+
+.secondaryImages > * {
+    width: calc(50% - 0.5rem);
+    height: calc(50% - 0.5rem);
+}
+
+.secondaryImages {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+}

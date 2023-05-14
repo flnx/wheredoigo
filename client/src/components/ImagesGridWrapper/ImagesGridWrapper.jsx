@@ -3,16 +3,17 @@ import { useWindowSize } from '../../hooks/useWindowSize';
 import { checkArrayAndPreloadElements } from '../../utils/utils';
 
 // Components
-import { Image } from '@phosphor-icons/react';
-import { LoadingSkeleton } from '../LoadingSkeletons/LoadingSkeleton';
+import { MainImage } from './compoonents/MainImage/MainImage';
+import { SecondaryImages } from './compoonents/SecondaryImages/SecondaryImages';
+import { ShowImagesButton } from './compoonents/ShowImagesButton/ShowImagesButton';
 
 import styles from './ImagesGridWrapper.module.css';
 
 const propTypes = {
     images: PropTypes.array.isRequired,
-    alt: PropTypes.string.isRequired,
     onClickHandler: PropTypes.func.isRequired,
     isLoading: PropTypes.bool,
+    alt: PropTypes.string,
 };
 
 export const ImagesGridWrapper = ({ images, alt, onClickHandler, isLoading }) => {
@@ -28,43 +29,25 @@ export const ImagesGridWrapper = ({ images, alt, onClickHandler, isLoading }) =>
 
     return (
         <div className={styles['images']}>
-            <div className={styles.mainImgContainer}>
-                {isLoading
-                    ? <div className={styles.loading}>
-                        <LoadingSkeleton />
-                    </div>
-                    : <img
-                        className={styles.mainImg}
-                        src={mainImage.imageUrl}
-                        alt={alt}
-                        onClick={() => onClickHandler(mainImage)}
-                    />
-                }
-            </div>
+            <MainImage
+                onClickHandler={onClickHandler}
+                mainImage={mainImage}
+                isLoading={isLoading}
+                alt={alt}
+            />
+
             {isDesktop && (
-                <div className={styles.secondaryImages}>
-                    {secondaryImages.map((x) => (
-                        isLoading
-                            ? <div className={styles.loading}>
-                                <LoadingSkeleton key={x._id} />
-                            </div>
-                            : <img
-                                src={x.imageUrl}
-                                alt={alt}
-                                onClick={() => onClickHandler(x)}
-                                key={x._id}
-                            />
-                    ))}
-                </div>
+                <SecondaryImages
+                    onClickHandler={onClickHandler}
+                    secondaryImages={secondaryImages}
+                    isLoading={isLoading}
+                    alt={alt}
+                />
             )}
-            {!isLoading && <div className={styles['show-all-btn']}>
-                <button className={styles.btn} onClick={() => onClickHandler(mainImage)}>
-                    <span className={styles.imgIcon}>
-                        <Image size={20} />
-                    </span>
-                    <span>Show all images</span>
-                </button>
-            </div>}
+            
+            {!isLoading && (
+                <ShowImagesButton onClickHandler={onClickHandler} />
+            )}
         </div>
     );
 };

@@ -1,7 +1,20 @@
+import PropTypes from 'prop-types';
 import { createContext, useState } from 'react';
 import { useKeyboardNavigation } from '../../../hooks/useKeyboardNavigation';
 
 export const GalleryContext = createContext();
+
+const propTypes = {
+    images: PropTypes.arrayOf(
+        PropTypes.shape({
+            imageUrl: PropTypes.string.isRequired,
+            _id: PropTypes.string.isRequired,
+        })
+    ).isRequired,
+    closeGalleryHandler: PropTypes.func.isRequired,
+    alt: PropTypes.string.isRequired,
+}
+
 
 export const GalleryContextProvider = ({ children, images, closeGalleryHandler, alt }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -46,3 +59,5 @@ export const GalleryContextProvider = ({ children, images, closeGalleryHandler, 
         </GalleryContext.Provider>
     );
 };
+
+GalleryContextProvider.propTypes = propTypes;

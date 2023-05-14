@@ -15,13 +15,9 @@ export const MainImage = () => {
     const mainImage = images[currentIndex];
 
     return (
-        <div className={styles.mainImgContainer}>
+        <div className={styles['main-image-container']}>
             {!isFirstImage && <LeftArrow />}
-            <img 
-                src={mainImage.imageUrl} 
-                alt={alt || 'image'} 
-                className={styles.mainImg} 
-            />
+            <img src={mainImage.imageUrl} alt={alt || 'image'} />
             {!isLastImage && <RightArrow />}
         </div>
     );
