@@ -6,8 +6,9 @@ export const LoadingSkeleton = () => {
     return (
         <Skeleton 
             height="100%" 
-            baseColor="#cca494" 
-            highlightColor="#f2d9ce82"
+            // baseColor="#f2e2db" 
+            baseColor="#dbc5bb" 
+            highlightColor="#ffffff8a"
             duration={1}
         />
     );

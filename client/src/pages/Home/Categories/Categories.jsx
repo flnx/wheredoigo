@@ -11,7 +11,9 @@ export const Categories = ({ categories, isLoading }) => {
     return (
         <section>
             <Container>
-                <h2 className={homeStyles.title}>Have something in mind..?</h2>
+                <h2 className={homeStyles.title}>
+                    {isLoading ? <LoadingSkeleton /> : 'Have something in mind..?'}
+                </h2>
                 <div className={styles['categories']}>
                     {data.map((categoryName) => (
                         <div className={`${styles.card} ${styles[categoryName]}`}>

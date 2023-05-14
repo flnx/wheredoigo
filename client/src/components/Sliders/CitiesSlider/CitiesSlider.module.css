@@ -27,9 +27,9 @@
 }
 
 .loading {
-    padding: 0.33rem;
+    padding: 0 0.65rem;
 }
 
-.loading h3 {
-    margin-bottom: 0.33rem;
+.loading > * {
+    padding-bottom: 0.6rem;
 }
