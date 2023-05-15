@@ -29,7 +29,7 @@ export const DestinationDetails = () => {
                 <div className={styles.wrapper}>
                     <ImagesSection
                         imageUrls={imagesData}
-                        city={data?.city}
+                        city={destination.city}
                         isLoading={isLoading}
                     />
 

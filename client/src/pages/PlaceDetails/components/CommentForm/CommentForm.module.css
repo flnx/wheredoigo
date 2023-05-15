@@ -1,5 +1,5 @@
 .form {
-    width: 66%;
+    max-width: 52.5rem;
 }
 
 .form ::selection {

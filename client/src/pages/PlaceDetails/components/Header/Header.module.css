@@ -1,27 +1,24 @@
-.intro {
+.introSection {
     margin-bottom: 2rem;
 }
 
-.flexContainer {
-    display: flex;
-    gap: 2rem;
-    white-space: pre-wrap;
-}
-
-.flexChild {
+.overview {
+    max-width: 52.5rem;
     padding: 1.3rem;
     background: var(--background);
     border: 1px solid var(--border-gray);
     border-radius: 10px;
-    width: 33.33%;
+    white-space: pre-wrap;
 }
 
-.flexChild p {
+.overview .description {
+    max-height: 14.875rem;
+    font-size: 1.1rem;
     margin-bottom: 0.75rem;
-    display: -webkit-box;
     overflow: hidden;
     text-overflow: ellipsis;
-    -webkit-line-clamp: 6;
+    display: -webkit-box;
+    -webkit-line-clamp: 9;
     -webkit-box-orient: vertical;
     -moz-box-orient: vertical;
 }
@@ -32,4 +29,12 @@
 
 .title {
     margin-bottom: 1rem;
+}
+
+@media (min-width: 40em) {
+    .flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 }

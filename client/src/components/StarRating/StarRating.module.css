@@ -1,3 +1,8 @@
+.stars {
+    display: flex;
+    align-items: center;
+}
+
 .star {
     padding-left: 0.15rem;
     color: rgb(228, 35, 10);

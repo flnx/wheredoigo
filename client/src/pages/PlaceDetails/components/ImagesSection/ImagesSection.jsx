@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom';
 import { Gallery } from '../../../../components/Gallery/Gallery';
 import { ImagesGridWrapper } from '../../../../components/ImagesGridWrapper/ImagesGridWrapper';
 
-export const Images = ({ place }) => {
+export const Images = ({ place, isLoading, city }) => {
     const [gallery, setGallery] = useState([]);
 
     const onImageClickHandler = (clickedImage) => {
@@ -13,11 +13,12 @@ export const Images = ({ place }) => {
             (x) => x._id !== clickedImage._id
         );
 
-        // adding clicked img on index 0 so when the gallery opens to showcase it
+        // adding the clicked img at index 0 because gallery showcases the first element inside the array
         setGallery([clickedImage, ...arrayWithoutClickedImage]);
     };
 
     const closeGalleryHandler = () => {
+        // gallery will be closed when the array is empty
         setGallery([]);
     };
 
@@ -30,6 +31,7 @@ export const Images = ({ place }) => {
                     <Gallery
                         closeGalleryHandler={closeGalleryHandler}
                         images={gallery}
+                        alt={city}
                     />,
                     document.body
                 )}
@@ -37,6 +39,8 @@ export const Images = ({ place }) => {
             <ImagesGridWrapper
                 onClickHandler={onImageClickHandler}
                 images={place.imageUrls}
+                isLoading={isLoading}
+                alt={city}
             />
         </section>
     );

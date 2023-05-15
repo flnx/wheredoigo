@@ -11,11 +11,11 @@ import { CommentForm } from './components/CommentForm/CommentForm';
 
 import styles from './PlaceDetails.module.css';
 
-
 export const PlaceDetails = () => {
     const { placeId } = useParams();
     const { data, isLoading, error } = usePlace(placeId);
 
+    const place = data || {};
     const { isAuth, hasCommented } = data || {};
 
     return (
@@ -28,9 +28,9 @@ export const PlaceDetails = () => {
                         <p>{extractServerErrorMessage(error)}</p>
                     ) : (
                         <div className={styles.wrapper}>
-                            <Images place={data} />
-                            <Header place={data} />
-                            <Comments placeId={placeId}/>
+                            <Images place={place} isLoading={isLoading} city={place.city} />
+                            <Header place={place} />
+                            <Comments placeId={placeId} />
                             {isAuth && !hasCommented && <CommentForm />}
                         </div>
                     )}

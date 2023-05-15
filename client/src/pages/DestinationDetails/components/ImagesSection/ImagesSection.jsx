@@ -18,11 +18,12 @@ export const ImagesSection = ({ imageUrls, city, isLoading }) => {
     const onImageClickHandler = (clickedImg) => {
         const arrayWithoutClickedImage = imageUrls.filter((x) => x._id !== clickedImg._id);
 
-        // adding the clicked img on index 0
+        // adding the clicked img at index 0 because gallery showcases the first element inside the array
         setGallery([clickedImg, ...arrayWithoutClickedImage]);
     };
 
     const closeGalleryHandler = () => {
+        // gallery will be closed when the array is empty
         setGallery([]);
     };
 

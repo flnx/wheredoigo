@@ -20,8 +20,8 @@ export const ImagesGridWrapper = ({ images, alt, onClickHandler, isLoading }) =>
     const screenWidth = useWindowSize();
     const isDesktop = screenWidth >= 798;
 
-    // If data is loading - it returns a new array with X elements
-    // This ensures that the loading skeleton will be rendered with X amount of div boxes during fetching
+    // If data is loading - it returns a new array with 5 elements
+    // This ensures that the loading skeleton will be rendered inside 5 div boxes during fetching
     const imagesArr = checkArrayAndPreloadElements(images, 5);
 
     const mainImage = imagesArr[0];
