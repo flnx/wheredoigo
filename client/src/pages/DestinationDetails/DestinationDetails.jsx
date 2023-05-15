@@ -15,41 +15,34 @@ import styles from './DestinationDetails.module.css';
 export const DestinationDetails = () => {
     const { destinationId } = useParams();
     const { isLoading, error, data } = useDestination(destinationId);
+    const { routePath } = routeConstants.PLACES.ADD;
 
-    const placesData = data?.places || [];
-    const imagesData = data?.imageUrls || [];
-
-    // page routes
-    const { PLACES, DESTINATIONS } = routeConstants;
-    const pageRoute = DESTINATIONS.BY_ID.routePath(destinationId);
+    const destination = data || {};
+    const placesData = destination?.places || [];
+    const imagesData = destination?.imageUrls || [];
 
     return (
         <Container>
-            {isLoading ? (
-                <p>Loading...</p>
+            {error ? (
+                <h1>{extractServerErrorMessage(error)}</h1>
             ) : (
-                <>
-                    {error ? (
-                        <h1>{extractServerErrorMessage(error)}</h1>
-                    ) : (
-                        <div className={styles.wrapper}>
-                            <ImagesSection
-                                imageUrls={imagesData}
-                                city={data?.city}
-                                isLoading={isLoading}
-                            />
-                            <DestinationHeader destination={data} pageRoute={pageRoute} />
+                <div className={styles.wrapper}>
+                    <ImagesSection
+                        imageUrls={imagesData}
+                        city={data?.city}
+                        isLoading={isLoading}
+                    />
 
-                            {data.isOwner && (
-                                <LinkButtonSecondary to={PLACES.ADD.routePath(destinationId)}>
-                                    Add More Places
-                                </LinkButtonSecondary>
-                            )}
+                    <DestinationHeader destination={destination} isLoading={isLoading} />
 
-                            <PlacesShowcase places={placesData} isLoading={isLoading} />
-                        </div>
+                    {!isLoading && data.isOwner && (
+                        <LinkButtonSecondary to={routePath(destinationId)}>
+                            Add More Places
+                        </LinkButtonSecondary>
                     )}
-                </>
+
+                    <PlacesShowcase places={placesData} isLoading={isLoading} />
+                </div>
             )}
         </Container>
     );

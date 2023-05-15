@@ -5,13 +5,13 @@ import { StarRating } from '../../../../components/StarRating/StarRating';
 import routeConstants from '../../../../constants/routeConstants';
 import styles from './Header.module.css';
 
-const { ABOUT, BY_ID } = routeConstants.PLACES;
 
 export const Header = ({ place }) => {
     const { name, city, description, averageRating } = place;
-
+    
+    const { ABOUT, BY_ID } = routeConstants.PLACES;
     const pageRoute = BY_ID.routePath(place._id);
-
+    
     return (
         <header>
             <section className={styles.intro}>

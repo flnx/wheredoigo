@@ -14,12 +14,12 @@ const propTypes = {
 
 export const SliderCard = ({ destination, isLoading }) => {
     const { imageUrls, city, country, _id } = destination;
-    const { BY_ID } = routeConstants.DESTINATIONS;
+    const { routePath } = routeConstants.DESTINATIONS.BY_ID;
 
     const loadingClass = `${isLoading ? styles.pointersDisabled : null}`;
 
     return (
-        <Link to={BY_ID.routePath(_id)} className={loadingClass}>
+        <Link to={routePath(_id)} className={loadingClass}>
             <div className={styles.imageContainer}>
                 {isLoading ? (
                     <LoadingSkeleton />

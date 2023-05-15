@@ -23,7 +23,7 @@ const propTypes = {
 };
 
 export const PlacesSlider = ({ places, isLoading }) => {
-    const { BY_ID } = routeConstants.PLACES;
+    const { routePath } = routeConstants.PLACES.BY_ID;
 
     const placesData = checkArrayAndPreloadElements(places, 4);
     const loadingClass = `${isLoading ? styles.loading : null}`;
@@ -34,7 +34,7 @@ export const PlacesSlider = ({ places, isLoading }) => {
                 <SliderWrapper>
                     {placesData.map((place) => (
                         <SwiperSlide className={styles.sliderItem} key={place._id}>
-                            <Link to={BY_ID.routePath(place._id)} className={loadingClass}>
+                            <Link to={routePath(place._id)} className={loadingClass}>
                                 <div className={`${styles.imageCon} ${loadingClass}`}>
                                     {isLoading ? (
                                         <LoadingSkeleton />

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useReducer, useState } from 'react';
 import { UploadImagesPreview } from '../../../components/UploadImagesPreview/UploadImagesPreview';
 import { ShowError } from './ShowError';
@@ -9,10 +10,8 @@ import { createPlaceFormData } from '../../../utils/formData';
 import { extractServerErrorMessage } from '../../../utils/utils';
 
 import routeConstants from '../../../constants/routeConstants';
-const { PLACES } = routeConstants;
 
 import styles from './Form.module.css';
-import { useNavigate } from 'react-router-dom';
 
 export const Form = ({ destinationId }) => {
     const [createPlace, isLoading] = useAddNewPlace(destinationId);
@@ -40,7 +39,8 @@ export const Form = ({ destinationId }) => {
 
         createPlace(formData, {
             onSuccess: (newPlace) => {
-                navigate(`${PLACES.BY_ID.routePath(newPlace._id)}`);
+                const { routePath } = routeConstants.PLACES.BY_ID;
+                navigate(routePath(newPlace._id));
             },
             onError: (err) => {
                 const errorMessage = extractServerErrorMessage(err);
@@ -59,6 +59,7 @@ export const Form = ({ destinationId }) => {
             },
         });
     };
+
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.formRow}>

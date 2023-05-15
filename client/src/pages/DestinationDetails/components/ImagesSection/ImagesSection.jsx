@@ -8,7 +8,7 @@ import { createPortal } from 'react-dom';
 
 const propTypes = {
     imageUrls: PropTypes.array.isRequired,
-    city: PropTypes.string.isRequired,
+    city: PropTypes.string,
     isLoading: PropTypes.bool.isRequired,
 };
 

@@ -1,11 +1,27 @@
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
+// Components
+import { LoadingSkeleton } from '../../../../components/LoadingSkeletons/LoadingSkeleton';
+import { checkArrayAndPreloadElements } from '../../../../utils/utils'
+import { Link } from 'react-router-dom';
+;
 import routeConstants from '../../../../constants/routeConstants';
 import styles from './TipsPopUp.module.css';
 
-const { INFO } = routeConstants.DESTINATIONS;
+const propTypes = {
+    details: PropTypes.array,
+    onCategoryClickHandler: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+};
 
-export const TipsPopUp = ({ details, onCategoryClickHandler }) => {
+// This ensures that there will be 4 category divs for the loading skeleton during the fetching process
+const defaultProps = {
+    details: checkArrayAndPreloadElements([], 4),
+};
+
+export const TipsPopUp = ({ details, onCategoryClickHandler, isLoading }) => {
+    const { INFO } = routeConstants.DESTINATIONS;
+
     return (
         <section className={styles.wrapper}>
             {details.map((x) => (
@@ -15,9 +31,17 @@ export const TipsPopUp = ({ details, onCategoryClickHandler }) => {
                     className={styles.category}
                     onClick={() => onCategoryClickHandler(x)}
                 >
-                    {x.category}
+                    {x.category || 'Category'} 
                 </Link>
             ))}
+            {isLoading && (
+                <div className={styles.loadingOverlay}>
+                    <LoadingSkeleton />
+                </div>
+            )}
         </section>
     );
 };
+
+TipsPopUp.propTypes = propTypes;
+TipsPopUp.defaultProps = defaultProps;

@@ -2,50 +2,64 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
 // components
-import { StarRating } from '../../../../components/StarRating/StarRating';
 import { ShowMoreButton } from '../../../../components/Buttons/ShowMoreButton/ShowMoreButton';
 import { TipsPopUp } from '../TipsPopUp/TipsPopUp';
+import { TextWrap } from '../../../../components/TextWrap/TextWrap';
 
 import routeConstants from '../../../../constants/routeConstants';
 import styles from './Header.module.css';
 
-const { OVERVIEW } = routeConstants.DESTINATIONS;
-
-export const DestinationHeader = ({ destination, pageRoute }) => {
+export const DestinationHeader = ({ destination, isLoading }) => {
     const [modalPopUpInfo, setModalPopUpInfo] = useState('');
+    const { city, country, description, _id } = destination;
 
-    const { city, country, description } = destination;
+    const { routePath } = routeConstants.DESTINATIONS.BY_ID;
+    const { name, route } = routeConstants.DESTINATIONS.OVERVIEW;
 
     const onCategoryClickHandler = (tipsInfo) => {
         setModalPopUpInfo({
             ...tipsInfo,
-            pageRoute,
+            pageRoute: routePath(_id),
         });
     };
 
     const onOverviewClickHandler = () => {
         setModalPopUpInfo({
-            pageRoute,
-            info: [{ _id: 1, title: OVERVIEW.name, description }],
+            pageRoute: routePath(_id),
+            info: [{ _id: 1, title: name, description }],
         });
     };
+
+    const descLoading = `${isLoading ? styles.descriptionLoading : null}`;
 
     return (
         <header>
             <div className={styles.intro}>
-                <h1>{city}</h1>
-                <StarRating rating={5} />
+                <h1 className={styles.title}>
+                    <TextWrap isLoading={isLoading} content={city} />
+                </h1>
             </div>
             <div className={styles.content}>
-                <p className={styles.country}>{country}</p>
-                <h3 className={styles.descriptionTitle}>{OVERVIEW.name}</h3>
-                <p className={styles.description}>{description}</p>
-                <ShowMoreButton path={OVERVIEW.route} onClick={onOverviewClickHandler} />
+                <p className={styles.country}>
+                    <TextWrap isLoading={isLoading} content={country} />
+                </p>
+                <h3 className={styles.descriptionTitle}>
+                    <TextWrap isLoading={isLoading} content={name} />
+                </h3>
+                <p className={`${styles.description} ${descLoading}`}>
+                    <TextWrap isLoading={isLoading} content={description} />
+                </p>
+                <ShowMoreButton
+                    path={route}
+                    onClick={onOverviewClickHandler}
+                    isLoading={isLoading}
+                />
             </div>
 
             <TipsPopUp
                 details={destination.details}
                 onCategoryClickHandler={onCategoryClickHandler}
+                isLoading={isLoading}
             />
 
             <Outlet context={modalPopUpInfo} />

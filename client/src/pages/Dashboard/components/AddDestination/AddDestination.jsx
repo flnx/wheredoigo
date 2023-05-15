@@ -58,9 +58,9 @@ export const AddDestination = () => {
         createDestination(formData, {
             onSuccess: (newDestination) => {
                 const { _id } = newDestination;
-                const { DESTINATIONS } = routeConstants;
+                const { routePath } = routeConstants.DESTINATIONS.BY_ID;
                 
-                navigate(DESTINATIONS.BY_ID.routePath(_id));
+                navigate(routePath(_id));
             },
         });
     };

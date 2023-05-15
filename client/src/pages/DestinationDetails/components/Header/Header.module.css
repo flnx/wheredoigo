@@ -1,8 +1,13 @@
 .intro {
     display: flex;
     justify-content: space-between;
+    width: 100%;
+    margin-bottom: 0.4rem;
 }
 
+.title {
+    width: 100%;
+}
 .content {
     max-width: 35rem;
     white-space: pre-wrap;
@@ -20,6 +25,7 @@
 }
 
 .description {
+    max-height: 14.875rem;
     font-size: 1.1rem;
     margin-bottom: 0.75rem;
     display: -webkit-box;
@@ -28,4 +34,8 @@
     -webkit-line-clamp: 9;
     -webkit-box-orient: vertical;
     -moz-box-orient: vertical;
+}
+
+.descriptionLoading {
+    height: 14.875rem !important;
 }

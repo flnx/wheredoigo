@@ -18,7 +18,7 @@ export const SecondaryImages = () => {
         <div className={styles.secondaryImgContainer}>
             {images.map((x, i) => (
                 <img
-                    className={`${mainImage == x && isActive}`}
+                    className={`${mainImage == x && isActive}`} // Adds border to the clicked image
                     src={x.imageUrl}
                     alt={alt || 'image'}
                     key={x._id}

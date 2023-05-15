@@ -1,16 +1,14 @@
 .wrapper {
-    max-width: 35rem;
+    position: relative;
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 0.5rem;
 }
 
 .category {
-    flex: 1;
     cursor: pointer;
     text-align: center;
-    padding: 1rem 0.65rem;
+    padding: 0.65rem 0.65rem;
     border: 1px solid var(--text-primary);
     color: var(--text-primary);
     font-weight: 600;
@@ -23,4 +21,33 @@
     background: var(--button-hover);
     color: #fff;
     border: 1px solid transparent;
+}
+
+.loadingOverlay {
+    z-index: 10;
+    position: absolute;
+    inset: 0 0 0 0;
+}
+
+@media (min-width: 25em) {
+    .wrapper {
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .category {
+        flex-basis: 48%;
+    }
+}
+
+@media (min-width: 40em) {
+    .wrapper {
+        max-width: 35rem;
+    }
+
+    .category {
+        flex: 1;
+        padding: 1rem 0.65rem;
+    }
 }
