@@ -44,9 +44,12 @@ export const ImagesGridWrapper = ({ images, alt, onClickHandler, isLoading }) =>
                     alt={alt}
                 />
             )}
-            
+
             {!isLoading && (
-                <ShowImagesButton onClickHandler={onClickHandler} />
+                <ShowImagesButton 
+                    onClickHandler={onClickHandler} 
+                    mainImage={mainImage} 
+                />
             )}
         </div>
     );

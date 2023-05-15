@@ -30,6 +30,10 @@
     padding: 0 0.65rem;
 }
 
+.pointersDisabled {
+    pointer-events: none !important;
+}
+
 .loading > * {
     padding-bottom: 0.6rem;
 }

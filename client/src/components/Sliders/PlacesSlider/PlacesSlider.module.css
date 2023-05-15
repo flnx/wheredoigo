@@ -8,11 +8,31 @@
     padding: 0rem 0.65rem 0.65rem;
 }
 
+.imageCon {
+    aspect-ratio: 1.5 / 1;
+    padding: 0.65rem;
+}
+
+.loading {
+    aspect-ratio: 1.45 / 1 !important;
+    pointer-events: none !important;
+}
+
 .image {
     cursor: grab;
     width: 100%;
     aspect-ratio: 1.5 / 1;
     object-fit: cover;
-    border-radius: 20px;
-    padding: 0.65rem;
+    border-radius: 5px;
+}
+
+.placeName {
+    color: var(--text-primary);
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    white-space: break-spaces;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }

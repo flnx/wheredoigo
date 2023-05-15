@@ -1,7 +1,7 @@
 import styles from './ShowImagesButton.module.css';
 import { Image } from '@phosphor-icons/react';
 
-export const ShowImagesButton = ({ onClickHandler }) => {
+export const ShowImagesButton = ({ onClickHandler, mainImage }) => {
     return (
         <div className={styles['button-wrapper']}>
             <button className={styles.btn} onClick={() => onClickHandler(mainImage)}>
