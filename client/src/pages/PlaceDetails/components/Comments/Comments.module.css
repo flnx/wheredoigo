@@ -6,9 +6,6 @@
     background: var(--background);
 }
 
-.totalComments {
-    font-size: 1.55rem;
-}
 
 .comments {
     display: grid;
@@ -42,9 +39,12 @@
     gap: 0.5rem;
 }
 
-.introTitle {
-    font-size: 1.85rem;
+.intro .totalCommentsNum {
+    font-size: 1.09625rem;
+    font-weight: 800;
+    color: var(--danger);
 }
+
 
 .avatar {
     text-align: center;

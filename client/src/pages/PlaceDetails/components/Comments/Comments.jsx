@@ -31,8 +31,8 @@ export const Comments = ({ placeId }) => {
     return (
         <section className={styles.commentSection}>
             <header className={styles.intro}>
-                <h2 className={styles.introTitle}>Reviews</h2>
-                <p className={styles.totalComments}>(315)</p>
+                <h3>Comments</h3>
+                <span className={styles.totalCommentsNum}>{comments?.totalComments}</span>
             </header>
 
             <div className={styles.comments}>
