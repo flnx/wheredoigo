@@ -14,15 +14,20 @@ export const PlacesShowcase = ({ places, isLoading }) => {
     const partyPlaces = places.filter((x) => x?.type.toLowerCase() == 'party');
     const eatingPlaces = places.filter((x) => x?.type.toLowerCase() == 'eat');
 
+    // If data is loading - it returns a new array with 3 elements (in order to render 3 sections)
+    // This ensures that there will be 3 category sections for the loading skeleton during the fetching process
     const prefilledArr = checkArrayAndPreloadElements(places, 3);
 
     return (
         <>
             {isLoading ? (
+                // Renders 3 Slider Sections to show when data is being fetched (Sections will show loading skeleton automatically)
                 prefilledArr.map((x) => (
                     <CategorySlider places={places} isLoading={isLoading} key={x._id} />
                 ))
             ) : (
+                // When the data is fetched it renders the places by category
+                // If there's a category that doesn't have a place match, it will not render it.
                 <>
                     {explorePlaces.length > 0 && (
                         <CategorySlider places={explorePlaces} isLoading={isLoading} />
@@ -44,9 +49,7 @@ const CategorySlider = ({ places, isLoading }) => {
 
     return (
         <section style={{ marginBottom: '4.75rem' }}>
-            <h2 style={{ fontWeight: 800 }}>
-                {isLoading ? <LoadingSkeleton /> : type}
-            </h2>
+            <h2 style={{ fontWeight: 800 }}>{isLoading ? <LoadingSkeleton /> : type}</h2>
             <PlacesSlider places={places} isLoading={isLoading} />
         </section>
     );
