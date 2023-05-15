@@ -15,7 +15,7 @@ export const Comments = ({ placeId }) => {
 
         if (!Number.isInteger(page) || page < 1) {
             // if page is not a valid integer or less than 1, set default page to 1
-            setCurrentPage({});
+            setCurrentPage({}); 
         } else {
             // update current page with the new page value
             setCurrentPage({ page });

@@ -6,7 +6,6 @@
     background: var(--background);
 }
 
-
 .comments {
     display: grid;
     gap: 2rem;
@@ -44,7 +43,6 @@
     font-weight: 800;
     color: var(--danger);
 }
-
 
 .avatar {
     text-align: center;

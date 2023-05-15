@@ -2,6 +2,18 @@
     margin-bottom: 2rem;
 }
 
+.introSection .city {
+    font-size: 1.25rem;
+}
+
+.introSection .flex {
+    margin-bottom: 0.4rem;
+}
+
+.introTitle {
+    width: 100%;
+}
+
 .overview {
     max-width: 52.5rem;
     padding: 1.3rem;
@@ -9,6 +21,10 @@
     border: 1px solid var(--border-gray);
     border-radius: 10px;
     white-space: pre-wrap;
+}
+
+.overview .title {
+    margin-bottom: 1rem;
 }
 
 .overview .description {
@@ -23,12 +39,8 @@
     -moz-box-orient: vertical;
 }
 
-.city {
-    font-size: 1.25rem;
-}
-
-.title {
-    margin-bottom: 1rem;
+.loading {
+    height: 14.875rem !important;
 }
 
 @media (min-width: 40em) {

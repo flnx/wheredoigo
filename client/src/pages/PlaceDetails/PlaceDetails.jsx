@@ -20,21 +20,19 @@ export const PlaceDetails = () => {
 
     return (
         <Container>
-            {isLoading ? (
-                <p>Loading...</p>
+            {error ? (
+                <p>{extractServerErrorMessage(error)}</p>
             ) : (
-                <>
-                    {error ? (
-                        <p>{extractServerErrorMessage(error)}</p>
-                    ) : (
-                        <div className={styles.wrapper}>
-                            <Images place={place} isLoading={isLoading} city={place.city} />
-                            <Header place={place} />
-                            <Comments placeId={placeId} />
+                <div className={styles.wrapper}>
+                    <Images place={place} isLoading={isLoading} city={place.city} />
+                    <Header place={place} isLoading={isLoading} />
+                    {!isLoading && (
+                        <>
+                            {<Comments placeId={placeId} />}
                             {isAuth && !hasCommented && <CommentForm />}
-                        </div>
+                        </>
                     )}
-                </>
+                </div>
             )}
         </Container>
     );
