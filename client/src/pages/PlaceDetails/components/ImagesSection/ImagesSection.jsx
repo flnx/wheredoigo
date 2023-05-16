@@ -5,11 +5,11 @@ import { createPortal } from 'react-dom';
 import { Gallery } from '../../../../components/Gallery/Gallery';
 import { ImagesGridWrapper } from '../../../../components/ImagesGridWrapper/ImagesGridWrapper';
 
-export const Images = ({ place, isLoading, city }) => {
+export const Images = ({ imageUrls, isLoading, city }) => {
     const [gallery, setGallery] = useState([]);
 
     const onImageClickHandler = (clickedImage) => {
-        const arrayWithoutClickedImage = place.imageUrls.filter(
+        const arrayWithoutClickedImage = imageUrls.filter(
             (x) => x._id !== clickedImage._id
         );
 
@@ -38,7 +38,7 @@ export const Images = ({ place, isLoading, city }) => {
 
             <ImagesGridWrapper
                 onClickHandler={onImageClickHandler}
-                images={place.imageUrls}
+                images={imageUrls}
                 isLoading={isLoading}
                 alt={city}
             />

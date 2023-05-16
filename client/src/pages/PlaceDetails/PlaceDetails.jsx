@@ -16,6 +16,8 @@ export const PlaceDetails = () => {
     const { data, isLoading, error } = usePlace(placeId);
 
     const place = data || {};
+    const imagesData = place?.imageUrls || [];
+
     const { isAuth, hasCommented } = data || {};
 
     return (
@@ -24,7 +26,7 @@ export const PlaceDetails = () => {
                 <p>{extractServerErrorMessage(error)}</p>
             ) : (
                 <div className={styles.wrapper}>
-                    <Images place={place} isLoading={isLoading} city={place.city} />
+                    <Images imageUrls={imagesData} isLoading={isLoading} city={place.city} />
                     <Header place={place} isLoading={isLoading} />
                     {!isLoading && (
                         <>

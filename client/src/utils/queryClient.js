@@ -6,11 +6,9 @@ export const queryClient = new QueryClient({
         queries: {
             refetchOnWindowFocus: false,
             retry: 0,
-            // staleTime: 2 * (60 * 1000), // 2 min
-            // cacheTime: 10*(60*1000), // 10 mins
+            staleTime: 2 * (60 * 1000), // 2 min
+            cacheTime: 3*(60*1000), // 3 mins
             // refetchInterval: 5 * (60 * 1000),
-            staleTime: 0, // 2 min
-            cacheTime: 0, // 2 min
         },
     },
 });
