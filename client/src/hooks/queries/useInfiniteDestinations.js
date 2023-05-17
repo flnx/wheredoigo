@@ -21,5 +21,6 @@ export const useInfiniteDestinations = (searchParams, categoryParams) => {
         },
         queryFn: getDestinationsPaginated,
         cacheTime: 0,
+        keepPreviousData: true,
     });
 };

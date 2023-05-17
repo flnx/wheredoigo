@@ -2,11 +2,11 @@ import styles from './SearchBar.module.css';
 import { MagnifyingGlass } from '@phosphor-icons/react';
 import { useState } from 'react';
 
-export const SearchBar = ({ searchParamsHandler }) => {
+export const SearchBar = ({ searchParamsSubmitHandler }) => {
     const [value, setValue] = useState('');
 
     return (
-        <form onSubmit={(e) => searchParamsHandler(e, value)}>
+        <form onSubmit={(e) => searchParamsSubmitHandler(e, value)}>
             <div className={styles.wrapper}>
                 <input
                     className={styles.search}

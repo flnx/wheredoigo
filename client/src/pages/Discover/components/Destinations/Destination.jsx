@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import routeConstants from '../../../constants/routeConstants';
+import routeConstants from '../../../../constants/routeConstants';
 import styles from './Destination.module.css';
 
 const { BY_ID } = routeConstants.DESTINATIONS;
