@@ -1,4 +1,5 @@
 .container {
+    position: relative;
     padding: 1.5rem 0;
 }
 
@@ -10,4 +11,12 @@
 
 .title {
     margin-bottom: 2rem;
+}
+
+.spinner {
+    position: fixed;
+    z-index: 11;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

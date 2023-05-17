@@ -6,6 +6,7 @@ import { extractServerErrorMessage } from '../../../../utils/utils';
 // Components
 import { Destination } from './components/Destination';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
+import { ClipLoader } from 'react-spinners';
 
 import styles from './OwnerDestinations.module.css';
 
@@ -42,13 +43,11 @@ export const OwnerDestinations = () => {
         return errorMessage;
     }
 
-    return isLoading ? (
-        <h2>Loading....</h2>
-    ) : (
+    return (
         <div className={styles.container}>
             <h2 className={styles.title}>My stuff 🦖</h2>
             <div className={styles.wrapper}>
-                {data.map((destination) => (
+                {data?.map((destination) => (
                     <Destination
                         destination={destination}
                         key={destination._id}
@@ -65,6 +64,14 @@ export const OwnerDestinations = () => {
                     Are you sure you wanna delete this destination?
                 </ConfirmModal>
             )}
+            <ClipLoader
+                color="#36d7b7"
+                size={40}
+                loading={isLoading || isDeleteLoading}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+                className={styles.spinner}
+            />
         </div>
     );
 };

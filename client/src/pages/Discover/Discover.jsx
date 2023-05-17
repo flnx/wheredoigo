@@ -9,7 +9,6 @@ import { Container } from '../../components/Containers/Container/Container';
 import { HashTagCategories } from './components/HashTagCategories/HashTagCategories';
 
 import styles from './Discover.module.css';
-import { LoadingSkeleton } from '../../components/LoadingSkeletons/LoadingSkeleton';
 
 export const Discover = () => {
     const [searchParams, setSearchParams] = useSearchParams({});
