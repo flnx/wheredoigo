@@ -19,7 +19,6 @@ const FormFieldEditor = ({
     error,
     categoryId,
 }) => {
-
     const [description, setDescription] = useState(desc);
     const [cache, setCache] = useState(desc);
 
@@ -59,11 +58,14 @@ const FormFieldEditor = ({
                     <div className={styles.buttons}>
                         <ButtonSky
                             onClickHandler={onSaveButtonClickHandler}
-                            disabled={isLoading}
+                            isLoading={isLoading}
                         >
                             Save
                         </ButtonSky>
-                        <CancelButton onClickHandler={onCancelClickHandler}>
+                        <CancelButton
+                            onClickHandler={onCancelClickHandler}
+                            isLoading={isLoading}
+                        >
                             Cancel
                         </CancelButton>
                     </div>

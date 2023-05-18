@@ -1,14 +1,24 @@
+import { ClipLoader } from 'react-spinners';
 import styles from './ButtonSky.module.css';
 
-export const ButtonSky = ({ children, onClickHandler, disabled, type }) => {
+export const ButtonSky = ({ children, onClickHandler, isLoading, type }) => {
+    const hidden = isLoading ? styles.hidden : null;
     return (
         <button
             className={styles['btn-sky']}
             onClick={onClickHandler}
-            disabled={disabled}
+            disabled={isLoading}
             type={type}
         >
-            {children}
+            {isLoading && (
+                <ClipLoader
+                    color="#36d7b7"
+                    aria-label="Loading Spinner"
+                    size={22}
+                    className={styles.spinner}
+                />
+            )}
+            <span className={hidden}>{children}</span>
         </button>
     );
 };

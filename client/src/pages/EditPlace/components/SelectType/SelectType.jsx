@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { useState } from 'react';
 
 // Components
 import { EditTextareaPairs } from '../../../../components/Buttons/EditTextareaPairs/EditTextareaPairs';
@@ -67,7 +67,7 @@ export const SelectType = ({
                         <div className={styles.buttons}>
                             <ButtonSky
                                 onClickHandler={onSaveButtonClickHandler}
-                                disabled={isLoading}
+                                isLoading={isLoading}
                             >
                                 Save
                             </ButtonSky>

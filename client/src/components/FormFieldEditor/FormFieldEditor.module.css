@@ -33,7 +33,7 @@
     margin-bottom: 0.33rem;
 }
 
-.buttons :first-child {
+.buttons button:first-child {
     margin-right: 0.45rem;
 }
 
