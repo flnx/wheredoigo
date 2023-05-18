@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useCallback, useState } from 'react';
 import { useEditDestinationDetails } from '../../../../hooks/queries/useEditDestinationDetails';
 
@@ -8,23 +9,35 @@ import { extractServerErrorMessage } from '../../../../utils/utils';
 import { MemoizedFormFieldEditor } from '../../../../components/FormFieldEditor/FormFieldEditor';
 import { DetailsFormFields } from './DetailsFormFields';
 import { TextWrap } from '../../../../components/TextWrap/TextWrap';
-import { FormLoadingSkeleton } from './FormLoadingSkeleton';
+import { FormLoadingSkeleton } from '../../../../components/FormLoadingSkeleton/FormLoadingSkeleton';
 
 import styles from './Form.module.css';
 
-export const Form = ({ data, destinationId, isLoading }) => {
+const propTypes = {
+    destinationId: PropTypes.string.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    description: PropTypes.string.isRequired,
+    details: PropTypes.array.isRequired,
+}
+
+const defaultProps = {
+    details: [],
+    description: "",
+};
+
+
+export const Form = ({ description, details, destinationId, isLoading }) => {
     const [editDetails, isEditLoading] = useEditDestinationDetails(destinationId);
     const [editError, setEditError] = useState('');
     const [isEditable, setIsEditable] = useState({});
 
-    const onEditButtonClickHandler = useCallback(
-        (clickedId) => {
+    const onEditButtonClickHandler = useCallback((clickedId) => {
             // enables/disables the form fields
             setIsEditable((prevState) => {
-                // opens/closes the field related to the "edit" button
+                // opens/closes the edit field
                 const newState = { [clickedId]: !prevState[clickedId] };
 
-                // closes all previously opened edit formfields if any
+                // closes all previously opened edit formfields (if any)
                 Object.keys(prevState).forEach((fieldId) => {
                     if (fieldId !== clickedId) {
                         newState[fieldId] = false;
@@ -32,7 +45,7 @@ export const Form = ({ data, destinationId, isLoading }) => {
                 });
                 return newState;
             });
-
+            // removes the error message (if any)
             editError && setEditError('');
         },
         [editError]
@@ -73,7 +86,7 @@ export const Form = ({ data, destinationId, isLoading }) => {
                         <MemoizedFormFieldEditor
                             fieldId={descriptionID}
                             title={descriptionID}
-                            desc={data.description}
+                            desc={description}
                             onEditButtonClickHandler={onEditButtonClickHandler}
                             isEditable={isEditable[descriptionID]}
                             sendEditedFieldClickHandler={sendEditedFieldClickHandler}
@@ -86,7 +99,7 @@ export const Form = ({ data, destinationId, isLoading }) => {
                             sendEditedFieldClickHandler={sendEditedFieldClickHandler}
                             isLoading={isEditLoading}
                             error={editError}
-                            details={data.details}
+                            details={details}
                         />
                     </>
                 )}
@@ -94,3 +107,6 @@ export const Form = ({ data, destinationId, isLoading }) => {
         </section>
     );
 };
+
+Form.propTypes = propTypes;
+Form.defaultProps = defaultProps;

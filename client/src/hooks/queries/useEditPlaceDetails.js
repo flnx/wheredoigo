@@ -9,7 +9,7 @@ export const useEditPlaceDetails = (placeId) => {
         mutationFn: (data) => editPlaceDetails(placeId, data),
         onSuccess: (updatedField) => {
             const { infoId, description, destinationId } = updatedField;
-
+            
             const place = queryClient.getQueryData([
                 queryEndpoints.editPlace,
                 placeId,

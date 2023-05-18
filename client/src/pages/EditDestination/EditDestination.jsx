@@ -15,7 +15,7 @@ import { TextWrap } from '../../components/TextWrap/TextWrap';
 
 export const EditDestination = () => {
     const { destinationId } = useParams();
-    const [data, error, isLoading, isSuccess] = useGetDestinationToEdit(destinationId);
+    const [data, error, isLoading] = useGetDestinationToEdit(destinationId);
     const deleteImageHook = useDeleteDestinationImage;
     const addImageHook = useAddDestinationNewImages;
 
@@ -23,24 +23,27 @@ export const EditDestination = () => {
 
     return (
         <Container>
-            {isSuccess && (
-                <>
-                    <h1 className="smaller mb-2">
-                        <TextWrap isLoading={isLoading} content={`Edit ${destinationTitle}`} />
-                    </h1>
-                    <FlexSectionContainer>
-                        <Form data={data} destinationId={destinationId} />
+            <>
+                <h1 className="smaller mb-2">
+                    <TextWrap isLoading={isLoading} content={`Edit ${destinationTitle}`} />
+                </h1>
+                <FlexSectionContainer>
+                    <Form
+                        description={data?.description}
+                        details={data?.details}
+                        destinationId={destinationId}
+                        isLoading={isLoading}
+                    />
 
-                        <ImagesManager
-                            imagesData={data?.imageUrls || []}
-                            _id={destinationId}
-                            deleteImageHook={deleteImageHook}
-                            addImageHook={addImageHook}
-                            isLoading={isLoading}
-                        />
-                    </FlexSectionContainer>
-                </>
-            )}
+                    <ImagesManager
+                        imagesData={data?.imageUrls || []}
+                        destinationId={destinationId}
+                        deleteImageHook={deleteImageHook}
+                        addImageHook={addImageHook}
+                        isLoading={isLoading}
+                    />
+                </FlexSectionContainer>
+            </>
 
             <PlacesShowcase
                 places={data?.places || []}
@@ -48,7 +51,6 @@ export const EditDestination = () => {
                 isLoading={isLoading}
             />
 
-            {isLoading && <h1>Loading...</h1>}
             {error && extractServerErrorMessage(error)}
         </Container>
     );

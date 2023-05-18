@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { memo } from 'react';
 
@@ -7,6 +8,18 @@ import { CancelButton } from '../../components/Buttons/Cancel-Button/CancelButto
 import { EditTextareaPairs } from '../Buttons/EditTextareaPairs/EditTextareaPairs';
 
 import styles from './FormFieldEditor.module.css';
+
+const propTypes = {
+    categoryId: PropTypes.string,
+    isEditable: PropTypes.bool,
+    fieldId: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    desc: PropTypes.string.isRequired,
+    error: PropTypes.string.isRequired,
+    sendEditedFieldClickHandler: PropTypes.func.isRequired,
+    onEditButtonClickHandler: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+}
 
 const FormFieldEditor = ({
     fieldId,
@@ -80,5 +93,7 @@ const FormFieldEditor = ({
         </div>
     );
 };
+
+FormFieldEditor.propTypes = propTypes;
 
 export const MemoizedFormFieldEditor = memo(FormFieldEditor);

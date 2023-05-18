@@ -10,10 +10,11 @@ import { FlexSectionContainer } from '../../components/Containers/FlexSectionCon
 import { ImagesManager } from '../../components/ImagesManager/ImagesManager';
 
 import { extractServerErrorMessage } from '../../utils/utils';
+import { TextWrap } from '../../components/TextWrap/TextWrap';
 
 export const EditPlace = () => {
     const { placeId } = useParams();
-    const [data, error, isLoading, isSuccess] = useGetPlaceToEdit(placeId);
+    const [data, error, isLoading] = useGetPlaceToEdit(placeId);
     const deleteImageHook = useDeletePlaceImage;
     const addImageHook = useAddPlaceNewImages;
 
@@ -21,24 +22,28 @@ export const EditPlace = () => {
 
     return (
         <Container mb={3}>
-            {isSuccess && (
-                <>
-                    <h1 className="smaller mb-2">Edit {placeTitle}</h1>
+            <>
+                <h1 className="smaller mb-2">
+                    <TextWrap isLoading={isLoading} content={`Edit ${placeTitle}`} />
+                </h1>
 
-                    <FlexSectionContainer>
-                        <Form data={data} placeId={placeId} destinationId={data._id} />
-                        <ImagesManager
-                            imagesData={data.imageUrls}
-                            _id={placeId}
-                            _id2={data.destinationId}
-                            deleteImageHook={deleteImageHook}
-                            addImageHook={addImageHook}
-                        />
-                    </FlexSectionContainer>
-                </>
-            )}
-
-            {isLoading && <h1>Loading...</h1>}
+                <FlexSectionContainer>
+                    <Form
+                        data={data || {}}
+                        placeId={placeId}
+                        destinationId={data?.destinationId}
+                        isLoading={isLoading}
+                    />
+                    <ImagesManager
+                        imagesData={data?.imageUrls}
+                        placeId={placeId}
+                        destinationId={data?.destinationId}
+                        deleteImageHook={deleteImageHook}
+                        addImageHook={addImageHook}
+                        isLoading={isLoading}
+                    />
+                </FlexSectionContainer>
+            </>
             {error && extractServerErrorMessage(error)}
         </Container>
     );

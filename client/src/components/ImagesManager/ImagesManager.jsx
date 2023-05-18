@@ -5,15 +5,15 @@ import { NewImagesShowcase } from './components/NewImagesShowcase';
 import styles from './ImagesManager.module.css';
 
 export const ImagesManager = ({
-    _id,
-    _id2,
+    placeId,
+    destinationId,
     imagesData,
     deleteImageHook,
     addImageHook,
     isLoading,
 }) => {
-    const [deleteImage, deleteError, isDeleting] = deleteImageHook(_id, _id2);
-    const [uploadImages, uploadError, isUploading] = addImageHook(_id, _id2);
+    const [deleteImage, deleteError, isDeleting] = deleteImageHook({ placeId, destinationId });
+    const [uploadImages, uploadError, isUploading] = addImageHook({ placeId, destinationId });
     const error = deleteError || uploadError;
 
     const deleteImageHandler = (imgId, cbCloseConfirmModal) => {
@@ -32,7 +32,6 @@ export const ImagesManager = ({
             },
         });
     };
-
 
     return (
         <section>
