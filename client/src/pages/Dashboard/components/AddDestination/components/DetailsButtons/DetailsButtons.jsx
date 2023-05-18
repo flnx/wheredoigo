@@ -1,6 +1,6 @@
-import styles from './CategoryButtons.module.css';
+import styles from './DetailsButtons.module.css';
 
-export const CategoryButtons = ({ showDetailHandler }) => {
+export const DetailsButtons = ({ showDetailHandler }) => {
     const onDetailsClickHandler = (detailName) => {
         showDetailHandler({ category: detailName });
     };

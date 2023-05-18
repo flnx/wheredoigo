@@ -12,13 +12,15 @@ import { Description } from './components/Description';
 import { Details } from './components/Details';
 import { UploadImagesPreview } from '../../../../components/UploadImagesPreview/UploadImagesPreview';
 import { SuccessButton } from '../../../../components/Buttons/Success-Button/SuccessButton';
-import { CategoriesSelect } from './components/CategoriesSelect';
-import { CategoryButtons } from './components/CategoryButtons/CategoryButtons';
+import { SelectCategory } from './components/SelectCategory/SelectCategory';
+import { DetailsButtons } from './components/DetailsButtons/DetailsButtons';
+import { DarkOverlay } from '../../../../components/DarkOverlay/DarkOverlay';
 
 import { extractServerErrorMessage } from '../../../../utils/utils';
 
 import routeConstants from '../../../../constants/routeConstants';
 import styles from './AddDestination.module.css';
+import { ServerError } from '../../../../components/ServerError/ServerError';
 
 export const AddDestination = () => {
     const [createDestination, createError, isLoading] = useAddNewDestination();
@@ -60,7 +62,8 @@ export const AddDestination = () => {
 
     return (
         <div className={styles.container}>
-            {createError && <span class={styles.serverError}>{errorMessage}</span>}
+            {isLoading && <DarkOverlay isLoading={isLoading} />}
+            {errorMessage && <ServerError errorMessage={errorMessage} />}
             <form className={styles.form} onSubmit={submitHandler}>
                 <SearchCity
                     dispatchHandler={dispatchHandler}
@@ -77,7 +80,7 @@ export const AddDestination = () => {
                     dispatchHandler={dispatchHandler}
                     images={state.imageUrls}
                 />
-                <CategoryButtons showDetailHandler={showDetailHandler} />
+                <DetailsButtons showDetailHandler={showDetailHandler} />
                 {showDetail.category && (
                     <Details
                         dispatchHandler={dispatchHandler}
@@ -86,9 +89,14 @@ export const AddDestination = () => {
                     />
                 )}
 
-                <CategoriesSelect dispatchHandler={dispatchHandler} state={state} />
+                <SelectCategory dispatchHandler={dispatchHandler} state={state} />
                 <section>
-                    <SuccessButton disabled={isLoading} type="submit" fw="600" p="0.6rem 1.15rem">
+                    <SuccessButton
+                        disabled={isLoading}
+                        type="submit"
+                        fw="600"
+                        p="0.6rem 1.15rem"
+                    >
                         Create Destination
                     </SuccessButton>
                 </section>

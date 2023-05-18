@@ -44,7 +44,7 @@ export function extractServerErrorMessage(error) {
     const { response } = error;
 
     if (!response) {
-        return 'Network Error';
+        return 'Apologies, a network error has occurred. Please try again later.';
     }
 
     const { status, data } = response;

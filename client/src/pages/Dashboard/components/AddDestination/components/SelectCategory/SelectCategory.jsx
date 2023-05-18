@@ -1,6 +1,7 @@
-import styles from '../AddDestination.module.css';
+import styles from '../../AddDestination.module.css';
+import styles2 from './SelectCategory.module.css';
 
-export const CategoriesSelect = ({ dispatchHandler, state, inputErrorClass, errorMessages }) => {
+export const SelectCategory = ({ dispatchHandler, state, inputErrorClass, errorMessages }) => {
     const onChangeHandler = (e) => {
         dispatchHandler({
             type: 'change',
@@ -20,7 +21,7 @@ export const CategoriesSelect = ({ dispatchHandler, state, inputErrorClass, erro
                 name="category"
                 value={state.category}
                 onChange={onChangeHandler}
-                className={styles.select}
+                className={styles2.select}
             >
                 {categories.map((type) => (
                     <option value={type} key={type}>

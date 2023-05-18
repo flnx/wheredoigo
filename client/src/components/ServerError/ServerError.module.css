@@ -1,0 +1,21 @@
+.serverError {
+    z-index: 10;
+    position: fixed;
+    left: 5%;
+    right: 5%;
+    bottom: 8%;
+    padding: 0.65rem 1.5rem;
+    background: #fff;
+    border: 2px solid var(--danger);
+    color: var(--danger);
+    border-radius: 5px;
+    max-width: 25rem;
+    text-align: center;
+    font-size: 1rem;
+}
+
+@media (min-width: 64em) {
+    .serverError {
+        left: 1%;
+    }
+}
