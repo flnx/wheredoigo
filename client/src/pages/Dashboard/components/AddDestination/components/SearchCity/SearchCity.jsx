@@ -66,7 +66,8 @@ export const SearchCity = ({ dispatchHandler, errorMessages, city, lastCityFetch
 
     const isFreshlyFetchedCityValid = lastCityFetch.city && city && !isLoading;
     const isFreshlyFetchedCityInvalid = !lastCityFetch.city && city && !isLoading;
-    const isUserInputValidCity = city && lastCityFetch.city.toLowerCase() == city.toLowerCase();
+    const isUserInputValidCity =
+        city && lastCityFetch.city.toLowerCase() == city.toLowerCase();
 
     return (
         <div className={`${styles.formField} ${styles2.cityInput}`}>
@@ -77,14 +78,21 @@ export const SearchCity = ({ dispatchHandler, errorMessages, city, lastCityFetch
                 city={city}
             />
 
-            {!isUserInputValidCity && <ShowFormError errors={errorMessages} errorParam={'city'} />}
+            {!isUserInputValidCity && (
+                <ShowFormError errors={errorMessages} errorParam={'city'} />
+            )}
 
             {showSearchDropdown && (
                 <div className={styles2.searchDropdown}>
                     {!city && <EnterLocation />}
 
                     {isLoading && (
-                        <ClipLoader color="#36d7b7" aria-label="Loading Spinner" size={24} />
+                        <ClipLoader
+                            color="#36d7b7"
+                            aria-label="Loading Spinner"
+                            size={24}
+                            className={styles2.spinner}
+                        />
                     )}
 
                     {isFreshlyFetchedCityValid && (

@@ -20,7 +20,7 @@ export const Description = ({ dispatchHandler, description, errorMessages }) => 
                 id="description"
                 rows="8"
                 name="description"
-                placeholder="Add a description (at least 10 characters long)"
+                placeholder="Add a description"
                 value={description}
                 onChange={onChangeHandler}
                 className={`${validField} ${invalidField}`}

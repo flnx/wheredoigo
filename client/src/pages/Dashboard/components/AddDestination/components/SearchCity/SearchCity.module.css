@@ -26,3 +26,7 @@
     display: flex;
     gap: 0.5rem;
 }
+
+.spinner {
+    margin-left: 0.4rem;
+}

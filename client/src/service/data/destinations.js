@@ -20,17 +20,13 @@ export const getCreatorDestinations = async () => {
 };
 
 export const createDestination = async (destinationData) => {
-    await new Promise(res => setTimeout(res, 3500));
+    const res = await axios.post(apiEndpoints.addDestination, destinationData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
 
-    throw new Error(JSON.stringify({message: 'an error has occured'}));
-
-    // const res = await axios.post(apiEndpoints.addDestination, destinationData, {
-    //     headers: {
-    //         'Content-Type': 'multipart/form-data',
-    //     },
-    // });
-
-    // return res.data;
+    return res.data;
 };
 
 export const editDestinationDetails = async (destinationId, updatedData) => {

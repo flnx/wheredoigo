@@ -1,7 +1,7 @@
 .error {
-    position: absolute;
+    position: relative;
     left: 2px;
-    bottom: -1.6rem;
+    top: 2.5px;
     font-size: 0.95rem;
     color: var(--error-message);
     text-decoration: uppercase;
