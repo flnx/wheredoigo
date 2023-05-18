@@ -11,7 +11,7 @@ import { EnterLocation } from './components/EnterLocation';
 import { ShowFormError } from '../../../../../../components/ShowFormError/ShowFormError';
 
 import styles from '../../AddDestination.module.css';
-
+import styles2 from './SearchCity.module.css';
 
 export const SearchCity = ({ dispatchHandler, errorMessages, city, lastCityFetch }) => {
     const [showSearchDropdown, setShowSearchDropdown] = useState(false);
@@ -69,7 +69,7 @@ export const SearchCity = ({ dispatchHandler, errorMessages, city, lastCityFetch
     const isUserInputValidCity = city && lastCityFetch.city.toLowerCase() == city.toLowerCase();
 
     return (
-        <div className={`${styles.formField} ${styles.cityInput}`}>
+        <div className={`${styles.formField} ${styles2.cityInput}`}>
             <Input
                 showSearchDropdownHandler={showSearchDropdownHandler}
                 isCityValidated={isUserInputValidCity}
@@ -80,7 +80,7 @@ export const SearchCity = ({ dispatchHandler, errorMessages, city, lastCityFetch
             {!isUserInputValidCity && <ShowFormError errors={errorMessages} errorParam={'city'} />}
 
             {showSearchDropdown && (
-                <div className={styles.searchDropdown}>
+                <div className={styles2.searchDropdown}>
                     {!city && <EnterLocation />}
 
                     {isLoading && (

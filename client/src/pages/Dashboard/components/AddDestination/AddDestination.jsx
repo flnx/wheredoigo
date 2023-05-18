@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useReducer, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAddNewDestination } from '../../../../hooks/queries/useAddDestination';
@@ -9,11 +9,11 @@ import { validateDestinationData } from '../../../../utils/formValidators';
 // Components
 import { SearchCity } from './components/SearchCity/SearchCity';
 import { Description } from './components/Description';
-import { DetailsButtons } from './components/DetailsButtons';
 import { Details } from './components/Details';
 import { UploadImagesPreview } from '../../../../components/UploadImagesPreview/UploadImagesPreview';
 import { SuccessButton } from '../../../../components/Buttons/Success-Button/SuccessButton';
 import { CategoriesSelect } from './components/CategoriesSelect';
+import { CategoryButtons } from './components/CategoryButtons/CategoryButtons';
 
 import { extractServerErrorMessage } from '../../../../utils/utils';
 
@@ -77,7 +77,7 @@ export const AddDestination = () => {
                     dispatchHandler={dispatchHandler}
                     images={state.imageUrls}
                 />
-                <DetailsButtons showDetailHandler={showDetailHandler} />
+                <CategoryButtons showDetailHandler={showDetailHandler} />
                 {showDetail.category && (
                     <Details
                         dispatchHandler={dispatchHandler}
@@ -87,11 +87,11 @@ export const AddDestination = () => {
                 )}
 
                 <CategoriesSelect dispatchHandler={dispatchHandler} state={state} />
-                <div>
+                <section>
                     <SuccessButton disabled={isLoading} type="submit" fw="600" p="0.6rem 1.15rem">
                         Create Destination
                     </SuccessButton>
-                </div>
+                </section>
             </form>
         </div>
     );

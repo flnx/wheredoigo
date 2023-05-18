@@ -9,27 +9,26 @@ export const Description = ({ dispatchHandler, description, errorMessages }) => 
         });
     };
 
-
-    const hasError = errorMessages.some(msg => msg.includes('Description'));
+    const hasError = errorMessages.some((msg) => msg.includes('Description'));
     const validField = `${description.length >= 10 ? styles.validField : ''}`;
     const invalidField = `${hasError && description.length < 10 ? styles.error : ''}`;
 
     return (
-        <>
-            <div className={`${styles.formField} ${styles.description}`}>
-                <label htmlFor="description">Description</label>
-                <textarea
-                    id="description"
-                    rows="8"
-                    name="description"
-                    placeholder="Add a description (at least 10 characters long)"
-                    value={description}
-                    onChange={onChangeHandler}
-                    className={`${validField} ${invalidField}`}
-                />
+        <div className={styles.formField}>
+            <label htmlFor="description">Description</label>
+            <textarea
+                id="description"
+                rows="8"
+                name="description"
+                placeholder="Add a description (at least 10 characters long)"
+                value={description}
+                onChange={onChangeHandler}
+                className={`${validField} ${invalidField}`}
+            />
 
-                {invalidField && <ShowFormError errors={errorMessages} errorParam={'Description'} />}
-            </div>
-        </>
+            {invalidField && (
+                <ShowFormError errors={errorMessages} errorParam={'Description'} />
+            )}
+        </div>
     );
 };

@@ -11,8 +11,8 @@ export const CategoriesSelect = ({ dispatchHandler, state, inputErrorClass, erro
     const categories = ['Beach', 'Nature', 'Cultural', 'Snow', 'Islands', 'Adventure'];
 
     return (
-        <div className={`${styles.formField} ${styles.description}`}>
-            <label htmlFor="category" className={styles.label}>
+        <div className={styles.formField}>
+            <label htmlFor="category">
                 Category
             </label>
             <select

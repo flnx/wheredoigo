@@ -1,0 +1,29 @@
+.categoryDetails {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 1.25rem;
+}
+
+.categoryDetails > * {
+    flex: 1 1 calc(50% - 1rem);
+    cursor: pointer;
+    text-align: center;
+    padding: 0.55rem 0rem;
+    border: 1px solid var(--border-dark);
+    border-radius: 5px;
+    color: var(--text-primary);
+    transition: all 0.08s ease-in-out;
+}
+
+.categoryDetails > *:hover,
+.categoryDetails > *:focus {
+    background: var(--button-hover);
+    color: #fff;
+    border: 1px solid transparent;
+}
+@media (min-width: 81em) {
+    .categoryDetails > * {
+        flex: 1 1 calc(25% - 1rem);
+    }
+}
