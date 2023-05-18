@@ -28,8 +28,8 @@ export const ImageHandler = ({ imagesData, deleteImageHandler, isDeleting, isLoa
         deleteImageHandler({ imgId }, handleCloseConfirmModal);
     };
 
-    // Prefills the array with data in order to render 9 elements for the loading skeleton to show during loading
-    const images = isLoading ? checkArrayAndPreloadElements([], 9) : imagesData;
+    // Prefills the array with data in order to render 6 elements for the loading skeleton to show during loading
+    const images = isLoading ? checkArrayAndPreloadElements([], 6) : imagesData;
     const doesNotHaveCurrentImages = images.length == 0;
 
     return (

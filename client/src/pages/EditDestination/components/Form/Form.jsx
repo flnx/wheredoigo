@@ -7,10 +7,12 @@ import { extractServerErrorMessage } from '../../../../utils/utils';
 // Components
 import { MemoizedFormFieldEditor } from '../../../../components/FormFieldEditor/FormFieldEditor';
 import { DetailsFormFields } from './DetailsFormFields';
+import { TextWrap } from '../../../../components/TextWrap/TextWrap';
+import { FormLoadingSkeleton } from './FormLoadingSkeleton';
 
 import styles from './Form.module.css';
 
-export const Form = ({ data, destinationId }) => {
+export const Form = ({ data, destinationId, isLoading }) => {
     const [editDetails, isEditLoading] = useEditDestinationDetails(destinationId);
     const [editError, setEditError] = useState('');
     const [isEditable, setIsEditable] = useState({});
@@ -61,26 +63,33 @@ export const Form = ({ data, destinationId }) => {
 
     return (
         <section>
-            <h3>Destination Info</h3>
+            <h3>
+                <TextWrap isLoading={isLoading} content={'Destination Info'} />
+            </h3>
             <form className={styles.form}>
-                <MemoizedFormFieldEditor
-                    fieldId={descriptionID}
-                    title={descriptionID}
-                    desc={data.description}
-                    onEditButtonClickHandler={onEditButtonClickHandler}
-                    isEditable={isEditable[descriptionID]}
-                    sendEditedFieldClickHandler={sendEditedFieldClickHandler}
-                    isLoading={isEditLoading}
-                    error={editError}
-                />
-                <DetailsFormFields
-                    onEditButtonClickHandler={onEditButtonClickHandler}
-                    isEditable={isEditable}
-                    sendEditedFieldClickHandler={sendEditedFieldClickHandler}
-                    isLoading={isEditLoading}
-                    error={editError}
-                    details={data.details}
-                />
+                {isLoading && <FormLoadingSkeleton />}
+                {!isLoading && (
+                    <>
+                        <MemoizedFormFieldEditor
+                            fieldId={descriptionID}
+                            title={descriptionID}
+                            desc={data.description}
+                            onEditButtonClickHandler={onEditButtonClickHandler}
+                            isEditable={isEditable[descriptionID]}
+                            sendEditedFieldClickHandler={sendEditedFieldClickHandler}
+                            isLoading={isEditLoading}
+                            error={editError}
+                        />
+                        <DetailsFormFields
+                            onEditButtonClickHandler={onEditButtonClickHandler}
+                            isEditable={isEditable}
+                            sendEditedFieldClickHandler={sendEditedFieldClickHandler}
+                            isLoading={isEditLoading}
+                            error={editError}
+                            details={data.details}
+                        />
+                    </>
+                )}
             </form>
         </section>
     );

@@ -37,7 +37,7 @@ function validateFieldsOnEdit(data) {
         throw createValidationError(errorMessages.invalidBody, 400);
     }
 
-    if (categoryId && isString(categoryId)) {
+    if (categoryId && !isString(categoryId)) {
         throw createValidationError(errorMessages.invalidBody, 400);
     }
 

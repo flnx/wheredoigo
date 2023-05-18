@@ -32,11 +32,11 @@ export const EditDestination = () => {
                         <Form data={data} destinationId={destinationId} />
 
                         <ImagesManager
-                            imagesData={[]}
+                            imagesData={data?.imageUrls || []}
                             _id={destinationId}
                             deleteImageHook={deleteImageHook}
                             addImageHook={addImageHook}
-                            isLoading={true}
+                            isLoading={isLoading}
                         />
                     </FlexSectionContainer>
                 </>

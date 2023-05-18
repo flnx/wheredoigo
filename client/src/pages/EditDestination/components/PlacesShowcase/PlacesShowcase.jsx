@@ -39,8 +39,8 @@ export const PlacesShowcase = ({ places, destinationId, isLoading }) => {
 
     // If data is loading - it returns a new array with 3 elements
     // This ensures that there will be 3 div boxes for the loading skeleton when is loading
-    const prefillPlaceBoxes = checkArrayAndPreloadElements(places, 3);
-    const hasNoPlaces = !isLoading && places.length == 0;
+    const placesData = isLoading ? checkArrayAndPreloadElements([], 3) : places;
+    const hasNoPlaces = placesData.length == 0;
 
     return (
         <section className={styles.section}>
@@ -51,7 +51,7 @@ export const PlacesShowcase = ({ places, destinationId, isLoading }) => {
             {hasNoPlaces && <p>No places have been added yet.</p>}
 
             <Places
-                places={prefillPlaceBoxes}
+                places={placesData}
                 onDeleteClickHandler={onDeleteClickOpenConfirmModalHandler}
                 isOwner={true}
                 isLoading={isLoading}
