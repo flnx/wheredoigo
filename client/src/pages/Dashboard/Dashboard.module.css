@@ -46,7 +46,7 @@
     }
 
     .sideNavSection {
-        width: 15.5rem;
+        width: 13rem;
         grid-row: 1 / -1;
     }
 
@@ -59,12 +59,24 @@
     .stats {
         grid-column: 3;
         grid-row: 1 / -1;
-        width: 20rem;
+        width: 13rem;
     }
 
     .mainContent {
         grid-row: 1 /-1;
-        width: 90%;
+        width: 93.5%;
         margin-top: 1.5rem;
+    }
+}
+
+@media (min-width: 81em) {
+    .sideNavSection {
+        width: 15.5rem;
+    }
+
+    .stats {
+        grid-column: 3;
+        grid-row: 1 / -1;
+        width: 15.5rem;
     }
 }

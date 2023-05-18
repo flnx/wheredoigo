@@ -11,7 +11,7 @@
 
 .navbar {
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     gap: 2rem;
 }
 
@@ -40,9 +40,8 @@
 
 @media (min-width: 64em) {
     .sideNav {
-        width: 15.5rem;
+        width: 13rem;
     }
-
 
     .navLink {
         min-width: 10rem;
@@ -50,5 +49,11 @@
 
     .navText {
         display: inline;
+    }
+}
+
+@media (min-width: 81em) {
+    .sideNav {
+        width: 15.5rem;
     }
 }

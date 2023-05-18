@@ -33,6 +33,10 @@ export const Discover = () => {
     };
 
     const onHashTagClickHandler = (updatedParams) => {
+        if (searchParam) {
+            updatedParams.search = searchParam;
+        }
+
         setSearchParams(updatedParams);
     };
 
@@ -57,7 +61,7 @@ export const Discover = () => {
         <Container mb={3}>
             <div className={styles.grid}>
                 <h1>Where do you want to go?</h1>
-                <SearchBar searchParamsHandler={searchParamsSubmitHandler} />
+                <SearchBar searchParamsSubmitHandler={searchParamsSubmitHandler} />
                 <HashTagCategories
                     categories={categories}
                     onHashTagClickHandler={onHashTagClickHandler}
