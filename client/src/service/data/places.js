@@ -35,6 +35,10 @@ export const editPlaceDetails = async (placeId, updatedData) => {
 };
 
 export const deletePlace = async ({ placeId }) => {
+    await new Promise(res => setTimeout(res, 3000))
+
+    throw new Error(JSON.stringify({message: 'error'}));
+    
     const res = await axios.delete(apiEndpoints.deletePlace(placeId));
 
     return {

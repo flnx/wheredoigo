@@ -5,6 +5,7 @@ import { useAddNewDestination } from '../../../../hooks/queries/useAddDestinatio
 import { destinationFormReducer, initialState } from '../../../../utils/destinationReducer';
 import { createDestinationFormData } from '../../../../utils/formData';
 import { validateDestinationData } from '../../../../utils/formValidators';
+import { ServerError } from '../../../../components/ServerError/ServerError';
 
 // Components
 import { SearchCity } from './components/SearchCity/SearchCity';
@@ -16,11 +17,8 @@ import { SelectCategory } from './components/SelectCategory/SelectCategory';
 import { DetailsButtons } from './components/DetailsButtons/DetailsButtons';
 import { DarkOverlay } from '../../../../components/DarkOverlay/DarkOverlay';
 
-import { extractServerErrorMessage } from '../../../../utils/utils';
-
 import routeConstants from '../../../../constants/routeConstants';
 import styles from './AddDestination.module.css';
-import { ServerError } from '../../../../components/ServerError/ServerError';
 
 export const AddDestination = () => {
     const [createDestination, createError, isLoading] = useAddNewDestination();
@@ -58,12 +56,11 @@ export const AddDestination = () => {
     };
 
     const openedDetailsCategory = state.details.find((x) => x.category == showDetail.category);
-    const errorMessage = createError && extractServerErrorMessage(createError);
 
     return (
         <div className={styles.container}>
             {isLoading && <DarkOverlay isLoading={isLoading} />}
-            {errorMessage && <ServerError errorMessage={errorMessage} />}
+            {createError && <ServerError errorMessage={createError} />}
             <form className={styles.form} onSubmit={submitHandler}>
                 <SearchCity
                     dispatchHandler={dispatchHandler}

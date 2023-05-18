@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
+import { extractServerErrorMessage } from '../../utils/utils';
 import styles from './ServerError.module.css';
 
-export const ServerError = ({errorMessage}) => {
+export const ServerError = ({ errorMessage }) => {
     const [isVisible, setIsVisible] = useState(true);
+
+    const error = extractServerErrorMessage(errorMessage);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -12,5 +15,5 @@ export const ServerError = ({errorMessage}) => {
         return () => clearTimeout(timer);
     }, []);
 
-    return isVisible ? <span className={styles.serverError}>{errorMessage}</span> : null;
+    return isVisible ? <span className={styles.serverError}>{error}</span> : null;
 };

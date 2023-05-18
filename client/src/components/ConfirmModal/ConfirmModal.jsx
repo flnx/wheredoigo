@@ -16,24 +16,16 @@ export const ConfirmModal = ({ children, onCloseHandler, actionClickHandler, isL
 
     return (
         <>
-            <DarkOverlay onClickHandler={onCloseHandler} />
-            <div className={styles.modal}>
-                <div className={styles.modalMain}>
-                    {children}
-                    <div className={styles.modalButtons}>
-                        <SuccessButton
-                            onClickHandler={actionClickHandler}
-                            isLoading={isLoading}
-                        >
-                            Delete
-                        </SuccessButton>
-                        <CancelButton 
-                            onClickHandler={onCloseHandler} 
-                            isLoading={isLoading}
-                        >
-                            Cancel
-                        </CancelButton>
-                    </div>
+            <DarkOverlay onClickHandler={onCloseHandler} isLoading={isLoading} />
+            <div className={styles.modalMain}>
+                {children}
+                <div className={styles.modalButtons}>
+                    <SuccessButton onClickHandler={actionClickHandler} isLoading={isLoading}>
+                        Delete
+                    </SuccessButton>
+                    <CancelButton onClickHandler={onCloseHandler} isLoading={isLoading}>
+                        Cancel
+                    </CancelButton>
                 </div>
             </div>
         </>

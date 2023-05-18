@@ -11,6 +11,7 @@ import { Form } from './components/Form/Form';
 import { ImagesManager } from '../../components/ImagesManager/ImagesManager';
 
 import { extractServerErrorMessage } from '../../utils/utils';
+import { TextWrap } from '../../components/TextWrap/TextWrap';
 
 export const EditDestination = () => {
     const { destinationId } = useParams();
@@ -20,16 +21,17 @@ export const EditDestination = () => {
 
     const destinationTitle = `${data?.city}, ${data?.country}`;
 
+    const places = data?.places || [];
+
     return (
         <Container>
             {isSuccess && (
                 <>
-                    <h1 className="smaller mb-2">Edit {destinationTitle}</h1>
+                    <h1 className="smaller mb-2">
+                        <TextWrap isLoading={isLoading} content={`Edit ${destinationTitle}`} />
+                    </h1>
                     <FlexSectionContainer>
-                        <Form 
-                            data={data} 
-                            destinationId={destinationId} 
-                        />
+                        <Form data={data} destinationId={destinationId} />
 
                         <ImagesManager
                             imagesData={data.imageUrls}
@@ -38,13 +40,14 @@ export const EditDestination = () => {
                             addImageHook={addImageHook}
                         />
                     </FlexSectionContainer>
-
-                    <PlacesShowcase 
-                        places={data.places} 
-                        destinationId={destinationId} 
-                    />
                 </>
             )}
+            
+            <PlacesShowcase
+                places={places}
+                destinationId={destinationId}
+                isLoading={isLoading}
+            />
 
             {isLoading && <h1>Loading...</h1>}
             {error && extractServerErrorMessage(error)}

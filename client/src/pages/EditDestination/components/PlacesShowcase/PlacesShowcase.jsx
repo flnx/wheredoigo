@@ -1,24 +1,27 @@
 import { useState } from 'react';
 import { useDeletePlace } from '../../../../hooks/queries/useDeletePlace';
+import { checkArrayAndPreloadElements } from '../../../../utils/utils';
 
 // Components
 import { Places } from '../../../../components/Places/Places';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 import { LinkButtonSecondary } from '../../../../components/Buttons/Secondary-Btn/LinkButtonSecondary';
+import { ServerError } from '../../../../components/ServerError/ServerError';
 
 import routeConstants from '../../../../constants/routeConstants';
 import styles from './PlacesShowcase.module.css';
 
 const { PLACES } = routeConstants;
 
-export const PlacesShowcase = ({ places, destinationId }) => {
-    const [deletePlace, error, isLoading] = useDeletePlace(destinationId);
+export const PlacesShowcase = ({ places, destinationId, isLoading }) => {
+    const [deletePlace, error, isDeleteLoading] = useDeletePlace(destinationId);
     const [openModal, setOpenModal] = useState(false);
     const [placeToDelete, setPlaceToDelete] = useState(null);
 
     const onConfirmDeleteClickHandler = () => {
         deletePlace(placeToDelete, {
             onSuccess: () => setOpenModal(false),
+            onError: () => setOpenModal(false)
         });
     };
 
@@ -28,38 +31,46 @@ export const PlacesShowcase = ({ places, destinationId }) => {
     };
 
     const handleCloseConfirmModal = () => {
+        if (isDeleteLoading) return;
         setOpenModal(false);
         setPlaceToDelete(null);
     };
 
-    const hasPlaces = places.length != 0;
+    // If data is loading - it returns a new array with 3 elements
+    // This ensures that there will be 3 div boxes for the loading skeleton when is loading
+    const prefillPlaceBoxes = checkArrayAndPreloadElements(places, 3);
+    const hasNoPlaces = !isLoading && places.length == 0;
 
     return (
         <section className={styles.section}>
             <h2 className={styles.sectionTitle}>Places</h2>
 
-            {!hasPlaces && <p>No places have been added yet.</p>}
+            {hasNoPlaces && <p>No places have been added yet.</p>}
 
             <Places
-                places={places}
+                places={prefillPlaceBoxes}
                 onDeleteClickHandler={onDeleteClickOpenConfirmModalHandler}
                 isOwner={true}
                 isLoading={isLoading}
             />
 
-            <LinkButtonSecondary to={PLACES.ADD.routePath(destinationId)}>
-                {PLACES.ADD.name}
-            </LinkButtonSecondary>
+            {!isLoading && (
+                <LinkButtonSecondary to={PLACES.ADD.routePath(destinationId)}>
+                    {PLACES.ADD.name}
+                </LinkButtonSecondary>
+            )}
 
             {openModal && (
                 <ConfirmModal
                     onCloseHandler={handleCloseConfirmModal}
                     actionClickHandler={onConfirmDeleteClickHandler}
-                    isLoading={isLoading}
+                    isLoading={isDeleteLoading}
                 >
                     Are you sure you wanna delete this place?
                 </ConfirmModal>
             )}
+
+            {error && <ServerError errorMessage={error} />}
         </section>
     );
 };
