@@ -1,6 +1,6 @@
-import styles from './Form.module.css';
+import styles from './ShowFormError.module.css';
 
-export const ShowError = ({ errors, errorParam }) => {
+export const ShowFormError = ({ errors, errorParam }) => {
     const errorChecker = (name) => {
         name = name.toLowerCase();
         return errors.find((e) => e.toLowerCase().includes(name));

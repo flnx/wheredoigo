@@ -23,14 +23,13 @@ export function validatePlaceData(state) {
     return errors;
 }
 
-export const validateDestinationData = (state, validCity) => {
+export const validateDestinationData = (state) => {
     const { city, description } = state;
     const errors = [];
 
-    const isCityValidated =
-        !city.length == 0 && validCity.city?.toLowerCase() == city.toLowerCase();
+    const isCityValid = city && state.lastCityFetch.city.toLowerCase() == city.toLowerCase();
 
-    if (!isCityValidated) {
+    if (!isCityValid) {
         errors.push('Please enter a valid city');
     }
 

@@ -22,8 +22,10 @@ export const OwnerDestinations = () => {
     };
 
     const onConfirmCancelHandler = () => {
-        setOpenConfirmModal(false);
-        setDestinationToDelete(null);
+        if (!isDeleteLoading) {
+            setOpenConfirmModal(false);
+            setDestinationToDelete(null);
+        }
     };
 
     const onDeleteConfirmHandler = () => {
@@ -38,8 +40,9 @@ export const OwnerDestinations = () => {
         });
     };
 
-    if (error) {
-        const errorMessage = extractServerErrorMessage(error);
+    if (error || deleteError) {
+        const err = error ? error : deleteError;
+        const errorMessage = extractServerErrorMessage(err);
         return errorMessage;
     }
 
@@ -69,7 +72,6 @@ export const OwnerDestinations = () => {
                 size={40}
                 loading={isLoading || isDeleteLoading}
                 aria-label="Loading Spinner"
-                data-testid="loader"
                 className={styles.spinner}
             />
         </div>

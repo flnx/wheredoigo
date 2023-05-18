@@ -7,11 +7,15 @@ async function fetchCity(city) {
     const result = await fetch(process.env.CITY_URL + city, options());
     const data = await result.json();
 
-    if (!Array.isArray(data) || !data[0].name) {
-        throw createValidationError(errorMessages.notFound, 404);
+    if (Array.isArray(data)) {
+        if (data.length == 0 || !data[0].name) {
+            throw createValidationError(errorMessages.notFound, 404);
+        }
+
+        return data;
     }
 
-    return data;
+    throw createValidationError(errorMessages.notFound, 404);
 }
 
 async function fetchCountry(country) {

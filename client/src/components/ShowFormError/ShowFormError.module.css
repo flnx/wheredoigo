@@ -1,0 +1,8 @@
+.error {
+    position: absolute;
+    left: 2px;
+    bottom: -1.6rem;
+    font-size: 0.95rem;
+    color: var(--error-message);
+    text-decoration: uppercase;
+}

@@ -1,7 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { useReducer, useState } from 'react';
-import { UploadImagesPreview } from '../../../components/UploadImagesPreview/UploadImagesPreview';
-import { ShowError } from './ShowError';
 
 import { useAddNewPlace } from '../../../hooks/queries/useAddPlace';
 import { initialState, placeReducer } from '../../../utils/placeReducer';
@@ -9,8 +7,11 @@ import { validatePlaceData } from '../../../utils/formValidators';
 import { createPlaceFormData } from '../../../utils/formData';
 import { extractServerErrorMessage } from '../../../utils/utils';
 
-import routeConstants from '../../../constants/routeConstants';
+// Components
+import { UploadImagesPreview } from '../../../components/UploadImagesPreview/UploadImagesPreview';
+import { ShowFormError } from '../../../components/ShowFormError/ShowFormError';
 
+import routeConstants from '../../../constants/routeConstants';
 import styles from './Form.module.css';
 
 export const Form = ({ destinationId }) => {
@@ -75,7 +76,7 @@ export const Form = ({ destinationId }) => {
                     className={styles.formInput}
                     placeholder="Add place name"
                 />
-                <ShowError errors={errors} errorParam={'name'} />
+                <ShowFormError errors={errors} errorParam={'name'} />
             </div>
             <div className={styles.formRow}>
                 <label className={styles.formLabel} htmlFor="description">
@@ -90,7 +91,7 @@ export const Form = ({ destinationId }) => {
                     className={styles.formInput}
                     placeholder="Add place description..."
                 />
-                <ShowError errors={errors} errorParam={'description'} />
+                <ShowFormError errors={errors} errorParam={'description'} />
             </div>
             <div className={styles.formRow}>
                 <label className={styles.formLabel} htmlFor="type">
@@ -108,12 +109,12 @@ export const Form = ({ destinationId }) => {
                     <option value="Eat">Eat</option>
                     <option value="Party">Party</option>
                 </select>
-                <ShowError errors={errors} errorParam={'type'} />
-                <ShowError errors={errors} errorParam={'all'} />
+                <ShowFormError errors={errors} errorParam={'type'} />
+                <ShowFormError errors={errors} errorParam={'all'} />
             </div>
 
             <div className={styles.formRow}>
-                <ShowError errors={errors} errorParam={'images'} />
+                <ShowFormError errors={errors} errorParam={'images'} />
                 <UploadImagesPreview
                     dispatchHandler={dispatchHandler}
                     images={state.imageUrls}

@@ -27,7 +27,6 @@ export const Destinations = ({ searchParam, categoryParams }) => {
                     size={40}
                     loading={isFetching}
                     aria-label="Loading Spinner"
-                    data-testid="loader"
                     className={styles.spinner}
                 />
             </div>

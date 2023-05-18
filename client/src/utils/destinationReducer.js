@@ -6,6 +6,21 @@ export function destinationFormReducer(state, action) {
                 [action.payload.name]: action.payload.value,
             };
 
+        case 'last_city_fetched':
+            return {
+                ...state,
+                lastCityFetch: {
+                    city: action.payload.city,
+                    country: action.payload.country,
+                },
+            };
+
+        case 'reset_last_fetch':
+            return {
+                ...state,
+                lastCityFetch: { city: '', country: '' },
+            };
+
         case 'details_change': {
             return {
                 ...state,
@@ -62,6 +77,10 @@ export function destinationFormReducer(state, action) {
 export const initialState = {
     description: '',
     city: '',
+    lastCityFetch: {
+        city: '',
+        country: '',
+    },
     country: '',
     category: 'Beach',
     details: [
