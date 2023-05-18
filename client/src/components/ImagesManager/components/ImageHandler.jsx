@@ -19,6 +19,7 @@ export const ImageHandler = ({ imagesData, deleteImageHandler, isDeleting, isLoa
     };
 
     const handleCloseConfirmModal = () => {
+        if (isDeleting) return;
         setOpenModal(false);
         setImgIndexToDelete(null);
     };

@@ -8,6 +8,7 @@ import { UploadImagesPreview } from '../../UploadImagesPreview/UploadImagesPrevi
 import { SuccessButton } from '../../Buttons/Success-Button/SuccessButton';
 
 import styles from './NewImagesShowcase.module.css';
+import { DarkOverlay } from '../../DarkOverlay/DarkOverlay';
 
 export const NewImagesShowcase = ({ uploadImagesHandler, isUploading }) => {
     const [newImagesState, dispatch] = useReducer(imagesReducer, initialState);
@@ -31,6 +32,7 @@ export const NewImagesShowcase = ({ uploadImagesHandler, isUploading }) => {
 
     return (
         <div className={styles['newly-uploaded-images']}>
+            {isUploading && <DarkOverlay isLoading={isUploading} />}
             <UploadImagesPreview
                 images={newImagesState.imageUrls}
                 dispatchHandler={dispatchHandler}
