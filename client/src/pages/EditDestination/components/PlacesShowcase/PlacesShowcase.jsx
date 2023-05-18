@@ -10,6 +10,7 @@ import { ServerError } from '../../../../components/ServerError/ServerError';
 
 import routeConstants from '../../../../constants/routeConstants';
 import styles from './PlacesShowcase.module.css';
+import { TextWrap } from '../../../../components/TextWrap/TextWrap';
 
 const { PLACES } = routeConstants;
 
@@ -21,7 +22,7 @@ export const PlacesShowcase = ({ places, destinationId, isLoading }) => {
     const onConfirmDeleteClickHandler = () => {
         deletePlace(placeToDelete, {
             onSuccess: () => setOpenModal(false),
-            onError: () => setOpenModal(false)
+            onError: () => setOpenModal(false),
         });
     };
 
@@ -43,7 +44,9 @@ export const PlacesShowcase = ({ places, destinationId, isLoading }) => {
 
     return (
         <section className={styles.section}>
-            <h2 className={styles.sectionTitle}>Places</h2>
+            <h2 className={styles.sectionTitle}>
+                <TextWrap isLoading={isLoading} content={'Places'} />
+            </h2>
 
             {hasNoPlaces && <p>No places have been added yet.</p>}
 

@@ -1,11 +1,20 @@
+import { ServerError } from '../ServerError/ServerError';
 import { ImageHandler } from './components/ImageHandler';
 import { NewImagesShowcase } from './components/NewImagesShowcase';
 
 import styles from './ImagesManager.module.css';
 
-export const ImagesManager = ({ _id, _id2, imagesData, deleteImageHook, addImageHook }) => {
+export const ImagesManager = ({
+    _id,
+    _id2,
+    imagesData,
+    deleteImageHook,
+    addImageHook,
+    isLoading,
+}) => {
     const [deleteImage, deleteError, isDeleting] = deleteImageHook(_id, _id2);
     const [uploadImages, uploadError, isUploading] = addImageHook(_id, _id2);
+    const error = deleteError || uploadError;
 
     const deleteImageHandler = (imgId, cbCloseConfirmModal) => {
         deleteImage(imgId, {
@@ -24,6 +33,7 @@ export const ImagesManager = ({ _id, _id2, imagesData, deleteImageHook, addImage
         });
     };
 
+
     return (
         <section>
             <div className={styles['images-container']}>
@@ -31,14 +41,18 @@ export const ImagesManager = ({ _id, _id2, imagesData, deleteImageHook, addImage
                     imagesData={imagesData}
                     deleteImageHandler={deleteImageHandler}
                     isDeleting={isDeleting}
+                    isLoading={isLoading}
                 />
 
-                <NewImagesShowcase
-                    uploadImagesHandler={uploadImagesHandler}
-                    isUploading={isUploading}
-                    uploadError={uploadError}
-                />
+                {!isLoading && (
+                    <NewImagesShowcase
+                        uploadImagesHandler={uploadImagesHandler}
+                        isUploading={isUploading}
+                    />
+                )}
             </div>
+
+            {error && <ServerError errorMessage={error} />}
         </section>
     );
 };

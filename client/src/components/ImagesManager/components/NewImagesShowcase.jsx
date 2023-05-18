@@ -9,7 +9,7 @@ import { SuccessButton } from '../../Buttons/Success-Button/SuccessButton';
 
 import styles from './NewImagesShowcase.module.css';
 
-export const NewImagesShowcase = ({ uploadImagesHandler, isUploading, uploadError }) => {
+export const NewImagesShowcase = ({ uploadImagesHandler, isUploading }) => {
     const [newImagesState, dispatch] = useReducer(imagesReducer, initialState);
     const hasNewlyUploadImages = newImagesState.imageUrls.length > 0;
 
@@ -31,13 +31,6 @@ export const NewImagesShowcase = ({ uploadImagesHandler, isUploading, uploadErro
 
     return (
         <div className={styles['newly-uploaded-images']}>
-            {uploadError && (
-                <span className={styles.uploadError}>
-                    'You have uploaded too many images. Please limit your upload to 20 images
-                    or less.'
-                </span>
-            )}
-
             <UploadImagesPreview
                 images={newImagesState.imageUrls}
                 dispatchHandler={dispatchHandler}

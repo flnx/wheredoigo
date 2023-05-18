@@ -1,16 +1,19 @@
 import { useState } from 'react';
+import { checkArrayAndPreloadElements } from '../../../utils/utils';
 
 // Components
 import { ConfirmModal } from '../../ConfirmModal/ConfirmModal';
 import { ImageThumbnailsPreview } from '../../ImageThumbnailsPreview/ImageThumbnailsPreview';
+import { TextWrap } from '../../TextWrap/TextWrap';
 
 import styles from './ImageHandler.module.css';
 
-export const ImageHandler = ({ imagesData, deleteImageHandler, isDeleting }) => {
+export const ImageHandler = ({ imagesData, deleteImageHandler, isDeleting, isLoading }) => {
     const [openModal, setOpenModal] = useState(false);
     const [imgIndexToDelete, setImgIndexToDelete] = useState(null);
 
     const onDeleteClickOpenConfirmModalHandler = (index) => {
+        if (isLoading) return;
         setOpenModal(true);
         setImgIndexToDelete(index);
     };
@@ -25,19 +28,22 @@ export const ImageHandler = ({ imagesData, deleteImageHandler, isDeleting }) => 
         deleteImageHandler({ imgId }, handleCloseConfirmModal);
     };
 
-    const hasCurrentImages = imagesData.length > 0;
+    // Prefills the array with data in order to render 9 elements for the loading skeleton to show during loading
+    const images = isLoading ? checkArrayAndPreloadElements([], 9) : imagesData;
+    const doesNotHaveCurrentImages = images.length == 0;
 
     return (
         <div>
-            <h3 className={styles.sectionTitle}>Images</h3>
-            {hasCurrentImages && (
-                <ImageThumbnailsPreview
-                    images={imagesData}
-                    handleDeleteImage={onDeleteClickOpenConfirmModalHandler}
-                />
-            )}
+            <h3 className={styles.sectionTitle}>
+                <TextWrap isLoading={isLoading} content={'Images'} />
+            </h3>
+            <ImageThumbnailsPreview
+                images={images}
+                handleDeleteImage={onDeleteClickOpenConfirmModalHandler}
+                isLoading={isLoading}
+            />
 
-            {!hasCurrentImages && <p>No images have been added yet.</p>}
+            {doesNotHaveCurrentImages && <p>No images have been added yet.</p>}
 
             {openModal && (
                 <ConfirmModal

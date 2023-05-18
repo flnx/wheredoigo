@@ -5,7 +5,7 @@ export const getPlaces = async () => {
     const res = await axios.get(apiEndpoints.places);
 
     return res.data;
-}
+};
 
 export const getPlace = async (id) => {
     const placeData = await axios.get(apiEndpoints.placeById(id));
@@ -35,10 +35,6 @@ export const editPlaceDetails = async (placeId, updatedData) => {
 };
 
 export const deletePlace = async ({ placeId }) => {
-    await new Promise(res => setTimeout(res, 3000))
-
-    throw new Error(JSON.stringify({message: 'error'}));
-    
     const res = await axios.delete(apiEndpoints.deletePlace(placeId));
 
     return {

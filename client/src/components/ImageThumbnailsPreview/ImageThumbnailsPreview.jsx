@@ -1,19 +1,26 @@
 import { X } from '@phosphor-icons/react';
 
 import styles from './ImageThumbnailsPreview.module.css';
+import { LoadingSkeleton } from '../LoadingSkeletons/LoadingSkeleton';
 
-export const ImageThumbnailsPreview = ({ images = [], handleDeleteImage }) => {
+export const ImageThumbnailsPreview = ({ images = [], handleDeleteImage, isLoading }) => {
     return (
         <div className={`${styles.imagesWrapper}`}>
             {images.map((img, i) => (
                 <div
                     key={i}
-                    className={styles.imgContainer}
-                    onClick={() => handleDeleteImage(i)}
+                    className={styles.thumbnail}
+                    onClick={() => handleDeleteImage(i)} // doesn't trigger click during loading
                 >
                     <div className={styles.overlayText}>tap to remove</div>
-                    <img src={extractUrl(img)} alt={`image preview ${i}`} />
-                    <X size={50} weight="thin" className={styles.remove} />
+                    <div className={styles.imageContainer}>
+                        {isLoading ? (
+                            <LoadingSkeleton />
+                        ) : (
+                            <img src={extractUrl(img)} alt={`image preview ${i}`} />
+                        )}
+                    </div>
+                    {!isLoading && <X size={50} weight="thin" className={styles.remove} />}
                 </div>
             ))}
         </div>

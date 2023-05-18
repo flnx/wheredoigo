@@ -21,8 +21,6 @@ export const EditDestination = () => {
 
     const destinationTitle = `${data?.city}, ${data?.country}`;
 
-    const places = data?.places || [];
-
     return (
         <Container>
             {isSuccess && (
@@ -34,17 +32,18 @@ export const EditDestination = () => {
                         <Form data={data} destinationId={destinationId} />
 
                         <ImagesManager
-                            imagesData={data.imageUrls}
+                            imagesData={[]}
                             _id={destinationId}
                             deleteImageHook={deleteImageHook}
                             addImageHook={addImageHook}
+                            isLoading={true}
                         />
                     </FlexSectionContainer>
                 </>
             )}
-            
+
             <PlacesShowcase
-                places={places}
+                places={data?.places || []}
                 destinationId={destinationId}
                 isLoading={isLoading}
             />

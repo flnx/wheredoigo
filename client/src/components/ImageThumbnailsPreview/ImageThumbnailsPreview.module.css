@@ -2,7 +2,6 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
     gap: 0.3rem;
-    border-radius: 10px;
     max-height: 50rem;
     overflow-y: scroll;
     scrollbar-width: thin;
@@ -15,31 +14,35 @@
 
 .imagesWrapper::-webkit-scrollbar-track {
     background: #e7e4e4;
-} 
+}
 
 .imagesWrapper::-webkit-scrollbar-thumb {
     background: var(--scroll-bar);
-    border-radius: 5px;
-} 
+}
 
 .imagesWrapper::-webkit-scrollbar-thumb:hover {
     background: var(--scroll-bar-hover);
 }
 
-
-.imgContainer {
+.thumbnail {
     position: relative;
     cursor: pointer;
     transition: all 0.25s ease-in-out;
 }
 
-.imgContainer:focus,
-.imgContainer:hover {
+.thumbnail:focus,
+.thumbnail:hover {
     opacity: 0.8;
 }
 
-.imgContainer img {
+.thumbnail .imageContainer {
+    aspect-ratio: 1.25/1;
+    object-fit: cover;
+}
+
+.thumbnail .imageContainer img {
     width: 100%;
+    height: 100%;
     aspect-ratio: 1.25/1;
     object-fit: cover;
     border-radius: 5px;
@@ -68,7 +71,6 @@
     font-size: 0.85rem;
     font-weight: 600;
 }
-
 
 @media (min-width: 40em) {
     .imagesWrapper {
