@@ -23,7 +23,7 @@ export default Object.freeze({
     DISCOVER: {
         name: 'Discover',
         route: '/discover',
-        categoryRoute: (param) => `/discover?category=${param}`
+        categoryRoute: (param) => `/discover?category=${param}`,
     },
     DASHBOARD: {
         name: 'Dashboard',
@@ -38,11 +38,6 @@ export default Object.freeze({
             name: 'My Destinations',
             route: '/my-destinations',
             routePath: '/dashboard/my-destinations',
-        },
-        FOLLOWERS: {
-            name: 'Followers',
-            route: '/followers',
-            routePath: '/dashboard/followers',
         },
         HISTORY: {
             name: 'History',
@@ -71,8 +66,8 @@ export default Object.freeze({
         },
         OVERVIEW: {
             name: 'Overview',
-            route: 'overview'
-        }
+            route: 'overview',
+        },
     },
     PLACES: {
         name: 'Places',
@@ -84,7 +79,8 @@ export default Object.freeze({
         ADD: {
             name: 'Add More Places',
             route: '/destinations/:destinationId/places/add',
-            routePath: (destinationId) => `/destinations/${destinationId}/places/add`,
+            routePath: (destinationId) =>
+                `/destinations/${destinationId}/places/add`,
         },
         EDIT: {
             name: 'Edit',
@@ -94,6 +90,6 @@ export default Object.freeze({
         ABOUT: {
             name: 'About',
             route: 'about',
-        }
+        },
     },
 });

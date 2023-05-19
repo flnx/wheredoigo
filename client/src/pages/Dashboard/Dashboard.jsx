@@ -11,9 +11,9 @@ export const Dashboard = () => {
             <section className={styles.sideNavSection}>
                 <SideNavigation />
             </section>
-            <div className={styles.mainContent}>
+            <section className={styles.mainContent}>
                 <Outlet />
-            </div>
+            </section>
             <aside className={styles.stats}>
                 <div>
                     <h2>Statistics</h2>

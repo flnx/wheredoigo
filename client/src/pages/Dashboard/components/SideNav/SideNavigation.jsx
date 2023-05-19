@@ -6,14 +6,13 @@ import { UserAvatar } from './UserAvatar';
 import { AppWindow } from '@phosphor-icons/react';
 import { Plus } from '@phosphor-icons/react';
 import { Browsers } from '@phosphor-icons/react';
-import { UserCircle } from '@phosphor-icons/react';
 import { GearSix } from '@phosphor-icons/react';
 import { ClockCounterClockwise } from '@phosphor-icons/react';
 
 import routeConstants from '../../../../constants/routeConstants';
 import styles from './SideNavigation.module.css';
 
-const { ADD_DESTINATION, MY_DESTINATIONS, FOLLOWERS, HISTORY, SETTINGS } = routeConstants.DASHBOARD;
+const { ADD_DESTINATION, MY_DESTINATIONS, HISTORY, SETTINGS } = routeConstants.DASHBOARD;
 
 export const SideNavigation = () => {
     return (
@@ -30,10 +29,6 @@ export const SideNavigation = () => {
 
                 <DashboardLink to={MY_DESTINATIONS.routePath} Icon={Browsers}>
                     {MY_DESTINATIONS.name}
-                </DashboardLink>
-
-                <DashboardLink to={FOLLOWERS.routePath} Icon={UserCircle}>
-                    {FOLLOWERS.name}
                 </DashboardLink>
 
                 <DashboardLink to={HISTORY.routePath} Icon={ClockCounterClockwise}>
