@@ -23,6 +23,7 @@ export default Object.freeze({
     DISCOVER: {
         name: 'Discover',
         route: '/discover',
+        categoryRoute: (param) => `/discover?category=${param}`
     },
     DASHBOARD: {
         name: 'Dashboard',

@@ -12,20 +12,22 @@
     transition: all 0.25s ease-in-out;
     flex: 1;
     flex-basis: 32%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-}
-
-.loading {
-    height: 100%;
-    width: 100%;
 }
 
 .card .categoryName {
     font-size: 1.15rem;
     color: #fff;
+    display: flex;
+    align-items: flex-end;
     padding: 0.35rem;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.loading {
+    height: 100%;
+    width: 100%;
 }
 
 .card:hover,
