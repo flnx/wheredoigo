@@ -1,0 +1,39 @@
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    max-width: 39.125rem;
+}
+
+.title {
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+}
+
+.card {
+    flex: 1;
+}
+
+.card .cardTitle {
+    font-size: 0.9825rem;
+    color: var(--text-links);
+}
+
+.card .divider {
+    border: none;
+    border-bottom: 1.5px solid var(--border-dark);
+    border-radius: 50%;
+}
+
+.number {
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: var(--danger);
+}
+
+@media (min-width: 40em) {
+    .flex-container {
+        gap: 5rem;
+    }
+}

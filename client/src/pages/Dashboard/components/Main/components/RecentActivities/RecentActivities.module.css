@@ -1,0 +1,25 @@
+.title {
+    margin-bottom: 1.35rem;
+    font-weight: 400;
+}
+
+.container > section {
+    margin-bottom: 0.5rem;
+}
+
+.text {
+    font-size: 0.9125rem;
+}
+
+.user,
+.destination {
+    font-weight: 600;
+}
+
+.user {
+    color: var(--sky-blue);
+}
+
+.destination {
+    color: var(--danger);
+}
