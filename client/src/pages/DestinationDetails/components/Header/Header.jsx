@@ -8,10 +8,11 @@ import { TextWrap } from '../../../../components/TextWrap/TextWrap';
 
 import routeConstants from '../../../../constants/routeConstants';
 import styles from './Header.module.css';
+import { AddToFavorites } from '../../../../components/AddToFavorites/AddToFavorites';
 
 export const DestinationHeader = ({ destination, isLoading }) => {
     const [modalPopUpInfo, setModalPopUpInfo] = useState('');
-    const { city, country, description, _id } = destination;
+    const { city, country, description, _id, isLikedByUser } = destination;
 
     const { routePath } = routeConstants.DESTINATIONS.BY_ID;
     const { name, route } = routeConstants.DESTINATIONS.OVERVIEW;
@@ -38,6 +39,13 @@ export const DestinationHeader = ({ destination, isLoading }) => {
                 <h1 className={styles.title}>
                     <TextWrap isLoading={isLoading} content={city} />
                 </h1>
+                {!isLoading && (
+                    <AddToFavorites
+                        isLoading={isLoading}
+                        _id={_id}
+                        isLikedByUser={isLikedByUser}
+                    />
+                )}
             </div>
             <div className={styles.content}>
                 <p className={styles.country}>

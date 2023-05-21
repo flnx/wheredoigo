@@ -27,6 +27,7 @@ async function createDestination(data, images, user) {
         ...destinationData,
         country: country._id,
         imageUrls: [],
+        likes: [],
         ownerId,
     });
 
