@@ -82,6 +82,9 @@ destinationSchema.index(
     { unique: true, collation: { locale: 'en', strength: 2 } }
 );
 
+destinationSchema.index({ 'likes.userId': 1 });
+destinationSchema.index({ 'likes.timestamp': 1 });
+
 const Destination = mongoose.model('Destination', destinationSchema);
 
 module.exports = Destination;

@@ -19,6 +19,8 @@ const {
     get_city_data,
     delete_destination,
     add_new_destination,
+    like_destination,
+    dislike_destination
 } = require('../controllers/destinationController');
 
 const router = express.Router();
@@ -30,6 +32,8 @@ router.get('/destinations/:id', validateMongoId, checkSession, details);
 
 router.post('/destinations', auth, upload, add_new_destination);
 router.post('/destinations/get-city-data', auth, get_city_data);
+router.post('/destinations/:id/like', validateMongoId, auth, like_destination);
+router.post('/destinations/:id/dislike', validateMongoId, auth, dislike_destination);
 
 router.put('/destinations/:id/delete-image', validateMongoId, auth, checkDestinationOwnershipOnly, delete_image);
 router.put('/destinations/:id/add-images', validateMongoId, auth, checkDestinationOwnershipOnly, upload, add_images);
