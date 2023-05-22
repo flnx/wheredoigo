@@ -37,7 +37,8 @@ const destinationSchema = new Schema({
     likes: [
         {
             userId: {
-                type: String,
+                type: Schema.Types.ObjectId,
+                ref: 'User',
                 required: true,
             },
             timestamp: {

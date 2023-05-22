@@ -5,10 +5,10 @@ import { Outlet } from 'react-router-dom';
 import { ShowMoreButton } from '../../../../components/Buttons/ShowMoreButton/ShowMoreButton';
 import { TipsPopUp } from '../TipsPopUp/TipsPopUp';
 import { TextWrap } from '../../../../components/TextWrap/TextWrap';
+import { AddToFavorites } from '../../../../components/AddToFavorites/AddToFavorites';
 
 import routeConstants from '../../../../constants/routeConstants';
 import styles from './Header.module.css';
-import { AddToFavorites } from '../../../../components/AddToFavorites/AddToFavorites';
 
 export const DestinationHeader = ({ destination, isLoading }) => {
     const [modalPopUpInfo, setModalPopUpInfo] = useState('');

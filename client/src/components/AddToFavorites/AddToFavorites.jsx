@@ -7,17 +7,30 @@ export const AddToFavorites = ({ size, _id, isLikedByUser }) => {
 
     const onLikeClickHandler = () => {
         if (isLoading) return;
+        sendLike();
+
     };
 
     const onDislikeClickHandler = () => {
-        
-    }
+        if (isLoading) return;
+    };
 
     return (
-        <Heart
-            className={styles.icon}
+        <HeartLike
+            onClickHandler={isLikedByUser ? onLikeClickHandler : onLikeClickHandler}
             size={size || 46}
             weight={isLikedByUser ? 'fill' : 'thin'}
+        />
+    );
+};
+
+const HeartLike = ({ size, onClickHandler, weight }) => {
+    return (
+        <Heart 
+            size={size} 
+            weight={weight} 
+            onClick={onClickHandler} 
+            className={styles.icon} 
         />
     );
 };
