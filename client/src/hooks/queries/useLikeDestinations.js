@@ -6,8 +6,8 @@ export const useLikeDestination = (destinationId) => {
     const queryClient = useQueryClient();
 
     const { mutate, isLoading, error } = useMutation({
-        mutationFn: () => likeDestination(destinationId),
-        onSuccess: () => {
+        mutationFn: (likeData) => likeDestination(destinationId, likeData),
+        onSuccess: (result) => {
             const destination = queryClient.getQueryData([
                 queryEndpoints.destination,
                 destinationId,
@@ -15,7 +15,7 @@ export const useLikeDestination = (destinationId) => {
 
             const updatedDestination = {
                 ...destination,
-                isLikedByUser: true,
+                isLikedByUser: result.isLike,
             };
 
             queryClient.setQueriesData(

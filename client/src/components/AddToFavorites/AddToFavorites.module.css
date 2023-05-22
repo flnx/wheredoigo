@@ -1,4 +1,9 @@
 .icon {
     cursor: pointer;
     color: var(--danger);
+    transition: transform 0.5s ease-in-out;
+}
+
+.rotate {
+    transform: rotate(360deg);
 }

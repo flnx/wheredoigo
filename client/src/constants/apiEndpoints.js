@@ -6,7 +6,7 @@ export const apiEndpoints = {
     allDestinations: 'destinations',
     creatorDestinations: 'destinations/created-by-user',
     destinationById: (id) => `destinations/${id}`,
-    likeDestination: (id) => `destinations/${id}/like`,
+    likeDestination: (id, path) => `destinations/${id}/${path}`,
     destinationsByPage: (searchParams, skip, categories) => {
         let url = `destinations?search=${searchParams}&page=${skip}`;
 

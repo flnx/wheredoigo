@@ -13,10 +13,14 @@ export const getDestination = async (id) => {
     return res.data;
 };
 
-export const likeDestination = async (id) => {
-    const res = await axios.post(apiEndpoints.likeDestination(id), {});
+export const likeDestination = async (id, likeData) => {
+    const { path, isLike } = likeData;
+    const res = await axios.post(apiEndpoints.likeDestination(id, path), {});
 
-    return res.data;
+    return {
+        ...res.data,
+        isLike
+    };
 };
 
 export const getCreatorDestinations = async () => {
