@@ -36,15 +36,9 @@ const destinationSchema = new Schema({
     },
     likes: [
         {
-            userId: {
-                type: Schema.Types.ObjectId,
-                ref: 'User',
-                required: true,
-            },
-            timestamp: {
-                type: Date,
-                required: true,
-            },
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+            required: true,
         },
     ],
     details: [
@@ -83,8 +77,7 @@ destinationSchema.index(
     { unique: true, collation: { locale: 'en', strength: 2 } }
 );
 
-destinationSchema.index({ 'likes.userId': 1 });
-destinationSchema.index({ 'likes.timestamp': 1 });
+destinationSchema.index({ likes: 1 });
 
 const Destination = mongoose.model('Destination', destinationSchema);
 

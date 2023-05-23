@@ -1,6 +1,6 @@
-import { Heart } from '@phosphor-icons/react';
 import { useLikeDestination } from '../../hooks/queries/useLikeDestinations';
 import { useState } from 'react';
+import { Heart } from '@phosphor-icons/react';
 
 import styles from './AddToFavorites.module.css';
 

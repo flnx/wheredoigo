@@ -17,7 +17,7 @@ async function getDestinationById(destinationId, user) {
     if (user) {
         const isLikedByUserPromise = Destination.exists({
             _id: destinationId,
-            'likes.userId': user.ownerId,
+            likes: user.ownerId,
         });
 
         promises.push(isLikedByUserPromise);
