@@ -1,8 +1,16 @@
+import { AuthContext } from '../../../../../../context/AuthContext';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+
+import routeConstants from '../../../../../../constants/routeConstants';
 import styles from './RecentActivities.module.css';
 
 export const RecentActivities = ({ activities }) => {
     const { comments, likes, creations, hasNoActivity } = activities;
+    const { DESTINATIONS, PLACES } = routeConstants;
+    const { auth } = useContext(AuthContext);
+
+    console.log(auth);
     const userName = 'Fln';
 
     return (
@@ -13,13 +21,13 @@ export const RecentActivities = ({ activities }) => {
             )}
             <div className={styles.container}>
                 <section>
-                    {comments.map(({ destinationId, city }) => (
+                    {comments.map(({ placeId, name }) => (
                         <Activity
-                            _id={destinationId}
-                            name={city}
+                            path={PLACES.BY_ID.routePath(placeId)}
+                            name={name}
                             user={userName}
                             text={'commented and rated'}
-                            key={destinationId}
+                            key={placeId}
                         />
                     ))}
                 </section>
@@ -27,7 +35,7 @@ export const RecentActivities = ({ activities }) => {
                 <section>
                     {likes.map(({ destinationId, city }) => (
                         <Activity
-                            _id={destinationId}
+                            path={DESTINATIONS.BY_ID.routePath(destinationId)}
                             name={city}
                             user={userName}
                             text={'likes'}
@@ -39,7 +47,7 @@ export const RecentActivities = ({ activities }) => {
                 <section>
                     {creations.map(({ destinationId, city }) => (
                         <Activity
-                            _id={destinationId}
+                            path={DESTINATIONS.BY_ID.routePath(destinationId)}
                             name={city}
                             user={userName}
                             text={'created'}
@@ -52,11 +60,11 @@ export const RecentActivities = ({ activities }) => {
     );
 };
 
-const Activity = ({ _id, name, user, text }) => {
+const Activity = ({ name, user, text, path }) => {
     return (
-        <p className={styles.text} key={_id}>
+        <p className={styles.text}>
             <span className={styles.user}>{user}</span> {text}{' '}
-            <Link to={`/destinations/${_id}`} className={styles.destination}>
+            <Link to={path} className={styles.destination}>
                 {name}
             </Link>
         </p>
