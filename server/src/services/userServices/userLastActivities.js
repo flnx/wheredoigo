@@ -1,16 +1,41 @@
-const Destination = require('../../models/destinationSchema');
+const UserActivity = require('../../models/userActivitiesSchema');
+const capitalizeEachWord = require('../../utils/capitalizeWords');
 
-async function getUserLastActivities(destinationId, userId) {
-    const result = await Destination.aggregate([
-        { $match: { 'likes.userId': userId } },
-        { $unwind: '$likes' },
-        { $match: { 'likes.userId': userId } },
-        { $sort: { 'likes.timestamp': -1 } },
-        { $limit: 3 },
-        { $group: { _id: '$_id', likes: { $push: '$likes' } } },
-    ]);
+async function getUserLastActivities(userId) {
+    const result = await UserActivity.findOne({ userId: userId })
+        .populate({
+            path: 'likes.destination',
+            select: 'city',
+        })
+        .lean()
+        .exec();
 
-    return result[0]?.likes || [];
+    if (!result) {
+        return {
+            comments: [],
+            likes: [],
+            created: [],
+            hasNoActivity: true,
+        };
+    }
+
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+
+    const likes = result.likes.map((x) => ({
+        destinationId: x.destination._id,
+        city: capitalizeEachWord(x.destination.city),
+        date: x.timestamp.toLocaleDateString(undefined, options),
+        time: x.timestamp.toLocaleTimeString(),
+    }));
+
+    const hasNoActivity = likes.length == 0;
+
+    return {
+        likes,
+        comments: [],
+        creations: [],
+        hasNoActivity
+    };
 }
 
 module.exports = getUserLastActivities;

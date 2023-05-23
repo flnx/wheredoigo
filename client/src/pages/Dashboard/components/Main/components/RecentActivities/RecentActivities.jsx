@@ -1,64 +1,49 @@
+import { Link } from 'react-router-dom';
 import styles from './RecentActivities.module.css';
 
-const simulator = {
-    commented: [
-        { _id: 1, name: 'Place Name 1' },
-        { _id: 2, name: 'Place Name 2' },
-        { _id: 3, name: 'Place Name 3' },
-    ],
-    liked: [
-        { _id: 1, name: 'Dest Name 1' },
-        { _id: 2, name: 'Dest Name 2' },
-        { _id: 3, name: 'Dest Name 3' },
-    ],
-    created: [
-        { _id: 1, name: 'Dest Name 1' },
-        { _id: 2, name: 'Dest Name 2' },
-        { _id: 3, name: 'Dest Name 3' },
-    ],
-};
-
-export const RecentActivities = () => {
-    const { commented, liked, created } = simulator;
+export const RecentActivities = ({ activities }) => {
+    const { comments, likes, creations, hasNoActivity } = activities;
     const userName = 'Fln';
 
     return (
         <div>
             <h3 className={styles.title}>Recent activities</h3>
-
+            {hasNoActivity && (
+                <p className={styles.text}>You don't have any recent activities.</p>
+            )}
             <div className={styles.container}>
                 <section>
-                    {commented.map(({ _id, name }) => (
+                    {comments.map(({ destinationId, city }) => (
                         <Activity
-                            _id={_id}
-                            name={name}
+                            _id={destinationId}
+                            name={city}
                             user={userName}
                             text={'commented and rated'}
-                            key={_id}
+                            key={destinationId}
                         />
                     ))}
                 </section>
 
                 <section>
-                    {liked.map(({ _id, name }) => (
+                    {likes.map(({ destinationId, city }) => (
                         <Activity
-                            _id={_id}
-                            name={name}
+                            _id={destinationId}
+                            name={city}
                             user={userName}
                             text={'likes'}
-                            key={_id}
+                            key={destinationId}
                         />
                     ))}
                 </section>
 
                 <section>
-                    {created.map(({ _id, name }) => (
+                    {creations.map(({ destinationId, city }) => (
                         <Activity
-                            _id={_id}
-                            name={name}
+                            _id={destinationId}
+                            name={city}
                             user={userName}
                             text={'created'}
-                            key={_id}
+                            key={destinationId}
                         />
                     ))}
                 </section>
@@ -71,7 +56,9 @@ const Activity = ({ _id, name, user, text }) => {
     return (
         <p className={styles.text} key={_id}>
             <span className={styles.user}>{user}</span> {text}{' '}
-            <span className={styles.destination}>{name}</span>
+            <Link to={`/destinations/${_id}`} className={styles.destination}>
+                {name}
+            </Link>
         </p>
     );
 };

@@ -8,8 +8,8 @@ const { createValidationError } = require('../../utils/createValidationError');
 
 require('dotenv').config();
 
-const updateUserAvatar = async (image, jwtToken) => {
-    const user = await User.findById(jwtToken.ownerId).exec();
+const updateUserAvatar = async (image, userData) => {
+    const user = await User.findById(userData.ownerId).exec();
 
     if (!user) {
         throw createValidationError(errorMessages.notFound, 404);

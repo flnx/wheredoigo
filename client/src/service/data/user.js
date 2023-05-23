@@ -10,3 +10,11 @@ export const changeUserAvatar = async (formData) => {
 
     return result.data;
 };
+
+export const getUserLastActivities = async () => {
+    const result = await axios.get(apiEndpoints.userLastActivities);
+
+    return result.data;
+};
+
+

@@ -4,6 +4,8 @@ export const queryEndpoints = {
     creatorDestinations: 'creatorDestinations',
     editDestination: 'editDestination',
 
+    userActivity: 'userActivity',
+
     places: 'places',
     place: 'place',
     createPlacePermissions: 'createPlacePermissions',

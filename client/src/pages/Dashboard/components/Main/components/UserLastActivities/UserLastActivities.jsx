@@ -1,6 +1,6 @@
 import styles from './CreatorData.module.css';
 
-export const CreatorData = () => {
+export const UserLastActivities = () => {
     return (
         <section>
             <h3 className={styles.title}>Destinations</h3>

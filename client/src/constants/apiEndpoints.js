@@ -2,6 +2,7 @@ export const apiEndpoints = {
     login: '/login',
     register: '/register',
     logout: '/logout',
+    userLastActivities: 'user/last-activities',
 
     allDestinations: 'destinations',
     creatorDestinations: 'destinations/created-by-user',
