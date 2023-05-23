@@ -13,6 +13,24 @@ const likeSchema = new Schema({
     },
 });
 
+const commentSchema = new Schema({
+    place: {
+        type: Schema.Types.ObjectId,
+        ref: 'Place',
+        required: true,
+    },
+    comment: {
+        type: Schema.Types.ObjectId,
+        ref: 'Comment',
+        required: true,
+    },
+    timestamp: {
+        type: Date,
+        default: Date.now,
+    },
+});
+
+
 const userActivitySchema = new Schema({
     userId: {
         type: Schema.Types.ObjectId,
@@ -20,6 +38,7 @@ const userActivitySchema = new Schema({
         required: true,
     },
     likes: [likeSchema],
+    comments: [commentSchema]
 });
 
 userActivitySchema.index({ userId: 1 });

@@ -9,8 +9,7 @@ async function addPlaceNewImages(placeId, imgFiles, place) {
     if (!Array.isArray(imgFiles) || imgFiles.length == 0) {
         throw createValidationError(errorMessages.invalidImages, 400);
     }
-
-    console.log(place);
+    
     const { city } = place;
 
     const folderName = 'places';

@@ -22,6 +22,8 @@ export const useLikeDestination = (destinationId) => {
                 [queryEndpoints.destination, destinationId],
                 updatedDestination
             );
+
+            queryClient.invalidateQueries([queryEndpoints.userActivity]);
         },
     });
 

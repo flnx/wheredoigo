@@ -3,6 +3,7 @@ const { isValid } = mongoose.Types.ObjectId;
 
 const Place = require('../../models/placeSchema');
 const Comment = require('../../models/commentSchema');
+const UserActivity = require('../../models/userActivitiesSchema');
 const { errorMessages } = require('../../constants/errorMessages');
 
 // utils
@@ -30,21 +31,33 @@ async function deleteCommentFromPlace(placeId, commentId, ownerId) {
 
         const numRate = comment.rating > 0 ? 1 : 0;
 
-        const place = await updatePlaceWithRetry(placeId, commentId, numRate, comment, session, ownerId);
+        const place = await updatePlaceWithRetry(
+            placeId,
+            commentId,
+            numRate,
+            comment,
+            session,
+            ownerId
+        );
 
         if (!place) {
             throw createValidationError(errorMessages.notFound, 404);
         }
-        
+
         // avg place rating
         const averageRating = calcAverageRating(place.rating, 0);
 
         await Comment.findByIdAndDelete(commentId, { session });
         await session.commitTransaction();
 
+        UserActivity.updateOne(
+            { userId: ownerId },
+            { $pull: { comments: { place: placeId } } }
+        ).catch((err) => console.log(err));
+
         return {
             averageRating,
-            message: "Comment deleted 🦖"
+            message: 'Comment deleted 🦖',
         };
     } catch (err) {
         await session.abortTransaction();
@@ -54,14 +67,28 @@ async function deleteCommentFromPlace(placeId, commentId, ownerId) {
     }
 }
 
-async function updatePlaceWithRetry(placeId, commentId, numRate, comment, session, ownerId) {
+async function updatePlaceWithRetry(
+    placeId,
+    commentId,
+    numRate,
+    comment,
+    session,
+    ownerId
+) {
     let retries = 3;
     let delay = 100;
 
     // Retry mechanism with exponential backoff
     while (retries > 0) {
         try {
-            const place = await updatePlace(placeId, commentId, numRate, comment, session, ownerId);
+            const place = await updatePlace(
+                placeId,
+                commentId,
+                numRate,
+                comment,
+                session,
+                ownerId
+            );
 
             if (!place) {
                 throw createValidationError(errorMessages.notFound, 404);
@@ -98,7 +125,9 @@ async function updatePlace(placeId, commentId, numRate, comment, session, ownerI
             },
         },
         { session, new: true, select: 'rating' }
-    ).lean().exec();
+    )
+        .lean()
+        .exec();
 }
 
 module.exports = deleteCommentFromPlace;

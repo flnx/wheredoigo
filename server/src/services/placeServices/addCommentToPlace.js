@@ -1,6 +1,7 @@
 const Place = require('../../models/placeSchema');
 const Comment = require('../../models/commentSchema');
 const User = require('../../models/userSchema');
+const UserActivity = require('../../models/userActivitiesSchema');
 const { errorMessages } = require('../../constants/errorMessages');
 
 // utils
@@ -38,8 +39,10 @@ async function addCommentToPlace({ id, title, content, ownerId, rating }) {
 
     await comment.save();
 
-     // avg place rating
+    // avg place rating
     const averageRating = calcAverageRating(place.rating, rating);
+
+    addUserActivity(ownerId, id, comment._id)
 
     return {
         title: comment.title,
@@ -52,7 +55,7 @@ async function addCommentToPlace({ id, title, content, ownerId, rating }) {
             username: user.capitalizedUsername,
         },
         isOwner: true,
-        averageRating
+        averageRating,
     };
 }
 
@@ -60,7 +63,7 @@ async function updatePlaceWithRetry(id, ownerId, comment, numRate, rating) {
     let retries = 3;
     let delay = 100;
 
-     // Retry mechanism with exponential backoff
+    // Retry mechanism with exponential backoff
     while (retries > 0) {
         try {
             const place = await Place.findOneAndUpdate(
@@ -77,7 +80,10 @@ async function updatePlaceWithRetry(id, ownerId, comment, numRate, rating) {
                     },
                 },
                 { new: true }
-            ).select('rating').lean().exec();
+            )
+                .select('rating')
+                .lean()
+                .exec();
 
             return place;
         } catch (err) {
@@ -90,6 +96,34 @@ async function updatePlaceWithRetry(id, ownerId, comment, numRate, rating) {
 
             throw err;
         }
+    }
+}
+
+async function addUserActivity(userId, placeId, commentId) {
+    const userActivity = await UserActivity.findOne({ userId });
+
+    const commentData = { place: placeId, comment: commentId };
+
+    // UserActivity does not exist, create a new one
+    if (!userActivity) {
+        return UserActivity.create({
+            userId,
+            comments: [commentData],
+            likes: [],
+        });
+    }
+
+    if (userActivity.comments.length >= 3) {
+        userActivity.comments.shift(); // Remove the oldest comment activity (if they exceed the limit (3))
+    }
+
+    userActivity.comments.push(commentData);
+
+    try {
+        await userActivity.save();
+        return true;
+    } catch (err) {
+        return false;
     }
 }
 
