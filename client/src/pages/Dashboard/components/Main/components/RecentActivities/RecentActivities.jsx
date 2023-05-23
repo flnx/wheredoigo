@@ -1,72 +1,81 @@
 import { AuthContext } from '../../../../../../context/AuthContext';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-
 import routeConstants from '../../../../../../constants/routeConstants';
 import styles from './RecentActivities.module.css';
 
 export const RecentActivities = ({ activities }) => {
     const { comments, likes, creations, hasNoActivity } = activities;
     const { DESTINATIONS, PLACES } = routeConstants;
-    const { auth } = useContext(AuthContext);
-
-    console.log(auth);
-    const userName = 'Fln';
 
     return (
-        <div>
+        <section>
             <h3 className={styles.title}>Recent activities</h3>
             {hasNoActivity && (
                 <p className={styles.text}>You don't have any recent activities.</p>
             )}
             <div className={styles.container}>
-                <section>
-                    {comments.map(({ placeId, name }) => (
+                {comments
+                    .slice()
+                    .reverse()
+                    .map(({ placeId, name, date, time }) => (
                         <Activity
                             path={PLACES.BY_ID.routePath(placeId)}
                             name={name}
-                            user={userName}
                             text={'commented and rated'}
                             key={placeId}
+                            date={date}
+                            time={time}
                         />
                     ))}
-                </section>
 
-                <section>
-                    {likes.map(({ destinationId, city }) => (
+                {likes
+                    .slice()
+                    .reverse()
+                    .map(({ destinationId, city, date, time }) => (
                         <Activity
                             path={DESTINATIONS.BY_ID.routePath(destinationId)}
                             name={city}
-                            user={userName}
                             text={'likes'}
                             key={destinationId}
+                            date={date}
+                            time={time}
                         />
                     ))}
-                </section>
-
-                <section>
-                    {creations.map(({ destinationId, city }) => (
+                {creations
+                    .slice()
+                    .reverse()
+                    .map(({ destinationId, city, date, time }) => (
                         <Activity
                             path={DESTINATIONS.BY_ID.routePath(destinationId)}
                             name={city}
-                            user={userName}
                             text={'created'}
                             key={destinationId}
+                            date={date}
+                            time={time}
                         />
                     ))}
-                </section>
             </div>
-        </div>
+        </section>
     );
 };
 
-const Activity = ({ name, user, text, path }) => {
+const Activity = ({ name, text, path, date, time }) => {
+    const { auth } = useContext(AuthContext);
+    const userName = auth.username;
+
     return (
-        <p className={styles.text}>
-            <span className={styles.user}>{user}</span> {text}{' '}
-            <Link to={path} className={styles.destination}>
-                {name}
-            </Link>
-        </p>
+        <section className={styles.activity}>
+            <div className={styles.time}>
+                <span>{date}</span>
+                <time className={styles.hour}>{time.slice(0, 5)}</time>
+            </div>
+            <p className={styles.text}>
+                <span className={styles.user}>{userName}</span> {text}{' '}
+                <Link to={path} className={styles.destination}>
+                    {name}
+                </Link>
+            </p>
+        </section>
     );
 };

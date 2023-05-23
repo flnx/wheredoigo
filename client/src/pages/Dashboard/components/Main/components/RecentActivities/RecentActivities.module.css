@@ -23,3 +23,19 @@
 .destination {
     color: var(--danger);
 }
+
+.activity {
+    border-radius: 5px;
+    background: var(--app-background-color);
+    padding: 0.9rem;
+}
+
+.time {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
+}
+
+.time .hour {
+    font-size: 0.9rem;
+}

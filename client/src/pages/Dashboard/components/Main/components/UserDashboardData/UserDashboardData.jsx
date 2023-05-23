@@ -1,13 +1,15 @@
-import styles from './CreatorData.module.css';
+import styles from './UserDashboardData.module.css';
 
-export const UserLastActivities = () => {
+export const UserLastActivities = ({ dashboardData }) => {
+    const { countComments, countCreated, countFavorites } = dashboardData;
+
     return (
         <section>
             <h3 className={styles.title}>Destinations</h3>
             <div className={styles['flex-container']}>
-                <Card title={'Created'} num={15} />
-                <Card title={'Favorites'} num={500} />
-                <Card title={'Comments'} num={300} />
+                <Card title={'Created'} num={countCreated} />
+                <Card title={'Favorites'} num={countComments} />
+                <Card title={'Comments'} num={countFavorites} />
             </div>
         </section>
     );

@@ -1,4 +1,5 @@
 const updateUserAvatar = require('../services/userServices/updateUserAvatar');
+const userDashboardData = require('../services/userServices/userDashboardData');
 const getUserLastActivities = require('../services/userServices/userLastActivities');
 const userLogin = require('../services/userServices/userLogin');
 const userRegister = require('../services/userServices/userRegister');
@@ -34,8 +35,17 @@ const get_last_activities = async (req, res, next) => {
     const { ownerId } = req.user;
 
     try {
-        const result = await getUserLastActivities(ownerId);
-        res.json(result);
+        const promises = [
+            getUserLastActivities(ownerId),
+            userDashboardData(ownerId),
+        ];
+
+        const [lastActivities, dashboardData] = await Promise.all(promises);
+
+        res.json({
+            ...lastActivities,
+            ...dashboardData,
+        });
     } catch (err) {
         next(err);
     }

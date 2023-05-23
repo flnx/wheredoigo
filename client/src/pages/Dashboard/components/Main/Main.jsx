@@ -1,4 +1,4 @@
-import { UserLastActivities } from './components/UserLastActivities/UserLastActivities';
+import { UserLastActivities } from './components/UserDashboardData/UserDashboardData';
 import { RecentActivities } from './components/RecentActivities/RecentActivities';
 import styles from './Main.module.css';
 import { useUserActivity } from '../../../../hooks/queries/useUserActivity';
@@ -11,7 +11,7 @@ export const Main = () => {
     return (
         <div className={styles.container}>
             <h1 className="smaller">Dashboard</h1>
-            <UserLastActivities />
+            <UserLastActivities dashboardData={data}/>
             <RecentActivities activities={data}/>
         </div>
     );
