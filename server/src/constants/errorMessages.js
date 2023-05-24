@@ -9,12 +9,12 @@ exports.errorMessages = {
     notAddedYet: 'No destinations have been added yet 🦖',
     commentTitle: 'Title must be at least 2 characters long',
     invalidComment: 'Comment must contain at least 10 characters',
-    description: 'Description must be between 10 and 5000 characters',
+    description: 'Description must be between 50 and 5000 characters',
     missingFields: 'Please fill in all required fields',
     unauthorized: 'Unauthorized',
     invalidBody: 'Please send a valid object with the updated destination fields',
     invalidImages: 'In order to upload images, please send an array with valid image files.',
-    imagesBoundary: 'Please upload at least 4 images',
+    imagesBoundary: 'You need to upload at least 4 images',
     uploadError: 'Sorry, there was an error during the upload process. Please try again later.',
     cloudinaryValidation: 'Arg1 & Arg2 must be arrays',
     imagesLimitError: 'You have uploaded too many images. Please limit your upload to 20 images or less.',
@@ -23,5 +23,8 @@ exports.errorMessages = {
     couldNotUpdate: (fieldName) => `Couldn't update ${fieldName}`,
     couldNotDelete: (name) => `Couldn't delete ${name}`,
     serverError: 'We apologize for the inconvenience caused. Regrettably, an error has occurred at this time. Please kindly try again later. Thank you for your understanding.',
-    couldNotAddComment: 'Could not add the comment. Please try again later...'
+    couldNotAddComment: 'Could not add the comment. Please try again later...',
+    placeName: 'Place name is required',
+    destinationDetails: 'Destination details must be an array',
+    cityRequired: 'City is required'
 };

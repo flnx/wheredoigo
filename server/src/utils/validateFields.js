@@ -3,32 +3,52 @@ const validator = require('validator');
 const { allowedPlaceCategories } = require('../constants/allowedPlaceCategories');
 const { errorMessages } = require('../constants/errorMessages');
 const { createValidationError } = require('./createValidationError');
-const { isString, isObject } = require('./utils');
+const { isString, isObject, isValidInteger } = require('./utils');
 const { destinationCategories } = require('../constants/allowedDestinationCategories');
 
-function validateFields(placeData) {
-    const isFieldEmpty = Object.values(placeData).some((x) => !x);
+function validateDestinationFields(data) {
+    const { city, description, category, details } = data;
+    const options = { min: 50, max: 5000 };
 
-    if (isFieldEmpty) {
-        throw createValidationError(errorMessages.missingFields, 400);
+    if (!Array.isArray(details)) {
+        throw createValidationError(errorMessages.destinationDetails, 400);
     }
 
-    if (placeData.city && !isString(placeData.city)) {
-        throw createValidationError(errorMessages.missingFields, 400);
+    if (!isString(city)) {
+        throw createValidationError(errorMessages.cityRequired, 400);
     }
 
-    if (placeData.description && !isString(placeData.description)) {
-        throw createValidationError(errorMessages.missingFields, 400);
+    if (!isString(description) || !validator.isLength(description.trim(), options)) {
+        throw createValidationError(errorMessages.description, 400);
     }
 
-    if (placeData.category && !isString(placeData.category)) {
+    if (!isString(category) || !destinationCategories.includes(category)) {
         throw createValidationError(errorMessages.missingFields, 400);
     }
 
     return true;
 }
 
-function validateImages(images) {
+function validatePlaceFields(placeData) {
+    const { description, type, name } = placeData;
+    const options = { min: 50, max: 5000 };
+
+    if (!isString(name)) {
+        throw createValidationError(errorMessages.placeName, 400);
+    }
+    
+    if (!isString(description) || !validator.isLength(description, options)) {
+        throw createValidationError(errorMessages.description, 400);
+    }
+
+    if (!isString(placeData.type) || !allowedPlaceCategories.includes(type)) {
+        throw createValidationError(errorMessages.invalidCategory, 400);
+    }
+
+    return true;
+}
+
+function validateImages(images, minimumNum) {
     if (!Array.isArray(images)) {
         throw createValidationError(errorMessages.invalidImages, 400);
     }
@@ -36,12 +56,14 @@ function validateImages(images) {
     const filteredArray = images.filter((obj) => {
         const isValidObject = isObject(obj);
         const hasBufferAndMimetype = isValidObject && Object.hasOwn(obj, 'buffer') && Object.hasOwn(obj, 'mimetype');
-        const isBuffer = isValidObject && Buffer.isBuffer(obj.buffer);
 
+        const isBuffer = isValidObject && Buffer.isBuffer(obj.buffer);
         return isValidObject && hasBufferAndMimetype && isBuffer;
     });
 
-    if (filteredArray.length < 4) {
+    const minNum = isValidInteger(minimumNum) ? minimumNum : 1;
+
+    if (filteredArray.length < minNum) {
         throw createValidationError(errorMessages.imagesBoundary, 400);
     }
 
@@ -85,8 +107,9 @@ function validateCategories(categories) {
 }
 
 module.exports = {
-    validateFields,
+    validateDestinationFields,
     validateFieldsOnEdit,
     validateCategories,
     validateImages,
+    validatePlaceFields,
 };

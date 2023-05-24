@@ -2,13 +2,11 @@ const Destination = require('../../models/destinationSchema');
 const { errorMessages } = require('../../constants/errorMessages');
 
 // utils
-const { createValidationError } = require('../../utils/createValidationError');
 const { addImages } = require('../../utils/cloudinaryUploader');
+const { validateImages } = require('../../utils/validateFields');
 
 async function addDestinationNewImages(destinationId, imgFiles, destination) {
-    if (!Array.isArray(imgFiles) || imgFiles.length == 0) {
-        throw createValidationError(errorMessages.invalidImages, 400);
-    }
+    validateImages(imgFiles, 1);
 
     const { city } = destination;
 

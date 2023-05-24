@@ -36,7 +36,7 @@ const placeSchema = new Schema({
     description: {
         type: String,
         trim: true,
-        minLength: [10, errorMessages.description],
+        minLength: [50, errorMessages.description],
         maxLength: [5000, errorMessages.description],
     },
     type: {

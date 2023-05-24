@@ -10,10 +10,13 @@ import { extractServerErrorMessage } from '../../../utils/utils';
 // Components
 import { UploadImagesPreview } from '../../../components/UploadImagesPreview/UploadImagesPreview';
 import { ShowFormError } from '../../../components/ShowFormError/ShowFormError';
+import { DarkOverlay } from '../../../components/DarkOverlay/DarkOverlay';
+import { Input } from './Input';
+import { Textarea } from './Textarea';
+import { Select } from './Select';
 
 import routeConstants from '../../../constants/routeConstants';
 import styles from './Form.module.css';
-import { DarkOverlay } from '../../../components/DarkOverlay/DarkOverlay';
 
 export const Form = ({ destinationId, allowedCategories }) => {
     const [createPlace, isLoading] = useAddNewPlace(destinationId);
@@ -33,9 +36,7 @@ export const Form = ({ destinationId, allowedCategories }) => {
         const dataValidationErrors = validatePlaceData(state, allowedCategories);
         setErrors(dataValidationErrors);
 
-        if (dataValidationErrors.length !== 0) {
-            return;
-        }
+        if (dataValidationErrors.length !== 0) return;
 
         const formData = await createPlaceFormData(state, destinationId);
 
@@ -53,77 +54,31 @@ export const Form = ({ destinationId, allowedCategories }) => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        dispatch({
-            type: 'change',
-            payload: {
-                name,
-                value,
-            },
-        });
+        dispatch({ type: 'change', payload: { name, value } });
     };
 
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
-            <div className={styles.formRow}>
-                <label className={styles.formLabel} htmlFor="name">
-                    Name:
-                </label>
-                <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    value={state.name}
-                    onChange={handleChange}
-                    className={styles.formInput}
-                    placeholder="Add place name"
-                />
-                <ShowFormError errors={errors} errorParam={'name'} />
-            </div>
-            <div className={styles.formRow}>
-                <label className={styles.formLabel} htmlFor="description">
-                    Description:
-                </label>
-                <textarea
-                    id="description"
-                    name="description"
-                    rows="8"
-                    value={state.description}
-                    onChange={handleChange}
-                    className={styles.formInput}
-                    placeholder="Add place description..."
-                />
-                <ShowFormError errors={errors} errorParam={'description'} />
-            </div>
-            <div className={styles.formRow}>
-                <label className={styles.formLabel} htmlFor="type">
-                    Type:
-                </label>
-                <select
-                    id="type"
-                    name="type"
-                    value={state.type}
-                    onChange={handleChange}
-                    className={styles.formSelect}
-                >
-                    <option value="">--Select Category--</option>
-                    {allowedCategories.map((category, i) => (
-                        <option value={category} key={i}>
-                            {category}
-                        </option>
-                    ))}
-                </select>
-                <ShowFormError errors={errors} errorParam={'category'} />
-                <ShowFormError errors={errors} errorParam={'all'} />
-            </div>
+            <Input name={state.name} onChangeHandler={handleChange} errors={errors} />
+            <Textarea
+                description={state.description}
+                onChangeHandler={handleChange}
+                errors={errors}
+            />
+            <Select
+                type={state.type}
+                onChangeHandler={handleChange}
+                errors={errors}
+                categories={allowedCategories}
+            />
 
             <div className={styles.formRow}>
-                <ShowFormError errors={errors} errorParam={'images'} />
                 <UploadImagesPreview
                     dispatchHandler={dispatchHandler}
                     images={state.imageUrls}
                 />
+                <ShowFormError errors={errors} errorParam={'images'} />
             </div>
-
             <button type="submit" className={styles.formButton} disabled={isLoading}>
                 Submit
             </button>

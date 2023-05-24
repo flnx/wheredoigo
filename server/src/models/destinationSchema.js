@@ -2,9 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const { errorMessages } = require('../constants/errorMessages');
-const {
-    destinationCategories,
-} = require('../constants/allowedDestinationCategories');
+const { destinationCategories, destinationInfoCategories } = require('../constants/allowedDestinationCategories');
 
 const destinationSchema = new Schema({
     ownerId: {
@@ -47,7 +45,7 @@ const destinationSchema = new Schema({
                 type: String,
                 trim: true,
                 required: true,
-                enum: ['Good to Know', 'Transport', 'Local Customs', 'Pro Tips'],
+                enum: destinationInfoCategories,
             },
             info: [
                 {

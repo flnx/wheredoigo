@@ -1,5 +1,8 @@
 const Place = require('../../models/placeSchema');
+const Comment = require('../../models/commentSchema');
 const { errorMessages } = require('../../constants/errorMessages');
+
+const mongoose = require('mongoose');
 
 // utils
 const capitalizeEachWord = require('../../utils/capitalizeWords');
@@ -10,7 +13,7 @@ async function getPlaceComments(placeId, user, page) {
     const skip = (page - 1) * perPage;
 
     const promises = [
-        Place.findById(placeId).select('comments').count().lean().exec(),
+        Comment.countDocuments({ placeId }),
         Place.findById(placeId)
             .select('comments')
             .populate({

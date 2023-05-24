@@ -2,14 +2,12 @@ const Place = require('../../models/placeSchema');
 const { errorMessages } = require('../../constants/errorMessages');
 
 // utils
-const { createValidationError } = require('../../utils/createValidationError');
 const { addImages } = require('../../utils/cloudinaryUploader');
+const { validateImages } = require('../../utils/validateFields');
 
 async function addPlaceNewImages(placeId, imgFiles, place) {
-    if (!Array.isArray(imgFiles) || imgFiles.length == 0) {
-        throw createValidationError(errorMessages.invalidImages, 400);
-    }
-    
+    validateImages(imgFiles, 1);
+
     const { city } = place;
 
     const folderName = 'places';
