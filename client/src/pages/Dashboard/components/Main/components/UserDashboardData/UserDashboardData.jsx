@@ -8,8 +8,8 @@ export const UserLastActivities = ({ dashboardData }) => {
             <h3 className={styles.title}>Destinations</h3>
             <div className={styles['flex-container']}>
                 <Card title={'Created'} num={countCreated} />
-                <Card title={'Favorites'} num={countComments} />
-                <Card title={'Comments'} num={countFavorites} />
+                <Card title={'Favorites'} num={countFavorites} />
+                <Card title={'Comments'} num={countComments} />
             </div>
         </section>
     );
