@@ -1,14 +1,19 @@
 import { useLikeDestination } from '../../hooks/queries/useLikeDestinations';
 import { useState } from 'react';
 import { Heart } from '@phosphor-icons/react';
+import { useNavigate } from 'react-router-dom';
 
 import styles from './AddToFavorites.module.css';
+import routeConstants from '../../constants/routeConstants';
 
-export const AddToFavorites = ({ size, _id, isLikedByUser }) => {
+export const AddToFavorites = ({ size, _id, isLikedByUser, hasSession }) => {
     const [sendLike, isLoading, error] = useLikeDestination(_id);
     const [rotateClass, setRotateClass] = useState('');
+    const navigate = useNavigate();
+    const { routePath } = routeConstants.AUTH.LOGIN;
 
     const onLikeClickHandler = () => {
+        if (!hasSession) navigate(routePath);
         if (isLoading) return;
         setRotateClass(styles.rotate);
         sendLike({ path: 'like', isLike: true });

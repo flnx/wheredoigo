@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { useDeleteAccount } from '../../../../hooks/queries/useDeleteAccount';
+import { AuthContext } from '../../../../context/AuthContext';
 
 // Components
 import { WarningButton } from '../../../../components/Buttons/Button-Warning/WarningButton';
@@ -7,13 +9,21 @@ import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 import styles from './UserSettings.module.css';
 
 export const UserSettings = () => {
+    const [deleteAccount, error, isLoading] = useDeleteAccount();
     const [showModal, setShowModal] = useState(false);
+    const { auth, setUserData } = useContext(AuthContext);
 
     const onConfirmedDeleteHandler = () => {
-        setShowModal(false);
+        deleteAccount(null, {
+            onSuccess: () => {
+                setShowModal(false);
+                setUserData({});
+            },
+        });
     };
 
     const onCloseModalHandler = () => {
+        if (isLoading) return;
         setShowModal(false);
     };
 
@@ -26,9 +36,12 @@ export const UserSettings = () => {
             <h1 className="smaller">Account</h1>
 
             <section>
-                <h2 className={styles.username}>John</h2>
-                <p className={styles.email}>john.wick@abv.bg</p>
-                <WarningButton onClickHandler={onDeleteButtonClickHandler}>
+                <h2 className={styles.username}>{auth.username}</h2>
+                <p className={styles.email}>{auth.email}</p>
+                <WarningButton
+                    onClickHandler={onDeleteButtonClickHandler}
+                    isLoading={isLoading}
+                >
                     Delete account
                 </WarningButton>
             </section>
@@ -36,6 +49,7 @@ export const UserSettings = () => {
                 <ConfirmModal
                     onCloseHandler={onCloseModalHandler}
                     actionClickHandler={onConfirmedDeleteHandler}
+                    isLoading={isLoading}
                 >
                     <div className={styles.confirmation}>
                         <h3>Delete your account</h3>

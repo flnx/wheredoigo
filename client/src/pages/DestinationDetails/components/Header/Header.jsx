@@ -12,7 +12,7 @@ import styles from './Header.module.css';
 
 export const DestinationHeader = ({ destination, isLoading }) => {
     const [modalPopUpInfo, setModalPopUpInfo] = useState('');
-    const { city, country, description, _id, isLikedByUser } = destination;
+    const { city, country, description, _id, isLikedByUser, hasSession } = destination;
 
     const { routePath } = routeConstants.DESTINATIONS.BY_ID;
     const { name, route } = routeConstants.DESTINATIONS.OVERVIEW;
@@ -44,6 +44,7 @@ export const DestinationHeader = ({ destination, isLoading }) => {
                         isLoading={isLoading}
                         _id={_id}
                         isLikedByUser={isLikedByUser}
+                        hasSession={hasSession}
                     />
                 )}
             </div>

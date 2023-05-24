@@ -17,4 +17,13 @@ export const getUserLastActivities = async () => {
     return result.data;
 };
 
+export const deleteUserAccount = async () => {
+    await new Promise(res => setTimeout(res, 3000));
+
+    return true;
+    const result = await axios.get(apiEndpoints.deleteAccount);
+
+    return result.data;
+};
+
 

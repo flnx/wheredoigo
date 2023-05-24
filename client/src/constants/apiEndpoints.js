@@ -3,6 +3,7 @@ export const apiEndpoints = {
     register: '/register',
     logout: '/logout',
     userLastActivities: 'user/last-activities',
+    deleteAccount: 'user/delete',
 
     allDestinations: 'destinations',
     creatorDestinations: 'destinations/created-by-user',
