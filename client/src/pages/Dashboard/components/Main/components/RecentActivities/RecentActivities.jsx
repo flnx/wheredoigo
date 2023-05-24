@@ -5,7 +5,7 @@ import routeConstants from '../../../../../../constants/routeConstants';
 import styles from './RecentActivities.module.css';
 
 export const RecentActivities = ({ activities }) => {
-    const { comments, likes, creations, hasNoActivity } = activities;
+    const { comments, likes, created, hasNoActivity } = activities;
     const { DESTINATIONS, PLACES } = routeConstants;
 
     return (
@@ -37,19 +37,6 @@ export const RecentActivities = ({ activities }) => {
                             path={DESTINATIONS.BY_ID.routePath(destinationId)}
                             name={city}
                             text={'likes'}
-                            key={destinationId}
-                            date={date}
-                            time={time}
-                        />
-                    ))}
-                {creations
-                    .slice()
-                    .reverse()
-                    .map(({ destinationId, city, date, time }) => (
-                        <Activity
-                            path={DESTINATIONS.BY_ID.routePath(destinationId)}
-                            name={city}
-                            text={'created'}
                             key={destinationId}
                             date={date}
                             time={time}

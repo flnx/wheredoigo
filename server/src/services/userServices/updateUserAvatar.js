@@ -18,7 +18,7 @@ const updateUserAvatar = async (image, userData) => {
     if (!image) {
         throw createValidationError(errorMessages.invalidImages);
     }
-
+    
     const promises = [
         handleImageUploads([image], avatarOptions),
         deleteImage(user.avatar_id),

@@ -21,5 +21,6 @@ exports.errorMessages = {
     invalidRating: 'Invalid rating value',
     couldNotUpdate: (fieldName) => `Couldn't update ${fieldName}`,
     couldNotDelete: (name) => `Couldn't delete ${name}`,
+    serverError: 'We apologize for the inconvenience caused. Regrettably, an error has occurred at this time. Please kindly try again later. Thank you for your understanding.',
     couldNotAddComment: 'Could not add the comment. Please try again later...'
 };

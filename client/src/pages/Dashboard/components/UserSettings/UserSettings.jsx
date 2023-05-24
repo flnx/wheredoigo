@@ -7,6 +7,7 @@ import { WarningButton } from '../../../../components/Buttons/Button-Warning/War
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 
 import styles from './UserSettings.module.css';
+import { ServerError } from '../../../../components/ServerError/ServerError';
 
 export const UserSettings = () => {
     const [deleteAccount, error, isLoading] = useDeleteAccount();
@@ -18,6 +19,9 @@ export const UserSettings = () => {
             onSuccess: () => {
                 setShowModal(false);
                 setUserData({});
+            },
+            onError: () => {
+                setShowModal(false);
             },
         });
     };
@@ -57,6 +61,7 @@ export const UserSettings = () => {
                     </div>
                 </ConfirmModal>
             )}
+            {error && <ServerError errorMessage={error}/>}
         </div>
     );
 };

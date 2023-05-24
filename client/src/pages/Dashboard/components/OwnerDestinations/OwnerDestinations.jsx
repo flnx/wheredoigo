@@ -39,17 +39,14 @@ export const OwnerDestinations = () => {
             },
         });
     };
-
-    if (error || deleteError) {
-        const err = error ? error : deleteError;
-        const errorMessage = extractServerErrorMessage(err);
-        return errorMessage;
-    }
+    
+    const serverError = error ? error : deleteError;
 
     return (
         <div className={styles.container}>
             <h2 className={styles.title}>My stuff 🦖</h2>
             <div className={styles.wrapper}>
+                {serverError && extractServerErrorMessage(serverError)}
                 {data?.map((destination) => (
                     <Destination
                         destination={destination}

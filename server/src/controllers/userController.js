@@ -1,3 +1,4 @@
+const deleteUserAccount = require('../services/userServices/deleteUserAccount');
 const updateUserAvatar = require('../services/userServices/updateUserAvatar');
 const userDashboardData = require('../services/userServices/userDashboardData');
 const getUserLastActivities = require('../services/userServices/userLastActivities');
@@ -51,9 +52,20 @@ const get_last_activities = async (req, res, next) => {
     }
 };
 
+const delete_user_account = async (req, res, next) => {
+    try {
+        const result = await deleteUserAccount(req.user);
+
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
+};
+
 module.exports = {
     login,
     register,
     change_avatar,
     get_last_activities,
+    delete_user_account
 };

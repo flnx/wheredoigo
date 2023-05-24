@@ -11,5 +11,6 @@ router.get('/user/last-activities', auth, userController.get_last_activities)
 router.post('/login', userController.login);
 router.post('/register', userController.register);
 router.put('/change-avatar', auth, uploadAvatar, userController.change_avatar);
+router.delete('/user/delete', auth, userController.delete_user_account);
 
 module.exports = router;
