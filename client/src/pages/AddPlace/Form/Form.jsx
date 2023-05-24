@@ -13,8 +13,9 @@ import { ShowFormError } from '../../../components/ShowFormError/ShowFormError';
 
 import routeConstants from '../../../constants/routeConstants';
 import styles from './Form.module.css';
+import { DarkOverlay } from '../../../components/DarkOverlay/DarkOverlay';
 
-export const Form = ({ destinationId }) => {
+export const Form = ({ destinationId, allowedCategories }) => {
     const [createPlace, isLoading] = useAddNewPlace(destinationId);
     const [state, dispatch] = useReducer(placeReducer, initialState);
     const [errors, setErrors] = useState([]);
@@ -29,7 +30,7 @@ export const Form = ({ destinationId }) => {
 
         if (isLoading) return;
 
-        const dataValidationErrors = validatePlaceData(state);
+        const dataValidationErrors = validatePlaceData(state, allowedCategories);
         setErrors(dataValidationErrors);
 
         if (dataValidationErrors.length !== 0) {
@@ -104,12 +105,14 @@ export const Form = ({ destinationId }) => {
                     onChange={handleChange}
                     className={styles.formSelect}
                 >
-                    <option value="">--Select Type--</option>
-                    <option value="Explore">Explore</option>
-                    <option value="Eat">Eat</option>
-                    <option value="Party">Party</option>
+                    <option value="">--Select Category--</option>
+                    {allowedCategories.map((category, i) => (
+                        <option value={category} key={i}>
+                            {category}
+                        </option>
+                    ))}
                 </select>
-                <ShowFormError errors={errors} errorParam={'type'} />
+                <ShowFormError errors={errors} errorParam={'category'} />
                 <ShowFormError errors={errors} errorParam={'all'} />
             </div>
 
@@ -124,6 +127,7 @@ export const Form = ({ destinationId }) => {
             <button type="submit" className={styles.formButton} disabled={isLoading}>
                 Submit
             </button>
+            {isLoading && <DarkOverlay isLoading={isLoading} />}
         </form>
     );
 };

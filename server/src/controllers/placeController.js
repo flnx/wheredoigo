@@ -36,7 +36,7 @@ const add_new_place = async (req, res, next) => {
 };
 
 const add_new_place_request = async (req, res, next) => {
-    res.json({ message: 'You are cool 🦖' });
+    res.json(allowedPlaceCategories);
 };
 
 const place_details = async (req, res, next) => {

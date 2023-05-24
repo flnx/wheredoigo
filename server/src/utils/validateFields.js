@@ -3,10 +3,8 @@ const validator = require('validator');
 const { allowedPlaceCategories } = require('../constants/allowedPlaceCategories');
 const { errorMessages } = require('../constants/errorMessages');
 const { createValidationError } = require('./createValidationError');
-const { isString } = require('./utils');
-const {
-    destinationCategories,
-} = require('../constants/allowedDestinationCategories');
+const { isString, isObject } = require('./utils');
+const { destinationCategories } = require('../constants/allowedDestinationCategories');
 
 function validateFields(placeData) {
     const isFieldEmpty = Object.values(placeData).some((x) => !x);
@@ -25,6 +23,26 @@ function validateFields(placeData) {
 
     if (placeData.category && !isString(placeData.category)) {
         throw createValidationError(errorMessages.missingFields, 400);
+    }
+
+    return true;
+}
+
+function validateImages(images) {
+    if (!Array.isArray(images)) {
+        throw createValidationError(errorMessages.invalidImages, 400);
+    }
+
+    const filteredArray = images.filter((obj) => {
+        const isValidObject = isObject(obj);
+        const hasBufferAndMimetype = isValidObject && Object.hasOwn(obj, 'buffer') && Object.hasOwn(obj, 'mimetype');
+        const isBuffer = isValidObject && Buffer.isBuffer(obj.buffer);
+
+        return isValidObject && hasBufferAndMimetype && isBuffer;
+    });
+
+    if (filteredArray.length < 4) {
+        throw createValidationError(errorMessages.imagesBoundary, 400);
     }
 
     return true;
@@ -70,4 +88,5 @@ module.exports = {
     validateFields,
     validateFieldsOnEdit,
     validateCategories,
+    validateImages,
 };

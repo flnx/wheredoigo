@@ -5,9 +5,9 @@ import { AuthContext } from '../../../../context/AuthContext';
 // Components
 import { WarningButton } from '../../../../components/Buttons/Button-Warning/WarningButton';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
+import { ServerError } from '../../../../components/ServerError/ServerError';
 
 import styles from './UserSettings.module.css';
-import { ServerError } from '../../../../components/ServerError/ServerError';
 
 export const UserSettings = () => {
     const [deleteAccount, error, isLoading] = useDeleteAccount();

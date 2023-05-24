@@ -19,6 +19,7 @@ import { DarkOverlay } from '../../../../components/DarkOverlay/DarkOverlay';
 
 import routeConstants from '../../../../constants/routeConstants';
 import styles from './AddDestination.module.css';
+import { ShowFormError } from '../../../../components/ShowFormError/ShowFormError';
 
 export const AddDestination = () => {
     const [createDestination, createError, isLoading] = useAddNewDestination();
@@ -77,6 +78,7 @@ export const AddDestination = () => {
                     dispatchHandler={dispatchHandler}
                     images={state.imageUrls}
                 />
+                <ShowFormError errors={errorMessages} errorParam={'images'}/>
                 <DetailsButtons showDetailHandler={showDetailHandler} />
                 {showDetail.category && (
                     <Details

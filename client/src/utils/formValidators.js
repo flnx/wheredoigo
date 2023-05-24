@@ -1,6 +1,5 @@
-export function validatePlaceData(state) {
+export function validatePlaceData(state, allowedCategories) {
     const { description, name, imageUrls, type } = state;
-    const allowedTypes = ['Explore', 'Eat', 'Party'];
 
     const errors = [];
 
@@ -8,29 +7,33 @@ export function validatePlaceData(state) {
         errors.push('Description must be between 10 and 5000 characters');
     }
 
-    if (name.trim() < 1) {
-        errors.push('Please add a place name');
+    if (name.trim().length < 1) {
+        errors.push('Place name is required');
     }
 
-    if (imageUrls.length < 1) {
-        errors.push('You need to add at least 3 images in order to continue');
+    if (imageUrls.length < 4) {
+        errors.push('You need to add at least 4 images');
     }
 
-    if (!allowedTypes.includes(type)) {
-        errors.push('Please select a type');
+    if (!allowedCategories.includes(type)) {
+        errors.push('Please select a category');
     }
 
     return errors;
 }
 
 export const validateDestinationData = (state) => {
-    const { city, description } = state;
+    const { city, description, imageUrls } = state;
     const errors = [];
 
     const isCityValid = city && state.lastCityFetch.city.toLowerCase() == city.toLowerCase();
 
     if (!isCityValid) {
         errors.push('Please enter a valid city');
+    }
+
+    if (imageUrls.length < 4) {
+        errors.push('You need to add at least 4 images');
     }
 
     if (description.trim().length < 10) {

@@ -2,7 +2,7 @@ const Place = require('../../models/placeSchema');
 
 // utils
 const { addImages } = require('../../utils/cloudinaryUploader');
-const { validateFields } = require('../../utils/validateFields');
+const { validateFields, validateImages } = require('../../utils/validateFields');
 
 async function createNewPlace(data, images, destination, ownerId) {
     const { destinationId, name, description, type } = data;
@@ -15,6 +15,7 @@ async function createNewPlace(data, images, destination, ownerId) {
     };
 
     validateFields(placeData);
+    validateImages(images);
 
     const place = await Place.create({
         ...placeData,
