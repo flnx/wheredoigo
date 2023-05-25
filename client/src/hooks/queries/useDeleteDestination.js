@@ -9,6 +9,7 @@ export const useDeleteDestination = () => {
         mutationFn: (destinationId) => deleteDestination(destinationId),
         onSuccess: () => {
             queryClient.invalidateQueries();
+            queryClient.clear();
         },
     });
 

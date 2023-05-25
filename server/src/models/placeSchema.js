@@ -47,8 +47,14 @@ const placeSchema = new Schema({
     },
     imageUrls: [
         {
-            imageUrl: String,
-            public_id: String,
+            imageUrl: {
+                type: String,
+                required: true,
+            },
+            public_id: {
+                type: String,
+                required: true,
+            },
         },
     ],
     comments: [

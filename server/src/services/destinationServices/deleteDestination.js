@@ -7,11 +7,12 @@ const { errorMessages } = require('../../constants/errorMessages');
 const { deleteMultipleImages } = require('../../utils/cloudinaryUploader');
 const { extractCloudinaryFolderName } = require('../../utils/utils');
 const { createValidationError } = require('../../utils/createValidationError');
+const UserActivity = require('../../models/userActivitiesSchema');
 
 async function deleteDestination(destinationId, userId) {
     const [destination, places] = await Promise.all([
         Destination.findById(destinationId).lean().exec(),
-        Place.find({ destinationId }).lean().exec(),
+        Place.find({ destinationId }).select('-description').lean().exec(),
     ]);
 
     if (!destination) {
@@ -26,12 +27,22 @@ async function deleteDestination(destinationId, userId) {
     const folderNames = extractFolderNames();
 
     const comments_ids = places.flatMap((p) => p.comments.map((c) => c.toString()));
+    const placeIds = places.map((x) => x._id);
 
     const promises = [
         Destination.findByIdAndDelete(destinationId),
         Place.deleteMany({ destinationId }),
         deleteMultipleImages(public_ids, folderNames),
         Comment.deleteMany({ _id: { $in: comments_ids } }),
+        UserActivity.updateMany(
+            {},
+            {
+                $pull: {
+                    likes: { destination: destinationId },
+                    comments: { place: { $in: placeIds } },
+                },
+            }
+        ),
     ];
 
     await Promise.all(promises);
