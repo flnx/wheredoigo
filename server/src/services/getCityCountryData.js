@@ -7,8 +7,6 @@ async function fetchCity(city) {
     const result = await fetch(process.env.CITY_URL + city, options());
     const data = await result.json();
 
-    console.log(data);
-
     if (Array.isArray(data)) {
         if (data.length == 0 || !data[0].name) {
             throw createValidationError(errorMessages.notFound, 404);

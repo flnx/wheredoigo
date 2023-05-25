@@ -17,7 +17,7 @@ export const Destinations = ({ searchParam, categoryParams }) => {
                 <span>Destinations</span>
             </div>
             <div className={styles.destinations}>
-                <DestinationsGrid destinations={destinations} background={'#fff'} />
+                <DestinationsGrid destinations={destinations || []} background={'#fff'} />
                 {isFetching && <div className={styles.overlay} />}
                 <ClipLoader
                     color="#36d7b7"

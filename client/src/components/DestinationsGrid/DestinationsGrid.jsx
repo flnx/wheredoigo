@@ -1,5 +1,13 @@
+import PropTypes from 'prop-types';
 import { Destination } from './Destination';
 import styles from './DestinationsGrid.module.css';
+
+const propTypes = {
+    destinations: PropTypes.array.isRequired,
+    isEditable: PropTypes.bool,
+    onDeleteClickHandler: PropTypes.func,
+    background: PropTypes.string,
+};
 
 export const DestinationsGrid = ({
     destinations,
@@ -21,3 +29,5 @@ export const DestinationsGrid = ({
         </div>
     );
 };
+
+DestinationsGrid.propTypes = propTypes;

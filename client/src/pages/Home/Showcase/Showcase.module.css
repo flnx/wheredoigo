@@ -26,6 +26,10 @@
     color: #fff;
 }
 
+.description {
+    font-weight: 600;
+}
+
 .showcase img {
     object-fit: cover;
 }

@@ -7,8 +7,11 @@ import { AxiosInterceptor } from './service/Axios';
 import { AuthContextProvider } from './context/AuthContext';
 
 import { AppRoutes } from './routes/Routes';
+import { useScrollToTop } from './hooks/useScrollTop';
 
 function App() {
+    useScrollToTop();
+
     return (
         <AuthContextProvider>
             <AxiosInterceptor>

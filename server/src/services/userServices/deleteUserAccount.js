@@ -1,11 +1,11 @@
 const User = require('../../models/userSchema');
 const Destination = require('../../models/destinationSchema');
 const Comment = require('../../models/commentSchema');
+const UserActivity = require('../../models/userActivitiesSchema');
 
 const deleteDestination = require('../destinationServices/deleteDestination');
-const { deleteImage } = require('../../utils/cloudinaryUploader');
 const deleteCommentFromPlace = require('../placeServices/deleteCommentFromPlace');
-const UserActivity = require('../../models/userActivitiesSchema');
+const { deleteImage } = require('../../utils/cloudinaryUploader');
 
 const { errorMessages } = require('../../constants/errorMessages');
 const { createValidationError } = require('../../utils/createValidationError');

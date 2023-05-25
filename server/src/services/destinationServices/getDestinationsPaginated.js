@@ -57,7 +57,7 @@ async function getDestinationsPaginated(page, limit, searchParams, categories) {
 
     destinations.forEach((x) => {
         x.city = capitalizeEachWord(x.city);
-        x.country.name = capitalizeEachWord(x.country.name);
+        x.country = capitalizeEachWord(x.country.name);
     });
 
     return destinations;

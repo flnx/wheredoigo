@@ -21,8 +21,8 @@ export const Showcase = ({ isLoading }) => {
                                 Discover the world. Adventure is out there
                             </h1>
                             <p className={styles.description}>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex,
-                                voluptates.
+                                Uncover boundless adventures as you explore the world around
+                                you. The thrill awaits!
                             </p>
                             <div className={styles.buttons}>
                                 <ButtonLinkPrimary to={DISCOVER.route}>

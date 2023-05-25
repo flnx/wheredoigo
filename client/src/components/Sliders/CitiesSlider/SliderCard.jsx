@@ -24,7 +24,7 @@ export const SliderCard = ({ destination, isLoading }) => {
                 {isLoading ? (
                     <LoadingSkeleton />
                 ) : (
-                    <img src={imageUrls?.imageUrl} alt={city} className={styles.image} />
+                    <img src={imageUrls} alt={city} className={styles.image} />
                 )}
             </div>
             {isLoading ? (

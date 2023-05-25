@@ -39,8 +39,8 @@ export const AppRoutes = () => {
                     <Route path={DESTINATIONS.INFO.route} element={<DetailsModal />} />
                     <Route path={DESTINATIONS.OVERVIEW.route} element={<DetailsModal />} />
                 </Route>
-                <Route path={PLACES.BY_ID.route} element={<PlaceDetails />}> 
-                    <Route path={PLACES.ABOUT.route} element={<DetailsModal />}/>
+                <Route path={PLACES.BY_ID.route} element={<PlaceDetails />}>
+                    <Route path={PLACES.ABOUT.route} element={<DetailsModal />} />
                 </Route>
                 <Route path="*" element={<p>404 Not Found</p>} />
             </Routes>

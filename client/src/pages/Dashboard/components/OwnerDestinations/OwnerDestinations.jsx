@@ -4,11 +4,11 @@ import { useDeleteDestination } from '../../../../hooks/queries/useDeleteDestina
 import { extractServerErrorMessage } from '../../../../utils/utils';
 
 // Components
+import { DestinationsGrid } from '../../../../components/DestinationsGrid/DestinationsGrid';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 import { ClipLoader } from 'react-spinners';
 
 import styles from './OwnerDestinations.module.css';
-import { DestinationsGrid } from '../../../../components/DestinationsGrid/DestinationsGrid';
 
 export const OwnerDestinations = () => {
     const { data, isLoading, error } = useCreatorDestinations();
@@ -49,7 +49,7 @@ export const OwnerDestinations = () => {
                 extractServerErrorMessage(serverError)
             ) : (
                 <DestinationsGrid
-                    destinations={data}
+                    destinations={data || []}
                     isEditable={true}
                     onDeleteClickHandler={openConfirmModalHandler}
                 />

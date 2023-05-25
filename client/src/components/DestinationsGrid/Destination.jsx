@@ -1,9 +1,22 @@
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { WarningButton } from '../Buttons/Button-Warning/WarningButton';
 import { LinkButtonSuccess } from '../Buttons/Success-Button/LinkButtonSuccess';
 
 import styles from './DestinationsGrid.module.css';
 import routeConstants from '../../constants/routeConstants';
+
+const propTypes = {
+    destination: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        city: PropTypes.string.isRequired,
+        country: PropTypes.string.isRequired,
+        imageUrls: PropTypes.string.isRequired,
+    }).isRequired,
+    onDeleteClickHandler: PropTypes.func,
+    isEditable: PropTypes.bool,
+    background: PropTypes.string,
+};
 
 export const Destination = ({ destination, onDeleteClickHandler, isEditable, background }) => {
     const { _id, city, country, imageUrls } = destination;
@@ -20,7 +33,7 @@ export const Destination = ({ destination, onDeleteClickHandler, isEditable, bac
             </div>
             <section className={styles.content}>
                 <h3>{city}</h3>
-                <p>{country.name || country}</p>
+                <p>{country}</p>
                 {isEditable && (
                     <div className={styles.buttons}>
                         <LinkButtonSuccess to={EDIT.routePath(_id)}>Edit</LinkButtonSuccess>
@@ -33,3 +46,5 @@ export const Destination = ({ destination, onDeleteClickHandler, isEditable, bac
         </div>
     );
 };
+
+Destination.propTypes = propTypes;
