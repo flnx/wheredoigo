@@ -4,11 +4,11 @@ import { useDeleteDestination } from '../../../../hooks/queries/useDeleteDestina
 import { extractServerErrorMessage } from '../../../../utils/utils';
 
 // Components
-import { Destination } from './components/Destination';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 import { ClipLoader } from 'react-spinners';
 
 import styles from './OwnerDestinations.module.css';
+import { DestinationsGrid } from '../../../../components/DestinationsGrid/DestinationsGrid';
 
 export const OwnerDestinations = () => {
     const { data, isLoading, error } = useCreatorDestinations();
@@ -39,22 +39,21 @@ export const OwnerDestinations = () => {
             },
         });
     };
-    
+
     const serverError = error ? error : deleteError;
 
     return (
         <div className={styles.container}>
             <h2 className={styles.title}>My stuff 🦖</h2>
-            <div className={styles.wrapper}>
-                {serverError && extractServerErrorMessage(serverError)}
-                {data?.map((destination) => (
-                    <Destination
-                        destination={destination}
-                        key={destination._id}
-                        onDeleteClickHandler={openConfirmModalHandler}
-                    />
-                ))}
-            </div>
+            {serverError ? (
+                extractServerErrorMessage(serverError)
+            ) : (
+                <DestinationsGrid
+                    destinations={data}
+                    isEditable={true}
+                    onDeleteClickHandler={openConfirmModalHandler}
+                />
+            )}
             {openConfirmModal && (
                 <ConfirmModal
                     onCloseHandler={onConfirmCancelHandler}

@@ -35,7 +35,7 @@ async function getDestinationsPaginated(page, limit, searchParams, categories) {
         $project: {
             'country.name': 1,
             imageUrls: {
-                $ifNull: [{ $arrayElemAt: ['$imageUrls', 0] }, []],
+                $ifNull: [{ $arrayElemAt: ['$imageUrls.imageUrl', 0] }, ''],
             },
             city: 1,
         },
@@ -58,7 +58,6 @@ async function getDestinationsPaginated(page, limit, searchParams, categories) {
     destinations.forEach((x) => {
         x.city = capitalizeEachWord(x.city);
         x.country.name = capitalizeEachWord(x.country.name);
-        delete x.imageUrls.public_id;
     });
 
     return destinations;

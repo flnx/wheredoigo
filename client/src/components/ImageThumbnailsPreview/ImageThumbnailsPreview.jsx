@@ -1,7 +1,7 @@
 import { X } from '@phosphor-icons/react';
+import { LoadingSkeleton } from '../LoadingSkeletons/LoadingSkeleton';
 
 import styles from './ImageThumbnailsPreview.module.css';
-import { LoadingSkeleton } from '../LoadingSkeletons/LoadingSkeleton';
 
 export const ImageThumbnailsPreview = ({ images = [], handleDeleteImage, isLoading }) => {
     return (

@@ -1,14 +1,15 @@
 import { ClipLoader } from 'react-spinners';
 import { useInfiniteDestinations } from '../../../../hooks/queries/useInfiniteDestinations';
-import { Destination } from './Destination';
 
 import styles from './Destinations.module.css';
+import { DestinationsGrid } from '../../../../components/DestinationsGrid/DestinationsGrid';
 
 export const Destinations = ({ searchParam, categoryParams }) => {
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
         useInfiniteDestinations(searchParam, categoryParams);
 
     const loadingClass = (isFetchingNextPage || !hasNextPage) && styles.loading;
+    const destinations = data?.pages.flatMap((arr) => arr.result);
 
     return (
         <section>
@@ -16,11 +17,7 @@ export const Destinations = ({ searchParam, categoryParams }) => {
                 <span>Destinations</span>
             </div>
             <div className={styles.destinations}>
-                {data?.pages
-                    .flatMap((arr) => arr.result)
-                    .map((destination) => (
-                        <Destination key={destination._id} destination={destination} />
-                    ))}
+                <DestinationsGrid destinations={destinations} background={'#fff'} />
                 {isFetching && <div className={styles.overlay} />}
                 <ClipLoader
                     color="#36d7b7"

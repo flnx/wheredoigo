@@ -1,15 +1,20 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
 .card {
     border-radius: 10px;
     padding: 0.65rem;
     background: var(--app-background-color);
     box-shadow: var(--box-shadow-ease);
-    display: flex;
-    gap: 1rem;
 }
 
 .imageContainer {
     flex: 1;
     aspect-ratio: 1.5/1;
+    margin-bottom: 0.15rem;
 }
 
 .imageContainer img {
@@ -20,15 +25,11 @@
 }
 
 .content {
-    padding: 0.35rem;
-    flex: 1;
-    display: flex;
-    gap: 0.35rem;
-    flex-direction: column;
-    justify-content: space-between;
+    padding: 0.35rem 0.35rem 0rem;
 }
 
 .buttons {
+    margin-top: 0.45rem;
     display: flex;
     gap: 0.65rem;
 }

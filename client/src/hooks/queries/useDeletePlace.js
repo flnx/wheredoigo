@@ -30,6 +30,7 @@ export const useDeletePlace = (destinationId) => {
                 destinationId,
             ]);
 
+            queryClient.invalidateQueries([queryEndpoints.userActivity]);
             queryClient.invalidateQueries([queryEndpoints.places]);
             queryClient.invalidateQueries([queryEndpoints.placeComments, placeId]);
             queryClient.invalidateQueries([queryEndpoints.editPlace, placeId]);

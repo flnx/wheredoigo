@@ -6,6 +6,7 @@ const { errorMessages } = require('../../constants/errorMessages');
 const { deleteMultipleImages } = require('../../utils/cloudinaryUploader');
 const { createValidationError } = require('../../utils/createValidationError');
 const { extractCloudinaryFolderName } = require('../../utils/utils');
+const UserActivity = require('../../models/userActivitiesSchema');
 
 async function deletePlace(placeId, userId) {
     const place = await Place.findById(placeId).lean().exec();
@@ -33,6 +34,7 @@ async function deletePlace(placeId, userId) {
     await Promise.allSettled([
         Comment.deleteMany({ _id: { $in: comments_ids } }),
         deleteMultipleImages(image_ids, [folderName]),
+        UserActivity.updateMany({}, { $pull: { comments: { place: placeId } } }),
     ]);
 
     return true;
