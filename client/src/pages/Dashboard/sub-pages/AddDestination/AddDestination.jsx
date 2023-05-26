@@ -60,6 +60,7 @@ export const AddDestination = () => {
 
     return (
         <div className={styles.container}>
+            <h1 className={`${styles.title} smaller`}>Add destination</h1>
             {isLoading && <DarkOverlay isLoading={isLoading} />}
             {createError && <ServerError errorMessage={createError} />}
             <form className={styles.form} onSubmit={submitHandler}>

@@ -44,7 +44,7 @@ export const OwnerDestinations = () => {
 
     return (
         <div className={styles.container}>
-            <h2 className={styles.title}>My stuff 🦖</h2>
+            <h1 className={`${styles.title} smaller`}>Created destinations 🦖</h1>
             {serverError ? (
                 extractServerErrorMessage(serverError)
             ) : (
