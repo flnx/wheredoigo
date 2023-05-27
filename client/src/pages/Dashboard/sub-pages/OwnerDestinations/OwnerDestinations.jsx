@@ -66,7 +66,7 @@ export const OwnerDestinations = () => {
             <ClipLoader
                 color="#36d7b7"
                 size={40}
-                loading={isLoading || isDeleteLoading}
+                loading={isLoading}
                 aria-label="Loading Spinner"
                 className={styles.spinner}
             />

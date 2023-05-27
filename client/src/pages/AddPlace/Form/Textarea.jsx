@@ -2,6 +2,8 @@ import { ShowFormError } from '../../../components/ShowFormError/ShowFormError';
 import styles from './Form.module.css';
 
 export const Textarea = ({ description, onChangeHandler, errors }) => {
+    const isNotValid = description.length < 50 || description.length > 5000;
+
     return (
         <div className={styles.formRow}>
             <label className={styles.formLabel} htmlFor="description">
@@ -16,7 +18,7 @@ export const Textarea = ({ description, onChangeHandler, errors }) => {
                 className={styles.formInput}
                 placeholder="Add place description..."
             />
-            <ShowFormError errors={errors} errorParam={'description'} />
+            {isNotValid && <ShowFormError errors={errors} errorParam={'description'} />}
         </div>
     );
 };

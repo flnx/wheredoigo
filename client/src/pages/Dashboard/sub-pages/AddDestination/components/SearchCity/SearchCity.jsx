@@ -1,7 +1,4 @@
-import { useState } from 'react';
-
-import { useSearchCity } from '../../../../../../hooks/queries/useSearchCity';
-import { useDebounce } from '../../../../../../hooks/useDebounce';
+import { useSearchCityInput } from './useSearchCityInput';
 
 // Components
 import { ClipLoader } from 'react-spinners';
@@ -14,34 +11,17 @@ import { ShowFormError } from '../../../../../../components/ShowFormError/ShowFo
 import styles from '../../AddDestination.module.css';
 import styles2 from './SearchCity.module.css';
 
-export const SearchCity = ({
-    updateField,
-    updateLastCityFetch,
-    city,
-    lastCityFetch,
-    errors,
-}) => {
-    const debouncedSearch = useDebounce(city, 350);
-    const [showSearchDropdown, setShowSearchDropdown] = useState(false);
-    const [isSuccess, isFetching, error] = useSearchCity(debouncedSearch, updateLastCityFetch);
-
-    function onChangeHandler(e) {
-        updateField(e.target.name, e.target.value);
-    }
-
-    function onDropdownCityClickHandler() {
-        // when the new city is fetched and the dropdown is shown, it dispatches it on click (if valid);
-        if (lastCityFetch) {
-            onChangeHandler({ target: { name: 'city', value: lastCityFetch.city } });
-        }
-    }
-
-    function showSearchDropdownHandler(boolean) {
-        setShowSearchDropdown(boolean);
-    }
-
-    const isFreshlyFetchedCityValid = city && !isFetching && isSuccess;
-    const isUserInputValidCity = city && lastCityFetch.city.toLowerCase() == city.toLowerCase();
+export const SearchCity = ({ updateField, updateLastCityFetch, city, lastCityFetch, errors }) => {
+    const {
+        isFetching,
+        error,
+        onChangeHandler,
+        onDropdownCityClickHandler,
+        showSearchDropdownHandler,
+        showSearchDropdown,
+        isFreshlyFetchedCityValid,
+        isUserInputValidCity
+    } = useSearchCityInput(city, updateLastCityFetch, updateField, lastCityFetch);
 
     return (
         <div className={`${styles.formField} ${styles2.cityInput}`}>

@@ -3,7 +3,6 @@ import { createImageFiles } from "./imagesHandler";
 export const createDestinationFormData = async (state, images) => {
     const formData = new FormData();
     
-    console.log(state);
     formData.append('city', state.city);
     formData.append('country', state.country);
     formData.append('description', state.description);
@@ -15,7 +14,7 @@ export const createDestinationFormData = async (state, images) => {
     return formData;
 };
 
-export const createPlaceFormData = async (state, destinationId) => {
+export const createPlaceFormData = async (state, images, destinationId) => {
     const formData = new FormData();
 
     formData.append('destinationId', destinationId);
@@ -23,7 +22,7 @@ export const createPlaceFormData = async (state, destinationId) => {
     formData.append('type', state.type);
     formData.append('description', state.description);
 
-    await createImageFiles(state.imageUrls, formData);
+    await createImageFiles(images.imageUrls, formData);
 
     return formData;
 };

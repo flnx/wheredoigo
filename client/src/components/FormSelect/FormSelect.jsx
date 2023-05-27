@@ -1,13 +1,11 @@
 import { ShowFormError } from '../ShowFormError/ShowFormError';
 import styles from './FormSelect.module.css';
 
-export const FormSelect = ({ value, options, onChangeHandler, label, errors }) => {
+export const FormSelect = ({ value, options, onChangeHandler, label, errors, boxshadow }) => {
     const name = label.toLowerCase();
 
-    console.log(value)
-
     return (
-        <div className={styles.selectWrapper}>
+        <div className={`${styles.selectWrapper} ${boxshadow ? styles.boxShadow : ''}`}>
             <label className={styles.label} htmlFor={name}>
                 {label}
             </label>

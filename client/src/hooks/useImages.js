@@ -21,5 +21,7 @@ export const useImages = () => {
         });
     };
 
-    return { images, addImages, deleteImage };
+    const resetState = () => dispatch({ type: 'reset' });
+
+    return { images, addImages, deleteImage, resetState };
 };

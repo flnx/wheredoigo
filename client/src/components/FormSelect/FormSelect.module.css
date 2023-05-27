@@ -7,10 +7,14 @@
 
 .selectWrapper {
     position: relative;
-    padding: 1rem;
-    box-shadow: var(--box-shadow-ease);
+    width: 100%;
+    border-radius: 5px;
 }
 
+.boxShadow {
+    box-shadow: var(--box-shadow-ease);
+    padding: 1rem;
+}
 
 .label {
     font-size: 0.95rem;

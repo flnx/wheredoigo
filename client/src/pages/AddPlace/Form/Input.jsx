@@ -16,7 +16,7 @@ export const Input = ({ name, onChangeHandler, errors }) => {
                 className={styles.formInput}
                 placeholder="Add place name"
             />
-            <ShowFormError errors={errors} errorParam={'name'} />
+            {name.length == 0 && <ShowFormError errors={errors} errorParam={'name'} />}
         </div>
     );
 };

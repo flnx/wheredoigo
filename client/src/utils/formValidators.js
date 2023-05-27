@@ -1,5 +1,5 @@
-export function validatePlaceData(state, allowedCategories) {
-    const { description, name, imageUrls, type } = state;
+export function validatePlaceData({ state, images, allowedCategories }) {
+    const { description, name, type } = state;
 
     const errors = [];
 
@@ -11,12 +11,12 @@ export function validatePlaceData(state, allowedCategories) {
         errors.push('Place name is required');
     }
 
-    if (imageUrls.length < 4) {
+    if (images.imageUrls.length < 4) {
         errors.push('You need to upload at least 4 images');
     }
 
     if (!allowedCategories.includes(type)) {
-        errors.push('Please select a category');
+        errors.push('Please select a category type');
     }
 
     return errors;

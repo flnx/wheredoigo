@@ -1,41 +1,33 @@
-import { useReducer } from 'react';
-
-import { imagesReducer, initialState } from '../../../utils/imagesReducer';
+import { useImages } from '../../../hooks/useImages';
 import { createImagesFormData } from '../../../utils/formData';
 
 // Components
+import { DarkOverlay } from '../../DarkOverlay/DarkOverlay';
 import { UploadImagesPreview } from '../../UploadImagesPreview/UploadImagesPreview';
 import { SuccessButton } from '../../Buttons/Success-Button/SuccessButton';
 
 import styles from './NewImagesShowcase.module.css';
-import { DarkOverlay } from '../../DarkOverlay/DarkOverlay';
 
 export const NewImagesShowcase = ({ uploadImagesHandler, isUploading }) => {
-    const [newImagesState, dispatch] = useReducer(imagesReducer, initialState);
-    const hasNewlyUploadImages = newImagesState.imageUrls.length > 0;
-
-    const dispatchHandler = (action) => {
-        dispatch(action);
-    };
+    const { images, addImages, deleteImage, resetState } = useImages();
+    const hasNewlyUploadImages = images.imageUrls.length > 0;
 
     const handleNewImagesSubmit = async (e) => {
         e.preventDefault();
 
         if (!hasNewlyUploadImages || isUploading) return;
 
-        const formData = await createImagesFormData(newImagesState);
-
-        const dispatchReset = () => dispatch({ type: 'reset' });
-
-        uploadImagesHandler(formData, dispatchReset);
+        const formData = await createImagesFormData(images);
+        uploadImagesHandler(formData, resetState);
     };
 
     return (
         <div className={styles['newly-uploaded-images']}>
             {isUploading && <DarkOverlay isLoading={isUploading} />}
             <UploadImagesPreview
-                images={newImagesState.imageUrls}
-                dispatchHandler={dispatchHandler}
+                images={images.imageUrls}
+                addImages={addImages}
+                deleteImage={deleteImage}
             />
 
             {hasNewlyUploadImages && (

@@ -23,7 +23,11 @@ export const AddDestination = () => {
     const [showDetail, setShowDetail] = useState({ category: null });
     const { updateField, updateDetail, updateLastCityFetch, state } = useDestinationInput();
     const { images, addImages, deleteImage } = useImages();
-    const { submitHandler, isLoading, error, errors } = useSubmitData(images, state, categories);
+    const { submitHandler, isLoading, error, errors } = useSubmitData(
+        images,
+        state,
+        categories
+    );
 
     const showDetailHandler = (category) => setShowDetail(category);
     const openedDetailsCategory = state.details.find((x) => x.category == showDetail.category);
@@ -31,8 +35,10 @@ export const AddDestination = () => {
     return (
         <div className={styles.container}>
             <h1 className={`${styles.title} smaller`}>Add destination</h1>
+
             {isLoading && <DarkOverlay isLoading={isLoading} />}
             {error && <ServerError errorMessage={error} />}
+
             <form className={styles.form} onSubmit={submitHandler}>
                 <SearchCity
                     updateField={updateField}
@@ -63,16 +69,16 @@ export const AddDestination = () => {
                         openedDetailsCategory={openedDetailsCategory}
                     />
                 )}
-
                 <FormSelect
                     value={state.category}
                     options={categories}
                     onChangeHandler={(e) => updateField(e.target.name, e.target.value)}
                     label={'Category'}
                     errors={errors}
+                    boxshadow={true}
                 />
 
-                <SuccessButton disabled={isLoading} type="submit" fw="600" p="0.6rem 1.15rem">
+                <SuccessButton isLoading={isLoading} type="submit" fw="600" p="0.6rem 1.15rem">
                     Create Destination
                 </SuccessButton>
             </form>

@@ -3,8 +3,3 @@
     flex-direction: column;
     gap: 1.5rem;
 }
-
-.uploadError {
-    display: inline-block;
-    color: var(--error-message);
-}
