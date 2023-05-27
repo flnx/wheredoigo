@@ -1,13 +1,7 @@
-import { useReducer, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-import { useAddNewDestination } from '../../../../hooks/queries/useAddDestination';
-import { destinationFormReducer, initialState } from '../../../../utils/destinationReducer';
-import { createDestinationFormData } from '../../../../utils/formData';
-import { validateDestinationData } from '../../../../utils/formValidators';
-import { ServerError } from '../../../../components/ServerError/ServerError';
+import { useAddDestinationInput } from './useAddDestinationInput';
 
 // Components
+import { ServerError } from '../../../../components/ServerError/ServerError';
 import { SearchCity } from './components/SearchCity/SearchCity';
 import { Description } from './components/Description';
 import { Details } from './components/Details';
@@ -18,45 +12,20 @@ import { DetailsButtons } from './components/DetailsButtons/DetailsButtons';
 import { DarkOverlay } from '../../../../components/DarkOverlay/DarkOverlay';
 import { ShowFormError } from '../../../../components/ShowFormError/ShowFormError';
 
-import routeConstants from '../../../../constants/routeConstants';
 import styles from './AddDestination.module.css';
 
 export const AddDestination = () => {
-    const [createDestination, createError, isLoading] = useAddNewDestination();
-    const [state, dispatch] = useReducer(destinationFormReducer, initialState);
-    const [showDetail, setShowDetail] = useState({ category: null });
-    const [errorMessages, setErrorMessages] = useState([]);
-    const navigate = useNavigate();
-
-    const dispatchHandler = (actions) => {
-        dispatch(actions);
-    };
-
-    const showDetailHandler = (category) => {
-        setShowDetail(category);
-    };
-
-    const submitHandler = async (e) => {
-        e.preventDefault();
-
-        if (isLoading) return;
-
-        const errors = validateDestinationData(state);
-        setErrorMessages(errors);
-
-        if (errors.length > 0) return;
-
-        const formData = await createDestinationFormData(state);
-
-        createDestination(formData, {
-            onSuccess: (newDestination) => {
-                const { routePath } = routeConstants.DESTINATIONS.BY_ID;
-                navigate(routePath(newDestination._id));
-            },
-        });
-    };
-
-    const openedDetailsCategory = state.details.find((x) => x.category == showDetail.category);
+    const {
+        dispatchHandler,
+        showDetailHandler,
+        submitHandler,
+        openedDetailsCategory,
+        createError,
+        errorMessages,
+        isLoading,
+        state,
+        showDetail
+    } = useAddDestinationInput();
 
     return (
         <div className={styles.container}>
@@ -71,15 +40,15 @@ export const AddDestination = () => {
                     lastCityFetch={state.lastCityFetch}
                 />
                 <Description
-                    description={state.description}
                     dispatchHandler={dispatchHandler}
+                    description={state.description}
                     errorMessages={errorMessages}
                 />
                 <UploadImagesPreview
                     dispatchHandler={dispatchHandler}
                     images={state.imageUrls}
                 />
-                <ShowFormError errors={errorMessages} errorParam={'images'}/>
+                <ShowFormError errors={errorMessages} errorParam={'images'} />
                 <DetailsButtons showDetailHandler={showDetailHandler} />
                 {showDetail.category && (
                     <Details

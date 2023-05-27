@@ -37,9 +37,6 @@ export const SearchCity = ({ dispatchHandler, errorMessages, city, lastCityFetch
         setShowSearchDropdown(boolean);
     }
 
-
-
-    // const isFreshlyFetchedCityValid = lastCityFetch.city && city && !isFetching;
     const isFreshlyFetchedCityValid = city && !isFetching && isSuccess;
     const isFreshlyFetchedCityInvalid = city && !isFetching && !isSuccess;
     const isUserInputValidCity = city && lastCityFetch.city.toLowerCase() == city.toLowerCase();
