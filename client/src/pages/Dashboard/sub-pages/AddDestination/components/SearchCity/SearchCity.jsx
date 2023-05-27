@@ -14,16 +14,19 @@ import { ShowFormError } from '../../../../../../components/ShowFormError/ShowFo
 import styles from '../../AddDestination.module.css';
 import styles2 from './SearchCity.module.css';
 
-export const SearchCity = ({ dispatchHandler, errorMessages, city, lastCityFetch }) => {
-    const debouncedSearch = useDebounce(city, 500);
+export const SearchCity = ({
+    updateField,
+    updateLastCityFetch,
+    city,
+    lastCityFetch,
+    errors,
+}) => {
+    const debouncedSearch = useDebounce(city, 350);
     const [showSearchDropdown, setShowSearchDropdown] = useState(false);
-    const [isSuccess, isFetching, error] = useSearchCity(debouncedSearch, dispatchHandler);
+    const [isSuccess, isFetching, error] = useSearchCity(debouncedSearch, updateLastCityFetch);
 
     function onChangeHandler(e) {
-        dispatchHandler({
-            type: 'change',
-            payload: { name: e.target.name, value: e.target.value },
-        });
+        updateField(e.target.name, e.target.value);
     }
 
     function onDropdownCityClickHandler() {
@@ -38,7 +41,6 @@ export const SearchCity = ({ dispatchHandler, errorMessages, city, lastCityFetch
     }
 
     const isFreshlyFetchedCityValid = city && !isFetching && isSuccess;
-    const isFreshlyFetchedCityInvalid = city && !isFetching && !isSuccess;
     const isUserInputValidCity = city && lastCityFetch.city.toLowerCase() == city.toLowerCase();
 
     return (
@@ -50,9 +52,7 @@ export const SearchCity = ({ dispatchHandler, errorMessages, city, lastCityFetch
                 city={city}
             />
 
-            {!isUserInputValidCity && (
-                <ShowFormError errors={errorMessages} errorParam={'city'} />
-            )}
+            {!isUserInputValidCity && <ShowFormError errors={errors} errorParam={'city'} />}
 
             {showSearchDropdown && (
                 <div className={styles2.searchDropdown}>
@@ -75,7 +75,7 @@ export const SearchCity = ({ dispatchHandler, errorMessages, city, lastCityFetch
                         />
                     )}
 
-                    {isFreshlyFetchedCityInvalid && <NotFound />}
+                    {city && error && <NotFound />}
                 </div>
             )}
         </div>

@@ -1,15 +1,16 @@
 import { createImageFiles } from "./imagesHandler";
 
-export const createDestinationFormData = async (state) => {
+export const createDestinationFormData = async (state, images) => {
     const formData = new FormData();
-
+    
+    console.log(state);
     formData.append('city', state.city);
     formData.append('country', state.country);
     formData.append('description', state.description);
     formData.append('category', state.category);
     formData.append('details', JSON.stringify(state.details));
 
-    await createImageFiles(state.imageUrls, formData);
+    await createImageFiles(images.imageUrls, formData);
 
     return formData;
 };

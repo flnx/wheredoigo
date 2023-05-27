@@ -22,7 +22,11 @@ function validateDestinationFields(data) {
         throw createValidationError(errorMessages.description, 400);
     }
 
+
+
     if (!isString(category) || !destinationCategories.includes(category)) {
+        console.log(category)
+
         throw createValidationError(errorMessages.missingFields, 400);
     }
 

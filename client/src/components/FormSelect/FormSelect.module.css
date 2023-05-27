@@ -1,0 +1,29 @@
+.selectWrapper {
+    display: flex;
+    gap: 0.2rem;
+    flex-direction: column;
+    background: var(--app-background-color);
+}
+
+.selectWrapper {
+    position: relative;
+    padding: 1rem;
+    box-shadow: var(--box-shadow-ease);
+}
+
+
+.label {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.select {
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.5rem;
+    margin: 8px 0;
+    border: none;
+    border-radius: 0.25rem;
+    background: #fff;
+}

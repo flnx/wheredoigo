@@ -1,4 +1,7 @@
-import { useAddDestinationInput } from './useAddDestinationInput';
+import { useState } from 'react';
+import { useDestinationInput } from './useDestinationInput';
+import { useSubmitData } from './useSubmitData';
+import { useImages } from '../../../../hooks/useImages';
 
 // Components
 import { ServerError } from '../../../../components/ServerError/ServerError';
@@ -7,68 +10,71 @@ import { Description } from './components/Description';
 import { Details } from './components/Details';
 import { UploadImagesPreview } from '../../../../components/UploadImagesPreview/UploadImagesPreview';
 import { SuccessButton } from '../../../../components/Buttons/Success-Button/SuccessButton';
-import { SelectCategory } from './components/SelectCategory/SelectCategory';
 import { DetailsButtons } from './components/DetailsButtons/DetailsButtons';
 import { DarkOverlay } from '../../../../components/DarkOverlay/DarkOverlay';
 import { ShowFormError } from '../../../../components/ShowFormError/ShowFormError';
+import { FormSelect } from '../../../../components/FormSelect/FormSelect';
 
 import styles from './AddDestination.module.css';
 
 export const AddDestination = () => {
-    const {
-        dispatchHandler,
-        showDetailHandler,
-        submitHandler,
-        openedDetailsCategory,
-        createError,
-        errorMessages,
-        isLoading,
-        state,
-        showDetail
-    } = useAddDestinationInput();
+    const categories = ['Beach', 'Mountains', 'Cultural', 'Snow', 'Islands', 'Adventure'];
+
+    const [showDetail, setShowDetail] = useState({ category: null });
+    const { updateField, updateDetail, updateLastCityFetch, state } = useDestinationInput();
+    const { images, addImages, deleteImage } = useImages();
+    const { submitHandler, isLoading, error, errors } = useSubmitData(images, state, categories);
+
+    const showDetailHandler = (category) => setShowDetail(category);
+    const openedDetailsCategory = state.details.find((x) => x.category == showDetail.category);
 
     return (
         <div className={styles.container}>
             <h1 className={`${styles.title} smaller`}>Add destination</h1>
             {isLoading && <DarkOverlay isLoading={isLoading} />}
-            {createError && <ServerError errorMessage={createError} />}
+            {error && <ServerError errorMessage={error} />}
             <form className={styles.form} onSubmit={submitHandler}>
                 <SearchCity
-                    dispatchHandler={dispatchHandler}
-                    errorMessages={errorMessages}
+                    updateField={updateField}
+                    updateLastCityFetch={updateLastCityFetch}
                     city={state.city}
                     lastCityFetch={state.lastCityFetch}
+                    errors={errors}
                 />
                 <Description
-                    dispatchHandler={dispatchHandler}
+                    updateField={updateField}
                     description={state.description}
-                    errorMessages={errorMessages}
+                    errors={errors}
                 />
                 <UploadImagesPreview
-                    dispatchHandler={dispatchHandler}
-                    images={state.imageUrls}
+                    addImages={addImages}
+                    deleteImage={deleteImage}
+                    images={images.imageUrls}
                 />
-                <ShowFormError errors={errorMessages} errorParam={'images'} />
+
+                {images.imageUrls.length < 4 && (
+                    <ShowFormError errors={errors} errorParam={'images'} />
+                )}
                 <DetailsButtons showDetailHandler={showDetailHandler} />
                 {showDetail.category && (
                     <Details
-                        dispatchHandler={dispatchHandler}
+                        updateDetail={updateDetail}
                         showDetailHandler={showDetailHandler}
                         openedDetailsCategory={openedDetailsCategory}
                     />
                 )}
 
-                <SelectCategory dispatchHandler={dispatchHandler} state={state} />
-                <section>
-                    <SuccessButton
-                        disabled={isLoading}
-                        type="submit"
-                        fw="600"
-                        p="0.6rem 1.15rem"
-                    >
-                        Create Destination
-                    </SuccessButton>
-                </section>
+                <FormSelect
+                    value={state.category}
+                    options={categories}
+                    onChangeHandler={(e) => updateField(e.target.name, e.target.value)}
+                    label={'Category'}
+                    errors={errors}
+                />
+
+                <SuccessButton disabled={isLoading} type="submit" fw="600" p="0.6rem 1.15rem">
+                    Create Destination
+                </SuccessButton>
             </form>
         </div>
     );

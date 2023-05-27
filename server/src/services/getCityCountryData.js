@@ -17,7 +17,7 @@ async function fetchCity(city) {
         }
 
         return {
-            ...data[0]
+            ...data[0],
         };
     }
 
@@ -28,7 +28,17 @@ async function fetchCountry(country) {
     const result = await fetch(process.env.COUNTRY_URL + country, options());
     const data = await result.json();
 
-    return data;
+    if (Array.isArray(data)) {
+        if (data.length == 0 || !data[0].name) {
+            throw createValidationError(`Country ${errorMessages.notFound}`, 404);
+        }
+
+        return {
+            ...data[0],
+        };
+    }
+
+    throw createValidationError(`Country ${errorMessages.notFound}`, 404);
 }
 
 function options() {

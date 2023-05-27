@@ -1,17 +1,14 @@
 import { ShowFormError } from '../../../../../components/ShowFormError/ShowFormError';
 import styles from '../AddDestination.module.css';
 
-export const Description = ({ dispatchHandler, description, errorMessages }) => {
+export const Description = ({ updateField, description, errors }) => {
     const onChangeHandler = (e) => {
-        dispatchHandler({
-            type: 'change',
-            payload: { name: e.target.name, value: e.target.value },
-        });
+        updateField(e.target.name, e.target.value);
     };
 
-    const hasError = errorMessages.some((msg) => msg.includes('Description'));
-    const validField = `${description.length >= 10 ? styles.validField : ''}`;
-    const invalidField = `${hasError && description.length < 10 ? styles.error : ''}`;
+    const hasError = errors.some((msg) => msg.includes('Description'));
+    const validField = `${description.length >= 50 ? styles.validField : ''}`;
+    const invalidField = `${hasError && description.length < 50 ? styles.error : ''}`;
 
     return (
         <div className={styles.formField}>
@@ -26,9 +23,7 @@ export const Description = ({ dispatchHandler, description, errorMessages }) => 
                 className={`${validField} ${invalidField}`}
             />
 
-            {invalidField && (
-                <ShowFormError errors={errorMessages} errorParam={'Description'} />
-            )}
+            {invalidField && <ShowFormError errors={errors} errorParam={'Description'} />}
         </div>
     );
 };

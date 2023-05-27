@@ -2,21 +2,13 @@ import { ImageThumbnailsPreview } from '../ImageThumbnailsPreview/ImageThumbnail
 
 import styles from './UploadImagesPreview.module.css';
 
-export const UploadImagesPreview = ({ dispatchHandler, images }) => {
+export const UploadImagesPreview = ({ addImages, deleteImage, images }) => {
     const handleImageSelect = (e) => {
-        dispatchHandler({
-            type: 'add_images',
-            payload: {
-                files: Array.from(e.target.files),
-            },
-        });
+        addImages(e.target.files);
     };
 
     const handleDeleteImage = (e, index) => {
-        dispatchHandler({
-            type: 'delete_image',
-            index,
-        });
+        deleteImage(index);
     };
 
     return (

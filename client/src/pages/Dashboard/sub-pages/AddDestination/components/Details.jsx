@@ -1,13 +1,9 @@
 import styles from '../AddDestination.module.css';
 import { OverlayDisabledBodyScroll } from '../../../../../components/OverlayDisabledBodyScroll/OverlayDisabledBodyScroll';
 
-export const Details = ({ showDetailHandler, openedDetailsCategory, dispatchHandler }) => {
+export const Details = ({ showDetailHandler, openedDetailsCategory, updateDetail }) => {
     const onDetailsChange = (e, category) => {
-        dispatchHandler({
-            type: 'details_change',
-            category,
-            payload: { name: e.target.name, description: e.target.value },
-        });
+        updateDetail(e.target.name, e.target.value, category);
     };
 
     const closeDetailWindowHandler = () => {

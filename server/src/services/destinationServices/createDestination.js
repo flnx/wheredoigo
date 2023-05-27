@@ -18,6 +18,7 @@ async function createDestination(data, images, user) {
         category: data.category,
     };
 
+    
     validateDestinationFields(destinationData);
     validateImages(images, 4); // (at least 4 images)
 
@@ -44,8 +45,8 @@ async function createDestination(data, images, user) {
     };
 
     async function addCountry(cityData) {
-        const countryData = await fetchCountry(cityData[0].country);
-        const countryName = countryData[0].name;
+        const countryData = await fetchCountry(cityData.country);
+        const countryName = countryData.name;
 
         let checkCountryInDB = await Country.findOne({
             name: countryName.toLowerCase(),
