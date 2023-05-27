@@ -7,6 +7,12 @@ export const getPlaces = async () => {
     return res.data;
 };
 
+export const getUserPlacesData = async () => {
+    const res = await axios.get(apiEndpoints.userPlacesData);
+
+    return res.data;
+};
+
 export const getPlace = async (id) => {
     const placeData = await axios.get(apiEndpoints.placeById(id));
 

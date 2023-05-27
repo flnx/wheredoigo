@@ -32,6 +32,7 @@ export const apiEndpoints = {
     getCity: (city) => `destinations/search-city?name=${city}`,
 
     places: `places`,
+    userPlacesData: 'places/user-places-data',
     placeById: (id) => `places/${id}`,
     placeComments: (id, page) => `places/${id}/comments?page=${page}`,
     addPlace: (destinationId) => `destinations/${destinationId}/places/add`,

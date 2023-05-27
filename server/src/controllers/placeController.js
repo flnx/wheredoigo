@@ -6,11 +6,12 @@ const addCommentToPlace = require('../services/placeServices/addCommentToPlace')
 const deleteCommentFromPlace = require('../services/placeServices/deleteCommentFromPlace');
 const deletePlaceImage = require('../services/placeServices/deletePlaceImage');
 const addPlaceNewImages = require('../services/placeServices/addPlaceNewImages');
+const getPlaces = require('../services/placeServices/getPlaces');
+const getUserPlacesData = require('../services/placeServices/getUserPlacesData');
 
 const {allowedPlaceCategories, allowedFieldsToUpdate } = require('../constants/allowedPlaceCategories');
 const getPlaceComments = require('../services/placeServices/getPlaceComments');
 const { extractPageFromQuery } = require('../utils/extractPageFromQuery');
-const getPlaces = require('../services/placeServices/getPlaces');
 
 const get_places = async(req, res, next) => {
     try {
@@ -20,6 +21,18 @@ const get_places = async(req, res, next) => {
         next(err);
     }
 }
+
+const get_user_places_data = async(req, res, next) => {
+    const { ownerId } = req.user;
+    
+    try {
+        const places = await getUserPlacesData({ ownerId });
+        res.json(places);
+    } catch(err) {
+        next(err);
+    }
+}
+
 
 const add_new_place = async (req, res, next) => {
     const placeInfo = req.body;
@@ -166,5 +179,6 @@ module.exports = {
     edit_place_field,
     add_place_new_images,
     delete_place_image,
-    get_places
+    get_places,
+    get_user_places_data,
 };

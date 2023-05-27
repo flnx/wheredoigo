@@ -7,6 +7,7 @@ export const queryEndpoints = {
     userActivity: 'userActivity',
 
     places: 'places',
+    userPlacesData: 'userPlacesData',
     place: 'place',
     createPlacePermissions: 'createPlacePermissions',
     editPlace: 'editPlace',
