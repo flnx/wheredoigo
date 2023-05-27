@@ -16,10 +16,10 @@ import { SuccessButton } from '../../../../components/Buttons/Success-Button/Suc
 import { SelectCategory } from './components/SelectCategory/SelectCategory';
 import { DetailsButtons } from './components/DetailsButtons/DetailsButtons';
 import { DarkOverlay } from '../../../../components/DarkOverlay/DarkOverlay';
+import { ShowFormError } from '../../../../components/ShowFormError/ShowFormError';
 
 import routeConstants from '../../../../constants/routeConstants';
 import styles from './AddDestination.module.css';
-import { ShowFormError } from '../../../../components/ShowFormError/ShowFormError';
 
 export const AddDestination = () => {
     const [createDestination, createError, isLoading] = useAddNewDestination();

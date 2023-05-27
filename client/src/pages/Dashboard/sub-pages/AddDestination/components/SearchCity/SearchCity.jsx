@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useState } from 'react';
-import { getCityData } from '../../../../../../service/data/destinations';
-import debounce from 'lodash.debounce';
+import { useState } from 'react';
+
+import { useSearchCity } from '../../../../../../hooks/queries/useSearchCity';
+import { useDebounce } from '../../../../../../hooks/useDebounce';
 
 // Components
 import { ClipLoader } from 'react-spinners';
@@ -14,37 +15,9 @@ import styles from '../../AddDestination.module.css';
 import styles2 from './SearchCity.module.css';
 
 export const SearchCity = ({ dispatchHandler, errorMessages, city, lastCityFetch }) => {
+    const debouncedSearch = useDebounce(city, 500);
     const [showSearchDropdown, setShowSearchDropdown] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-
-    const debouncedFunction = useCallback(
-        debounce((city) => fetchData(city), 300),
-        []
-    );
-
-    useEffect(() => {
-        if (!city || (lastCityFetch.city && lastCityFetch.city.includes(city))) {
-            return;
-        }
-
-        debouncedFunction(city);
-    }, [city]);
-
-    async function fetchData(city) {
-        try {
-            setIsLoading(true);
-            const data = await getCityData({ city });
-
-            dispatchHandler({
-                type: 'last_city_fetched',
-                payload: { city: data[0].name, country: data[0].country },
-            });
-        } catch (err) {
-            dispatchHandler({ type: 'reset_last_fetch' });
-        } finally {
-            setIsLoading(false);
-        }
-    }
+    const [isSuccess, isFetching, error] = useSearchCity(debouncedSearch, dispatchHandler);
 
     function onChangeHandler(e) {
         dispatchHandler({
@@ -64,10 +37,12 @@ export const SearchCity = ({ dispatchHandler, errorMessages, city, lastCityFetch
         setShowSearchDropdown(boolean);
     }
 
-    const isFreshlyFetchedCityValid = lastCityFetch.city && city && !isLoading;
-    const isFreshlyFetchedCityInvalid = !lastCityFetch.city && city && !isLoading;
-    const isUserInputValidCity =
-        city && lastCityFetch.city.toLowerCase() == city.toLowerCase();
+
+
+    // const isFreshlyFetchedCityValid = lastCityFetch.city && city && !isFetching;
+    const isFreshlyFetchedCityValid = city && !isFetching && isSuccess;
+    const isFreshlyFetchedCityInvalid = city && !isFetching && !isSuccess;
+    const isUserInputValidCity = city && lastCityFetch.city.toLowerCase() == city.toLowerCase();
 
     return (
         <div className={`${styles.formField} ${styles2.cityInput}`}>
@@ -86,7 +61,7 @@ export const SearchCity = ({ dispatchHandler, errorMessages, city, lastCityFetch
                 <div className={styles2.searchDropdown}>
                     {!city && <EnterLocation />}
 
-                    {isLoading && (
+                    {city && isFetching && (
                         <ClipLoader
                             color="#36d7b7"
                             aria-label="Loading Spinner"

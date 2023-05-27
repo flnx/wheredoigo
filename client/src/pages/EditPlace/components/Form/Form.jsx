@@ -8,9 +8,9 @@ import { capitalizeFirstLetter } from '../../../../utils/utils';
 import { SelectType } from '../SelectType/SelectType';
 import { MemoizedFormFieldEditor } from '../../../../components/FormFieldEditor/FormFieldEditor';
 import { FormLoadingSkeleton } from '../../../../components/FormLoadingSkeleton/FormLoadingSkeleton';
+import { TextWrap } from '../../../../components/TextWrap/TextWrap';
 
 import styles from './Form.module.css';
-import { TextWrap } from '../../../../components/TextWrap/TextWrap';
 
 const propTypes = {
     data: PropTypes.object.isRequired,

@@ -26,12 +26,12 @@ const {
 const router = express.Router();
 
 router.get('/destinations', paginated_destinations);
+router.get('/destinations/search-city', auth, get_city_data);
 router.get('/destinations/created-by-user', auth, creator_destinations);
 router.get('/destinations/:id/request-edit-permissions', validateMongoId, auth, fetchDestinationAndCheckOwnership, request_edit);
 router.get('/destinations/:id', validateMongoId, checkSession, details);
 
 router.post('/destinations', auth, upload, add_new_destination);
-router.post('/destinations/get-city-data', auth, get_city_data);
 router.post('/destinations/:id/like', validateMongoId, auth, like_destination);
 router.post('/destinations/:id/dislike', validateMongoId, auth, dislike_destination);
 

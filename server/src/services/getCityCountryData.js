@@ -4,6 +4,10 @@ const { createValidationError } = require('../utils/createValidationError');
 require('dotenv').config();
 
 async function fetchCity(city) {
+    if (!city) {
+        throw createValidationError(errorMessages.notFound, 404);
+    }
+
     const result = await fetch(process.env.CITY_URL + city, options());
     const data = await result.json();
 
@@ -12,7 +16,9 @@ async function fetchCity(city) {
             throw createValidationError(errorMessages.notFound, 404);
         }
 
-        return data;
+        return {
+            ...data[0]
+        };
     }
 
     throw createValidationError(errorMessages.notFound, 404);

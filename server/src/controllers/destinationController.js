@@ -58,10 +58,10 @@ const destination_details = async (req, res, next) => {
 };
 
 const get_city_data = async (req, res, next) => {
-    const { city } = req.body;
+    const { name } = req.query;
 
     try {
-        const result = await fetchCity(city);
+        const result = await fetchCity(name);
         res.json(result);
     } catch (err) {
         next(err);

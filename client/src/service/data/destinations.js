@@ -19,7 +19,7 @@ export const likeDestination = async (id, likeData) => {
 
     return {
         ...res.data,
-        isLike
+        isLike,
     };
 };
 
@@ -82,8 +82,8 @@ export const getDestinationsPaginated = async ({ pageParam, queryKey }) => {
     return destinations.data;
 };
 
-export const getCityData = async (cityData) => {
-    const res = await axios.post(apiEndpoints.getCity, cityData);
+export const getCityData = async (name) => {
+    const res = await axios.get(apiEndpoints.getCity(name));
 
     return res.data;
 };

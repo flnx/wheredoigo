@@ -29,7 +29,7 @@ export const apiEndpoints = {
     deleteDestinationImage: (id) => `destinations/${id}/delete-image`,
 
     changeAvatar: 'change-avatar',
-    getCity: 'destinations/get-city-data',
+    getCity: (city) => `destinations/search-city?name=${city}`,
 
     places: `places`,
     placeById: (id) => `places/${id}`,
