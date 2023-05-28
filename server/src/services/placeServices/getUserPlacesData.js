@@ -25,8 +25,8 @@ async function getUserPlacesData({ ownerId }) {
             });
 
             ratingData = votes.map((count, index) => ({
-                rating: `${5 - index} stars`,
-                totalVotes: count,
+                rating: `${index + 1} ${index == 0 ? 'star' : 'stars'} `, // add the labels
+                totalVotes: count, // count how many votes has each label
             }));
         }
 
@@ -35,8 +35,6 @@ async function getUserPlacesData({ ownerId }) {
             data: ratingData,
         };
     });
-
-    console.log(updatedData);
 
     return updatedData;
 }

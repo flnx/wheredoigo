@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFetchPlacesData } from '../../../../hooks/queries/useFetchPlaceData';
 
 import { FormSelect } from '../../../../components/FormSelect/FormSelect';
@@ -6,49 +6,37 @@ import { PieChart } from './components/PieChart';
 
 import styles from './SideStats.module.css';
 
-const data = [
-    {
-        rating: '5 stars',
-        userVotes: 0,
-    },
-    {
-        rating: '4 star',
-        userVotes: 0,
-    },
-    {
-        rating: '3 stars',
-        userVotes: 0,
-    },
-    {
-        rating: '2 stars',
-        userVotes: 0,
-    },
-    {
-        rating: '1 stars',
-        userVotes: 0,
-    },
-];
-
 export const SideStats = () => {
-    const [placesNames, isLoading, error] = useFetchPlacesData();
-    // const [inputValue, setInputValue] = useState(placesNames[0]);
-    console.log(placesNames);
+    const [placesData, isLoading, error] = useFetchPlacesData();
+    const [inputValue, setInputValue] = useState(placesData[0]);
+
+    useEffect(() => {
+        setInputValue(placesData[0]);
+    }, [placesData]);
 
     const onChangeHandler = (e) => {
-        setInputValue(e.target.value);
+        const placeName = e.target.value;
+        const placeData = placesData.find((p) => p.name === placeName);
+        setInputValue(placeData);
     };
+
+    const placeNamesArr = placesData.map((p) => p.name);
 
     return (
         <div className={styles.chart}>
-            {/* <FormSelect
-                value={inputValue}
-                options={placesNames}
+            <FormSelect
+                value={inputValue?.name}
+                options={placeNamesArr}
                 onChangeHandler={onChangeHandler}
                 label={'Place'}
                 errors={[]}
-            /> */}
+            />
             <section>
-                {!isLoading && !error && <PieChart data={data} />}
+                {inputValue && (
+                    <PieChart
+                        placeData={inputValue}
+                    />
+                )}
             </section>
         </div>
     );
