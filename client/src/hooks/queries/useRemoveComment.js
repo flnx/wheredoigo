@@ -22,6 +22,7 @@ export const useRemoveComment = (commentId, placeId) => {
             queryClient.invalidateQueries([queryEndpoints.userActivity]);
             queryClient.invalidateQueries([queryEndpoints.placeComments, placeId]);
             queryClient.invalidateQueries([queryEndpoints.places]);
+            queryClient.invalidateQueries([queryEndpoints.userPlacesData]);
         },
     });
 

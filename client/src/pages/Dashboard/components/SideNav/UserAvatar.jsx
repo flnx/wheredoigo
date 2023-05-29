@@ -5,7 +5,7 @@ import { createAvatarImage } from '../../../../utils/imagesHandler';
 
 // Components
 import { FileInput } from '../../../../components/FileInput/FileInput';
-import { ImageCropper } from '../../../../components/Cropper/Cropper';
+import { ImageCropper } from '../../../../components/ImageCropper/ImageCropper';
 import { CancelButton } from '../../../../components/Buttons/Cancel-Button/CancelButton';
 import { SuccessButton } from '../../../../components/Buttons/Success-Button/SuccessButton';
 import { CameraPlus } from '@phosphor-icons/react';
@@ -23,46 +23,15 @@ export const UserAvatar = () => {
 
     const userImage = auth.avatarUrl;
 
+    const afterCropHandler = (dataURL) => setImgAfterCrop(dataURL);
+    const showModalHandler = (bool) => setShowModal(bool);
+    const imageHandler = (img) => setImage(img);
+    const saveCancelButtonsHandler = (bool) => setShowSaveCancelButtons(bool);
+
     const onImageSelected = (selectedImg) => {
         setImage(selectedImg);
         setShowModal(true);
-        setShowSaveCancelButtons(true);
-    };
-
-    const onCropDone = (imgCroppedArea) => {
-        const canvasEle = canvasRef.current;
-        canvasEle.width = imgCroppedArea.width;
-        canvasEle.height = imgCroppedArea.height;
-
-        const context = canvasEle?.getContext('2d');
-
-        const imageObj1 = new Image();
-        imageObj1.src = image;
-
-        imageObj1.onload = () => {
-            context.drawImage(
-                imageObj1,
-                imgCroppedArea.x,
-                imgCroppedArea.y,
-                imgCroppedArea.width,
-                imgCroppedArea.height,
-                0,
-                0,
-                imgCroppedArea.width,
-                imgCroppedArea.height
-            );
-
-            const dataURL = canvasEle.toDataURL('image/jpeg');
-
-            setImgAfterCrop(dataURL);
-            setShowModal(false);
-        };
-    };
-
-    const onCropCancel = () => {
-        setShowModal(false);
-        setImage('');
-        setShowSaveCancelButtons(false);
+        saveCancelButtonsHandler(true);
     };
 
     const handleSaveButtonClick = async () => {
@@ -71,16 +40,16 @@ export const UserAvatar = () => {
             const formData = await createAvatarImage(imgAfterCrop);
             const updatedUserData = await changeUserAvatar(formData);
             setUserData(updatedUserData);
-            setShowSaveCancelButtons(false);
+            saveCancelButtonsHandler(false);
         } catch (error) {
             setImgAfterCrop('');
-            setShowSaveCancelButtons(false);
+            saveCancelButtonsHandler(false);
         }
     };
 
     const handleCancelButtonClick = () => {
         setImgAfterCrop(userImage);
-        setShowSaveCancelButtons(false);
+        saveCancelButtonsHandler(false);
     };
 
     return (
@@ -88,8 +57,11 @@ export const UserAvatar = () => {
             {showModal && (
                 <ImageCropper
                     image={image}
-                    onCropDone={onCropDone}
-                    onCropCancel={onCropCancel}
+                    canvasRef={canvasRef}
+                    afterCropHandler={afterCropHandler}
+                    showModalHandler={showModalHandler}
+                    imageHandler={imageHandler}
+                    saveCancelButtonsHandler={saveCancelButtonsHandler}
                 />
             )}
             <div className={styles.avatarContainer}>

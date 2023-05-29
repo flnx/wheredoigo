@@ -7,10 +7,10 @@ import { Places } from '../../../../components/Places/Places';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 import { LinkButtonSecondary } from '../../../../components/Buttons/Secondary-Btn/LinkButtonSecondary';
 import { ServerError } from '../../../../components/ServerError/ServerError';
+import { TextWrap } from '../../../../components/TextWrap/TextWrap';
 
 import routeConstants from '../../../../constants/routeConstants';
 import styles from './PlacesShowcase.module.css';
-import { TextWrap } from '../../../../components/TextWrap/TextWrap';
 
 const { PLACES } = routeConstants;
 

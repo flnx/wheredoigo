@@ -1,10 +1,21 @@
+import PropTypes from 'prop-types';
 import { useLikeDestination } from '../../hooks/queries/useLikeDestinations';
 import { useState } from 'react';
-import { Heart } from '@phosphor-icons/react';
 import { useNavigate } from 'react-router-dom';
+
+// Component
+import { Heart } from '@phosphor-icons/react';
+import { ServerError } from '../ServerError/ServerError';
 
 import styles from './AddToFavorites.module.css';
 import routeConstants from '../../constants/routeConstants';
+
+const propTypes = {
+    size: PropTypes.number,
+    _id: PropTypes.string.isRequired,
+    isLikedByUser: PropTypes.bool.isRequired,
+    hasSession: PropTypes.bool.isRequired,
+};
 
 export const AddToFavorites = ({ size, _id, isLikedByUser, hasSession }) => {
     const [sendLike, isLoading, error] = useLikeDestination(_id);
@@ -25,23 +36,19 @@ export const AddToFavorites = ({ size, _id, isLikedByUser, hasSession }) => {
         sendLike({ path: 'dislike', isLike: false });
     };
 
+    const clickHandler = isLikedByUser ? onDislikeClickHandler : onLikeClickHandler;
+
     return (
-        <HeartLike
-            onClickHandler={isLikedByUser ? onDislikeClickHandler : onLikeClickHandler}
-            size={size || 46}
-            weight={isLikedByUser ? 'fill' : 'thin'}
-            rotateClass={rotateClass}
-        />
+        <>
+            <Heart
+                size={size || 46}
+                weight={isLikedByUser ? 'fill' : 'thin'}
+                onClick={clickHandler}
+                className={`${styles.icon} ${rotateClass}`}
+            />
+            {error && <ServerError errorMessage={error} />}
+        </>
     );
 };
 
-const HeartLike = ({ size, onClickHandler, weight, rotateClass }) => {
-    return (
-        <Heart
-            size={size}
-            weight={weight}
-            onClick={onClickHandler}
-            className={`${styles.icon} ${rotateClass}`}
-        />
-    );
-};
+AddToFavorites.proptypes = propTypes;

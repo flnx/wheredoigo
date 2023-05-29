@@ -56,7 +56,7 @@ export const Form = ({ destinationId, allowedCategories }) => {
                 Add Place
             </SuccessButton>
             {isLoading && <DarkOverlay isLoading={isLoading} />}
-            <ServerError errorMessage={serverError} />
+            {serverError && <ServerError errorMessage={serverError} />}
         </form>
     );
 };

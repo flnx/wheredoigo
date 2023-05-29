@@ -1,5 +1,16 @@
+import PropTypes from 'prop-types';
 import { ShowFormError } from '../ShowFormError/ShowFormError';
+
 import styles from './FormSelect.module.css';
+
+const propTypes = {
+    value: PropTypes.string.isRequired,
+    options: PropTypes.arrayOf(PropTypes.string).isRequired,
+    onChangeHandler: PropTypes.func.isRequired,
+    label: PropTypes.string.isRequired,
+    errors: PropTypes.array,
+    boxshadow: PropTypes.bool,
+};
 
 export const FormSelect = ({ value, options, onChangeHandler, label, errors, boxshadow }) => {
     const name = label.toLowerCase();
@@ -28,3 +39,5 @@ export const FormSelect = ({ value, options, onChangeHandler, label, errors, box
         </div>
     );
 };
+
+FormSelect.propTypes = propTypes;

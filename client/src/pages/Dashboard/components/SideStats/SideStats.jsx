@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useFetchPlacesData } from '../../../../hooks/queries/useFetchPlaceData';
 
+import { ServerError } from '../../../../components/ServerError/ServerError';
 import { FormSelect } from '../../../../components/FormSelect/FormSelect';
 import { PieChart } from './components/PieChart';
 
 import styles from './SideStats.module.css';
-import { ServerError } from '../../../../components/ServerError/ServerError';
 
 export const SideStats = () => {
     const [placesData, isLoading, error] = useFetchPlacesData();

@@ -41,7 +41,6 @@ export const DestinationHeader = ({ destination, isLoading }) => {
                 </h1>
                 {!isLoading && (
                     <AddToFavorites
-                        isLoading={isLoading}
                         _id={_id}
                         isLikedByUser={isLikedByUser}
                         hasSession={hasSession}
