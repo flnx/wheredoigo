@@ -5,13 +5,16 @@ import { FormSelect } from '../../../../components/FormSelect/FormSelect';
 import { PieChart } from './components/PieChart';
 
 import styles from './SideStats.module.css';
+import { ServerError } from '../../../../components/ServerError/ServerError';
 
 export const SideStats = () => {
     const [placesData, isLoading, error] = useFetchPlacesData();
-    const [inputValue, setInputValue] = useState(placesData[0]);
+    const [inputValue, setInputValue] = useState({ name: '-- No Data --', data: [] });
 
     useEffect(() => {
-        setInputValue(placesData[0]);
+        if (placesData.length > 0) {
+            setInputValue(placesData[0]);
+        }
     }, [placesData]);
 
     const onChangeHandler = (e) => {
@@ -20,24 +23,21 @@ export const SideStats = () => {
         setInputValue(placeData);
     };
 
-    const placeNamesArr = placesData.map((p) => p.name);
+    const placesNames = placesData.map((p) => p.name);
 
     return (
         <div className={styles.chart}>
             <FormSelect
-                value={inputValue?.name}
-                options={placeNamesArr}
+                value={inputValue.name}
+                options={placesNames}
                 onChangeHandler={onChangeHandler}
                 label={'Place'}
                 errors={[]}
             />
             <section>
-                {inputValue && (
-                    <PieChart
-                        placeData={inputValue}
-                    />
-                )}
+                {inputValue && <PieChart placeData={inputValue} />}
             </section>
+            {error && <ServerError errorMessage={error}/>}
         </div>
     );
 };

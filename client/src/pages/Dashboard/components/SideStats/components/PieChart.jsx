@@ -7,7 +7,7 @@ export const PieChart = ({ placeData }) => {
     const { data } = placeData;
 
     let chartData = {
-        labels: ['No data for this place yet'],
+        labels: ['Data not found'],
         datasets: [
             {
                 data: [1], // A single value for the gray circle

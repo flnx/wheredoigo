@@ -7,7 +7,7 @@ export const useFetchPlacesData = () => {
         queryKey: [queryEndpoints.userPlacesData],
         queryFn: () => getUserPlacesData(),
         staleTime: 0,
-        cacheTime: 0
+        cacheTime: 0,
     });
 
     return [data || [], isLoading, error];

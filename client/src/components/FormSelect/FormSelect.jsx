@@ -3,6 +3,7 @@ import styles from './FormSelect.module.css';
 
 export const FormSelect = ({ value, options, onChangeHandler, label, errors, boxshadow }) => {
     const name = label.toLowerCase();
+    const optionsData = options.length > 0 ? options : ['-- No Data --'];
 
     return (
         <div className={`${styles.selectWrapper} ${boxshadow ? styles.boxShadow : ''}`}>
@@ -17,7 +18,7 @@ export const FormSelect = ({ value, options, onChangeHandler, label, errors, box
                 className={styles.select}
             >
                 {label !== 'Place' && <option value="">--Select {label}--</option>}
-                {options.map((option, i) => (
+                {optionsData.map((option, i) => (
                     <option value={option} key={i}>
                         {option}
                     </option>

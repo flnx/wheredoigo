@@ -2,9 +2,9 @@ import { Outlet } from 'react-router-dom';
 
 // Components
 import { SideNavigation } from './components/SideNav/SideNavigation';
+import { SideStats } from './components/SideStats/SideStats';
 
 import styles from './Dashboard.module.css';
-import { SideStats } from './components/SideStats/SideStats';
 
 export const Dashboard = () => {
     return (
