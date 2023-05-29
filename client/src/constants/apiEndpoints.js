@@ -4,6 +4,7 @@ export const apiEndpoints = {
     logout: '/logout',
     userLastActivities: 'user/last-activities',
     deleteAccount: 'user/delete',
+    userFavorites: 'user/favorites',
 
     allDestinations: 'destinations',
     creatorDestinations: 'destinations/created-by-user',

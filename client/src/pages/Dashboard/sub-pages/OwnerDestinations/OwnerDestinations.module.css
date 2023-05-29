@@ -2,10 +2,6 @@
     position: relative;
 }
 
-.title {
-    margin-bottom: 1.25rem;
-}
-
 .spinner {
     position: fixed;
     z-index: 11;

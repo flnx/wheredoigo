@@ -11,6 +11,11 @@ export const changeUserAvatar = async (formData) => {
     return result.data;
 };
 
+export const getUserFavorites = async () => {
+    const result = await axios.get(apiEndpoints.userFavorites);
+    return result.data;
+};
+
 export const getUserLastActivities = async () => {
     const result = await axios.get(apiEndpoints.userLastActivities);
 
@@ -22,5 +27,3 @@ export const deleteUserAccount = async () => {
 
     return result.data;
 };
-
-

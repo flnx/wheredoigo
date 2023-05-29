@@ -34,7 +34,7 @@ export const AddDestination = () => {
 
     return (
         <div className={styles.container}>
-            <h1 className={`${styles.title} smaller`}>Add destination</h1>
+            <h1 className="smaller mb-1">Add destination</h1>
 
             {isLoading && <DarkOverlay isLoading={isLoading} />}
             {error && <ServerError errorMessage={error} />}

@@ -5,6 +5,7 @@ export const queryEndpoints = {
     editDestination: 'editDestination',
 
     userActivity: 'userActivity',
+    userFavorites: 'userFavorites',
 
     places: 'places',
     userPlacesData: 'userPlacesData',

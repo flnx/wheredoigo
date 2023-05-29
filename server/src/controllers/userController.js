@@ -1,6 +1,7 @@
 const deleteUserAccount = require('../services/userServices/deleteUserAccount');
 const updateUserAvatar = require('../services/userServices/updateUserAvatar');
 const userDashboardData = require('../services/userServices/userDashboardData');
+const userFavorites = require('../services/userServices/userFavorites');
 const getUserLastActivities = require('../services/userServices/userLastActivities');
 const userLogin = require('../services/userServices/userLogin');
 const userRegister = require('../services/userServices/userRegister');
@@ -55,7 +56,17 @@ const get_last_activities = async (req, res, next) => {
 const delete_user_account = async (req, res, next) => {
     try {
         const result = await deleteUserAccount(req.user);
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
+};
 
+const get_user_favorites = async (req, res, next) => {
+    const { ownerId } = req.user;
+
+    try {
+        const result = await userFavorites(ownerId);
         res.json(result);
     } catch (err) {
         next(err);
@@ -67,5 +78,6 @@ module.exports = {
     register,
     change_avatar,
     get_last_activities,
-    delete_user_account
+    delete_user_account,
+    get_user_favorites
 };

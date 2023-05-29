@@ -5,8 +5,13 @@ import styles from './Destinations.module.css';
 import { DestinationsGrid } from '../../../../components/DestinationsGrid/DestinationsGrid';
 
 export const Destinations = ({ searchParam, categoryParams }) => {
-    const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
-        useInfiniteDestinations(searchParam, categoryParams);
+    const { 
+        data,
+        fetchNextPage, 
+        hasNextPage, 
+        isFetchingNextPage, 
+        isFetching 
+    } = useInfiniteDestinations(searchParam, categoryParams);
 
     const loadingClass = (isFetchingNextPage || !hasNextPage) && styles.loading;
     const destinations = data?.pages.flatMap((arr) => arr.result);
