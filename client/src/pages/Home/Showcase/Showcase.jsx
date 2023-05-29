@@ -9,6 +9,12 @@ import styles from './Showcase.module.css';
 const { DISCOVER } = routeConstants;
 
 export const Showcase = ({ isLoading }) => {
+    const onSubmitHandler = (e, searchParam) => {
+        e.preventDefault();
+
+        console.log(searchParam);
+    };
+
     return (
         <div className={styles.showcase}>
             {isLoading ? (
@@ -29,7 +35,7 @@ export const Showcase = ({ isLoading }) => {
                                     {DISCOVER.name}
                                 </ButtonLinkPrimary>
                             </div>
-                            <SearchBar />
+                            <SearchBar searchParamsSubmitHandler={onSubmitHandler} />
                         </div>
                     </Container>
                 </div>

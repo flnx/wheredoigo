@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { extractServerErrorMessage } from '../../utils/utils';
+
 import styles from './ServerError.module.css';
 
 export const ServerError = ({ errorMessage }) => {
