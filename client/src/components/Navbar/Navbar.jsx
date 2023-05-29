@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { Link, useLocation } from 'react-router-dom';
 
-// components
+// Components
 import { NavLinks } from './NavLinks/NavLinks';
 import { HamburgerIconMenu } from './Hamburger-Icon/HamburgerIcon';
 
 // assets
 import logo from '../../assets/logo/logo.png';
+
 import routeConstants from '../../constants/routeConstants';
 import styles from './Navbar.module.css';
 

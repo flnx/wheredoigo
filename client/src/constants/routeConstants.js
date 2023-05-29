@@ -39,10 +39,10 @@ export default Object.freeze({
             route: '/my-destinations',
             routePath: '/dashboard/my-destinations',
         },
-        HISTORY: {
-            name: 'History',
-            route: '/history',
-            routePath: '/dashboard/history',
+        FAVORITES: {
+            name: 'Favorites',
+            route: '/favorites',
+            routePath: '/dashboard/favorites',
         },
         SETTINGS: {
             name: 'Settings',

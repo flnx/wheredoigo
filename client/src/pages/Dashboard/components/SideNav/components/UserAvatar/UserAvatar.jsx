@@ -1,13 +1,13 @@
 import { useState, useRef, useContext } from 'react';
-import { AuthContext } from '../../../../context/AuthContext';
-import { changeUserAvatar } from '../../../../service/data/user';
-import { createAvatarImage } from '../../../../utils/imagesHandler';
+import { AuthContext } from '../../../../../../context/AuthContext';
+import { changeUserAvatar } from '../../../../../../service/data/user';
+import { createAvatarImage } from '../../../../../../utils/imagesHandler';
 
 // Components
-import { FileInput } from '../../../../components/FileInput/FileInput';
-import { ImageCropper } from '../../../../components/ImageCropper/ImageCropper';
-import { CancelButton } from '../../../../components/Buttons/Cancel-Button/CancelButton';
-import { SuccessButton } from '../../../../components/Buttons/Success-Button/SuccessButton';
+import { ImageCrop } from '../../../../../../components/ImageCrop/ImageCrop';
+import { FileInput } from '../../../../../../components/FileInput/FileInput';
+import { CancelButton } from '../../../../../../components/Buttons/Cancel-Button/CancelButton';
+import { SuccessButton } from '../../../../../../components/Buttons/Success-Button/SuccessButton';
 import { CameraPlus } from '@phosphor-icons/react';
 
 import styles from './UserAvatar.module.css';
@@ -23,39 +23,39 @@ export const UserAvatar = () => {
 
     const userImage = auth.avatarUrl;
 
-    const afterCropHandler = (dataURL) => setImgAfterCrop(dataURL);
-    const showModalHandler = (bool) => setShowModal(bool);
-    const imageHandler = (img) => setImage(img);
-    const saveCancelButtonsHandler = (bool) => setShowSaveCancelButtons(bool);
-
     const onImageSelected = (selectedImg) => {
         setImage(selectedImg);
         setShowModal(true);
-        saveCancelButtonsHandler(true);
+        setShowSaveCancelButtons(true);
     };
-
+    
     const handleSaveButtonClick = async () => {
         try {
             // Convert the image to a Blob object
             const formData = await createAvatarImage(imgAfterCrop);
             const updatedUserData = await changeUserAvatar(formData);
             setUserData(updatedUserData);
-            saveCancelButtonsHandler(false);
+            setShowSaveCancelButtons(false);
         } catch (error) {
             setImgAfterCrop('');
-            saveCancelButtonsHandler(false);
+            setShowSaveCancelButtons(false);
         }
     };
-
+    
     const handleCancelButtonClick = () => {
         setImgAfterCrop(userImage);
-        saveCancelButtonsHandler(false);
+        setShowSaveCancelButtons(false);
     };
+
+    const afterCropHandler = (dataURL) => setImgAfterCrop(dataURL);
+    const showModalHandler = (bool) => setShowModal(bool);
+    const imageHandler = (img) => setImage(img);
+    const saveCancelButtonsHandler = (bool) => setShowSaveCancelButtons(bool);
 
     return (
         <header className={styles.userInfo}>
             {showModal && (
-                <ImageCropper
+                <ImageCrop
                     image={image}
                     canvasRef={canvasRef}
                     afterCropHandler={afterCropHandler}
@@ -79,11 +79,7 @@ export const UserAvatar = () => {
                     />
                 </div>
             </div>
-            <FileInput
-                setImage={setImage}
-                onImageSelected={onImageSelected}
-                inputRef={inputRef}
-            />
+            <FileInput onImageSelected={onImageSelected} inputRef={inputRef} />
             {showSaveCancelButtons && (
                 <div className={styles.buttons}>
                     <SuccessButton onClickHandler={handleSaveButtonClick}>Save</SuccessButton>

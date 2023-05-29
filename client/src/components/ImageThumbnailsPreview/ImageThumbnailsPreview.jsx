@@ -1,9 +1,16 @@
+import PropTypes from 'prop-types';
 import { X } from '@phosphor-icons/react';
 import { LoadingSkeleton } from '../LoadingSkeletons/LoadingSkeleton';
 
 import styles from './ImageThumbnailsPreview.module.css';
 
-export const ImageThumbnailsPreview = ({ images = [], handleDeleteImage, isLoading }) => {
+const propTypes = {
+    images: PropTypes.array.isRequired,
+    handleDeleteImage: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool,
+};
+
+export const ImageThumbnailsPreview = ({ images, handleDeleteImage, isLoading }) => {
     return (
         <div className={`${styles.imagesWrapper}`}>
             {images.map((img, i) => (
@@ -34,3 +41,5 @@ const extractUrl = (img) => {
         return img.imageUrl;
     }
 };
+
+ImageThumbnailsPreview.propTypes = propTypes;

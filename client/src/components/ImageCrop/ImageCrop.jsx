@@ -6,16 +6,15 @@ import { OverlayDisabledBodyScroll } from '../OverlayDisabledBodyScroll/OverlayD
 import { SuccessButton } from '../Buttons/Success-Button/SuccessButton';
 import { CancelButton } from '../Buttons/Cancel-Button/CancelButton';
 
-import styles from './Cropper.module.css';
+import styles from './ImageCrop.module.css';
 
-export const ImageCropper = ({
+export const ImageCrop = ({
     image,
     canvasRef,
-    image,
     afterCropHandler,
     showModalHandler,
     imageHandler,
-    saveCancelButtonsHandler
+    saveCancelButtonsHandler,
 }) => {
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(1);

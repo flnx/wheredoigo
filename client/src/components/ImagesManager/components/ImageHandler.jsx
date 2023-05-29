@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { checkArrayAndPreloadElements } from '../../../utils/utils';
 
@@ -6,7 +7,12 @@ import { ConfirmModal } from '../../ConfirmModal/ConfirmModal';
 import { ImageThumbnailsPreview } from '../../ImageThumbnailsPreview/ImageThumbnailsPreview';
 import { TextWrap } from '../../TextWrap/TextWrap';
 
-import styles from './ImageHandler.module.css';
+const propTypes = {
+    imagesData: PropTypes.array.isRequired,
+    deleteImageHandler: PropTypes.func.isRequired,
+    isDeleting: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+};
 
 export const ImageHandler = ({ imagesData, deleteImageHandler, isDeleting, isLoading }) => {
     const [openModal, setOpenModal] = useState(false);
@@ -35,7 +41,7 @@ export const ImageHandler = ({ imagesData, deleteImageHandler, isDeleting, isLoa
 
     return (
         <div>
-            <h3 className={styles.sectionTitle}>
+            <h3 className="mb-2">
                 <TextWrap isLoading={isLoading} content={'Images'} />
             </h3>
             <ImageThumbnailsPreview
@@ -58,3 +64,5 @@ export const ImageHandler = ({ imagesData, deleteImageHandler, isDeleting, isLoa
         </div>
     );
 };
+
+ImageHandler.propTypes = propTypes;

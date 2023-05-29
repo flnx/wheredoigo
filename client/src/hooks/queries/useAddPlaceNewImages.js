@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { queryEndpoints } from '../../constants/reactQueryEndpoints';
 import { addPlaceNewImages } from '../../service/data/places';
 
-export const useAddPlaceNewImages = ({ placeId, destinationId }) => {
+export const useAddPlaceNewImages = (placeId, destinationId) => {
     const queryClient = useQueryClient();
 
     const { mutate, error, isLoading } = useMutation({

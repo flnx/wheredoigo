@@ -1,0 +1,38 @@
+.navbar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.navLink {
+    flex: 1;
+    flex-basis: calc(33% - 2rem);
+    color: var(--text-primary);
+    transition: 0.25s all ease-in-out;
+}
+
+.navText {
+    display: none;
+    font-size: 0.8345rem;
+    font-weight: 600;
+}
+
+.iconFlex {
+    display: flex;
+    gap: 0.35rem;
+    align-items: center;
+}
+
+.activeLink {
+    color: var(--text-secondary-dark);
+}
+
+@media (min-width: 64em) {
+    .navLink {
+        min-width: 10rem;
+    }
+
+    .navText {
+        display: inline;
+    }
+}

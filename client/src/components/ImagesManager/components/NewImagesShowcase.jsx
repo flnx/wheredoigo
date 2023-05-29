@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useImages } from '../../../hooks/useImages';
 import { createImagesFormData } from '../../../utils/formData';
 
@@ -6,7 +7,10 @@ import { DarkOverlay } from '../../DarkOverlay/DarkOverlay';
 import { UploadImagesPreview } from '../../UploadImagesPreview/UploadImagesPreview';
 import { SuccessButton } from '../../Buttons/Success-Button/SuccessButton';
 
-import styles from './NewImagesShowcase.module.css';
+const propTypes = {
+    uploadImagesHandler: PropTypes.func.isRequired,
+    isUploading: PropTypes.bool.isRequired,
+};
 
 export const NewImagesShowcase = ({ uploadImagesHandler, isUploading }) => {
     const { images, addImages, deleteImage, resetState } = useImages();
@@ -22,7 +26,7 @@ export const NewImagesShowcase = ({ uploadImagesHandler, isUploading }) => {
     };
 
     return (
-        <div className={styles['newly-uploaded-images']}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {isUploading && <DarkOverlay isLoading={isUploading} />}
             <UploadImagesPreview
                 images={images.imageUrls}
@@ -38,3 +42,5 @@ export const NewImagesShowcase = ({ uploadImagesHandler, isUploading }) => {
         </div>
     );
 };
+
+NewImagesShowcase.propTypes = propTypes;

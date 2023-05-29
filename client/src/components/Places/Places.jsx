@@ -15,7 +15,6 @@ const propTypes = {
     isLoading: PropTypes.bool,
     isOwner: PropTypes.bool,
     onDeleteClickHandler: PropTypes.func
-
 };
 
 export const Places = ({ places, isLoading, onDeleteClickHandler, isOwner }) => {

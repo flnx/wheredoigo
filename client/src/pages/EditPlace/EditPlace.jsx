@@ -8,15 +8,15 @@ import { Container } from '../../components/Containers/Container/Container';
 import { Form } from './components/Form/Form';
 import { FlexSectionContainer } from '../../components/Containers/FlexSectionContainer/FlexSectionContainer';
 import { ImagesManager } from '../../components/ImagesManager/ImagesManager';
+import { TextWrap } from '../../components/TextWrap/TextWrap';
 
 import { extractServerErrorMessage } from '../../utils/utils';
-import { TextWrap } from '../../components/TextWrap/TextWrap';
 
 export const EditPlace = () => {
     const { placeId } = useParams();
     const [data, error, isLoading] = useGetPlaceToEdit(placeId);
-    const deleteImageHook = useDeletePlaceImage;
-    const addImageHook = useAddPlaceNewImages;
+    const deleteImageHook = () => useDeletePlaceImage(placeId, data?.destinationId);
+    const addImageHook = () => useAddPlaceNewImages(placeId, data?.destinationId);
 
     const placeTitle = `${data?.name}, ${data?.city}`;
 
@@ -35,9 +35,7 @@ export const EditPlace = () => {
                         isLoading={isLoading}
                     />
                     <ImagesManager
-                        imagesData={data?.imageUrls}
-                        placeId={placeId}
-                        destinationId={data?.destinationId}
+                        imagesData={data?.imageUrls || []}
                         deleteImageHook={deleteImageHook}
                         addImageHook={addImageHook}
                         isLoading={isLoading}

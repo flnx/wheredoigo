@@ -35,7 +35,7 @@ export const SideStats = () => {
                 errors={[]}
             />
             <section>
-                {inputValue && <PieChart placeData={inputValue} />}
+                {!isLoading && <PieChart placeData={inputValue} />}
             </section>
             {error && <ServerError errorMessage={error}/>}
         </div>

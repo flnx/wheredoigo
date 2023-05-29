@@ -5,7 +5,7 @@ import routeConstants from '../../../../../../constants/routeConstants';
 import styles from './RecentActivities.module.css';
 
 export const RecentActivities = ({ activities }) => {
-    const { comments, likes, created, hasNoActivity } = activities;
+    const { comments, likes, hasNoActivity } = activities;
     const { DESTINATIONS, PLACES } = routeConstants;
 
     return (

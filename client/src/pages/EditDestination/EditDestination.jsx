@@ -9,15 +9,15 @@ import { FlexSectionContainer } from '../../components/Containers/FlexSectionCon
 import { PlacesShowcase } from './components/PlacesShowcase/PlacesShowcase';
 import { Form } from './components/Form/Form';
 import { ImagesManager } from '../../components/ImagesManager/ImagesManager';
+import { TextWrap } from '../../components/TextWrap/TextWrap';
 
 import { extractServerErrorMessage } from '../../utils/utils';
-import { TextWrap } from '../../components/TextWrap/TextWrap';
 
 export const EditDestination = () => {
     const { destinationId } = useParams();
     const [data, error, isLoading] = useGetDestinationToEdit(destinationId);
-    const deleteImageHook = useDeleteDestinationImage;
-    const addImageHook = useAddDestinationNewImages;
+    const deleteImageHook = () => useDeleteDestinationImage(destinationId);
+    const addImageHook = () => useAddDestinationNewImages(destinationId);
 
     const destinationTitle = `${data?.city}, ${data?.country}`;
 
@@ -37,7 +37,6 @@ export const EditDestination = () => {
 
                     <ImagesManager
                         imagesData={data?.imageUrls || []}
-                        destinationId={destinationId}
                         deleteImageHook={deleteImageHook}
                         addImageHook={addImageHook}
                         isLoading={isLoading}

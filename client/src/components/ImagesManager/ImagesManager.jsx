@@ -1,19 +1,20 @@
+import PropTypes from 'prop-types';
+
+// Components
 import { ServerError } from '../ServerError/ServerError';
 import { ImageHandler } from './components/ImageHandler';
 import { NewImagesShowcase } from './components/NewImagesShowcase';
 
-import styles from './ImagesManager.module.css';
+const propTypes = {
+    imagesData: PropTypes.array.isRequired,
+    deleteImageHook: PropTypes.func.isRequired,
+    addImageHook: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+};
 
-export const ImagesManager = ({
-    placeId,
-    destinationId,
-    imagesData,
-    deleteImageHook,
-    addImageHook,
-    isLoading,
-}) => {
-    const [deleteImage, deleteError, isDeleting] = deleteImageHook({ placeId, destinationId });
-    const [uploadImages, uploadError, isUploading] = addImageHook({ placeId, destinationId });
+export const ImagesManager = ({ imagesData, deleteImageHook, addImageHook, isLoading }) => {
+    const [deleteImage, deleteError, isDeleting] = deleteImageHook();
+    const [uploadImages, uploadError, isUploading] = addImageHook();
     const error = deleteError || uploadError;
 
     const deleteImageHandler = (imgId, cbCloseConfirmModal) => {
@@ -35,7 +36,7 @@ export const ImagesManager = ({
 
     return (
         <section>
-            <div className={styles['images-container']}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 <ImageHandler
                     imagesData={imagesData}
                     deleteImageHandler={deleteImageHandler}
@@ -55,3 +56,5 @@ export const ImagesManager = ({
         </section>
     );
 };
+
+ImagesManager.propTypes = propTypes;
