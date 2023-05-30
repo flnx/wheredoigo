@@ -11,7 +11,7 @@ export const SearchBar = ({ searchParamsSubmitHandler }) => {
                 <input
                     className={styles.search}
                     type="search"
-                    placeholder="Search for a country, city or place"
+                    placeholder="Search a destination you'd like to visit"
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
                 />

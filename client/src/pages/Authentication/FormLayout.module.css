@@ -59,6 +59,7 @@
 }
 
 .error {
-    color: rgb(190, 19, 19);
+    color: var(--error-message);
     font-size: 0.95rem;
+    /* text-decoration: uppercase; */
 }

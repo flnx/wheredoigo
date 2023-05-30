@@ -1,50 +1,54 @@
 import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
-import { extractServerErrorMessage } from '../../../utils/utils';
-import * as user from '../../../service/auth/login';
+
+// Context
 import { AuthContext } from '../../../context/AuthContext';
+
+// Utils
+import { extractServerErrorMessage } from '../../../utils/utils';
 import { validateLoginData } from '../../../utils/userDataValidators';
+
+// Components
+import { FormInput } from '../components/FormInput';
 
 import routeConstants from '../../../constants/routeConstants';
 import styles from '../FormLayout.module.css';
-import { FormInput } from '../components/FormInput';
+import { useLogin } from '../../../hooks/queries/useUserLogin';
 
 const { AUTH } = routeConstants;
 
 export const LoginPage = () => {
     const { setUserData } = useContext(AuthContext);
     const [state, setState] = useState({ email: '', password: '' });
-    const [error, setError] = useState(false);
-    const [isDisabled, setIsDisabled] = useState(false);
-
-    const submitHandler = async (e) => {
-        e.preventDefault();
-
-        if (isDisabled) return;
-
-        const loginErrors = validateLoginData(state);
-
-        if (loginErrors) {
-            return setError(loginErrors);
-        }
-
-        setIsDisabled(true);
-
-        try {
-            const { data } = await user.login(state);
-            setUserData(data);
-        } catch (err) {
-            const errorMessage = extractServerErrorMessage(err);
-            setError(errorMessage);
-        } finally {
-            setIsDisabled(false);
-        }
-    };
+    const [error, setError] = useState('');
+    const [login, isLoading, serverError] = useLogin();
 
     const onChangeHandler = (e) => {
         setState({
             ...state,
             [e.target.name]: e.target.value,
+        });
+    };
+
+    const submitHandler = async (e) => {
+        e.preventDefault();
+        if (isLoading) return;
+        setError('');
+
+        const hasError = validateLoginData(state);
+
+        if (hasError) {
+            return setError(hasError);
+        }
+
+        login(state, {
+            onSuccess: (result) => {
+                console.log(result);
+                // setUserData()
+            },
+            onError: (err) => {
+                setError(extractServerErrorMessage(err));
+            },
         });
     };
 
@@ -68,17 +72,15 @@ export const LoginPage = () => {
                 onChangeHandler={onChangeHandler}
             />
 
-            {error && (
-                <div className={styles.formField}>
-                    <p className={styles.error}>{error}</p>
-                </div>
-            )}
+            <div className={styles.errorWrapper}>
+                {error && <p className={styles.error}>{error}</p>}
+            </div>
 
-            <div className={styles.formField}>
+            <div>
                 <button
-                    className={`${styles.formFieldButton} ${isDisabled && styles.disabled}`}
+                    className={`${styles.formFieldButton} ${isLoading && styles.disabled}`}
                     type="submit"
-                    disabled={isDisabled}
+                    disabled={isLoading}
                 >
                     {AUTH.LOGIN.name}
                 </button>

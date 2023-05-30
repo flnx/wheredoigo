@@ -14,7 +14,7 @@
 }
 
 .imageContainer {
-    width: 40%;
+    width: 47%;
 }
 
 .imageContainer img {
@@ -26,7 +26,7 @@
 }
 
 .content {
-    width: calc(60% - 1.55rem);
+    /* width: calc(60% - 1.55rem); */
     display: flex;
     flex-direction: column;
     justify-content: space-between;

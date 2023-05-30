@@ -21,22 +21,12 @@ export const validateRegisterData = ({ username, email, password, repeatPassword
 };
 
 export const validateLoginData = ({ email, password }) => {
-    let error = false;
-
-    if (!email) {
-        return setError('Email address is required');
-    }
-
-    if (!password) {
-        return setError('Password is required');
-    }
-
     const isEmailValid = validate.email(email);
     const isPasswordValid = validate.password(password);
 
     if (!isEmailValid || !isPasswordValid) {
-        error = 'Invalid Email Address or Password';
+        return ('Invalid Email Address or Password');
     }
 
-    return error;
+    return false;
 };

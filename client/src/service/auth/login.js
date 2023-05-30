@@ -9,5 +9,5 @@ export const login = async ({ email, password }) => {
 
     const res = await axios.post(apiEndpoints.login, userData);
 
-    return res;
+    return res.data;
 };

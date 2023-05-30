@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { ButtonLinkPrimary } from '../../../components/Buttons/Primary-Btn/LinkButtonPrimary';
 import { Container } from '../../../components/Containers/Container/Container';
 import { LoadingSkeleton } from '../../../components/LoadingSkeletons/LoadingSkeleton';
@@ -6,13 +7,16 @@ import { SearchBar } from '../../../components/Serach-Bar/SearchBar';
 import routeConstants from '../../../constants/routeConstants';
 import styles from './Showcase.module.css';
 
-const { DISCOVER } = routeConstants;
-
 export const Showcase = ({ isLoading }) => {
+    const navigate = useNavigate();
+    const { DISCOVER } = routeConstants;
+
     const onSubmitHandler = (e, searchParam) => {
         e.preventDefault();
 
-        console.log(searchParam);
+        if (!searchParam) return;
+
+        navigate(`${DISCOVER.route}?search=${searchParam}`);
     };
 
     return (
