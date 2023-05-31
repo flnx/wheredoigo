@@ -1,26 +1,19 @@
 .container {
     min-height: 100vh;
     font-family: "Roboto", sans-serif;
-    background: black;
     display: flex;
-    color: white;
 }
 
 .aside {
     display: none;
     flex: 1;
-    background-color: #6b5b95;
-}
-
-@media (min-width: 750px) {
-    .aside {
-        display: inline-block;
-    }
+    background: url("https://images.unsplash.com/photo-1509149037-37dc57ccbd13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1935&q=80")
+        no-repeat 50% 50% / cover;
 }
 
 .wrapper {
     flex: 1;
-    background-color: #12130f;
+    background-color: #132a35;
 }
 
 .form {
@@ -29,37 +22,29 @@
     margin-top: 5rem;
 }
 
-
-.formFieldButton {
-    margin-right: 1rem;
-    background-color: #6b5b95;
-    cursor: pointer;
-    color: white;
-    border: none;
-    outline: none;
-    border-radius: 25px;
-    padding: 1rem 4rem;
-    font-size: 0.8rem;
-    font-weight: 700;
-}
-
-.disabled {
-    opacity: 0.5;
-}
-
 .formFieldLink {
-    color: #66707d;
     text-decoration: none;
-    border-bottom: 1.5px solid #6b5b95;
-    padding-bottom: 0.5em;
-}
-
-.socialMediaButtons {
-    padding: 10px 100px 10px 0px;
+    border-bottom: 1.5px solid var(--danger);
+    padding-bottom: 0.5rem;
+    margin-left: 1rem;
 }
 
 .error {
-    color: var(--error-message);
-    font-size: 0.95rem;
-    /* text-decoration: uppercase; */
+    color: var(--danger);
+    font-size: 0.9125rem;
+    font-weight: 600;
+}
+
+.errorWrapper {
+    margin-top: -1.25rem;
+    margin-bottom: 0.75rem;
+    min-height: 3rem;
+    display: flex;
+    align-items: center;
+}
+
+@media (min-width: 46.875rem) {
+    .aside {
+        display: inline-block;
+    }
 }

@@ -3,7 +3,11 @@ import { useContext, useState } from 'react';
 import { AuthContext } from '../../../context/AuthContext';
 import * as user from '../../../service/auth/register';
 
+// Components
+import { FormLayout } from '../FormLayout';
 import { FormInput } from '../components/FormInput';
+import { ButtonSky } from '../../../components/Buttons/Button-Sky/ButtonSky';
+
 import { validateRegisterData } from '../../../utils/userDataValidators';
 import { extractServerErrorMessage } from '../../../utils/utils';
 import routeConstants from '../../../constants/routeConstants';
@@ -12,7 +16,7 @@ import styles from '../FormLayout.module.css';
 
 const { AUTH } = routeConstants;
 
-export const RegisterPage = () => {
+const Register = () => {
     const { setUserData } = useContext(AuthContext);
     const [inputError, setInputError] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
@@ -55,57 +59,61 @@ export const RegisterPage = () => {
     };
 
     return (
-        <form className={styles.form} onSubmit={submitHandler}>
-            <FormInput
-                name={'username'}
-                label={'Username'}
-                type={'text'}
-                placeholder={'Add a username'}
-                value={state.username}
-                onChangeHandler={onChangeHandler}
-            />
-            <FormInput
-                name={'password'}
-                label={'Password'}
-                type={'password'}
-                placeholder={'Enter your password'}
-                value={state.password}
-                onChangeHandler={onChangeHandler}
-            />
-            <FormInput
-                name={'repeatPassword'}
-                label={'Repeat Password'}
-                type={'password'}
-                placeholder={'Repeat password'}
-                value={state.repeatPassword}
-                onChangeHandler={onChangeHandler}
-            />
-            <FormInput
-                name={'email'}
-                label={'Email'}
-                type={'password'}
-                placeholder={'Enter your email address'}
-                value={state.email}
-                onChangeHandler={onChangeHandler}
-            />
+        <FormLayout>
+            <form className={styles.form} onSubmit={submitHandler}>
+                <FormInput
+                    name={'username'}
+                    label={'Username'}
+                    type={'text'}
+                    placeholder={'Add a username'}
+                    value={state.username}
+                    onChangeHandler={onChangeHandler}
+                />
+                <FormInput
+                    name={'password'}
+                    label={'Password'}
+                    type={'password'}
+                    placeholder={'Enter your password'}
+                    value={state.password}
+                    onChangeHandler={onChangeHandler}
+                />
+                <FormInput
+                    name={'repeatPassword'}
+                    label={'Repeat Password'}
+                    type={'password'}
+                    placeholder={'Repeat password'}
+                    value={state.repeatPassword}
+                    onChangeHandler={onChangeHandler}
+                />
+                <FormInput
+                    name={'email'}
+                    label={'Email'}
+                    type={'email'}
+                    placeholder={'Enter your email address'}
+                    value={state.email}
+                    onChangeHandler={onChangeHandler}
+                />
 
-            {inputError && (
-                <div className={styles.formField}>
-                    <p className={styles.error}>{inputError}</p>
+                <div className={styles.errorWrapper}>
+                    {inputError && <p className={styles.error}>{inputError}</p>}
                 </div>
-            )}
 
-            <div className={styles.formField}>
-                <button
-                    className={`${styles.formFieldButton} ${isDisabled && styles.disabled}`}
-                    disabled={isDisabled}
-                >
-                    {AUTH.REGISTER.name}
-                </button>
-                <Link to={AUTH.LOGIN.routePath} className={styles.formFieldLink}>
-                    I'm already member
-                </Link>
-            </div>
-        </form>
+                <div className={styles.formField}>
+                    <ButtonSky
+                        isLoading={isDisabled}
+                        type={'submit'}
+                        padding={`0.65rem 1.55rem`}
+                    >
+                        {AUTH.REGISTER.name}
+                    </ButtonSky>
+
+                    <Link to={AUTH.LOGIN.routePath} className={styles.formFieldLink}>
+                        I'm already member
+                    </Link>
+                </div>
+            </form>
+        </FormLayout>
     );
 };
+
+export default Register;
