@@ -9,6 +9,8 @@ import { useSubmitFormData } from '../hooks/useSubmitFormData';
 import { FormLayout } from '../components/FormLayout';
 import { FormInput } from '../components/FormInput';
 import { ButtonSky } from '../../../components/Buttons/Button-Sky/ButtonSky';
+import { EnvelopeSimple } from '@phosphor-icons/react';
+import { LockSimple } from '@phosphor-icons/react';
 
 import routeConstants from '../../../constants/routeConstants';
 import styles from '../FormLayout.module.css';
@@ -25,20 +27,20 @@ const Login = () => {
             <form className={styles.form} onSubmit={submitHandler}>
                 <FormInput
                     name={'email'}
-                    label={'Email Address'}
                     type={'email'}
-                    placeholder={'Enter your email address'}
+                    placeholder={'Email'}
                     value={state.email}
                     onChangeHandler={onChangeHandler}
+                    Icon={EnvelopeSimple}
                 />
 
                 <FormInput
                     name={'password'}
-                    label={'Password'}
                     type={'password'}
-                    placeholder={'Enter your password'}
+                    placeholder={'Password'}
                     value={state.password}
                     onChangeHandler={onChangeHandler}
+                    Icon={LockSimple}
                 />
 
                 <div className={styles.errorWrapper}>

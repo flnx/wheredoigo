@@ -1,18 +1,9 @@
 import styles from './FormInput.module.css';
 
-export const FormInput = ({
-    name,
-    label,
-    type,
-    placeholder,
-    value,
-    onChangeHandler,
-}) => {
+export const FormInput = ({ name, type, placeholder, value, onChangeHandler, Icon }) => {
     return (
         <div className={styles.formField}>
-            <label className={styles.formFieldLabel} htmlFor={name}>
-                {label}
-            </label>
+            <Icon size={24} color={'#fff'} className={styles.icon} />
             <input
                 id={name}
                 type={type}

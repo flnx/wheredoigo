@@ -9,6 +9,9 @@ import { useFormInput } from '../hooks/useFormInput';
 import { FormLayout } from '../components/FormLayout';
 import { FormInput } from '../components/FormInput';
 import { ButtonSky } from '../../../components/Buttons/Button-Sky/ButtonSky';
+import { User } from '@phosphor-icons/react';
+import { EnvelopeSimple } from '@phosphor-icons/react';
+import { LockSimple } from '@phosphor-icons/react';
 
 import routeConstants from '../../../constants/routeConstants';
 import styles from '../FormLayout.module.css';
@@ -25,35 +28,35 @@ const Register = () => {
             <form className={styles.form} onSubmit={submitHandler}>
                 <FormInput
                     name={'username'}
-                    label={'Username'}
                     type={'text'}
-                    placeholder={'Add a username'}
+                    placeholder={'Username'}
                     value={state.username}
                     onChangeHandler={onChangeHandler}
+                    Icon={User}
                 />
                 <FormInput
                     name={'password'}
-                    label={'Password'}
                     type={'password'}
-                    placeholder={'Enter your password'}
+                    placeholder={'Password'}
                     value={state.password}
                     onChangeHandler={onChangeHandler}
+                    Icon={LockSimple}
                 />
                 <FormInput
                     name={'repeatPassword'}
-                    label={'Repeat Password'}
                     type={'password'}
                     placeholder={'Repeat password'}
                     value={state.repeatPassword}
                     onChangeHandler={onChangeHandler}
+                    Icon={LockSimple}
                 />
                 <FormInput
                     name={'email'}
-                    label={'Email'}
                     type={'email'}
-                    placeholder={'Enter your email address'}
+                    placeholder={'Email'}
                     value={state.email}
                     onChangeHandler={onChangeHandler}
+                    Icon={EnvelopeSimple}
                 />
 
                 <div className={styles.errorWrapper}>
