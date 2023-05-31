@@ -1,13 +1,9 @@
 import { Link } from 'react-router-dom';
-import { useContext, useState } from 'react';
+
+// Hooks
 import { useUserLogin } from '../../../hooks/queries/useUserLogin';
-
-// Context
-import { AuthContext } from '../../../context/AuthContext';
-
-// Utils
-import { extractServerErrorMessage } from '../../../utils/utils';
-import { validateLoginData } from '../../../utils/userDataValidators';
+import { useFormInput } from '../hooks/useFormInput';
+import { useSubmitFormData } from '../hooks/useSubmitFormData';
 
 // Components
 import { FormLayout } from '../FormLayout';
@@ -20,38 +16,9 @@ import styles from '../FormLayout.module.css';
 const { AUTH } = routeConstants;
 
 const Login = () => {
-    const { setUserData } = useContext(AuthContext);
-    const [state, setState] = useState({ email: '', password: '' });
-    const [error, setError] = useState('');
+    const [state, onChangeHandler] = useFormInput();
     const [login, isLoading] = useUserLogin();
-
-    const onChangeHandler = (e) => {
-        setState({
-            ...state,
-            [e.target.name]: e.target.value,
-        });
-    };
-
-    const submitHandler = async (e) => {
-        e.preventDefault();
-        if (isLoading) return;
-        setError('');
-
-        const hasError = validateLoginData(state);
-
-        if (hasError) {
-            return setError(hasError);
-        }
-
-        login(state, {
-            onSuccess: (result) => {
-                setUserData(result);
-            },
-            onError: (err) => {
-                setError(extractServerErrorMessage(err));
-            },
-        });
-    };
+    const [submitHandler, error] = useSubmitFormData(state, login, isLoading);
 
     return (
         <FormLayout>

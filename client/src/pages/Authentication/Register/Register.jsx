@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom';
-import { useContext, useState } from 'react';
-import { AuthContext } from '../../../context/AuthContext';
-import * as user from '../../../service/auth/register';
+
+// Hooks
+import { useUserRegister } from '../../../hooks/queries/useUserRegister';
+import { useSubmitFormData } from '../hooks/useSubmitFormData';
+import { useFormInput } from '../hooks/useFormInput';
 
 // Components
 import { FormLayout } from '../FormLayout';
 import { FormInput } from '../components/FormInput';
 import { ButtonSky } from '../../../components/Buttons/Button-Sky/ButtonSky';
 
-import { validateRegisterData } from '../../../utils/userDataValidators';
-import { extractServerErrorMessage } from '../../../utils/utils';
 import routeConstants from '../../../constants/routeConstants';
 
 import styles from '../FormLayout.module.css';
@@ -17,46 +17,9 @@ import styles from '../FormLayout.module.css';
 const { AUTH } = routeConstants;
 
 const Register = () => {
-    const { setUserData } = useContext(AuthContext);
-    const [inputError, setInputError] = useState(false);
-    const [isDisabled, setIsDisabled] = useState(false);
-    const [state, setState] = useState({
-        email: '',
-        password: '',
-        repeatPassword: '',
-        username: '',
-    });
-
-    const onChangeHandler = (e) => {
-        setState({
-            ...state,
-            [e.target.name]: e.target.value,
-        });
-    };
-
-    const submitHandler = async (e) => {
-        e.preventDefault();
-
-        if (isDisabled) return;
-
-        const error = validateRegisterData(state);
-
-        if (error) {
-            return setInputError(error);
-        }
-
-        setIsDisabled(true);
-
-        try {
-            const { data } = await user.register(state);
-            setUserData(data);
-        } catch (err) {
-            const errorMessage = extractServerErrorMessage(err);
-            setInputError(errorMessage);
-        } finally {
-            setIsDisabled(false);
-        }
-    };
+    const [state, onChangeHandler] = useFormInput();
+    const [register, isLoading] = useUserRegister();
+    const [submitHandler, error] = useSubmitFormData(state, register, isLoading);
 
     return (
         <FormLayout>
@@ -95,12 +58,12 @@ const Register = () => {
                 />
 
                 <div className={styles.errorWrapper}>
-                    {inputError && <p className={styles.error}>{inputError}</p>}
+                    {error && <p className={styles.error}>{error}</p>}
                 </div>
 
                 <div className={styles.formField}>
                     <ButtonSky
-                        isLoading={isDisabled}
+                        isLoading={isLoading}
                         type={'submit'}
                         padding={`0.65rem 1.55rem`}
                     >
