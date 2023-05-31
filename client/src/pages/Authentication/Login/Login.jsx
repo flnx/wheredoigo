@@ -6,7 +6,7 @@ import { useFormInput } from '../hooks/useFormInput';
 import { useSubmitFormData } from '../hooks/useSubmitFormData';
 
 // Components
-import { FormLayout } from '../FormLayout';
+import { FormLayout } from '../components/FormLayout';
 import { FormInput } from '../components/FormInput';
 import { ButtonSky } from '../../../components/Buttons/Button-Sky/ButtonSky';
 

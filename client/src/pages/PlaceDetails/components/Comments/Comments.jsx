@@ -8,14 +8,17 @@ import styles from './Comments.module.css';
 export const Comments = ({ placeId }) => {
     const [currentPage, setCurrentPage] = useSearchParams({});
     const page = getPageFromSearchParams(currentPage);
-    const [comments, error, isLoading, isPreviousData, isFetching] = usePlaceComments({ placeId, page });
+    const [comments, error, isLoading, isPreviousData, isFetching] = usePlaceComments({
+        placeId,
+        page,
+    });
 
     const onPageClickHandler = (value) => {
         const page = parseInt(value);
 
         if (!Number.isInteger(page) || page < 1) {
             // if page is not a valid integer or less than 1, set default page to 1
-            setCurrentPage({}); 
+            setCurrentPage({});
         } else {
             // update current page with the new page value
             setCurrentPage({ page });
@@ -27,8 +30,9 @@ export const Comments = ({ placeId }) => {
     }
 
     const { data, hasNextPage, hasPreviousPage, totalPages } = comments;
+    const hasComments = data.length > 0;
 
-    return (
+    return hasComments ? (
         <section className={styles.commentSection}>
             <header className={styles.intro}>
                 <h3>Comments</h3>
@@ -50,5 +54,7 @@ export const Comments = ({ placeId }) => {
                 isFetching={isFetching}
             />
         </section>
+    ) : (
+        <p>No comments have been addded yet</p>
     );
 };

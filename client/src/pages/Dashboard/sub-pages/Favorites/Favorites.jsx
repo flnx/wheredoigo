@@ -10,21 +10,23 @@ export const Favorites = () => {
     const [data, isLoading, error] = useUserFavorites();
 
     const destinations = data || [];
-    const hasDestinations = !isLoading && destinations.length > 0;
+    const hasDestinations = destinations.length > 0;
 
     return (
         <div style={{ display: 'grid' }}>
-            <h1 className="smaller mb-1">Favorites</h1>
-            {hasDestinations ? (
-                <DestinationsGrid destinations={destinations} />
-            ) : (
-                <p>You don't have favorite destinations yet</p>
-            )}
+            <h1 className="smaller mb-2">Favorites</h1>
 
-            {isLoading && (
+            {isLoading ? (
                 <span style={{ margin: '5rem auto' }}>
                     <ClipLoader color="#36d7b7" aria-label="Loading Spinner" size={45} />
                 </span>
+            ) : (
+                <>
+                    {!hasDestinations && <p>You don't have favorite destinations yet</p>}
+                    {!isLoading && hasDestinations && (
+                        <DestinationsGrid destinations={destinations} />
+                    )}
+                </>
             )}
 
             {error && (

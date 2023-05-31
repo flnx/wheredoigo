@@ -7,7 +7,7 @@
 
 .navbar {
     min-height: 100vh;
-    min-width: 100vw;;
+    min-width: 100vw;
     position: absolute;
     display: flex;
     gap: 2rem;
@@ -23,8 +23,7 @@
 
 .navbar li a {
     color: var(--text-primary-light);
-    font-size: 2rem;
-    font-weight: 600;
+    font-size: 1.25rem;
 }
 
 .navbar .btn {
@@ -65,5 +64,6 @@
     .navbar li a {
         font-size: 0.95rem;
         color: var(--text-primary);
+        font-weight: 600;
     }
 }

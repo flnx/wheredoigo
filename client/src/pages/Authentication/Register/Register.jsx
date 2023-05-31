@@ -6,12 +6,11 @@ import { useSubmitFormData } from '../hooks/useSubmitFormData';
 import { useFormInput } from '../hooks/useFormInput';
 
 // Components
-import { FormLayout } from '../FormLayout';
+import { FormLayout } from '../components/FormLayout';
 import { FormInput } from '../components/FormInput';
 import { ButtonSky } from '../../../components/Buttons/Button-Sky/ButtonSky';
 
 import routeConstants from '../../../constants/routeConstants';
-
 import styles from '../FormLayout.module.css';
 
 const { AUTH } = routeConstants;

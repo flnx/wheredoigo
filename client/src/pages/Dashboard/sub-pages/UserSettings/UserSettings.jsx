@@ -37,7 +37,7 @@ export const UserSettings = () => {
 
     return (
         <div className={styles.container}>
-            <h1 className="smaller">Account</h1>
+            <h1 className="smaller mb-2">Account</h1>
 
             <section>
                 <h2 className={styles.username}>{auth.username}</h2>

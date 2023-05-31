@@ -1,4 +1,4 @@
-import styles from './FormLayout.module.css';
+import styles from '../FormLayout.module.css';
 
 export const FormLayout = ({ children }) => {
     return (
