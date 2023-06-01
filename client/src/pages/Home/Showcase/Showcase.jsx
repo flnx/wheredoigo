@@ -28,7 +28,7 @@ export const Showcase = ({ isLoading }) => {
                     <Container>
                         <div className={styles.intro}>
                             <h1 className={styles.title}>
-                                Discover the world. Adventure is out there
+                                Discover the world Adventure is out there
                             </h1>
                             <p className={styles.description}>
                                 Uncover boundless adventures as you explore the world around
