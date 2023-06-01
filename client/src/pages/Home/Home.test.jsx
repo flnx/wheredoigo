@@ -1,8 +1,17 @@
-import { render, screen } from '@vitejs/plugin-react';
+import { render, screen, userEvent } from '../../utils/test-utils';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { MemoryRouter } from 'react-router-dom';
 import { Home } from './Home';
+import { queryClient } from '../../utils/queryClient';
 
-it('should have San Diego', () => {
-    render(<Home />);
-    const message = screen.queryByText(/San Diego/i);
-    expect(message).toBeVisible();
+test('should have San Diego', () => {
+    render(
+        <MemoryRouter>
+            <QueryClientProvider client={queryClient}>
+                <Home />
+            </QueryClientProvider>
+        </MemoryRouter>
+    );
+    const message = screen.getByText(/Travel any corner of the world/i);
+    expect(message).toBeInTheDocument();
 });
