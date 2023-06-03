@@ -45,6 +45,7 @@ export const AddToFavorites = ({ size, _id, isLikedByUser, hasSession }) => {
                 weight={isLikedByUser ? 'fill' : 'thin'}
                 onClick={clickHandler}
                 className={`${styles.icon} ${rotateClass}`}
+                data-testid="heart-icon"
             />
             {error && <ServerError errorMessage={error} />}
         </>
