@@ -2,6 +2,8 @@ import { MemoryRouter } from 'react-router-dom';
 import { render, screen, userEvent, waitFor } from '../../../utils/test-utils';
 import { AddToFavorites } from '../AddToFavorites';
 
+import styles from '../AddToFavorites.module.css';
+
 describe('Home', () => {
     it('should rotate on click', async () => {
         render(
@@ -11,6 +13,11 @@ describe('Home', () => {
         );
 
         const heartIcon = screen.getByTestId('heart-icon');
-        expect(heartIcon).toHaveClass('_icon_doaw8_1');
+
+        userEvent.click(heartIcon);
+
+        await waitFor(() => {
+            expect(heartIcon).toHaveClass(styles.rotate);
+        });
     });
 });

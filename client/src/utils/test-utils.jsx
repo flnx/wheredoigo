@@ -1,5 +1,5 @@
 /* eslint-disable import/export */
-import { cleanup, render, waitFor } from '@testing-library/react';
+import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 import { afterEach } from 'vitest';
 
 // React Query
