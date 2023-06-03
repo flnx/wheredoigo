@@ -5,15 +5,23 @@ import { AddToFavorites } from '../AddToFavorites';
 import styles from '../AddToFavorites.module.css';
 
 describe('Home', () => {
-    it('should rotate on click', async () => {
+    let heartIcon;
+
+    beforeEach(() => {
         render(
             <MemoryRouter>
                 <AddToFavorites _id="destinationId" isLikedByUser={false} hasSession={true} />
             </MemoryRouter>
         );
 
-        const heartIcon = screen.getByTestId('heart-icon');
+        heartIcon = screen.getByTestId('heart-icon');
+    });
 
+    it('Should render the Heart component', () => {
+        expect(heartIcon).toBeInTheDocument();
+    });
+
+    it('should rotate on click', async () => {
         userEvent.click(heartIcon);
 
         await waitFor(() => {
