@@ -4,16 +4,8 @@ import { AddToFavorites } from '../AddToFavorites';
 
 import styles from '../AddToFavorites.module.css';
 
-const render = (props) => {
-    afterEach(() => {
-        vi.restoreAllMocks();
-    });
-
-    return customRender(
-        <MemoryRouter>
-            <AddToFavorites {...props} />
-        </MemoryRouter>
-    );
+const render = (Component) => {
+    return customRender(<MemoryRouter>{Component}</MemoryRouter>);
 };
 
 describe('AddToFavorites', () => {
@@ -34,21 +26,15 @@ describe('AddToFavorites', () => {
         });
     });
 
-    it('fills/unfills the component with different colors based on isLikedByUser boolean', async () => {
-        const sendLikeMock = vi.fn();
-
-        render(
-            <AddToFavorites
-                isLikedByUser={true}
-                _id={'645b7f82afb7e42c0ba43fa4'}
-                hasSession={true}
-            />
-        );
-
-        sendLikeMock();
-
+    it('Renders the component with a like handler and "filled" style', async () => {
+        render(<AddToFavorites isLikedByUser={true} />);
         const heartIcon = screen.getByTestId('heart-icon');
-        userEvent.click(heartIcon);
-        expect(sendLikeMock).toBeCalledTimes(1);
+        expect(heartIcon).toHaveClass('hasLike');
+    });
+
+    it('Renders the component with a dislike handler and "regular" style', async () => {
+        render(<AddToFavorites isLikedByUser={false} />);
+        const heartIcon = screen.getByTestId('heart-icon');
+        expect(heartIcon).toHaveClass('hasNoLike');
     });
 });
