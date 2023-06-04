@@ -10,7 +10,7 @@ export const apiEndpoints = {
     creatorDestinations: 'destinations/created-by-user',
     destinationById: (id) => `destinations/${id}`,
     // the path can be either "like" or "dislike"
-    likeDestination: (id, path) => `destinations/${id}/${path}`,
+    likeDestination: (id, path) => `http://localhost:3000/destinations/${id}/${path}`,
     destinationsByPage: (searchParams, skip, categories) => {
         let url = `destinations?search=${searchParams}&page=${skip}`;
 

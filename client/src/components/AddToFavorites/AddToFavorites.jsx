@@ -25,19 +25,19 @@ export const AddToFavorites = ({ size, _id, isLikedByUser, hasSession }) => {
 
     const onLikeClickHandler = () => {
         if (!hasSession) navigate(routePath);
-        if (isLoading) return;
+        if (isLoading || !_id) return;
         setRotateClass(styles.rotate);
         sendLike({ path: 'like', isLike: true });
     };
 
     const onDislikeClickHandler = () => {
-        if (isLoading) return;
+        if (isLoading || !_id) return;
         setRotateClass('');
         sendLike({ path: 'dislike', isLike: false });
     };
 
     const clickHandler = isLikedByUser ? onDislikeClickHandler : onLikeClickHandler;
-    const likedClass = isLikedByUser ? 'hasLike' : 'hasNoLike';
+    const likedOrDislikedClass = isLikedByUser ? 'hasLike' : 'hasNoLike';
 
     return (
         <>
@@ -45,7 +45,7 @@ export const AddToFavorites = ({ size, _id, isLikedByUser, hasSession }) => {
                 size={size || 46}
                 weight={isLikedByUser ? 'fill' : 'thin'}
                 onClick={clickHandler}
-                className={`${styles.icon} ${rotateClass} ${likedClass}`}
+                className={`${styles.icon} ${rotateClass} ${likedOrDislikedClass}`}
                 data-testid="heart-icon"
             />
             {error && <ServerError errorMessage={error} />}

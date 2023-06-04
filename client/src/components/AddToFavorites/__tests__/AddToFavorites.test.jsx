@@ -2,6 +2,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { render as customRender, screen, userEvent, waitFor } from '../../../utils/test-utils';
 import { AddToFavorites } from '../AddToFavorites';
 
+// This is needed to extract the correct classname from css modules
 import styles from '../AddToFavorites.module.css';
 
 const render = (Component) => {
@@ -9,41 +10,67 @@ const render = (Component) => {
 };
 
 describe('AddToFavorites', () => {
-    // it('Renders without errors', () => {
-    //     render(<AddToFavorites />);
-    //     const heartIcon = screen.getByTestId('heart-icon');
+    const testId = 'testId';
 
-    //     expect(heartIcon).toBeInTheDocument();
-    // });
+    it('Should render', () => {
+        render(<AddToFavorites />);
+        const heartIcon = screen.getByTestId('heart-icon');
 
-    // it('should rotate on click', async () => {
-    //     render(<AddToFavorites />);
-    //     const heartIcon = screen.getByTestId('heart-icon');
-    //     userEvent.click(heartIcon);
+        expect(heartIcon).toBeInTheDocument();
+    });
 
-    //     await waitFor(() => {
-    //         expect(heartIcon).toHaveClass(styles.rotate);
-    //     });
-    // });
+    it('Should rotate 360deg on click', async () => {
+        const props = {
+            _id: testId,
+            isLikedByUser: false,
+            hasSession: true,
+        };
 
-    // it('Renders the component with a like handler and "filled" style', async () => {
-    //     render(<AddToFavorites isLikedByUser={true} />);
-    //     const heartIcon = screen.getByTestId('heart-icon');
-    //     expect(heartIcon).toHaveClass('hasLike');
-    // });
+        render(<AddToFavorites {...props} />);
 
-    it('Renders the component with a dislike handler and "regular" style', async () => {
+        const heartIcon = screen.getByTestId('heart-icon');
+        userEvent.click(heartIcon);
+
+        await waitFor(() => {
+            expect(heartIcon).toHaveClass(styles.rotate);
+        });
+    });
+
+    it('Renders the component with the correct weight (fill) when isLikedByUser is true', async () => {
+        render(<AddToFavorites isLikedByUser={true} />);
+        const heartIcon = screen.getByTestId('heart-icon');
+        expect(heartIcon).toHaveClass('hasLike');
+    });
+
+    it('Rerenders the component when the props are changed after click', async () => {
         render(<AddToFavorites isLikedByUser={false} />);
         const heartIcon = screen.getByTestId('heart-icon');
-        console.log(heartIcon)
         expect(heartIcon).toHaveClass('hasNoLike');
     });
 
-    // it('Renders the component with a dislike handler and "regular" style', async () => {
-    //     render(<AddToFavorites isLikedByUser={false} />);
-    //     const heartIcon = screen.getByTestId('heart-icon');
-    //     userEvent.click(heartIcon);
+    it.only('Correctly sends like and rerenders', async () => {
+        const props = {
+            _id: testId,
+            isLikedByUser: false,
+            hasSession: true,
+        };
 
-    //     expect(heartIcon).toHaveClass('hasNoLike');
-    // });
+        const { rerender } = render(<AddToFavorites {...props} />);
+        const heartIcon = screen.getByTestId('heart-icon');
+        expect(heartIcon).toHaveClass('hasNoLike');
+
+        userEvent.click(heartIcon);
+
+        await waitFor(() => {
+            props.isLikedByUser = true;
+        });
+
+        rerender(
+            <MemoryRouter>
+                <AddToFavorites {...props} />
+            </MemoryRouter>
+        );
+
+        expect(heartIcon).toHaveClass('hasLike');
+    });
 });

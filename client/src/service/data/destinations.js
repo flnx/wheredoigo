@@ -23,6 +23,7 @@ export const likeDestination = async (id, likeData) => {
     };
 };
 
+
 export const getCreatorDestinations = async () => {
     const res = await axios.get(apiEndpoints.creatorDestinations);
 
