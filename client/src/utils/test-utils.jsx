@@ -14,9 +14,7 @@ function customRender(ui, options = {}) {
     return render(ui, {
         // wrap provider(s) here if needed
         wrapper: ({ children }) => (
-            <QueryClientProvider client={queryClient}>
-                {children}
-            </QueryClientProvider>
+            <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
         ),
         ...options,
     });

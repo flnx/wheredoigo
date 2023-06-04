@@ -37,6 +37,7 @@ export const AddToFavorites = ({ size, _id, isLikedByUser, hasSession }) => {
     };
 
     const clickHandler = isLikedByUser ? onDislikeClickHandler : onLikeClickHandler;
+    const likedClass = isLikedByUser ? 'hasLike' : 'hasNoLike';
 
     return (
         <>
@@ -44,7 +45,7 @@ export const AddToFavorites = ({ size, _id, isLikedByUser, hasSession }) => {
                 size={size || 46}
                 weight={isLikedByUser ? 'fill' : 'thin'}
                 onClick={clickHandler}
-                className={`${styles.icon} ${rotateClass}`}
+                className={`${styles.icon} ${rotateClass} ${likedClass}`}
                 data-testid="heart-icon"
             />
             {error && <ServerError errorMessage={error} />}
