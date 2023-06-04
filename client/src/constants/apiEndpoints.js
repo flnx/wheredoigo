@@ -9,6 +9,7 @@ export const apiEndpoints = {
     allDestinations: 'destinations',
     creatorDestinations: 'destinations/created-by-user',
     destinationById: (id) => `destinations/${id}`,
+    // the path can be either "like" or "dislike"
     likeDestination: (id, path) => `destinations/${id}/${path}`,
     destinationsByPage: (searchParams, skip, categories) => {
         let url = `destinations?search=${searchParams}&page=${skip}`;
