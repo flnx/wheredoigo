@@ -53,4 +53,4 @@ export const AddToFavorites = ({ size, _id, isLikedByUser, hasSession }) => {
     );
 };
 
-AddToFavorites.proptypes = propTypes;
+AddToFavorites.propTypes = propTypes;

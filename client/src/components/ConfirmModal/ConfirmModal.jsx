@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { disableBodyScroll, enableBodyScroll } from '../../utils/utils';
 
@@ -7,6 +8,12 @@ import { CancelButton } from '../Buttons/Cancel-Button/CancelButton';
 import { DarkOverlay } from '../DarkOverlay/DarkOverlay';
 
 import styles from './ConfirmModal.module.css';
+
+const propTypes = {
+    onCloseHandler: PropTypes.func.isRequired,
+    actionClickHandler: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+};
 
 export const ConfirmModal = ({ children, onCloseHandler, actionClickHandler, isLoading }) => {
     useEffect(() => {
@@ -19,7 +26,7 @@ export const ConfirmModal = ({ children, onCloseHandler, actionClickHandler, isL
             <DarkOverlay onClickHandler={onCloseHandler} isLoading={isLoading} />
             <div className={styles.modalMain}>
                 {children}
-                <div className={styles.modalButtons}>
+                <div className={styles.modalButtons} data-testid="modal">
                     <SuccessButton onClickHandler={actionClickHandler} isLoading={isLoading}>
                         Delete
                     </SuccessButton>
@@ -31,3 +38,5 @@ export const ConfirmModal = ({ children, onCloseHandler, actionClickHandler, isL
         </>
     );
 };
+
+ConfirmModal.propTypes = propTypes;

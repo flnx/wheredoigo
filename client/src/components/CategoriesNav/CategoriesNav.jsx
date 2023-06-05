@@ -1,6 +1,11 @@
-import styles from './CategoriesNav.module.css';
+import PropTypes from 'prop-types';
 
 import { Adventure, Beach, Culture, Islands, Mountain, Snow } from '../../utils/icons';
+import styles from './CategoriesNav.module.css';
+
+const propTypes = {
+    onCategoryClickHandler: PropTypes.func.isRequired,
+};
 
 export const CategoriesNav = ({ onCategoryClickHandler }) => {
     return (
@@ -56,3 +61,5 @@ export const CategoriesNav = ({ onCategoryClickHandler }) => {
         </div>
     );
 };
+
+CategoriesNav.propTypes = propTypes;
