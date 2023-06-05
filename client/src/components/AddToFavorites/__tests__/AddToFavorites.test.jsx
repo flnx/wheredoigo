@@ -29,11 +29,8 @@ describe('AddToFavorites', () => {
         render(<AddToFavorites {...props} />);
 
         const heartIcon = screen.getByTestId('heart-icon');
-        userEvent.click(heartIcon);
-
-        await waitFor(() => {
-            expect(heartIcon).toHaveClass(styles.rotate);
-        });
+        await userEvent.click(heartIcon);
+        expect(heartIcon).toHaveClass(styles.rotate);
     });
 
     it('Renders the component with the correct weight (fill) when isLikedByUser is true', async () => {
@@ -48,7 +45,7 @@ describe('AddToFavorites', () => {
         expect(heartIcon).toHaveClass('hasNoLike');
     });
 
-    it.only('Correctly sends like and rerenders', async () => {
+    it('Correctly sends like and rerenders', async () => {
         const props = {
             _id: testId,
             isLikedByUser: false,
@@ -58,12 +55,9 @@ describe('AddToFavorites', () => {
         const { rerender } = render(<AddToFavorites {...props} />);
         const heartIcon = screen.getByTestId('heart-icon');
         expect(heartIcon).toHaveClass('hasNoLike');
+        await userEvent.click(heartIcon);
 
-        userEvent.click(heartIcon);
-
-        await waitFor(() => {
-            props.isLikedByUser = true;
-        });
+        props.isLikedByUser = true;
 
         rerender(
             <MemoryRouter>

@@ -9,6 +9,7 @@ export const CategoriesNav = ({ onCategoryClickHandler }) => {
                 <Adventure
                     className={styles.icon}
                     onClick={() => onCategoryClickHandler('Adventure')}
+                    data-testid="adventure-icon"
                 />
                 <span>Adventure</span>
             </div>
@@ -16,6 +17,7 @@ export const CategoriesNav = ({ onCategoryClickHandler }) => {
                 <Beach
                     className={styles.icon}
                     onClick={() => onCategoryClickHandler('Beach')}
+                    data-testid="beach-icon"
                 />
                 <span>Beach</span>
             </div>
@@ -23,6 +25,7 @@ export const CategoriesNav = ({ onCategoryClickHandler }) => {
                 <Culture
                     className={styles.icon}
                     onClick={() => onCategoryClickHandler('Cultural')}
+                    data-testid="culture-icon"
                 />
                 <span>Cultural</span>
             </div>
@@ -30,6 +33,7 @@ export const CategoriesNav = ({ onCategoryClickHandler }) => {
                 <Islands
                     className={styles.icon}
                     onClick={() => onCategoryClickHandler('Islands')}
+                    data-testid="islands-icon"
                 />
                 <span>Islands</span>
             </div>
@@ -37,6 +41,7 @@ export const CategoriesNav = ({ onCategoryClickHandler }) => {
                 <Mountain
                     className={styles.icon}
                     onClick={() => onCategoryClickHandler('Mountains')}
+                    data-testid="mountain-icon"
                 />
                 <span>Mountains</span>
             </div>
@@ -44,6 +49,7 @@ export const CategoriesNav = ({ onCategoryClickHandler }) => {
                 <Snow
                     className={styles.icon}
                     onClick={() => onCategoryClickHandler('Snow')}
+                    data-testid="snow-icon"
                 />
                 <span>Snow</span>
             </div>
