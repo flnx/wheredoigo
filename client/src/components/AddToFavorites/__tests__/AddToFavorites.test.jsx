@@ -13,7 +13,13 @@ describe('AddToFavorites', () => {
     const testId = 'testId';
 
     it('Should render', () => {
-        render(<AddToFavorites />);
+        const props = {
+            _id: testId,
+            hasSession: true,
+            isLikedByUser: true,
+        };
+
+        render(<AddToFavorites {...props} />);
         const heartIcon = screen.getByTestId('heart-icon');
 
         expect(heartIcon).toBeInTheDocument();
@@ -34,13 +40,25 @@ describe('AddToFavorites', () => {
     });
 
     it('Renders the component with the correct weight (fill) when isLikedByUser is true', async () => {
-        render(<AddToFavorites isLikedByUser={true} />);
+        const props = {
+            _id: testId,
+            hasSession: true,
+            isLikedByUser: true,
+        };
+
+        render(<AddToFavorites {...props} />);
         const heartIcon = screen.getByTestId('heart-icon');
         expect(heartIcon).toHaveClass('hasLike');
     });
 
     it('Rerenders the component when the props are changed after click', async () => {
-        render(<AddToFavorites isLikedByUser={false} />);
+        const props = {
+            _id: testId,
+            hasSession: true,
+            isLikedByUser: false,
+        };
+
+        render(<AddToFavorites {...props} />);
         const heartIcon = screen.getByTestId('heart-icon');
         expect(heartIcon).toHaveClass('hasNoLike');
     });

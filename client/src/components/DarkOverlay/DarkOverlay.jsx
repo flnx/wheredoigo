@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { ClipLoader } from 'react-spinners';
 import styles from './DarkOverlay.module.css';
 
