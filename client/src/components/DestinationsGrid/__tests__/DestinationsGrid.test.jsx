@@ -102,17 +102,23 @@ describe('ConfirmModal tests', () => {
 
         const deleteBtns = screen.getAllByRole('button', { name: 'Delete' });
 
-        // Checks if the delete handler is triggered
-        await userEvent.click(deleteBtns[0]);
-        expect(onDeleteClickHandler).toBeCalledTimes(1);
+        // Checks if the delete handler is being triggered
+        deleteBtns.forEach(async (btn) => {
+            userEvent.click(btn);
+        });
 
-        // Checks if it passes the destination id
-        expect(onDeleteClickHandler).toHaveBeenCalledWith(destinations[0]._id);
+        await waitFor(() => {
+            expect(onDeleteClickHandler).toBeCalledTimes(3);
+
+            // Checks if the destination id is being passed;
+            const lastDestinationClickedId = destinations[destinationsNum - 1]._id;
+            expect(onDeleteClickHandler).toHaveBeenCalledWith(lastDestinationClickedId);
+        });
 
         const editBtns = screen.getAllByRole('link', { name: 'Edit' });
         const { EDIT } = routeConstants.DESTINATIONS;
 
-        // Checks if the buttons have the correcct href link;
+        // Checks if the a hrefs have the correct link in order to navigate to the correct page;
         editBtns.forEach((btn, i) => {
             const btnId = destinations[i]._id;
             expect(btn).toHaveAttribute('href', EDIT.routePath(btnId));
