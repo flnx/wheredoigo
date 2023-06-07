@@ -25,7 +25,7 @@ export const Destination = ({ destination, onDeleteClickHandler, isEditable, bac
     const style = background ? { background } : {};
 
     return (
-        <div className={styles['card']} style={style}>
+        <div className={styles['card']} style={style} data-testid={'destination'}>
             <div className={styles.imageContainer}>
                 <Link to={BY_ID.routePath(_id)}>
                     <img src={imageUrls} alt={city} />

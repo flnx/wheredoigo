@@ -3,7 +3,6 @@ import { MemoryRouter } from 'react-router-dom';
 import { render as customRender, screen, userEvent, waitFor } from '../../../utils/test-utils';
 
 import { DarkOverlay } from '../DarkOverlay';
-// This is needed to extract the correct classname from css modules
 
 const render = (Component) => {
     return customRender(<MemoryRouter>{Component}</MemoryRouter>);
