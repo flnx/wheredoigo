@@ -8,23 +8,6 @@ const render = (Component) => {
     return customRender(<MemoryRouter>{Component}</MemoryRouter>);
 };
 
-// const propTypes = {
-//     destination: PropTypes.shape({
-//         _id: PropTypes.string.isRequired,
-//         city: PropTypes.string.isRequired,
-//         country: PropTypes.string.isRequired,
-//         imageUrls: PropTypes.string.isRequired,
-//     }).isRequired,
-//     onDeleteClickHandler: PropTypes.func,
-//     isEditable: PropTypes.bool,
-//     background: PropTypes.string,
-// };
-
-// destinations: PropTypes.array.isRequired,
-// isEditable: PropTypes.bool,
-// onDeleteClickHandler: PropTypes.func,
-// background: PropTypes.string,
-
 describe('ConfirmModal tests', () => {
     const destinations = [
         {
