@@ -1,7 +1,6 @@
 /* eslint-disable import/export */
 import { cleanup, render, waitFor } from '@testing-library/react';
 import { afterEach } from 'vitest';
-
 // React Query
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './queryClient';
