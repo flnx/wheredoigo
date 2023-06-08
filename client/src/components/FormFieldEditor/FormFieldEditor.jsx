@@ -40,6 +40,7 @@ const FormFieldEditor = ({
     };
 
     const onCancelClickHandler = () => {
+        // passes the fieldId in order to reset isEditable and hide the textarea/input
         onEditButtonClickHandler(fieldId);
         setDescription(cache);
     };
