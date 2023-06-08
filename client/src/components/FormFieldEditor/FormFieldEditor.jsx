@@ -19,7 +19,7 @@ const propTypes = {
     sendEditedFieldClickHandler: PropTypes.func.isRequired,
     onEditButtonClickHandler: PropTypes.func.isRequired,
     isLoading: PropTypes.bool.isRequired,
-}
+};
 
 const FormFieldEditor = ({
     fieldId,
@@ -64,6 +64,8 @@ const FormFieldEditor = ({
             {isEditable ? (
                 <div className={styles.textareaWrapper}>
                     <textarea
+                        name={title}
+                        aria-label={title}
                         value={description}
                         onChange={onChangeHandler}
                         className={styles.textarea}
