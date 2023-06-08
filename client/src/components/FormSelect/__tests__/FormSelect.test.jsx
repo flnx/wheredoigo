@@ -36,6 +36,12 @@ describe('FormSelect Tests', () => {
     it('Should select the correct option', async () => {
         render(<FormSelect {...props} />);
 
+        // This Component relies complitely on a parent compponent state
+        // This is why I can't simulate a real rerender while using userEvent
+        // So I just check if the handler is being called
+        // I could use toHaveBeenCalledWith but I pass the whole "e" to the parent so its not possible
+        // [] I could reform my code to be cleaner be I'm maybe in the near future...
+
         const dropdown = screen.getByRole('combobox');
         expect(dropdown).toHaveValue(''); // Initial selected value
 
