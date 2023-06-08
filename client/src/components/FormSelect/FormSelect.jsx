@@ -18,7 +18,7 @@ export const FormSelect = ({ value, options, onChangeHandler, label, errors, box
 
     return (
         <div className={`${styles.selectWrapper} ${boxshadow ? styles.boxShadow : ''}`}>
-            <label className={styles.label} htmlFor={name}>
+            <label className={styles.label} htmlFor={name} aria-label="label">
                 {label}
             </label>
             <select

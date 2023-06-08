@@ -1,10 +1,8 @@
-import { MemoryRouter } from 'react-router-dom';
-
 import { render as customRender, screen, userEvent, waitFor } from '../../../utils/test-utils';
 import { MemoizedFormFieldEditor } from '../FormFieldEditor';
 
 const render = (Component) => {
-    return customRender(<MemoryRouter>{Component}</MemoryRouter>);
+    return customRender(<>{Component}</>);
 };
 
 describe('FormFieldEditor Tests', () => {
