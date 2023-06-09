@@ -20,7 +20,7 @@ const propTypes = {
     ).isRequired,
     closeGalleryHandler: PropTypes.func.isRequired,
     alt: PropTypes.string.isRequired,
-}
+};
 
 export const Gallery = ({ images, closeGalleryHandler, alt }) => {
     if (images.length == 0) {
@@ -36,7 +36,13 @@ export const Gallery = ({ images, closeGalleryHandler, alt }) => {
         <section>
             <DarkOverlay onClickHandler={closeGalleryHandler} />
             <div className={styles.wrapper}>
-                <div className={styles.closeIcon} onClick={closeGalleryHandler} tabIndex={0}>
+                <div
+                    className={styles.closeIcon}
+                    onClick={closeGalleryHandler}
+                    tabIndex={0}
+                    role={'button'}
+                    aria-label={'Close gallery'}
+                >
                     <X size={30} />
                 </div>
                 <GalleryContextProvider
