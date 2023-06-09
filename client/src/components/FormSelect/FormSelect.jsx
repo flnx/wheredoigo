@@ -25,7 +25,7 @@ export const FormSelect = ({ value, options, onChangeHandler, label, errors, box
                 id={name}
                 name={name}
                 value={value}
-                onChange={() => onChangeHandler(value)}
+                onChange={onChangeHandler}
                 className={styles.select}
             >
                 {label !== 'Place' && <option value="">--Select {label}--</option>}

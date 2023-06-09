@@ -20,7 +20,7 @@ export const SecondaryImages = () => {
                 <img
                     className={`${mainImage == x && isActive}`} // Adds border to the clicked image
                     src={x.imageUrl}
-                    alt={alt || 'image'}
+                    alt={`${alt || 'image'} ${i + 1}`} // Include the index to differentiate alt text
                     key={x._id}
                     onClick={() => handleCurrentImageIndex(i)}
                 />

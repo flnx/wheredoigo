@@ -9,27 +9,26 @@ const render = (Component) => {
 };
 
 describe('ConfirmModal tests', () => {
+    const imageUrl = 'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80';
+
     const destinations = [
         {
             _id: 'id1',
             country: 'Country One',
             city: 'City One',
-            imageUrls:
-                'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80',
+            imageUrls: imageUrl,
         },
         {
             _id: 'id2',
             country: 'Country Two',
             city: 'City Two',
-            imageUrls:
-                'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80',
+            imageUrls: imageUrl,
         },
         {
             _id: 'id3',
             country: 'Country Three',
             city: 'City Three',
-            imageUrls:
-                'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80',
+            imageUrls: imageUrl,
         },
     ];
 
