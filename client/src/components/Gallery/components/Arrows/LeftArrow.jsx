@@ -11,6 +11,8 @@ export const LeftArrow = () => {
             className={styles.leftArrow}
             onClick={onLeftArrowClickHandler}
             tabIndex={0}
+            aria-label="Previous photo"
+            role="button"
         >
             <CaretLeft size={32} />
         </div>

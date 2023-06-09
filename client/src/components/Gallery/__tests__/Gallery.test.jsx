@@ -65,6 +65,23 @@ describe('FormSelect Tests', () => {
         });
     });
 
+    it('Renders RightArrow component if there is a next image', async () => {
+        // Shows the right arrow since there is a next image
+        const rightArrow = screen.getByLabelText('Next photo');
+        expect(rightArrow).toBeInTheDocument();
+
+        // cuts off the main image;
+        const secondaryImages = props.images.slice(1);
+        
+        // navigates through all images until it reaches the last one
+        for (const image of secondaryImages) {
+            await userEvent.click(rightArrow);
+        }
+
+        // Doesn't show the right arrow since there is not a next image
+        expect(rightArrow).not.toBeInTheDocument();
+    });
+
     it('When clicked on a secondary images, it sets it as a MAIN Image', async () => {
         let mainImage;
         let expectedImgUrl;
@@ -88,5 +105,55 @@ describe('FormSelect Tests', () => {
         await userEvent.click(anotherImageToSetAsMain);
         mainImage = screen.getByAltText(props.alt);
         expect(mainImage).toHaveAttribute('src', expectedImgUrl);
+    });
+
+    it('Right Arrow keyboard button navigates right (next image)', async () => {
+        let mainImage;
+        let mainImageUrl;
+
+        // Current main image
+        mainImage = screen.getByAltText(props.alt);
+        mainImageUrl = props.images[0].imageUrl;
+        expect(mainImage).toHaveAttribute('src', mainImageUrl);
+
+        // Shows the next image after arrow right key is pushed
+        const rightArrow = screen.getByLabelText('Next photo');
+        await userEvent.keyboard('{ArrowRight}', rightArrow);
+
+        // Check if the new Main image url is correct;
+        mainImage = screen.getByAltText(props.alt);
+        mainImageUrl = props.images[1].imageUrl;
+        expect(mainImage).toHaveAttribute('src', mainImageUrl);
+    });
+
+    it('Right Arrow keyboard button navigates left (previous image)', async () => {
+        let mainImage;
+        let mainImageUrl;
+        let imgIndex = 0;
+
+        // Navigates right (next)
+        const rightArrow = screen.getByLabelText('Next photo');
+        await userEvent.keyboard('{ArrowRight}', rightArrow);
+        await userEvent.keyboard('{ArrowRight}', rightArrow);
+
+        // Increasing the index accordingly to match the correct url
+        imgIndex += 2;
+
+        // Check if the new Main image is being set correctly by checking the url
+        mainImage = screen.getByAltText(props.alt);
+        mainImageUrl = props.images[imgIndex].imageUrl;
+        expect(mainImage).toHaveAttribute('src', mainImageUrl);
+
+        // Navigates left (previous)
+        const leftArrow = screen.getByLabelText('Previous photo');
+        await userEvent.keyboard('{ArrowLeft}', leftArrow);
+
+        // Decreasing the index accordingly to match the correct url
+        imgIndex--;
+
+        // Check if the new Main image is being set correctly by checking the url
+        mainImage = screen.getByAltText(props.alt);
+        mainImageUrl = props.images[imgIndex].imageUrl;
+        expect(mainImage).toHaveAttribute('src', mainImageUrl);
     });
 });
