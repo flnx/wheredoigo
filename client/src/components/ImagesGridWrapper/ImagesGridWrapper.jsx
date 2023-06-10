@@ -10,7 +10,12 @@ import { ShowImagesButton } from './compoonents/ShowImagesButton/ShowImagesButto
 import styles from './ImagesGridWrapper.module.css';
 
 const propTypes = {
-    images: PropTypes.array.isRequired,
+    images: PropTypes.arrayOf(
+        PropTypes.shape({
+            imageUrl: PropTypes.string.isRequired,
+            _id: PropTypes.string.isRequired,
+        })
+    ).isRequired,
     onClickHandler: PropTypes.func.isRequired,
     isLoading: PropTypes.bool,
     alt: PropTypes.string,
@@ -21,11 +26,12 @@ export const ImagesGridWrapper = ({ images, alt, onClickHandler, isLoading }) =>
     const isDesktop = screenWidth >= 798;
 
     // If data is loading - it returns a new array with 5 elements
-    // This ensures that the loading skeleton will be rendered inside 5 div boxes during fetching
+    // This ensures that the loading skeletons will be rendered instead of the 5 showcase images
     const imagesArr = checkArrayAndPreloadElements(images, 5);
 
     const mainImage = imagesArr[0];
-    const secondaryImages = imagesArr.slice(1);
+    
+    const secondaryImages = imagesArr.slice(1, 5);
 
     return (
         <div className={styles['images']}>
@@ -46,10 +52,7 @@ export const ImagesGridWrapper = ({ images, alt, onClickHandler, isLoading }) =>
             )}
 
             {!isLoading && (
-                <ShowImagesButton 
-                    onClickHandler={onClickHandler} 
-                    mainImage={mainImage} 
-                />
+                <ShowImagesButton onClickHandler={onClickHandler} mainImage={mainImage} />
             )}
         </div>
     );

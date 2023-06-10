@@ -13,13 +13,13 @@ const propTypes = {
 export const SecondaryImages = ({ secondaryImages, alt, onClickHandler, isLoading }) => {
     return (
         <div className={styles.secondaryImages}>
-            {secondaryImages.map((x) =>
+            {secondaryImages.map((x, i) =>
                 isLoading ? (
                     <LoadingWrapper key={x._id} />
                 ) : (
                     <img
                         src={x.imageUrl}
-                        alt={alt}
+                        alt={`${alt || 'image'} ${i + 1}`} // Include the index to differentiate alt text
                         onClick={() => onClickHandler(x)}
                         key={x._id}
                     />

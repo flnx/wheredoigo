@@ -148,7 +148,7 @@ describe('Gallery correctly navigates through images using the keyboard', () => 
         render(<Gallery {...props} />);
     });
 
-    it('Right Arrow keyboard button navigates right (next image)', async () => {
+    it('Right Arrow keyboard button navigates to the next image', async () => {
         let mainImage;
         let mainImageUrl;
 
@@ -167,7 +167,7 @@ describe('Gallery correctly navigates through images using the keyboard', () => 
         expect(mainImage).toHaveAttribute('src', mainImageUrl);
     });
 
-    it('Right Arrow keyboard button navigates left (previous image)', async () => {
+    it('Right Arrow keyboard button navigates to the previous image', async () => {
         let mainImage;
         let mainImageUrl;
         let imgIndex = 0;

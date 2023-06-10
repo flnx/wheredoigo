@@ -7,7 +7,12 @@ import { ImagesGridWrapper } from '../../../../components/ImagesGridWrapper/Imag
 import { createPortal } from 'react-dom';
 
 const propTypes = {
-    imageUrls: PropTypes.array.isRequired,
+    imageUrls: PropTypes.arrayOf(
+        PropTypes.shape({
+            imageUrl: PropTypes.string.isRequired,
+            _id: PropTypes.string.isRequired,
+        })
+    ).isRequired,
     city: PropTypes.string,
     isLoading: PropTypes.bool.isRequired,
 };
@@ -16,9 +21,11 @@ export const ImagesSection = ({ imageUrls, city, isLoading }) => {
     const [gallery, setGallery] = useState([]);
 
     const onImageClickHandler = (clickedImg) => {
+        // filters out the clicked image
         const arrayWithoutClickedImage = imageUrls.filter((x) => x._id !== clickedImg._id);
 
-        // adding the clicked img at index 0 because gallery showcases the first element inside the array
+        // adding the clicked image at index 0..
+        //..because the gallery sets as "main image" the first element in the array
         setGallery([clickedImg, ...arrayWithoutClickedImage]);
     };
 
