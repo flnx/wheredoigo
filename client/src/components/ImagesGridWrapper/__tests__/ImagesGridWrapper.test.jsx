@@ -86,13 +86,9 @@ describe('Gallery correctly renders the images and sets the main image', () => {
 
         const images = screen.getAllByAltText(new RegExp(props.alt, 'i'));
 
-        console.log(images.length);
-        console.log(images.length);
-        console.log(images.length);
-
-        // // Slices out the 1st div
-        // const secondaryImageDivs = images.slice(1);
-        // expect(secondaryImageDivs).toHaveLength(secondaryImageDivs.length);
+        // Slices out the 1st div
+        const secondaryImageDivs = images.slice(1);
+        expect(secondaryImageDivs).toHaveLength(secondaryImageDivs.length);
     });
 
     it('Renders the "Show all images" button', () => {
@@ -135,7 +131,7 @@ describe('Gallery correctly renders the images and sets the main image', () => {
     });
 
     it('Does not render the secondary images if the screen is under 798px', () => {
-        resizeToSmallerScreen(798);
+        resizeToSmallerScreen();
         render(<ImagesGridWrapper {...props} />);
         const images = screen.getAllByAltText(new RegExp(props.alt, 'i'));
 
@@ -143,7 +139,7 @@ describe('Gallery correctly renders the images and sets the main image', () => {
     });
 });
 
-function resizeToSmallerScreen(width, height) {
+function resizeToSmallerScreen() {
     window.innerWidth = 797;
     window.innerHeight = 667;
 
@@ -153,3 +149,20 @@ function resizeToSmallerScreen(width, height) {
         window.dispatchEvent(new Event('resize'));
     };
 }
+
+// Alternative to resizeToSmallerScreen (preferable but more complex)
+
+// const smallerScreenQuery = '(max-width: 797px)';
+  
+// // Add a media query to simulate a smaller screen resolution
+// const mediaQueryList = window.matchMedia(smallerScreenQuery);
+// Object.defineProperty(window, 'matchMedia', {
+//   writable: true,
+//   value: jest.fn().mockImplementation(query => ({
+//     matches: query === smallerScreenQuery,
+//     media: query,
+//     onchange: null,
+//     addListener: jest.fn(), // Not necessary for this test
+//     removeListener: jest.fn(), // Not necessary for this test
+//   })),
+// });

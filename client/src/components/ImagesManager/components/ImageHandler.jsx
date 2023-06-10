@@ -48,6 +48,7 @@ export const ImageHandler = ({ imagesData, deleteImageHandler, isDeleting, isLoa
                 images={images}
                 handleDeleteImage={onDeleteClickOpenConfirmModalHandler}
                 isLoading={isLoading}
+                alt={'Uploaded'}
             />
 
             {doesNotHaveCurrentImages && <p>No images have been added yet.</p>}
@@ -58,7 +59,7 @@ export const ImageHandler = ({ imagesData, deleteImageHandler, isDeleting, isLoa
                     onCloseHandler={handleCloseConfirmModal}
                     isLoading={isDeleting}
                 >
-                    Are you sure you wanna delete this image?
+                    Are you sure you want to delete this image?
                 </ConfirmModal>
             )}
         </div>

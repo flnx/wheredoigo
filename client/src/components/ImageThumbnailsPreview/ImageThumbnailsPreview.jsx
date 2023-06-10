@@ -8,9 +8,10 @@ const propTypes = {
     images: PropTypes.array.isRequired,
     handleDeleteImage: PropTypes.func.isRequired,
     isLoading: PropTypes.bool,
+    alt: PropTypes.string,
 };
 
-export const ImageThumbnailsPreview = ({ images, handleDeleteImage, isLoading }) => {
+export const ImageThumbnailsPreview = ({ images, handleDeleteImage, isLoading, alt }) => {
     return (
         <div className={`${styles.imagesWrapper}`}>
             {images.map((img, i) => (
@@ -24,7 +25,10 @@ export const ImageThumbnailsPreview = ({ images, handleDeleteImage, isLoading })
                         {isLoading ? (
                             <LoadingSkeleton />
                         ) : (
-                            <img src={extractUrl(img)} alt={`image preview ${i}`} />
+                            <img
+                                src={extractUrl(img)}
+                                alt={alt ? `${alt} ${i}` : `image preview ${i}`}
+                            />
                         )}
                     </div>
                     {!isLoading && <X size={50} weight="thin" className={styles.remove} />}

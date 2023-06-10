@@ -33,7 +33,7 @@ async function deleteDestinationImage(destinationId, imgId) {
     }
 
     const { public_id } = deletedImage;
-    
+
     let cloudinary_error = null;
 
     try {
@@ -43,7 +43,7 @@ async function deleteDestinationImage(destinationId, imgId) {
     }
 
     result.cloud_error = cloudinary_error;
-    return result;
+    return { deleted: true };
 }
 
 module.exports = deleteDestinationImage;

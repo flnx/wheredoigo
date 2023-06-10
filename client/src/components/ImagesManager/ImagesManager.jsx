@@ -12,7 +12,12 @@ const propTypes = {
     isLoading: PropTypes.bool.isRequired,
 };
 
-export const ImagesManager = ({ imagesData, deleteImageHook, addImageHook, isLoading }) => {
+export const ImagesManager = ({
+    imagesData,
+    deleteImageHook,
+    addImageHook,
+    isLoading,
+}) => {
     const [deleteImage, deleteError, isDeleting] = deleteImageHook();
     const [uploadImages, uploadError, isUploading] = addImageHook();
     const error = deleteError || uploadError;

@@ -14,7 +14,11 @@ export const UploadImagesPreview = ({ addImages, deleteImage, images }) => {
     return (
         <div className={styles.formField}>
             <div>
-                <label htmlFor="images" className={styles.btn}>
+                <label 
+                    htmlFor="images" 
+                    className={styles.btn} 
+                    role={'upload-button'}
+                >
                     Upload images
                 </label>
                 <input
