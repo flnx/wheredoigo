@@ -43,8 +43,11 @@ describe('Gallery correctly renders the images and sets the main image', () => {
     });
 
     it('Shows appropriate message when there is no images', () => {
-        props.imagesData = [];
-        render(<ImagesManager {...props} />);
+        const propsWithoutImages = {
+            ...props,
+            imagesData: [],
+        };
+        render(<ImagesManager {...propsWithoutImages} />);
 
         const uploadedImages = screen.queryAllByAltText(/uploaded/i);
         expect(uploadedImages).toHaveLength(0);
@@ -59,9 +62,14 @@ describe('Gallery correctly renders the images and sets the main image', () => {
         expect(uploadBtn).toBeInTheDocument();
     });
 
-    it('When clicked on already uploaded image (on the server) it triggers confirm modal', () => {
+    it('When clicked on already uploaded image (on the server) it triggers confirm modal', async () => {
         render(<ImagesManager {...props} />);
-        
 
+        const uploadedImages = screen.queryAllByAltText(/uploaded/i);
+        const firstImage = uploadedImages[0];
+        await userEvent.click(firstImage);
+
+        const confirmModal = screen.getByText(/Are you sure you want to delete this image/i);
+        expect(confirmModal).toBeInTheDocument();
     });
 });

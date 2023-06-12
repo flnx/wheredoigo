@@ -81,8 +81,12 @@ describe('Gallery correctly renders the images and sets the main image', () => {
     });
 
     it('Renders the secondary images divs if not any secondary images', () => {
-        props.images = [];
-        render(<ImagesGridWrapper {...props} />);
+        const propsWithoutImages = {
+            ...props,
+            images: [],
+        };
+        
+        render(<ImagesGridWrapper {...propsWithoutImages} />);
 
         const images = screen.getAllByAltText(new RegExp(props.alt, 'i'));
 
@@ -153,7 +157,7 @@ function resizeToSmallerScreen() {
 // Alternative to resizeToSmallerScreen (preferable but more complex)
 
 // const smallerScreenQuery = '(max-width: 797px)';
-  
+
 // // Add a media query to simulate a smaller screen resolution
 // const mediaQueryList = window.matchMedia(smallerScreenQuery);
 // Object.defineProperty(window, 'matchMedia', {
