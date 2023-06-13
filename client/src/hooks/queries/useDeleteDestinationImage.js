@@ -18,7 +18,7 @@ export const useDeleteDestinationImage = (destinationId) => {
 
             const updatedDestination = {
                 ...destination,
-                imageUrls: destination.imageUrls.filter(x => x._id !== imgId)
+                imageUrls: destination?.imageUrls.filter(x => x._id !== imgId)
             }
 
             queryClient.setQueryData(

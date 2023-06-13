@@ -27,7 +27,7 @@ export const handlers = [
         return res(ctx.status(200), ctx.json(newlyAddedImages));
     }),
 
-    rest.delete(apiEndpoints.deleteDestinationImage('testId'), (req, res, ctx) => {
+    rest.put(apiEndpoints.deleteDestinationImage('testId'), (req, res, ctx) => {
         return res(ctx.status(200), ctx.json({ deleted: true }));
     }),
 ];

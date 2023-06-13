@@ -23,6 +23,7 @@ export const ImagesManager = ({
     const error = deleteError || uploadError;
 
     const deleteImageHandler = (imgId, cbCloseConfirmModal) => {
+        cbCloseConfirmModal()
         deleteImage(imgId, {
             onSuccess: () => cbCloseConfirmModal(),
         });
