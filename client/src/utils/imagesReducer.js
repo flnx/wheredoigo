@@ -4,7 +4,7 @@ export function imagesReducer(state, action) {
             const imageFiles = action.payload.files
             .filter((file) => file.type.startsWith('image/'))
             .map((x) => URL.createObjectURL(x));
-            
+
             return {
                 ...state,
                 imageUrls: [...state.imageUrls, ...imageFiles],

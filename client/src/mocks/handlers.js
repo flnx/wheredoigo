@@ -2,7 +2,7 @@ import { rest } from 'msw';
 import { apiEndpoints } from '../constants/apiEndpoints';
 
 export const likeSuccess = { status: true, isLike: true };
-const newlyAddedImages = {
+export const newlyAddedImages = {
     imageUrls: [
         {
             imageUrl:

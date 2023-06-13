@@ -3,6 +3,7 @@ import { ImagesManager } from '../ImagesManager';
 
 import { useAddDestinationNewImages } from '../../../hooks/queries/useAddDestinationNewImages';
 import { useDeleteDestinationImage } from '../../../hooks/queries/useDeleteDestinationImage';
+import { newlyAddedImages } from '../../../mocks/handlers';
 
 const props = {
     imagesData: [
@@ -66,7 +67,8 @@ describe('ImagesManager rendering testing', () => {
 describe('ImagesManager functionality testing', () => {
     const mockCreateObjectURL = vi.fn();
     URL.createObjectURL = mockCreateObjectURL;
-    mockCreateObjectURL.mockReturnValue('mocked-url');
+
+    mockCreateObjectURL.mockReturnValue('blob:http://localhost:5173/test-path');
 
     afterEach(() => {
         vi.restoreAllMocks();
@@ -125,7 +127,7 @@ describe('ImagesManager functionality testing', () => {
             ).not.toBeInTheDocument();
         });
 
-        // Simulated react query props update that causes rerendering after img deletion
+        // Simulated react query onSucccess props update that causes rerendering after img deletion
         const updatedProps = {
             ...props,
             imagesData: props.imagesData.filter((img) => img.imageUrl !== firstImage.src),
@@ -136,7 +138,7 @@ describe('ImagesManager functionality testing', () => {
         expect(updatedImages).toHaveLength(props.imagesData.length - 1); // -1 image
     });
 
-    it('Correctly pre-uploads images and shows thumbnails (this is before server uploading)', async () => {
+    it('Selects the image files and renders them (as thumbnails) and shows "Add" button', async () => {
         render(<ImagesManager {...props} />);
         const uploadBtnLabel = screen.getByRole('upload-button');
         const input = screen.getByTestId('hidden-file-input');
@@ -152,16 +154,39 @@ describe('ImagesManager functionality testing', () => {
 
         const preUploadedImagesThumbnails = screen.queryAllByAltText(/image preview/i);
         expect(preUploadedImagesThumbnails).toHaveLength(files.length);
+
+        const AddButton = screen.getByRole('button', { name: 'Add' });
+        expect(AddButton).toBeInTheDocument();
+    });
+
+    it.only('Correctly uploads the images to the server', async () => {
+        const { rerender } = render(<ImagesManager {...props} />);
+        const uploadBtnLabel = screen.getByRole('upload-button');
+
+        const files = [
+            new File(['hello'], 'hello.png', { type: 'image/png' }),
+            new File(['there'], 'there.png', { type: 'image/png' }),
+        ];
+
+        await userEvent.upload(uploadBtnLabel, files);
+
+        const addBtn = screen.getByRole('button', { name: 'Add' });
+        await userEvent.click(addBtn);
+
+        expect(
+            screen.queryByText(/Are you sure you want to delete this image/i)
+        ).not.toBeInTheDocument();
+
+        // Simulated react query onSucccess props update that causes rerendering after img upload
+        const updatedImagesProps = {
+            ...props,
+            imagesData: [...props.imagesData, ...newlyAddedImages.imageUrls],
+        };
+
+        rerender(<ImagesManager {...updatedImagesProps} />);
+
+        // Checks if the images are added by comparing the sum of files length and old images length
+        const updatedImages = screen.getAllByAltText(/uploaded/i);
+        expect(updatedImages).toHaveLength(props.imagesData.length + files.length);
     });
 });
-
-// case 'add_images': {
-//     const imageFiles = action.payload.files
-//         .filter((file) => file.type.startsWith('image/'))
-//         .map((x) => URL.createObjectURL(x));
-
-//     return {
-//         ...state,
-//         imageUrls: [...state.imageUrls, ...imageFiles],
-//     };
-// }

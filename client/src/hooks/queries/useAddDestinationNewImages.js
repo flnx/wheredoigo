@@ -8,6 +8,7 @@ export const useAddDestinationNewImages = (destinationId) => {
     const { mutate, error, isLoading } = useMutation({
         mutationFn: (files) => addDestinationNewImages(destinationId, files),
         onSuccess: (newImages) => {
+            
             const destination = queryClient.getQueryData([
                 queryEndpoints.editDestination,
                 destinationId,
@@ -15,8 +16,13 @@ export const useAddDestinationNewImages = (destinationId) => {
 
             const updatedDestination = {
                 ...destination,
-                imageUrls: [...destination.imageUrls, ...newImages.imageUrls],
+                imageUrls: [...destination?.imageUrls, ...newImages.imageUrls],
             };
+
+            console.log(updatedDestination)
+            console.log(updatedDestination)
+            console.log(updatedDestination)
+            console.log(updatedDestination)
 
             queryClient.setQueryData(
                 [queryEndpoints.editDestination, destinationId],

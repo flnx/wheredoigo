@@ -2,7 +2,7 @@ import { createImageFiles } from "./imagesHandler";
 
 export const createDestinationFormData = async (state, images) => {
     const formData = new FormData();
-    
+
     formData.append('city', state.city);
     formData.append('country', state.country);
     formData.append('description', state.description);

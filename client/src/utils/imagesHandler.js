@@ -1,7 +1,11 @@
 export const createImageFiles = async (imageUrls, formData) => {
     const fetchPromises = imageUrls.map(async (url, index) => {
+        const isDev = url.includes('localhost');
+        const isTestUrl = isDev && url.includes('test-path');
+        const validUrl = isTestUrl ? 'test-path' : url;
+
         try {
-            const res = await fetch(url);
+            const res = await fetch(validUrl);
             const blob = await res.blob();
             const contentType = blob.type;
 
@@ -17,7 +21,9 @@ export const createImageFiles = async (imageUrls, formData) => {
 
             formData.append('imageUrls', file);
         } catch (error) {
-            console.log(error);
+            if (!isTestUrl) {
+                console.log(error.message || error);
+            }
         }
     });
 
@@ -31,7 +37,7 @@ export const createAvatarImage = async (imgAfterCrop) => {
     const contentType = blob.type;
 
     if (!validateImageFile(contentType)) {
-        throw new Error('Only image files are allowed')
+        throw new Error('Only image files are allowed');
     }
 
     // Create a File object from the Blob
