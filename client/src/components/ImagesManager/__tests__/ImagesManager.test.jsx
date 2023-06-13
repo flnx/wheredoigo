@@ -1,4 +1,10 @@
-import { render, screen, userEvent, waitFor } from '../../../utils/test-utils';
+import {
+    queryAllByAltText,
+    render,
+    screen,
+    userEvent,
+    waitFor,
+} from '../../../utils/test-utils';
 import { ImagesManager } from '../ImagesManager';
 
 import { useAddDestinationNewImages } from '../../../hooks/queries/useAddDestinationNewImages';
@@ -65,20 +71,23 @@ describe('ImagesManager rendering testing', () => {
 });
 
 describe('ImagesManager functionality testing', () => {
-    const mockCreateObjectURL = vi.fn();
-    URL.createObjectURL = mockCreateObjectURL;
-
-    mockCreateObjectURL.mockReturnValue('blob:http://localhost:5173/test-path');
-
-    afterEach(() => {
-        vi.restoreAllMocks();
-    });
+    let mockCreateObjectURL;
 
     beforeEach(() => {
+        URL.revokeObjectURL = vi.fn();
+
+        mockCreateObjectURL = vi.fn();
+        URL.createObjectURL = mockCreateObjectURL;
+        mockCreateObjectURL.mockReturnValue('blob:http://localhost:5173/test-path');
+
         const testId = 'testId';
         // replaces the vitest functions with actual react query hooks
         props.deleteImageHook = () => useDeleteDestinationImage(testId);
         props.addImageHook = () => useAddDestinationNewImages(testId);
+    });
+
+    afterEach(() => {
+        vi.restoreAllMocks();
     });
 
     it('When clicked on uploaded image (on the server) it opens the confirm modal', async () => {
@@ -152,14 +161,34 @@ describe('ImagesManager functionality testing', () => {
         expect(input.files[0]).toBe(files[0]);
         expect(input.files[1]).toBe(files[1]);
 
-        const preUploadedImagesThumbnails = screen.queryAllByAltText(/image preview/i);
+        const preUploadedImagesThumbnails = screen.getAllByAltText(/image preview/i);
         expect(preUploadedImagesThumbnails).toHaveLength(files.length);
 
         const AddButton = screen.getByRole('button', { name: 'Add' });
         expect(AddButton).toBeInTheDocument();
     });
 
-    it.only('Correctly uploads the images to the server', async () => {
+    it('Deletes the pre-uploaded images (thumbnails) on click', async () => {
+        render(<ImagesManager {...props} />);
+        const uploadBtnLabel = screen.getByRole('upload-button');
+
+        const files = [
+            new File(['hello'], 'hello.png', { type: 'image/png' }),
+            new File(['there'], 'there.png', { type: 'image/png' }),
+        ];
+
+        await userEvent.upload(uploadBtnLabel, files);
+
+        const thumbnails = screen.getAllByAltText(/image preview/i);
+        const thumbnailToDelete = thumbnails[0];
+        await userEvent.click(thumbnailToDelete);
+
+        // After thumbnail deletion the thumbnails length should be decreased by 1
+        const updatedThumbnails = screen.queryAllByAltText(/image preview/i);
+        expect(updatedThumbnails).toHaveLength(thumbnails.length - 1);
+    });
+
+    it('Uploads the images to the server and renders the new ones', async () => {
         const { rerender } = render(<ImagesManager {...props} />);
         const uploadBtnLabel = screen.getByRole('upload-button');
 

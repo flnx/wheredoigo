@@ -19,11 +19,6 @@ export const useAddDestinationNewImages = (destinationId) => {
                 imageUrls: [...destination?.imageUrls, ...newImages.imageUrls],
             };
 
-            console.log(updatedDestination)
-            console.log(updatedDestination)
-            console.log(updatedDestination)
-            console.log(updatedDestination)
-
             queryClient.setQueryData(
                 [queryEndpoints.editDestination, destinationId],
                 updatedDestination
