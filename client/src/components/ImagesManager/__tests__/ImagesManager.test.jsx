@@ -64,6 +64,14 @@ describe('ImagesManager rendering testing', () => {
 });
 
 describe('ImagesManager functionality testing', () => {
+    const mockCreateObjectURL = vi.fn();
+    URL.createObjectURL = mockCreateObjectURL;
+    mockCreateObjectURL.mockReturnValue('mocked-url');
+
+    afterEach(() => {
+        vi.restoreAllMocks();
+    });
+
     beforeEach(() => {
         const testId = 'testId';
         // replaces the vitest functions with actual react query hooks
@@ -127,4 +135,33 @@ describe('ImagesManager functionality testing', () => {
         const updatedImages = screen.queryAllByAltText(/uploaded/i);
         expect(updatedImages).toHaveLength(props.imagesData.length - 1); // -1 image
     });
+
+    it('Correctly pre-uploads images and shows thumbnails (this is before server uploading)', async () => {
+        render(<ImagesManager {...props} />);
+        const uploadBtnLabel = screen.getByRole('upload-button');
+        const input = screen.getByTestId('hidden-file-input');
+
+        const files = [
+            new File(['hello'], 'hello.png', { type: 'image/png' }),
+            new File(['there'], 'there.png', { type: 'image/png' }),
+        ];
+
+        await userEvent.upload(uploadBtnLabel, files);
+        expect(input.files[0]).toBe(files[0]);
+        expect(input.files[1]).toBe(files[1]);
+
+        const preUploadedImagesThumbnails = screen.queryAllByAltText(/image preview/i);
+        expect(preUploadedImagesThumbnails).toHaveLength(files.length);
+    });
 });
+
+// case 'add_images': {
+//     const imageFiles = action.payload.files
+//         .filter((file) => file.type.startsWith('image/'))
+//         .map((x) => URL.createObjectURL(x));
+
+//     return {
+//         ...state,
+//         imageUrls: [...state.imageUrls, ...imageFiles],
+//     };
+// }

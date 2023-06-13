@@ -30,6 +30,7 @@ export const UploadImagesPreview = ({ addImages, deleteImage, images }) => {
                     id="images"
                     required
                     onChange={handleImageSelect}
+                    data-testid="hidden-file-input"
                 />
             </div>
 
