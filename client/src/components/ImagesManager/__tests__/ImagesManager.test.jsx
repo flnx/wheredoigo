@@ -1,10 +1,4 @@
-import {
-    queryAllByAltText,
-    render,
-    screen,
-    userEvent,
-    waitFor,
-} from '../../../utils/test-utils';
+import { render, screen, userEvent, waitFor } from '../../../utils/test-utils';
 import { ImagesManager } from '../ImagesManager';
 
 import { useAddDestinationNewImages } from '../../../hooks/queries/useAddDestinationNewImages';

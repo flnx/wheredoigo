@@ -13,6 +13,7 @@ export const StarRating = ({ averageRating, size }) => {
                     weight={rating >= starRate ? 'fill' : 'light'}
                     className={styles.star}
                     key={starRate}
+                    aria-label="Stars rating"
                 />
             ))}
         </div>
