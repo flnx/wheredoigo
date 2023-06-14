@@ -11,9 +11,7 @@ export const Showcase = ({ isLoading }) => {
     const navigate = useNavigate();
     const { DISCOVER } = routeConstants;
 
-    const onSubmitHandler = (e, searchParam) => {
-        e.preventDefault();
-
+    const onSubmitHandler = (searchParam) => {
         if (!searchParam) return;
 
         navigate(`${DISCOVER.route}?search=${searchParam}`);

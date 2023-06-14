@@ -2,15 +2,18 @@ import { useEffect, useRef, useState } from 'react';
 import { useRemoveComment } from '../../../../hooks/queries/useRemoveComment';
 import { useParams } from 'react-router-dom';
 import { DotsThree } from '@phosphor-icons/react';
-import { SmallModal } from '../../../../components/SmallModal/SmallModal';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 import { StarRating } from '../../../../components/StarRating/StarRating';
+import { Dropdown } from './Dropdown/Dropdown';
 
 import styles from './Comments.module.css';
 
 export const Comment = ({ comment }) => {
     const { placeId } = useParams();
-    const [removeComment, isRemoveLoading, removeError] = useRemoveComment(comment._id, placeId);
+    const [removeComment, isRemoveLoading, removeError] = useRemoveComment(
+        comment._id,
+        placeId
+    );
     const [isDropDownModal, setIsDropdownModalOpen] = useState(false);
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const modalRef = useRef(null);
@@ -76,7 +79,7 @@ export const Comment = ({ comment }) => {
             </div>
 
             <div className={styles.content}>
-                <StarRating averageRating={comment.rating}/>
+                <StarRating averageRating={comment.rating} />
                 <h3 className={styles.commentTitle}>{comment.title}</h3>
                 <p className={styles.commentContent}>{comment.content}</p>
             </div>
@@ -89,7 +92,7 @@ export const Comment = ({ comment }) => {
             />
 
             {isDropDownModal && (
-                <SmallModal
+                <Dropdown
                     onItemClick={handleDropdownModalItemClick}
                     modalRef={modalRef}
                     isOwner={comment.isOwner}

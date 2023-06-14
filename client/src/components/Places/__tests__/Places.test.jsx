@@ -52,7 +52,7 @@ describe('ImageThumbnailsPreview testing', () => {
 
             // Assert the place names
             expect(screen.getByText(place.name)).toBeInTheDocument();
-            
+
             // Assert the place city and country
             expect(screen.getByText(`${place.city}, ${place.country}`)).toBeInTheDocument();
         });
@@ -104,9 +104,7 @@ describe('ImageThumbnailsPreview testing', () => {
         props.places.forEach((place) => {
             expect(screen.queryByAltText(place.name)).not.toBeInTheDocument();
             expect(screen.queryByText(place.name)).not.toBeInTheDocument();
-            expect(
-                screen.queryByText(`${place.city}, ${place.country}`)
-            ).not.toBeInTheDocument();
+            expect(screen.queryByText(`${place.city}, ${place.country}`)).not.toBeInTheDocument();
         });
     });
 

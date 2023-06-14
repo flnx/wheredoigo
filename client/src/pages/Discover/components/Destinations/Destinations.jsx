@@ -5,16 +5,13 @@ import styles from './Destinations.module.css';
 import { DestinationsGrid } from '../../../../components/DestinationsGrid/DestinationsGrid';
 
 export const Destinations = ({ searchParam, categoryParams }) => {
-    const { 
-        data,
-        fetchNextPage, 
-        hasNextPage, 
-        isFetchingNextPage, 
-        isFetching 
-    } = useInfiniteDestinations(searchParam, categoryParams);
+    const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
+        useInfiniteDestinations(searchParam, categoryParams);
 
     const loadingClass = (isFetchingNextPage || !hasNextPage) && styles.loading;
     const destinations = data?.pages.flatMap((arr) => arr.result);
+
+    const notFound = destinations.length == 0;
 
     return (
         <section>
@@ -32,6 +29,11 @@ export const Destinations = ({ searchParam, categoryParams }) => {
                     className={styles.spinner}
                 />
             </div>
+            {notFound && (
+                <h3 className="mb-2">
+                    Oops! No destination matches found. New options coming soon 🦖
+                </h3>
+            )}
             <button
                 onClick={fetchNextPage}
                 disabled={!hasNextPage || isFetchingNextPage}

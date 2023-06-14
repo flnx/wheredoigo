@@ -1,6 +1,6 @@
-import styles from './SmallModal.module.css';
+import styles from './Dropdown.module.css';
 
-export const SmallModal = ({ isOwner, onItemClick, modalRef }) => {
+export const Dropdown = ({ isOwner, onItemClick, modalRef }) => {
     const btnNames = ['Report'];
 
     isOwner && btnNames.push(...['Delete', 'Edit']);

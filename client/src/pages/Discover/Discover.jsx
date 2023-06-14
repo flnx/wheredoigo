@@ -17,9 +17,7 @@ export const Discover = () => {
     // If the users enters invalid category in the url, it filters it out
     const categories = validateCategories(searchParams);
 
-    const searchParamsSubmitHandler = (e, newSearch) => {
-        e.preventDefault();
-
+    const searchParamsSubmitHandler = (newSearch) => {
         const updatedParams = {
             category: categories,
         };
