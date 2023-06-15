@@ -11,7 +11,7 @@ export const Destinations = ({ searchParam, categoryParams }) => {
     const loadingClass = (isFetchingNextPage || !hasNextPage) && styles.loading;
     const destinations = data?.pages.flatMap((arr) => arr.result);
 
-    const notFound = destinations.length == 0;
+    const notFound = !isFetching && destinations.length == 0;
 
     return (
         <section>

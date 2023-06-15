@@ -42,6 +42,7 @@ export function checkArrayAndPreloadElements(arr, prefillNum) {
 
 export function extractServerErrorMessage(error) {
     if (!error) return;
+    
     const { response } = error;
 
     if (!response) {
