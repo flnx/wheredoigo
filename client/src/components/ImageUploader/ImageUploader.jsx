@@ -1,4 +1,4 @@
-import styles from './UploadImagesPreview.module.css';
+import styles from './ImageUploader.module.css';
 
 export const ImageUploader = ({ addImages }) => {
     const handleImageSelect = (e) => {

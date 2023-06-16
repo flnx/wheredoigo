@@ -6,6 +6,7 @@ import { createImagesFormData } from '../../../utils/formData';
 import { DarkOverlay } from '../../DarkOverlay/DarkOverlay';
 import { ImageUploader } from '../../ImageUploader/ImageUploader';
 import { SuccessButton } from '../../Buttons/Success-Button/SuccessButton';
+import { ImageThumbnailsPreview } from '../../ImageThumbnailsPreview/ImageThumbnailsPreview';
 
 const propTypes = {
     uploadImagesHandler: PropTypes.func.isRequired,
@@ -34,6 +35,11 @@ export const NewImagesShowcase = ({ uploadImagesHandler, isUploading }) => {
                 deleteImage={deleteImage}
             />
 
+            <ImageThumbnailsPreview
+                images={images.imageUrls}
+                handleDeleteImage={(_, index) => deleteImage(index)}
+            />
+            
             {hasNewlyUploadImages && (
                 <SuccessButton onClickHandler={handleNewImagesSubmit} isLoading={isUploading}>
                     Add

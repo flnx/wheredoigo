@@ -1,4 +1,4 @@
-import { render, screen, userEvent, waitFor } from '../../../utils/test-utils';
+import { render, screen, userEvent } from '../../../utils/test-utils';
 import { ImageThumbnailsPreview } from '../ImageThumbnailsPreview';
 
 describe('ImageThumbnailsPreview testing', () => {
