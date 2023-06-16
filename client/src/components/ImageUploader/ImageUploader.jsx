@@ -1,24 +1,14 @@
-import { ImageThumbnailsPreview } from '../ImageThumbnailsPreview/ImageThumbnailsPreview';
-
 import styles from './UploadImagesPreview.module.css';
 
-export const UploadImagesPreview = ({ addImages, deleteImage, images }) => {
+export const ImageUploader = ({ addImages }) => {
     const handleImageSelect = (e) => {
         addImages(e.target.files);
-    };
-
-    const handleDeleteImage = (e, index) => {
-        deleteImage(index);
     };
 
     return (
         <div className={styles.formField}>
             <div>
-                <label 
-                    htmlFor="images" 
-                    className={styles.btn} 
-                    role={'upload-button'}
-                >
+                <label htmlFor="images" className={styles.btn} role={'upload-button'}>
                     Upload images
                 </label>
                 <input
@@ -33,11 +23,6 @@ export const UploadImagesPreview = ({ addImages, deleteImage, images }) => {
                     data-testid="hidden-file-input"
                 />
             </div>
-
-            <ImageThumbnailsPreview 
-                images={images} 
-                handleDeleteImage={handleDeleteImage} 
-            />
         </div>
     );
 };

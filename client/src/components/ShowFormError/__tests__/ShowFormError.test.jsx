@@ -1,7 +1,7 @@
 import { render, screen, userEvent, waitFor } from '../../../utils/test-utils';
 import { ShowFormError } from '../ShowFormError';
 
-describe('ShowFormError testing', () => {
+describe('Show testing', () => {
     const errors = ['name lorem ipsum', 'password lorem ipsum', 'city lorem ipsum'];
     const errorParam = 'name';
 

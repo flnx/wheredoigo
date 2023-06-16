@@ -3,7 +3,8 @@ import { useSubmitFormData } from './useSubmitFormData';
 import { useImages } from '../../../hooks/useImages';
 
 // Components
-import { UploadImagesPreview } from '../../../components/UploadImagesPreview/UploadImagesPreview';
+import { ImageUploader } from '../../../components/ImageUploader/ImageUploader';
+import { ImageThumbnailsPreview } from '../../../components/ImageThumbnailsPreview/ImageThumbnailsPreview';
 import { ShowFormError } from '../../../components/ShowFormError/ShowFormError';
 import { DarkOverlay } from '../../../components/DarkOverlay/DarkOverlay';
 import { Input } from './Input';
@@ -43,11 +44,13 @@ export const Form = ({ destinationId, allowedCategories }) => {
             />
 
             <div className={styles.formRow}>
-                <UploadImagesPreview
-                    addImages={addImages}
-                    deleteImage={deleteImage}
+                <ImageUploader addImages={addImages} />
+
+                <ImageThumbnailsPreview
                     images={images.imageUrls}
+                    handleDeleteImage={(_, index) => deleteImage(index)}
                 />
+
                 {images.imageUrls.length < 4 && (
                     <ShowFormError errors={errors} errorParam={'images'} />
                 )}

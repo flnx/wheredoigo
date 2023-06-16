@@ -8,7 +8,8 @@ import { ServerError } from '../../../../components/ServerError/ServerError';
 import { SearchCity } from './components/SearchCity/SearchCity';
 import { Description } from './components/Description';
 import { Details } from './components/Details';
-import { UploadImagesPreview } from '../../../../components/UploadImagesPreview/UploadImagesPreview';
+import { ImageUploader } from '../../../../components/ImageUploader/ImageUploader';
+import { ImageThumbnailsPreview } from '../../../../components/ImageThumbnailsPreview/ImageThumbnailsPreview';
 import { SuccessButton } from '../../../../components/Buttons/Success-Button/SuccessButton';
 import { DetailsButtons } from './components/DetailsButtons/DetailsButtons';
 import { DarkOverlay } from '../../../../components/DarkOverlay/DarkOverlay';
@@ -52,10 +53,12 @@ export const AddDestination = () => {
                     description={state.description}
                     errors={errors}
                 />
-                <UploadImagesPreview
-                    addImages={addImages}
-                    deleteImage={deleteImage}
+                
+                <ImageUploader addImages={addImages} />
+
+                <ImageThumbnailsPreview
                     images={images.imageUrls}
+                    handleDeleteImage={(_, index) => deleteImage(index)}
                 />
 
                 {images.imageUrls.length < 4 && (

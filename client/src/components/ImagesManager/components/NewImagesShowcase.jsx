@@ -4,7 +4,7 @@ import { createImagesFormData } from '../../../utils/formData';
 
 // Components
 import { DarkOverlay } from '../../DarkOverlay/DarkOverlay';
-import { UploadImagesPreview } from '../../UploadImagesPreview/UploadImagesPreview';
+import { ImageUploader } from '../../ImageUploader/ImageUploader';
 import { SuccessButton } from '../../Buttons/Success-Button/SuccessButton';
 
 const propTypes = {
@@ -28,7 +28,7 @@ export const NewImagesShowcase = ({ uploadImagesHandler, isUploading }) => {
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {isUploading && <DarkOverlay isLoading={isUploading} />}
-            <UploadImagesPreview
+            <ImageUploader
                 images={images.imageUrls}
                 addImages={addImages}
                 deleteImage={deleteImage}
