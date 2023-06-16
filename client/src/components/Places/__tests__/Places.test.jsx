@@ -58,11 +58,11 @@ describe('Places testing', () => {
         });
 
         // Renders the Stars rating
-        const starsRating = screen.getAllByLabelText('Stars rating');
+        const starRating = screen.getAllByLabelText(/star rating/i);
         // Each place is rendered with total amount of 5 stars
         // This tests if the stars are rendered, not the place rating itself (that fills the stars)
         const totalStars = props.places.length * 5;
-        expect(starsRating).toHaveLength(totalStars);
+        expect(starRating).toHaveLength(totalStars);
     });
 
     it('Does not render the buttons if isOwner is false', () => {
@@ -104,7 +104,9 @@ describe('Places testing', () => {
         props.places.forEach((place) => {
             expect(screen.queryByAltText(place.name)).not.toBeInTheDocument();
             expect(screen.queryByText(place.name)).not.toBeInTheDocument();
-            expect(screen.queryByText(`${place.city}, ${place.country}`)).not.toBeInTheDocument();
+            expect(
+                screen.queryByText(`${place.city}, ${place.country}`)
+            ).not.toBeInTheDocument();
         });
     });
 
