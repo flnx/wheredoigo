@@ -6,7 +6,7 @@ const render = (Component) => {
     return customRender(<MemoryRouter>{Component}</MemoryRouter>);
 };
 
-describe('ImageThumbnailsPreview testing', () => {
+describe('Places testing', () => {
     const props = {
         places: [
             {

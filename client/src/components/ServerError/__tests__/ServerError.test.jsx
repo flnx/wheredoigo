@@ -2,7 +2,7 @@ import { act } from 'react-dom/test-utils';
 import { render, screen, userEvent, waitFor } from '../../../utils/test-utils';
 import { ServerError } from '../ServerError';
 
-describe('ImageThumbnailsPreview testing', () => {
+describe('ServerError testing', () => {
     const errorMessage = 'error test';
     const mockServerError = {
         response: {

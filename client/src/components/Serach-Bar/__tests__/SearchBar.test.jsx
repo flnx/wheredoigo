@@ -1,7 +1,7 @@
 import { render, screen, userEvent, waitFor } from '../../../utils/test-utils';
 import { SearchBar } from '../SearchBar';
 
-describe('ImageThumbnailsPreview testing', () => {
+describe('SearchBar testing', () => {
     let submitHandlerMock;
 
     beforeEach(() => {

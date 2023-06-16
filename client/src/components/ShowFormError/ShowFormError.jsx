@@ -1,4 +1,10 @@
 import styles from './ShowFormError.module.css';
+import PropTypes from 'prop-types';
+
+const propTypes = {
+    errors: PropTypes.array.isRequired,
+    errorParam: PropTypes.string.isRequired,
+};
 
 export const ShowFormError = ({ errors, errorParam }) => {
     const errorChecker = (name) => {
@@ -10,3 +16,5 @@ export const ShowFormError = ({ errors, errorParam }) => {
 
     return hasError && <span className={styles.error}>{errorChecker(errorParam)}</span>;
 };
+
+ShowFormError.propTypes = propTypes;
