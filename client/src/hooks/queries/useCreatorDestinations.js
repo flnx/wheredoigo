@@ -6,5 +6,6 @@ export const useCreatorDestinations = () => {
     return useQuery({
         queryKey: [queryEndpoints.creatorDestinations],
         queryFn: getCreatorDestinations,
+        useErrorBoundary: (error) => error.response?.status >= 500,
     });
 };
