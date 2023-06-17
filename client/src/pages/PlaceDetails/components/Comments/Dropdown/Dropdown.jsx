@@ -1,9 +1,9 @@
 import styles from './Dropdown.module.css';
 
 export const Dropdown = ({ isOwner, onItemClick, modalRef }) => {
-    const btnNames = ['Report'];
+    const btnNames = []; // Maybe will implement "Report" functionality later
 
-    isOwner && btnNames.push(...['Delete', 'Edit']);
+    isOwner && btnNames.push(...['Delete']); // Edit... ?
 
     const handleItemClick = (item) => {
         onItemClick(item);

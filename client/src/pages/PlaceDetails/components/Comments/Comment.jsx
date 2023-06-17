@@ -44,12 +44,14 @@ export const Comment = ({ comment }) => {
     };
 
     const handleCloseConfirmModalClick = () => {
+        if (isRemoveLoading) return;
         setIsConfirmModalOpen(false);
     };
 
     const handleDeleteComment = async () => {
-        handleCloseConfirmModalClick();
-        removeComment();
+        removeComment(null, {
+            onSuccess: () => handleCloseConfirmModalClick(),
+        });
     };
 
     useEffect(() => {
@@ -84,12 +86,14 @@ export const Comment = ({ comment }) => {
                 <p className={styles.commentContent}>{comment.content}</p>
             </div>
 
-            <DotsThree
-                size={32}
-                className={styles.treeDotsDropdown}
-                onClick={handleThreeDotsDropdownClick}
-                ref={treeDotsRef}
-            />
+            {comment.isOwner && (
+                <DotsThree
+                    size={32}
+                    className={styles.treeDotsDropdown}
+                    onClick={handleThreeDotsDropdownClick}
+                    ref={treeDotsRef}
+                />
+            )}
 
             {isDropDownModal && (
                 <Dropdown
@@ -103,6 +107,7 @@ export const Comment = ({ comment }) => {
                 <ConfirmModal
                     onCloseHandler={handleCloseConfirmModalClick}
                     actionClickHandler={handleDeleteComment}
+                    isLoading={isRemoveLoading}
                 >
                     Are you sure you wanna delete this comment?
                 </ConfirmModal>
