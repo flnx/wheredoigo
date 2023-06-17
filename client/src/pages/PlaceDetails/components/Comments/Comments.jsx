@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import { getPageFromSearchParams } from '../../../../utils/getPageFromSearchParams';
 import { usePlaceComments } from '../../../../hooks/queries/usePlaceComments';
 import styles from './Comments.module.css';
+import { extractServerErrorMessage } from '../../../../utils/utils';
 
 export const Comments = ({ placeId }) => {
     const [currentPage, setCurrentPage] = useSearchParams({});
@@ -25,36 +26,41 @@ export const Comments = ({ placeId }) => {
         }
     };
 
-    if (isLoading || error) {
-        return 'Loading || Error';
-    }
+    if (isLoading) return;
 
     const { data, hasNextPage, hasPreviousPage, totalPages } = comments;
-    const hasComments = data.length > 0;
+    const hasComments = data?.length > 0;
+    const hasNoComments = !error && !hasComments;
 
-    return hasComments ? (
-        <section className={styles.commentSection}>
-            <header className={styles.intro}>
-                <h3>Comments</h3>
-                <span className={styles.totalCommentsNum}>{comments?.totalComments}</span>
-            </header>
+    return (
+        <>
+            {error && <p>{extractServerErrorMessage(error)}</p>}
+            {hasComments && (
+                <section className={styles.commentSection}>
+                    <header className={styles.intro}>
+                        <h3>Comments</h3>
+                        <span className={styles.totalCommentsNum}>
+                            {comments?.totalComments}
+                        </span>
+                    </header>
 
-            <div className={styles.comments}>
-                {data.map((c) => (
-                    <Comment comment={c} key={c._id} />
-                ))}
-            </div>
-            <PaginationBar
-                currentPage={page}
-                totalPages={totalPages}
-                onPageClickHandler={onPageClickHandler}
-                hasNextPage={hasNextPage}
-                hasPreviousPage={hasPreviousPage}
-                isPreviousData={isPreviousData}
-                isFetching={isFetching}
-            />
-        </section>
-    ) : (
-        <p>No comments have been addded yet</p>
+                    <div className={styles.comments}>
+                        {data.map((c) => (
+                            <Comment comment={c} key={c._id} />
+                        ))}
+                    </div>
+                    <PaginationBar
+                        currentPage={page}
+                        totalPages={totalPages}
+                        onPageClickHandler={onPageClickHandler}
+                        hasNextPage={hasNextPage}
+                        hasPreviousPage={hasPreviousPage}
+                        isPreviousData={isPreviousData}
+                        isFetching={isFetching}
+                    />
+                </section>
+            )}
+            {hasNoComments && <p>No comments have been addded yet</p>}
+        </>
     );
 };

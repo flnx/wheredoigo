@@ -9,5 +9,5 @@ export const usePlaceComments = ({ placeId, page }) => {
         keepPreviousData: true,
     });
 
-    return [data, error, isLoading, isPreviousData, isFetching];
+    return [data || {}, error, isLoading, isPreviousData, isFetching];
 };

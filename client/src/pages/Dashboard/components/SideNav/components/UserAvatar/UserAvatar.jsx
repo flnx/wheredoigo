@@ -9,9 +9,9 @@ import { FileInput } from '../../../../../../components/FileInput/FileInput';
 import { CancelButton } from '../../../../../../components/Buttons/Cancel-Button/CancelButton';
 import { SuccessButton } from '../../../../../../components/Buttons/Success-Button/SuccessButton';
 import { CameraPlus } from '@phosphor-icons/react';
+import { DarkOverlay } from '../../../../../../components/DarkOverlay/DarkOverlay';
 
 import styles from './UserAvatar.module.css';
-import { DarkOverlay } from '../../../../../../components/DarkOverlay/DarkOverlay';
 
 export const UserAvatar = () => {
     const [image, setImage] = useState('');
