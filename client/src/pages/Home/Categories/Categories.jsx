@@ -21,7 +21,9 @@ export const Categories = ({ categories, isLoading }) => {
     const data = checkArrayAndPreloadElements(categories, 6);
     const { categoryRoute } = routeConstants.DISCOVER;
 
-    return (
+    const hasCategories = !isLoading && categories.length > 0;
+
+    return hasCategories ? (
         <section>
             <Container>
                 <h2 className={homeStyles.title}>
@@ -36,8 +38,11 @@ export const Categories = ({ categories, isLoading }) => {
                                     <LoadingSkeleton />
                                 </div>
                             ) : (
-                                <Link to={categoryRoute(categoryName)} className={styles.categoryName}>
-                                   {categoryName}
+                                <Link
+                                    to={categoryRoute(categoryName)}
+                                    className={styles.categoryName}
+                                >
+                                    {categoryName}
                                 </Link>
                             )}
                         </div>
@@ -45,7 +50,7 @@ export const Categories = ({ categories, isLoading }) => {
                 </div>
             </Container>
         </section>
-    );
+    ) : null;
 };
 
 Categories.propTypes = propTypes;

@@ -54,3 +54,10 @@ button[disabled] {
 .fill {
     fill: red;
 }
+
+.server-error {
+    text-align: center;
+    margin: 3rem 0;
+    font-size: 1.75rem;
+    color: var(--error-message);
+}

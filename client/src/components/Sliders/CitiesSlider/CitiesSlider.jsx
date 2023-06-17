@@ -14,8 +14,8 @@ CitiesSlider.propTypes = {
     isLoading: PropTypes.bool.isRequired,
 };
 
-export function CitiesSlider({ destinationsData = {}, isLoading }) {
-    const data = destinationsData?.data?.result || [];
+export function CitiesSlider({ destinationsData, isLoading }) {
+    const { data, error } = destinationsData;
 
     // 1. If destinations data is loading - it returns a new array with X elements
     // 1.1 This ensures that the Slider will render (X) amount of div boxes when the data is being fetched in order the loading skeleton to visualize inside them
@@ -24,8 +24,8 @@ export function CitiesSlider({ destinationsData = {}, isLoading }) {
     return (
         <section>
             <Container>
-                {destinations.error ? (
-                    <h2>{extractServerErrorMessage(destinations.error)}</h2>
+                {error ? (
+                    <h2 className="server-error">{extractServerErrorMessage(error)}</h2>
                 ) : (
                     <SliderWrapper>
                         {destinations.map((x) => (
