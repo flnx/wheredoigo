@@ -6,6 +6,10 @@
     background: var(--background);
 }
 
+.opacity {
+    opacity: 0.5;
+}
+
 .comments {
     display: grid;
     gap: 1.5rem;
@@ -28,7 +32,7 @@
 
 .commentContent {
     font-size: 1rem;
-    word-wrap:break-word;
+    word-wrap: break-word;
     overflow: hidden;
 }
 
@@ -76,4 +80,11 @@
     top: 0;
     right: 0;
     cursor: pointer;
+}
+
+.loader {
+    position: fixed;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
 }

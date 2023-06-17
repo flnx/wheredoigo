@@ -20,6 +20,7 @@ export const getPlace = async (id) => {
 };
 
 export const getPlaceComments = async (id, page) => {
+    await new Promise((res) => setTimeout(res, 4000));
     const placeData = await axios.get(apiEndpoints.placeComments(id, page));
 
     return placeData.data;

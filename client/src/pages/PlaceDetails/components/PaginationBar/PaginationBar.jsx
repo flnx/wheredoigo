@@ -15,7 +15,7 @@ export function PaginationBar({
 
     useEffect(() => {
         const pages = [];
-        const displayCount = 5; // number of pages to display in the bar
+        const displayCount = 5; // max range of pages to display in the bar
         let startPage = Math.max(1, currentPage - Math.floor(displayCount / 2));
         let endPage = Math.min(totalPages, startPage + displayCount - 1);
 

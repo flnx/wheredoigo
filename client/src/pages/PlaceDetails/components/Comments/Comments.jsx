@@ -1,10 +1,14 @@
-import { PaginationBar } from '../PaginationBar/PaginationBar';
-import { Comment } from './Comment';
 import { useSearchParams } from 'react-router-dom';
 import { getPageFromSearchParams } from '../../../../utils/getPageFromSearchParams';
 import { usePlaceComments } from '../../../../hooks/queries/usePlaceComments';
-import styles from './Comments.module.css';
+
+// Components
+import { PaginationBar } from '../PaginationBar/PaginationBar';
+import { Comment } from './Comment';
+import { ClipLoader } from 'react-spinners';
+
 import { extractServerErrorMessage } from '../../../../utils/utils';
+import styles from './Comments.module.css';
 
 export const Comments = ({ placeId }) => {
     const [currentPage, setCurrentPage] = useSearchParams({});
@@ -36,7 +40,9 @@ export const Comments = ({ placeId }) => {
         <>
             {error && <p>{extractServerErrorMessage(error)}</p>}
             {hasComments && (
-                <section className={styles.commentSection}>
+                <section
+                    className={`${styles.commentSection} ${isFetching && styles.opacity}`}
+                >
                     <header className={styles.intro}>
                         <h3>Comments</h3>
                         <span className={styles.totalCommentsNum}>
@@ -61,6 +67,13 @@ export const Comments = ({ placeId }) => {
                 </section>
             )}
             {hasNoComments && <p>No comments have been addded yet</p>}
+            <ClipLoader
+                color="#36d7b7"
+                size={40}
+                loading={isLoading || isFetching}
+                aria-label="Loading Spinner"
+                className={styles.loader}
+            />
         </>
     );
 };
