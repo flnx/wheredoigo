@@ -1,10 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useRemoveComment } from '../../../../hooks/queries/useRemoveComment';
 import { useParams } from 'react-router-dom';
+import { useCloseDropdown } from '../../../../hooks/useCloseDropdown';
+
+// Components
 import { DotsThree } from '@phosphor-icons/react';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 import { StarRating } from '../../../../components/StarRating/StarRating';
 import { Dropdown } from './Dropdown/Dropdown';
+import { ServerError } from '../../../../components/ServerError/ServerError';
 
 import styles from './Comments.module.css';
 
@@ -19,62 +23,48 @@ export const Comment = ({ comment }) => {
     const modalRef = useRef(null);
     const treeDotsRef = useRef(null);
 
-    const handleThreeDotsDropdownClick = () => {
+    useCloseDropdown({
+        isDropDownModal,
+        modalRef,
+        treeDotsRef,
+        handleCloseDropdownModal,
+    });
+
+    function handleThreeDotsDropdownClick() {
         setIsDropdownModalOpen((current) => !current);
-    };
+    }
 
-    const handleCloseDropdownModal = () => {
+    function handleCloseDropdownModal() {
         setIsDropdownModalOpen(false);
-    };
+    }
 
-    const handleDropdownModalItemClick = (clickedDropdownItem) => {
+    function handleDropdownModalItemClick(clickedDropdownItem) {
         handleCloseDropdownModal();
 
-        switch (clickedDropdownItem) {
-            case 'delete': {
-                return handleOpenConfirmModalClick();
-            }
-            default:
-                break;
+        if (clickedDropdownItem == 'delete') {
+            handleOpenConfirmModalClick();
         }
-    };
+    }
 
-    const handleOpenConfirmModalClick = () => {
+    function handleOpenConfirmModalClick() {
         setIsConfirmModalOpen(true);
-    };
+    }
 
-    const handleCloseConfirmModalClick = () => {
+    function handleCloseConfirmModalClick() {
         if (isRemoveLoading) return;
         setIsConfirmModalOpen(false);
-    };
+    }
 
-    const handleDeleteComment = async () => {
+    async function handleDeleteComment() {
         removeComment(null, {
             onSuccess: () => handleCloseConfirmModalClick(),
         });
-    };
-
-    useEffect(() => {
-        const handleClickOutsideDropdownModal = (e) => {
-            if (
-                isDropDownModal &&
-                modalRef.current &&
-                !modalRef.current.contains(e.target) &&
-                !treeDotsRef.current?.contains(e.target)
-            ) {
-                handleCloseDropdownModal();
-            }
-        };
-
-        document.addEventListener('mousedown', handleClickOutsideDropdownModal);
-
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutsideDropdownModal);
-        };
-    }, [isDropDownModal]);
+    }
 
     return (
         <section className={styles.comment}>
+            {removeError && <ServerError errorMessage={removeError} />}
+
             <div className={styles.avatar}>
                 <img src={comment.ownerId.avatarUrl} alt="img" />
                 <span className={styles.username}>{comment.ownerId.username}</span>

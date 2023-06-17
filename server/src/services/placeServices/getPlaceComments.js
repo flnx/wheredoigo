@@ -17,7 +17,11 @@ async function getPlaceComments(placeId, user, page) {
             .populate({
                 path: 'comments',
                 populate: { path: 'ownerId', select: 'username avatarUrl' },
-                options: { skip: skip, limit: perPage },
+                options: { 
+                    skip: skip, 
+                    limit: perPage,
+                    sort: { time: -1 }, // Sort by time in descending order (most recent first)
+                },
             })
             .lean()
             .exec(),
