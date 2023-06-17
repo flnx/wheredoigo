@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { useAddComment } from '../../../../hooks/queries/useAddComment';
 
-export const useSubmitFormData = () => {
+export const useSubmitFormData = ({ title, content, rating, resetForm }) => {
     const { placeId } = useParams();
     const { isLoading, error, mutate: addComment } = useAddComment(placeId);
     const [validationError, setValidationError] = useState(false);
@@ -26,10 +26,7 @@ export const useSubmitFormData = () => {
         addComment(data, {
             onSuccess: () => {
                 setValidationError('');
-                setTitle('');
-                setContent('');
-                onRateChangeHandler(0);
-                cacheRateHandler(0);
+                resetForm();
             },
         });
     };

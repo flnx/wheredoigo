@@ -14,15 +14,27 @@ export const CommentForm = () => {
     const [title, setTitle] = useState('');
     const [rating, setRating] = useState(0);
     const [cachedRate, setCachedRate] = useState(0);
-    const [handleSubmit, isLoading, error, validationError] = useSubmitFormData();
+    const [handleSubmit, isLoading, error, validationError] = useSubmitFormData({
+        title,
+        content,
+        rating,
+        resetForm,
+    });
 
-    const cacheRateHandler = (value) => {
+    function cacheRateHandler(value) {
         setCachedRate(value);
-    };
+    }
 
-    const onRateChangeHandler = (clickedStarValue) => {
+    function onRateChangeHandler(clickedStarValue) {
         setRating(clickedStarValue);
-    };
+    }
+
+    function resetForm() {
+        setTitle('');
+        setContent('');
+        onRateChangeHandler(0);
+        cacheRateHandler(0);
+    }
 
     return (
         <div>
@@ -44,9 +56,7 @@ export const CommentForm = () => {
                 />
                 <textarea
                     className={styles.formTextarea}
-                    onChange={(e) => {
-                        setContent(e.target.value);
-                    }}
+                    onChange={(e) => setContent(e.target.value)}
                     placeholder="Add a comment..."
                     value={content}
                 />
