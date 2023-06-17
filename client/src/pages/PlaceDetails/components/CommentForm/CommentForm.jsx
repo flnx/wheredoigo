@@ -1,19 +1,20 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useAddComment } from '../../../../hooks/queries/useAddComment';
+import { useSubmitFormData } from './useSubmitFormData';
+
+// Components
 import { SecondaryButton } from '../../../../components/Buttons/Secondary-Btn/SecondaryButton';
 import { Rate } from './Rate';
+import { DarkOverlay } from '../../../../components/DarkOverlay/DarkOverlay';
+import { ServerError } from '../../../../components/ServerError/ServerError';
 
 import styles from './CommentForm.module.css';
 
 export const CommentForm = () => {
     const [content, setContent] = useState('');
     const [title, setTitle] = useState('');
-    const [validationError, setValidationError] = useState(false);
     const [rating, setRating] = useState(0);
     const [cachedRate, setCachedRate] = useState(0);
-    const { placeId } = useParams();
-    const { isLoading, error, mutate: addComment } = useAddComment(placeId);
+    const [handleSubmit, isLoading, error, validationError] = useSubmitFormData();
 
     const cacheRateHandler = (value) => {
         setCachedRate(value);
@@ -21,34 +22,6 @@ export const CommentForm = () => {
 
     const onRateChangeHandler = (clickedStarValue) => {
         setRating(clickedStarValue);
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        if (title.length < 2) {
-            return setValidationError('Title must be at least 2 characters long');
-        }
-
-        if (content.length < 10) {
-            return setValidationError('Comment must contain at least 10 characters');
-        }
-
-        const data = {
-            title,
-            content,
-            rating,
-        };
-
-        addComment(data, {
-            onSuccess: () => {
-                setValidationError('');
-                setTitle('');
-                setContent('');
-                onRateChangeHandler(0);
-                cacheRateHandler(0);
-            },
-        });
     };
 
     return (
@@ -77,10 +50,11 @@ export const CommentForm = () => {
                     placeholder="Add a comment..."
                     value={content}
                 />
-                <SecondaryButton>Submit your Review</SecondaryButton>
+                <SecondaryButton isLoading={isLoading}>Submit your Review</SecondaryButton>
             </form>
-            {isLoading && <span>Loading...</span>}
+            {isLoading && <DarkOverlay isLoading={isLoading} />}
             {validationError && <span className={styles.error}>{validationError}</span>}
+            {error && <ServerError errorMessage={error} />}
         </div>
     );
 };
