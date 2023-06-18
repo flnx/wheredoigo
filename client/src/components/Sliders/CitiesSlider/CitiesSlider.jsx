@@ -19,7 +19,7 @@ export function CitiesSlider({ destinationsData, isLoading }) {
 
     // 1. If destinations data is loading - it returns a new array with X elements
     // 1.1 This ensures that the Slider will render (X) amount of div boxes when the data is being fetched in order the loading skeleton to visualize inside them
-    const destinations = checkArrayAndPreloadElements(data, 4);
+    const destinations = checkArrayAndPreloadElements(data?.result, 4);
 
     return (
         <section>

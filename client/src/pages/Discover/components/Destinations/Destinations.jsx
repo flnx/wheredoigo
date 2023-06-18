@@ -8,7 +8,7 @@ import { extractServerErrorMessage } from '../../../../utils/utils';
 export const Destinations = ({ searchParam, categoryParams }) => {
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching, error } =
         useInfiniteDestinations(searchParam, categoryParams);
-
+ 
     const loadingClass = (isFetchingNextPage || !hasNextPage) && styles.loading;
     const destinations = data?.pages.flatMap((arr) => arr.result) ?? [];
 

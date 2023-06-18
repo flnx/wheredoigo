@@ -17,13 +17,12 @@ export const Home = () => {
     const allowedCategories = destinations.data?.allowedCategories || [];
 
     const serverError = destinations.error && places.error;
-    const error = destinations.error || places.error;
 
     return (
         <>
             <Showcase isLoading={isLoading} />
             {serverError ? (
-                <h2 className="server-error">{extractServerErrorMessage(error)}</h2>
+                <h2 className="server-error">{extractServerErrorMessage(destinations.error)}</h2>
             ) : (
                 <div className={styles.grid}>
                     <CitiesSlider destinationsData={destinations} isLoading={isLoading} />
