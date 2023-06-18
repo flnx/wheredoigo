@@ -15,6 +15,7 @@ export const useImages = () => {
     };
 
     const deleteImage = (index) => {
+        console.log(index);
         dispatch({
             type: 'delete_image',
             index,

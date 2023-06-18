@@ -18,7 +18,7 @@ export const ImageThumbnailsPreview = ({ images, handleDeleteImage, isLoading, a
                 <div
                     key={i}
                     className={styles.thumbnail}
-                    onClick={() => handleDeleteImage(i)} // doesn't trigger click during loading
+                    onClick={(_) => handleDeleteImage(_, i)} // doesn't trigger click during loading
                 >
                     <div className={styles.overlayText}>tap to remove</div>
                     <div className={styles.imageContainer}>

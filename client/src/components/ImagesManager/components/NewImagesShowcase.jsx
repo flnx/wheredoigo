@@ -37,9 +37,9 @@ export const NewImagesShowcase = ({ uploadImagesHandler, isUploading }) => {
 
             <ImageThumbnailsPreview
                 images={images.imageUrls}
-                handleDeleteImage={(_, index) => deleteImage(index)}
+                handleDeleteImage={() => deleteImage(index)}
             />
-            
+
             {hasNewlyUploadImages && (
                 <SuccessButton onClickHandler={handleNewImagesSubmit} isLoading={isUploading}>
                     Add
