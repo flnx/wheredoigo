@@ -37,9 +37,4 @@
         max-height: 33rem;
         flex-direction: row;
     }
-
-    .images img,
-    .loading {
-        aspect-ratio: 1/1;
-    }
 }

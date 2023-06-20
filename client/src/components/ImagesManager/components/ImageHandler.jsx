@@ -18,7 +18,7 @@ export const ImageHandler = ({ imagesData, deleteImageHandler, isDeleting, isLoa
     const [openModal, setOpenModal] = useState(false);
     const [imgIndexToDelete, setImgIndexToDelete] = useState(null);
 
-    const onDeleteClickOpenConfirmModalHandler = (index) => {
+    const onDeleteClickOpenConfirmModalHandler = (_, index) => {
         if (isLoading) return;
         setOpenModal(true);
         setImgIndexToDelete(index);
