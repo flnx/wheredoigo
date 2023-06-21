@@ -28,6 +28,7 @@ export const Comments = ({ placeId, commentSectionRef }) => {
             // update current page with the new page value
             setCurrentPage({ page });
         }
+        commentSectionRef.current?.scrollIntoView();
     };
 
     if (isLoading) return;
