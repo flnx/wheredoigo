@@ -22,8 +22,6 @@ export const PlaceDetails = () => {
 
     const { isAuth, hasCommented } = data || {};
 
-    console.log(commentSectionRef);
-
     return (
         <Container>
             {error ? (

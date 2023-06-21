@@ -44,7 +44,18 @@ async function getDestinationsPaginated(page, limit, searchParams, categories) {
     const skipStage = { $skip: page };
     const limitStage = { $limit: limit };
 
-    const pipeline = [
+    // Pipeline for counting the total number of documents after applying filters
+    const countPipeline = [
+        lookupStage,
+        unwindStage,
+        matchStage,
+        {
+            $count: 'total',
+        },
+    ];
+
+    // Pipeline for retrieving paginated data based on filters
+    const dataPipeline = [
         lookupStage,
         unwindStage,
         matchStage,
@@ -53,14 +64,33 @@ async function getDestinationsPaginated(page, limit, searchParams, categories) {
         limitStage,
     ];
 
-    const destinations = await Destination.aggregate(pipeline).exec();
+    // Execute the count pipeline and data pipeline in parallel
+    const countPromise = Destination.aggregate(countPipeline).exec();
+    const dataPromise = Destination.aggregate(dataPipeline).exec();
 
+    // Wait for the count and data promises to resolve
+    const [countResult, destinations] = await Promise.all([
+        countPromise,
+        dataPromise,
+    ]);
+
+    // Extract the total count from the count result
+    const countAll = countResult[0] ? countResult[0].total : 0;
+
+    // Capitalize the city and country name
     destinations.forEach((x) => {
         x.city = capitalizeEachWord(x.city);
         x.country = capitalizeEachWord(x.country.name);
     });
 
-    return destinations;
+    // Calculate if there is a next page
+    const hasNextPage = page + limit < countAll;
+
+    // Calculate the next page number if it exists
+    const nextPage = hasNextPage ? page + limit : null;
+
+    // Return the paginated data and nextPage number
+    return [destinations, nextPage];
 }
 
 module.exports = getDestinationsPaginated;

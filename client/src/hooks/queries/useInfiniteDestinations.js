@@ -11,14 +11,7 @@ export const useInfiniteDestinations = (searchParams, categoryParams) => {
             searchParams,
             categoryParams,
         ],
-        getNextPageParam: (_lastPage, pages) => {
-            const skip = pages.length;
-            const currentPageArray = pages[skip - 1];
-            const isThereNextPage = currentPageArray.length == 9;
-            const nextPage = skip * 9;
-
-            return isThereNextPage ? nextPage : undefined;
-        },
+        getNextPageParam: (data) => data.nextPage,
         queryFn: getDestinationsPaginated,
         cacheTime: 0,
         keepPreviousData: true,

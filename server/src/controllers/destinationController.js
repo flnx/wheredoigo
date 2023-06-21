@@ -34,7 +34,8 @@ const paginated_destinations = async (req, res, next) => {
         );
 
         res.json({
-            result: destinations,
+            result: destinations[0],
+            nextPage: destinations[1],
             allowedCategories: destinationCategories,
         });
     } catch (err) {
