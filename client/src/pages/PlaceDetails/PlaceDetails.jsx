@@ -10,15 +10,19 @@ import { Comments } from './components/Comments/Comments';
 import { CommentForm } from './components/CommentForm/CommentForm';
 
 import styles from './PlaceDetails.module.css';
+import { useRef } from 'react';
 
 export const PlaceDetails = () => {
     const { placeId } = useParams();
     const { data, isLoading, error } = usePlace(placeId);
+    const commentSectionRef = useRef();
 
     const place = data || {};
     const imagesData = place?.imageUrls || [];
 
     const { isAuth, hasCommented } = data || {};
+
+    console.log(commentSectionRef);
 
     return (
         <Container>
@@ -30,8 +34,13 @@ export const PlaceDetails = () => {
                     <Header place={place} isLoading={isLoading} />
                     {!isLoading && (
                         <>
-                            {<Comments placeId={placeId} />}
-                            {isAuth && !hasCommented && <CommentForm />}
+                            <Comments
+                                placeId={placeId}
+                                commentSectionRef={commentSectionRef}
+                            />
+                            {isAuth && !hasCommented && (
+                                <CommentForm commentSectionRef={commentSectionRef} />
+                            )}
                         </>
                     )}
                 </div>

@@ -9,7 +9,7 @@ import { ServerError } from '../../../../components/ServerError/ServerError';
 
 import styles from './CommentForm.module.css';
 
-export const CommentForm = () => {
+export const CommentForm = ({ commentSectionRef }) => {
     const [content, setContent] = useState('');
     const [title, setTitle] = useState('');
     const [rating, setRating] = useState(0);
@@ -20,6 +20,8 @@ export const CommentForm = () => {
         rating,
         resetForm,
     });
+
+    // console.log(commentSectionRef);
 
     function cacheRateHandler(value) {
         setCachedRate(value);
@@ -39,7 +41,7 @@ export const CommentForm = () => {
     return (
         <div>
             <h3 className={styles.title}>Leave a comment</h3>
-            <form className={styles.form} onSubmit={handleSubmit}>
+            <form className={styles.form} onSubmit={(e) => handleSubmit(e, commentSectionRef)}>
                 <Rate
                     userRating={rating}
                     changeRateHandler={onRateChangeHandler}

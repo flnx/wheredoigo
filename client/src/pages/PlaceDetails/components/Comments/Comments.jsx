@@ -10,7 +10,7 @@ import { ClipLoader } from 'react-spinners';
 import { extractServerErrorMessage } from '../../../../utils/utils';
 import styles from './Comments.module.css';
 
-export const Comments = ({ placeId }) => {
+export const Comments = ({ placeId, commentSectionRef }) => {
     const [currentPage, setCurrentPage] = useSearchParams({});
     const page = getPageFromSearchParams(currentPage);
     const [comments, error, isLoading, isPreviousData, isFetching] = usePlaceComments({
@@ -42,6 +42,7 @@ export const Comments = ({ placeId }) => {
             {hasComments && (
                 <section
                     className={`${styles.commentSection} ${isFetching && styles.opacity}`}
+                    ref={commentSectionRef}
                 >
                     <header className={styles.intro}>
                         <h3>Comments</h3>

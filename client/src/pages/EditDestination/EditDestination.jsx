@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useGetDestinationToEdit } from '../../hooks/queries/useGetDestinationToEdit';
 import { useDeleteDestinationImage } from '../../hooks/queries/useDeleteDestinationImage';
 import { useAddDestinationNewImages } from '../../hooks/queries/useAddDestinationNewImages';
@@ -12,14 +12,24 @@ import { ImagesManager } from '../../components/ImagesManager/ImagesManager';
 import { TextWrap } from '../../components/TextWrap/TextWrap';
 
 import { extractServerErrorMessage } from '../../utils/utils';
+import routeConstants from '../../constants/routeConstants';
+import { useEffect } from 'react';
 
 export const EditDestination = () => {
     const { destinationId } = useParams();
+    const navigate = useNavigate();
     const [data, error, isLoading] = useGetDestinationToEdit(destinationId);
     const deleteImageHook = () => useDeleteDestinationImage(destinationId);
     const addImageHook = () => useAddDestinationNewImages(destinationId);
 
     const destinationTitle = `${data?.city}, ${data?.country}`;
+
+    useEffect(() => {
+        if (error) {
+            const { routePath } = routeConstants.DASHBOARD.MY_DESTINATIONS;
+            navigate(routePath, { replace: true });
+        }
+    }, [error]);
 
     return (
         <Container>
