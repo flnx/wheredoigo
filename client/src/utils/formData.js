@@ -1,4 +1,4 @@
-import { createImageFiles } from "./imagesHandler";
+import { createImageFiles } from './imagesHandler';
 
 export const createDestinationFormData = async (state, images) => {
     const formData = new FormData();
@@ -6,7 +6,7 @@ export const createDestinationFormData = async (state, images) => {
     formData.append('city', state.city);
     formData.append('country', state.country);
     formData.append('description', state.description);
-    formData.append('category', state.category);
+    formData.append('category', JSON.stringify(state.categories));
     formData.append('details', JSON.stringify(state.details));
 
     await createImageFiles(images.imageUrls, formData);
@@ -31,4 +31,4 @@ export const createImagesFormData = async (state) => {
     const formData = new FormData();
     await createImageFiles(state.imageUrls, formData);
     return formData;
-}
+};

@@ -14,7 +14,6 @@ import { SuccessButton } from '../../../../components/Buttons/Success-Button/Suc
 import { DetailsButtons } from './components/DetailsButtons/DetailsButtons';
 import { DarkOverlay } from '../../../../components/DarkOverlay/DarkOverlay';
 import { ShowFormError } from '../../../../components/ShowFormError/ShowFormError';
-import { FormSelect } from '../../../../components/FormSelect/FormSelect';
 
 import styles from './AddDestination.module.css';
 import { FormCheckboxes } from '../../../../components/FormCheckboxes/FormCheckboxes';
@@ -30,6 +29,7 @@ export const AddDestination = () => {
         state,
         categories
     );
+
 
     const showDetailHandler = (category) => setShowDetail(category);
     const openedDetailsCategory = state.details.find((x) => x.category == showDetail.category);
@@ -71,14 +71,6 @@ export const AddDestination = () => {
                         openedDetailsCategory={openedDetailsCategory}
                     />
                 )}
-                {/* <FormSelect
-                    categories={state.categories}
-                    options={categories}
-                    onChangeHandler={(e) => updateField(e.target.name, e.target.value)}
-                    label={'Category'}
-                    errors={errors}
-                    boxshadow={true}
-                /> */}
 
                 <ImageUploader addImages={addImages} />
 

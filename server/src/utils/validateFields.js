@@ -4,7 +4,9 @@ const { allowedPlaceCategories } = require('../constants/allowedPlaceCategories'
 const { errorMessages } = require('../constants/errorMessages');
 const { createValidationError } = require('./createValidationError');
 const { isString, isObject, isValidInteger } = require('./utils');
-const { destinationCategories } = require('../constants/allowedDestinationCategories');
+const {
+    destinationCategories,
+} = require('../constants/allowedDestinationCategories');
 
 function validateDestinationFields(data) {
     const { city, description, category, details } = data;
@@ -22,13 +24,13 @@ function validateDestinationFields(data) {
         throw createValidationError(errorMessages.description, 400);
     }
 
-    if (!isString(category) || !destinationCategories.includes(category)) {
-        console.log(category)
+    const validatedCategories = validateCategories(category);
 
-        throw createValidationError(errorMessages.missingFields, 400);
+    if (validatedCategories.length == 0) {
+        throw createValidationError(errorMessages.selectCategory, 400);
     }
 
-    return true;
+    return validatedCategories;
 }
 
 function validatePlaceFields(placeData) {
@@ -38,7 +40,7 @@ function validatePlaceFields(placeData) {
     if (!isString(name)) {
         throw createValidationError(errorMessages.placeName, 400);
     }
-    
+
     if (!isString(description) || !validator.isLength(description, options)) {
         throw createValidationError(errorMessages.description, 400);
     }
@@ -57,7 +59,10 @@ function validateImages(images, minimumNum) {
 
     const filteredArray = images.filter((obj) => {
         const isValidObject = isObject(obj);
-        const hasBufferAndMimetype = isValidObject && Object.hasOwn(obj, 'buffer') && Object.hasOwn(obj, 'mimetype');
+        const hasBufferAndMimetype =
+            isValidObject &&
+            Object.hasOwn(obj, 'buffer') &&
+            Object.hasOwn(obj, 'mimetype');
 
         const isBuffer = isValidObject && Buffer.isBuffer(obj.buffer);
         return isValidObject && hasBufferAndMimetype && isBuffer;

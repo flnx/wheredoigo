@@ -2,7 +2,10 @@ const Destination = require('../../models/destinationSchema');
 const Country = require('../../models/countrySchema');
 
 // utils
-const { validateDestinationFields, validateImages } = require('../../utils/validateFields');
+const {
+    validateDestinationFields,
+    validateImages,
+} = require('../../utils/validateFields');
 const { addImages } = require('../../utils/cloudinaryUploader');
 
 // Services
@@ -15,11 +18,11 @@ async function createDestination(data, images, user) {
         city: data.city,
         description: data.description,
         details: JSON.parse(data.details) || [],
-        category: data.category,
+        category: JSON.parse(data.category),
     };
 
-    
-    validateDestinationFields(destinationData);
+    const categories = validateDestinationFields(destinationData);
+
     validateImages(images, 4); // (at least 4 images)
 
     const cityData = await fetchCity(data.city);
@@ -27,6 +30,7 @@ async function createDestination(data, images, user) {
 
     const destination = await Destination.create({
         ...destinationData,
+        category: categories,
         country: country._id,
         imageUrls: [],
         likes: [],
