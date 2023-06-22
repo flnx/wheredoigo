@@ -33,7 +33,6 @@ const FormFieldEditor = ({
     categoryId,
 }) => {
     const [description, setDescription] = useState(desc);
-    const [cache, setCache] = useState(desc);
 
     const onChangeHandler = (e) => {
         setDescription(e.target.value);
@@ -42,10 +41,8 @@ const FormFieldEditor = ({
     const onCancelClickHandler = () => {
         // passes the fieldId in order to reset isEditable and hide the textarea/input
         onEditButtonClickHandler(fieldId);
-        setDescription(cache);
+        setDescription(desc);
     };
-
-    const setCacheHandler = (data) => setCache(data);
 
     const onSaveButtonClickHandler = (e) => {
         e.preventDefault();
@@ -56,7 +53,7 @@ const FormFieldEditor = ({
             description,
         };
 
-        sendEditedFieldClickHandler(fieldId, description, editInfo, setCacheHandler);
+        sendEditedFieldClickHandler(fieldId, editInfo);
     };
 
     return (

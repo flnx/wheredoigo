@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetDestinationToEdit } from '../../hooks/queries/useGetDestinationToEdit';
 import { useDeleteDestinationImage } from '../../hooks/queries/useDeleteDestinationImage';
@@ -13,7 +14,6 @@ import { TextWrap } from '../../components/TextWrap/TextWrap';
 
 import { extractServerErrorMessage } from '../../utils/utils';
 import routeConstants from '../../constants/routeConstants';
-import { useEffect } from 'react';
 
 export const EditDestination = () => {
     const { destinationId } = useParams();
@@ -39,6 +39,7 @@ export const EditDestination = () => {
                 </h1>
                 <FlexSectionContainer>
                     <Form
+                        categories={data?.category}
                         description={data?.description}
                         details={data?.details}
                         destinationId={destinationId}

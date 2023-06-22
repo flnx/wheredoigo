@@ -14,9 +14,9 @@ import { SuccessButton } from '../../../../components/Buttons/Success-Button/Suc
 import { DetailsButtons } from './components/DetailsButtons/DetailsButtons';
 import { DarkOverlay } from '../../../../components/DarkOverlay/DarkOverlay';
 import { ShowFormError } from '../../../../components/ShowFormError/ShowFormError';
+import { FormCheckboxes } from '../../../../components/FormCheckboxes/FormCheckboxes';
 
 import styles from './AddDestination.module.css';
-import { FormCheckboxes } from '../../../../components/FormCheckboxes/FormCheckboxes';
 
 export const AddDestination = () => {
     const categories = ['Beach', 'Mountains', 'Cultural', 'Snow', 'Islands', 'Adventure'];
@@ -29,7 +29,6 @@ export const AddDestination = () => {
         state,
         categories
     );
-
 
     const showDetailHandler = (category) => setShowDetail(category);
     const openedDetailsCategory = state.details.find((x) => x.category == showDetail.category);
@@ -59,7 +58,6 @@ export const AddDestination = () => {
                     options={categories}
                     categories={state.categories}
                     onChangeHandler={updateCategory}
-                    boxshadow={true}
                     errors={errors}
                 />
 

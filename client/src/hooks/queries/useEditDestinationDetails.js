@@ -8,41 +8,50 @@ export const useEditDestinationDetails = (destinationId) => {
     const { mutate, isLoading } = useMutation({
         mutationFn: (data) => editDestinationDetails(destinationId, data),
         onSuccess: (updatedField) => {
-            const { categoryId, infoId, description } = updatedField;
+            const { categoryId, infoId, description, categories } = updatedField;
 
             const destination = queryClient.getQueryData([
                 queryEndpoints.editDestination,
                 destinationId,
             ]);
 
-            const updatedDestination =
-                infoId === 'Description'
-                    ? { ...destination, description }
-                    : {
-                          ...destination,
-                          details: destination.details.map((detail) => {
-                              if (detail._id !== categoryId) {
-                                  return detail;
-                              }
+            let updatedDestination;
 
-                              return {
-                                  ...detail,
-                                  info: detail.info.map((info) => {
-                                      if (info._id !== infoId) {
-                                          return info;
-                                      }
+            if (categories) {
+                updatedDestination = {
+                    ...destination,
+                    category: categories,
+                };
+            } else {
+                updatedDestination =
+                    infoId === 'Description'
+                        ? { ...destination, description }
+                        : {
+                              ...destination,
+                              details: destination.details.map((detail) => {
+                                  if (detail._id !== categoryId) {
+                                      return detail;
+                                  }
 
-                                      return { ...info, description };
-                                  }),
-                              };
-                          }),
-                      };
+                                  return {
+                                      ...detail,
+                                      info: detail.info.map((info) => {
+                                          if (info._id !== infoId) {
+                                              return info;
+                                          }
+
+                                          return { ...info, description };
+                                      }),
+                                  };
+                              }),
+                          };
+            }
 
             queryClient.setQueryData(
                 [queryEndpoints.editDestination, destinationId],
                 updatedDestination
             );
-            
+
             queryClient.invalidateQueries([
                 queryEndpoints.destination,
                 destinationId,

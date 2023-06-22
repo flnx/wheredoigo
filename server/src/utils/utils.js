@@ -27,6 +27,20 @@ function isValidInteger(value) {
     return typeof value === 'number' && Number.isInteger(value);
 }
 
+function isValidArrayOfStrings(arr) {
+    if (!Array.isArray(arr)) {
+        return false;
+    }
+
+    const hasInvalidCategory = arr.some((c) => typeof c !== 'string');
+
+    if (hasInvalidCategory) {
+        return false;
+    }
+
+    return true;
+}
+
 module.exports = {
     validatePassword,
     fixInvalidFolderNameChars,
@@ -34,4 +48,5 @@ module.exports = {
     extractCloudinaryFolderName,
     isString,
     isValidInteger,
+    isValidArrayOfStrings
 };

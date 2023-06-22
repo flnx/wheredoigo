@@ -3,7 +3,13 @@ const validator = require('validator');
 const { allowedPlaceCategories } = require('../constants/allowedPlaceCategories');
 const { errorMessages } = require('../constants/errorMessages');
 const { createValidationError } = require('./createValidationError');
-const { isString, isObject, isValidInteger } = require('./utils');
+const {
+    isString,
+    isObject,
+    isValidInteger,
+    isValidArrayOfStrings,
+} = require('./utils');
+
 const {
     destinationCategories,
 } = require('../constants/allowedDestinationCategories');
@@ -78,10 +84,20 @@ function validateImages(images, minimumNum) {
 }
 
 function validateFieldsOnEdit(data) {
-    const { description, infoId, categoryId } = data;
+    const { description, infoId, categoryId, categories } = data;
 
     if (!isString(description) || !isString(infoId)) {
         throw createValidationError(errorMessages.invalidBody, 400);
+    }
+
+    if (categories) {
+        const validatedCategories = validateCategories(categories);
+
+        if (validatedCategories.length == 0) {
+            throw createValidationError(errorMessages.selectCategory, 400);
+        }
+
+        data.categories = validatedCategories;
     }
 
     if (categoryId && !isString(categoryId)) {
@@ -102,7 +118,7 @@ function validateFieldsOnEdit(data) {
 }
 
 function validateCategories(categories) {
-    if (categories && Array.isArray(categories)) {
+    if (categories && isValidArrayOfStrings(categories)) {
         const filteredCategories = categories
             .filter((c) => isString(c) && destinationCategories.includes(c))
             .filter((value, index, self) => self.indexOf(value) === index); // Filter out repeating values

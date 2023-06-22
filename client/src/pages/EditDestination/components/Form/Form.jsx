@@ -7,9 +7,10 @@ import { extractServerErrorMessage } from '../../../../utils/utils';
 
 // Components
 import { MemoizedFormFieldEditor } from '../../../../components/FormFieldEditor/FormFieldEditor';
-import { DetailsFormFields } from './DetailsFormFields';
+import { DetailsFormFields } from './components/DetailsFormFields';
 import { TextWrap } from '../../../../components/TextWrap/TextWrap';
 import { FormLoadingSkeleton } from '../../../../components/FormLoadingSkeleton/FormLoadingSkeleton';
+import { Categories } from './components/Categories';
 
 import styles from './Form.module.css';
 
@@ -18,20 +19,24 @@ const propTypes = {
     isLoading: PropTypes.bool.isRequired,
     description: PropTypes.string.isRequired,
     details: PropTypes.array.isRequired,
-}
+    categories: PropTypes.array.isRequired,
+};
 
 const defaultProps = {
     details: [],
-    description: "",
+    categories: [],
+    description: '',
 };
 
-
-export const Form = ({ description, details, destinationId, isLoading }) => {
+export const Form = ({ description, details, destinationId, isLoading, categories }) => {
     const [editDetails, isEditLoading] = useEditDestinationDetails(destinationId);
     const [editError, setEditError] = useState('');
     const [isEditable, setIsEditable] = useState({});
 
-    const onEditButtonClickHandler = useCallback((clickedId) => {
+    const allowedCategories = ['Beach', 'Mountains', 'Cultural', 'Snow', 'Islands', 'Adventure'];
+
+    const onEditButtonClickHandler = useCallback(
+        (clickedId) => {
             // enables/disables the form fields
             setIsEditable((prevState) => {
                 // opens/closes the edit field
@@ -51,28 +56,21 @@ export const Form = ({ description, details, destinationId, isLoading }) => {
         [editError]
     );
 
-    const sendEditedFieldClickHandler = useCallback(
-        (fieldId, description, editedInfo, cbCacheHandler) => {
-            try {
-                validateFieldsOnEdit(editedInfo);
+    const sendEditedFieldClickHandler = useCallback((fieldId, editedInfo) => {
+        try {
+            validateFieldsOnEdit(editedInfo, allowedCategories);
 
-                editDetails(editedInfo, {
-                    onSuccess: () => {
-                        onEditButtonClickHandler(fieldId);
-                        cbCacheHandler(description);
-                    },
-                    onError: (err) => {
-                        setEditError(extractServerErrorMessage(err));
-                    },
-                });
-            } catch (err) {
-                setEditError(err.message);
-            }
-        },
-        []
-    );
+            editDetails(editedInfo, {
+                onSuccess: () => onEditButtonClickHandler(fieldId),
+                onError: (err) => setEditError(extractServerErrorMessage(err)),
+            });
+        } catch (err) {
+            setEditError(err.message);
+        }
+    }, []);
 
     const descriptionID = 'Description';
+    const categoriesID = 'Categories';
 
     return (
         <section>
@@ -93,6 +91,18 @@ export const Form = ({ description, details, destinationId, isLoading }) => {
                             isLoading={isEditLoading}
                             error={editError}
                         />
+
+                        <Categories
+                            categories={categories}
+                            options={allowedCategories}
+                            errors={editError}
+                            fieldId={categoriesID}
+                            isEditable={isEditable[categoriesID]}
+                            onEditButtonClickHandler={onEditButtonClickHandler}
+                            sendEditedFieldClickHandler={sendEditedFieldClickHandler}
+                            isLoading={isEditLoading}
+                        />
+
                         <DetailsFormFields
                             onEditButtonClickHandler={onEditButtonClickHandler}
                             isEditable={isEditable}

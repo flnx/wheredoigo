@@ -1,4 +1,4 @@
-import { MemoizedFormFieldEditor } from '../../../../components/FormFieldEditor/FormFieldEditor';
+import { MemoizedFormFieldEditor } from '../../../../../components/FormFieldEditor/FormFieldEditor';
 
 export const DetailsFormFields = ({
     onEditButtonClickHandler,

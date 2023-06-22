@@ -50,8 +50,6 @@ export const validateDestinationData = (state, images, allowedCategories) => {
         }
     }
 
-    console.log(errors);
-
     return errors;
 };
 

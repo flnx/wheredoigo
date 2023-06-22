@@ -9,10 +9,16 @@ const { createValidationError } = require('../../utils/createValidationError');
 const { validateFieldsOnEdit } = require('../../utils/validateFields');
 
 async function editDestinationField(destinationId, updatedFields) {
-    const { description, infoId, categoryId } = validateFieldsOnEdit(updatedFields);
+    const { description, categories, infoId, categoryId } = validateFieldsOnEdit(updatedFields);
 
-    if (infoId == 'Description') {
+    if (infoId.toLowerCase() == 'Description'.toLowerCase()) {
         const result = await editDescription(destinationId, description, infoId);
+
+        return result;
+    }
+
+    if (categories) {
+        const result = await editCategories(destinationId, categories);
 
         return result;
     }
@@ -22,6 +28,22 @@ async function editDestinationField(destinationId, updatedFields) {
     }
 
     const result = await editDetail(destinationId, categoryId, infoId, description);
+    return result;
+}
+
+async function editCategories(destinationId, categories) {
+    console.log(categories);
+    const result = await Destination.updateOne(
+        { _id: destinationId },
+        { $set: { category: categories } }
+    )
+        .lean()
+        .exec();
+
+    if (!result || result.matchedCount === 0) {
+        throw createValidationError(errorMessages.couldNotUpdate(infoId), 404);
+    }
+
     return result;
 }
 
