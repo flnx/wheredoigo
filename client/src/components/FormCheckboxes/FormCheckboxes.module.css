@@ -14,8 +14,8 @@
     -webkit-appearance: none;
     appearance: none;
     /* creating a custom design */
-    width: 1.4rem;
-    height: 1.4rem;
+    width: 1.3rem;
+    height: 1.3rem;
     border-radius: 0.15em;
     margin-right: 0.5rem;
     border: 0.15rem solid var(--danger);
@@ -31,7 +31,7 @@
 
 .category input:checked::before {
     content: "\2714";
-    font-size: 1.10rem;
+    font-size: 1.075rem;
     color: #fff;
     position: absolute;
     right: 2px;

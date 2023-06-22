@@ -14,7 +14,7 @@ export const ShowFormError = ({ errors, errorParam }) => {
 
     const hasError = errorChecker(errorParam);
 
-    return hasError && <span className={styles.error}>{errorChecker(errorParam)}</span>;
+    return hasError ? <span className={styles.error}>{errorChecker(errorParam)}</span> : null;
 };
 
 ShowFormError.propTypes = propTypes;

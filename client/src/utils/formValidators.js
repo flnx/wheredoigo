@@ -23,7 +23,7 @@ export function validatePlaceData({ state, images, allowedCategories }) {
 }
 
 export const validateDestinationData = (state, images, allowedCategories) => {
-    const { city, description, category } = state;
+    const { city, description, categories } = state;
     const errors = [];
 
     const isCityValid = city && state.lastCityFetch.city.toLowerCase() == city.toLowerCase();
@@ -40,8 +40,14 @@ export const validateDestinationData = (state, images, allowedCategories) => {
         errors.push('Description must be between 50 and 5000 characters');
     }
 
-    if (!allowedCategories.includes(category)) {
-        errors.push('Please select a category');
+    if (categories.length == 0) {
+        errors.push('Please select at least 1 category');
+    } else {
+        const hasInvalidCategory = categories.some(c => !allowedCategories.includes(c));
+        
+        if (hasInvalidCategory) {
+            errors.push('Invalid category!');
+        }
     }
 
     console.log(errors);

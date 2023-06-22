@@ -23,8 +23,7 @@ export const AddDestination = () => {
     const categories = ['Beach', 'Mountains', 'Cultural', 'Snow', 'Islands', 'Adventure'];
 
     const [showDetail, setShowDetail] = useState({ category: null });
-    const { updateField, updateDetail, updateLastCityFetch, updateCategory, state } =
-        useDestinationInput();
+    const { updateField, updateDetail, updateLastCityFetch, updateCategory, state } = useDestinationInput();
     const { images, addImages, deleteImage } = useImages();
     const { submitHandler, isLoading, error, errors } = useSubmitData(
         images,
@@ -61,6 +60,7 @@ export const AddDestination = () => {
                     categories={state.categories}
                     onChangeHandler={updateCategory}
                     boxshadow={true}
+                    errors={errors}
                 />
 
                 <DetailsButtons showDetailHandler={showDetailHandler} />

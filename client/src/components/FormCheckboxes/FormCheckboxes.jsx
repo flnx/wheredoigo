@@ -1,6 +1,13 @@
+import { ShowFormError } from '../ShowFormError/ShowFormError';
 import styles from './FormCheckboxes.module.css';
 
-export const FormCheckboxes = ({ categories, options, onChangeHandler, boxshadow }) => {
+export const FormCheckboxes = ({
+    categories,
+    options,
+    onChangeHandler,
+    boxshadow,
+    errors,
+}) => {
     return (
         <div className={`${styles.selectWrapper} ${boxshadow ? styles.boxShadow : ''}`}>
             <h3 className="mb-1">Select Categories</h3>
@@ -23,7 +30,7 @@ export const FormCheckboxes = ({ categories, options, onChangeHandler, boxshadow
                 })}
             </ul>
 
-            {/* {!value && <ShowFormError errors={errors} errorParam={name} />} */}
+            <ShowFormError errors={errors} errorParam={'category'} />
         </div>
     );
 };
