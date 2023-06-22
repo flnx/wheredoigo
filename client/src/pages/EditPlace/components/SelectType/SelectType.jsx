@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { EditTextareaPairs } from '../../../../components/Buttons/EditTextareaPairs/EditTextareaPairs';
 import { ButtonSky } from '../../../../components/Buttons/Button-Sky/ButtonSky';
 import { CancelButton } from '../../../../components/Buttons/Cancel-Button/CancelButton';
+import { SpanLabelTitle } from '../../../../components/SpanLabelTitle/SpanLabelTitle';
+import { FormEditWrapper, WrapperWithWidth } from '../../../../components/Containers/FormEditWrapper/FormEditWrapper';
 
 import styles from './SelectType.module.css';
 
@@ -45,11 +47,11 @@ export const SelectType = ({
     return (
         <div>
             <h3>Category</h3>
-            <div className={styles['wrapper']}>
-                <span className={styles.label}>Type: </span>
+            <FormEditWrapper>
+                <SpanLabelTitle title={'Type: '} />
 
                 {isEditable ? (
-                    <div className={styles.selectWrapper}>
+                    <WrapperWithWidth>
                         <select
                             id="type"
                             name="type"
@@ -75,14 +77,14 @@ export const SelectType = ({
                                 Cancel
                             </CancelButton>
                         </div>
-                    </div>
+                    </WrapperWithWidth>
                 ) : (
                     <EditTextareaPairs
                         selected={selectedType}
                         onClickHandler={() => onEditButtonClickHandler(typeId)}
                     />
                 )}
-            </div>
+            </FormEditWrapper>
         </div>
     );
 };

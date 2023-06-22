@@ -6,6 +6,11 @@ import { FormCheckboxes } from '../../../../../components/FormCheckboxes/FormChe
 import { EditTextareaPairs } from '../../../../../components/Buttons/EditTextareaPairs/EditTextareaPairs';
 import { CancelButton } from '../../../../../components/Buttons/Cancel-Button/CancelButton';
 import { ButtonSky } from '../../../../../components/Buttons/Button-Sky/ButtonSky';
+import {
+    FormEditWrapper,
+    WrapperWithWidth,
+} from '../../../../../components/Containers/FormEditWrapper/FormEditWrapper';
+import { SpanLabelTitle } from '../../../../../components/SpanLabelTitle/SpanLabelTitle';
 
 import styles from './Categories.module.css';
 
@@ -50,10 +55,10 @@ export const Categories = ({
     };
 
     return (
-        <div className={styles.wrapper}>
-            <span className={styles.label}>Categories</span>
+        <FormEditWrapper>
+            <SpanLabelTitle title={fieldId} />
             {isEditable ? (
-                <div className={styles.checkboxWrapper}>
+                <WrapperWithWidth>
                     <FormCheckboxes
                         categories={selectedCategories}
                         options={options}
@@ -75,13 +80,13 @@ export const Categories = ({
                             Cancel
                         </CancelButton>
                     </div>
-                </div>
+                </WrapperWithWidth>
             ) : (
                 <EditTextareaPairs
                     selected={selectedCategories.join(', ')}
                     onClickHandler={() => onEditButtonClickHandler(fieldId)}
                 />
             )}
-        </div>
+        </FormEditWrapper>
     );
 };

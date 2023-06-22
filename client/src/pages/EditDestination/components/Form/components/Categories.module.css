@@ -1,34 +1,7 @@
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    border-bottom: 1px solid #7e7e7e;
-    padding: 1.5rem 0;
-    gap: 1rem;
-}
-
-.label {
-    color: var(--text-primary);
-    font-weight: 600;
-    font-size: 0.965rem;
-    width: 23rem;
-}
-
-.checkboxWrapper {
-    width: 100%;
-}
-
 .buttons {
     margin-top: 0.5rem;
 }
 
 .buttons :first-child {
     margin-right: 0.45rem;
-}
-
-
-@media (min-width: 40em) {
-    .wrapper {
-        flex-direction: row;
-        gap: 2rem;
-    }
 }

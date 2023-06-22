@@ -6,6 +6,8 @@ import { memo } from 'react';
 import { ButtonSky } from '../../components/Buttons/Button-Sky/ButtonSky';
 import { CancelButton } from '../../components/Buttons/Cancel-Button/CancelButton';
 import { EditTextareaPairs } from '../Buttons/EditTextareaPairs/EditTextareaPairs';
+import { SpanLabelTitle } from '../SpanLabelTitle/SpanLabelTitle';
+import { FormEditWrapper, WrapperWithWidth } from '../Containers/FormEditWrapper/FormEditWrapper';
 
 import styles from './FormFieldEditor.module.css';
 
@@ -57,10 +59,10 @@ const FormFieldEditor = ({
     };
 
     return (
-        <div className={styles.wrapper}>
-            <span className={styles.label}>{title}</span>
+        <FormEditWrapper>
+            <SpanLabelTitle title={title} />
             {isEditable ? (
-                <div className={styles.textareaWrapper}>
+                <WrapperWithWidth>
                     <textarea
                         name={title}
                         aria-label={title}
@@ -83,14 +85,14 @@ const FormFieldEditor = ({
                         </CancelButton>
                     </div>
                     {error && <span className="error-message">{error}</span>}
-                </div>
+                </WrapperWithWidth>
             ) : (
                 <EditTextareaPairs
                     selected={description}
                     onClickHandler={() => onEditButtonClickHandler(fieldId)}
                 />
             )}
-        </div>
+        </FormEditWrapper>
     );
 };
 
