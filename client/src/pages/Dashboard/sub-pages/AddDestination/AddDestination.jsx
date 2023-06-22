@@ -17,12 +17,14 @@ import { ShowFormError } from '../../../../components/ShowFormError/ShowFormErro
 import { FormSelect } from '../../../../components/FormSelect/FormSelect';
 
 import styles from './AddDestination.module.css';
+import { FormCheckboxes } from '../../../../components/FormCheckboxes/FormCheckboxes';
 
 export const AddDestination = () => {
     const categories = ['Beach', 'Mountains', 'Cultural', 'Snow', 'Islands', 'Adventure'];
 
     const [showDetail, setShowDetail] = useState({ category: null });
-    const { updateField, updateDetail, updateLastCityFetch, state } = useDestinationInput();
+    const { updateField, updateDetail, updateLastCityFetch, updateCategory, state } =
+        useDestinationInput();
     const { images, addImages, deleteImage } = useImages();
     const { submitHandler, isLoading, error, errors } = useSubmitData(
         images,
@@ -53,7 +55,31 @@ export const AddDestination = () => {
                     description={state.description}
                     errors={errors}
                 />
-                
+
+                <FormCheckboxes
+                    options={categories}
+                    categories={state.categories}
+                    onChangeHandler={updateCategory}
+                    boxshadow={true}
+                />
+
+                <DetailsButtons showDetailHandler={showDetailHandler} />
+                {showDetail.category && (
+                    <Details
+                        updateDetail={updateDetail}
+                        showDetailHandler={showDetailHandler}
+                        openedDetailsCategory={openedDetailsCategory}
+                    />
+                )}
+                {/* <FormSelect
+                    categories={state.categories}
+                    options={categories}
+                    onChangeHandler={(e) => updateField(e.target.name, e.target.value)}
+                    label={'Category'}
+                    errors={errors}
+                    boxshadow={true}
+                /> */}
+
                 <ImageUploader addImages={addImages} />
 
                 <ImageThumbnailsPreview
@@ -64,22 +90,6 @@ export const AddDestination = () => {
                 {images.imageUrls.length < 4 && (
                     <ShowFormError errors={errors} errorParam={'images'} />
                 )}
-                <DetailsButtons showDetailHandler={showDetailHandler} />
-                {showDetail.category && (
-                    <Details
-                        updateDetail={updateDetail}
-                        showDetailHandler={showDetailHandler}
-                        openedDetailsCategory={openedDetailsCategory}
-                    />
-                )}
-                <FormSelect
-                    value={state.category}
-                    options={categories}
-                    onChangeHandler={(e) => updateField(e.target.name, e.target.value)}
-                    label={'Category'}
-                    errors={errors}
-                    boxshadow={true}
-                />
 
                 <SuccessButton isLoading={isLoading} type="submit" fw="600" p="0.6rem 1.15rem">
                     Create Destination

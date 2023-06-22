@@ -6,6 +6,19 @@ export function destinationFormReducer(state, action) {
                 [action.payload.name]: action.payload.value,
             };
 
+        case 'ADD_CATEGORY':
+            return {
+                ...state,
+                categories: [...state.categories, action.payload],
+            };
+        case 'REMOVE_CATEGORY':
+            return {
+                ...state,
+                categories: state.categories.filter(
+                    (category) => category !== action.payload
+                ),
+            };
+
         case 'last_city_fetched':
             return {
                 ...state,
@@ -59,7 +72,7 @@ export const initialState = {
         country: '',
     },
     country: '',
-    category: '',
+    categories: [],
     details: [
         {
             category: 'Good to Know',

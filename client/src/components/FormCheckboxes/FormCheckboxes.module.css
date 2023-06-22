@@ -1,0 +1,45 @@
+.category {
+    display: flex;
+    gap: 1rem;
+    font-size: 1.05rem;
+}
+
+.category label {
+    width: 7.5rem;
+}
+
+.category input[type="checkbox"] {
+    margin-left: auto;
+    /* removing default appearance */
+    -webkit-appearance: none;
+    appearance: none;
+    /* creating a custom design */
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 0.15em;
+    margin-right: 0.5rem;
+    border: 0.15rem solid var(--danger);
+    outline: none;
+    cursor: pointer;
+    display: flex;
+}
+
+.category input:checked {
+    background-color: var(--danger);
+    position: relative;
+}
+
+.category input:checked::before {
+    content: "\2714";
+    font-size: 1.10rem;
+    color: #fff;
+    position: absolute;
+    right: 2px;
+    top: -5px;
+}
+
+@media (min-width: 40em) {
+    .category input {
+        margin: 0;
+    }
+}

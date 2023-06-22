@@ -17,7 +17,7 @@ const dislikeDestination = require('../services/destinationServices/dislikeDesti
 
 const paginated_destinations = async (req, res, next) => {
     const page = parseInt(req.query.page) || 0;
-    const limit = 9;
+    const limit = 8;
     const search = req.query.search;
     let categories = req.query.categories;
 

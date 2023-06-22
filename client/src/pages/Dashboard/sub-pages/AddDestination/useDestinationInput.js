@@ -1,5 +1,8 @@
 import { useReducer } from 'react';
-import { destinationFormReducer, initialState } from '../../../../utils/destinationReducer';
+import {
+    destinationFormReducer,
+    initialState,
+} from '../../../../utils/destinationReducer';
 
 export const useDestinationInput = () => {
     const [state, dispatch] = useReducer(destinationFormReducer, initialState);
@@ -26,10 +29,19 @@ export const useDestinationInput = () => {
         });
     };
 
+    const updateCategory = (category) => {
+        if (state.categories.includes(category)) {
+            dispatch({ type: 'REMOVE_CATEGORY', payload: category });
+        } else {
+            dispatch({ type: 'ADD_CATEGORY', payload: category });
+        }
+    };
+
     return {
         updateField,
         updateLastCityFetch,
         updateDetail,
         state,
+        updateCategory
     };
 };
