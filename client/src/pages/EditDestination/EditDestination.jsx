@@ -42,6 +42,7 @@ export const EditDestination = () => {
                         categories={data?.category}
                         description={data?.description}
                         details={data?.details}
+                        allowedCategories={data?.allowedCategories}
                         destinationId={destinationId}
                         isLoading={isLoading}
                     />

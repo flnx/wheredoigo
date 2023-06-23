@@ -6,6 +6,7 @@ export const validateFieldsOnEdit = (data, allowedCategories) => {
     }
 
     const { description, infoId, categoryId, categories } = data;   
+
     if (!isString(description) || !isString(infoId) || (categoryId && !isString(categoryId))) {
         throw new Error('Data values must be valid strings 🦖');
     }
@@ -16,9 +17,13 @@ export const validateFieldsOnEdit = (data, allowedCategories) => {
             throw new Error('Categories must be an array of strings 🦖');
         }
         
-        if (categories.filter(c => (c) != '').length == 0) {
+        const trimOutEmptyStrings = categories.filter((str) => str.trim().length > 0);
+
+        if (trimOutEmptyStrings.length == 0) {
             throw new Error('Please select at least 1 category');
         }
+
+        data.categories = trimOutEmptyStrings;
     }
 
     if (infoId == 'type') {

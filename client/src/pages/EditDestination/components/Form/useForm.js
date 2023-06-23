@@ -33,9 +33,9 @@ export const useForm = ({ destinationId, allowedCategories }) => {
 
     const sendEditedFieldClickHandler = useCallback((fieldId, editedInfo) => {
         try {
-            validateFieldsOnEdit(editedInfo, allowedCategories);
-            
-            editDetails(editedInfo, {
+            const validated = validateFieldsOnEdit(editedInfo, allowedCategories);
+
+            editDetails(validated, {
                 onSuccess: () => onEditButtonClickHandler(fieldId),
                 onError: (err) => setEditError(extractServerErrorMessage(err)),
             });

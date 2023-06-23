@@ -11,21 +11,29 @@ import { Categories } from './components/Categories';
 import styles from './Form.module.css';
 
 const propTypes = {
+    categories: PropTypes.array.isRequired,
+    allowedCategories: PropTypes.array.isRequired,
     destinationId: PropTypes.string.isRequired,
     isLoading: PropTypes.bool.isRequired,
     description: PropTypes.string.isRequired,
     details: PropTypes.array.isRequired,
-    categories: PropTypes.array.isRequired,
 };
 
 const defaultProps = {
     details: [],
     categories: [],
+    allowedCategories: [],
     description: '',
 };
 
-export const Form = ({ description, details, destinationId, isLoading, categories }) => {
-    const allowedCategories = ['Beach', 'Mountains', 'Cultural', 'Snow', 'Islands', 'Adventure'];
+export const Form = ({
+    description,
+    details,
+    destinationId,
+    isLoading,
+    categories,
+    allowedCategories,
+}) => {
     const {
         isEditable,
         isEditLoading,
