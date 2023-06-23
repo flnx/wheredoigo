@@ -123,6 +123,7 @@ const post_comment = async (req, res, next) => {
             ownerId,
             rating,
         });
+        
         res.json(comment);
     } catch (err) {
         next(err);

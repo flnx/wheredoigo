@@ -11,7 +11,7 @@ const propTypes = {
 
 export const PlacesShowcase = ({ places, isLoading }) => {
     const explorePlaces = places.filter((x) => x?.type.toLowerCase() == 'explore');
-    const partyPlaces = places.filter((x) => x?.type.toLowerCase() == 'party');
+    const partyPlaces = places.filter((x) => x?.type.toLowerCase() == 'fun');
     const eatingPlaces = places.filter((x) => x?.type.toLowerCase() == 'eat');
 
     // If data is loading - it returns a new array with 3 elements (in order to render 3 sections)

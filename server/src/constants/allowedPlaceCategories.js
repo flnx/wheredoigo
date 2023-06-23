@@ -1,4 +1,4 @@
-const allowedPlaceCategories = ['Explore', 'Eat', 'Party'];
+const allowedPlaceCategories = ['Explore', 'Eat', 'Fun'];
 const allowedFieldsToUpdate = ['type', 'name', 'description'];
 
 module.exports = {
