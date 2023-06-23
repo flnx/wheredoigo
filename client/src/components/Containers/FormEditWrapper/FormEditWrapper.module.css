@@ -6,6 +6,10 @@
     gap: 1rem;
 }
 
+.buttons :first-child {
+    margin-right: 0.45rem;
+}
+
 @media (min-width: 40em) {
     .wrapper {
         flex-direction: row;

@@ -5,7 +5,7 @@ import { EditTextareaPairs } from '../../../../components/Buttons/EditTextareaPa
 import { ButtonSky } from '../../../../components/Buttons/Button-Sky/ButtonSky';
 import { CancelButton } from '../../../../components/Buttons/Cancel-Button/CancelButton';
 import { SpanLabelTitle } from '../../../../components/SpanLabelTitle/SpanLabelTitle';
-import { FormEditWrapper, WrapperWithWidth } from '../../../../components/Containers/FormEditWrapper/FormEditWrapper';
+import { EditButtonsWrapper, FormEditWrapper, WrapperWithWidth } from '../../../../components/Containers/FormEditWrapper/FormEditWrapper';
 
 import styles from './SelectType.module.css';
 
@@ -66,7 +66,7 @@ export const SelectType = ({
                             ))}
                         </select>
                         {error && <span className="error-message">{error}</span>}
-                        <div className={styles.buttons}>
+                        <EditButtonsWrapper>
                             <ButtonSky
                                 onClickHandler={onSaveButtonClickHandler}
                                 isLoading={isLoading}
@@ -76,7 +76,7 @@ export const SelectType = ({
                             <CancelButton onClickHandler={onCancelClickHandler}>
                                 Cancel
                             </CancelButton>
-                        </div>
+                        </EditButtonsWrapper>
                     </WrapperWithWidth>
                 ) : (
                     <EditTextareaPairs

@@ -6,13 +6,8 @@ import { FormCheckboxes } from '../../../../../components/FormCheckboxes/FormChe
 import { EditTextareaPairs } from '../../../../../components/Buttons/EditTextareaPairs/EditTextareaPairs';
 import { CancelButton } from '../../../../../components/Buttons/Cancel-Button/CancelButton';
 import { ButtonSky } from '../../../../../components/Buttons/Button-Sky/ButtonSky';
-import {
-    FormEditWrapper,
-    WrapperWithWidth,
-} from '../../../../../components/Containers/FormEditWrapper/FormEditWrapper';
+import { FormEditWrapper, WrapperWithWidth, EditButtonsWrapper } from '../../../../../components/Containers/FormEditWrapper/FormEditWrapper';
 import { SpanLabelTitle } from '../../../../../components/SpanLabelTitle/SpanLabelTitle';
-
-import styles from './Categories.module.css';
 
 export const Categories = ({
     categories,
@@ -66,7 +61,7 @@ export const Categories = ({
                         errors={[]}
                     />
                     {error && <span className="error-message">{error}</span>}
-                    <div className={styles.buttons}>
+                    <EditButtonsWrapper>
                         <ButtonSky
                             onClickHandler={onSaveButtonClickHandler}
                             isLoading={isLoading}
@@ -79,7 +74,7 @@ export const Categories = ({
                         >
                             Cancel
                         </CancelButton>
-                    </div>
+                    </EditButtonsWrapper>
                 </WrapperWithWidth>
             ) : (
                 <EditTextareaPairs

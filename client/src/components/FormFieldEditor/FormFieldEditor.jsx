@@ -7,7 +7,7 @@ import { ButtonSky } from '../../components/Buttons/Button-Sky/ButtonSky';
 import { CancelButton } from '../../components/Buttons/Cancel-Button/CancelButton';
 import { EditTextareaPairs } from '../Buttons/EditTextareaPairs/EditTextareaPairs';
 import { SpanLabelTitle } from '../SpanLabelTitle/SpanLabelTitle';
-import { FormEditWrapper, WrapperWithWidth } from '../Containers/FormEditWrapper/FormEditWrapper';
+import { FormEditWrapper, WrapperWithWidth, EditButtonsWrapper } from '../Containers/FormEditWrapper/FormEditWrapper';
 
 import styles from './FormFieldEditor.module.css';
 
@@ -70,7 +70,7 @@ const FormFieldEditor = ({
                         onChange={onChangeHandler}
                         className={styles.textarea}
                     />
-                    <div className={styles.buttons}>
+                    <EditButtonsWrapper>
                         <ButtonSky
                             onClickHandler={onSaveButtonClickHandler}
                             isLoading={isLoading}
@@ -83,7 +83,7 @@ const FormFieldEditor = ({
                         >
                             Cancel
                         </CancelButton>
-                    </div>
+                    </EditButtonsWrapper>
                     {error && <span className="error-message">{error}</span>}
                 </WrapperWithWidth>
             ) : (

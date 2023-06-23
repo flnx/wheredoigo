@@ -1,11 +1,13 @@
 .category {
     display: flex;
-    gap: 1rem;
-    font-size: 1.05rem;
+}
+
+.category:last-child {
+    margin-bottom: 0.44rem;
 }
 
 .category label {
-    width: 7.5rem;
+    font-size: 1.05rem;
 }
 
 .category input[type="checkbox"] {
@@ -36,10 +38,4 @@
     position: absolute;
     right: 2px;
     top: -5px;
-}
-
-@media (min-width: 40em) {
-    .category input {
-        margin: 0;
-    }
 }
