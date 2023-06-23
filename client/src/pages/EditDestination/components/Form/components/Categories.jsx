@@ -60,7 +60,6 @@ export const Categories = ({
                         onChangeHandler={onChangeHandler}
                         errors={[]}
                     />
-                    {error && <span className="error-message">{error}</span>}
                     <EditButtonsWrapper>
                         <ButtonSky
                             onClickHandler={onSaveButtonClickHandler}
@@ -75,6 +74,7 @@ export const Categories = ({
                             Cancel
                         </CancelButton>
                     </EditButtonsWrapper>
+                    {error && <span className="error-message">{error}</span>}
                 </WrapperWithWidth>
             ) : (
                 <EditTextareaPairs

@@ -10,19 +10,14 @@ export const validateFieldsOnEdit = (data, allowedCategories) => {
         throw new Error('Data values must be valid strings 🦖');
     }
 
+    
     if (categories) {
         if (!isValidArrayOfStrings(allowedCategories) || !isValidArrayOfStrings(categories)) {
             throw new Error('Categories must be an array of strings 🦖');
         }
-
-        if (categories.length == 0) {
+        
+        if (categories.filter(c => (c) != '').length == 0) {
             throw new Error('Please select at least 1 category');
-        }
-
-        const hasInvalidCategory = categories.some((c) => !allowedCategories.includes(c));
-
-        if (hasInvalidCategory) {
-            throw new Error('Invalid category!');
         }
     }
 

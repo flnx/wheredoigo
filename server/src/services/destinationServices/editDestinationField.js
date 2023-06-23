@@ -32,7 +32,6 @@ async function editDestinationField(destinationId, updatedFields) {
 }
 
 async function editCategories(destinationId, categories) {
-    console.log(categories);
     const result = await Destination.updateOne(
         { _id: destinationId },
         { $set: { category: categories } }
