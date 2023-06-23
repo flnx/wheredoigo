@@ -2,9 +2,8 @@ import PropTypes from 'prop-types';
 
 // Components
 import { LoadingSkeleton } from '../../../../components/LoadingSkeletons/LoadingSkeleton';
-import { checkArrayAndPreloadElements } from '../../../../utils/utils'
+import { checkArrayAndPreloadElements } from '../../../../utils/utils';
 import { Link } from 'react-router-dom';
-;
 import routeConstants from '../../../../constants/routeConstants';
 import styles from './TipsPopUp.module.css';
 
@@ -31,7 +30,7 @@ export const TipsPopUp = ({ details, onCategoryClickHandler, isLoading }) => {
                     className={styles.category}
                     onClick={() => onCategoryClickHandler(x)}
                 >
-                    {x.category || 'Category'} 
+                    {x.category || 'Category'}
                 </Link>
             ))}
             {isLoading && (
