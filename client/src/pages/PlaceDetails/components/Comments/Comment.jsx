@@ -72,8 +72,10 @@ export const Comment = ({ comment }) => {
 
             <div className={styles.content}>
                 <StarRating averageRating={comment.rating} />
-                <h3 className={styles.commentTitle}>{comment.title}</h3>
-                <p className={styles.commentContent}>{comment.content}</p>
+                <div className={styles.contentBody}>
+                    <h3 className={styles.commentTitle}>{comment.title}</h3>
+                    <p className={styles.commentContent}>{comment.content}</p>
+                </div>
             </div>
 
             {comment.isOwner && (
