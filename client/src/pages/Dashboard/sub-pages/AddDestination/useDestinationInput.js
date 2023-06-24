@@ -14,13 +14,6 @@ export const useDestinationInput = () => {
         });
     };
 
-    const updateLastCityFetch = (city, country) => {
-        dispatch({
-            type: 'last_city_fetched',
-            payload: { city, country },
-        });
-    };
-
     const updateDetail = (name, description, category) => {
         dispatch({
             type: 'details_change',
@@ -39,9 +32,8 @@ export const useDestinationInput = () => {
 
     return {
         updateField,
-        updateLastCityFetch,
         updateDetail,
         state,
-        updateCategory
+        updateCategory,
     };
 };

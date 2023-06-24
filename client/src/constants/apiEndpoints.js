@@ -31,7 +31,7 @@ export const apiEndpoints = {
     deleteDestinationImage: (id) => `destinations/${id}/delete-image`,
 
     changeAvatar: 'change-avatar',
-    getCity: (city) => `destinations/search-city?name=${city}`,
+    countriesAndCities: 'destinations/countries-and-cities',
 
     places: `places`,
     userPlacesData: 'places/user-places-data',

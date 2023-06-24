@@ -23,7 +23,7 @@ exports.errorMessages = {
     invalidRating: 'Invalid rating value',
     couldNotUpdate: (fieldName) => `Couldn't update ${fieldName}`,
     couldNotDelete: (name) => `Couldn't delete ${name}`,
-    serverError: 'We apologize for the inconvenience caused. Regrettably, an error has occurred at this time. Please kindly try again later. Thank you for your understanding.',
+    serverError: 'Apologies for the inconvenience. An error occurred. Please try again later. Thank you for your understanding.',
     couldNotAddComment: 'Could not add the comment. Please try again later...',
     placeName: 'Place name is required',
     destinationDetails: 'Destination details must be an array',

@@ -1,25 +1,27 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 
-export const useDebounce = (value, delay) => {
-    // State and setters for debounced value
-    const [debouncedValue, setDebouncedValue] = useState(value);
+// Search City functionality is removed and debounce is not needed anymore... (might need it in future so don't delete it)
 
-    useEffect(
-        () => {
-            // Update debounced value after delay
-            const handler = setTimeout(() => {
-                setDebouncedValue(value);
-            }, delay);
+// export const useDebounce = (value, delay) => {
+//     // State and setters for debounced value
+//     const [debouncedValue, setDebouncedValue] = useState(value);
 
-            // Cancel the timeout if value changes (also on delay change or unmount)
-            // This is how we prevent debounced value from updating if value is changed ...
-            // .. within the delay period. Timeout gets cleared and restarted.
-            return () => {
-                clearTimeout(handler);
-            };
-        },
-        [value, delay] // Only re-call effect if value or delay changes
-    );
+//     useEffect(
+//         () => {
+//             // Update debounced value after delay
+//             const handler = setTimeout(() => {
+//                 setDebouncedValue(value);
+//             }, delay);
 
-    return debouncedValue;
-};
+//             // Cancel the timeout if value changes (also on delay change or unmount)
+//             // This is how we prevent debounced value from updating if value is changed ...
+//             // .. within the delay period. Timeout gets cleared and restarted.
+//             return () => {
+//                 clearTimeout(handler);
+//             };
+//         },
+//         [value, delay] // Only re-call effect if value or delay changes
+//     );
+
+//     return debouncedValue;
+// };

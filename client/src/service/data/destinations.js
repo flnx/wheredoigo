@@ -83,8 +83,8 @@ export const getDestinationsPaginated = async ({ pageParam, queryKey }) => {
     return destinations.data;
 };
 
-export const getCityData = async (name) => {
-    const res = await axios.get(apiEndpoints.getCity(name));
+export const getCountriesAndCities = async () => {
+    const res = await axios.get(apiEndpoints.countriesAndCities);
 
     return res.data;
 };

@@ -8,7 +8,7 @@ const getDestinationById = require('../services/destinationServices/getDestinati
 const getDestinationsPaginated = require('../services/destinationServices/getDestinationsPaginated');
 const getDestinationPlaces = require('../services/placeServices/getDestinationPlaces');
 
-const { fetchCity } = require('../services/getCityCountryData');
+const { fetchCity, fetchCountriesAndCities } = require('../services/getCityCountryData');
 const {
     destinationCategories,
 } = require('../constants/allowedDestinationCategories');
@@ -60,11 +60,9 @@ const destination_details = async (req, res, next) => {
     }
 };
 
-const get_city_data = async (req, res, next) => {
-    const { name } = req.query;
-
+const get_countries_and_cities = async (req, res, next) => {
     try {
-        const result = await fetchCity(name);
+        const result = await fetchCountriesAndCities();
         res.json(result);
     } catch (err) {
         next(err);
@@ -177,7 +175,7 @@ const dislike_destination = async (req, res, next) => {
 module.exports = {
     paginated_destinations,
     destination_details,
-    get_city_data,
+    get_countries_and_cities,
     add_new_destination,
     get_creator_destinations,
     request_destination_to_edit,

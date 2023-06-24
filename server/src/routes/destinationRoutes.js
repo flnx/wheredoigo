@@ -16,7 +16,7 @@ const {
     delete_destination_image: delete_image,
     add_destination_new_images: add_images,
     paginated_destinations,
-    get_city_data,
+    get_countries_and_cities,
     delete_destination,
     add_new_destination,
     like_destination,
@@ -26,7 +26,7 @@ const {
 const router = express.Router();
 
 router.get('/destinations', paginated_destinations);
-router.get('/destinations/search-city', auth, get_city_data);
+router.get('/destinations/countries-and-cities', auth, get_countries_and_cities);
 router.get('/destinations/created-by-user', auth, creator_destinations);
 router.get('/destinations/:id/request-edit-permissions', validateMongoId, auth, fetchDestinationAndCheckOwnership, request_edit);
 router.get('/destinations/:id', validateMongoId, checkSession, details);

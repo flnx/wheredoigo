@@ -13,5 +13,5 @@ export const queryEndpoints = {
     createPlacePermissions: 'createPlacePermissions',
     editPlace: 'editPlace',
     placeComments: 'placeComments',
-    city: 'city',
+    locations: 'locations',
 }

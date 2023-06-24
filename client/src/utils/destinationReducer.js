@@ -11,27 +11,13 @@ export function destinationFormReducer(state, action) {
                 ...state,
                 categories: [...state.categories, action.payload],
             };
+
         case 'REMOVE_CATEGORY':
             return {
                 ...state,
                 categories: state.categories.filter(
                     (category) => category !== action.payload
                 ),
-            };
-
-        case 'last_city_fetched':
-            return {
-                ...state,
-                lastCityFetch: {
-                    city: action.payload.city,
-                    country: action.payload.country,
-                },
-            };
-
-        case 'reset_last_fetch':
-            return {
-                ...state,
-                lastCityFetch: { city: '', country: '' },
             };
 
         case 'details_change': {
@@ -67,10 +53,6 @@ export function destinationFormReducer(state, action) {
 export const initialState = {
     description: '',
     city: '',
-    lastCityFetch: {
-        city: '',
-        country: '',
-    },
     country: '',
     categories: [],
     details: [

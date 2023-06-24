@@ -5,7 +5,6 @@ import { useImages } from '../../../../hooks/useImages';
 
 // Components
 import { ServerError } from '../../../../components/ServerError/ServerError';
-import { SearchCity } from './components/SearchCity/SearchCity';
 import { Description } from './components/Description';
 import { Details } from './components/Details';
 import { ImageUploader } from '../../../../components/ImageUploader/ImageUploader';
@@ -15,6 +14,7 @@ import { DetailsButtons } from './components/DetailsButtons/DetailsButtons';
 import { DarkOverlay } from '../../../../components/DarkOverlay/DarkOverlay';
 import { ShowFormError } from '../../../../components/ShowFormError/ShowFormError';
 import { FormCheckboxes } from '../../../../components/FormCheckboxes/FormCheckboxes';
+import { LocationDropdown } from './components/LocationDropdown/LocationDropdown';
 
 import styles from './AddDestination.module.css';
 
@@ -22,8 +22,9 @@ export const AddDestination = () => {
     const categories = ['Beach', 'Mountains', 'Cultural', 'Snow', 'Islands', 'Adventure'];
 
     const [showDetail, setShowDetail] = useState({ category: null });
-    const { updateField, updateDetail, updateLastCityFetch, updateCategory, state } = useDestinationInput();
+    const { updateField, updateDetail, updateCategory, state } = useDestinationInput();
     const { images, addImages, deleteImage } = useImages();
+
     const { submitHandler, isLoading, error, errors } = useSubmitData(
         images,
         state,
@@ -41,13 +42,12 @@ export const AddDestination = () => {
             {error && <ServerError errorMessage={error} />}
 
             <form className={styles.form} onSubmit={submitHandler}>
-                <SearchCity
-                    updateField={updateField}
-                    updateLastCityFetch={updateLastCityFetch}
+                <LocationDropdown
+                    onChangeHandler={updateField}
                     city={state.city}
-                    lastCityFetch={state.lastCityFetch}
-                    errors={errors}
+                    country={state.country}
                 />
+
                 <Description
                     updateField={updateField}
                     description={state.description}

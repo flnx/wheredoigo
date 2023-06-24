@@ -8,7 +8,8 @@ async function fetchCity(city) {
         throw createValidationError(errorMessages.notFound, 404);
     }
 
-    const result = await fetch(process.env.CITY_URL + city, options());
+    // const result = await fetch(process.env.CITY_URL + city + "&country=CH" + "&limit=5", options());
+    const result = await fetch(process.env.CITY_URL + city + '&limit=10', options());
     const data = await result.json();
 
     if (Array.isArray(data)) {
@@ -16,12 +17,21 @@ async function fetchCity(city) {
             throw createValidationError(errorMessages.notFound, 404);
         }
 
-        return {
-            ...data[0],
-        };
+        return data;
     }
 
     throw createValidationError(errorMessages.notFound, 404);
+}
+
+async function fetchCountriesAndCities() {
+    try {
+        const result = await fetch(process.env.CITIES_COUNTRIES_URL);
+        const data = await result.json();
+        return data;
+    } catch(error) {
+        throw createValidationError(errorMessages.serverError, 500);
+    }
+
 }
 
 async function fetchCountry(country) {
@@ -54,4 +64,5 @@ function options() {
 module.exports = {
     fetchCity,
     fetchCountry,
+    fetchCountriesAndCities
 };

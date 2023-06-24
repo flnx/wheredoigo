@@ -2,10 +2,7 @@ const Destination = require('../../models/destinationSchema');
 const Country = require('../../models/countrySchema');
 
 // utils
-const {
-    validateDestinationFields,
-    validateImages,
-} = require('../../utils/validateFields');
+const { validateDestinationFields, validateImages } = require('../../utils/validateFields');
 const { addImages } = require('../../utils/cloudinaryUploader');
 
 // Services
