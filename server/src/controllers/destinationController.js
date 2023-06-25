@@ -8,10 +8,8 @@ const getDestinationById = require('../services/destinationServices/getDestinati
 const getDestinationsPaginated = require('../services/destinationServices/getDestinationsPaginated');
 const getDestinationPlaces = require('../services/placeServices/getDestinationPlaces');
 
-const { fetchCity, fetchCountriesAndCities } = require('../services/getCityCountryData');
-const {
-    destinationCategories,
-} = require('../constants/allowedDestinationCategories');
+const { fetchCountriesAndCities } = require('../services/getCityCountryData');
+const { destinationCategories } = require('../constants/allowedDestinationCategories');
 const likeDestination = require('../services/destinationServices/likeDestination');
 const dislikeDestination = require('../services/destinationServices/dislikeDestination');
 

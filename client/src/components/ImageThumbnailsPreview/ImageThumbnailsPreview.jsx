@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+
+// Components
 import { X } from '@phosphor-icons/react';
 import { LoadingSkeleton } from '../LoadingSkeletons/LoadingSkeleton';
 

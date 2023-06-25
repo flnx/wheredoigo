@@ -1,0 +1,17 @@
+.dropdowns {
+    background: var(--app-background-color);
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+.flex {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+@media (min-width: 40em) {
+    .flex {
+        flex-direction: row;
+    }
+}

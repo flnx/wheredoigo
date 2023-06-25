@@ -1,10 +1,18 @@
 export function destinationFormReducer(state, action) {
     switch (action.type) {
         case 'change':
-            return {
-                ...state,
-                [action.payload.name]: action.payload.value,
-            };
+            if (action.payload.name === 'country') {
+                return {
+                    ...state,
+                    [action.payload.name]: action.payload.value,
+                    city: '', // Reset city to an empty string when country is changed
+                };
+            } else {
+                return {
+                    ...state,
+                    [action.payload.name]: action.payload.value,
+                };
+            }
 
         case 'ADD_CATEGORY':
             return {

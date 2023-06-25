@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { ShowFormError } from '../ShowFormError/ShowFormError';
+import { ClipLoader } from 'react-spinners';
 
 import styles from './FormSelect.module.css';
 
@@ -10,9 +11,20 @@ const propTypes = {
     label: PropTypes.string.isRequired,
     errors: PropTypes.array,
     boxshadow: PropTypes.bool,
+    isLoading: PropTypes.bool,
+    disabled: PropTypes.bool,
 };
 
-export const FormSelect = ({ value, options, onChangeHandler, label, errors, boxshadow }) => {
+export const FormSelect = ({
+    value,
+    options,
+    onChangeHandler,
+    label,
+    errors,
+    boxshadow,
+    disabled,
+    isLoading = false,
+}) => {
     const name = label.toLowerCase();
     const optionsData = options.length > 0 ? options : ['-- No Data --'];
 
@@ -27,6 +39,7 @@ export const FormSelect = ({ value, options, onChangeHandler, label, errors, box
                 value={value}
                 onChange={onChangeHandler}
                 className={styles.select}
+                disabled={disabled}
             >
                 {label !== 'Place' && <option value="">--Select {label}--</option>}
                 {optionsData.map((option, i) => (
@@ -35,6 +48,13 @@ export const FormSelect = ({ value, options, onChangeHandler, label, errors, box
                     </option>
                 ))}
             </select>
+            <ClipLoader
+                color="#36d7b7"
+                size={18}
+                loading={isLoading}
+                aria-label="Loading Spinner"
+                className={styles.spinner}
+            />
             {!value && <ShowFormError errors={errors} errorParam={name} />}
         </div>
     );

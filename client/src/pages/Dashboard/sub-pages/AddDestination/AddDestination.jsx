@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useDestinationInput } from './useDestinationInput';
 import { useSubmitData } from './useSubmitData';
 import { useImages } from '../../../../hooks/useImages';
@@ -14,17 +14,16 @@ import { DetailsButtons } from './components/DetailsButtons/DetailsButtons';
 import { DarkOverlay } from '../../../../components/DarkOverlay/DarkOverlay';
 import { ShowFormError } from '../../../../components/ShowFormError/ShowFormError';
 import { FormCheckboxes } from '../../../../components/FormCheckboxes/FormCheckboxes';
-import { LocationDropdown } from './components/LocationDropdown/LocationDropdown';
+import { MemoizedLocationDropdown } from './components/LocationDropdown/LocationDropdown';
 
 import styles from './AddDestination.module.css';
 
-export const AddDestination = () => {
-    const categories = ['Beach', 'Mountains', 'Cultural', 'Snow', 'Islands', 'Adventure'];
+const categories = ['Beach', 'Mountains', 'Cultural', 'Snow', 'Islands', 'Adventure'];
 
+export const AddDestination = () => {
     const [showDetail, setShowDetail] = useState({ category: null });
     const { updateField, updateDetail, updateCategory, state } = useDestinationInput();
     const { images, addImages, deleteImage } = useImages();
-
     const { submitHandler, isLoading, error, errors } = useSubmitData(
         images,
         state,
@@ -34,6 +33,8 @@ export const AddDestination = () => {
     const showDetailHandler = (category) => setShowDetail(category);
     const openedDetailsCategory = state.details.find((x) => x.category == showDetail.category);
 
+    const updateFieldCb = useCallback((name, value) => updateField(name, value), []);
+
     return (
         <div className={styles.container}>
             <h1 className="smaller mb-2">Add destination</h1>
@@ -42,14 +43,15 @@ export const AddDestination = () => {
             {error && <ServerError errorMessage={error} />}
 
             <form className={styles.form} onSubmit={submitHandler}>
-                <LocationDropdown
-                    onChangeHandler={updateField}
+                <MemoizedLocationDropdown
+                    onChangeHandler={updateFieldCb}
                     city={state.city}
                     country={state.country}
+                    errors={errors}
                 />
 
                 <Description
-                    updateField={updateField}
+                    updateField={updateFieldCb}
                     description={state.description}
                     errors={errors}
                 />

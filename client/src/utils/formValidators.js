@@ -23,13 +23,15 @@ export function validatePlaceData({ state, images, allowedCategories }) {
 }
 
 export const validateDestinationData = (state, images, allowedCategories) => {
-    const { city, description, categories } = state;
+    const { city, country, description, categories } = state;
     const errors = [];
 
-    const isCityValid = city && state.lastCityFetch.city.toLowerCase() == city.toLowerCase();
+    if (!city) {
+        errors.push('City is required');
+    }
 
-    if (!isCityValid) {
-        errors.push('Please enter a valid city');
+    if (!country) {
+        errors.push('Country is required');
     }
 
     if (images.imageUrls.length < 4) {
