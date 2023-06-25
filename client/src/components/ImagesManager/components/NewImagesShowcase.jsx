@@ -37,7 +37,7 @@ export const NewImagesShowcase = ({ uploadImagesHandler, isUploading }) => {
 
             <ImageThumbnailsPreview
                 images={images.imageUrls}
-                handleDeleteImage={() => deleteImage(index)}
+                handleDeleteImage={(_, index) => deleteImage(index)}
             />
 
             {hasNewlyUploadImages && (
