@@ -11,7 +11,7 @@
     max-height: 4.5rem;
     overflow: hidden;
     text-overflow: ellipsis;
-    word-wrap: break-word;
+    word-wrap: anywhere;
     white-space: break-spaces;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;

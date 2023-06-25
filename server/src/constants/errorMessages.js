@@ -25,9 +25,11 @@ exports.errorMessages = {
     couldNotDelete: (name) => `Couldn't delete ${name}`,
     serverError: 'Apologies for the inconvenience. An error occurred. Please try again later. Thank you for your understanding.',
     couldNotAddComment: 'Could not add the comment. Please try again later...',
-    placeName: 'Place name is required',
+    placeName: 'Place name must be between 1 and 60 characters',
     destinationDetails: 'Destination details must be an array',
     cityRequired: 'City is required',
     invalidCity: 'We could not find this city in our database :(',
+    invalidCountry: 'Invalid country',
     countryRequired: 'Country is required',
+    mustBeAString: (field) => `${field} must be a string`
 };

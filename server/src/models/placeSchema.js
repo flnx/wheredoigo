@@ -12,25 +12,31 @@ const placeSchema = new Schema({
     },
     destinationId: {
         type: Schema.Types.ObjectId,
-        required: [true, 'Destination id required!'],
         ref: 'Destination',
+        required: [true, 'Destination id is required!'],
     },
     name: {
         type: String,
         trim: true,
         lowercase: true,
+        minLength: [1, errorMessages.placeName],
+        maxLength: [60, errorMessages.placeName],
         required: [true, 'Place name is required!'],
     },
     country: {
         type: String,
         trim: true,
         lowercase: true,
+        minLength: [4, errorMessages.invalidCountry],
+        maxLength: [56, errorMessages.invalidCountry],
         required: [true, 'Country is required!'],
     },
     city: {
         type: String,
         trim: true,
         lowercase: true,
+        minLength: [1, errorMessages.invalidCity],
+        maxLength: [85, errorMessages.invalidCity],
         required: [true, 'City is required!'],
     },
     description: {
@@ -38,6 +44,7 @@ const placeSchema = new Schema({
         trim: true,
         minLength: [50, errorMessages.description],
         maxLength: [5000, errorMessages.description],
+        required: [true, errorMessages.description]
     },
     type: {
         type: String,

@@ -1,8 +1,13 @@
 const validator = require('validator');
 
+// Constants
 const { allowedPlaceCategories } = require('../constants/allowedPlaceCategories');
 const { errorMessages } = require('../constants/errorMessages');
-const { createValidationError } = require('./createValidationError');
+const {
+    destinationCategories,
+} = require('../constants/allowedDestinationCategories');
+
+// Utils
 const {
     isString,
     isObject,
@@ -10,27 +15,40 @@ const {
     isValidArrayOfStrings,
 } = require('./utils');
 
-const {
-    destinationCategories,
-} = require('../constants/allowedDestinationCategories');
+const { createValidationError } = require('./createValidationError');
 
 function validateDestinationFields(data) {
     const { city, country, description, category, details } = data;
-    const options = { min: 50, max: 5000 };
 
+    // Details validation
     if (!Array.isArray(details)) {
         throw createValidationError(errorMessages.destinationDetails, 400);
     }
 
+    // City validation
     if (!isString(city)) {
+        throw createValidationError(errorMessages.mustBeAString('City'), 400);
+    }
+
+    if (!validator.isLength(city.trim(), { min: 1, max: 85 })) {
         throw createValidationError(errorMessages.cityRequired, 400);
     }
 
+    // Country validation
     if (!isString(country)) {
+        throw createValidationError(errorMessages.mustBeAString('Country'), 400);
+    }
+
+    if (!validator.isLength(country.trim(), { min: 4, max: 56 })) {
         throw createValidationError(errorMessages.countryRequired, 400);
     }
 
-    if (!isString(description) || !validator.isLength(description.trim(), options)) {
+    // Description validation
+    if (!isString(description)) {
+        throw createValidationError(errorMessages.mustBeAString('Description'), 400);
+    }
+
+    if (!validator.isLength(description.trim(), { min: 50, max: 5000 })) {
         throw createValidationError(errorMessages.description, 400);
     }
 
@@ -45,17 +63,32 @@ function validateDestinationFields(data) {
 
 function validatePlaceFields(placeData) {
     const { description, type, name } = placeData;
-    const options = { min: 50, max: 5000 };
 
+    // Name validation
     if (!isString(name)) {
+        throw createValidationError(errorMessages.mustBeAString('Place name'), 400);
+    }
+
+    if (!validator.isLength(name.trim(), { min: 1, max: 60 })) {
         throw createValidationError(errorMessages.placeName, 400);
     }
 
-    if (!isString(description) || !validator.isLength(description, options)) {
+    // Description validation
+    if (!isString(description)) {
+        throw createValidationError(errorMessages.mustBeAString('Description'), 400);
+    }
+
+    if (!validator.isLength(description, { min: 50, max: 5000 })) {
         throw createValidationError(errorMessages.description, 400);
     }
 
-    if (!isString(placeData.type) || !allowedPlaceCategories.includes(type)) {
+    // Place type validation
+
+    if (!isString(placeData.type)) {
+        throw createValidationError(errorMessages.mustBeAString('Place type'), 400);
+    }
+
+    if (!allowedPlaceCategories.includes(type)) {
         throw createValidationError(errorMessages.invalidCategory, 400);
     }
 
@@ -88,10 +121,25 @@ function validateImages(images, minimumNum) {
 }
 
 function validateFieldsOnEdit(data) {
+    if (!isObject(data)) {
+        throw createValidationError(errorMessages.invalidBody, 400);
+    }
+
     const { description, infoId, categoryId, categories } = data;
 
-    if (!isString(description) || !isString(infoId)) {
-        throw createValidationError(errorMessages.invalidBody, 400);
+    if (!isString(description)) {
+        throw createValidationError(errorMessages.mustBeAString('Description'), 400);
+    }
+
+    if (!isString(infoId)) {
+        throw createValidationError(errorMessages.mustBeAString('infoId'), 400);
+    }
+    
+    if (
+        infoId.toLowerCase() == 'description' &&
+        !validator.isLength(description, { min: 50, max: 5000 })
+    ) {
+        throw createValidationError(errorMessages.description, 400);
     }
 
     if (categories) {
@@ -105,16 +153,12 @@ function validateFieldsOnEdit(data) {
     }
 
     if (categoryId && !isString(categoryId)) {
-        throw createValidationError(errorMessages.invalidBody, 400);
+        throw createValidationError(errorMessages.mustBeAString('Category'), 400);
     }
 
     if (infoId == 'type') {
         if (!allowedPlaceCategories.includes(description)) {
             throw createValidationError(errorMessages.invalidCategory, 400);
-        }
-    } else {
-        if (!validator.isLength(description, { min: 10, max: 5000 })) {
-            throw createValidationError(errorMessages.description, 400);
         }
     }
 

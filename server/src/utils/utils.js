@@ -20,7 +20,7 @@ function extractCloudinaryFolderName(path, name, id) {
 }
 
 function isString(str) {
-    return typeof str === 'string' && str.trim().length > 0;
+    return typeof str === 'string';
 }
 
 function isValidInteger(value) {
@@ -48,5 +48,5 @@ module.exports = {
     extractCloudinaryFolderName,
     isString,
     isValidInteger,
-    isValidArrayOfStrings
+    isValidArrayOfStrings,
 };

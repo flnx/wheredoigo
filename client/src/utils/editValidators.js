@@ -12,6 +12,11 @@ export const validateFieldsOnEdit = (data, allowedCategories) => {
     }
 
     
+    if (infoId.toLowerCase() == 'Description' && description.length < 50 || description.length > 5000) {
+        throw new Error('Description must be between 50 and 5000 characters');
+    }
+
+    
     if (categories) {
         if (!isValidArrayOfStrings(allowedCategories) || !isValidArrayOfStrings(categories)) {
             throw new Error('Categories must be an array of strings 🦖');
@@ -35,14 +40,14 @@ export const validateFieldsOnEdit = (data, allowedCategories) => {
             throw new Error('This category is not allowed 🚫');
         }
     } else {
-        if (description.length < 10 || description.length > 5000) {
-            throw new Error('Description must be between 10 and 5000 characters 🦖');
+        if (description.length > 5000) {
+            throw new Error("Oops! It seems like you've exceeded the limit of 5000 characters. 🦖");
         }
     }
 
     return data;
 
     function isString(str) {
-        return typeof str === 'string' && str.trim().length > 0;
+        return typeof str === 'string';
     }
 };

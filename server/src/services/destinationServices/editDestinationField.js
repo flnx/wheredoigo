@@ -1,7 +1,8 @@
+const Destination = require('../../models/destinationSchema');
+
 const mongoose = require('mongoose');
 const { isValid } = mongoose.Types.ObjectId;
 
-const Destination = require('../../models/destinationSchema');
 const { errorMessages } = require('../../constants/errorMessages');
 
 // utils
@@ -11,7 +12,7 @@ const { validateFieldsOnEdit } = require('../../utils/validateFields');
 async function editDestinationField(destinationId, updatedFields) {
     const { description, categories, infoId, categoryId } = validateFieldsOnEdit(updatedFields);
 
-    if (infoId.toLowerCase() == 'Description'.toLowerCase()) {
+    if (infoId.toLowerCase() == 'description') {
         const result = await editDescription(destinationId, description, infoId);
 
         return result;

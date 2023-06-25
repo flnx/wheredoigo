@@ -21,14 +21,17 @@ const destinationSchema = new Schema({
     city: {
         type: String,
         trim: true,
+        minLength: [1, errorMessages.invalidCity],
+        maxLength: [85, errorMessages.invalidCity],
         lowercase: true,
         required: [true, 'City is required'],
     },
     description: {
         type: String,
         trim: true,
-        minLength: [10, errorMessages.description],
+        minLength: [50, errorMessages.description],
         maxLength: [5000, errorMessages.description],
+        required: true,
     },
     category: {
         type: [String], // Changed type to an array of strings
