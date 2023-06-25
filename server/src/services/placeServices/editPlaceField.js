@@ -10,8 +10,6 @@ const { errorMessages } = require('../../constants/errorMessages');
 async function editPlaceField(placeId, updatedField) {
     const { description, infoId } = validatePlaceFieldOnEdit(updatedField);
 
-    throw new Error('name bro test');
-
     const updated = {};
     updated[infoId] = description;
 

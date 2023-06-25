@@ -1,14 +1,12 @@
 import PropTypes from 'prop-types';
-import { useCallback, useState } from 'react';
-import { useEditPlaceDetails } from '../../../../hooks/queries/useEditPlaceDetails';
-import { validateFieldsOnEdit } from '../../../../utils/editValidators';
-import { capitalizeFirstLetter, extractServerErrorMessage } from '../../../../utils/utils';
+
+import { useForm } from './useForm';
+import { capitalizeFirstLetter } from '../../../../utils/utils';
 
 // Components
 import { SelectType } from '../SelectType/SelectType';
 import { MemoizedFormFieldEditor } from '../../../../components/FormFieldEditor/FormFieldEditor';
 import { FormLoadingSkeleton } from '../../../../components/FormLoadingSkeleton/FormLoadingSkeleton';
-
 import { TextWrap } from '../../../../components/TextWrap/TextWrap';
 
 import styles from './Form.module.css';
@@ -21,55 +19,17 @@ const propTypes = {
 };
 
 export const Form = ({ data, placeId, destinationId, isLoading }) => {
-    const [editDetails, isEditLoading] = useEditPlaceDetails(placeId);
-    const [editError, setEditError] = useState('');
-    const [isEditable, setIsEditable] = useState({});
+    const {
+        isEditLoading,
+        editError,
+        isEditable,
+        typeId,
+        allowedPlaceCategories,
+        fieldsToUpdate,
+        sendEditedFieldClickHandler,
+        onEditButtonClickHandler,
+    } = useForm({ data, placeId, destinationId });
 
-    const typeId = 'type';
-    const { allowedPlaceCategories, allowedFieldsToUpdate } = data;
-
-    const sendEditedFieldClickHandler = useCallback((fieldId, editedInfo) => {
-            try {
-                // const validated = validateFieldsOnEdit(editedInfo, allowedPlaceCategories);
-                const validated = editedInfo;
-                console.log(fieldId);
-                validated.destinationId = destinationId;
-
-                editDetails(validated, {
-                    onSuccess: () => onEditButtonClickHandler(fieldId),
-                    onError: (err) => {
-                        console.log(err);
-                        setEditError(extractServerErrorMessage(err));
-                    },
-                });
-            } catch (err) {
-                setEditError(err.message);
-            }
-        }, [destinationId]); 
-
-    const onEditButtonClickHandler = useCallback(
-        (clickedId) => {
-            // enables/disables the form fields
-            setIsEditable((prevState) => {
-                // opens/closes the edit field
-                const newState = { [clickedId]: !prevState[clickedId] };
-
-                // closes all previously opened edit form fields (if any)
-                Object.keys(prevState).forEach((fieldId) => {
-                    if (fieldId !== clickedId) {
-                        newState[fieldId] = false;
-                    }
-                });
-                return newState;
-            });
-
-            // removes the error message (if any)
-            editError && setEditError('');
-        },
-        [editError]
-    );
-
-    const fieldsToUpdate = allowedFieldsToUpdate?.filter((x) => x !== 'type');
 
     return (
         <section>
