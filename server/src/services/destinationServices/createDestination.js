@@ -2,17 +2,23 @@ const Destination = require('../../models/destinationSchema');
 const Country = require('../../models/countrySchema');
 
 // utils
-const { validateDestinationFields, validateImages } = require('../../utils/validateFields');
+const {
+    validateDestinationFields,
+    validateImages,
+} = require('../../utils/validateFields');
 const { addImages } = require('../../utils/cloudinaryUploader');
 
 // Services
-const { fetchCity, fetchCountry } = require('../getCityCountryData');
+const { fetchACountryAndItsCities } = require('../getCityCountryData');
+const { createValidationError } = require('../../utils/createValidationError');
+const { errorMessages } = require('../../constants/errorMessages');
 
 async function createDestination(data, images, user) {
     const { ownerId } = user;
 
     const destinationData = {
         city: data.city,
+        country: data.country,
         description: data.description,
         details: JSON.parse(data.details) || [],
         category: JSON.parse(data.category),
@@ -21,9 +27,9 @@ async function createDestination(data, images, user) {
     const categories = validateDestinationFields(destinationData);
 
     validateImages(images, 4); // (at least 4 images)
+    await validateCountryAndCity(destinationData.country, destinationData.city);
 
-    const cityData = await fetchCity(data.city);
-    const country = await addCountry(cityData);
+    const country = await addCountry(destinationData.country);
 
     const destination = await Destination.create({
         ...destinationData,
@@ -45,10 +51,23 @@ async function createDestination(data, images, user) {
         imgError,
     };
 
-    async function addCountry(cityData) {
-        const countryData = await fetchCountry(cityData.country);
-        const countryName = countryData.name;
+    async function validateCountryAndCity(countryStr, cityStr) {
+        // fetches the country and its cities
+        const countryData = await fetchACountryAndItsCities(countryStr);
+        console.log(countryData);
 
+        // finds the city provided by the client
+        const city = countryData.find(
+            (c) => c.toLowerCase() === cityStr.toLowerCase()
+        );
+
+        // if the city is not found in the provided country cities array, it throws
+        if (!city) {
+            throw createValidationError(errorMessages.invalidCity, 400);
+        }
+    }
+
+    async function addCountry(countryName) {
         let checkCountryInDB = await Country.findOne({
             name: countryName.toLowerCase(),
         })

@@ -2,6 +2,7 @@ import { ShowFormError } from '../ShowFormError/ShowFormError';
 import styles from './FormCheckboxes.module.css';
 
 export const FormCheckboxes = ({ categories, options, onChangeHandler, errors }) => {
+    console.log(categories);
     return (
         <div>
             <h3 className="mb-1">Select Categories</h3>
@@ -24,7 +25,9 @@ export const FormCheckboxes = ({ categories, options, onChangeHandler, errors })
                 })}
             </ul>
 
-            <ShowFormError errors={errors} errorParam={'category'} />
+            {categories.length == 0 && (
+                <ShowFormError errors={errors} errorParam={'category'} />
+            )}
         </div>
     );
 };

@@ -27,5 +27,7 @@ exports.errorMessages = {
     couldNotAddComment: 'Could not add the comment. Please try again later...',
     placeName: 'Place name is required',
     destinationDetails: 'Destination details must be an array',
-    cityRequired: 'City is required'
+    cityRequired: 'City is required',
+    invalidCity: 'We could not find this city in our database :(',
+    countryRequired: 'Country is required',
 };

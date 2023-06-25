@@ -15,7 +15,7 @@ const {
 } = require('../constants/allowedDestinationCategories');
 
 function validateDestinationFields(data) {
-    const { city, description, category, details } = data;
+    const { city, country, description, category, details } = data;
     const options = { min: 50, max: 5000 };
 
     if (!Array.isArray(details)) {
@@ -24,6 +24,10 @@ function validateDestinationFields(data) {
 
     if (!isString(city)) {
         throw createValidationError(errorMessages.cityRequired, 400);
+    }
+
+    if (!isString(country)) {
+        throw createValidationError(errorMessages.countryRequired, 400);
     }
 
     if (!isString(description) || !validator.isLength(description.trim(), options)) {

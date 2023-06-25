@@ -3,66 +3,60 @@ const { createValidationError } = require('../utils/createValidationError');
 
 require('dotenv').config();
 
-async function fetchCity(city) {
-    if (!city) {
-        throw createValidationError(errorMessages.notFound, 404);
-    }
-
-    // const result = await fetch(process.env.CITY_URL + city + "&country=CH" + "&limit=5", options());
-    const result = await fetch(process.env.CITY_URL + city + '&limit=10', options());
-    const data = await result.json();
-
-    if (Array.isArray(data)) {
-        if (data.length == 0 || !data[0].name) {
-            throw createValidationError(errorMessages.notFound, 404);
-        }
-
-        return data;
-    }
-
-    throw createValidationError(errorMessages.notFound, 404);
-}
-
 async function fetchCountriesAndCities() {
     try {
         const result = await fetch(process.env.CITIES_COUNTRIES_URL);
-        const data = await result.json();
-        return data;
-    } catch(error) {
-        throw createValidationError(errorMessages.serverError, 500);
-    }
+        const countries = await result.json();
 
-}
-
-async function fetchCountry(country) {
-    const result = await fetch(process.env.COUNTRY_URL + country, options());
-    const data = await result.json();
-
-    if (Array.isArray(data)) {
-        if (data.length == 0 || !data[0].name) {
-            throw createValidationError(`Country ${errorMessages.notFound}`, 404);
+        if (countries?.error) {
+            throw new Error(countries?.msg || errorMessages.serverError);
         }
 
-        return {
-            ...data[0],
-        };
+        return countries;
+    } catch (error) {
+        throw createValidationError(error.message, 500);
     }
-
-    throw createValidationError(`Country ${errorMessages.notFound}`, 404);
 }
 
-function options() {
-    return {
-        method: 'get',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-Api-Key': process.env.X_API_KEY,
-        },
-    };
+async function fetchACountryAndItsCities(country) {
+    try {
+        const result = await fetch(process.env.GET_COUNTRY_CITIES_URL, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'Application/Json',
+            },
+            body: JSON.stringify({ country }),
+        });
+
+        const countryData = await result.json();
+
+        if (countryData.error) {
+            throw new Error(countryData.msg);
+        }
+
+        const cities = countryData?.data ?? [];
+
+        if (cities.length == 0) {
+            throw createValidationError(error.serverError, 500);
+        }
+
+        return cities;
+    } catch (error) {
+        throw createValidationError(error.message, 400);
+    }
 }
+
+// function options() {
+//     return {
+//         method: 'get',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'X-Api-Key': process.env.X_API_NINJAS_KEY,
+//         },
+//     };
+// }
 
 module.exports = {
-    fetchCity,
-    fetchCountry,
-    fetchCountriesAndCities
+    fetchCountriesAndCities,
+    fetchACountryAndItsCities,
 };
