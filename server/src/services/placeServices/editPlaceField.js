@@ -1,18 +1,16 @@
 const Place = require('../../models/placeSchema');
 
-const { errorMessages } = require('../../constants/errorMessages');
-const { allowedFieldsToUpdate } = require('../../constants/allowedPlaceCategories');
-
-// utils
-const { validateFieldsOnEdit } = require('../../utils/validateFields');
+// Utils
+const { validatePlaceFieldOnEdit } = require('../../utils/validateFields');
 const { createValidationError } = require('../../utils/createValidationError');
 
-async function editPlaceField(placeId, updatedField) {
-    const { description, infoId } = validateFieldsOnEdit(updatedField);
+// Constants
+const { errorMessages } = require('../../constants/errorMessages');
 
-    if (!allowedFieldsToUpdate.includes(infoId)) {
-        throw createValidationError(errorMessages.invalidBody, 400);
-    }
+async function editPlaceField(placeId, updatedField) {
+    const { description, infoId } = validatePlaceFieldOnEdit(updatedField);
+
+    throw new Error('name bro test');
 
     const updated = {};
     updated[infoId] = description;

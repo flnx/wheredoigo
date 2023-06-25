@@ -31,5 +31,6 @@ exports.errorMessages = {
     invalidCity: 'We could not find this city in our database :(',
     invalidCountry: 'Invalid country',
     countryRequired: 'Country is required',
-    mustBeAString: (field) => `${field} must be a string`
+    mustBeAString: (field) => `${field} must be a string`,
+    permissions: "Sorry, but you don't have the necessary permissions to make changes to that field. Please reach out to the appropriate administrator or supervisor for assistance."
 };

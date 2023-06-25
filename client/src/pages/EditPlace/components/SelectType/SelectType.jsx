@@ -20,7 +20,6 @@ export const SelectType = ({
     error,
 }) => {
     const [type, setType] = useState(selectedType);
-    const [cache, setCache] = useState(selectedType);
 
     const onChangeHandler = (e) => {
         setType(e.target.value);
@@ -28,10 +27,8 @@ export const SelectType = ({
 
     const onCancelClickHandler = () => {
         onEditButtonClickHandler(typeId);
-        setType(cache);
+        setType(selectedType);
     };
-
-    const setCacheHandler = (data) => setCache(data);
 
     const onSaveButtonClickHandler = (e) => {
         e.preventDefault();
@@ -41,7 +38,7 @@ export const SelectType = ({
             description: type,
         };
 
-        sendEditedFieldClickHandler(typeId, type, editInfo, setCacheHandler);
+        sendEditedFieldClickHandler(typeId, editInfo);
     };
 
     return (
@@ -88,5 +85,3 @@ export const SelectType = ({
         </div>
     );
 };
-
-// const MemoizedSelectType = memo(SelectType);

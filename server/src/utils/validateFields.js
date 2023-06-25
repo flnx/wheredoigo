@@ -1,7 +1,10 @@
 const validator = require('validator');
 
 // Constants
-const { allowedPlaceCategories } = require('../constants/allowedPlaceCategories');
+const {
+    allowedPlaceCategories,
+    allowedFieldsToUpdate,
+} = require('../constants/allowedPlaceCategories');
 const { errorMessages } = require('../constants/errorMessages');
 const {
     destinationCategories,
@@ -44,13 +47,7 @@ function validateDestinationFields(data) {
     }
 
     // Description validation
-    if (!isString(description)) {
-        throw createValidationError(errorMessages.mustBeAString('Description'), 400);
-    }
-
-    if (!validator.isLength(description.trim(), { min: 50, max: 5000 })) {
-        throw createValidationError(errorMessages.description, 400);
-    }
+    validateDescription(description);
 
     const validatedCategories = validateCategories(category);
 
@@ -64,33 +61,9 @@ function validateDestinationFields(data) {
 function validatePlaceFields(placeData) {
     const { description, type, name } = placeData;
 
-    // Name validation
-    if (!isString(name)) {
-        throw createValidationError(errorMessages.mustBeAString('Place name'), 400);
-    }
-
-    if (!validator.isLength(name.trim(), { min: 1, max: 60 })) {
-        throw createValidationError(errorMessages.placeName, 400);
-    }
-
-    // Description validation
-    if (!isString(description)) {
-        throw createValidationError(errorMessages.mustBeAString('Description'), 400);
-    }
-
-    if (!validator.isLength(description, { min: 50, max: 5000 })) {
-        throw createValidationError(errorMessages.description, 400);
-    }
-
-    // Place type validation
-
-    if (!isString(placeData.type)) {
-        throw createValidationError(errorMessages.mustBeAString('Place type'), 400);
-    }
-
-    if (!allowedPlaceCategories.includes(type)) {
-        throw createValidationError(errorMessages.invalidCategory, 400);
-    }
+    validatePlaceName(name);
+    validateDescription(description);
+    validatePlaceType(type);
 
     return true;
 }
@@ -134,12 +107,9 @@ function validateFieldsOnEdit(data) {
     if (!isString(infoId)) {
         throw createValidationError(errorMessages.mustBeAString('infoId'), 400);
     }
-    
-    if (
-        infoId.toLowerCase() == 'description' &&
-        !validator.isLength(description, { min: 50, max: 5000 })
-    ) {
-        throw createValidationError(errorMessages.description, 400);
+
+    if (infoId.toLowerCase() == 'description') {
+        validateDescription(description);
     }
 
     if (categories) {
@@ -156,13 +126,77 @@ function validateFieldsOnEdit(data) {
         throw createValidationError(errorMessages.mustBeAString('Category'), 400);
     }
 
-    if (infoId == 'type') {
-        if (!allowedPlaceCategories.includes(description)) {
-            throw createValidationError(errorMessages.invalidCategory, 400);
-        }
+    return data;
+}
+
+function validatePlaceFieldOnEdit(data) {
+    if (!isObject(data)) {
+        throw createValidationError(errorMessages.invalidBody, 400);
+    }
+
+    const { description, infoId } = data;
+
+    if (!isString(description)) {
+        throw createValidationError(errorMessages.mustBeAString('Description'), 400);
+    }
+
+    if (!isString(infoId)) {
+        throw createValidationError(errorMessages.mustBeAString('infoId'), 400);
+    }
+
+    if (!allowedFieldsToUpdate.includes(infoId.toLowerCase())) {
+        throw createValidationError(errorMessages.permissions, 400);
+    }
+
+    if (infoId.toLowerCase() == 'description') {
+        validateDescription(description);
+    }
+
+    if (infoId.toLowerCase() == 'type') {
+        validatePlaceType(description);
+    }
+
+    if (infoId == 'name') {
+        validatePlaceName(description);
     }
 
     return data;
+}
+
+function validateDescription(description) {
+    if (!isString(description)) {
+        throw createValidationError(errorMessages.mustBeAString('Description'), 400);
+    }
+
+    if (!validator.isLength(description.trim(), { min: 50, max: 5000 })) {
+        throw createValidationError(errorMessages.description, 400);
+    }
+
+    return true;
+}
+
+function validatePlaceType(type) {
+    if (!isString(type)) {
+        throw createValidationError(errorMessages.mustBeAString('Place type'), 400);
+    }
+
+    if (!allowedPlaceCategories.includes(type)) {
+        throw createValidationError(errorMessages.invalidCategory, 400);
+    }
+
+    return true;
+}
+
+function validatePlaceName(name) {
+    if (!isString(name)) {
+        throw createValidationError(errorMessages.mustBeAString('Place name'), 400);
+    }
+
+    if (!validator.isLength(name.trim(), { min: 1, max: 60 })) {
+        throw createValidationError(errorMessages.placeName, 400);
+    }
+
+    return true;
 }
 
 function validateCategories(categories) {
@@ -183,4 +217,5 @@ module.exports = {
     validateCategories,
     validateImages,
     validatePlaceFields,
+    validatePlaceFieldOnEdit
 };

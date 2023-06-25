@@ -9,8 +9,7 @@ export const useForm = ({ destinationId, allowedCategories }) => {
     const [isEditable, setIsEditable] = useState({});
     const [editError, setEditError] = useState('');
 
-    const onEditButtonClickHandler = useCallback(
-        (clickedId) => {
+    const onEditButtonClickHandler = useCallback((clickedId) => {
             // enables/disables the form fields
             setIsEditable((prevState) => {
                 // opens/closes the edit field
@@ -27,9 +26,7 @@ export const useForm = ({ destinationId, allowedCategories }) => {
             });
             // removes the error message (if any)
             editError && setEditError('');
-        },
-        [editError]
-    );
+        }, [editError]);
 
     const sendEditedFieldClickHandler = useCallback((fieldId, editedInfo) => {
         try {
@@ -42,7 +39,7 @@ export const useForm = ({ destinationId, allowedCategories }) => {
         } catch (err) {
             setEditError(err.message);
         }
-    }, []);
+    }, [destinationId]);
 
     const descriptionID = 'Description';
     const categoriesID = 'Categories';

@@ -7,16 +7,22 @@ export const validateFieldsOnEdit = (data, allowedCategories) => {
 
     const { description, infoId, categoryId, categories } = data;   
 
-    if (!isString(description) || !isString(infoId) || (categoryId && !isString(categoryId))) {
-        throw new Error('Data values must be valid strings 🦖');
+    if (!isString(description)) {
+        throw new Error('Description must be a string 🦖');
     }
 
-    
-    if (infoId.toLowerCase() == 'Description' && description.length < 50 || description.length > 5000) {
+    if (!isString(infoId)) {
+        throw new Error('infoId must be a string 🦖');
+    }
+
+    if (categoryId && !isString(categoryId)) {
+        throw new Error('categoryId must be a string 🦖');
+    }
+
+    if (infoId.toLowerCase() == 'description' && description.length < 50 || description.length > 5000) {
         throw new Error('Description must be between 50 and 5000 characters');
     }
 
-    
     if (categories) {
         if (!isValidArrayOfStrings(allowedCategories) || !isValidArrayOfStrings(categories)) {
             throw new Error('Categories must be an array of strings 🦖');
