@@ -6,8 +6,8 @@ export const useCountriesCities = () => {
     const { data, isLoading, error } = useQuery({
         queryKey: [queryEndpoints.locations],
         queryFn: () => getCountriesAndCities(),
-        staleTime: 0,
-        cacheTime: 0,
+        staleTime: 15 * 1000, // 15 seconds
+        cacheTime: 20 * 1000, // 20 seconds
     });
 
     return [data, isLoading, error];

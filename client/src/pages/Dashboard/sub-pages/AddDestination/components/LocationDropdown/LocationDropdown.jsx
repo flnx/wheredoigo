@@ -18,14 +18,15 @@ const propTypes = {
 const LocationDropdown = ({ country, city, onChangeHandler, errors }) => {
     const [locations, isLoading, locationsError] = useCountriesCities();
 
+    // It runs only on refetch
     const countries = useMemo(() => {
         return locations?.data?.map((l) => l.country) ?? [];
     }, [locations?.data]);
 
     const cities = useMemo(() => {
-        // Check if a country is selected
+        // Check if a new country has been selected
         if (country) {
-            // Find the selected country object from the data
+            // Finds the selected country object from the data
             const selectedCountry = locations?.data?.find((l) => l.country === country);
 
             // Extract the cities from the selected country object

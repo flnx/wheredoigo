@@ -54,7 +54,6 @@ async function createDestination(data, images, user) {
     async function validateCountryAndCity(countryStr, cityStr) {
         // fetches the country and its cities
         const countryData = await fetchACountryAndItsCities(countryStr);
-        console.log(countryData);
 
         // finds the city provided by the client
         const city = countryData.find(
@@ -68,12 +67,15 @@ async function createDestination(data, images, user) {
     }
 
     async function addCountry(countryName) {
+        // looks for the country
+
         let checkCountryInDB = await Country.findOne({
             name: countryName.toLowerCase(),
         })
             .lean()
             .exec();
 
+        // if it does not exist in the data base it creates it
         if (!checkCountryInDB) {
             checkCountryInDB = await Country.create({ name: countryName });
         }
