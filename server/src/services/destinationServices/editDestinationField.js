@@ -1,31 +1,22 @@
 const Destination = require('../../models/destinationSchema');
 
-const mongoose = require('mongoose');
-const { isValid } = mongoose.Types.ObjectId;
-
 const { errorMessages } = require('../../constants/errorMessages');
 
 // utils
 const { createValidationError } = require('../../utils/createValidationError');
-const { validateFieldsOnEdit } = require('../../utils/validateFields');
+const { validateDestinationFieldOnEdit } = require('../../utils/validateFields');
 
 async function editDestinationField(destinationId, updatedFields) {
-    const { description, categories, infoId, categoryId } = validateFieldsOnEdit(updatedFields);
+    const { description, categories, infoId, categoryId } = validateDestinationFieldOnEdit(updatedFields);
 
     if (infoId.toLowerCase() == 'description') {
         const result = await editDescription(destinationId, description, infoId);
-
         return result;
     }
 
     if (categories) {
         const result = await editCategories(destinationId, categories);
-
         return result;
-    }
-
-    if (!categoryId || !isValid(infoId) || !isValid(categoryId)) {
-        throw createValidationError(errorMessages.invalidBody, 400);
     }
 
     const result = await editDetail(destinationId, categoryId, infoId, description);

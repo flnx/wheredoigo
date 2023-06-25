@@ -1,14 +1,11 @@
 const validator = require('validator');
 
+const { isValid } = require('mongoose').Types.ObjectId;
+
 // Constants
-const {
-    allowedPlaceCategories,
-    allowedFieldsToUpdate,
-} = require('../constants/allowedPlaceCategories');
+const { allowedPlaceCategories, allowedFieldsToUpdate } = require('../constants/allowedPlaceCategories');
 const { errorMessages } = require('../constants/errorMessages');
-const {
-    destinationCategories,
-} = require('../constants/allowedDestinationCategories');
+const { destinationCategories } = require('../constants/allowedDestinationCategories');
 
 // Utils
 const {
@@ -93,7 +90,7 @@ function validateImages(images, minimumNum) {
     return true;
 }
 
-function validateFieldsOnEdit(data) {
+function validateDestinationFieldOnEdit(data) {
     if (!isObject(data)) {
         throw createValidationError(errorMessages.invalidBody, 400);
     }
@@ -110,9 +107,7 @@ function validateFieldsOnEdit(data) {
 
     if (infoId.toLowerCase() == 'description') {
         validateDescription(description);
-    }
-
-    if (categories) {
+    } else if (categories) {
         const validatedCategories = validateCategories(categories);
 
         if (validatedCategories.length == 0) {
@@ -120,10 +115,18 @@ function validateFieldsOnEdit(data) {
         }
 
         data.categories = validatedCategories;
-    }
+    } else {
+        if (!isString(categoryId) || categoryId.trim().length == 0) {
+            throw createValidationError(errorMessages.mustBeAString('Category'), 400);
+        }
 
-    if (categoryId && !isString(categoryId)) {
-        throw createValidationError(errorMessages.mustBeAString('Category'), 400);
+        if (!isValid(infoId) || !isValid(categoryId)) {
+            throw createValidationError(errorMessages.invalidCategory, 400);
+        }
+        
+        if (description.length > 5000) {
+            throw createValidationError(errorMessages.description, 400);
+        }
     }
 
     return data;
@@ -213,9 +216,9 @@ function validateCategories(categories) {
 
 module.exports = {
     validateDestinationFields,
-    validateFieldsOnEdit,
+    validateDestinationFieldOnEdit,
     validateCategories,
     validateImages,
     validatePlaceFields,
-    validatePlaceFieldOnEdit
+    validatePlaceFieldOnEdit,
 };
