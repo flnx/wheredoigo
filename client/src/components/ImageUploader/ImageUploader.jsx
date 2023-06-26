@@ -3,10 +3,6 @@ import styles from './ImageUploader.module.css';
 export const ImageUploader = ({ addImages }) => {
     const handleImageSelect = (e) => {
         addImages(e.target.files);
-        
-        // chrome wouldn't upload the same file twice so I reset the input manually
-        const { target = {} } = e || {};
-        target.value = "";
     };
 
     return (
@@ -24,6 +20,7 @@ export const ImageUploader = ({ addImages }) => {
                     id="images"
                     required
                     onChange={handleImageSelect}
+                    onClick={(e) => (e.target.value = null)}
                     data-testid="hidden-file-input"
                 />
             </div>
