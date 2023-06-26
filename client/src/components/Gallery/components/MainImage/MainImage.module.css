@@ -2,6 +2,10 @@
     position: relative;
     overflow: hidden;
     flex: 2.5;
+    -webkit-user-select: none; /* Disable text selection for WebKit browsers */
+    -moz-user-select: none; /* Disable text selection for Mozilla Firefox */
+    -ms-user-select: none; /* Disable text selection for Internet Explorer/Edge */
+    user-select: none; /* Disable text selection for other browsers */
 }
 
 .main-image-container img {
