@@ -33,9 +33,19 @@ export const SliderCard = ({ destination, isLoading }) => {
                     <p><LoadingSkeleton /></p>
                 </div>
             ) : (
-                <div className={styles.content}>
-                    <h3>{city}</h3>
-                    <p>{country?.name}</p>
+                <div className={styles.cardBody}>
+                    <section className={styles.content}>
+                        <h3>{city}</h3>
+                        <p className={styles.country}>{country?.name || country}</p>
+                        <div className={styles.contentLikes}>
+                            <div className={styles.userAvatars}>
+                                <img src="https://randomuser.me/api/portraits/women/91.jpg" alt="test" />
+                                <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="test" className={styles.avatar2}/>
+                                <img src="https://randomuser.me/api/portraits/women/10.jpg" alt="test" className={styles.avatar3}/>
+                            </div>
+                            <p className={styles.likedBy}>Liked by {'McMuffinAndRoflCopter'.slice(0, 12)} and 5 others</p>
+                        </div>
+                    </section>
                 </div>
             )}
         </Link>

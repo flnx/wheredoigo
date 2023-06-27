@@ -37,3 +37,43 @@
 .loading > * {
     padding-bottom: 0.6rem;
 }
+
+.content .country {
+    margin-bottom: 0.35rem;
+}
+
+/* SliderCard Likes */
+
+.content .contentLikes {
+    display: flex;
+    align-items: center;
+}
+
+.contentLikes .likedBy {
+    font-size: 0.8rem;
+    font-weight: 400;
+    width: 100%;
+}
+
+.contentLikes .userAvatars {
+    position: relative;
+    width: 3.4rem;
+    margin-right: 1rem;
+    height: 30px;
+}
+
+.contentLikes .userAvatars img {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.contentLikes .avatar2 {
+    left: 0.75rem;
+}
+
+.contentLikes .avatar3 {
+    left: 1.5rem;
+}

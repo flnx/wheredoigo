@@ -12,7 +12,7 @@ const { fetchCountriesAndCities } = require('../services/getCityCountryData');
 const { destinationCategories } = require('../constants/allowedDestinationCategories');
 const likeDestination = require('../services/destinationServices/likeDestination');
 const dislikeDestination = require('../services/destinationServices/dislikeDestination');
-const getTopDestinations = require('../services/destinationServices/mostLikedDestinations');
+const getMostLikedDestinations = require('../services/destinationServices/getMostLikedDestinations');
 
 const paginated_destinations = async (req, res, next) => {
     const page = parseInt(req.query.page) || 0;
@@ -44,7 +44,7 @@ const paginated_destinations = async (req, res, next) => {
 
 const top_destinations = async (req, res, next) => {
     try {
-        const data = await getTopDestinations();
+        const data = await getMostLikedDestinations();
         res.json(data);
     } catch (err) {
         next(err);

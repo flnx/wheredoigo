@@ -1,8 +1,9 @@
 const Destination = require('../../models/destinationSchema');
 const capitalizeEachWord = require('../../utils/capitalizeWords');
 
-async function getTopDestinations() {
+async function getMostLikedDestinations() {
     const destinations = await Destination.aggregate([
+        { $match: { $expr: { $gt: [{ $size: '$likes' }, 0] } } }, // at least 1 like match
         {
             $lookup: {
                 from: 'countries',
@@ -24,13 +25,13 @@ async function getTopDestinations() {
             $project: {
                 city: 1,
                 country: 1,
-                likes: { $slice: ['$likesData', -3] }, // get the last 3 user likes
                 likesCount: { $size: '$likes' }, // count the total destination likes
+                likes: { $slice: ['$likesData', -3] }, // get the last 3 user likes
                 imageUrls: { $arrayElemAt: ['$imageUrls.imageUrl', 0] }, // extract the main img url
             },
         },
         { $sort: { likesCount: -1 } }, // sort from high to low
-        { $limit: 1 },
+        { $limit: 12 },
     ]).exec();
 
     const updatedDestinations = destinations.map((destination) => {
@@ -39,21 +40,17 @@ async function getTopDestinations() {
         return {
             _id,
             likesCount,
+            imageUrls,
             city: capitalizeEachWord(city),
             country: capitalizeEachWord(country.name),
-            imageUrls: imageUrls[0].imageUrl,
-            lastUserLikes: likes
-                .map((user) => ({
-                    username: user.username,
-                    avatarUrl: user.avatarUrl,
-                }))
-                .reverse(),
+            lastUserLikes: likes.map((user) => ({
+                username: user.username,
+                avatarUrl: user.avatarUrl,
+            })),
         };
     });
 
     return updatedDestinations;
 }
 
-module.exports = getTopDestinations;
-
-// with aggregation
+module.exports = getMostLikedDestinations;

@@ -1,9 +1,9 @@
 import { ClipLoader } from 'react-spinners';
 import { useInfiniteDestinations } from '../../../../hooks/queries/useInfiniteDestinations';
 
-import styles from './Destinations.module.css';
 import { DestinationsGrid } from '../../../../components/DestinationsGrid/DestinationsGrid';
 import { extractServerErrorMessage } from '../../../../utils/utils';
+import styles from './Destinations.module.css';
 
 export const Destinations = ({ searchParam, categoryParams }) => {
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching, error } =

@@ -11,10 +11,9 @@ import '../Swiper.css';
 export const SliderWrapper = ({ children }) => {
     return (
         <Swiper
-            slidesPerView={2.1}
-            spaceBetween={10}
+            slidesPerView={1.1}
             slidesPerGroup={1}
-            loop={false}
+            spaceBetween={12}
             pagination={{
                 clickable: true,
             }}
@@ -22,16 +21,20 @@ export const SliderWrapper = ({ children }) => {
             modules={[Pagination, Navigation]}
             breakpoints={{
                 500: {
-                    slidesPerView: 2.2,
-                    spaceBetween: 15,
+                    slidesPerView: 1.4,
+                    slidesPerGroup: 2,
                 },
                 768: {
-                    slidesPerView: 3,
-                    spaceBetween: 20,
+                    slidesPerView: 2.7,
+                    slidesPerGroup: 3,
                 },
                 1024: {
+                    slidesPerView: 3.1,
+                    slidesPerGroup: 3,
+                },
+                1300: {
                     slidesPerView: 4,
-                    spaceBetween: 40,
+                    slidesPerGroup: 4,
                 },
             }}
             className="mySwiper"

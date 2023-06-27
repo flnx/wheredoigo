@@ -22,7 +22,9 @@ export const Home = () => {
         <>
             <Showcase isLoading={isLoading} />
             {serverError ? (
-                <h2 className="server-error">{extractServerErrorMessage(destinations.error)}</h2>
+                <h2 className="server-error">
+                    {extractServerErrorMessage(destinations.error)}
+                </h2>
             ) : (
                 <div className={styles.grid}>
                     <CitiesSlider destinationsData={destinations} isLoading={isLoading} />
