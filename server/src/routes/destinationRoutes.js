@@ -20,12 +20,14 @@ const {
     delete_destination,
     add_new_destination,
     like_destination,
-    dislike_destination
+    dislike_destination,
+    top_destinations
 } = require('../controllers/destinationController');
 
 const router = express.Router();
 
 router.get('/destinations', paginated_destinations);
+router.get('/top-destinations', top_destinations);
 router.get('/destinations/countries-and-cities', auth, get_countries_and_cities);
 router.get('/destinations/created-by-user', auth, creator_destinations);
 router.get('/destinations/:id/request-edit-permissions', validateMongoId, auth, fetchDestinationAndCheckOwnership, request_edit);
