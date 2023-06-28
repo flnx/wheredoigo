@@ -13,10 +13,12 @@ const propTypes = {
 };
 
 export const SliderCard = ({ destination, isLoading }) => {
-    const { imageUrls, city, country, _id } = destination;
+    const { imageUrls, city, country, _id, likesCount, lastUserLikes } = destination;
     const { routePath } = routeConstants.DESTINATIONS.BY_ID;
 
     const loadingClass = `${isLoading ? styles.pointersDisabled : null}`;
+
+    const likedByMsg = likedByMessage({ lastUserLikes, likesCount });
 
     return (
         <Link to={routePath(_id)} className={loadingClass}>
@@ -39,17 +41,35 @@ export const SliderCard = ({ destination, isLoading }) => {
                         <p className={styles.country}>{country?.name || country}</p>
                         <div className={styles.contentLikes}>
                             <div className={styles.userAvatars}>
-                                <img src="https://randomuser.me/api/portraits/women/91.jpg" alt="test" />
-                                <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="test" className={styles.avatar2}/>
-                                <img src="https://randomuser.me/api/portraits/women/10.jpg" alt="test" className={styles.avatar3}/>
+                                {lastUserLikes.slice(0, 3).map((user, i) => (
+                                    <img
+                                        src={user.avatarUrl}
+                                        alt={user.username}
+                                        key={user.username + i}
+                                        className={styles[`avatar${i}`]}
+                                    />
+                                ))}
                             </div>
-                            <p className={styles.likedBy}>Liked by {'McMuffinAndRoflCopter'.slice(0, 12)} and 5 others</p>
+                            <p className={styles.likedBy}>{likedByMsg}</p>
                         </div>
                     </section>
                 </div>
             )}
         </Link>
     );
+};
+
+const likedByMessage = ({ lastUserLikes, likesCount }) => {
+    if (lastUserLikes) {
+        const lastUsernameLike = lastUserLikes.slice(0, 3).at(-1).username.slice(0, 12);
+        const totalLikesWithoutLastOne = likesCount - 1;
+        const likedByOtherMsg = likesCount - 1 == 1 ? 'other' : 'others';
+        const likedByMessage = `Liked By ${lastUsernameLike} and ${totalLikesWithoutLastOne} ${likedByOtherMsg}`;
+
+        return likedByMessage;
+    }
+
+    return null;
 };
 
 SliderCard.propTypes = propTypes;

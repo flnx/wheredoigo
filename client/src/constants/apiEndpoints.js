@@ -7,6 +7,7 @@ export const apiEndpoints = {
     userFavorites: 'user/favorites',
 
     allDestinations: 'destinations',
+    mostLikedDestinations: 'top-destinations',
     creatorDestinations: 'destinations/created-by-user',
     destinationById: (id) => `destinations/${id}`,
     // the path can be either "like" or "dislike"

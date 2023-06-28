@@ -7,6 +7,12 @@ export const getDestinations = async () => {
     return res.data;
 };
 
+export const getMostLikedDestinations = async () => {
+    const res = await axios.get(apiEndpoints.mostLikedDestinations);
+
+    return res.data;
+};
+
 export const getDestination = async (id) => {
     const res = await axios.get(apiEndpoints.destinationById(id));
 
