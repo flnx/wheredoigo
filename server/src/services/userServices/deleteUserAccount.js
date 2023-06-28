@@ -58,7 +58,7 @@ async function deleteUserAccount(userData) {
         const activityPromises = [
             Destination.updateMany(
                 { likes: ownerId },
-                { $pull: { likes: ownerId } }
+                { $pull: { likes: ownerId }, $inc: { likesCount: -1 } }
             ).exec(),
             UserActivity.deleteOne({ userId: ownerId }).exec(),
         ];
