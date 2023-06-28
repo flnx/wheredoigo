@@ -5,6 +5,7 @@ const { errorMessages } = require('../../constants/errorMessages');
 const { avatarOptions } = require('../../config/cloudinary');
 const { handleImageUploads, deleteImage } = require('../../utils/cloudinaryUploader');
 const { createValidationError } = require('../../utils/createValidationError');
+const { generateUserToken } = require('../../utils/generateUserToken');
 
 require('dotenv').config();
 
@@ -36,19 +37,14 @@ const updateUserAvatar = async (image, userData) => {
     user.avatar_id = public_id;
     await user.save();
 
-    const payload = {
-        ownerId: user._id,
-        email: user.email,
-        username: user.capitalizedUsername,
-    };
-
-    const accessToken = await jwt.sign(payload, process.env.JWT_SECRET);
+    const accessToken = await generateUserToken(user);
 
     return {
         email: user.email,
         username: user.capitalizedUsername,
-        accessToken,
         avatarUrl: url,
+        role: user.role,
+        accessToken,
     };
 };
 

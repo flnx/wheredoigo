@@ -1,9 +1,9 @@
 const validator = require('validator');
 const bcrypt = require('bcrypt');
-const jwt = require('../../lib/jsonwebtoken');
 
 const User = require('../../models/userSchema');
 
+const { generateUserToken } = require('../../utils/generateUserToken');
 const { validatePassword, isString } = require('../../utils/utils');
 const { createValidationError } = require('../../utils/createValidationError');
 const { errorMessages } = require('../../constants/errorMessages');
@@ -33,19 +33,14 @@ async function userLogin({ email, password }) {
         throw createValidationError(errorMessages.auth, 400);
     }
 
-    const payload = {
-        ownerId: user._id,
-        email: user.email,
-        username: user.capitalizedUsername,
-    };
-
-    const accessToken = await jwt.sign(payload, process.env.JWT_SECRET);
+    const accessToken = await generateUserToken(user) 
 
     return {
         email: user.email,
         username: user.capitalizedUsername,
-        accessToken,
         avatarUrl: user.avatarUrl,
+        role: user.role,
+        accessToken,
     };
 }
 

@@ -68,7 +68,7 @@ export const Comments = ({ placeId, commentSectionRef }) => {
                     />
                 </section>
             )}
-            {hasNoComments && <p>No comments have been addded yet</p>}
+            {hasNoComments && <p>No comments have been added yet</p>}
             <ClipLoader
                 color="#36d7b7"
                 size={40}

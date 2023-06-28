@@ -9,7 +9,7 @@ const userSchema = new Schema({
         type: String,
         trim: true,
         minLength: [2, errorMessages.username],
-        maxLength: [25 , errorMessages.username],
+        maxLength: [12, errorMessages.username],
         unique: [true, 'The username is already taken'],
         validate: [validator.isAlphanumeric, errorMessages.username],
     },
@@ -31,12 +31,16 @@ const userSchema = new Schema({
     avatar_id: {
         type: String,
     },
+    role: {
+        type: String,
+        enum: ['user', 'admin', 'moderator', 'traveller', 'commenter'],
+        default: 'user',
+    },
 });
 
-userSchema.virtual('capitalizedUsername')
-  .get(function() {
+userSchema.virtual('capitalizedUsername').get(function () {
     return this.username.replace(/\b\w/g, (l) => l.toUpperCase());
-  });
+});
 
 userSchema.index({
     collation: {
