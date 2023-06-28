@@ -24,6 +24,7 @@ export const useLikeDestination = (destinationId) => {
             );
 
             queryClient.invalidateQueries([queryEndpoints.userActivity]);
+            queryClient.invalidateQueries([queryEndpoints.destinations]);
             queryClient.invalidateQueries([queryEndpoints.userFavorites]);
         },
     });

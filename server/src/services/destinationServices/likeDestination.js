@@ -4,7 +4,7 @@ const UserActivity = require('../../models/userActivitiesSchema');
 async function likeDestination(id, userId) {
     const result = await Destination.updateOne(
         { _id: id },
-        { $addToSet: { likes: userId } }
+        { $addToSet: { likes: userId }, $inc: { likesCount: 1 } }
     );
 
     if (result.modifiedCount == 1) {

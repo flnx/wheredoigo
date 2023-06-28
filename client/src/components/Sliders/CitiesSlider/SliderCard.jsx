@@ -41,7 +41,7 @@ export const SliderCard = ({ destination, isLoading }) => {
                         <p className={styles.country}>{country?.name || country}</p>
                         <div className={styles.contentLikes}>
                             <div className={styles.userAvatars}>
-                                {lastUserLikes.slice(0, 3).map((user, i) => (
+                                {lastUserLikes?.slice(0, 3).map((user, i) => (
                                     <img
                                         src={user.avatarUrl}
                                         alt={user.username}
@@ -61,7 +61,7 @@ export const SliderCard = ({ destination, isLoading }) => {
 
 const likedByMessage = ({ lastUserLikes, likesCount }) => {
     if (lastUserLikes) {
-        const lastUsernameLike = lastUserLikes.slice(0, 3).at(-1).username.slice(0, 12);
+        const lastUsernameLike = lastUserLikes?.slice(0, 3).at(-1).username?.slice(0, 12);
         const totalLikesWithoutLastOne = likesCount - 1;
         const likedByOtherMsg = likesCount - 1 == 1 ? 'other' : 'others';
         const likedByMessage = `Liked By ${lastUsernameLike} and ${totalLikesWithoutLastOne} ${likedByOtherMsg}`;

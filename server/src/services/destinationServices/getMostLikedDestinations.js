@@ -34,6 +34,20 @@ async function getMostLikedDestinations() {
         { $limit: 12 },
     ]).exec();
 
+    const destinations2 = await Destination.find({ likes: { $gt: [] } })
+        .sort({ likesCount: -1 })
+        .select({
+            city: 1,
+            country: 1,
+            likesCount: 1,
+            imageUrls: { $arrayElemAt: ['$imageUrls.imageUrl', 0] },
+            likes: { $slice: -3 },
+        })
+        .limit(1)
+        .exec();
+
+    console.log(destinations2);
+
     const updatedDestinations = destinations.map((destination) => {
         const { _id, city, country, imageUrls, likes, likesCount } = destination;
 

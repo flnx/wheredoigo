@@ -49,6 +49,7 @@ const destinationSchema = new Schema({
             required: true,
         },
     ],
+    likesCount: { type: Number, default: 0 },
     details: [
         {
             category: {
