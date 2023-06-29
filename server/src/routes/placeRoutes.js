@@ -22,7 +22,8 @@ const {
     delete_place_image,
     place_comments,
     get_places,
-    get_user_places_data
+    get_user_places_data,
+    generate_place_ai_comments
 } = require('../controllers/placeController');
 
 const router = express.Router();
@@ -33,6 +34,8 @@ router.get('/places/:id', validateMongoId, checkSession, place_details);
 router.get('/places/:id/comments/', validateMongoId, checkSession, place_comments);
 router.get('/places/:id/request-edit-permissions', validateMongoId, auth, fetchPlaceAndCheckOwnership, request_place_to_edit)
 router.get('/destinations/:id/places/add', validateMongoId, auth, checkDestinationOwnershipOnly, add_new_place_request);
+router.get('/places/:id/generate-ai-comments', validateMongoId, generate_place_ai_comments);
+
 
 router.post('/destinations/:id/places/add', validateMongoId, auth, checkDestinationOwnershipOnly, upload, add_new_place);
 router.post('/places/:id/comment', validateMongoId, auth, post_comment);

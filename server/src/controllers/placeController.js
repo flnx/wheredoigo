@@ -12,6 +12,7 @@ const getUserPlacesData = require('../services/placeServices/getUserPlacesData')
 const {allowedPlaceCategories, allowedFieldsToUpdate } = require('../constants/allowedPlaceCategories');
 const getPlaceComments = require('../services/placeServices/getPlaceComments');
 const { extractPageFromQuery } = require('../utils/extractPageFromQuery');
+const { addAIGeneratedCommentsToPlace } = require('../services/placeServices/addAIGeneratedCommentsToPlace');
 
 const get_places = async(req, res, next) => {
     try {
@@ -168,6 +169,16 @@ const add_place_new_images = async (req, res, next) => {
     }
 };
 
+const generate_place_ai_comments = async (req, res, next) => {
+    try {
+        const result = await addAIGeneratedCommentsToPlace();
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
+};
+
+
 module.exports = {
     add_new_place,
     add_new_place_request,
@@ -182,4 +193,5 @@ module.exports = {
     delete_place_image,
     get_places,
     get_user_places_data,
+    generate_place_ai_comments
 };

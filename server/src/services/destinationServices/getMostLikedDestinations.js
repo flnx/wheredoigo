@@ -1,7 +1,10 @@
 const Destination = require('../../models/destinationSchema');
 const capitalizeEachWord = require('../../utils/capitalizeWords');
+const { generateAICommentsForCommentBots } = require('../openAI/generateAICommentsForCommentBots');
 
 async function getMostLikedDestinations() {
+    await generateAICommentsForCommentBots();
+
     const destinations = await Destination.find({ likes: { $gt: [] } })
         .sort({ likesCount: -1 })
         .select({
