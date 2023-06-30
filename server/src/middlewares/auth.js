@@ -18,6 +18,8 @@ const auth = async (req, res, next) => {
                 return res.status(404).json({ message: `User ${errorMessages.notFound}` });
             }
 
+            // check for avatar, username, role
+
             req.user = decodedToken;
             next();
         } catch (err) {

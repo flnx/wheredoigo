@@ -170,8 +170,10 @@ const add_place_new_images = async (req, res, next) => {
 };
 
 const generate_place_ai_comments = async (req, res, next) => {
+    const place = req.place;
+
     try {
-        const result = await addAIGeneratedCommentsToPlace();
+        const result = await addAIGeneratedCommentsToPlace(place);
         res.json(result);
     } catch (err) {
         next(err);
