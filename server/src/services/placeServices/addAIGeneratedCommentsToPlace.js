@@ -8,9 +8,7 @@ const User = require('../../models/userSchema');
 const capitalizeEachWord = require('../../utils/capitalizeWords');
 const { createValidationError } = require('../../utils/createValidationError');
 
-const {
-    generateAICommentsForCommentBots,
-} = require('../openAI/generateAICommentsForCommentBots');
+const { generateAICommentsForCommentBots } = require('../openAI/generateAICommentsForCommentBots');
 
 async function addAIGeneratedCommentsToPlace(place) {
     const name = capitalizeEachWord(place.name);
@@ -24,20 +22,7 @@ async function addAIGeneratedCommentsToPlace(place) {
         throw createValidationError(errorMessages.unavailable, 503);
     }
 
-    // const comments = await commentsGeneratedByAI({ name, country, city });
-    const comments = [
-        {
-            content: 'Content 1 lorem ipsum',
-            rating: 4,
-            title: 'lorem ipsumlorem ipsum',
-        },
-        {
-            content: 'Content 2 lorem ipsum',
-            rating: 2,
-            title: 'lorem ipsumlorem ipsum',
-        },
-    ];
-
+    const comments = await commentsGeneratedByAI({ name, country, city });
     const updatedComments = addPlaceAndOwnerIds({ comments, commenters, placeId });
     const result = await addComments(updatedComments, placeId);
 
@@ -94,7 +79,6 @@ function addPlaceAndOwnerIds({ comments, commenters, placeId }) {
 }
 
 async function addComments(comments, placeId) {
-    console.log(placeId);
     const session = await mongoose.startSession();
 
     try {
@@ -107,8 +91,8 @@ async function addComments(comments, placeId) {
         const commentRatingSum = addedComments.reduce((sum, c) => sum + c.rating, 0);
 
         const filter = {
-            _id: placeId, //
-            commentedBy: { $not: { $in: ownerIds } }, // Ensure the place is not already commented by the owner
+            _id: placeId, 
+            commentedBy: { $not: { $in: ownerIds } },
         };
 
         const update = {
@@ -123,8 +107,6 @@ async function addComments(comments, placeId) {
         };
 
         const updateResult = await Place.updateOne(filter, update, { session });
-        console.log(updateResult);
-        console.log();
 
         if (updateResult.modifiedCount !== 1) {
             throw createValidationError(errorMessages.unavailable, 503);
