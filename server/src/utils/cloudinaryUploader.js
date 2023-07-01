@@ -84,6 +84,7 @@ async function deleteMultipleImages(public_ids, folderNames) {
 
         return true;
     } catch (error) {
+        console.log(error.message);
         throw error;
     }
 }

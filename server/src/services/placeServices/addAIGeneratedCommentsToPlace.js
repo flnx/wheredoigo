@@ -4,13 +4,11 @@ const { errorMessages } = require('../../constants/errorMessages');
 const Comment = require('../../models/commentSchema');
 const Place = require('../../models/placeSchema');
 const User = require('../../models/userSchema');
+const UserActivity = require('../../models/userActivitiesSchema');
 
 const capitalizeEachWord = require('../../utils/capitalizeWords');
 const { createValidationError } = require('../../utils/createValidationError');
-
-const {
-    generateAICommentsForCommentBots,
-} = require('../openAI/generateAICommentsForCommentBots');
+const { commentsGeneratedByAI } = require('../openAI/commentsGeneratedByAI');
 
 async function addAIGeneratedCommentsToPlace(place) {
     const name = capitalizeEachWord(place.name);
@@ -44,48 +42,26 @@ async function addAIGeneratedCommentsToPlace(place) {
         numOfCommenters,
     });
 
-    const updatedComments = addPlaceAndOwnerIds({ comments, filteredCommenters, placeId });
+    const updatedComments = attachPlaceAndOwnerIDsToComments({
+        comments,
+        filteredCommenters,
+        placeId,
+    });
 
-    const result = await addCommentsToPlace(updatedComments, placeId);
-    return result;
+    const { updateResult, commentIds, ownerIds } = await addCommentsToPlace(
+        updatedComments,
+        placeId
+    );
+
+    addUsersActivities(ownerIds, placeId, commentIds);
+    return updateResult;
 }
 
-async function commentsGeneratedByAI({ name, country, city, numOfCommenters }) {
-    let retryCount = 0;
-    const MAX_RETRIES = 1;
-
-    let comments;
-    // retry mechanism if comment generation fails
-
-    while (retryCount <= MAX_RETRIES) {
-        try {
-            comments = await generateAICommentsForCommentBots(
-                city,
-                name,
-                country,
-                numOfCommenters
-            );
-            return comments; // returns the result if the comments are successfully generated
-        } catch (error) {
-            retryCount++;
-
-            if (retryCount <= MAX_RETRIES) {
-                console.error(
-                    `Failed to generate AI comments. Retrying... (Attempt ${retryCount})`
-                );
-                await delay(500); // 500ms delay before retrying
-            } else {
-                throw error;
-            }
-        }
-    }
-
-    function delay(ms) {
-        return new Promise((resolve) => setTimeout(resolve, ms));
-    }
-}
-
-function addPlaceAndOwnerIds({ comments, filteredCommenters, placeId }) {
+function attachPlaceAndOwnerIDsToComments({
+    comments,
+    filteredCommenters,
+    placeId,
+}) {
     return comments
         .map((comment, i) => {
             const ownerId = filteredCommenters[i]._id;
@@ -139,7 +115,11 @@ async function addCommentsToPlace(comments, placeId) {
 
         await session.commitTransaction();
 
-        return updateResult;
+        return {
+            updateResult,
+            commentIds,
+            ownerIds,
+        };
     } catch (error) {
         console.log(error.message);
         await session.abortTransaction();
@@ -148,6 +128,38 @@ async function addCommentsToPlace(comments, placeId) {
         session.endSession();
     }
 }
+
+async function addUsersActivities(userIds, placeId, commentIds) {
+    const updates = userIds.map((userId, index) => ({
+        updateOne: {
+            filter: { userId },
+            update: {
+                $push: {
+                    comments: {
+                        $each: [
+                            {
+                                place: placeId,
+                                comment: commentIds[index],
+                                timestamp: Date.now(),
+                            },
+                        ],
+                        $slice: -3, // Keep only the first 3 comments
+                    },
+                },
+            },
+            upsert: true,
+        },
+    }));
+
+    try {
+        await UserActivity.bulkWrite(updates);
+        return true;
+    } catch (err) {
+        console.log(err.message);
+        return false;
+    }
+}
+
 module.exports = {
     addAIGeneratedCommentsToPlace,
 };

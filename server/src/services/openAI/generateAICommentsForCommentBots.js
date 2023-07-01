@@ -23,7 +23,6 @@ async function generateAICommentsForCommentBots(city, place, country, num) {
         return commentsData;
     } catch (err) {
         const errMsg = err?.response?.data?.error?.message || err.message;
-        console.log(errMsg);
         throw createValidationError(errMsg, 400);
     }
 }

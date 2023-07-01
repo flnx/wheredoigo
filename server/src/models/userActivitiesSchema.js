@@ -30,7 +30,6 @@ const commentSchema = new Schema({
     },
 });
 
-
 const userActivitySchema = new Schema({
     userId: {
         type: Schema.Types.ObjectId,
@@ -38,7 +37,7 @@ const userActivitySchema = new Schema({
         required: true,
     },
     likes: [likeSchema],
-    comments: [commentSchema]
+    comments: [commentSchema],
 });
 
 userActivitySchema.index({ userId: 1 });
