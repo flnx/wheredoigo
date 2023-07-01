@@ -8,7 +8,9 @@ const User = require('../../models/userSchema');
 const capitalizeEachWord = require('../../utils/capitalizeWords');
 const { createValidationError } = require('../../utils/createValidationError');
 
-const { generateAICommentsForCommentBots } = require('../openAI/generateAICommentsForCommentBots');
+const {
+    generateAICommentsForCommentBots,
+} = require('../openAI/generateAICommentsForCommentBots');
 
 async function addAIGeneratedCommentsToPlace(place) {
     const name = capitalizeEachWord(place.name);
@@ -16,30 +18,53 @@ async function addAIGeneratedCommentsToPlace(place) {
     const city = capitalizeEachWord(place.city);
     const placeId = place._id.toString();
 
-    const commenters = await User.find({ role: 'commenter' }).select('_id');
+    const promises = [
+        User.find({ role: 'commenter' }).select('_id'),
+        Place.find({ _id: placeId }).select('commentedBy'),
+    ];
 
-    if (commenters.length == 0) {
+    const [commenters, allPlaceCommenterIDs] = await Promise.all(promises);
+    const { commentedBy } = allPlaceCommenterIDs[0];
+
+    // If there's already a comment by a commenter on that place, it filters the commenter id out
+    const filteredCommenters = commenters.filter(
+        (c) => !commentedBy.includes(c._id)
+    );
+
+    const numOfCommenters = filteredCommenters.length;
+
+    if (filteredCommenters == 0) {
         throw createValidationError(errorMessages.unavailable, 503);
     }
 
-    const comments = await commentsGeneratedByAI({ name, country, city });
-    const updatedComments = addPlaceAndOwnerIds({ comments, commenters, placeId });
-    const result = await addComments(updatedComments, placeId);
+    const comments = await commentsGeneratedByAI({
+        name,
+        country,
+        city,
+        numOfCommenters,
+    });
 
+    const updatedComments = addPlaceAndOwnerIds({ comments, filteredCommenters, placeId });
+
+    const result = await addCommentsToPlace(updatedComments, placeId);
     return result;
 }
 
-async function commentsGeneratedByAI({ name, country, city }) {
+async function commentsGeneratedByAI({ name, country, city, numOfCommenters }) {
     let retryCount = 0;
     const MAX_RETRIES = 1;
 
     let comments;
-
     // retry mechanism if comment generation fails
 
     while (retryCount <= MAX_RETRIES) {
         try {
-            comments = await generateAICommentsForCommentBots(city, name, country);
+            comments = await generateAICommentsForCommentBots(
+                city,
+                name,
+                country,
+                numOfCommenters
+            );
             return comments; // returns the result if the comments are successfully generated
         } catch (error) {
             retryCount++;
@@ -60,10 +85,10 @@ async function commentsGeneratedByAI({ name, country, city }) {
     }
 }
 
-function addPlaceAndOwnerIds({ comments, commenters, placeId }) {
+function addPlaceAndOwnerIds({ comments, filteredCommenters, placeId }) {
     return comments
         .map((comment, i) => {
-            const ownerId = commenters[i]._id;
+            const ownerId = filteredCommenters[i]._id;
 
             const commentData = {
                 ...comment,
@@ -78,7 +103,7 @@ function addPlaceAndOwnerIds({ comments, commenters, placeId }) {
         .filter(Boolean); // filters out the undefined (if any)
 }
 
-async function addComments(comments, placeId) {
+async function addCommentsToPlace(comments, placeId) {
     const session = await mongoose.startSession();
 
     try {
@@ -91,7 +116,7 @@ async function addComments(comments, placeId) {
         const commentRatingSum = addedComments.reduce((sum, c) => sum + c.rating, 0);
 
         const filter = {
-            _id: placeId, 
+            _id: placeId,
             commentedBy: { $not: { $in: ownerIds } },
         };
 

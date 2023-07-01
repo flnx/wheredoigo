@@ -3,7 +3,7 @@ const { isValidArrayOfStrings } = require('../../utils/utils');
 const { openai } = require('../../config/openAIConfig');
 const { createValidationError } = require('../../utils/createValidationError');
 
-async function generateAICommentsForCommentBots(city, place, country) {
+async function generateAICommentsForCommentBots(city, place, country, num) {
     validateInput([city, place, country]);
 
     try {
@@ -13,7 +13,7 @@ async function generateAICommentsForCommentBots(city, place, country) {
             messages: [
                 {
                     role: 'user',
-                    content: `Generate 11 human like short comment reviews 1-5 rating inside JSON array of objects - for ${place} - ${city}, ${country}. Example: "[{ "title": "Amazing place", "content": "here example content"', "rating": 3 }, ...]"`,
+                    content: `Generate ${num} human like short comment reviews 1-5 rating inside JSON array of objects - for ${place} - ${city}, ${country}. Example: "[{ "title": "Amazing place", "content": "here example content"', "rating": 3 }, ...]"`,
                 },
             ],
         });

@@ -12,14 +12,12 @@ async function fetchDestinationAndCheckOwnership(req, res, next) {
     const user = req.user;
 
     try {
-        const promises = [
-            getDestinationById(id, user), 
-            getDestinationPlaces(id)
-        ];
-        
+        const promises = [getDestinationById(id, user), getDestinationPlaces(id)];
+
         const [destination, places] = await Promise.all(promises);
 
-        if (!destination.isOwner) {
+        // Allow admin role to bypass ownership check
+        if (user.role !== 'admin' && !destination.isOwner) {
             throw createValidationError(errorMessages.accessDenied, 403);
         }
 
@@ -35,14 +33,15 @@ async function fetchDestinationAndCheckOwnership(req, res, next) {
 async function checkDestinationOwnershipOnly(req, res, next) {
     try {
         const { id } = req.params;
-        const { ownerId } = req.user;
+        const { ownerId, role } = req.user;
         const destination = await getDestinationOwnerIdOnly(id);
 
         if (!destination) {
             throw createValidationError(errorMessages.notFound, 404);
         }
 
-        if (!destination.ownerId.equals(ownerId || '')) {
+        // Allow admin role to bypass ownership check
+        if (role !== 'admin' && !destination.ownerId.equals(ownerId)) {
             throw createValidationError(errorMessages.accessDenied, 403);
         }
 
@@ -57,7 +56,6 @@ async function checkDestinationOwnershipOnly(req, res, next) {
         next(error);
     }
 }
-
 module.exports = {
     fetchDestinationAndCheckOwnership,
     checkDestinationOwnershipOnly,

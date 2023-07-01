@@ -1,5 +1,6 @@
 const Destination = require('../../models/destinationSchema');
 const Place = require('../../models/placeSchema');
+const UserActivity = require('../../models/userActivitiesSchema');
 const Comment = require('../../models/commentSchema');
 const { errorMessages } = require('../../constants/errorMessages');
 
@@ -7,7 +8,6 @@ const { errorMessages } = require('../../constants/errorMessages');
 const { deleteMultipleImages } = require('../../utils/cloudinaryUploader');
 const { extractCloudinaryFolderName } = require('../../utils/utils');
 const { createValidationError } = require('../../utils/createValidationError');
-const UserActivity = require('../../models/userActivitiesSchema');
 
 async function deleteDestination(destinationId, userId) {
     const [destination, places] = await Promise.all([

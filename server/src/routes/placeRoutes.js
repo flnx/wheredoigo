@@ -8,10 +8,7 @@ const {
 const { auth } = require('../middlewares/auth');
 const { upload } = require('../middlewares/images');
 const { checkSession } = require('../middlewares/checkSession');
-const {
-    fetchPlaceAndCheckOwnership,
-    checkPlaceOwnershipOnly,
-} = require('../middlewares/checkPlaceOwnership');
+const {fetchPlaceAndCheckOwnership, checkPlaceOwnershipOnly } = require('../middlewares/checkPlaceOwnership');
 
 // Controllers
 const {

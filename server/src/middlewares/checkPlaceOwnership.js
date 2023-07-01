@@ -12,7 +12,8 @@ async function fetchPlaceAndCheckOwnership(req, res, next) {
     try {
         const place = await getPlaceById(id, user);
 
-        if (!place.isOwner) {
+        // Allow admin role to bypass ownership check
+        if (user.role !== 'admin' && !place.isOwner) {
             throw createValidationError(errorMessages.accessDenied, 403);
         }
 
@@ -27,16 +28,16 @@ async function fetchPlaceAndCheckOwnership(req, res, next) {
 async function checkPlaceOwnershipOnly(req, res, next) {
     try {
         const { id } = req.params;
-        const { ownerId } = req.user;
+        const { ownerId, role } = req.user;
 
         const place = await getPlaceOwnerIdOnly(id);
-
 
         if (!place) {
             throw createValidationError('Place ' + errorMessages.notFound, 404);
         }
 
-        if (!place.ownerId.equals(ownerId || '')) {
+        // Allow admin role to bypass access check
+        if (role !== 'admin' && !place.ownerId.equals(ownerId)) {
             throw createValidationError(errorMessages.accessDenied, 403);
         }
 
@@ -48,8 +49,7 @@ async function checkPlaceOwnershipOnly(req, res, next) {
     }
 }
 
-
 module.exports = {
     fetchPlaceAndCheckOwnership,
-    checkPlaceOwnershipOnly
+    checkPlaceOwnershipOnly,
 };
