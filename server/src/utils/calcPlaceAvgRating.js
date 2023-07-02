@@ -1,16 +1,25 @@
 function calcAverageRating(placeRating, commentRating, newNumOfRates) {
-    let { numRates, sumOfRates } = placeRating;
+    try {
+        let { numRates, sumOfRates } = placeRating;
 
-    if (commentRating > 0) {
-        sumOfRates = sumOfRates + Number(commentRating);
-        numRates = newNumOfRates ? numRates + Number(newNumOfRates) : numRates + 1;
+        if (commentRating > 0) {
+            // Add the commentRating to the sumOfRates
+            sumOfRates += Number(commentRating);
+
+            // Increment the numRates based on newNumOfRates value or by 1
+            numRates += newNumOfRates ? Number(newNumOfRates) : 1;
+        }
+
+        // Calculate the avg rating with two decimal places
+        const result = +(sumOfRates / numRates).toFixed(2);
+
+        // Check if the result is NaN, if so return 0
+        return isNaN(result) ? 0 : result;
+    } catch (err) {
+        console.log(err.message);
+        return 0;
     }
-
-    const result = +(sumOfRates / numRates).toFixed(2);
-
-    return result;
 }
-
 module.exports = {
     calcAverageRating,
 };
