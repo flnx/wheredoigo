@@ -16,8 +16,8 @@ const propTypes = {
 export const TopPlaces = ({ places, isLoading }) => {
     const { data, error } = places;
 
-    // 1. If places data is loading - it returns a new array with X elements
-    // 1.1 This ensures that the section will render (X) amount of div boxes when the data is being fetched in order the loading skeleton to visualize inside them
+    // 1. If places data is loading - it returns a new array with "X" elements
+    // 1.1 This ensures that the section will render (X) amount of div boxes when the data is being fetched in order the >Loading skeleton< to visualize inside those div boxes
     const placesPrefilledArr = isLoading ? checkArrayAndPreloadElements(data, 9) : data;
     console.log(placesPrefilledArr)
 
