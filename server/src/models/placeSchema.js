@@ -112,6 +112,10 @@ placeSchema.virtual('capitalizedCountry').get(function () {
     return capitalizeEachWord(this.country);
 });
 
+placeSchema.virtual('mainImage').get(function () {
+    return this.imageUrls.length > 0 ? this.imageUrls[0].imageUrl : null;
+});
+
 const Place = mongoose.model('Place', placeSchema);
 
 module.exports = Place;

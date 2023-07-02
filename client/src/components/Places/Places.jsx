@@ -19,7 +19,7 @@ const propTypes = {
 
 export const Places = ({ places, isLoading, onDeleteClickHandler, isOwner }) => {
     const { BY_ID } = routeConstants.PLACES;
-
+    
     return (
         <div className={styles['places']}>
             {places.map(({ _id, name, country, city, imageUrl, averageRating }) => (
