@@ -13,13 +13,14 @@ async function generateAICommentsForCommentBots(city, place, country, num) {
             messages: [
                 {
                     role: 'user',
-                    content: `Generate ${num} human like short comment reviews 1-5 rating inside JSON array of objects - for ${place} - ${city}, ${country}. Example: "[{ "title": "Amazing place", "content": "here example content"', "rating": 3 }, ...]"`,
+                    content: `Generate ${num} human like short comment reviews 1-5 rating (JSON) array of objects - for ${place} - ${city}, ${country}. Example: [{ title: "Amazing place", content: "here example content", rating: 3 }, ...] EXACT OBJECT STRUCTURE!`,
                 },
             ],
         });
 
         const { content } = response.data.choices[0].message;
         const commentsData = JSON.parse(content);
+
         return commentsData;
     } catch (err) {
         const errMsg = err?.response?.data?.error?.message || err.message;

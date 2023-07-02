@@ -4,7 +4,7 @@ const capitalizeEachWord = require('../../utils/capitalizeWords');
 async function getPlaces() {
     const query = {
         type: { $in: ['Explore', 'Eat'] },
-        $or: [{ country: 'Netherlands' }, { country: 'Bulgaria' }],
+        $or: [{ country: 'netherlands' }, { country: 'bulgaria' }],
     };
 
     const projection = {

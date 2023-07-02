@@ -51,6 +51,11 @@ async function addAIGeneratedCommentsToPlace(place) {
         placeId,
     });
 
+    if (updatedComments.length == 0) {
+        console.error('AddAIGeneratedCommentsToPlace: GPT Object Error')
+        throw createValidationError(errorMessages.serverError, 500);
+    }
+
     const { 
         updateResult, 
         commentIds, 
@@ -137,9 +142,9 @@ async function addCommentsToPlace(comments, placeId) {
             numOfComments: addedComments.length,
         };
     } catch (error) {
-        console.log(error.message);
+        console.log(`addCommentsToPlace - ${error.message}`);
         await session.abortTransaction();
-        throw error;
+        throw createValidationError(errorMessages.serverError, 500);
     } finally {
         session.endSession();
     }

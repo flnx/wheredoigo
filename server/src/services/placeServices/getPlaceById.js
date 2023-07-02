@@ -29,9 +29,6 @@ async function getPlaceById(placeId, user) {
         });
     }
 
-    console.log(place.country);
-
-
     return {
         ...place.toObject(),
         name: place.capitalizedName,
