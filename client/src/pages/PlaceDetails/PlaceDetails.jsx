@@ -21,7 +21,7 @@ export const PlaceDetails = () => {
     const place = data || {};
     const imagesData = place?.imageUrls || [];
 
-    const { isAuth, hasCommented } = data || {};
+    const { isAuth, hasCommented, hasAIComments } = data || {};
 
     return (
         <Container>
@@ -33,7 +33,8 @@ export const PlaceDetails = () => {
                     <Header place={place} isLoading={isLoading} />
                     {!isLoading && (
                         <>
-                            <GenerateAIComments placeId={placeId} />
+                            {!hasAIComments && <GenerateAIComments placeId={placeId} />}
+
                             <Comments
                                 placeId={placeId}
                                 commentSectionRef={commentSectionRef}

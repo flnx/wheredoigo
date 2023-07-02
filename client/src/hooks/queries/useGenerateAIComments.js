@@ -8,13 +8,14 @@ export const useGenerateAIComments = (placeId) => {
     const { mutate, isLoading, error } = useMutation({
         mutationFn: () => generateAIComments(placeId),
         onSuccess: (result) => {
-            const { averageRating } = result;
+            const { averageRating, hasAIComments } = result;
 
             const place = queryClient.getQueryData([queryEndpoints.place, placeId]);
             // Update the places query data in the cache
             const updatedPlace = {
                 ...place,
-                averageRating: averageRating,
+                hasAIComments,
+                averageRating,
             };
 
             queryClient.setQueryData([queryEndpoints.place, placeId], updatedPlace);

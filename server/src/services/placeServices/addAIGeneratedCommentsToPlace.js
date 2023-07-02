@@ -19,16 +19,17 @@ async function addAIGeneratedCommentsToPlace(place) {
     const placeId = place._id.toString();
 
     const promises = [
-        User.find({ role: 'commenter' }).select('_id'),
-        Place.find({ _id: placeId }).select('commentedBy'),
+        User.find({ role: 'commenter' }).select('_id').lean().exec(),
+        Place.findById(placeId).select('commentedBy').lean().exec(),
     ];
 
-    const [commenters, allPlaceCommenterIDs] = await Promise.all(promises);
-    const { commentedBy } = allPlaceCommenterIDs[0];
+    const [commenters, placeCommenterIds] = await Promise.all(promises);
+
+    const commentedBy = placeCommenterIds.commentedBy.map((id) => id.toString());
 
     // If there's already a comment by a commenter on that place, it filters the commenter id out
     const filteredCommenters = commenters.filter(
-        (c) => !commentedBy.includes(c._id)
+        (c) => !commentedBy.includes(c._id.toString())
     );
 
     const numOfCommenters = filteredCommenters.length;
@@ -50,12 +51,12 @@ async function addAIGeneratedCommentsToPlace(place) {
         placeId,
     });
 
-    const {
-        updateResult,
-        commentIds,
-        ownerIds,
-        commentRatingSum,
-        numOfComments
+    const { 
+        updateResult, 
+        commentIds, 
+        ownerIds, 
+        commentRatingSum, 
+        numOfComments 
     } = await addCommentsToPlace(updatedComments, placeId);
 
     // Recalculating the avg place rating (to return in on the client)
@@ -65,10 +66,10 @@ async function addAIGeneratedCommentsToPlace(place) {
 
     return {
         ...updateResult,
-        averageRating
+        averageRating,
+        hasAIComments: true
     };
 }
-
 
 function attachPlaceAndOwnerIDsToComments({
     comments,

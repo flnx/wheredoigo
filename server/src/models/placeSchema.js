@@ -102,17 +102,15 @@ placeSchema.virtual('averageRating').get(function () {
 
 placeSchema.virtual('capitalizedName').get(function () {
     return capitalizeEachWord(this.name);
-  });
-  
-  // Define a virtual for the capitalized city
-  placeSchema.virtual('capitalizedCity').get(function () {
+});
+
+placeSchema.virtual('capitalizedCity').get(function () {
     return capitalizeEachWord(this.city);
-  });
-  
-  // Define a virtual for the capitalized country
-  placeSchema.virtual('capitalizedCountry').get(function () {
+});
+
+placeSchema.virtual('capitalizedCountry').get(function () {
     return capitalizeEachWord(this.country);
-  });
+});
 
 const Place = mongoose.model('Place', placeSchema);
 
