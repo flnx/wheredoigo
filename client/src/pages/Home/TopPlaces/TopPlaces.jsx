@@ -4,32 +4,34 @@ import PropTypes from 'prop-types';
 import { Container } from '../../../components/Containers/Container/Container';
 import { Places } from '../../../components/Places/Places';
 import { checkArrayAndPreloadElements, extractServerErrorMessage } from '../../../utils/utils';
-
-import styles from '../Home.module.css';
 import { LoadingSkeleton } from '../../../components/LoadingSkeletons/LoadingSkeleton';
 
-const propTypes = {
-    placesData: PropTypes.object.isRequired,
-    isLoading: PropTypes.bool.isRequired,
-}
+import styles from '../Home.module.css';
 
-export const TopPlaces = ({ placesData, isLoading }) => {
-    const data = placesData?.data || [];
+const propTypes = {
+    places: PropTypes.object.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+};
+
+export const TopPlaces = ({ places, isLoading }) => {
+    const { data, error } = places;
 
     // 1. If places data is loading - it returns a new array with X elements
     // 1.1 This ensures that the section will render (X) amount of div boxes when the data is being fetched in order the loading skeleton to visualize inside them
-    const places = checkArrayAndPreloadElements(data, 9);
-    
+    const placesPrefilledArr = isLoading ? checkArrayAndPreloadElements(data, 9) : data;
+    console.log(placesPrefilledArr)
+
     return (
         <section>
             <Container>
                 <h2 className={styles.title}>
-                    {isLoading ? <LoadingSkeleton /> : "Europe awaits you!"}
+                    {isLoading ? <LoadingSkeleton /> : 'Europe awaits you!'}
                 </h2>
-                {placesData.error 
-                    ? <p>{extractServerErrorMessage(places.error)}</p>
-                    : <Places places={places} isLoading={isLoading}/>
-                }
+                {error ? (
+                    <p>{extractServerErrorMessage(places.error)}</p>
+                ) : (
+                    <Places places={placesPrefilledArr} isLoading={isLoading} />
+                )}
             </Container>
         </section>
     );

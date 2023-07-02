@@ -20,6 +20,8 @@ async function getPlaces() {
 
     const places = await Place.find(query, projection, options).lean().exec();
 
+    return [];
+
     const updatedPlaces = places.map((place) => {
         const { name, country, city, rating, ...placeData } = place;
 

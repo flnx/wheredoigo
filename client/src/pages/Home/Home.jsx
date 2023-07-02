@@ -29,7 +29,7 @@ export const Home = () => {
                 <div className={styles.grid}>
                     <CitiesSlider destinationsData={destinations} isLoading={isLoading} />
                     <Categories categories={allowedCategories} isLoading={isLoading} />
-                    <TopPlaces placesData={places} isLoading={isLoading} />
+                    <TopPlaces places={places} isLoading={isLoading} />
                     <Intro isLoading={isLoading} />
                 </div>
             )}
