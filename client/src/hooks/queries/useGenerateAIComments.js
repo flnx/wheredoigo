@@ -5,7 +5,7 @@ import { queryEndpoints } from '../../constants/reactQueryEndpoints';
 export const useGenerateAIComments = (placeId) => {
     const queryClient = useQueryClient();
 
-    return useMutation({
+    const { mutate, isLoading, error } = useMutation({
         mutationFn: () => generateAIComments(placeId),
         onSuccess: (result) => {
             const { averageRating } = result;
@@ -14,7 +14,6 @@ export const useGenerateAIComments = (placeId) => {
             // Update the places query data in the cache
             const updatedPlace = {
                 ...place,
-                hasCommented: true,
                 averageRating: averageRating,
             };
 
@@ -25,4 +24,6 @@ export const useGenerateAIComments = (placeId) => {
             queryClient.invalidateQueries([queryEndpoints.userPlacesData]);
         },
     });
+
+    return [mutate, isLoading, error];
 };

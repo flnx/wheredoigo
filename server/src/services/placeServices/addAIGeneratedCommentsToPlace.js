@@ -50,12 +50,12 @@ async function addAIGeneratedCommentsToPlace(place) {
         placeId,
     });
 
-    const { 
-        updateResult, 
-        commentIds, 
-        ownerIds, 
-        commentRatingSum, 
-        numOfComments 
+    const {
+        updateResult,
+        commentIds,
+        ownerIds,
+        commentRatingSum,
+        numOfComments
     } = await addCommentsToPlace(updatedComments, placeId);
 
     // Recalculating the avg place rating (to return in on the client)
@@ -68,6 +68,7 @@ async function addAIGeneratedCommentsToPlace(place) {
         averageRating
     };
 }
+
 
 function attachPlaceAndOwnerIDsToComments({
     comments,

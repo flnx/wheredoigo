@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const { errorMessages } = require('../constants/errorMessages');
 const { allowedPlaceCategories } = require('../constants/allowedPlaceCategories');
+const capitalizeEachWord = require('../utils/capitalizeWords');
 
 const placeSchema = new Schema({
     ownerId: {
@@ -44,7 +45,7 @@ const placeSchema = new Schema({
         trim: true,
         minLength: [50, errorMessages.description],
         maxLength: [5000, errorMessages.description],
-        required: [true, errorMessages.description]
+        required: [true, errorMessages.description],
     },
     type: {
         type: String,
@@ -92,6 +93,26 @@ placeSchema.index(
     { name: 1, destinationId: 1 },
     { unique: true, collation: { locale: 'en', strength: 2 } }
 );
+
+placeSchema.virtual('averageRating').get(function () {
+    const { rating } = this;
+    const { sumOfRates, numRates } = rating;
+    return +(sumOfRates / numRates).toFixed(2) || 0;
+});
+
+placeSchema.virtual('capitalizedName').get(function () {
+    return capitalizeEachWord(this.name);
+  });
+  
+  // Define a virtual for the capitalized city
+  placeSchema.virtual('capitalizedCity').get(function () {
+    return capitalizeEachWord(this.city);
+  });
+  
+  // Define a virtual for the capitalized country
+  placeSchema.virtual('capitalizedCountry').get(function () {
+    return capitalizeEachWord(this.country);
+  });
 
 const Place = mongoose.model('Place', placeSchema);
 

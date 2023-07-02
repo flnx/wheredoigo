@@ -8,7 +8,6 @@ const { createValidationError } = require('../../utils/createValidationError');
 async function getPlaceById(placeId, user) {
     const place = await Place.findById(placeId)
         .select('-commentedBy -comments')
-        .lean()
         .exec();
 
     if (!place) {
@@ -29,24 +28,15 @@ async function getPlaceById(placeId, user) {
         });
     }
 
-    const { imageUrls, ownerId, rating, ...placeData } = place;
-
-    // remove public_id from images
-    const updatedImgUrls = imageUrls.map(({ public_id, ...rest }) => rest);
-
-    // calc the avg place rating
-    const { sumOfRates, numRates } = rating;
-    const averageRating = +(sumOfRates / numRates).toFixed(2) || 0;
-
     return {
-        ...placeData,
-        name: capitalizeEachWord(place.name),
-        city: capitalizeEachWord(place.city),
-        country: capitalizeEachWord(place.country),
-        imageUrls: updatedImgUrls,
+        ...place.toObject(),
+        capitalizedName: place.capitalizedName,
+        capitalizedCity: place.capitalizedCity,
+        capitalizedCountry: place.capitalizedCountry,
+        imageUrls: place.imageUrls.map(({ _id, imageUrl }) => ({ _id, imageUrl })),
         isAuth: !!user,
         hasCommented: !!hasCommented,
-        averageRating,
+        averageRating: place.averageRating,
     };
 }
 
