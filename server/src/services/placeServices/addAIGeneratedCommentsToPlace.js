@@ -9,8 +9,10 @@ const UserActivity = require('../../models/userActivitiesSchema');
 const capitalizeEachWord = require('../../utils/capitalizeWords');
 const { createValidationError } = require('../../utils/createValidationError');
 const { commentsGeneratedByAI } = require('../openAI/commentsGeneratedByAI');
+const { calcAverageRating } = require('../../utils/calcPlaceAvgRating');
 
 async function addAIGeneratedCommentsToPlace(place) {
+    const { rating } = place;
     const name = capitalizeEachWord(place.name);
     const country = capitalizeEachWord(place.country);
     const city = capitalizeEachWord(place.city);
@@ -48,13 +50,23 @@ async function addAIGeneratedCommentsToPlace(place) {
         placeId,
     });
 
-    const { updateResult, commentIds, ownerIds } = await addCommentsToPlace(
-        updatedComments,
-        placeId
-    );
+    const { 
+        updateResult, 
+        commentIds, 
+        ownerIds, 
+        commentRatingSum, 
+        numOfComments 
+    } = await addCommentsToPlace(updatedComments, placeId);
+
+    // Recalculating the avg place rating (to return in on the client)
+    const averageRating = calcAverageRating(rating, commentRatingSum, numOfComments);
 
     addUsersActivities(ownerIds, placeId, commentIds);
-    return updateResult;
+
+    return {
+        ...updateResult,
+        averageRating
+    };
 }
 
 function attachPlaceAndOwnerIDsToComments({
@@ -119,6 +131,8 @@ async function addCommentsToPlace(comments, placeId) {
             updateResult,
             commentIds,
             ownerIds,
+            commentRatingSum,
+            numOfComments: addedComments.length,
         };
     } catch (error) {
         console.log(error.message);

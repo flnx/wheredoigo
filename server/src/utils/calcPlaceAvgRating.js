@@ -1,9 +1,9 @@
-function calcAverageRating(placeRating, commentRating) {
+function calcAverageRating(placeRating, commentRating, newNumOfRates) {
     let { numRates, sumOfRates } = placeRating;
 
     if (commentRating > 0) {
-        sumOfRates = sumOfRates + commentRating;
-        numRates = numRates + 1;
+        sumOfRates = sumOfRates + Number(commentRating);
+        numRates = newNumOfRates ? numRates + Number(newNumOfRates) : numRates + 1;
     }
 
     const result = +(sumOfRates / numRates).toFixed(2);

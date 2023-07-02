@@ -38,6 +38,7 @@ export const apiEndpoints = {
     userPlacesData: 'places/user-places-data',
     placeById: (id) => `places/${id}`,
     placeComments: (id, page) => `places/${id}/comments?page=${page}`,
+    generateAIComments: (id) => `places/${id}/generate-ai-comments`,
     addPlace: (destinationId) => `destinations/${destinationId}/places/add`,
     requestCreatePlacePermissions: (destinationId) => `destinations/${destinationId}/places/add`,
     requestPlaceToEdit: (id) => `places/${id}/request-edit-permissions`,

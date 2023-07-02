@@ -10,6 +10,12 @@ export const removeComment = async (placeId, commentId) => {
     const comment = await axios.delete(
         apiEndpoints.deleteComment(placeId, commentId)
     );
+
+    return comment.data;
+};
+
+export const generateAIComments = async (placeId) => {
+    const comment = await axios.post(apiEndpoints.generateAIComments(placeId), {});
     
     return comment.data;
 };

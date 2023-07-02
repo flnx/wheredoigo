@@ -1,10 +1,11 @@
-import { ButtonGlow } from "../../../../components/Buttons/Button-Glow/ButtonGlow"
+import { ButtonGlow } from '../../../../components/Buttons/Button-Glow/ButtonGlow';
 
+export const GenerateAIComments = ({ placeId }) => {
+    const { mutate, isLoading, error } = useGenerateAIComments(placeId);
 
-export const GenerateAIComments = () => {
-  return (
-    <ButtonGlow>
-        Generate AI Comments for this Place
-    </ButtonGlow>
-  )
-}
+    return (
+        <section>
+            <ButtonGlow>Generate AI Comments</ButtonGlow>
+        </section>
+    );
+};

@@ -8,13 +8,13 @@ export const ButtonGlow = ({ children }) => {
 
     return (
         <section className="mb-2">
-            <Link to="#" className={styles.neonBtn}>
+            <button to="#" className={styles.neonBtn}>
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>
                 {children}
-            </Link>
+            </button>
         </section>
     );
 };

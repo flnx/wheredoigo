@@ -9,6 +9,9 @@ import { ClipLoader } from 'react-spinners';
 
 import { extractServerErrorMessage } from '../../../../utils/utils';
 import styles from './Comments.module.css';
+import { DarkOverlay } from '../../../../components/DarkOverlay/DarkOverlay';
+
+// !!! Change the DarkOverlay for specific comments overlay or add Comments Loading component
 
 export const Comments = ({ placeId, commentSectionRef }) => {
     const [currentPage, setCurrentPage] = useSearchParams({});
@@ -30,8 +33,6 @@ export const Comments = ({ placeId, commentSectionRef }) => {
         }
         commentSectionRef.current?.scrollIntoView();
     };
-
-    if (isLoading) return;
 
     const { data, hasNextPage, hasPreviousPage, totalPages } = comments;
     const hasComments = data?.length > 0;
@@ -69,10 +70,11 @@ export const Comments = ({ placeId, commentSectionRef }) => {
                 </section>
             )}
             {hasNoComments && <p>No comments have been added yet</p>}
+            {isLoading && <DarkOverlay isLoading={isLoading} />}
             <ClipLoader
                 color="#36d7b7"
                 size={40}
-                loading={isLoading || isFetching}
+                loading={isFetching}
                 aria-label="Loading Spinner"
                 className={styles.loader}
             />
