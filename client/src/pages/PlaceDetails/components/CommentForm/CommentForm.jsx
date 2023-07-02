@@ -39,6 +39,7 @@ export const CommentForm = ({ commentSectionRef }) => {
     return (
         <div>
             <h3 className={styles.title}>Leave a comment</h3>
+
             <form className={styles.form} onSubmit={(e) => handleSubmit(e, commentSectionRef)}>
                 <Rate
                     userRating={rating}

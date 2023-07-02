@@ -8,6 +8,7 @@ import { Header } from './components/Header/Header';
 import { Images } from './components/ImagesSection/ImagesSection';
 import { Comments } from './components/Comments/Comments';
 import { CommentForm } from './components/CommentForm/CommentForm';
+import { GenerateAIComments } from './components/GenerateAIComments/GenerateAIComments';
 
 import styles from './PlaceDetails.module.css';
 import { useRef } from 'react';
@@ -32,6 +33,7 @@ export const PlaceDetails = () => {
                     <Header place={place} isLoading={isLoading} />
                     {!isLoading && (
                         <>
+                            <GenerateAIComments />
                             <Comments
                                 placeId={placeId}
                                 commentSectionRef={commentSectionRef}

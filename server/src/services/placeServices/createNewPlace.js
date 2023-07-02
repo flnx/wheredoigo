@@ -31,10 +31,6 @@ async function createNewPlace(data, images, destination, ownerId) {
     const folderName = 'places';
     const { imageUrls, imgError } = await addImages(images, place, folderName);
 
-    if (imgError) {
-        throw createValidationError(errorMessages.serverError, 500);
-    }
-
     place.imageUrls = imageUrls;
     await place.save();
 

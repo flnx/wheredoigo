@@ -156,7 +156,7 @@ async function addUsersActivities(userIds, placeId, commentIds) {
         return true;
     } catch (err) {
         console.log(err.message);
-        return false;
+        return err?.message;
     }
 }
 
