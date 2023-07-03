@@ -21,8 +21,7 @@ export const PlaceDetails = () => {
     const place = data || {};
     const imagesData = place?.imageUrls || [];
 
-    const { isAuth, hasCommented, hasAIComments } = data || {};
-    console.log(data);
+    const { isAuth, hasCommented, hasAIComments, isOwner } = data || {};
 
     return (
         <Container>
@@ -34,7 +33,9 @@ export const PlaceDetails = () => {
                     <Header place={place} isLoading={isLoading} />
                     {!isLoading && (
                         <>
-                            {!hasAIComments && <GenerateAIComments placeId={placeId} />}
+                            {isOwner && !hasAIComments && (
+                                <GenerateAIComments placeId={placeId} />
+                            )}
 
                             <Comments
                                 placeId={placeId}
