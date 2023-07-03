@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const { errorMessages } = require('../constants/errorMessages');
 const { allowedPlaceCategories } = require('../constants/allowedPlaceCategories');
+const { createValidationError } = require('../utils/createValidationError');
 const capitalizeEachWord = require('../utils/capitalizeWords');
 
 const placeSchema = new Schema({
@@ -89,11 +90,6 @@ const placeSchema = new Schema({
     },
 });
 
-placeSchema.index(
-    { name: 1, destinationId: 1 },
-    { unique: true, collation: { locale: 'en', strength: 2 } }
-);
-
 placeSchema.virtual('averageRating').get(function () {
     const { rating } = this;
     const { sumOfRates, numRates } = rating;
@@ -115,6 +111,43 @@ placeSchema.virtual('capitalizedCountry').get(function () {
 placeSchema.virtual('mainImage').get(function () {
     return this.imageUrls.length > 0 ? this.imageUrls[0].imageUrl : null;
 });
+
+placeSchema.statics.updatePlaceCommentsAndRating = async function (
+    id,
+    ownerId,
+    comment,
+    numRate,
+    rating
+) {
+    const updatedPlace = await this.findOneAndUpdate(
+        { _id: id, commentedBy: { $ne: ownerId } },
+        {
+            $push: {
+                comments: comment._id,
+                commentedBy: ownerId,
+            },
+            $inc: {
+                'rating.numRates': numRate,
+                'rating.sumOfRates': rating,
+            },
+        },
+        { new: true }
+    )
+        .select('rating')
+        .lean()
+        .exec();
+
+    if (!updatedPlace) {
+        throw createValidationError(errorMessages.notFound, 404);
+    }
+
+    return updatedPlace;
+};
+
+placeSchema.index(
+    { name: 1, destinationId: 1 },
+    { unique: true, collation: { locale: 'en', strength: 2 } }
+);
 
 const Place = mongoose.model('Place', placeSchema);
 

@@ -5,11 +5,11 @@ const { errorMessages } = require('../../constants/errorMessages');
 
 // utils
 const { createValidationError } = require('../../utils/createValidationError');
-const { isString, isValidInteger } = require('../../utils/utils');
 const { calcAverageRating } = require('../../utils/calcPlaceAvgRating');
+const { validateCommentFields } = require('../../utils/validateComment');
 
 async function addCommentToPlace({ id, title, content, rating, user }) {
-    validateFields({ content, title, rating });
+    validateCommentFields({ content, title, rating });
     const { ownerId, avatarUrl, username } = user;
 
     const comment = new Comment({
@@ -22,11 +22,17 @@ async function addCommentToPlace({ id, title, content, rating, user }) {
 
     const numRate = rating > 0 ? 1 : 0;
 
-    const place = await updatePlace(id, ownerId, comment, numRate, rating);
+    const place = await Place.updatePlaceCommentsAndRating(
+        id,
+        ownerId,
+        comment,
+        numRate,
+        rating
+    );
 
     const promises = [
-        comment.save(), 
-        addUserActivity(ownerId, id, comment._id)
+        comment.save(),
+        UserActivity.updateCommentsActivity(ownerId, id, comment._id),
     ];
 
     await Promise.all(promises);
@@ -47,50 +53,6 @@ async function addCommentToPlace({ id, title, content, rating, user }) {
         isOwner: true,
         averageRating,
     };
-}
-
-async function updatePlace(id, ownerId, comment, numRate, rating) {
-    const udpatedPlace = await Place.findOneAndUpdate(
-        { _id: id, commentedBy: { $ne: ownerId } },
-        {
-            $push: {
-                comments: comment._id,
-                commentedBy: ownerId,
-            },
-            $inc: {
-                'rating.numRates': numRate,
-                'rating.sumOfRates': rating,
-            },
-        },
-        { new: true }
-    )
-        .select('rating')
-        .lean()
-        .exec();
-
-    if (!udpatedPlace) {
-        throw createValidationError(errorMessages.notFound, 404);
-    }
-
-    return udpatedPlace;
-}
-
-async function addUserActivity(userId, placeId, commentId) {
-    return UserActivity.updateCommentsActivity(userId, placeId, commentId);
-}
-
-function validateFields({ content, title, rating }) {
-    if (!isString(content) || content.length < 10) {
-        throw createValidationError(errorMessages.invalidComment, 400);
-    }
-
-    if (!isString(title) || title.length < 2) {
-        throw createValidationError(errorMessages.commentTitle, 400);
-    }
-
-    if (!isValidInteger(rating) || rating < 0 || rating > 5) {
-        throw createValidationError(400, errorMessages.invalidRating);
-    }
 }
 
 module.exports = addCommentToPlace;
