@@ -34,7 +34,7 @@ export const apiEndpoints = {
     changeAvatar: 'change-avatar',
     countriesAndCities: 'destinations/countries-and-cities',
 
-    places: `places`,
+    topPlaces: `top-places`,
     userPlacesData: 'places/user-places-data',
     placeById: (id) => `places/${id}`,
     placeComments: (id, page) => `places/${id}/comments?page=${page}`,

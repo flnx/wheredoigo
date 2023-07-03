@@ -1,8 +1,8 @@
 import axios from '../Axios';
 import { apiEndpoints } from '../../constants/apiEndpoints';
 
-export const getPlaces = async () => {
-    const res = await axios.get(apiEndpoints.places);
+export const getTopPlaces = async () => {
+    const res = await axios.get(apiEndpoints.topPlaces);
 
     return res.data;
 };

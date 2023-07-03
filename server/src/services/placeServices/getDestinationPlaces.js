@@ -1,8 +1,5 @@
 const Place = require('../../models/placeSchema');
 
-// utils
-const capitalizeEachWord = require('../../utils/capitalizeWords');
-
 async function getDestinationPlaces(destinationId) {
     const places = await Place.find({ destinationId })
         .select({
@@ -11,25 +8,19 @@ async function getDestinationPlaces(destinationId) {
             country: 1,
             type: 1,
             rating: 1,
-            imageUrl: { $arrayElemAt: ['$imageUrls.imageUrl', 0] },
+            imageUrls: { $slice: ['$imageUrls', 1] },
         })
-        .lean()
         .exec();
 
-    const updatedPlaces = places.map((place) => {
-        const { name, country, city, rating, ...placeData } = place;
-
-        const { sumOfRates, numRates } = rating;
-        const averageRating = +(sumOfRates / numRates).toFixed(2) || 0;
-
-        return {
-            ...placeData,
-            averageRating,
-            name: capitalizeEachWord(name),
-            country: capitalizeEachWord(country),
-            city: capitalizeEachWord(city),
-        };
-    });
+    const updatedPlaces = places.map((place) => ({
+        _id: place._id,
+        type: place.type,
+        averageRating: place.averageRating,
+        name: place.capitalizedName,
+        city: place.capitalizedCity,
+        country: place.capitalizedCountry,
+        imageUrl: place.mainImage,
+    }));
 
     return updatedPlaces;
 }

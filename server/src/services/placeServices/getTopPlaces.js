@@ -1,7 +1,7 @@
 const Place = require('../../models/placeSchema');
 const capitalizeEachWord = require('../../utils/capitalizeWords');
 
-async function getPlaces() {
+async function getTopPlaces() {
     const pipeline = createPipeline();
     const places = await Place.aggregate(pipeline);
 
@@ -11,8 +11,6 @@ async function getPlaces() {
         city: capitalizeEachWord(place.city),
         country: capitalizeEachWord(place.country),
     }));
-
-    console.log(updatedPlaces);
 
     return updatedPlaces;
 }
@@ -80,4 +78,4 @@ function createPipeline() {
         },
     ];
 }
-module.exports = getPlaces;
+module.exports = getTopPlaces;

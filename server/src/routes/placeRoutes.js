@@ -21,7 +21,7 @@ const {
     add_place_new_images,
     delete_place_image,
     place_comments,
-    get_places,
+    get_top_places,
     get_user_places_data,
     generate_place_ai_comments,
 } = require('../controllers/placeController');
@@ -29,7 +29,7 @@ const {
 const router = express.Router();
 
 // GET
-router.get('/places', get_places);
+router.get('/top-places', get_top_places);
 router.get('/places/user-places-data', auth, get_user_places_data);
 router.get('/places/:id', validateMongoId, checkSession, place_details);
 router.get('/places/:id/comments/', validateMongoId, checkSession, place_comments);

@@ -6,7 +6,7 @@ const addCommentToPlace = require('../services/placeServices/addCommentToPlace')
 const deleteCommentFromPlace = require('../services/placeServices/deleteCommentFromPlace');
 const deletePlaceImage = require('../services/placeServices/deletePlaceImage');
 const addPlaceNewImages = require('../services/placeServices/addPlaceNewImages');
-const getPlaces = require('../services/placeServices/getPlaces');
+const getTopPlaces = require('../services/placeServices/getTopPlaces');
 const getUserPlacesData = require('../services/placeServices/getUserPlacesData');
 
 const {allowedPlaceCategories, allowedFieldsToUpdate } = require('../constants/allowedPlaceCategories');
@@ -14,9 +14,9 @@ const getPlaceComments = require('../services/placeServices/getPlaceComments');
 const { extractPageFromQuery } = require('../utils/extractPageFromQuery');
 const { addAIGeneratedCommentsToPlace } = require('../services/placeServices/addAIGeneratedCommentsToPlace');
 
-const get_places = async(req, res, next) => {
+const get_top_places = async(req, res, next) => {
     try {
-        const places = await getPlaces();
+        const places = await getTopPlaces();
         res.json(places);
     } catch(err) {
         next(err);
@@ -193,7 +193,7 @@ module.exports = {
     edit_place_field,
     add_place_new_images,
     delete_place_image,
-    get_places,
+    get_top_places,
     get_user_places_data,
     generate_place_ai_comments
 };
