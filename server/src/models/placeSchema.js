@@ -112,13 +112,14 @@ placeSchema.virtual('mainImage').get(function () {
     return this.imageUrls.length > 0 ? this.imageUrls[0].imageUrl : null;
 });
 
-placeSchema.statics.addPlaceCommentAndRating = async function (
+placeSchema.statics.addPlaceCommentAndRating = async function ({
     id,
     ownerId,
-    comment,
-    numRate,
-    rating
-) {
+    data,
+    session,
+}) {
+    const { comment, numRate, rating } = data;
+
     const updatedPlace = await this.findOneAndUpdate(
         { _id: id, commentedBy: { $ne: ownerId } },
         {
@@ -131,19 +132,25 @@ placeSchema.statics.addPlaceCommentAndRating = async function (
                 'rating.sumOfRates': rating,
             },
         },
-        { new: true }
-    )
-        .select('rating')
-        .lean()
-        .exec();
+        { session, new: true, select: 'rating' }
+    ).exec();
 
     if (!updatedPlace) {
-        throw createValidationError(errorMessages.notFound, 404);
+        throw createValidationError(
+            errorMessages.couldNotUpdate('the comment. Please try again...'),
+            400
+        );
     }
 
     return updatedPlace;
 };
-placeSchema.statics.deletePlaceCommentAndRating = async function ({ placeId, commentId, data, session }) {
+
+placeSchema.statics.deletePlaceCommentAndRating = async function ({
+    placeId,
+    commentId,
+    data,
+    session,
+}) {
     const { numRate, comment, ownerId } = data;
 
     const place = await this.findOneAndUpdate(
@@ -164,7 +171,7 @@ placeSchema.statics.deletePlaceCommentAndRating = async function ({ placeId, com
     if (!place) {
         throw createValidationError(
             errorMessages.couldNotDelete('this comment. Please try again..'),
-            404
+            400
         );
     }
 

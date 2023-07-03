@@ -42,10 +42,11 @@ const userActivitySchema = new Schema({
 
 userActivitySchema.index({ userId: 1 });
 
-userActivitySchema.statics.updateCommentsActivity = async function (
+userActivitySchema.statics.addCommentActivity = async function (
     userId,
     placeId,
-    commentId
+    commentId,
+    session
 ) {
     const commentData = { place: placeId, comment: commentId };
 
@@ -53,7 +54,7 @@ userActivitySchema.statics.updateCommentsActivity = async function (
         const result = await this.findOneAndUpdate(
             { userId },
             { $push: { comments: { $each: [commentData], $slice: -3 } } },
-            { upsert: true, new: true }
+            { session, upsert: true, new: true }
         );
 
         if (!result) {
@@ -65,6 +66,18 @@ userActivitySchema.statics.updateCommentsActivity = async function (
         console.log(err.message);
         return false;
     }
+};
+
+userActivitySchema.statics.removeCommentActivity = async function (
+    ownerId,
+    placeId,
+    session
+) {
+    await this.updateOne(
+        { userId: ownerId },
+        { $pull: { comments: { place: placeId } } },
+        { session }
+    );
 };
 
 const UserActivity = mongoose.model('UserActivity', userActivitySchema);
