@@ -3,7 +3,8 @@ const { errorMessages } = require('../../constants/errorMessages');
 
 // utils
 const { addImages } = require('../../utils/cloudinaryUploader');
-const { validateImages } = require('../../utils/validateFields');
+const { validateImages } = require('../../utils/validateImages');
+
 
 async function addDestinationNewImages(destinationId, imgFiles, destination) {
     validateImages(imgFiles, 1);

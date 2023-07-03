@@ -1,17 +1,17 @@
 const Destination = require('../../models/destinationSchema');
 const Country = require('../../models/countrySchema');
 
+const { createValidationError } = require('../../utils/createValidationError');
+const { errorMessages } = require('../../constants/errorMessages');
+
 // utils
-const {
-    validateDestinationFields,
-    validateImages,
-} = require('../../utils/validateFields');
+const { validateDestinationFields } = require('../../utils/validateFields');
 const { addImages } = require('../../utils/cloudinaryUploader');
+const { validateImages } = require('../../utils/validateImages');
 
 // Services
 const { fetchACountryAndItsCities } = require('../getCityCountryData');
-const { createValidationError } = require('../../utils/createValidationError');
-const { errorMessages } = require('../../constants/errorMessages');
+
 
 async function createDestination(data, images, user) {
     const { ownerId } = user;

@@ -3,7 +3,7 @@ const { errorMessages } = require('../../constants/errorMessages');
 
 // utils
 const { addImages } = require('../../utils/cloudinaryUploader');
-const { validateImages } = require('../../utils/validateFields');
+const { validateImages } = require('../../utils/validateImages');
 
 async function addPlaceNewImages(placeId, imgFiles, place) {
     validateImages(imgFiles, 1);
@@ -23,8 +23,19 @@ async function addPlaceNewImages(placeId, imgFiles, place) {
 
     const result = await Place.findOneAndUpdate(
         { _id: placeId },
-        { $push: { imageUrls: { $each: images }, $slice: -images.length } },
-        { new: true, projection: { _id: 0, imageUrls: { $slice: -images.length } } }
+        {
+            $push: {
+                imageUrls: { $each: images },
+                $slice: -images.length, // Limits the size of the 'imageUrls' array to the last 'images.length' elements (it doesnt delete the old ones)
+            },
+        },
+        {
+            new: true,
+            projection: {
+                _id: 0,
+                imageUrls: { $slice: -images.length }, // Return only the newly added images in the 'imageUrls' field
+            },
+        }
     )
         .select('-ownerId -country -city -description -type -comments -name -__v')
         .lean()

@@ -112,7 +112,7 @@ placeSchema.virtual('mainImage').get(function () {
     return this.imageUrls.length > 0 ? this.imageUrls[0].imageUrl : null;
 });
 
-placeSchema.statics.updatePlaceCommentsAndRating = async function (
+placeSchema.statics.addPlaceCommentAndRating = async function (
     id,
     ownerId,
     comment,
@@ -142,6 +142,33 @@ placeSchema.statics.updatePlaceCommentsAndRating = async function (
     }
 
     return updatedPlace;
+};
+placeSchema.statics.deletePlaceCommentAndRating = async function ({ placeId, commentId, data, session }) {
+    const { numRate, comment, ownerId } = data;
+
+    const place = await this.findOneAndUpdate(
+        { _id: placeId, comments: commentId },
+        {
+            $pull: {
+                comments: commentId,
+                commentedBy: ownerId,
+            },
+            $inc: {
+                'rating.numRates': -numRate,
+                'rating.sumOfRates': -comment.rating,
+            },
+        },
+        { session, new: true, select: 'rating' }
+    ).exec();
+
+    if (!place) {
+        throw createValidationError(
+            errorMessages.couldNotDelete('this comment. Please try again..'),
+            404
+        );
+    }
+
+    return place;
 };
 
 placeSchema.index(

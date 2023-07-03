@@ -29,8 +29,8 @@ async function addImages(images, obj, folderName) {
             }
         }
     } catch (err) {
-        console.log(err);
-        imgError = err;
+        console.log(err.message);
+        imgError = err.message || err;
     }
 
     return {

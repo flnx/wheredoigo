@@ -19,7 +19,7 @@ async function deleteCommentFromPlace(placeId, commentId, ownerId) {
     session.startTransaction();
 
     try {
-        const comment = await Comment.findById(commentId);
+        const comment = await Comment.findById(commentId).exec();
 
         if (!comment) {
             throw createValidationError(errorMessages.notFound, 404);
@@ -29,105 +29,39 @@ async function deleteCommentFromPlace(placeId, commentId, ownerId) {
             throw createValidationError(errorMessages.accessDenied, 403);
         }
 
-        const numRate = comment.rating > 0 ? 1 : 0;
-
-        const place = await updatePlaceWithRetry(
+        const place = await Place.deletePlaceCommentAndRating({
             placeId,
             commentId,
-            numRate,
-            comment,
             session,
-            ownerId
-        );
-
-        if (!place) {
-            throw createValidationError(errorMessages.notFound, 404);
-        }
+            data: {
+                numRate: comment.rating > 0 ? 1 : 0,
+                comment,
+                ownerId,
+            },
+        });
 
         // avg place rating
         const averageRating = calcAverageRating(place.rating, 0);
 
-        await Comment.findByIdAndDelete(commentId, { session });
+        const promises = [
+            Comment.findByIdAndDelete(commentId, { session }).exec(),
+            UserActivity.updateOne(
+                { userId: ownerId },
+                { $pull: { comments: { place: placeId } } },
+                { session }
+            ),
+        ];
+
+        await Promise.all(promises);
         await session.commitTransaction();
 
-        UserActivity.updateOne(
-            { userId: ownerId },
-            { $pull: { comments: { place: placeId } } }
-        ).catch((err) => console.log(err));
-
-        return {
-            averageRating,
-            message: 'Comment deleted 🦖',
-        };
+        return { averageRating, message: 'Comment deleted 🦖' };
     } catch (err) {
         await session.abortTransaction();
         throw err;
     } finally {
         session.endSession();
     }
-}
-
-async function updatePlaceWithRetry(
-    placeId,
-    commentId,
-    numRate,
-    comment,
-    session,
-    ownerId
-) {
-    let retries = 3;
-    let delay = 100;
-
-    // Retry mechanism with exponential backoff
-    while (retries > 0) {
-        try {
-            const place = await updatePlace(
-                placeId,
-                commentId,
-                numRate,
-                comment,
-                session,
-                ownerId
-            );
-
-            if (!place) {
-                throw createValidationError(errorMessages.notFound, 404);
-            }
-
-            return place;
-        } catch (err) {
-            if (err.code === 11000 && retries > 0) {
-                retries--;
-                delay *= 2; // <- exponential backoff
-                await new Promise((resolve) => setTimeout(resolve, delay));
-                continue;
-            }
-
-            throw err;
-        }
-    }
-
-    throw createValidationError(errorMessages.couldNotUpdate('place'), 500);
-}
-
-async function updatePlace(placeId, commentId, numRate, comment, session, ownerId) {
-    return Place.findOneAndUpdate(
-        { _id: placeId, comments: commentId },
-        {
-            $pull: {
-                comments: commentId,
-                commentedBy: ownerId,
-            },
-            $inc: {
-                'rating.numRates': -numRate,
-                'rating.sumOfRates': -comment.rating,
-                __v: 1,
-            },
-        },
-        { session, new: true, select: 'rating' }
-    )
-        .lean()
-        .exec();
 }
 
 module.exports = deleteCommentFromPlace;

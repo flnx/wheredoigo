@@ -1,10 +1,8 @@
 const Place = require('../../models/placeSchema');
 const Comment = require('../../models/commentSchema');
 const UserActivity = require('../../models/userActivitiesSchema');
-const { errorMessages } = require('../../constants/errorMessages');
 
 // utils
-const { createValidationError } = require('../../utils/createValidationError');
 const { calcAverageRating } = require('../../utils/calcPlaceAvgRating');
 const { validateCommentFields } = require('../../utils/validateComment');
 
@@ -22,7 +20,7 @@ async function addCommentToPlace({ id, title, content, rating, user }) {
 
     const numRate = rating > 0 ? 1 : 0;
 
-    const place = await Place.updatePlaceCommentsAndRating(
+    const place = await Place.addPlaceCommentAndRating(
         id,
         ownerId,
         comment,

@@ -3,9 +3,14 @@ const validator = require('validator');
 const { isValid } = require('mongoose').Types.ObjectId;
 
 // Constants
-const { allowedPlaceCategories, allowedFieldsToUpdate } = require('../constants/allowedPlaceCategories');
+const {
+    allowedPlaceCategories,
+    allowedFieldsToUpdate,
+} = require('../constants/allowedPlaceCategories');
 const { errorMessages } = require('../constants/errorMessages');
-const { destinationCategories } = require('../constants/allowedDestinationCategories');
+const {
+    destinationCategories,
+} = require('../constants/allowedDestinationCategories');
 
 // Utils
 const {
@@ -65,31 +70,6 @@ function validatePlaceFields(placeData) {
     return true;
 }
 
-function validateImages(images, minimumNum) {
-    if (!Array.isArray(images)) {
-        throw createValidationError(errorMessages.invalidImages, 400);
-    }
-
-    const filteredArray = images.filter((obj) => {
-        const isValidObject = isObject(obj);
-        const hasBufferAndMimetype =
-            isValidObject &&
-            Object.hasOwn(obj, 'buffer') &&
-            Object.hasOwn(obj, 'mimetype');
-
-        const isBuffer = isValidObject && Buffer.isBuffer(obj.buffer);
-        return isValidObject && hasBufferAndMimetype && isBuffer;
-    });
-
-    const minNum = isValidInteger(minimumNum) ? minimumNum : 1;
-
-    if (filteredArray.length < minNum) {
-        throw createValidationError(errorMessages.imagesBoundary, 400);
-    }
-
-    return true;
-}
-
 function validateDestinationFieldOnEdit(data) {
     if (!isObject(data)) {
         throw createValidationError(errorMessages.invalidBody, 400);
@@ -117,13 +97,16 @@ function validateDestinationFieldOnEdit(data) {
         data.categories = validatedCategories;
     } else {
         if (!isString(categoryId) || categoryId.trim().length == 0) {
-            throw createValidationError(errorMessages.mustBeAString('Category'), 400);
+            throw createValidationError(
+                errorMessages.mustBeAString('Category'),
+                400
+            );
         }
 
         if (!isValid(infoId) || !isValid(categoryId)) {
             throw createValidationError(errorMessages.invalidCategory, 400);
         }
-        
+
         if (description.length > 5000) {
             throw createValidationError(errorMessages.description, 400);
         }
@@ -218,7 +201,6 @@ module.exports = {
     validateDestinationFields,
     validateDestinationFieldOnEdit,
     validateCategories,
-    validateImages,
     validatePlaceFields,
     validatePlaceFieldOnEdit,
 };
