@@ -42,6 +42,31 @@ const userActivitySchema = new Schema({
 
 userActivitySchema.index({ userId: 1 });
 
+userActivitySchema.statics.updateCommentsActivity = async function (
+    userId,
+    placeId,
+    commentId
+) {
+    const commentData = { place: placeId, comment: commentId };
+
+    try {
+        const result = await this.findOneAndUpdate(
+            { userId },
+            { $push: { comments: { $each: [commentData], $slice: -3 } } },
+            { upsert: true, new: true }
+        );
+
+        if (!result) {
+            throw new Error('Could not update user activity');
+        }
+
+        return !!result;
+    } catch (err) {
+        console.log(err.message);
+        return false;
+    }
+};
+
 const UserActivity = mongoose.model('UserActivity', userActivitySchema);
 
 module.exports = UserActivity;

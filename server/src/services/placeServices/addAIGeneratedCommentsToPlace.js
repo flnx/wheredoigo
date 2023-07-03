@@ -13,9 +13,6 @@ const { calcAverageRating } = require('../../utils/calcPlaceAvgRating');
 
 async function addAIGeneratedCommentsToPlace(place) {
     const { rating } = place;
-    const name = capitalizeEachWord(place.name);
-    const country = capitalizeEachWord(place.country);
-    const city = capitalizeEachWord(place.city);
     const placeId = place._id.toString();
 
     const promises = [
@@ -39,9 +36,9 @@ async function addAIGeneratedCommentsToPlace(place) {
     }
 
     const comments = await commentsGeneratedByAI({
-        name,
-        country,
-        city,
+        name: capitalizeEachWord(place.naem),
+        country: capitalizeEachWord(place.country),
+        city: capitalizeEachWord(place.city),
         numOfCommenters,
     });
 

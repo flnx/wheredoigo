@@ -114,14 +114,14 @@ const delete_place = async (req, res, next) => {
 const post_comment = async (req, res, next) => {
     const { id } = req.params;
     const { title, content, rating } = req.body;
-    const { ownerId } = req.user;
+    const user = req.user;
 
     try {
         const comment = await addCommentToPlace({
             id,
             title,
             content,
-            ownerId,
+            user,
             rating,
         });
         

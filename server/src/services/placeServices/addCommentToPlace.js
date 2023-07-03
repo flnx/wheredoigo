@@ -1,6 +1,5 @@
 const Place = require('../../models/placeSchema');
 const Comment = require('../../models/commentSchema');
-const User = require('../../models/userSchema');
 const UserActivity = require('../../models/userActivitiesSchema');
 const { errorMessages } = require('../../constants/errorMessages');
 
@@ -9,40 +8,27 @@ const { createValidationError } = require('../../utils/createValidationError');
 const { isString, isValidInteger } = require('../../utils/utils');
 const { calcAverageRating } = require('../../utils/calcPlaceAvgRating');
 
-async function addCommentToPlace({ id, title, content, ownerId, rating }) {
+async function addCommentToPlace({ id, title, content, rating, user }) {
     validateFields({ content, title, rating });
-
-    const user = await User.findById(ownerId)
-        .select('username avatarUrl')
-        .lean()
-        .exec();
-
-    if (!user) {
-        throw createValidationError(errorMessages.unauthorized, 401);
-    }
+    const { ownerId, avatarUrl, username } = user;
 
     const comment = new Comment({
         title: title.trim(),
         content: content.trim(),
         placeId: id,
-        rating,
         ownerId,
+        rating,
     });
 
     const numRate = rating > 0 ? 1 : 0;
 
-    const place = await updatePlaceWithRetry(id, ownerId, comment, numRate, rating);
-
-    if (!place) {
-        throw createValidationError(errorMessages.notFound, 404);
-    }
-
+    const place = await updatePlace(id, ownerId, comment, numRate, rating);
     await comment.save();
 
-    // avg place rating
+    // Calc average place rating
     const averageRating = calcAverageRating(place.rating, rating);
 
-    addUserActivity(ownerId, id, comment._id)
+    addUserActivity(ownerId, id, comment._id);
 
     return {
         title: comment.title,
@@ -51,80 +37,47 @@ async function addCommentToPlace({ id, title, content, ownerId, rating }) {
         _id: comment._id,
         time: comment.time,
         ownerId: {
-            avatarUrl: user.avatarUrl,
-            username: user.capitalizedUsername,
+            avatarUrl,
+            username,
         },
         isOwner: true,
         averageRating,
     };
 }
 
-async function updatePlaceWithRetry(id, ownerId, comment, numRate, rating) {
-    let retries = 3;
-    let delay = 100;
+async function updatePlace(id, ownerId, comment, numRate, rating) {
+    const udpatedPlace = await Place.findOneAndUpdate(
+        { _id: id, commentedBy: { $ne: ownerId } },
+        {
+            $push: {
+                comments: comment._id,
+                commentedBy: ownerId,
+            },
+            $inc: {
+                'rating.numRates': numRate,
+                'rating.sumOfRates': rating,
+            },
+        },
+        { new: true }
+    )
+        .select('rating')
+        .lean()
+        .exec();
 
-    // Retry mechanism with exponential backoff
-    while (retries > 0) {
-        try {
-            const place = await Place.findOneAndUpdate(
-                { _id: id, commentedBy: { $ne: ownerId } },
-                {
-                    $push: {
-                        comments: comment._id,
-                        commentedBy: ownerId,
-                    },
-                    $inc: {
-                        'rating.numRates': numRate,
-                        'rating.sumOfRates': rating,
-                        __v: 1,
-                    },
-                },
-                { new: true }
-            )
-                .select('rating')
-                .lean()
-                .exec();
-
-            return place;
-        } catch (err) {
-            if (err.code === 11000 && retries > 0) {
-                retries--;
-                delay *= 2; // <- exponential backoff
-                await new Promise((resolve) => setTimeout(resolve, delay));
-                continue;
-            }
-
-            throw err;
-        }
+    if (!udpatedPlace) {
+        throw createValidationError(errorMessages.notFound, 404);
     }
+
+    return udpatedPlace;
 }
 
 async function addUserActivity(userId, placeId, commentId) {
-    const userActivity = await UserActivity.findOne({ userId });
-
-    const commentData = { place: placeId, comment: commentId };
-
-    // UserActivity does not exist, create a new one
-    if (!userActivity) {
-        return UserActivity.create({
-            userId,
-            comments: [commentData],
-            likes: [],
-        });
-    }
-
-    if (userActivity.comments.length >= 3) {
-        userActivity.comments.shift(); // Remove the oldest comment activity (if they exceed the limit (3))
-    }
-
-    userActivity.comments.push(commentData);
-
-    try {
-        await userActivity.save();
-        return true;
-    } catch (err) {
-        return false;
-    }
+    const result = await UserActivity.updateCommentsActivity(
+        userId,
+        placeId,
+        commentId
+    );
+    return result;
 }
 
 function validateFields({ content, title, rating }) {
