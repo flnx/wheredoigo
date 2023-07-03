@@ -15,29 +15,32 @@ async function getPlaceById(placeId, user) {
         throw createValidationError(errorMessages.notFound, 404);
     }
 
-    if (user && place.ownerId.equals(user.ownerId)) {
-        place.isOwner = true;
-    }
-
     // checks if the user already commented/rated the place
     let hasCommented = null;
+    let isOwner = false;
 
     if (user) {
         hasCommented = await Place.exists({
             _id: placeId,
             commentedBy: { $in: [user.ownerId] },
         });
+
+        isOwner = place.ownerId.equals(user.ownerId);
     }
 
     return {
-        ...place.toObject(),
+        _id: place._id,
+        destinationId: place.destinationId,
+        type: place.type,
         name: place.capitalizedName,
         city: place.capitalizedCity,
         country: place.capitalizedCountry,
+        description: place.description,
         imageUrls: place.imageUrls.map(({ _id, imageUrl }) => ({ _id, imageUrl })),
         isAuth: !!user,
         hasCommented: !!hasCommented,
         averageRating: place.averageRating,
+        isOwner,
         hasAIComments,
     };
 }

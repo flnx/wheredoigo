@@ -22,6 +22,7 @@ export const PlaceDetails = () => {
     const imagesData = place?.imageUrls || [];
 
     const { isAuth, hasCommented, hasAIComments } = data || {};
+    console.log(data);
 
     return (
         <Container>
