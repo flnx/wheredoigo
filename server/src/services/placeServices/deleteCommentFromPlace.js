@@ -31,12 +31,12 @@ async function deleteCommentFromPlace(placeId, commentId, ownerId) {
         const place = await Place.deletePlaceCommentAndRating({
             placeId,
             commentId,
-            session,
             data: {
                 numRate: comment.rating > 0 ? 1 : 0,
                 comment,
                 ownerId,
             },
+            session,
         });
 
         const promises = [
@@ -47,9 +47,9 @@ async function deleteCommentFromPlace(placeId, commentId, ownerId) {
         await Promise.all(promises);
         await session.commitTransaction();
 
-        return { 
-            averageRating: place.averageRating, 
-            essage: 'Comment deleted 🦖' 
+        return {
+            averageRating: place.averageRating,
+            essage: 'Comment deleted 🦖',
         };
     } catch (err) {
         await session.abortTransaction();

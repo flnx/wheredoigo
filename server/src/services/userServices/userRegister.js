@@ -16,7 +16,6 @@ async function userRegister({ email, username, password }) {
     }
 
     const isPasswordValid = validatePassword(password);
-
     const hasValidLength = validator.isLength(username.trim(), { min: 2, max: 12 });
 
     if (!hasValidLength || !validator.isAlphanumeric(username)) {

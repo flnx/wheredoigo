@@ -33,6 +33,10 @@ async function addImages(images, obj, folderName) {
         imgError = err.message || err;
     }
 
+    if (imageUrls.length == 0) {
+        throw createValidationError(`${errorMessages.serverError}... ${imgError}`, 500);
+    }
+
     return {
         imageUrls,
         imgError,

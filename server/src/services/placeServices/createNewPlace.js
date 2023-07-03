@@ -1,9 +1,7 @@
-const { errorMessages } = require('../../constants/errorMessages');
 const Place = require('../../models/placeSchema');
 
 // utils
 const { addImages } = require('../../utils/cloudinaryUploader');
-const { createValidationError } = require('../../utils/createValidationError');
 const { validatePlaceFields } = require('../../utils/validateFields');
 const { validateImages } = require('../../utils/validateImages');
 
@@ -31,10 +29,6 @@ async function createNewPlace(data, images, destination, ownerId) {
 
     const folderName = 'places';
     const { imageUrls, imgError } = await addImages(images, place, folderName);
-
-    if (imageUrls.length == 0) {
-        throw createValidationError(`${errorMessages.serverError} ${imgError}`, 500);
-    }
 
     place.imageUrls = imageUrls;
     await place.save();

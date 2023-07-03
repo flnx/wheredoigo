@@ -1,26 +1,15 @@
-const validator = require('validator');
-
 const { isValid } = require('mongoose').Types.ObjectId;
+const validator = require('validator');
+const { createValidationError } = require('./createValidationError');
 
 // Constants
-const {
-    allowedPlaceCategories,
-    allowedFieldsToUpdate,
-} = require('../constants/allowedPlaceCategories');
+const { allowedPlaceCategories, allowedFieldsToUpdate } = require('../constants/allowedPlaceCategories');
 const { errorMessages } = require('../constants/errorMessages');
-const {
-    destinationCategories,
-} = require('../constants/allowedDestinationCategories');
+const { destinationCategories } = require('../constants/allowedDestinationCategories');
 
 // Utils
-const {
-    isString,
-    isObject,
-    isValidInteger,
-    isValidArrayOfStrings,
-} = require('./utils');
+const { isString, isObject, isValidArrayOfStrings } = require('./utils');
 
-const { createValidationError } = require('./createValidationError');
 
 function validateDestinationFields(data) {
     const { city, country, description, category, details } = data;
