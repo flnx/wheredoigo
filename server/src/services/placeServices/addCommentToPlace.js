@@ -23,12 +23,16 @@ async function addCommentToPlace({ id, title, content, rating, user }) {
     const numRate = rating > 0 ? 1 : 0;
 
     const place = await updatePlace(id, ownerId, comment, numRate, rating);
-    await comment.save();
+
+    const promises = [
+        comment.save(), 
+        addUserActivity(ownerId, id, comment._id)
+    ];
+
+    await Promise.all(promises);
 
     // Calc average place rating
     const averageRating = calcAverageRating(place.rating, rating);
-
-    addUserActivity(ownerId, id, comment._id);
 
     return {
         title: comment.title,
@@ -72,12 +76,7 @@ async function updatePlace(id, ownerId, comment, numRate, rating) {
 }
 
 async function addUserActivity(userId, placeId, commentId) {
-    const result = await UserActivity.updateCommentsActivity(
-        userId,
-        placeId,
-        commentId
-    );
-    return result;
+    return UserActivity.updateCommentsActivity(userId, placeId, commentId);
 }
 
 function validateFields({ content, title, rating }) {
