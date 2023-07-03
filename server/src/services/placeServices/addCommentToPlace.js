@@ -5,7 +5,6 @@ const Comment = require('../../models/commentSchema');
 const UserActivity = require('../../models/userActivitiesSchema');
 
 // utils
-const { calcAverageRating } = require('../../utils/calcPlaceAvgRating');
 const { validateCommentFields } = require('../../utils/validateComment');
 
 async function addCommentToPlace({ id, title, content, rating, user }) {
@@ -43,9 +42,6 @@ async function addCommentToPlace({ id, title, content, rating, user }) {
         await Promise.all(promises);
         await session.commitTransaction();
 
-        // Calc average place rating
-        const averageRating = calcAverageRating(place.rating, rating);
-
         return {
             title: comment.title,
             content: comment.content,
@@ -57,7 +53,7 @@ async function addCommentToPlace({ id, title, content, rating, user }) {
                 username,
             },
             isOwner: true,
-            averageRating,
+            averageRating: place.averageRating,
         };
     } catch (err) {
         await session.abortTransaction();

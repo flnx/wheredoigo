@@ -8,7 +8,6 @@ const { errorMessages } = require('../../constants/errorMessages');
 
 // utils
 const { createValidationError } = require('../../utils/createValidationError');
-const { calcAverageRating } = require('../../utils/calcPlaceAvgRating');
 
 async function deleteCommentFromPlace(placeId, commentId, ownerId) {
     if (!commentId || !isValid(commentId)) {
@@ -40,22 +39,18 @@ async function deleteCommentFromPlace(placeId, commentId, ownerId) {
             },
         });
 
-        // avg place rating
-        const averageRating = calcAverageRating(place.rating, 0);
-
         const promises = [
             Comment.findByIdAndDelete(commentId, { session }).exec(),
-            UserActivity.updateOne(
-                { userId: ownerId },
-                { $pull: { comments: { place: placeId } } },
-                { session }
-            ),
+            UserActivity.removeCommentActivity(ownerId, placeId, session),
         ];
 
         await Promise.all(promises);
         await session.commitTransaction();
 
-        return { averageRating, message: 'Comment deleted 🦖' };
+        return { 
+            averageRating: place.averageRating, 
+            essage: 'Comment deleted 🦖' 
+        };
     } catch (err) {
         await session.abortTransaction();
         throw err;

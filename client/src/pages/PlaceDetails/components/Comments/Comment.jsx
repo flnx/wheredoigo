@@ -58,6 +58,7 @@ export const Comment = ({ comment }) => {
     async function handleDeleteComment() {
         removeComment(null, {
             onSuccess: () => handleCloseConfirmModalClick(),
+            onError: () => handleCloseConfirmModalClick(),
         });
     }
 
