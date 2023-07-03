@@ -1,12 +1,19 @@
 const express = require('express');
 const validateMongoId = require('../middlewares/validateMongoId');
-const { checkDestinationOwnershipOnly } = require('../middlewares/checkDestinationOwnership');
+const {
+    checkDestinationOwnershipOnly,
+} = require('../middlewares/checkDestinationOwnership');
 
 // Middlewares
 const { auth } = require('../middlewares/auth');
 const { upload } = require('../middlewares/images');
 const { checkSession } = require('../middlewares/checkSession');
-const { fetchPlaceAndCheckOwnership, checkPlaceOwnershipOnly } = require('../middlewares/checkPlaceOwnership');
+const {
+    fetchPlaceAndCheckOwnership,
+    checkPlaceOwnershipOnly,
+    checkPlaceOwnershipAndCommenters,
+} = require('../middlewares/checkPlaceOwnership');
+
 
 // Controllers
 const {
@@ -64,7 +71,7 @@ router.post(
     '/places/:id/generate-ai-comments',
     validateMongoId,
     auth,
-    checkPlaceOwnershipOnly,
+    checkPlaceOwnershipAndCommenters,
     generate_place_ai_comments
 );
 

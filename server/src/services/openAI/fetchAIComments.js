@@ -3,7 +3,7 @@ const { isValidArrayOfStrings } = require('../../utils/utils');
 const { openai } = require('../../config/openAIConfig');
 const { createValidationError } = require('../../utils/createValidationError');
 
-async function generateAICommentsForCommentBots(city, place, country, num) {
+async function fetchAIComments(city, place, country, num) {
     validateInput([city, place, country]);
 
     try {
@@ -27,11 +27,6 @@ async function generateAICommentsForCommentBots(city, place, country, num) {
         throw createValidationError(errMsg, 400);
     }
 }
-
-module.exports = {
-    generateAICommentsForCommentBots,
-};
-
 function validateInput(arrayOfStrings) {
     // Strings validation
     const isDataValid = isValidArrayOfStrings(arrayOfStrings);
@@ -55,5 +50,5 @@ function validateInput(arrayOfStrings) {
 }
 
 module.exports = {
-    generateAICommentsForCommentBots,
+    fetchAIComments,
 };

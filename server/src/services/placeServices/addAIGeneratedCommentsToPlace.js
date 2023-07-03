@@ -3,96 +3,48 @@ const { errorMessages } = require('../../constants/errorMessages');
 
 const Comment = require('../../models/commentSchema');
 const Place = require('../../models/placeSchema');
-const User = require('../../models/userSchema');
-const UserActivity = require('../../models/userActivitiesSchema');
 
-const capitalizeEachWord = require('../../utils/capitalizeWords');
 const { createValidationError } = require('../../utils/createValidationError');
 const { commentsGeneratedByAI } = require('../openAI/commentsGeneratedByAI');
 const { calcAverageRating } = require('../../utils/calcPlaceAvgRating');
+const { attachIDsToComments } = require('../../utils/attachIDsToComments');
 
-async function addAIGeneratedCommentsToPlace(place) {
-    const { rating } = place;
+async function addAIGeneratedCommentsToPlace(place, commenters) {
     const placeId = place._id.toString();
 
-    const promises = [
-        User.find({ role: 'commenter' }).select('_id').lean().exec(),
-        Place.findById(placeId).select('commentedBy').lean().exec(),
-    ];
+    const placeDataToComment = {
+        name: place.capitalizedName,
+        country: place.capitalizedCountry,
+        city: place.capitalizedCity,
+        numOfCommenters: commenters.length,
+    };
 
-    const [commenters, placeCommenterIds] = await Promise.all(promises);
+    const comments = await commentsGeneratedByAI(placeDataToComment);
 
-    const commentedBy = placeCommenterIds.commentedBy.map((id) => id.toString());
-
-    // If there's already a comment by a commenter on that place, it filters the commenter id out
-    const filteredCommenters = commenters.filter(
-        (c) => !commentedBy.includes(c._id.toString())
-    );
-
-    const numOfCommenters = filteredCommenters.length;
-
-    if (filteredCommenters == 0) {
-        throw createValidationError(errorMessages.unavailable, 503);
-    }
-
-    const comments = await commentsGeneratedByAI({
-        name: capitalizeEachWord(place.naem),
-        country: capitalizeEachWord(place.country),
-        city: capitalizeEachWord(place.city),
-        numOfCommenters,
-    });
-
-    const updatedComments = attachPlaceAndOwnerIDsToComments({
+    const updatedComments = attachIDsToComments({
         comments,
-        filteredCommenters,
+        commenters,
         placeId,
     });
 
-    if (updatedComments.length == 0) {
-        console.error('AddAIGeneratedCommentsToPlace: GPT Object Error')
-        throw createValidationError(errorMessages.serverError, 500);
-    }
-
     const { 
         updateResult, 
-        commentIds, 
-        ownerIds, 
         commentRatingSum, 
         numOfComments 
     } = await addCommentsToPlace(updatedComments, placeId);
 
-    // Recalculating the avg place rating (to return in on the client)
-    const averageRating = calcAverageRating(rating, commentRatingSum, numOfComments);
-
-    addUsersActivities(ownerIds, placeId, commentIds);
+    const averageRating = calcAverageRating(
+        place.rating,
+        commentRatingSum,
+        numOfComments
+    );
 
     return {
         ...updateResult,
         averageRating,
-        hasAIComments: true
+        averageRating: place.averageRating,
+        hasAIComments: true,
     };
-}
-
-function attachPlaceAndOwnerIDsToComments({
-    comments,
-    filteredCommenters,
-    placeId,
-}) {
-    return comments
-        .map((comment, i) => {
-            const ownerId = filteredCommenters[i]._id;
-
-            const commentData = {
-                ...comment,
-                placeId,
-                ownerId,
-            };
-
-            if (commentData.rating && commentData.title && commentData.content) {
-                return commentData;
-            }
-        })
-        .filter(Boolean); // filters out the undefined (if any)
 }
 
 async function addCommentsToPlace(comments, placeId) {
@@ -133,8 +85,6 @@ async function addCommentsToPlace(comments, placeId) {
 
         return {
             updateResult,
-            commentIds,
-            ownerIds,
             commentRatingSum,
             numOfComments: addedComments.length,
         };
@@ -144,37 +94,6 @@ async function addCommentsToPlace(comments, placeId) {
         throw createValidationError(errorMessages.serverError, 500);
     } finally {
         session.endSession();
-    }
-}
-
-async function addUsersActivities(userIds, placeId, commentIds) {
-    const updates = userIds.map((userId, index) => ({
-        updateOne: {
-            filter: { userId },
-            update: {
-                $push: {
-                    comments: {
-                        $each: [
-                            {
-                                place: placeId,
-                                comment: commentIds[index],
-                                timestamp: Date.now(),
-                            },
-                        ],
-                        $slice: -3, // Keep only the first 3 comments
-                    },
-                },
-            },
-            upsert: true,
-        },
-    }));
-
-    try {
-        await UserActivity.bulkWrite(updates);
-        return true;
-    } catch (err) {
-        console.log(err.message);
-        return err?.message;
     }
 }
 

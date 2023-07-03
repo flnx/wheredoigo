@@ -1,4 +1,4 @@
-const { generateAICommentsForCommentBots } = require('../openAI/generateAICommentsForCommentBots');
+const { fetchAIComments } = require('./fetchAIComments');
 
 async function commentsGeneratedByAI({ name, country, city, numOfCommenters }) {
     let retryCount = 0;
@@ -9,21 +9,18 @@ async function commentsGeneratedByAI({ name, country, city, numOfCommenters }) {
 
     while (retryCount <= MAX_RETRIES) {
         try {
-            comments = await generateAICommentsForCommentBots(
-                city,
-                name,
-                country,
-                numOfCommenters
-            );
-            return comments; // returns the result if the comments are successfully generated
+            comments = await fetchAIComments(city, name, country, numOfCommenters);
+
+            // returns the result if the comments are successfully generated
+            return comments;
         } catch (error) {
             retryCount++;
 
             if (retryCount <= MAX_RETRIES) {
-                console.error(
-                    `Failed to generate AI comments. Retrying... (Attempt ${retryCount})`
-                );
-                await delay(500); // 500ms delay before retrying
+                console.error(`Failed to generate AI comments. Retrying... (Attempt ${retryCount})`);
+
+                // 500ms delay before retrying
+                await delay(500);
             } else {
                 throw error;
             }
