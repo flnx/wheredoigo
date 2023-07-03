@@ -75,7 +75,7 @@ async function createDestination(data, images, user) {
             .lean()
             .exec();
 
-        // if it does not exist in the data base it creates it
+        // checks if the country already exists. If not, it adds it
         if (!checkCountryInDB) {
             checkCountryInDB = await Country.create({ name: countryName });
         }

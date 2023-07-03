@@ -40,6 +40,7 @@ async function deletePlaceImage(placeId, imgId) {
         await deleteImage(public_id);
     } catch (err) {
         cloudinary_error = err.message;
+        console.log(cloudinary_error);
     }
 
     result.cloud_error = cloudinary_error;

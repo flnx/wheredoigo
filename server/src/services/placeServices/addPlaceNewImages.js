@@ -1,5 +1,4 @@
 const Place = require('../../models/placeSchema');
-const { errorMessages } = require('../../constants/errorMessages');
 
 // utils
 const { addImages } = require('../../utils/cloudinaryUploader');
@@ -13,27 +12,21 @@ async function addPlaceNewImages(placeId, imgFiles, place) {
     const folderName = 'places';
     const data = { city, _id: placeId };
 
-    const imagesData = await addImages(imgFiles, data, folderName);
-    const images = imagesData.imageUrls;
-    const imgError = imagesData.imgError;
-
-    if (images.length == 0) {
-        throw new Error(errorMessages.uploadError, 500);
-    }
+    const { imageUrls, imgError } = await addImages(imgFiles, data, folderName);
 
     const result = await Place.findOneAndUpdate(
         { _id: placeId },
         {
             $push: {
-                imageUrls: { $each: images },
-                $slice: -images.length, // Limits the size of the 'imageUrls' array to the last 'images.length' elements (it doesnt delete the old ones)
+                imageUrls: { $each: imageUrls },
+                $slice: -imageUrls.length, // Limits the size of the 'imageUrls' array to the last 'images.length' elements (it doesnt delete the old ones)
             },
         },
         {
             new: true,
             projection: {
                 _id: 0,
-                imageUrls: { $slice: -images.length }, // Return only the newly added images in the 'imageUrls' field
+                imageUrls: { $slice: -imageUrls.length }, // Return only the newly added images in the 'imageUrls' field
             },
         }
     )
@@ -41,10 +34,12 @@ async function addPlaceNewImages(placeId, imgFiles, place) {
         .lean()
         .exec();
 
-    const imageUrls = result.imageUrls.map(({ public_id, ...rest }) => rest);
+    const imageUrlsWithoutPublicIds = result.imageUrls.map(
+        ({ public_id, ...rest }) => rest
+    );
 
     return {
-        imageUrls,
+        imageUrls: imageUrlsWithoutPublicIds,
         imgError,
     };
 }

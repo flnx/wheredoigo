@@ -18,6 +18,7 @@ async function getDestinationsPaginated(page, limit, searchParams, categories) {
 
     const unwindStage = { $unwind: '$country' };
 
+    // Searches for matches in city/country fields
     const matchStage = {
         $match: {
             $or: [
@@ -35,7 +36,7 @@ async function getDestinationsPaginated(page, limit, searchParams, categories) {
         $project: {
             'country.name': 1,
             imageUrls: {
-                $ifNull: [{ $arrayElemAt: ['$imageUrls.imageUrl', 0] }, ''],
+                $ifNull: [{ $arrayElemAt: ['$imageUrls.imageUrl', 0] }, ''], // returns the main image
             },
             city: 1,
         },
@@ -45,6 +46,8 @@ async function getDestinationsPaginated(page, limit, searchParams, categories) {
     const limitStage = { $limit: limit };
 
     // Pipeline for counting the total number of documents after applying filters
+    // We need this to calculate underneath "hasNextPage / nextPage"
+    // ... then we return the "next page" (if any) to the client so they can work around their pagination
     const countPipeline = [
         lookupStage,
         unwindStage,
@@ -64,11 +67,9 @@ async function getDestinationsPaginated(page, limit, searchParams, categories) {
         limitStage,
     ];
 
-    // Execute the count pipeline and data pipeline in parallel
     const countPromise = Destination.aggregate(countPipeline).exec();
     const dataPromise = Destination.aggregate(dataPipeline).exec();
-
-    // Wait for the count and data promises to resolve
+     
     const [countResult, destinations] = await Promise.all([
         countPromise,
         dataPromise,
