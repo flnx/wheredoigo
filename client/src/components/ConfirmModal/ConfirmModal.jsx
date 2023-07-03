@@ -1,6 +1,4 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
-import { disableBodyScroll, enableBodyScroll } from '../../utils/utils';
 
 // Components
 import { SuccessButton } from '../Buttons/Success-Button/SuccessButton';
@@ -16,11 +14,6 @@ const propTypes = {
 };
 
 export const ConfirmModal = ({ children, onCloseHandler, actionClickHandler, isLoading }) => {
-    useEffect(() => {
-        disableBodyScroll();
-        return () => enableBodyScroll();
-    }, []);
-
     return (
         <>
             <DarkOverlay onClickHandler={onCloseHandler} isLoading={isLoading} />

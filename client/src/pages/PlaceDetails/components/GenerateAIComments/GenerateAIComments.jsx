@@ -15,8 +15,9 @@ export const GenerateAIComments = ({ placeId }) => {
             <ButtonGlow onClickHandler={onClickHandler} isLoading={isLoading}>
                 Generate AI Comments
             </ButtonGlow>
-            
-            {isLoading && <DarkOverlay isLoading={isLoading} />}
+
+            <DarkOverlay isLoading={true} text={'This may take a while'}/>
+            {/* {isLoading && <DarkOverlay isLoading={isLoading} />} */}
             {error && <ServerError errorMessage={error} />}
         </section>
     );

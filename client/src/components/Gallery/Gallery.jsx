@@ -1,6 +1,4 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
-import { disableBodyScroll, enableBodyScroll } from '../../utils/utils';
 import { GalleryContextProvider } from './context/GalleryContext';
 
 // Components
@@ -26,11 +24,6 @@ export const Gallery = ({ images, closeGalleryHandler, alt }) => {
     if (images.length == 0) {
         return null;
     }
-
-    useEffect(() => {
-        disableBodyScroll();
-        return () => enableBodyScroll();
-    }, []);
 
     return (
         <section>
