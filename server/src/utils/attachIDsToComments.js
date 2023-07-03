@@ -1,5 +1,6 @@
 const { createValidationError } = require('./createValidationError');
 const { errorMessages } = require('../constants/errorMessages');
+const { validateCommentFields } = require('./validateComment');
 
 function attachIDsToComments({ comments, commenters, placeId }) {
     const commentsData = comments
@@ -24,6 +25,30 @@ function attachIDsToComments({ comments, commenters, placeId }) {
     return commentsData;
 }
 
+function validateMultipleCommentsData(comments) {
+    if (!Array.isArray(comments)) {
+        throw createValidationError(errorMessages.serverError, 500);
+    }
+
+    const commentsData = comments
+        .map((comment) => {
+            try {
+                validateCommentFields(comment);
+                return comment;
+            } catch (err) {
+                return null;
+            }
+        })
+        .filter(Boolean); // Filters out the null's
+
+    if (commentsData.length == 0) {
+        throw createValidationError(errorMessages.serverError, 500);
+    }
+
+    return commentsData;
+}
+
 module.exports = {
     attachIDsToComments,
+    validateMultipleCommentsData,
 };

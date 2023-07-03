@@ -1,3 +1,4 @@
+const { validateMultipleCommentsData } = require('../../utils/attachIDsToComments');
 const { fetchAIComments } = require('./fetchAIComments');
 
 async function commentsGeneratedByAI({ name, country, city, numOfCommenters }) {
@@ -11,13 +12,17 @@ async function commentsGeneratedByAI({ name, country, city, numOfCommenters }) {
         try {
             comments = await fetchAIComments(city, name, country, numOfCommenters);
 
+            validateMultipleCommentsData(comments);
+
             // returns the result if the comments are successfully generated
             return comments;
         } catch (error) {
             retryCount++;
 
             if (retryCount <= MAX_RETRIES) {
-                console.error(`Failed to generate AI comments. Retrying... (Attempt ${retryCount})`);
+                console.error(
+                    `Failed to generate AI comments. Retrying... (Attempt ${retryCount})`
+                );
 
                 // 500ms delay before retrying
                 await delay(500);
