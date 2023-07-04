@@ -5,16 +5,12 @@ const { errorMessages } = require('../../constants/errorMessages');
 
 // Cloudinary
 const { avatarOptions } = require('../../config/cloudinary');
-const {
-    handleImageUploads,
-    deleteImage,
-} = require('../../utils/cloudinaryUploader');
+const { handleImageUploads, deleteImage } = require('../../utils/cloudinaryUploader');
 
 // Utils
 const { createValidationError } = require('../../utils/createValidationError');
 const { generateUserToken } = require('../../utils/generateUserToken');
 const { validateImages } = require('../../utils/validateImages');
-const { fixInvalidFolderNameChars } = require('../../utils/utils');
 
 require('dotenv').config();
 
@@ -30,12 +26,6 @@ const updateUserAvatar = async (image, userData) => {
         throw createValidationError(errorMessages.notFound, 404);
     }
 
-    if (user.avatar_id) {
-        console.log('hiii');
-    }
-
-
-    throw new Error('haha');
     const imageData = await handleImageUploads([image], avatarOptions);
 
     // Deletes the old avatar from cloudinary (if any)
@@ -51,13 +41,12 @@ const updateUserAvatar = async (image, userData) => {
     // Extracts the newly updated image url and public id
     const { url, public_id } = imageData[0];
 
-    console.log(imageData[0]);
-
-    // Saves the new result
+    // Saves the new url and public_id
     user.avatarUrl = url;
     user.avatar_id = public_id;
     await user.save();
 
+    // Regenerates the token
     const accessToken = await generateUserToken(user);
 
     return {
