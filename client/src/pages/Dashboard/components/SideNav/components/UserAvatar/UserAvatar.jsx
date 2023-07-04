@@ -10,6 +10,7 @@ import { CancelButton } from '../../../../../../components/Buttons/Cancel-Button
 import { SuccessButton } from '../../../../../../components/Buttons/Success-Button/SuccessButton';
 import { CameraPlus } from '@phosphor-icons/react';
 import { DarkOverlay } from '../../../../../../components/DarkOverlay/DarkOverlay';
+import { ServerError } from '../../../../../../components/ServerError/ServerError';
 
 import styles from './UserAvatar.module.css';
 
@@ -18,7 +19,7 @@ export const UserAvatar = () => {
     const [imgAfterCrop, setImgAfterCrop] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [showSaveCancelButtons, setShowSaveCancelButtons] = useState(false);
-    const [changeAvatar, isLoading] = useChangeUserAvatar();
+    const [changeAvatar, isLoading, error] = useChangeUserAvatar();
     const inputRef = useRef();
     const canvasRef = useRef(null);
     const { auth, setUserData } = useContext(AuthContext);
@@ -102,6 +103,7 @@ export const UserAvatar = () => {
                 </div>
             )}
             <canvas ref={canvasRef} style={{ display: 'none' }} />
+            {error && <ServerError errorMessage={error} />}
         </header>
     );
 };
