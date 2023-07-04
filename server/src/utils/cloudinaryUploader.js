@@ -198,13 +198,13 @@ async function deleteImage(publicId) {
         const res = await cloudinary.uploader.destroy(publicId);
 
         if (res.result !== 'ok') {
-            console.log(`deleteImage: ${res}`);
+            console.error(res);
             throw new Error();
         }
 
         return true;
     } catch (err) {
-        console.log(err?.message || '')
+        console.log(err.message);
         err.publicId = publicId;
         throw err;
     }

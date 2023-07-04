@@ -6,6 +6,7 @@ const { errorMessages } = require('../../constants/errorMessages');
 // utils
 const { createValidationError } = require('../../utils/createValidationError');
 const { deleteImage } = require('../../utils/cloudinaryUploader');
+const FailedDeletion = require('../../models/failedImgDeletionSchema');
 
 async function deletePlaceImage(placeId, imgId) {
     if (!imgId || !isValid(imgId)) {
@@ -33,17 +34,16 @@ async function deletePlaceImage(placeId, imgId) {
     }
 
     const { public_id } = deletedImage;
-    
-    let cloudinary_error = null;
 
     try {
         await deleteImage(public_id);
     } catch (err) {
-        cloudinary_error = err.message;
-        console.log(cloudinary_error);
+        // Store the failed public id (to delete it later)
+        FailedDeletion.create({ public_ids: [err.publicId] }).catch((err) =>
+            console.error(err?.message)
+        );
     }
 
-    result.cloud_error = cloudinary_error;
     return result;
 }
 
