@@ -6,7 +6,7 @@ require('dotenv').config();
 
 async function checkSession(req, res, next) {
     const authHeader = req.headers['authorization'];
-
+    
     if (authHeader && authHeader.startsWith('Bearer ')) {
         const accessToken = authHeader.slice(7);
 

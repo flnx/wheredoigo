@@ -6,18 +6,21 @@ async function commentsGeneratedByAI({ name, country, city, numOfCommenters }) {
     const MAX_RETRIES = 1;
 
     let comments;
-    // retry mechanism if comment generation fails
 
+    // Retry mechanism if comment generation fails
     while (retryCount <= MAX_RETRIES) {
         try {
+            // Generate comments using AI model
             comments = await fetchAIComments(city, name, country, numOfCommenters);
 
+            // Validate the generated comments data
             validateMultipleCommentsData(comments);
 
-            // returns the result if the comments are successfully generated
+            // Returns the generated comments if successful
             return comments;
         } catch (error) {
             retryCount++;
+
             console.error(`commentsGeneratedByAi: ${error.message}`);
 
             if (retryCount <= MAX_RETRIES) {
@@ -28,11 +31,13 @@ async function commentsGeneratedByAI({ name, country, city, numOfCommenters }) {
                 // 500ms delay before retrying
                 await delay(500);
             } else {
+                // Maximum retries reached, throw the error
                 throw error;
             }
         }
     }
 
+    // Helper function to introduce a delay
     function delay(ms) {
         return new Promise((resolve) => setTimeout(resolve, ms));
     }

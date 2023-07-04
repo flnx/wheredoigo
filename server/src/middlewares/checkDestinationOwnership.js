@@ -12,7 +12,10 @@ async function fetchDestinationAndCheckOwnership(req, res, next) {
     const user = req.user;
 
     try {
-        const promises = [getDestinationById(id, user), getDestinationPlaces(id)];
+        const promises = [
+            getDestinationById(id, user), 
+            getDestinationPlaces(id)
+        ];
 
         const [destination, places] = await Promise.all(promises);
 

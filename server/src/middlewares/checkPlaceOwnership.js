@@ -76,6 +76,9 @@ async function checkPlaceOwnershipAndCommenters(req, res, next) {
             (c) => !commentedBy.includes(c._id)
         );
 
+        // Throws if there's no users with role (commenters) or "bots" to be more precise
+        // This is in case I need to temporarily disable commenting for maintenance purposes
+        //  ..specifically to prevent bots from posting comments.
         if (filteredCommenters.length == 0) {
             throw createValidationError(errorMessages.unavailable, 503);
         }
