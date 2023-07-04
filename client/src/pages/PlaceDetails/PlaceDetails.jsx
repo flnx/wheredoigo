@@ -33,9 +33,8 @@ export const PlaceDetails = () => {
                     <Header place={place} isLoading={isLoading} />
                     {!isLoading && (
                         <>
-                                <GenerateAIComments placeId={placeId} />
                             {isOwner && !hasAIComments && (
-                                ''
+                                <GenerateAIComments placeId={placeId} />
                             )}
 
                             <Comments

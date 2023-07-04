@@ -17,10 +17,19 @@ export const TopPlaces = ({ places, isLoading }) => {
     const { data, error } = places;
 
     // 1. If places data is loading - it returns a new array with "X" elements
-    // 1.1 This ensures that the section will render (X) amount of div boxes when the data is being fetched in order the >Loading skeleton< to visualize inside those div boxes
-    const placesPrefilledArr = isLoading ? checkArrayAndPreloadElements(data, 9) : data;
+    // 1.1 This ensures that the section will render (X) amount of div boxes ..
+    // ..when the data is being fetched in order the >Loading skeleton< to visualize inside those div boxes
+    const explorePlaces = isLoading
+        ? checkArrayAndPreloadElements(data?.explorePlaces, 9)
+        : data.explorePlaces;
 
-    const introMessage = !error && placesPrefilledArr.length != 0 ? 'Europe awaits you!' : '';
+    const eatPlaces = isLoading
+        ? checkArrayAndPreloadElements(data?.eatPlaces, 9)
+        : data.eatPlaces;
+
+    // Shows the text the when there is no errors and there is places to show
+    const europeIntroText = !error && explorePlaces.length != 0 ? 'Europe awaits you!' : '';
+    const eatIntroText = !error && explorePlaces.length != 0 ? 'Want to grab some food?' : '';
 
     return (
         <section>
@@ -28,12 +37,20 @@ export const TopPlaces = ({ places, isLoading }) => {
                 {error ? (
                     <p>{extractServerErrorMessage(places.error)}</p>
                 ) : (
-                    <>
-                        <h2 className={styles.title}>
-                            <TextWrap isLoading={isLoading} content={introMessage}></TextWrap>
-                        </h2>
-                        <Places places={placesPrefilledArr} isLoading={isLoading} />
-                    </>
+                    <div>
+                        <section>
+                            <h2 className={styles.title}>
+                                <TextWrap isLoading={isLoading} content={europeIntroText} />
+                            </h2>
+                            <Places places={explorePlaces} isLoading={isLoading} />
+                        </section>
+                        <section>
+                            <h2 className={styles.title}>
+                                <TextWrap isLoading={isLoading} content={eatIntroText} />
+                            </h2>
+                            <Places places={eatPlaces} isLoading={isLoading} />
+                        </section>
+                    </div>
                 )}
             </Container>
         </section>
