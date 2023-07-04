@@ -10,14 +10,10 @@ const { handleImageUploads, deleteImage } = require('../../utils/cloudinaryUploa
 // Utils
 const { createValidationError } = require('../../utils/createValidationError');
 const { generateUserToken } = require('../../utils/generateUserToken');
-const { validateImages } = require('../../utils/validateImages');
 
 require('dotenv').config();
 
 const updateUserAvatar = async (image, userData) => {
-    // Validates if its a valid image file
-    validateImages([image], 1);
-
     const user = await User.findById(userData.ownerId)
         .select('-hashedPassword')
         .exec();
@@ -26,13 +22,13 @@ const updateUserAvatar = async (image, userData) => {
         throw createValidationError(errorMessages.notFound, 404);
     }
 
-    const imageData = await handleImageUploads([image], avatarOptions);
+    const imageData = await handleImageUploads([image], avatarOptions, 1);
 
     // Deletes the old avatar from cloudinary (if any)
     if (user.avatar_id) {
         deleteImage(user.avatar_id).catch((err) => {
             // If the image fails to delete from cloudinary, store it in DB (to delete it later)
-            FailedDeletion.create({ public_ids: [user.avatar_id || null] }).catch(
+            FailedDeletion.create({ public_ids: [user.avatar_id] }).catch(
                 (err) => console.error(err?.message)
             );
         });

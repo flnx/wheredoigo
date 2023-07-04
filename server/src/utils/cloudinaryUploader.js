@@ -9,9 +9,6 @@ const { errorMessages } = require('../constants/errorMessages');
 const { validateImages } = require('./validateImages');
 
 async function addImages(images, data, folderName, minImagesRequired = 1) {
-    // Validating the image files with default minimum number of images required
-    validateImages(images, minImagesRequired);
-
     const imageUrls = [];
     let imgError = null;
 
@@ -23,7 +20,8 @@ async function addImages(images, data, folderName, minImagesRequired = 1) {
         // Upload the images to Cloudinary
         const cloudinaryImagesData = await handleImageUploads(
             images,
-            imagesOptions(folder_type, folder_name)
+            imagesOptions(folder_type, folder_name),
+            minImagesRequired
         );
 
         // Process the Cloudinary image data
@@ -35,11 +33,11 @@ async function addImages(images, data, folderName, minImagesRequired = 1) {
                     public_id: imageData.public_id,
                 });
             } else {
-                console.log('An image failed to upload:', imageData);
+                console.error('An image failed to upload:', imageData);
             }
         }
     } catch (err) {
-        console.log(err.message);
+        console.error(err.message);
         imgError = err.message || err;
     }
 
@@ -58,7 +56,9 @@ async function addImages(images, data, folderName, minImagesRequired = 1) {
     };
 }
 
-async function handleImageUploads(files, options = {}) {
+async function handleImageUploads(files, options = {}, minImagesRequired) {
+    // Validating the image files with default minimum number of images required
+    validateImages(files, minImagesRequired);
     const promises = [];
 
     // Upload each file to Cloudinary
