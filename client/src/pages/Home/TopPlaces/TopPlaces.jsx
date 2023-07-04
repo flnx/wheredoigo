@@ -29,7 +29,7 @@ export const TopPlaces = ({ places, isLoading }) => {
 
     // Shows the text the when there is no errors and there is places to show
     const europeIntroText = !error && explorePlaces.length != 0 ? 'Europe awaits you!' : '';
-    const eatIntroText = !error && explorePlaces.length != 0 ? 'Want to grab some food?' : '';
+    const eatIntroText = !error && eatPlaces.length != 0 ? 'Want to grab some food?' : '';
 
     return (
         <section>
@@ -38,7 +38,7 @@ export const TopPlaces = ({ places, isLoading }) => {
                     <p>{extractServerErrorMessage(places.error)}</p>
                 ) : (
                     <div>
-                        <section>
+                        <section className="mb-5">
                             <h2 className={styles.title}>
                                 <TextWrap isLoading={isLoading} content={europeIntroText} />
                             </h2>

@@ -7,7 +7,7 @@ async function getTopPlaces() {
     const explorePipeline = filteredAndSortedPlacesPipeline(['Explore', 'Fun']);
     const eatPipeline = filteredAndSortedPlacesPipeline(['Eat']);
 
-    // Promises
+
     const promises = [
         Place.aggregate(explorePipeline),
         Place.aggregate(eatPipeline),
