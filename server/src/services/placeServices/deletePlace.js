@@ -19,7 +19,7 @@ async function deletePlace(placeId, userId) {
         throw createValidationError(errorMessages.accessDenied, 403);
     }
 
-    const comments_ids = place.comments.map((c) => c.toString());
+    const comments_ids = place.comments.map((id) => id.toString());
 
     // get correct cloudinary folder name
     const path = 'places';
@@ -30,6 +30,8 @@ async function deletePlace(placeId, userId) {
     const image_ids = place.imageUrls.map(({ public_id, ...rest }) => public_id);
 
     await deleteMultipleImages(image_ids, [folderName])
+
+    throw new Error('LoL deletion failed bro');
     await Place.findByIdAndDelete(placeId);
 
     await Promise.allSettled([

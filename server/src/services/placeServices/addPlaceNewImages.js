@@ -2,19 +2,15 @@ const Place = require('../../models/placeSchema');
 
 // utils
 const { addImages } = require('../../utils/cloudinaryUploader');
-const { validateImages } = require('../../utils/validateImages');
 
 async function addPlaceNewImages(placeId, imgFiles, place) {
-    // Validate the image files
-    validateImages(imgFiles, 1);
-
     const { city } = place;
 
     const folderName = 'places';
     const data = { city, _id: placeId };
 
     // Add images and get the result and any error
-    const { imageUrls, imgError } = await addImages(imgFiles, data, folderName);
+    const { imageUrls, imgError } = await addImages(imgFiles, data, folderName, 1);
 
     // Update the place document with the new image URLs
     const result = await Place.findOneAndUpdate(

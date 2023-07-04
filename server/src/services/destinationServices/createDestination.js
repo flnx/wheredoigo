@@ -7,7 +7,6 @@ const { errorMessages } = require('../../constants/errorMessages');
 // utils
 const { validateDestinationFields } = require('../../utils/validateFields');
 const { addImages } = require('../../utils/cloudinaryUploader');
-const { validateImages } = require('../../utils/validateImages');
 
 // Services
 const { fetchACountryAndItsCities } = require('../getCityCountryData');
@@ -26,7 +25,6 @@ async function createDestination(data, images, user) {
 
     const categories = validateDestinationFields(destinationData);
 
-    validateImages(images, 4); // (at least 4 images)
     await validateCountryAndCity(destinationData.country, destinationData.city);
 
     const country = await addCountry(destinationData.country);
@@ -41,7 +39,7 @@ async function createDestination(data, images, user) {
     });
 
     const folderName = 'destinations';
-    const { imageUrls, imgError } = await addImages(images, destination, folderName);
+    const { imageUrls, imgError } = await addImages(images, destination, folderName, 4);
 
     destination.imageUrls = imageUrls;
     await destination.save();
