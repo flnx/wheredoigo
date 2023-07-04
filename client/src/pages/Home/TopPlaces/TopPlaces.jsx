@@ -16,9 +16,9 @@ const propTypes = {
 export const TopPlaces = ({ places, isLoading }) => {
     const { data, error } = places;
 
-    // 1. If places data is loading - it returns a new array with "X" elements
-    // 1.1 This ensures that the section will render (X) amount of div boxes ..
-    // ..when the data is being fetched in order the >Loading skeleton< to visualize inside those div boxes
+    // 1. If places data is loading - it returns a new array with "9" elements
+    // 1.1 This ensures that the section will render (9) amount of div boxes (for Loading Skeletons)..
+    // ..when the data is being fetched the >Loading skeletons< will be visualized inside those div boxes
     const explorePlaces = isLoading
         ? checkArrayAndPreloadElements(data?.explorePlaces, 9)
         : data.explorePlaces;
@@ -27,7 +27,7 @@ export const TopPlaces = ({ places, isLoading }) => {
         ? checkArrayAndPreloadElements(data?.eatPlaces, 9)
         : data.eatPlaces;
 
-    // Shows the text the when there is no errors and there is places to show
+    // Shows the text the when there is no errors and there is actual places to show
     const europeIntroText = !error && explorePlaces.length != 0 ? 'Europe awaits you!' : '';
     const eatIntroText = !error && eatPlaces.length != 0 ? 'Want to grab some food?' : '';
 

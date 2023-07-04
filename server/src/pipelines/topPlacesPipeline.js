@@ -3,7 +3,7 @@ function filteredAndSortedPlacesPipeline(categories) {
     const matchStage = {
         $match: {
             type: { $in: categories },
-            country: { $in: ['netherlands', 'bulgaria', 'germany'] },
+            country: { $in: ['netherlands', 'bulgaria', 'germany', 'hungary'] },
             'rating.numRates': { $ne: 0 },
         },
     };

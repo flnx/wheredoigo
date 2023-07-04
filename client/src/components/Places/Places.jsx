@@ -38,7 +38,7 @@ export const Places = ({ places, isLoading, onDeleteClickHandler, isOwner }) => 
                         </h4>
                         {isLoading 
                             ? <LoadingSkeleton />
-                            : <StarRating averageRating={averageRating} />
+                            : <StarRating averageRating={averageRating} size={20}/>
                         }
                         <span className={styles.location}>
                             {isLoading ? <LoadingSkeleton /> : `${city}, ${country}`}

@@ -4,8 +4,6 @@ import { apiEndpoints } from '../../constants/apiEndpoints';
 export const getTopPlaces = async () => {
     const res = await axios.get(apiEndpoints.topPlaces);
 
-    await new Promise((res) => setTimeout(res, 5000));
-
     return res.data;
 };
 
