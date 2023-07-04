@@ -126,7 +126,9 @@ async function deleteMultipleImages(public_ids, folderNames) {
         const results = await Promise.allSettled(promises_ids);
 
         // Filters out the rejected promises
-        let failedPromises = results.filter((result) => result.status === 'rejected');
+        let failedPromises = results.filter(
+            (result) => result.status === 'rejected'
+        );
 
         const failedToDeleteAfterRetry = await retryDeletion(failedPromises);
 
@@ -142,15 +144,15 @@ async function deleteMultipleImages(public_ids, folderNames) {
             );
 
             // Calculate how many images have been deleted
-            const deletedImgs = promises_ids.length - failedToDeleteAfterRetry.length;
+            const deletedImgs =
+                promises_ids.length - failedToDeleteAfterRetry.length;
             const initialImages = promises_ids.length;
 
             // Log the result
-            const errorMessage = `Deleted: ${deletedImgs} out of ${initialImages}`
-            
+            const errorMessage = `Deleted: ${deletedImgs} out of ${initialImages}`;
+
             throw new Error(errorMessage);
         }
-
 
         // Delete the folder/folders upon success
         folderNames.forEach((folder) => cloudinary.api.delete_folder(folder));
@@ -176,7 +178,9 @@ async function deleteMultipleImages(public_ids, folderNames) {
             const retryResults = await Promise.allSettled(retryPromises);
 
             // Filter out still failed promises for the next iteration
-            failedPromises = retryResults.filter((result) => result.status === 'rejected');
+            failedPromises = retryResults.filter(
+                (result) => result.status === 'rejected'
+            );
 
             retryAttempts++;
 
@@ -204,7 +208,7 @@ async function deleteImage(publicId) {
 
         return true;
     } catch (err) {
-        console.log(err.message);
+        console.error(err.message);
         err.publicId = publicId;
         throw err;
     }

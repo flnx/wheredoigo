@@ -1,34 +1,38 @@
-const jwt = require('../../lib/jsonwebtoken');
 const User = require('../../models/userSchema');
+const FailedDeletion = require('../../models/failedImgDeletionSchema');
+
 const { errorMessages } = require('../../constants/errorMessages');
 
+// Cloudinary
 const { avatarOptions } = require('../../config/cloudinary');
 const { handleImageUploads, deleteImage } = require('../../utils/cloudinaryUploader');
+
+// Utils
 const { createValidationError } = require('../../utils/createValidationError');
 const { generateUserToken } = require('../../utils/generateUserToken');
+const { validateImages } = require('../../utils/validateImages');
 
 require('dotenv').config();
 
 const updateUserAvatar = async (image, userData) => {
+    // Validates if its a valid image file
+    validateImages([image], 1);
+
     const user = await User.findById(userData.ownerId).exec();
 
     if (!user) {
         throw createValidationError(errorMessages.notFound, 404);
     }
 
-    if (!image) {
-        throw createValidationError(errorMessages.invalidImages);
-    }
-    
-    const promises = [
-        handleImageUploads([image], avatarOptions),
-        deleteImage(user.avatar_id),
-    ];
+    const imageData = await handleImageUploads([image], avatarOptions);
 
-    const [imageData, _] = await Promise.allSettled(promises);
-
-    if (imageData.status !== 'fulfilled') {
-        throw createValidationError(errorMessages.uploadError, 500)
+    if (user.avatar_id) {
+        deleteImage(user.avatar_id).catch((err) => {
+            // If the image fails to delete from cloudinary, store it in DB (to delete it later)
+            FailedDeletion.create({ public_ids: [user.avatar_id || null] }).catch(
+                (err) => console.error(err?.message)
+            );
+        });
     }
 
     const { url, public_id } = imageData.value[0];

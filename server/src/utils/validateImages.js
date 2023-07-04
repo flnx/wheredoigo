@@ -30,7 +30,7 @@ function validateImages(images, minimumNum) {
 
     // Check if the filtered array has the minimum number of images
     if (filteredArray.length < minNum) {
-        throw createValidationError(errorMessages.imagesBoundary, 400);
+        throw createValidationError(errorMessages.imagesBoundary(minNum), 400);
     }
 
     return true;
