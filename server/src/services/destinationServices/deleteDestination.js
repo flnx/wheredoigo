@@ -6,8 +6,8 @@ const { errorMessages } = require('../../constants/errorMessages');
 
 // utils
 const { deleteMultipleImages } = require('../../utils/cloudinaryUploader');
-const { extractCloudinaryFolderName } = require('../../utils/utils');
 const { createValidationError } = require('../../utils/createValidationError');
+const extractCloudinaryFolderName = require('../../utils/cloudinary/extractFolderName');
 
 async function deleteDestination(destinationId, userId) {
     const [destination, places] = await Promise.all([
@@ -51,11 +51,11 @@ async function deleteDestination(destinationId, userId) {
 
     function extractAllPublicIds() {
         const destPublicIds = destination.imageUrls.map(
-            ({ public_id, ...rest }) => public_id
+            ({ public_id }) => public_id
         );
 
         const placesPublicIds = places.flatMap((x) => {
-            const ids = x.imageUrls.map(({ public_id, ...rest }) => public_id);
+            const ids = x.imageUrls.map(({ public_id }) => public_id);
             return ids;
         });
 

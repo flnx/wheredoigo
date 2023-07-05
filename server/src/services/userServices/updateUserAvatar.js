@@ -1,15 +1,14 @@
 const User = require('../../models/userSchema');
-const FailedDeletion = require('../../models/failedImgDeletionSchema');
 
 const { errorMessages } = require('../../constants/errorMessages');
-
-// Cloudinary
-const { avatarOptions } = require('../../config/cloudinary');
-const { handleImageUploads, deleteImage } = require('../../utils/cloudinaryUploader');
 
 // Utils
 const { createValidationError } = require('../../utils/createValidationError');
 const { generateUserToken } = require('../../utils/generateUserToken');
+
+// Service
+const uploadUserAvatar = require('../cloudinaryService/uploadUserAvatar');
+const deleteUserAvatar = require('../cloudinaryService/deleteUserAvatar');
 
 require('dotenv').config();
 
@@ -22,17 +21,13 @@ const updateUserAvatar = async (image, userData) => {
         throw createValidationError(errorMessages.notFound, 404);
     }
 
-    const imageData = await handleImageUploads([image], avatarOptions, 1);
+    const avatarIdToDelete = user.avatar_id;
 
-    // Deletes the old avatar from cloudinary (if any)
-    if (user.avatar_id) {
-        deleteImage(user.avatar_id).catch((err) => {
-            // If the image fails to delete from cloudinary, store it in DB (to delete it later)
-            FailedDeletion.create({ public_ids: [user.avatar_id] }).catch(
-                (err) => console.error(err?.message)
-            );
-        });
-    }
+    // Uploads the new avatar
+    const imageData = await uploadUserAvatar([image]);    
+
+    // Deletes the old avatar
+    deleteUserAvatar(avatarIdToDelete);
 
     // Extracts the newly updated image url and public id
     const { url, public_id } = imageData[0];
@@ -44,6 +39,7 @@ const updateUserAvatar = async (image, userData) => {
 
     // Regenerates the token
     const accessToken = await generateUserToken(user);
+
 
     return {
         email: user.email,

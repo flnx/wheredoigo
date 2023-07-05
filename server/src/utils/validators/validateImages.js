@@ -1,6 +1,6 @@
-const { isObject, isValidInteger } = require('./utils');
-const { errorMessages } = require('../constants/errorMessages');
-const { createValidationError } = require('./createValidationError');
+const { isObject, isValidInteger } = require('../utils');
+const { errorMessages } = require('../../constants/errorMessages');
+const { createValidationError } = require('../createValidationError');
 
 function validateImages(images, minimumNum) {
     // Check if 'images' is an array

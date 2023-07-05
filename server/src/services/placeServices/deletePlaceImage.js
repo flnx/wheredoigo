@@ -1,15 +1,16 @@
-const { isValid } = require('mongoose').Types.ObjectId;
-
 const Place = require('../../models/placeSchema');
-const FailedDeletion = require('../../models/failedImgDeletionSchema');
-
+const { isValid } = require('mongoose').Types.ObjectId;
 const { errorMessages } = require('../../constants/errorMessages');
 
-// utils
-const { createValidationError } = require('../../utils/createValidationError');
-const { deleteImage } = require('../../utils/cloudinaryUploader');
-
+// Query
 const deleteImageQuery = require('../../queries/deleteImageQuery');
+
+// Service
+const { deleteImages } = require('../cloudinaryService/deleteImages');
+
+// Utils
+const { createValidationError } = require('../../utils/createValidationError');
+
 
 async function deletePlaceImage(placeId, imgId) {
     if (!imgId || !isValid(imgId)) {
@@ -17,7 +18,9 @@ async function deletePlaceImage(placeId, imgId) {
     }
 
     const query = deleteImageQuery(placeId, imgId);
-    const result = await Place.findOneAndUpdate(query).lean().exec();
+    const result = await Place.findOneAndUpdate(...query)
+        .lean()
+        .exec();
 
     if (!result) {
         throw createValidationError(errorMessages.notFound, 404);
@@ -26,16 +29,8 @@ async function deletePlaceImage(placeId, imgId) {
     // Extracts the public ID
     const public_id = result.imageUrls[0]?.public_id;
 
-    // There wouldn't be a case where the public_id is missing but just to make sure..
-    if (public_id) {
-        // Deletes the old image
-        deleteImage(public_id).catch((err) => {
-            // If the image deletion from cloudinary fails, it stores the public_id in DB (to delete it later)
-            FailedDeletion.create({ public_ids: [public_id] }).catch((err) =>
-                console.error(err?.message)
-            );
-        });
-    }
+    // Deletes the old image
+    deleteImages([public_id]).catch((err) => console.log(err.message || err));
 
     return result;
 }

@@ -1,5 +1,5 @@
 function deleteImageQuery(destinationOrPlaceId, img_id) {
-    return (
+    const query = [
         {
             _id: destinationOrPlaceId,
             'imageUrls._id': img_id,
@@ -11,8 +11,10 @@ function deleteImageQuery(destinationOrPlaceId, img_id) {
         },
         {
             projection: { 'imageUrls.$': 1 },
-        }
-    );
+        },
+    ];
+
+    return query;
 }
 
 module.exports = deleteImageQuery;

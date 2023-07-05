@@ -4,19 +4,8 @@ function validatePassword(password) {
     return regex.test(password);
 }
 
-function fixInvalidFolderNameChars(city, id) {
-    return `${city}-${id}`.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-}
-
 function isObject(value) {
     return typeof value === 'object' && !Array.isArray(value) && value !== null;
-}
-
-function extractCloudinaryFolderName(path, name, id) {
-    const validateFolderName = fixInvalidFolderNameChars(name, id);
-    const folderName = `${path}/${validateFolderName}`;
-
-    return folderName;
 }
 
 function isString(str) {
@@ -32,6 +21,10 @@ function isValidArrayOfStrings(arr) {
         return false;
     }
 
+    if (arr.length === 0) {
+        return false; // Return false if the array is empty
+    }
+
     const hasInvalidCategory = arr.some((c) => typeof c !== 'string');
 
     if (hasInvalidCategory) {
@@ -43,9 +36,7 @@ function isValidArrayOfStrings(arr) {
 
 module.exports = {
     validatePassword,
-    fixInvalidFolderNameChars,
     isObject,
-    extractCloudinaryFolderName,
     isString,
     isValidInteger,
     isValidArrayOfStrings,

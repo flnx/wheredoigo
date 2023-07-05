@@ -17,7 +17,6 @@ exports.errorMessages = {
     invalidImages: 'In order to upload images, please send an array with valid image files.',
     imagesBoundary: (num) => `You need to upload at least ${num} ${num > 1 ? 'images' : 'image'}`,
     uploadError: 'Sorry, there was an error during the upload process. Please try again later.',
-    cloudinaryValidation: 'Arg1 & Arg2 must be arrays',
     imagesLimitError: 'You have uploaded too many images. Please limit your upload to 20 images or less.',
     selectCategory: 'Please select at least 1 category',
     invalidCategory: 'Invalid category!',

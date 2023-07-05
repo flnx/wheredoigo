@@ -4,14 +4,17 @@ const uploadImagesToCloudinary = require('./upload/uploadImagesToCloudinary');
 const { imagesOptions } = require('../../config/cloudinary');
 
 // Utils
-const { fixInvalidFolderNameChars } = require('../../utils/utils');
+const validateUploadImagesFields = require('../../utils/validators/validateUploadImages');
+const fixInvalidFolderNameChars = require('../../utils/cloudinary/fixInvalidFolderNameChars');
 
-async function uploadImages(images, data, folderName, minImagesRequired = 1) {
+async function uploadImages(images, data, mainFolder, minImagesRequired = 1) {
     try {
-        // Set the folder type and name for Cloudinary
-        const folder_type = folderName;
-        const folder_name = fixInvalidFolderNameChars(data.city, data._id);
-        const imageOptions = imagesOptions(folder_type, folder_name);
+        validateUploadImagesFields(data, mainFolder);
+        // Specify the sub-folder name for Cloudinary
+        const subFolder = fixInvalidFolderNameChars(data.city, data._id);
+
+        // Pass the folder names to the options
+        const imageOptions = imagesOptions(mainFolder, subFolder);
 
         // Upload the images to Cloudinary
         const cloudinaryImagesData = await uploadImagesToCloudinary(

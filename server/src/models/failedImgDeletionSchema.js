@@ -7,7 +7,6 @@ const failedImgDeletionSchema = new mongoose.Schema({
     },
 });
 
-
 const FailedDeletion = mongoose.model('FailedDeletion', failedImgDeletionSchema);
 
 module.exports = FailedDeletion;

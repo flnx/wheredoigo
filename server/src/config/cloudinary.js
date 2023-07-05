@@ -9,9 +9,9 @@ function cloudinaryConfig() {
     });
 }
 
-const imagesOptions = (folderType, folderName) => {
+const imagesOptions = (mainFolder, subFolder) => {
     return {
-        folder: `${folderType}/${folderName}`,
+        folder: `${mainFolder}/${subFolder}`,
         transformation: [
             { width: '2000', height: '1312', crop: 'limit' },
             { quality: 'auto:best', fetch_format: 'auto' },

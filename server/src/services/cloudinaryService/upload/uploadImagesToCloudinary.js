@@ -1,9 +1,9 @@
 const uploadFile = require('./uploadFile');
 
 // Utils
-const { validateImages } = require('../../../utils/validateImages');
+const { validateImages } = require('../../../utils/validators/validateImages');
 
-async function uploadImagesToCloudinary(files, options = {}, minImagesRequired) {
+async function uploadImagesToCloudinary(files = [], options = {}, minImagesRequired = 1) {
     // Validating the image files with default minimum number of images required
     validateImages(files, minImagesRequired);
 

@@ -3,12 +3,13 @@ const Destination = require('../../models/destinationSchema');
 const Comment = require('../../models/commentSchema');
 const UserActivity = require('../../models/userActivitiesSchema');
 
+const deleteUserAvatar = require('../cloudinaryService/deleteUserAvatar');
 const deleteDestination = require('../destinationServices/deleteDestination');
 const deleteCommentFromPlace = require('../placeServices/deleteCommentFromPlace');
-const { deleteImage } = require('../../utils/cloudinaryUploader');
 
 const { errorMessages } = require('../../constants/errorMessages');
 const { createValidationError } = require('../../utils/createValidationError');
+
 
 async function deleteUserAccount(userData) {
     const { ownerId } = userData;
@@ -26,7 +27,7 @@ async function deleteUserAccount(userData) {
     }
 
     await deleteDestinations();
-    deleteUserAvatar();
+    deleteUserAvatar(user.avatar_id);
     deleteUserComments();
     deleteActivities();
 
@@ -89,14 +90,6 @@ async function deleteUserAccount(userData) {
                     }
                 });
             });
-        }
-    }
-
-    function deleteUserAvatar() {
-        if (Object.hasOwn(user, 'avatar_id')) {
-            deleteImage(user.avatar_id).catch((err) =>
-                console.error(`User Image - ${err.message}`)
-            );
         }
     }
 }

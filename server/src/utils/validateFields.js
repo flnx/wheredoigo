@@ -3,13 +3,17 @@ const validator = require('validator');
 const { createValidationError } = require('./createValidationError');
 
 // Constants
-const { allowedPlaceCategories, allowedFieldsToUpdate } = require('../constants/allowedPlaceCategories');
+const {
+    allowedPlaceCategories,
+    allowedFieldsToUpdate,
+} = require('../constants/allowedPlaceCategories');
 const { errorMessages } = require('../constants/errorMessages');
-const { destinationCategories } = require('../constants/allowedDestinationCategories');
+const {
+    destinationCategories,
+} = require('../constants/allowedDestinationCategories');
 
 // Utils
 const { isString, isObject, isValidArrayOfStrings } = require('./utils');
-
 
 function validateDestinationFields(data) {
     const { city, country, description, category, details } = data;
@@ -177,7 +181,7 @@ function validatePlaceName(name) {
 function validateCategories(categories) {
     if (categories && isValidArrayOfStrings(categories)) {
         const filteredCategories = categories
-            .filter((c) => isString(c) && destinationCategories.includes(c))
+            .filter((c) => destinationCategories.includes(c))
             .filter((value, index, self) => self.indexOf(value) === index); // Filter out repeating values
 
         return filteredCategories;

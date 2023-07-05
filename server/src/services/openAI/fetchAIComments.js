@@ -32,7 +32,7 @@ function validateInput(arrayOfStrings) {
     const isDataValid = isValidArrayOfStrings(arrayOfStrings);
 
     if (!isDataValid) {
-        throw createValidationError('Input must be an array of strings', 400);
+        throw createValidationError('fetchAIComments(): Input must be an array of strings', 400);
     }
 
     // Filter out empty strings

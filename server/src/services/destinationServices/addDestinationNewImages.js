@@ -1,7 +1,6 @@
 const Destination = require('../../models/destinationSchema');
-
-// utils
-const { addImages } = require('../../utils/cloudinaryUploader');
+const uploadImages = require('../cloudinaryService/uploadImages');
+const addImagesQuery = require('../../queries/addImagesQuery');
 
 async function addDestinationNewImages(destinationId, imgFiles, destination) {
     const { city } = destination;
@@ -9,26 +8,16 @@ async function addDestinationNewImages(destinationId, imgFiles, destination) {
     const folderName = 'destinations';
     const data = { city, _id: destinationId };
 
-    const { imageUrls, imgError } = await addImages(imgFiles, data, folderName, 1);
+    const { imageUrls, imgError } = await uploadImages(
+        imgFiles,
+        data,
+        folderName,
+        1
+    );
 
-    const result = await Destination.findOneAndUpdate(
-        { _id: destinationId },
-        {
-            $push: {
-                imageUrls: { $each: imageUrls },
-                $slice: -imageUrls.length,
-            },
-        },
-        {
-            new: true,
-            projection: {
-                _id: 0,
-                imageUrls: {
-                    $slice: -imageUrls.length,
-                },
-            },
-        }
-    )
+    const query = addImagesQuery(destinationId, imageUrls);
+
+    const result = await Destination.findOneAndUpdate(...query)
         .select('-ownerId -country -city -description -details -info -__v')
         .lean()
         .exec();
