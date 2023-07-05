@@ -1,5 +1,7 @@
+const { errorMessages } = require('../../constants/errorMessages');
 const Destination = require('../../models/destinationSchema');
 const UserActivity = require('../../models/userActivitiesSchema');
+const { createValidationError } = require('../../utils/createValidationError');
 
 async function dislikeDestination(id, userId) {
     const result = await Destination.updateOne(
@@ -7,12 +9,14 @@ async function dislikeDestination(id, userId) {
         { $pull: { likes: userId }, $inc: { likesCount: -1 } }
     );
     // removes the last like activity upon dislike success (no need to await)
-    if (result.modifiedCount == 1) {
-        UserActivity.updateOne(
-            { userId: userId },
-            { $pull: { likes: { destination: id } } }
-        ).catch((err) => console.log(err));
+    if (result.modifiedCount == 0) {
+        throw createValidationError(errorMessages.serverError, 500);
     }
+
+    UserActivity.updateOne(
+        { userId: userId },
+        { $pull: { likes: { destination: id } } }
+    ).catch((err) => console.log(err));
 
     return result;
 }

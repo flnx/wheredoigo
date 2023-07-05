@@ -121,10 +121,10 @@ const edit_destination_field = async (req, res, next) => {
 
 const delete_destination = async (req, res, next) => {
     const { id } = req.params; // destination id
-    const { ownerId } = req.user;
+    const user = req.user;
 
     try {
-        const result = await deleteDestination(id, ownerId);
+        const result = await deleteDestination(id, user);
         res.json(result);
     } catch (err) {
         next(err);

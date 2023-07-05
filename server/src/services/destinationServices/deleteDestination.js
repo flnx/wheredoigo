@@ -1,87 +1,103 @@
+const mongoose = require('mongoose');
+
+// Models
 const Destination = require('../../models/destinationSchema');
 const Place = require('../../models/placeSchema');
 const UserActivity = require('../../models/userActivitiesSchema');
 const Comment = require('../../models/commentSchema');
+const { deleteImages } = require('../cloudinaryService/deleteImages');
+
+// Constants
 const { errorMessages } = require('../../constants/errorMessages');
 
-// utils
-const { deleteMultipleImages } = require('../../utils/cloudinaryUploader');
+// Utils
 const { createValidationError } = require('../../utils/createValidationError');
-const extractCloudinaryFolderName = require('../../utils/cloudinary/extractFolderName');
+const extractMultipleFolderNames = require('../../utils/cloudinary/extractMultipleFolderNames');
+const extractAllPublicIds = require('../../utils/cloudinary/extractImagesPublicIds');
 
-async function deleteDestination(destinationId, userId) {
-    const [destination, places] = await Promise.all([
-        Destination.findById(destinationId).lean().exec(),
-        Place.find({ destinationId }).select('-description').lean().exec(),
-    ]);
+async function deleteDestination(destinationId, user) {
+    const { ownerId, role } = user;
+
+    const promises = [
+        Destination.findById(destinationId).exec(),
+        Place.find({ destinationId }).select('-description').exec(),
+    ];
+
+    const [destination, places] = await Promise.all(promises);
 
     if (!destination) {
         throw createValidationError(errorMessages.notFound, 404);
     }
 
-    if (!destination.ownerId.equals(userId)) {
+    // Allow admin role to bypass access check
+    if (role !== 'admin' && !place.ownerId.equals(ownerId)) {
         throw createValidationError(errorMessages.accessDenied, 403);
     }
 
-    const public_ids = extractAllPublicIds();
-    const folderNames = extractFolderNames();
+    // Extract Public IDS
+    const publicImgIds = extractAllPublicIds(destination, places);
 
-    const comments_ids = places.flatMap((p) => p.comments.map((c) => c.toString()));
-    const placeIds = places.map((x) => x._id);
+    // Extract Folder Names
+    const folderNames = extractMultipleFolderNames(
+        destination.city,
+        destinationId,
+        places
+    );
 
-    const promises = [
-        Destination.findByIdAndDelete(destinationId),
-        Place.deleteMany({ destinationId }),
-        deleteMultipleImages(public_ids, folderNames),
-        Comment.deleteMany({ _id: { $in: comments_ids } }),
-        UserActivity.updateMany(
-            {},
-            {
-                $pull: {
-                    likes: { destination: destinationId },
-                    comments: { place: { $in: placeIds } },
-                },
-            }
-        ),
-    ];
+    // Extract comments ids from all places
+    const commentsIds = places.flatMap((p) =>
+        p.comments.map((commendId) => commendId.toString())
+    );
 
-    await Promise.all(promises);
+    // Extract placesIds
+    const placesIds = places.map((x) => x._id);
 
-    return true;
+    // Delete destination and places
+    await proceedDeletion({
+        destinationId,
+        commentsIds,
+        placesIds,
+    });
 
-    function extractAllPublicIds() {
-        const destPublicIds = destination.imageUrls.map(
-            ({ public_id }) => public_id
-        );
+    // Delete the images from cloudinary
+    deleteImages(publicImgIds, folderNames).catch((err) =>
+        console.log(err.message || err)
+    );
 
-        const placesPublicIds = places.flatMap((x) => {
-            const ids = x.imageUrls.map(({ public_id }) => public_id);
-            return ids;
-        });
+    return {
+        message: 'deleted 🦖',
+    };
+}
 
-        return destPublicIds.concat(placesPublicIds);
-    }
+async function proceedDeletion({ destinationId, commentsIds, placesIds }) {
+    const session = await mongoose.startSession();
 
-    function extractFolderNames() {
-        const d_path = 'destinations';
-        const { city } = destination;
-        const destFolderName = extractCloudinaryFolderName(
-            d_path,
-            city,
-            destinationId
-        );
+    try {
+        session.startTransaction();
 
-        const p_path = 'places';
+        const promises = [
+            Destination.findByIdAndDelete(destinationId).session(session),
+            Place.deleteMany({ destinationId }).session(session),
+            Comment.deleteMany({ _id: { $in: commentsIds } }).session(session),
+            UserActivity.updateMany({},
+                {
+                    $pull: {
+                        likes: { destination: destinationId },
+                        comments: { place: { $in: placesIds } },
+                    },
+                }
+            ).session(session),
+        ];
 
-        const placesFolderNames = places.map((place) => {
-            let { city, _id } = place;
-            _id = _id.toString();
+        await Promise.all(promises);
+        await session.commitTransaction();
 
-            const placeFolderName = extractCloudinaryFolderName(p_path, city, _id);
-            return placeFolderName;
-        });
-
-        return [destFolderName, ...placesFolderNames];
+        return true;
+    } catch (err) {
+        await session.abortTransaction();
+        throw err;
+    } finally {
+        session.endSession();
     }
 }
 

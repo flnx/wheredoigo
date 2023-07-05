@@ -1,5 +1,7 @@
 const Destination = require('../../models/destinationSchema');
 const UserActivity = require('../../models/userActivitiesSchema');
+const { errorMessages } = require('../../constants/errorMessages');
+const { createValidationError } = require('../../utils/createValidationError');
 
 async function likeDestination(id, userId) {
     const result = await Destination.updateOne(
@@ -7,11 +9,11 @@ async function likeDestination(id, userId) {
         { $addToSet: { likes: userId }, $inc: { likesCount: 1 } }
     );
 
-    if (result.modifiedCount == 1) {
-        // Don't need the result, so no need to wait the promise to get resolved
-        addUserActivity();
+    if (result.modifiedCount == 0) {
+        throw createValidationError(errorMessages.serverError, 500);
     }
 
+    addUserActivity();
     return result;
 
     async function addUserActivity() {

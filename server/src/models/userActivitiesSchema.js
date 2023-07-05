@@ -73,11 +73,13 @@ userActivitySchema.statics.removeCommentActivity = async function (
     placeId,
     session
 ) {
-    await this.updateOne(
+    const result = await this.updateOne(
         { userId: ownerId },
         { $pull: { comments: { place: placeId } } },
         { session }
     );
+
+    return result;
 };
 
 const UserActivity = mongoose.model('UserActivity', userActivitySchema);

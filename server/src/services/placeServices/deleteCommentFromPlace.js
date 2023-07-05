@@ -9,9 +9,11 @@ const { errorMessages } = require('../../constants/errorMessages');
 // utils
 const { createValidationError } = require('../../utils/createValidationError');
 
-async function deleteCommentFromPlace(placeId, commentId, ownerId) {
+async function deleteCommentFromPlace(placeId, commentId, user) {
+    const { ownerId, role } = user;
+
     if (!commentId || !isValid(commentId)) {
-        throw createValidationError(`Place ${errorMessages.notFound}`, 404);
+        throw createValidationError(errorMessages.notFound, 404);
     }
 
     const session = await mongoose.startSession();
@@ -24,7 +26,8 @@ async function deleteCommentFromPlace(placeId, commentId, ownerId) {
             throw createValidationError(errorMessages.notFound, 404);
         }
 
-        if (!comment.ownerId.equals(ownerId)) {
+        // Allow admin role to bypass access check
+        if (role !== 'admin' && !place.ownerId.equals(ownerId)) {
             throw createValidationError(errorMessages.accessDenied, 403);
         }
 
@@ -49,8 +52,9 @@ async function deleteCommentFromPlace(placeId, commentId, ownerId) {
 
         return {
             averageRating: place.averageRating,
-            essage: 'Comment deleted 🦖',
+            message: 'Comment deleted 🦖',
         };
+        
     } catch (err) {
         await session.abortTransaction();
         throw err;

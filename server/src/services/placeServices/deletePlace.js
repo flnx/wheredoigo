@@ -43,10 +43,9 @@ async function deletePlace(placeId, user) {
         ];
 
         await Promise.all(promises);
-        
-        deletePlaceImages(place);
-
         await session.commitTransaction();
+
+        deletePlaceImages(place);
 
         return {
             message: 'Deleted 🦖',

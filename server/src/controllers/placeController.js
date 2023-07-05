@@ -134,10 +134,10 @@ const post_comment = async (req, res, next) => {
 const delete_comment = async (req, res, next) => {
     const { id } = req.params;
     const { commentId } = req.query;
-    const { ownerId } = req.user;
+    const user = req.user;
 
     try {
-        const result = await deleteCommentFromPlace(id, commentId, ownerId);
+        const result = await deleteCommentFromPlace(id, commentId, user);
         res.json(result);
     } catch (err) {
         next(err);
