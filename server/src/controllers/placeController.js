@@ -101,10 +101,10 @@ const edit_place_field = async (req, res, next) => {
 
 const delete_place = async (req, res, next) => {
     const { id } = req.params;
-    const { ownerId } = req.user;
+    const user = req.user;
 
     try {
-        const result = await deletePlace(id, ownerId);
+        const result = await deletePlace(id, user);
         res.json(result);
     } catch (err) {
         next(err);

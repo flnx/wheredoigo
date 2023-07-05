@@ -6,10 +6,10 @@ const { errorMessages } = require('../../constants/errorMessages');
 
 // utils
 const { validateDestinationFields } = require('../../utils/validateFields');
-const { addImages } = require('../../utils/cloudinaryUploader');
 
 // Services
 const { fetchACountryAndItsCities } = require('../getCityCountryData');
+const uploadImages = require('../cloudinaryService/uploadImages');
 
 
 async function createDestination(data, images, user) {
@@ -39,7 +39,7 @@ async function createDestination(data, images, user) {
     });
 
     const folderName = 'destinations';
-    const { imageUrls, imgError } = await addImages(images, destination, folderName, 4);
+    const { imageUrls, imgError } = await uploadImages(images, destination, folderName, 4);
 
     destination.imageUrls = imageUrls;
     await destination.save();
