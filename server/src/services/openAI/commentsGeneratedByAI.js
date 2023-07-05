@@ -21,7 +21,7 @@ async function commentsGeneratedByAI({ name, country, city, numOfCommenters }) {
         } catch (error) {
             retryCount++;
 
-            console.error(`commentsGeneratedByAi: ${error.message}`);
+            console.error(`commentsGeneratedByAi: ${error?.message}`);
 
             if (retryCount <= MAX_RETRIES) {
                 console.error(

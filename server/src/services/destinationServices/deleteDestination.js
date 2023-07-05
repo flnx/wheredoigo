@@ -61,7 +61,7 @@ async function deleteDestination(destinationId, user) {
 
     // Delete the images from cloudinary
     deleteImages(publicImgIds, folderNames).catch((err) =>
-        console.log(err.message || err)
+        console.error(err.message || err)
     );
 
     return {

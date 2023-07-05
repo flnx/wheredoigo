@@ -1,7 +1,7 @@
 const capitalizeEachWord = require('../utils/capitalizeWords');
 
 function errorHandler(err, req, res, next) {
-    console.log(err.message);
+    console.error(err.message || err);
     switch (err.name) {
         case 'SyntaxError':
             res.status(400).json({ message: 'Invalid JSON payload' });

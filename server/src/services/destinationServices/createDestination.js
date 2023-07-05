@@ -11,7 +11,6 @@ const { validateDestinationFields } = require('../../utils/validateFields');
 const { fetchACountryAndItsCities } = require('../getCityCountryData');
 const uploadImages = require('../cloudinaryService/uploadImages');
 
-
 async function createDestination(data, images, user) {
     const { ownerId } = user;
 
@@ -23,13 +22,13 @@ async function createDestination(data, images, user) {
         category: JSON.parse(data.category),
     };
 
+    // Validation
     const categories = validateDestinationFields(destinationData);
-
     await validateCountryAndCity(destinationData.country, destinationData.city);
 
     const country = await addCountry(destinationData.country);
 
-    const destination = await Destination.create({
+    const destination = new Destination({
         ...destinationData,
         category: categories,
         country: country._id,
@@ -39,7 +38,12 @@ async function createDestination(data, images, user) {
     });
 
     const folderName = 'destinations';
-    const { imageUrls, imgError } = await uploadImages(images, destination, folderName, 4);
+    const { imageUrls, imgError } = await uploadImages(
+        images,
+        destination,
+        folderName,
+        4
+    );
 
     destination.imageUrls = imageUrls;
     await destination.save();

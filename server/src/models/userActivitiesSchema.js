@@ -63,7 +63,7 @@ userActivitySchema.statics.addCommentActivity = async function (
 
         return !!result;
     } catch (err) {
-        console.log(err.message);
+        console.error(err.message);
         return false;
     }
 };

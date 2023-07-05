@@ -12,7 +12,7 @@ async function uploadUserAvatar(image) {
 
         return imageData;
     } catch (err) {
-        console.error(err.message);
+        console.error(err?.message);
         throw err;
     }
 }

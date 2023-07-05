@@ -50,7 +50,7 @@ async function storeTheUndeletedToDB(failedToDelete, promises_ids) {
 
     // Store the ids in the specified mongoDB schema
     FailedDeletion.create({ public_ids: failedPublicIds }).catch((err) =>
-        console.error(err.message)
+        console.error(err?.message)
     );
 
     // Calculate how many images have been deleted

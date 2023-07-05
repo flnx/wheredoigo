@@ -1,12 +1,12 @@
 const { isObject, isString } = require('../utils');
 
 function validateUploadImagesFields(data, mainFolder) {
-    const city = data?.city;
-    const _id = data?._id;
-
     if (!isObject(data)) {
         throw new Error('uploadImages(): data must be an object');
     }
+
+    const city = data?.city;
+    const _id = data?._id;
 
     // Validate if both city and _id are strings
     if (!isString(city) || city.length == 0) {

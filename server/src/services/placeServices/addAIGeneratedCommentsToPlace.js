@@ -106,7 +106,7 @@ async function addCommentsToPlace(comments, placeId) {
             numOfComments: addedComments.length,
         };
     } catch (error) {
-        console.log(`addCommentsToPlace - ${error.message}`);
+        console.error(`addCommentsToPlace - ${error.message}`);
 
         // Abort the transaction and throw a validation error
         await session.abortTransaction();

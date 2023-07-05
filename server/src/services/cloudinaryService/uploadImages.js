@@ -43,7 +43,7 @@ async function uploadImages(images, data, mainFolder, minImagesRequired = 1) {
             imgError,
         };
     } catch (err) {
-        console.error(err.message);
+        console.error(err?.message);
         throw err;
     }
 }

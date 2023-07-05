@@ -16,7 +16,7 @@ function calcAverageRating(placeRating, commentRating, newNumOfRates) {
         // Check if the result is NaN, if so return 0
         return isNaN(result) ? 0 : result;
     } catch (err) {
-        console.log(`calcAverageRating - ${err.message}`);
+        console.error(`calcAverageRating - ${err.message}`);
         return 0;
     }
 }

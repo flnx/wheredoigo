@@ -16,7 +16,7 @@ async function dislikeDestination(id, userId) {
     UserActivity.updateOne(
         { userId: userId },
         { $pull: { likes: { destination: id } } }
-    ).catch((err) => console.log(err));
+    ).catch((err) => console.error(err));
 
     return result;
 }

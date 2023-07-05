@@ -9,7 +9,7 @@ async function deleteUserAvatar(publicId) {
         const res = await deleteImageFromCloudinary(publicId);
         return res;
     } catch (err) {
-        console.error(err.message);
+        console.error(err?.message);
         // If the image fails to delete from cloudinary, store it in DB (to delete it later)
         FailedDeletion.create({ public_ids: [publicId] }).catch((err) =>
             console.error(err.message || err)

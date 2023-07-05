@@ -30,7 +30,7 @@ async function deletePlaceImage(placeId, imgId) {
     const public_id = result.imageUrls[0]?.public_id;
 
     // Deletes the old image
-    deleteImages([public_id]).catch((err) => console.log(err.message || err));
+    deleteImages([public_id]).catch((err) => console.error(err.message || err));
 
     return result;
 }

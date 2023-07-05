@@ -11,7 +11,7 @@ async function deleteImageFromCloudinary(publicId) {
 
         return true;
     } catch (err) {
-        console.error(err.message);
+        console.error(err.message || err);
         err.publicId = publicId;
         throw err;
     }
