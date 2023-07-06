@@ -5,6 +5,7 @@ const Destination = require('../../models/destinationSchema');
 const Place = require('../../models/placeSchema');
 const UserActivity = require('../../models/userActivitiesSchema');
 const Comment = require('../../models/commentSchema');
+
 const { deleteImages } = require('../cloudinaryService/deleteImages');
 
 // Constants
@@ -30,7 +31,7 @@ async function deleteDestination(destinationId, user) {
     }
 
     // Allow admin role to bypass access check
-    if (role !== 'admin' && !place.ownerId.equals(ownerId)) {
+    if (role !== 'admin' && !destination.ownerId.equals(ownerId)) {
         throw createValidationError(errorMessages.accessDenied, 403);
     }
 
@@ -59,10 +60,12 @@ async function deleteDestination(destinationId, user) {
         placesIds,
     });
 
-    // Delete the images from cloudinary
-    deleteImages(publicImgIds, folderNames).catch((err) =>
-        console.error(err.message || err)
-    );
+    try {
+        // Delete the images from cloudinary
+        await deleteImages(publicImgIds, folderNames);
+    } catch (err) {
+        console.log(err.message || err);
+    }
 
     return {
         message: 'deleted 🦖',
@@ -79,7 +82,8 @@ async function proceedDeletion({ destinationId, commentsIds, placesIds }) {
             Destination.findByIdAndDelete(destinationId).session(session),
             Place.deleteMany({ destinationId }).session(session),
             Comment.deleteMany({ _id: { $in: commentsIds } }).session(session),
-            UserActivity.updateMany({},
+            UserActivity.updateMany(
+                {},
                 {
                     $pull: {
                         likes: { destination: destinationId },
