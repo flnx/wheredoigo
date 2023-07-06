@@ -14,7 +14,7 @@ async function createNewPlace(data, images, destination, ownerId) {
 
     validatePlaceFields(placeData);
 
-    const place = await Place.create({
+    const place = new Place({
         ...placeData,
         city: destination.city,
         country: destination.country,

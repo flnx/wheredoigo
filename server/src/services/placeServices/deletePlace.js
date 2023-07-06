@@ -43,9 +43,8 @@ async function deletePlace(placeId, user) {
         ];
 
         await Promise.all(promises);
+        await deletePlaceImages(place);
         await session.commitTransaction();
-
-        deletePlaceImages(place);
 
         return {
             message: 'Deleted 🦖',
@@ -69,7 +68,7 @@ async function deletePlace(placeId, user) {
             // Extract all cloudinary image public ids for the specific place
             const image_ids = place.imageUrls.map(({ public_id }) => public_id);
 
-            await deleteImages(image_ids, [folderName]);
+           deleteImages(image_ids, [folderName]);
         } catch (err) {
             // Just log the error. The rest is handled with deleteImages
             console.error(err.message || err);

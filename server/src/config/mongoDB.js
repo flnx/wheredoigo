@@ -6,7 +6,7 @@ async function initializeDatabase() {
         await mongoose.connect(config.databaseUrl);
     } catch (err) {
         console.error('----- Error initializing database -----');
-        console.error(err.message);
+        console.error(err.message || err);
         process.exit(1);
     }
 
@@ -17,7 +17,7 @@ async function initializeDatabase() {
             console.log('Database connection closed.');
             process.exit(0);
         } catch (err) {
-            console.error(err.message);
+            console.error(err.message || err);
             process.exit(1);
         }
     });

@@ -22,7 +22,7 @@ export const createImageFiles = async (imageUrls, formData) => {
             formData.append('imageUrls', file);
         } catch (error) {
             if (!isTestUrl) {
-                console.log(error.message || error);
+                console.error(error.message || error);
             }
         }
     });

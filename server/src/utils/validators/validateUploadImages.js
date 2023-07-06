@@ -6,7 +6,7 @@ function validateUploadImagesFields(data, mainFolder) {
     }
 
     const city = data?.city;
-    const _id = data?._id;
+    let _id = data?._id.toString();
 
     // Validate if both city and _id are strings
     if (!isString(city) || city.length == 0) {

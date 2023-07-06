@@ -8,7 +8,7 @@ async function uploadImagesToCloudinary(
     options = {},
     minImagesRequired = 1
 ) {
-    // Validating the image files with default minimum number of images required
+    // Validating the image files and checking if they are at least "minImagesRequired num"
     validateImages(files, minImagesRequired);
 
     // Create an array of promises for file uploads
@@ -34,7 +34,7 @@ async function uploadImagesToCloudinary(
 
     // Log the errors from rejected promises
     rejectedErrors.forEach((error) => {
-        console.error('Error uploading image:');
+        console.error('Error uploading images:');
         console.error(error.message || error);
     });
 

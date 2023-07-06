@@ -35,7 +35,7 @@ async function uploadImages(images, data, mainFolder, minImagesRequired = 1) {
 
         // Attaches error message to notify the client if some of the images failed to upload
         if (imageUrls.length != minImagesRequired) {
-            imgError = 'Some images failed to upload :(';
+            imgError = 'Some images failed to upload';
         }
 
         return {
