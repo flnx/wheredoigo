@@ -8,12 +8,7 @@ async function addDestinationNewImages(destinationId, imgFiles, destination) {
     const folderName = 'destinations';
     const data = { city, _id: destinationId };
 
-    const { imageUrls, imgError } = await uploadImages(
-        imgFiles,
-        data,
-        folderName,
-        1
-    );
+    const { imageUrls, imgError } = await uploadImages(imgFiles, data, folderName);
 
     const query = addImagesQuery(destinationId, imageUrls);
 

@@ -6,6 +6,8 @@ const UserActivity = require('../../models/userActivitiesSchema');
 
 // utils
 const { validateCommentFields } = require('../../utils/validateComment');
+const { createValidationError } = require('../../utils/createValidationError');
+const { errorMessages } = require('../../constants/errorMessages');
 
 async function addCommentToPlace({ id, title, content, rating, user }) {
     // Validate comment fields
@@ -16,9 +18,10 @@ async function addCommentToPlace({ id, title, content, rating, user }) {
 
     // Start a database session
     const session = await mongoose.startSession();
-    session.startTransaction();
 
     try {
+        session.startTransaction();
+        
         // Create a new comment object
         const comment = new Comment({
             title: title.trim(),
@@ -41,13 +44,8 @@ async function addCommentToPlace({ id, title, content, rating, user }) {
         });
 
         // Save the comment and add user activity
-        const promises = [
-            comment.save({ session }),
-            UserActivity.addCommentActivity(ownerId, id, comment._id, session),
-        ];
-
-        // Wait for all promises to resolve
-        await Promise.all(promises);
+        await comment.save({ session }),
+        await UserActivity.addCommentActivity(ownerId, id, comment._id, session),
 
         // Commit the transaction
         await session.commitTransaction();
@@ -67,9 +65,10 @@ async function addCommentToPlace({ id, title, content, rating, user }) {
             averageRating: place.averageRating,
         };
     } catch (err) {
+        console.error(err.message || err);
         // Abort the transaction if an error occurs
         await session.abortTransaction();
-        throw err;
+        throw createValidationError(errorMessages.serverError);
     } finally {
         // End the session
         session.endSession();

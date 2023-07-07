@@ -2,7 +2,6 @@ const { cloudinary } = require('../../../config/cloudinary');
 const { isValidArrayOfStrings } = require('../../../utils/utils');
 
 async function deleteFolders(folderNames) {
-    console.log(folderNames);
     if (!isValidArrayOfStrings(folderNames)) return;
 
     folderNames.forEach((folder) => {

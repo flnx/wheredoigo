@@ -17,29 +17,32 @@ const extractCloudinaryFolderName = require('../../utils/cloudinary/extractFolde
 async function deletePlace(placeId, user) {
     const { ownerId, role } = user;
 
+    const place = await Place.findById(placeId).exec();
+
+    if (!place) {
+        throw createValidationError(errorMessages.notFound, 404);
+    }
+
+    // Allow admin role to bypass access check
+    if (role !== 'admin' && !place.ownerId.equals(ownerId)) {
+        throw createValidationError(errorMessages.accessDenied, 403);
+    }
+
+    // Extract the comment ids
+    const comments_ids = place.comments.map((id) => id.toString());
+
     const session = await mongoose.startSession();
 
     try {
         session.startTransaction();
 
-        const place = await Place.findById(placeId).exec();
-
-        if (!place) {
-            throw createValidationError(errorMessages.notFound, 404);
-        }
-
-        // Allow admin role to bypass access check
-        if (role !== 'admin' && !place.ownerId.equals(ownerId)) {
-            throw createValidationError(errorMessages.accessDenied, 403);
-        }
-
-        // Extract the comment ids
-        const comments_ids = place.comments.map((id) => id.toString());
-
         const promises = [
             Place.findByIdAndDelete(placeId).session(session),
             Comment.deleteMany({ _id: { $in: comments_ids } }).session(session),
-            UserActivity.updateMany({}, { $pull: { comments: { place: placeId } } } ).session(session),
+            UserActivity.updateMany(
+                {},
+                { $pull: { comments: { place: placeId } } }
+            ).session(session),
         ];
 
         await Promise.all(promises);
@@ -68,7 +71,8 @@ async function deletePlace(placeId, user) {
             // Extract all cloudinary image public ids for the specific place
             const image_ids = place.imageUrls.map(({ public_id }) => public_id);
 
-           deleteImages(image_ids, [folderName]);
+            deleteImages(image_ids, [folderName]);
+            return true;
         } catch (err) {
             // Just log the error. The rest is handled with deleteImages
             console.error(err.message || err);

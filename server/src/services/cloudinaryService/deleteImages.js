@@ -28,11 +28,10 @@ async function deleteImages(public_ids = [], folderNames = []) {
         const failedToDelete = await retryDeletion(failedPromises);
 
         // If there are still undeleted images - store the public ids in DB (to delete them later)
+
         if (failedToDelete.length > 0) {
             const errorMessage = await storeTheUndeletedToDB(failedToDelete, promises_ids);
-
-            // Throw the generated error message to notify that some images weren't deleted
-            throw new Error(errorMessage);
+            console.error(errorMessage);
         }
 
         return true;

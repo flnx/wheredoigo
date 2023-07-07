@@ -137,7 +137,7 @@ placeSchema.statics.addPlaceCommentAndRating = async function ({
 
     if (!updatedPlace) {
         throw createValidationError(
-            errorMessages.couldNotUpdate('the comment. Please try again...'),
+            errorMessages.couldNotUpdate('placeSchema comment.'),
             400
         );
     }
@@ -170,7 +170,7 @@ placeSchema.statics.deletePlaceCommentAndRating = async function ({
 
     if (!place) {
         throw createValidationError(
-            errorMessages.couldNotDelete('this comment. Please try again..'),
+            errorMessages.couldNotDelete('placeSchema comment'),
             400
         );
     }

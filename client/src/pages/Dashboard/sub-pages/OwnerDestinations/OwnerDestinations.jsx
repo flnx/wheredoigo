@@ -7,6 +7,7 @@ import { extractServerErrorMessage } from '../../../../utils/utils';
 import { DestinationsGrid } from '../../../../components/DestinationsGrid/DestinationsGrid';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 import { ClipLoader } from 'react-spinners';
+import { ServerError } from '../../../../components/ServerError/ServerError';
 
 import styles from './OwnerDestinations.module.css';
 
@@ -40,13 +41,12 @@ export const OwnerDestinations = () => {
         });
     };
 
-    const serverError = error ? error : deleteError;
-
     return (
         <div className={styles.container}>
             <h1 className="smaller mb-2">Created destinations 🦖</h1>
-            {serverError ? (
-                extractServerErrorMessage(serverError)
+            {deleteError && <ServerError errorMessage={deleteError}/> }
+            {error ? (
+                extractServerErrorMessage(error)
             ) : (
                 <DestinationsGrid
                     destinations={data || []}

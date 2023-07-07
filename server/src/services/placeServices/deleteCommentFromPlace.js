@@ -57,7 +57,7 @@ async function deleteCommentFromPlace(placeId, commentId, user) {
         
     } catch (err) {
         await session.abortTransaction();
-        throw err;
+        throw createValidationError(errorMessages.serverError, 500);
     } finally {
         session.endSession();
     }

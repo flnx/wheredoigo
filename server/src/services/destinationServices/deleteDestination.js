@@ -60,12 +60,8 @@ async function deleteDestination(destinationId, user) {
         placesIds,
     });
 
-    try {
-        // Delete the images from cloudinary
-        await deleteImages(publicImgIds, folderNames);
-    } catch (err) {
-        console.log(err.message || err);
-    }
+    // Deletes the images
+    deleteImages(publicImgIds, folderNames).catch(() => {});
 
     return {
         message: 'deleted 🦖',
@@ -74,30 +70,45 @@ async function deleteDestination(destinationId, user) {
 
 async function proceedDeletion({ destinationId, commentsIds, placesIds }) {
     const session = await mongoose.startSession();
-
+    
     try {
         session.startTransaction();
 
-        const promises = [
-            Destination.findByIdAndDelete(destinationId).session(session),
-            Place.deleteMany({ destinationId }).session(session),
-            Comment.deleteMany({ _id: { $in: commentsIds } }).session(session),
-            UserActivity.updateMany(
-                {},
-                {
-                    $pull: {
-                        likes: { destination: destinationId },
-                        comments: { place: { $in: placesIds } },
-                    },
-                }
-            ).session(session),
-        ];
+        const dest = await Destination.findByIdAndDelete(destinationId).session(
+            session
+        );
 
-        await Promise.all(promises);
+        if (!dest) {
+            throw createValidationError(errorMessages.serverError, 500);
+        }
+
+        const places = await Place.deleteMany({ destinationId }).session(session);
+
+        if (places.deletedCount !== placesIds.length) {
+            throw createValidationError(errorMessages.serverError, 500);
+        }
+
+        const comments = await Comment.deleteMany({ _id: { $in: commentsIds } }).session(session);
+
+        if (comments.deletedCount !== commentsIds.length) {
+            throw createValidationError(errorMessages.serverError, 500);
+        }
+
+        await UserActivity.updateMany(
+            {},
+            {
+                $pull: {
+                    likes: { destination: destinationId },
+                    comments: { place: { $in: placesIds } },
+                },
+            }
+        ).session(session);
+
         await session.commitTransaction();
 
-        return true;
+        return;
     } catch (err) {
+        // console.log(err || err.message);
         await session.abortTransaction();
         throw err;
     } finally {
