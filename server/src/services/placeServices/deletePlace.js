@@ -31,72 +31,59 @@ async function deletePlace(placeId, user) {
     // Extract the comment ids
     const commentIds = place.comments.map((id) => id.toString());
 
-    await proceedDeletion({ placeId, commentIds });
-    await deletePlaceImages(place);
+    await proceedDeletion({ placeId, commentIds, place });
 
     return {
         message: 'Deleted 🦖',
     };
-
-    async function deletePlaceImages(place) {
-        try {
-            // Extract the correct cloudinary folder name
-            const folderName = extractCloudinaryFolderName(
-                'places',
-                place.city,
-                placeId
-            );
-
-            // Extract all cloudinary image public ids for the specific place
-            const image_ids = place.imageUrls.map(({ public_id }) => public_id);
-
-            deleteImages(image_ids, [folderName]);
-            return true;
-        } catch (err) {
-            // Just log the error. The rest is handled with deleteImages
-            console.error(err.message || err);
-        }
-    }
 }
 
 async function proceedDeletion({ placeId, commentIds }) {
     const session = await mongoose.startSession();
 
     try {
-        session.startTransaction();
+        await session.withTransaction(async () => {
+            // Delete place
+            const place = await Place.findByIdAndDelete(placeId).session(session);
 
-        // Delete place
-        const place = await Place.findByIdAndDelete(placeId).session(session);
+            if (!place) {
+                throw new Error(errorMessages.couldNotDelete('place'), 500);
+            }
 
-        if (!place) {
-            throw createValidationError(errorMessages.serverError, 500);
-        }
+            // Delete all place comments
+            const comments = await Comment.deleteMany({
+                _id: { $in: commentIds },
+            }).session(session);
 
-        // Delete all place comments
-        const comments = await Comment.deleteMany({
-            _id: { $in: commentIds },
-        }).session(session);
+            if (comments.deletedCount !== commentIds.length) {
+                throw new Error(errorMessages.couldNotDelete('comments'), 500);
+            }
 
-        if (comments.deletedCount !== commentIds.length) {
-            throw createValidationError(errorMessages.serverError, 500);
-        }
+            // Remove all user activities related to that place (comments)
+            await UserActivity.updateMany(
+                {},
+                { $pull: { comments: { place: placeId } } }
+            ).session(session);
 
-        // Remove all user activities related to that place (comments)
-        await UserActivity.updateMany(
-            {},
-            { $pull: { comments: { place: placeId } } }
-        ).session(session);
-
-        await session.commitTransaction();
-
-        return true;
+            await deletePlaceImages(place, placeId);
+            return true;
+        });
     } catch (err) {
-        // console.log(err || err.message);
-        await session.abortTransaction();
-        throw err;
+        console.error(err || err.message);
+        throw createValidationError(errorMessages.serverError, 500);
     } finally {
-        session.endSession();
+        await session.endSession();
     }
+}
+
+async function deletePlaceImages(place, placeId) {
+    const folderName = extractCloudinaryFolderName('places', place.city, placeId);
+
+    // Extract all cloudinary image public ids for the specific place
+    const image_ids = place.imageUrls.map(({ public_id }) => public_id);
+
+    await deleteImages(image_ids, [folderName]);
+    return true;
 }
 
 module.exports = deletePlace;

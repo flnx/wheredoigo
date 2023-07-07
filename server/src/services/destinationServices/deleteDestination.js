@@ -59,65 +59,74 @@ async function deleteDestination(destinationId, user) {
         destinationId,
         commentsIds,
         placesIds,
+        publicImgIds,
+        folderNames,
     });
-
-    // Deletes the images
-    deleteImages(publicImgIds, folderNames).catch(() => {});
 
     return {
         message: 'deleted 🦖',
     };
 }
 
-async function proceedDeletion({ destinationId, commentsIds, placesIds }) {
+async function proceedDeletion({
+    destinationId,
+    commentsIds,
+    placesIds,
+    publicImgIds,
+    folderNames,
+}) {
     const session = await mongoose.startSession();
-    
+
     try {
-        session.startTransaction();
+        await session.withTransaction(async () => {
+            // Delete destination
+            const dest = await Destination.findByIdAndDelete(destinationId).session(
+                session
+            );
 
-        // Delete destination
-        const dest = await Destination.findByIdAndDelete(destinationId).session(
-            session
-        );
-
-        if (!dest) {
-            throw createValidationError(errorMessages.serverError, 500);
-        }
-
-        // Delete destination places
-        const places = await Place.deleteMany({ destinationId }).session(session);
-
-        if (places.deletedCount !== placesIds.length) {
-            throw createValidationError(errorMessages.serverError, 500);
-        }
-
-        // Delete all comments related to their places
-        const comments = await Comment.deleteMany({ _id: { $in: commentsIds } }).session(session);
-
-        if (comments.deletedCount !== commentsIds.length) {
-            throw createValidationError(errorMessages.serverError, 500);
-        }
-
-        // Remove all user activities related to that destination and its places (likes/comments)
-        await UserActivity.updateMany(
-            {},
-            {
-                $pull: {
-                    likes: { destination: destinationId },
-                    comments: { place: { $in: placesIds } },
-                },
+            if (!dest) {
+                throw new Error(errorMessages.couldNotDelete('Destination'));
             }
-        ).session(session);
 
-        await session.commitTransaction();
+            // Delete destination places
+            const places = await Place.deleteMany({ destinationId }).session(
+                session
+            );
 
-        return;
+            if (places.deletedCount !== placesIds.length) {
+                throw new Error(errorMessages.couldNotDelete('places'));
+            }
+
+            // Delete all comments related to their places
+            const comments = await Comment.deleteMany({
+                _id: { $in: commentsIds },
+            }).session(session);
+
+            if (comments.deletedCount !== commentsIds.length) {
+                throw new Error(errorMessages.couldNotDelete('comments'));
+            }
+
+            // Remove all user activities related to that destination and its places (likes/comments)
+            await UserActivity.updateMany(
+                {},
+                {
+                    $pull: {
+                        likes: { destination: destinationId },
+                        comments: { place: { $in: placesIds } },
+                    },
+                }
+            ).session(session);
+
+            // Deletes the images
+            await deleteImages(publicImgIds, folderNames);
+
+            return true;
+        });
     } catch (err) {
-        // console.log(err || err.message);
-        await session.abortTransaction();
-        throw err;
+        console.log(err.message || err);
+        throw createValidationError(errorMessages.serverError, 500);
     } finally {
-        session.endSession();
+        await session.endSession();
     }
 }
 

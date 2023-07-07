@@ -10,8 +10,8 @@ const validateDeleteImages = require('../../utils/validators/validateDeleteImage
 
 async function deleteImages(public_ids = [], folderNames = []) {
     // Validate the props
-    validateDeleteImages(public_ids, folderNames)
-  
+    validateDeleteImages(public_ids, folderNames);
+
     try {
         // Create an array of promises for file deletions
         const promises_ids = public_ids.map((id) => deleteImageFromCloudinary(id));
@@ -30,7 +30,10 @@ async function deleteImages(public_ids = [], folderNames = []) {
         // If there are still undeleted images - store the public ids in DB (to delete them later)
 
         if (failedToDelete.length > 0) {
-            const errorMessage = await storeTheUndeletedToDB(failedToDelete, promises_ids);
+            const errorMessage = await storeTheUndeletedToDB(
+                failedToDelete,
+                promises_ids
+            );
             console.error(errorMessage);
         }
 
@@ -42,7 +45,6 @@ async function deleteImages(public_ids = [], folderNames = []) {
         deleteFolders(folderNames);
     }
 }
-
 
 async function storeTheUndeletedToDB(failedToDelete, promises_ids) {
     const failedPublicIds = failedToDelete.map((result) => result.reason.publicId);
@@ -61,7 +63,6 @@ async function storeTheUndeletedToDB(failedToDelete, promises_ids) {
 
     return errorMessage;
 }
-
 
 async function retryDeletion(promises) {
     let retryAttempts = 0;
