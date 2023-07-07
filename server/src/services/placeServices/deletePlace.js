@@ -29,35 +29,14 @@ async function deletePlace(placeId, user) {
     }
 
     // Extract the comment ids
-    const comments_ids = place.comments.map((id) => id.toString());
+    const commentIds = place.comments.map((id) => id.toString());
 
-    const session = await mongoose.startSession();
+    await proceedDeletion({ placeId, commentIds });
+    await deletePlaceImages(place);
 
-    try {
-        session.startTransaction();
-
-        const promises = [
-            Place.findByIdAndDelete(placeId).session(session),
-            Comment.deleteMany({ _id: { $in: comments_ids } }).session(session),
-            UserActivity.updateMany(
-                {},
-                { $pull: { comments: { place: placeId } } }
-            ).session(session),
-        ];
-
-        await Promise.all(promises);
-        await deletePlaceImages(place);
-        await session.commitTransaction();
-
-        return {
-            message: 'Deleted 🦖',
-        };
-    } catch (err) {
-        await session.abortTransaction();
-        throw err;
-    } finally {
-        session.endSession();
-    }
+    return {
+        message: 'Deleted 🦖',
+    };
 
     async function deletePlaceImages(place) {
         try {
@@ -77,6 +56,46 @@ async function deletePlace(placeId, user) {
             // Just log the error. The rest is handled with deleteImages
             console.error(err.message || err);
         }
+    }
+}
+
+async function proceedDeletion({ placeId, commentIds }) {
+    const session = await mongoose.startSession();
+
+    try {
+        session.startTransaction();
+
+        // Delete place
+        const place = await Place.findByIdAndDelete(placeId).session(session);
+
+        if (!place) {
+            throw createValidationError(errorMessages.serverError, 500);
+        }
+
+        // Delete all place comments
+        const comments = await Comment.deleteMany({
+            _id: { $in: commentIds },
+        }).session(session);
+
+        if (comments.deletedCount !== commentIds.length) {
+            throw createValidationError(errorMessages.serverError, 500);
+        }
+
+        // Remove all user activities related to that place (comments)
+        await UserActivity.updateMany(
+            {},
+            { $pull: { comments: { place: placeId } } }
+        ).session(session);
+
+        await session.commitTransaction();
+
+        return true;
+    } catch (err) {
+        // console.log(err || err.message);
+        await session.abortTransaction();
+        throw err;
+    } finally {
+        session.endSession();
     }
 }
 

@@ -19,6 +19,7 @@ const extractAllPublicIds = require('../../utils/cloudinary/extractImagesPublicI
 async function deleteDestination(destinationId, user) {
     const { ownerId, role } = user;
 
+    // Find the destination and its places
     const promises = [
         Destination.findById(destinationId).exec(),
         Place.find({ destinationId }).select('-description').exec(),
@@ -74,6 +75,7 @@ async function proceedDeletion({ destinationId, commentsIds, placesIds }) {
     try {
         session.startTransaction();
 
+        // Delete destination
         const dest = await Destination.findByIdAndDelete(destinationId).session(
             session
         );
@@ -82,18 +84,21 @@ async function proceedDeletion({ destinationId, commentsIds, placesIds }) {
             throw createValidationError(errorMessages.serverError, 500);
         }
 
+        // Delete destination places
         const places = await Place.deleteMany({ destinationId }).session(session);
 
         if (places.deletedCount !== placesIds.length) {
             throw createValidationError(errorMessages.serverError, 500);
         }
 
+        // Delete all comments related to their places
         const comments = await Comment.deleteMany({ _id: { $in: commentsIds } }).session(session);
 
         if (comments.deletedCount !== commentsIds.length) {
             throw createValidationError(errorMessages.serverError, 500);
         }
 
+        // Remove all user activities related to that destination and its places (likes/comments)
         await UserActivity.updateMany(
             {},
             {
