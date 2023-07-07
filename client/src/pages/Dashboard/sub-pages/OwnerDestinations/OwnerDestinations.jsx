@@ -44,15 +44,21 @@ export const OwnerDestinations = () => {
     return (
         <div className={styles.container}>
             <h1 className="smaller mb-2">Created destinations 🦖</h1>
-            {deleteError && <ServerError errorMessage={deleteError}/> }
+            {deleteError && <ServerError errorMessage={deleteError} />}
             {error ? (
                 extractServerErrorMessage(error)
             ) : (
-                <DestinationsGrid
-                    destinations={data || []}
-                    isEditable={true}
-                    onDeleteClickHandler={openConfirmModalHandler}
-                />
+                <>
+                    {data?.length > 0 ? (
+                        <DestinationsGrid
+                            destinations={data || []}
+                            isEditable={true}
+                            onDeleteClickHandler={openConfirmModalHandler}
+                        />
+                    ) : (
+                        <p>No destinations have been added yet 🦖</p>
+                    )}
+                </>
             )}
             {openConfirmModal && (
                 <ConfirmModal

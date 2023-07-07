@@ -4,11 +4,11 @@ const { isString, isValidInteger } = require('./utils');
 
 function validateCommentFields({ content, title, rating }) {
     if (!isString(content) || content.length < 10) {
-        throw createValidationError(errorMessages.invalidComment, 400);
+        throw createValidationError(errorMessages.validation.comment.body, 400);
     }
 
     if (!isString(title) || title.length < 2) {
-        throw createValidationError(errorMessages.commentTitle, 400);
+        throw createValidationError(errorMessages.validation.comment.title, 400);
     }
 
     if (!isValidInteger(rating) || rating < 1 || rating > 5) {

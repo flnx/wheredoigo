@@ -101,7 +101,7 @@ function validateDestinationFieldOnEdit(data) {
         }
 
         if (description.length > 5000) {
-            throw createValidationError(errorMessages.description, 400);
+            throw createValidationError(errorMessages.validation.description, 400);
         }
     }
 
@@ -148,7 +148,7 @@ function validateDescription(description) {
     }
 
     if (!validator.isLength(description.trim(), { min: 50, max: 5000 })) {
-        throw createValidationError(errorMessages.description, 400);
+        throw createValidationError(errorMessages.validation.description, 400);
     }
 
     return true;
@@ -172,7 +172,7 @@ function validatePlaceName(name) {
     }
 
     if (!validator.isLength(name.trim(), { min: 1, max: 60 })) {
-        throw createValidationError(errorMessages.placeName, 400);
+        throw createValidationError(errorMessages.validation.placeName, 400);
     }
 
     return true;

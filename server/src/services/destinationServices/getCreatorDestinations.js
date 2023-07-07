@@ -1,9 +1,7 @@
 const Destination = require("../../models/destinationSchema");
-const { errorMessages } = require("../../constants/errorMessages");
 
-// utils
+// Utils
 const capitalizeEachWord = require("../../utils/capitalizeWords");
-const { createValidationError } = require("../../utils/createValidationError");
 
 async function getCreatorDestinations(ownerId) {
     const destinations = await Destination.find(
@@ -13,10 +11,6 @@ async function getCreatorDestinations(ownerId) {
         .populate('country', 'name')
         .lean()
         .exec();
-
-    if (destinations.length == 0) {
-        throw createValidationError(errorMessages.notAddedYet, 404);
-    }
 
     destinations.forEach((x) => {
         const { country, imageUrls } = x;

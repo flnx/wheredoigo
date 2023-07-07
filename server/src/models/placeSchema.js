@@ -20,8 +20,8 @@ const placeSchema = new Schema({
         type: String,
         trim: true,
         lowercase: true,
-        minLength: [1, errorMessages.placeName],
-        maxLength: [60, errorMessages.placeName],
+        minLength: [1, errorMessages.validation.placeName],
+        maxLength: [60, errorMessages.validation.placeName],
         required: [true, 'Place name is required!'],
     },
     country: {
@@ -43,9 +43,9 @@ const placeSchema = new Schema({
     description: {
         type: String,
         trim: true,
-        minLength: [50, errorMessages.description],
-        maxLength: [5000, errorMessages.description],
-        required: [true, errorMessages.description],
+        minLength: [50, errorMessages.validation.description],
+        maxLength: [5000, errorMessages.validation.description],
+        required: [true, errorMessages.validation.description],
     },
     type: {
         type: String,
@@ -135,7 +135,7 @@ placeSchema.statics.addPlaceCommentAndRating = async function ({
     ).exec();
 
     if (!updatedPlace) {
-        const msg = errorMessages.couldNotUpdate(errorMessages.session('Place comment'));
+        const msg = errorMessages.session('Comment was not added in Place Model');
         throw new Error(msg);
     }
 
@@ -166,7 +166,7 @@ placeSchema.statics.deletePlaceCommentAndRating = async function ({
     ).exec();
 
     if (!place) {
-        const msg = errorMessages.session('Comment is was not updated in Place Model');
+        const msg = errorMessages.session('Comment was not deleted from Place Model');
         throw new Error(msg);
     }
 

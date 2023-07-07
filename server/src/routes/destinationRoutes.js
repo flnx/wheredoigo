@@ -4,7 +4,10 @@ const express = require('express');
 const { auth } = require('../middlewares/auth');
 const { upload } = require('../middlewares/images');
 const { checkSession } = require('../middlewares/checkSession');
-const { fetchDestinationAndCheckOwnership, checkDestinationOwnershipOnly } = require('../middlewares/checkDestinationOwnership');
+const {
+    fetchDestinationAndCheckOwnership,
+    checkDestinationOwnershipOnly,
+} = require('../middlewares/checkDestinationOwnership');
 const validateMongoId = require('../middlewares/validateMongoId');
 
 // Controllers
@@ -21,26 +24,54 @@ const {
     add_new_destination,
     like_destination,
     dislike_destination,
-    top_destinations
+    top_destinations,
 } = require('../controllers/destinationController');
 
 const router = express.Router();
-
+// GET
 router.get('/destinations', paginated_destinations);
 router.get('/top-destinations', top_destinations);
 router.get('/destinations/countries-and-cities', auth, get_countries_and_cities);
 router.get('/destinations/created-by-user', auth, creator_destinations);
-router.get('/destinations/:id/request-edit-permissions', validateMongoId, auth, fetchDestinationAndCheckOwnership, request_edit);
+router.get(
+    '/destinations/:id/request-edit-permissions',
+    validateMongoId,
+    auth,
+    fetchDestinationAndCheckOwnership,
+    request_edit
+);
 router.get('/destinations/:id', validateMongoId, checkSession, details);
 
+// POST
 router.post('/destinations', auth, upload, add_new_destination);
 router.post('/destinations/:id/like', validateMongoId, auth, like_destination);
 router.post('/destinations/:id/dislike', validateMongoId, auth, dislike_destination);
 
-router.put('/destinations/:id/delete-image', validateMongoId, auth, checkDestinationOwnershipOnly, delete_image);
-router.put('/destinations/:id/add-images', validateMongoId, auth, checkDestinationOwnershipOnly, upload, add_images);
-router.put('/destinations/:id/edit-destination-field', validateMongoId, auth, checkDestinationOwnershipOnly, edit_field);
+// PUT
+router.put(
+    '/destinations/:id/delete-image',
+    validateMongoId,
+    auth,
+    checkDestinationOwnershipOnly,
+    delete_image
+);
+router.put(
+    '/destinations/:id/add-images',
+    validateMongoId,
+    auth,
+    checkDestinationOwnershipOnly,
+    upload,
+    add_images
+);
+router.put(
+    '/destinations/:id/edit-destination-field',
+    validateMongoId,
+    auth,
+    checkDestinationOwnershipOnly,
+    edit_field
+);
 
+// DELETE
 router.delete('/destinations/:id/delete', validateMongoId, auth, delete_destination);
 
 module.exports = router;

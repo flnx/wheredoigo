@@ -17,11 +17,13 @@ async function getUserPlacesData({ ownerId }) {
         let ratingData = [];
 
         if (comments.length > 0) {
-            const votes = [0, 0, 0, 0, 0]; // Initialize an array to store the vote counts for each rating
+            // Initialize an array to store the vote counts for each rating
+            const votes = [0, 0, 0, 0, 0];
 
             comments.forEach((comment) => {
                 const rating = comment.rating;
-                votes[rating - 1]++; // Increment the vote count for the corresponding rating
+                // Increment the vote count for the corresponding rating
+                votes[rating - 1]++;
             });
 
             ratingData = votes.map((count, index) => ({

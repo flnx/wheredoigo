@@ -119,9 +119,9 @@ async function proceedDeletion({
 
             // Deletes the images
             await deleteImages(publicImgIds, folderNames);
-
+                
         });
-        
+
         return true;
     } catch (err) {
         console.log(err.message || err);

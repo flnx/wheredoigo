@@ -18,9 +18,15 @@ async function getMostLikedDestinations() {
         .limit(12)
         .exec();
 
-
     const updatedDestinations = destinations.map((destination) => {
-        const { _id, city, country, imageUrls, likes, likesCount } = destination;
+        const { 
+            _id, 
+            city, 
+            country, 
+            imageUrls, 
+            likes, 
+            likesCount 
+        } = destination;
 
         return {
             _id,

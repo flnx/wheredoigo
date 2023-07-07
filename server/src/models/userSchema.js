@@ -8,17 +8,17 @@ const userSchema = new Schema({
     username: {
         type: String,
         trim: true,
-        minLength: [2, errorMessages.username],
-        maxLength: [12, errorMessages.username],
+        minLength: [2, errorMessages.validation.username],
+        maxLength: [12, errorMessages.validation.username],
         unique: [true, 'The username is already taken'],
-        validate: [validator.isAlphanumeric, errorMessages.username],
+        validate: [validator.isAlphanumeric, errorMessages.validation.username],
     },
     email: {
         type: String,
         lowercase: true,
         trim: true,
         unique: [true, 'The email address is already taken'],
-        validate: [validator.isEmail, errorMessages.invalidEmail],
+        validate: [validator.isEmail, errorMessages.validation.email],
     },
     hashedPassword: {
         type: String,

@@ -56,7 +56,7 @@ async function addCommentToPlace({ id, title, content, rating, user }) {
         return result;
     } catch (err) {
         console.error(err.message || err);
-        throw createValidationError(errorMessages.serverError);
+        throw createValidationError(errorMessages.validation.comment.addFailed);
     } finally {
         // End the session
         session.endSession();

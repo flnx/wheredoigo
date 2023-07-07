@@ -29,8 +29,8 @@ const destinationSchema = new Schema({
     description: {
         type: String,
         trim: true,
-        minLength: [50, errorMessages.description],
-        maxLength: [5000, errorMessages.description],
+        minLength: [50, errorMessages.validation.description],
+        maxLength: [5000, errorMessages.validation.description],
         required: true,
     },
     category: {

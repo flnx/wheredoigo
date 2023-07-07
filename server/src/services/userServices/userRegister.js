@@ -12,22 +12,22 @@ require('dotenv').config();
 
 async function userRegister({ email, username, password }) {
     if (!isString(email) || !isString(username) || !isString(password)) {
-        throw createValidationError(errorMessages.auth, 400);
+        throw createValidationError(errorMessages.validation.fieldsReq, 400);
     }
 
     const isPasswordValid = validatePassword(password);
     const hasValidLength = validator.isLength(username.trim(), { min: 2, max: 12 });
 
     if (!hasValidLength || !validator.isAlphanumeric(username)) {
-        throw createValidationError(errorMessages.username, 400);
+        throw createValidationError(errorMessages.validation.username, 400);
     }
 
     if (!validator.isEmail(email)) {
-        throw createValidationError(errorMessages.invalidEmail, 400);
+        throw createValidationError(errorMessages.validation.email, 400);
     }
 
     if (isPasswordValid == false) {
-        throw createValidationError(errorMessages.password, 400);
+        throw createValidationError(errorMessages.validation.password, 400);
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
