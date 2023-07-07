@@ -120,8 +120,9 @@ async function proceedDeletion({
             // Deletes the images
             await deleteImages(publicImgIds, folderNames);
 
-            return true;
         });
+        
+        return true;
     } catch (err) {
         console.log(err.message || err);
         throw createValidationError(errorMessages.serverError, 500);

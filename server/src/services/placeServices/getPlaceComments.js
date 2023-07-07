@@ -7,6 +7,8 @@ const capitalizeEachWord = require('../../utils/capitalizeWords');
 const { createValidationError } = require('../../utils/createValidationError');
 
 async function getPlaceComments(placeId, user, page) {
+    const { ownerId, role } = user;
+
     const perPage = 5;
     const skip = (page - 1) * perPage;
 
@@ -17,8 +19,8 @@ async function getPlaceComments(placeId, user, page) {
             .populate({
                 path: 'comments',
                 populate: { path: 'ownerId', select: 'username avatarUrl' },
-                options: { 
-                    skip: skip, 
+                options: {
+                    skip: skip,
                     limit: perPage,
                     sort: { time: -1 }, // Sort by time in descending order (most recent first)
                 },
@@ -43,7 +45,7 @@ async function getPlaceComments(placeId, user, page) {
         // Removes owner id before sending it to the client
         const { _id, ...ownerData } = comment.ownerId;
 
-        if (user && _id.equals(user.ownerId)) {
+        if (user && (_id.equals(ownerId) || role === 'admin')) {
             comment.isOwner = true;
         }
 

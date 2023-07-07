@@ -22,7 +22,7 @@ async function addAIGeneratedCommentsToPlace(place, commenters) {
 
     // Generate comments using AI model
     const comments = await commentsGeneratedByAI(placeDataToComment);
-    
+
     // Attach IDs to the comments
     const updatedComments = attachIDsToComments({
         comments,
@@ -58,62 +58,62 @@ async function addCommentsToPlace(comments, placeId) {
     const session = await mongoose.startSession();
 
     try {
-        // Start a transaction for the session
-        session.startTransaction();
+        let result;
 
-        // Insert the comments into the Comment collection (with the session)
-        const addedComments = await Comment.insertMany(comments, { session });
+        await session.withTransaction(async () => {
+            // Insert the comments into the Comment collection (with the session)
+            const addedComments = await Comment.insertMany(comments, { session });
 
-        // Extract comment IDs and owner IDs from added comments
-        const commentIds = addedComments.map((comment) => comment._id);
-        const ownerIds = addedComments.map((comment) => comment.ownerId);
+            // Extract comment IDs and owner IDs from added comments
+            const commentIds = addedComments.map((comment) => comment._id);
+            const ownerIds = addedComments.map((comment) => comment.ownerId);
 
-        // Calculate the sum of comment ratings
-        const commentRatingSum = addedComments.reduce((sum, c) => sum + c.rating, 0);
+            // Calculate the sum of comment ratings
+            const commentRatingSum = addedComments.reduce(
+                (sum, c) => sum + c.rating,
+                0
+            );
 
-        // Prepare the filter and update objects for updating the Place collection
-        const filter = {
-            _id: placeId,
-            commentedBy: { $not: { $in: ownerIds } },
-        };
+            // Prepare the filter and update objects for updating the Place collection
+            const filter = {
+                _id: placeId,
+                commentedBy: { $not: { $in: ownerIds } },
+            };
 
-        const update = {
-            $push: {
-                comments: { $each: commentIds },
-                commentedBy: { $each: ownerIds },
-            },
-            $inc: {
-                'rating.numRates': addedComments.length,
-                'rating.sumOfRates': commentRatingSum,
-            },
-        };
+            const update = {
+                $push: {
+                    comments: { $each: commentIds },
+                    commentedBy: { $each: ownerIds },
+                },
+                $inc: {
+                    'rating.numRates': addedComments.length,
+                    'rating.sumOfRates': commentRatingSum,
+                },
+            };
 
-        // Update the place document with the new comments and ratings
-        const updateResult = await Place.updateOne(filter, update, { session });
+            // Update the place document with the new comments and ratings
+            const updateResult = await Place.updateOne(filter, update, { session });
 
-        // Throw an error if the update operation does not modify exactly one document
-        if (updateResult.modifiedCount !== 1) {
-            throw createValidationError(errorMessages.unavailable, 503);
-        }
+            // Throw an error if the update operation does not modify exactly one document
+            if (updateResult.modifiedCount !== 1) {
+                throw createValidationError(errorMessages.unavailable, 503);
+            }
 
-        // Commit the transaction
-        await session.commitTransaction();
-        
-        // Return the update result along with comment rating sum and number of comments
-        return {
-            updateResult,
-            commentRatingSum,
-            numOfComments: addedComments.length,
-        };
+            // Return the update result along with comment rating sum and number of comments
+            result = {
+                updateResult,
+                commentRatingSum,
+                numOfComments: addedComments.length,
+            };
+        });
+
+        return result;
     } catch (error) {
         console.error(`addCommentsToPlace - ${error.message}`);
-
-        // Abort the transaction and throw a validation error
-        await session.abortTransaction();
         throw createValidationError(errorMessages.serverError, 500);
     } finally {
         // End the session
-        session.endSession();
+        await session.endSession();
     }
 }
 

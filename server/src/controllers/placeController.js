@@ -124,7 +124,7 @@ const post_comment = async (req, res, next) => {
             user,
             rating,
         });
-        
+
         res.json(comment);
     } catch (err) {
         next(err);

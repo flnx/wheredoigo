@@ -11,8 +11,8 @@ function validateCommentFields({ content, title, rating }) {
         throw createValidationError(errorMessages.commentTitle, 400);
     }
 
-    if (!isValidInteger(rating) || rating < 0 || rating > 5) {
-        throw createValidationError(400, errorMessages.invalidRating);
+    if (!isValidInteger(rating) || rating < 1 || rating > 5) {
+        throw createValidationError(errorMessages.invalidRating, 500);
     }
 }
 

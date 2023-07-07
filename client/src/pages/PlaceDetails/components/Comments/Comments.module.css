@@ -44,6 +44,7 @@
 
 
 .comment .commentTitle {
+    overflow: hidden;
     margin-bottom: 0.5rem;
     text-align: center;
 }

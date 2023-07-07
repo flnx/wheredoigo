@@ -14,60 +14,48 @@ async function addCommentToPlace({ id, title, content, rating, user }) {
     validateCommentFields({ content, title, rating });
 
     // Extract user information
-    const { ownerId, avatarUrl, username } = user;
+    const { ownerId } = user;
 
     // Start a database session
     const session = await mongoose.startSession();
 
     try {
-        session.startTransaction();
+        let result;
         
-        // Create a new comment object
-        const comment = new Comment({
-            title: title.trim(),
-            content: content.trim(),
-            placeId: id,
-            ownerId,
-            rating,
-        });
-
-        // Add the comment to the place and update ratings
-        const place = await Place.addPlaceCommentAndRating({
-            id,
-            ownerId,
-            data: {
-                numRate: rating > 0 ? 1 : 0,
-                comment,
+        await session.withTransaction(async () => {
+            // Create a new comment object
+            const comment = new Comment({
+                title: title.trim(),
+                content: content.trim(),
+                placeId: id,
+                ownerId,
                 rating,
-            },
-            session,
+            });
+
+            // Add the comment to the place and update ratings
+            const place = await Place.addPlaceCommentAndRating({
+                id,
+                ownerId,
+                data: {
+                    commentId: comment._id,
+                    rating,
+                },
+                session,
+            });
+
+            // Save the comment and add user activity
+            await comment.save({ session });
+            await UserActivity.addCommentActivity(ownerId, id, comment._id, session);
+
+            // Return the comment details along with owner information and average rating
+            result = {
+                averageRating: place.averageRating,
+            };
         });
-
-        // Save the comment and add user activity
-        await comment.save({ session }),
-        await UserActivity.addCommentActivity(ownerId, id, comment._id, session),
-
-        // Commit the transaction
-        await session.commitTransaction();
-
-        // Return the comment details along with owner information and average rating
-        return {
-            title: comment.title,
-            content: comment.content,
-            rating: comment.rating,
-            _id: comment._id,
-            time: comment.time,
-            ownerId: {
-                avatarUrl,
-                username,
-            },
-            isOwner: true,
-            averageRating: place.averageRating,
-        };
+        
+        return result;
     } catch (err) {
         console.error(err.message || err);
-        // Abort the transaction if an error occurs
-        await session.abortTransaction();
         throw createValidationError(errorMessages.serverError);
     } finally {
         // End the session

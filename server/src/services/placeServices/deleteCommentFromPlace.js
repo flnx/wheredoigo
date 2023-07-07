@@ -12,54 +12,71 @@ const { createValidationError } = require('../../utils/createValidationError');
 async function deleteCommentFromPlace(placeId, commentId, user) {
     const { ownerId, role } = user;
 
+    // Checks if the commentId is a valid mongoDB id
     if (!commentId || !isValid(commentId)) {
         throw createValidationError(errorMessages.notFound, 404);
     }
 
+    // Finds the comment
+    const comment = await Comment.findById(commentId).exec();
+
+    // Checks if it exists
+    if (!comment) {
+        throw new Error(`${errorMessages.notFound}`);
+    }
+
+    // Allow admin role to bypass ownership check
+    if (role !== 'admin' && !comment.ownerId.equals(ownerId)) {
+        throw createValidationError(errorMessages.accessDenied, 403);
+    }
+
+    // Starting a transaction
     const session = await mongoose.startSession();
-    session.startTransaction();
 
     try {
-        const comment = await Comment.findById(commentId).exec();
+        let result;
+        await session.withTransaction(async () => {
+            // Deletes the comment from Place Model, recalcs rating and returns the updated version
+            const place = await Place.deletePlaceCommentAndRating({
+                placeId,
+                commentId,
+                data: {
+                    rating: comment.rating,
+                    ownerId: comment.ownerId,
+                },
+                session,
+            });
 
-        if (!comment) {
-            throw createValidationError(errorMessages.notFound, 404);
-        }
+            // Deletes the commment from Comment Model
+            const cResult = await Comment.findByIdAndDelete(commentId, { session });
 
-        // Allow admin role to bypass access check
-        if (role !== 'admin' && !place.ownerId.equals(ownerId)) {
-            throw createValidationError(errorMessages.accessDenied, 403);
-        }
+            // If any error occurs, it throws
+            if (!cResult) {
+                throw new Error(
+                    errorMessages.session('Comment is missing in model')
+                );
+            }
 
-        const place = await Place.deletePlaceCommentAndRating({
-            placeId,
-            commentId,
-            data: {
-                numRate: comment.rating > 0 ? 1 : 0,
-                comment,
-                ownerId,
-            },
-            session,
+            // Updates the user activity
+            await UserActivity.removeCommentActivity(
+                comment.ownerId,
+                placeId,
+                session
+            );
+
+            result = {
+                averageRating: place.averageRating,
+                message: 'Comment deleted 🦖',
+            };
         });
 
-        const promises = [
-            Comment.findByIdAndDelete(commentId, { session }).exec(),
-            UserActivity.removeCommentActivity(ownerId, placeId, session),
-        ];
-
-        await Promise.all(promises);
-        await session.commitTransaction();
-
-        return {
-            averageRating: place.averageRating,
-            message: 'Comment deleted 🦖',
-        };
-        
+        return result;
     } catch (err) {
-        await session.abortTransaction();
-        throw createValidationError(errorMessages.serverError, 500);
+        console.error(err.message || err);
+        throw createValidationError(errorMessages.notFound, 404);
     } finally {
-        session.endSession();
+        // Ending the transaction
+        await session.endSession();
     }
 }
 

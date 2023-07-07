@@ -66,8 +66,9 @@ async function proceedDeletion({ placeId, commentIds }) {
             ).session(session);
 
             await deletePlaceImages(place, placeId);
-            return true;
         });
+        
+        return true;
     } catch (err) {
         console.error(err || err.message);
         throw createValidationError(errorMessages.serverError, 500);

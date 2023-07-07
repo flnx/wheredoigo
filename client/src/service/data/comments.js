@@ -3,6 +3,9 @@ import { apiEndpoints } from '../../constants/apiEndpoints';
 
 export const addComment = async (data, placeId) => {
     const comment = await axios.post(apiEndpoints.addComment(placeId), data);
+    console.log(comment.data);
+    console.log('here')
+
     return comment.data;
 };
 
@@ -10,6 +13,7 @@ export const removeComment = async (placeId, commentId) => {
     const comment = await axios.delete(
         apiEndpoints.deleteComment(placeId, commentId)
     );
+
 
     return comment.data;
 };

@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 const { errorMessages } = require('../constants/errorMessages');
 const { allowedPlaceCategories } = require('../constants/allowedPlaceCategories');
-const { createValidationError } = require('../utils/createValidationError');
 const capitalizeEachWord = require('../utils/capitalizeWords');
 
 const placeSchema = new Schema({
@@ -118,17 +117,17 @@ placeSchema.statics.addPlaceCommentAndRating = async function ({
     data,
     session,
 }) {
-    const { comment, numRate, rating } = data;
+    const { commentId, rating } = data;
 
     const updatedPlace = await this.findOneAndUpdate(
         { _id: id, commentedBy: { $ne: ownerId } },
         {
             $push: {
-                comments: comment._id,
+                comments: commentId,
                 commentedBy: ownerId,
             },
             $inc: {
-                'rating.numRates': numRate,
+                'rating.numRates': 1,
                 'rating.sumOfRates': rating,
             },
         },
@@ -136,10 +135,8 @@ placeSchema.statics.addPlaceCommentAndRating = async function ({
     ).exec();
 
     if (!updatedPlace) {
-        throw createValidationError(
-            errorMessages.couldNotUpdate('placeSchema comment.'),
-            400
-        );
+        const msg = errorMessages.couldNotUpdate(errorMessages.session('Place comment'));
+        throw new Error(msg);
     }
 
     return updatedPlace;
@@ -151,7 +148,7 @@ placeSchema.statics.deletePlaceCommentAndRating = async function ({
     data,
     session,
 }) {
-    const { numRate, comment, ownerId } = data;
+    const { rating, ownerId } = data;
 
     const place = await this.findOneAndUpdate(
         { _id: placeId, comments: commentId },
@@ -161,18 +158,16 @@ placeSchema.statics.deletePlaceCommentAndRating = async function ({
                 commentedBy: ownerId,
             },
             $inc: {
-                'rating.numRates': -numRate,
-                'rating.sumOfRates': -comment.rating,
+                'rating.numRates': -1,
+                'rating.sumOfRates': -rating,
             },
         },
         { session, new: true, select: 'rating' }
     ).exec();
 
     if (!place) {
-        throw createValidationError(
-            errorMessages.couldNotDelete('placeSchema comment'),
-            400
-        );
+        const msg = errorMessages.session('Comment is was not updated in Place Model');
+        throw new Error(msg);
     }
 
     return place;

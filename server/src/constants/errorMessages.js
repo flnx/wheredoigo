@@ -20,7 +20,7 @@ exports.errorMessages = {
     imagesLimitError: 'You have uploaded too many images. Please limit your upload to 20 images or less.',
     selectCategory: 'Please select at least 1 category',
     invalidCategory: 'Invalid category!',
-    invalidRating: 'Invalid rating value',
+    invalidRating: "Please rate the place to share your experience.",
     couldNotUpdate: (fieldName) => `Couldn't update ${fieldName}`,
     couldNotDelete: (name) => `Couldn't delete ${name}`,
     serverError: 'Apologies for the inconvenience. An error occurred. Please try again later. Thank you for your understanding.',
@@ -32,5 +32,6 @@ exports.errorMessages = {
     countryRequired: 'Country is required',
     unavailable: 'Service currently unavailable. Please try again later.',
     mustBeAString: (field) => `${field} must be a string`,
+    session: (msg = '') => `Error ending session: ${msg}`,
     permissions: "Sorry, but you don't have the necessary permissions to make changes to that field. Please reach out to the appropriate administrator or supervisor for assistance."
 };
