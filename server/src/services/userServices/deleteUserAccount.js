@@ -1,3 +1,4 @@
+const Place = require('../../models/placeSchema');
 const User = require('../../models/userSchema');
 const Destination = require('../../models/destinationSchema');
 const Comment = require('../../models/commentSchema');
@@ -14,8 +15,8 @@ async function deleteUserAccount(userData) {
 
     const promises = [
         User.findById(ownerId).lean().exec(),
-        Comment.find({ ownerId: ownerId }).select('placeId').exec(),
-        User.findOne({ name: 'skywalker' }).lean().exec(),
+        Comment.find({ ownerId: ownerId }).select('placeId').lean().exec(),
+        User.findOne({ username: 'skywalker' }).select('_id').lean().exec(),
     ];
 
     const [user, comments, skywalker] = await Promise.all(promises);
@@ -35,7 +36,7 @@ async function deleteUserAccount(userData) {
     }
 
     // Delete user comments
-    await deleteUserComments(comments, user);
+    await deleteUserComments(comments, userData);
 
     // Delete user and user activities
     const unsettledPromises = await Promise.allSettled([
@@ -55,12 +56,16 @@ async function deleteUserAccount(userData) {
         message: 'User deleted 🦖',
     };
 }
+
 async function transferOwnershipToAdmin(userId, skywalkerId) {
+    const matchQuery = { ownerId: userId };
+    const updateQuery = { $set: { ownerId: skywalkerId } };
+
     try {
-        await Destination.updateMany(
-            { ownerId: userId }, // match field
-            { $set: { ownerId: skywalkerId } } // update field
-        );
+        const destPromise = Destination.updateMany(matchQuery, updateQuery);
+        const placesPromise = Place.updateMany(matchQuery, updateQuery);
+
+        await Promise.all([destPromise, placesPromise]);
     } catch (err) {
         console.error(err.message || err);
         throw createValidationError(errorMessages.request.server);
@@ -88,12 +93,12 @@ async function deleteActivities(ownerId) {
 }
 
 // Transactional moongose operation
-async function deleteUserComments(comments, user) {
+async function deleteUserComments(comments, userData) {
     const commentPromises = comments.map((comment) =>
         deleteCommentFromPlace(
             comment.placeId.toString(),
             comment._id.toString(),
-            user
+            userData
         )
     );
 

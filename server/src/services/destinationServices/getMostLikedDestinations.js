@@ -16,17 +16,11 @@ async function getMostLikedDestinations() {
             { path: 'likes', select: 'username avatarUrl -_id' },
         ])
         .limit(12)
+        .lean()
         .exec();
 
     const updatedDestinations = destinations.map((destination) => {
-        const { 
-            _id, 
-            city, 
-            country, 
-            imageUrls, 
-            likes, 
-            likesCount 
-        } = destination;
+        const { _id, city, country, imageUrls, likes, likesCount } = destination;
 
         return {
             _id,
