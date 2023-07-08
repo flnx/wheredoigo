@@ -94,9 +94,8 @@ async function addCommentsToPlace(comments, placeId) {
             // Update the place document with the new comments and ratings
             const updateResult = await Place.updateOne(filter, update, { session });
 
-            // Throw an error if the update operation does not modify exactly one document
             if (updateResult.modifiedCount !== 1) {
-                throw createValidationError(errorMessages.unavailable, 503);
+                throw new Error(errorMessages.transaction('Place comments'));
             }
 
             // Return the update result along with comment rating sum and number of comments
@@ -109,7 +108,7 @@ async function addCommentsToPlace(comments, placeId) {
 
         return result;
     } catch (error) {
-        console.error(`addCommentsToPlace - ${error.message}`);
+        console.error(`${error.message || error}`);
         throw createValidationError(errorMessages.request.server, 500);
     } finally {
         // End the session

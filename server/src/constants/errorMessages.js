@@ -26,32 +26,24 @@ exports.errorMessages = {
         notEdited: 'Edit failed. Please try again',
         notDeleted: 'Deletion process failed. Please try again.',
         invalidBody: 'Please provide a valid object with the updated destination fields',
-        imagesField: 'Invalid Field: images. Expected an array',
         imagesBoundary: (num) => `Please upload a minimum of ${num} ${num > 1 ? 'images' : 'image'}.`,
-        imagesLimit: 'You have uploaded too many images. Please limit your upload to 30 images or less',
-        destinationDetails: 'Destination details must be an array',
-      },
+        imagesLimit: 'You have uploaded too many images. Please limit your upload to 50 images or less',
+        category: 'Please select at least 1 category',
+        city: 'We could not find this city in our database :(',
+        country: 'We could not find this country in our database :(',
+    },
 
       request: {
-        server: 'Apologies for the inconvenience. An error occurred. Please try again later',
-        body: 'Request Body must be an Object',
-        upload: 'Sorry, there was an error during the upload process. Please try again.',
+          server: 'Apologies for the inconvenience. An error occurred. Please try again later',
+          body: 'Request Body must be an Object',
+          upload: 'Sorry, there was an error during the upload process. Please try again.',
+          unavailable: 'Service currently unavailable. Please try again later.',
+        },
+        
+        form: {
+            string: (field) => `Invalid Field: ${field}. Expected a String`,
+            array: (field) => `Invalid Field: ${field}. Expected an Array`,
       },
 
-      form: {
-          string: (field) => `Invalid ${field}: Expected a String`,
-      },
-
-    selectCategory: 'Please select at least 1 category',
-    invalidCategory: 'Invalid category!',
-    invalidRating: 'Please rate the place to share your experience.',
-    destinationDetails: 'Destination details must be an array',
-    cityRequired: 'City is required',
-    invalidCity: 'We could not find this city in our database :(',
-    invalidCountry: 'Invalid country',
-    countryRequired: 'Country is required',
-    unavailable: 'Service currently unavailable. Please try again later.',
-    session: (msg = '') => `Error ending session: ${msg}`,
-    permissions:
-        "Sorry, but you don't have the necessary permissions to make changes to that field. Please reach out to the appropriate administrator or supervisor for assistance.",
+    transaction: (msg = '') => `Error ending transaction: ${msg}`,
 };

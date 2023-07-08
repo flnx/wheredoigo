@@ -53,7 +53,7 @@ async function deleteCommentFromPlace(placeId, commentId, user) {
             // If any error occurs, it throws
             if (!cResult) {
                 throw new Error(
-                    errorMessages.session('Comment is missing in model')
+                    errorMessages.transaction('Comment is missing in model')
                 );
             }
 

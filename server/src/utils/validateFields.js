@@ -22,7 +22,7 @@ function validateDestinationFields(data) {
 
     // Details validation
     if (!Array.isArray(details)) {
-        throw createValidationError(errorMessages.destinationDetails, 400);
+        throw createValidationError(errorMessages.form.array('details'), 400);
     }
 
     // City validation
@@ -31,7 +31,7 @@ function validateDestinationFields(data) {
     }
 
     if (!validator.isLength(city.trim(), { min: 1, max: 85 })) {
-        throw createValidationError(errorMessages.cityRequired, 400);
+        throw createValidationError(errorMessages.data.city, 400);
     }
 
     // Country validation
@@ -40,7 +40,7 @@ function validateDestinationFields(data) {
     }
 
     if (!validator.isLength(country.trim(), { min: 4, max: 56 })) {
-        throw createValidationError(errorMessages.countryRequired, 400);
+        throw createValidationError(errorMessages.data.country, 400);
     }
 
     // Description validation
@@ -49,7 +49,7 @@ function validateDestinationFields(data) {
     const validatedCategories = validateCategories(category);
 
     if (validatedCategories.length == 0) {
-        throw createValidationError(errorMessages.selectCategory, 400);
+        throw createValidationError(errorMessages.data.category, 400);
     }
 
     return validatedCategories;
@@ -82,7 +82,7 @@ function validateDestinationFieldOnEdit(data) {
         const validatedCategories = validateCategories(categories);
 
         if (validatedCategories.length == 0) {
-            throw createValidationError(errorMessages.selectCategory, 400);
+            throw createValidationError(errorMessages.data.category, 400);
         }
 
         data.categories = validatedCategories;
@@ -118,7 +118,7 @@ function validatePlaceFieldOnEdit(data) {
     }
 
     if (!allowedFieldsToUpdate.includes(infoId.toLowerCase())) {
-        throw createValidationError(errorMessages.permissions, 400);
+        throw createValidationError(errorMessages.data.notFound, 404);
     }
 
     if (infoId.toLowerCase() == 'description') {

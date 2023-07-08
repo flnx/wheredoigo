@@ -36,7 +36,7 @@ const destinationSchema = new Schema({
     category: {
         type: [String], // Changed type to an array of strings
         trim: true,
-        required: [true, errorMessages.selectCategory],
+        required: [true, errorMessages.data.category],
         enum: {
             values: destinationCategories,
             message: 'Invalid category',

@@ -32,14 +32,14 @@ function errorHandler(err, req, res, next) {
                 });
             } else {
                 res.status(500).json({
-                    message: err.message || 'An error occurred',
+                    message: err.message || errorMessages.request.server,
                     error: err,
                 });
             }
             break;
         default:
             res.status(err.status || 500).json({
-                message: err.message || 'Internal server error',
+                message: err.message || errorMessages.request.server,
                 error: err,
             });
             break;

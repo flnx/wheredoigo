@@ -94,7 +94,7 @@ async function proceedDeletion({
             );
 
             if (places.deletedCount !== placesIds.length) {
-                throw new Error(errorMessages.session('places'));
+                throw new Error(errorMessages.transaction('places'));
             }
 
             // Delete all comments related to their places
@@ -103,7 +103,7 @@ async function proceedDeletion({
             }).session(session);
 
             if (comments.deletedCount !== commentsIds.length) {
-                throw new Error(errorMessages.session('comments'));
+                throw new Error(errorMessages.transaction('comments'));
             }
 
             // Remove all user activities related to that destination and its places (likes/comments)

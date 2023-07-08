@@ -56,7 +56,7 @@ async function proceedDeletion({ placeId, commentIds }) {
             }).session(session);
 
             if (comments.deletedCount !== commentIds.length) {
-                throw new Error(errorMessages.session('comments'), 500);
+                throw new Error(errorMessages.transaction('comments'), 500);
             }
 
             // Remove all user activities related to that place (comments)

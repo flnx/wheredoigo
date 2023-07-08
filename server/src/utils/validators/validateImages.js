@@ -5,7 +5,7 @@ const { createValidationError } = require('../createValidationError');
 function validateImages(images, minimumNum) {
     // Check if 'images' is an array
     if (!Array.isArray(images)) {
-        throw createValidationError(errorMessages.data.imagesField, 400);
+        throw createValidationError(errorMessages.form.array('images'), 400);
     }
 
     // Filter the array to ensure each object has the required properties

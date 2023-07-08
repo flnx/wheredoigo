@@ -80,7 +80,7 @@ async function checkPlaceOwnershipAndCommenters(req, res, next) {
         // This is in case I need to temporarily disable commenting for maintenance purposes
         //  ..specifically to prevent bots from posting comments.
         if (filteredCommenters.length == 0) {
-            throw createValidationError(errorMessages.unavailable, 503);
+            throw createValidationError(errorMessages.request.unavailable, 503);
         }
 
         req.place = place;
