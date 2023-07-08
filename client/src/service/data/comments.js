@@ -3,8 +3,6 @@ import { apiEndpoints } from '../../constants/apiEndpoints';
 
 export const addComment = async (data, placeId) => {
     const comment = await axios.post(apiEndpoints.addComment(placeId), data);
-    console.log(comment.data);
-    console.log('here')
 
     return comment.data;
 };

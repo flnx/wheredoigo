@@ -2,6 +2,7 @@ const { errorMessages } = require('../constants/errorMessages');
 const capitalizeEachWord = require('../utils/capitalizeWords');
 
 function errorHandler(err, req, res, next) {
+    console.info(err.name);
     console.error(err.message || err);
     switch (err.name) {
         case 'MulterError':

@@ -124,7 +124,7 @@ async function proceedDeletion({
 
         return true;
     } catch (err) {
-        console.log(err.message || err);
+        console.error(err.message || err);
         throw createValidationError(errorMessages.request.server);
     } finally {
         await session.endSession();

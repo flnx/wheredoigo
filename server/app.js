@@ -30,6 +30,6 @@ async function start() {
     app.use(errorHandler)
     
     app.listen(config.port, () =>
-        console.log(`Server listens on port ${config.port}`)
+        console.info(`Server listens on port ${config.port}`)
     );
 }

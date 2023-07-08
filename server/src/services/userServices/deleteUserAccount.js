@@ -35,7 +35,7 @@ async function deleteUserAccount(userData) {
     }
 
     // Delete user comments
-    await deleteUserComments(comments, ownerId);
+    await deleteUserComments(comments, user);
 
     // Delete user and user activities
     const unsettledPromises = await Promise.allSettled([
@@ -88,12 +88,12 @@ async function deleteActivities(ownerId) {
 }
 
 // Transactional moongose operation
-async function deleteUserComments(comments, ownerId) {
+async function deleteUserComments(comments, user) {
     const commentPromises = comments.map((comment) =>
         deleteCommentFromPlace(
             comment.placeId.toString(),
             comment._id.toString(),
-            ownerId
+            user
         )
     );
 

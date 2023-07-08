@@ -8,7 +8,7 @@ async function deleteFolders(folderNames) {
         cloudinary.api
             .delete_folder(folder)
             .then((res) => {
-                console.log(res);
+                console.info(res);
             })
             .catch((error) => {
                 console.error(error);

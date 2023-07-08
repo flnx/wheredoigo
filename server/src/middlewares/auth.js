@@ -4,7 +4,7 @@ const { errorMessages } = require('../constants/errorMessages');
 
 require('dotenv').config();
 
-const auth = async (req, res, next) => {
+async function auth(req, res, next) {
     const authHeader = req.headers['authorization'];
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -16,7 +16,7 @@ const auth = async (req, res, next) => {
     try {
         const decodedToken = await jwt.verify(accessToken, process.env.JWT_SECRET);
         const { ownerId, role, username } = decodedToken;
-        
+
         if (!ownerId || !isValid(ownerId) || !role || !username) {
             return unauthorizedResponse(res);
         }
@@ -26,7 +26,7 @@ const auth = async (req, res, next) => {
     } catch (err) {
         return unauthorizedResponse(res);
     }
-};
+}
 
 const unauthorizedResponse = (res) => {
     return res.status(401).json({ message: errorMessages.auth.unauthorized });

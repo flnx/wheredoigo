@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 const Place = require('../../models/placeSchema');
 const Comment = require('../../models/commentSchema');
 const { errorMessages } = require('../../constants/errorMessages');
@@ -29,9 +31,9 @@ async function getPlaceComments(placeId, user, page) {
             .exec(),
     ];
 
-    const [count, placeComments] = await Promise.all(promises);
+    const [count, place] = await Promise.all(promises);
 
-    if (!placeComments) {
+    if (!place) {
         throw createValidationError(errorMessages.data.notFound, 404);
     }
 
@@ -41,9 +43,16 @@ async function getPlaceComments(placeId, user, page) {
     const totalPages = Math.ceil(count / perPage);
 
     // Adds isOwner boolean if the current user (if any) is the owner of the comment
-    placeComments.comments.forEach((comment) => {
+    place.comments.forEach((comment) => {
+        // This fallback should never be needed, but just in case
+        const deletedOwner = deletedUserFallback();
+
         // Removes owner id before sending it to the client
-        const { _id, ...ownerData } = comment.ownerId;
+        const { _id, ...ownerData } = comment.ownerId || deletedOwner;
+
+        if(!comment.ownerId) {
+            console.log(comment)
+        }
 
         // Add isOwner field to an admin too
         if (user && (_id.equals(ownerId) || role === 'admin')) {
@@ -57,11 +66,19 @@ async function getPlaceComments(placeId, user, page) {
     });
 
     return {
-        data: placeComments.comments,
+        data: place.comments,
         totalComments: count,
         hasNextPage,
         hasPreviousPage,
         totalPages,
+    };
+}
+
+function deletedUserFallback() {
+    return {
+        _id: new mongoose.Types.ObjectId(),
+        username: 'deleted',
+        avatarUrl: 'https://supercharge.info/images/avatar-placeholder.png',
     };
 }
 

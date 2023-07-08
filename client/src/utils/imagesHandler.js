@@ -10,7 +10,7 @@ export const createImageFiles = async (imageUrls, formData) => {
             const contentType = blob.type;
 
             if (!validateImageFile(contentType)) {
-                console.log('Only image files are allowed');
+                console.error('Only image files are allowed');
                 return;
             }
 

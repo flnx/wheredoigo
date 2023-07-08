@@ -11,10 +11,6 @@ async function getPlaceById(placeId, user) {
 
     const [place, hasAIComments] = await Promise.all(promises);
 
-    if (!place) {
-        throw createValidationError(errorMessages.data.notFound, 404);
-    }
-
     // checks if the user already commented/rated the place
     let hasCommented = null;
     let isOwner = false;
@@ -52,6 +48,11 @@ async function isCommentedByAIBots({ placeId }) {
     ];
 
     const [place, commenters] = await Promise.all(promises);
+    
+    if (!place) {
+        throw createValidationError(errorMessages.data.notFound, 404);
+    }
+
 
     const commentedBy = place.commentedBy.map((id) => id.toString());
 
