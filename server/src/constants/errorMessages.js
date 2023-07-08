@@ -26,7 +26,7 @@ exports.errorMessages = {
         notEdited: 'Edit failed. Please try again',
         notDeleted: 'Deletion process failed. Please try again.',
         invalidBody: 'Please provide a valid object with the updated destination fields',
-        invalidImages: 'To upload images, please provide an array of valid image files',
+        invalidImages: 'Invalid Field: images. Expected an array',
         imagesBoundary: (num) => `Please upload at least ${num} ${num > 1 ? 'images' : 'image'}`,
         imagesLimitError: 'You have uploaded too many images. Please limit your upload to 20 images or less',
         destinationDetails: 'Destination details must be an array',
@@ -41,9 +41,6 @@ exports.errorMessages = {
           string: (field) => `Invalid ${field}: Expected a String`,
       },
 
-    invalidBody: "Invalid request. The provided object contains unknown or invalid properties.",
-    invalidImages:
-        'In order to upload images, please send an array with valid image files.',
     imagesBoundary: (num) =>
         `You need to upload at least ${num} ${num > 1 ? 'images' : 'image'}`,
     uploadError:

@@ -15,7 +15,7 @@ const {
 } = require('../constants/allowedDestinationCategories');
 
 // Utils
-const { isString, isObject, isValidArrayOfStrings } = require('./utils');
+const { isString, isValidArrayOfStrings } = require('./utils');
 
 function validateDestinationFields(data) {
     const { city, country, description, category, details } = data;
