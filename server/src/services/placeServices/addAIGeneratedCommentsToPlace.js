@@ -110,7 +110,7 @@ async function addCommentsToPlace(comments, placeId) {
         return result;
     } catch (error) {
         console.error(`addCommentsToPlace - ${error.message}`);
-        throw createValidationError(errorMessages.serverError, 500);
+        throw createValidationError(errorMessages.request.server, 500);
     } finally {
         // End the session
         await session.endSession();

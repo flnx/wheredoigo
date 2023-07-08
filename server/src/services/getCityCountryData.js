@@ -9,12 +9,13 @@ async function fetchCountriesAndCities() {
         const countries = await result.json();
 
         if (countries?.error) {
-            throw new Error(countries?.msg || errorMessages.serverError);
+            const msg = countries?.msg || errorMessages.request.server;
+            throw createValidationError(msg, 500);
         }
 
         return countries;
     } catch (error) {
-        throw createValidationError(error.message, 500);
+        throw error;
     }
 }
 
@@ -31,18 +32,19 @@ async function fetchACountryAndItsCities(country) {
         const countryData = await result.json();
 
         if (countryData.error) {
-            throw new Error(countryData.msg);
+            const msg = countries?.msg || errorMessages.request.server;
+            throw createValidationError(msg, 500);
         }
 
         const cities = countryData?.data ?? [];
 
         if (cities.length == 0) {
-            throw createValidationError(error.serverError, 500);
+            throw createValidationError(error.request.server, 500);
         }
 
         return cities;
     } catch (error) {
-        throw createValidationError(error.message, 400);
+        throw error;
     }
 }
 

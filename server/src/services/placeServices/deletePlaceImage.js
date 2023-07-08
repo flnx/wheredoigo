@@ -14,7 +14,7 @@ const { createValidationError } = require('../../utils/createValidationError');
 
 async function deletePlaceImage(placeId, imgId) {
     if (!imgId || !isValid(imgId)) {
-        throw createValidationError(errorMessages.notFound, 404);
+        throw createValidationError(errorMessages.data.notFound, 404);
     }
 
     const query = deleteImageQuery(placeId, imgId);
@@ -23,7 +23,7 @@ async function deletePlaceImage(placeId, imgId) {
         .exec();
 
     if (!result) {
-        throw createValidationError(errorMessages.notFound, 404);
+        throw createValidationError(errorMessages.data.notFound, 404);
     }
 
     // Extracts the public ID

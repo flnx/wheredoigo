@@ -21,7 +21,7 @@ async function fetchDestinationAndCheckOwnership(req, res, next) {
 
         // Allow admin role to bypass ownership check
         if (user.role !== 'admin' && !destination.isOwner) {
-            throw createValidationError(errorMessages.accessDenied, 403);
+            throw createValidationError(errorMessages.auth.accessDenied, 403);
         }
 
         destination.places = places;
@@ -40,12 +40,12 @@ async function checkDestinationOwnershipOnly(req, res, next) {
         const destination = await getDestinationOwnerIdOnly(id);
 
         if (!destination) {
-            throw createValidationError(errorMessages.notFound, 404);
+            throw createValidationError(errorMessages.data.notFound, 404);
         }
 
         // Allow admin role to bypass ownership check
         if (role !== 'admin' && !destination.ownerId.equals(ownerId)) {
-            throw createValidationError(errorMessages.accessDenied, 403);
+            throw createValidationError(errorMessages.auth.accessDenied, 403);
         }
 
         req.destination = {

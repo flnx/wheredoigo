@@ -19,7 +19,7 @@ function attachIDsToComments({ comments, commenters, placeId }) {
 
     if (commentsData.length == 0) {
         console.error('AddAIGeneratedCommentsToPlace: GPT Object Error');
-        throw createValidationError(errorMessages.serverError, 500);
+        throw createValidationError(errorMessages.request.server, 500);
     }
 
     return commentsData;
@@ -27,7 +27,7 @@ function attachIDsToComments({ comments, commenters, placeId }) {
 
 function validateMultipleCommentsData(comments) {
     if (!Array.isArray(comments)) {
-        throw createValidationError(errorMessages.serverError, 500);
+        throw createValidationError(errorMessages.request.server, 500);
     }
 
     const commentsData = comments
@@ -42,7 +42,7 @@ function validateMultipleCommentsData(comments) {
         .filter(Boolean); // Filters out the null's
 
     if (commentsData.length == 0) {
-        throw createValidationError(errorMessages.serverError, 500);
+        throw createValidationError(errorMessages.request.server, 500);
     }
 
     return commentsData;

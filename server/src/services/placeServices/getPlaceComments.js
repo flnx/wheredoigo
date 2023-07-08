@@ -32,7 +32,7 @@ async function getPlaceComments(placeId, user, page) {
     const [count, placeComments] = await Promise.all(promises);
 
     if (!placeComments) {
-        throw createValidationError(errorMessages.notFound, 404);
+        throw createValidationError(errorMessages.data.notFound, 404);
     }
 
     // determine if there is next page to be requested in order to notify the client

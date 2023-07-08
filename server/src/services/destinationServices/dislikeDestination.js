@@ -10,7 +10,7 @@ async function dislikeDestination(id, userId) {
     );
     // removes the last like activity upon dislike success (no need to await)
     if (result.modifiedCount == 0) {
-        throw createValidationError(errorMessages.serverError, 500);
+        throw createValidationError(errorMessages.request.server, 500);
     }
 
     UserActivity.updateOne(

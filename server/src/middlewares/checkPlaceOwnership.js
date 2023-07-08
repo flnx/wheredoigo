@@ -17,7 +17,7 @@ async function fetchPlaceAndCheckOwnership(req, res, next) {
 
         // Allow admin role to bypass ownership check
         if (user.role !== 'admin' && !place.isOwner) {
-            throw createValidationError(errorMessages.accessDenied, 403);
+            throw createValidationError(errorMessages.auth.accessDenied, 403);
         }
 
         req.place = place;
@@ -36,12 +36,12 @@ async function checkPlaceOwnershipOnly(req, res, next) {
         const place = await getPlaceOwnerIdOnly(id);
 
         if (!place) {
-            throw createValidationError('Place ' + errorMessages.notFound, 404);
+            throw createValidationError('Place ' + errorMessages.data.notFound, 404);
         }
 
         // Allow admin role to bypass access check
         if (role !== 'admin' && !place.ownerId.equals(ownerId)) {
-            throw createValidationError(errorMessages.accessDenied, 403);
+            throw createValidationError(errorMessages.auth.accessDenied, 403);
         }
 
         req.place = place;
@@ -61,12 +61,12 @@ async function checkPlaceOwnershipAndCommenters(req, res, next) {
         const [place, allComenters] = await Promise.all(promises);
 
         if (!place) {
-            throw createValidationError('Place ' + errorMessages.notFound, 404);
+            throw createValidationError('Place ' + errorMessages.data.notFound, 404);
         }
 
         // Allow admin role to bypass access check
         if (role !== 'admin' && !place.ownerId.equals(ownerId)) {
-            throw createValidationError(errorMessages.accessDenied, 403);
+            throw createValidationError(errorMessages.auth.accessDenied, 403);
         }
 
         const { commentedBy } = place;

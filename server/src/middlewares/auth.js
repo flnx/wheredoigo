@@ -29,7 +29,7 @@ const auth = async (req, res, next) => {
 };
 
 const unauthorizedResponse = (res) => {
-    return res.status(401).json({ message: errorMessages.unauthorized });
+    return res.status(401).json({ message: errorMessages.auth.unauthorized });
 };
 
 module.exports = {

@@ -23,7 +23,7 @@ async function deleteUserAccount(userData) {
     const [user, destinations, comments] = await Promise.all(promises);
 
     if (!user) {
-        throw createValidationError(errorMessages.unauthorized, 401);
+        throw createValidationError(errorMessages.auth.unauthorized, 401);
     }
 
     await deleteDestinations();
@@ -34,7 +34,7 @@ async function deleteUserAccount(userData) {
     const deletedUser = await User.findByIdAndDelete(ownerId);
 
     if (!deletedUser) {
-        throw createValidationError(errorMessages.serverError, 500);
+        throw createValidationError(errorMessages.request.server, 500);
     }
 
     return true;

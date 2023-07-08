@@ -7,7 +7,9 @@ const {
     allowedPlaceCategories,
     allowedFieldsToUpdate,
 } = require('../constants/allowedPlaceCategories');
+
 const { errorMessages } = require('../constants/errorMessages');
+
 const {
     destinationCategories,
 } = require('../constants/allowedDestinationCategories');
@@ -25,7 +27,7 @@ function validateDestinationFields(data) {
 
     // City validation
     if (!isString(city)) {
-        throw createValidationError(errorMessages.mustBeAString('City'), 400);
+        throw createValidationError(errorMessages.form.string('City'), 400);
     }
 
     if (!validator.isLength(city.trim(), { min: 1, max: 85 })) {
@@ -34,7 +36,7 @@ function validateDestinationFields(data) {
 
     // Country validation
     if (!isString(country)) {
-        throw createValidationError(errorMessages.mustBeAString('Country'), 400);
+        throw createValidationError(errorMessages.form.string('Country'), 400);
     }
 
     if (!validator.isLength(country.trim(), { min: 4, max: 56 })) {
@@ -64,18 +66,14 @@ function validatePlaceFields(placeData) {
 }
 
 function validateDestinationFieldOnEdit(data) {
-    if (!isObject(data)) {
-        throw createValidationError(errorMessages.invalidBody, 400);
-    }
-
     const { description, infoId, categoryId, categories } = data;
 
     if (!isString(description)) {
-        throw createValidationError(errorMessages.mustBeAString('Description'), 400);
+        throw createValidationError(errorMessages.form.string('Description'), 400);
     }
 
     if (!isString(infoId)) {
-        throw createValidationError(errorMessages.mustBeAString('infoId'), 400);
+        throw createValidationError(errorMessages.form.string('infoId'), 400);
     }
 
     if (infoId.toLowerCase() == 'description') {
@@ -91,13 +89,13 @@ function validateDestinationFieldOnEdit(data) {
     } else {
         if (!isString(categoryId) || categoryId.trim().length == 0) {
             throw createValidationError(
-                errorMessages.mustBeAString('Category'),
+                errorMessages.form.string('Category'),
                 400
             );
         }
 
         if (!isValid(infoId) || !isValid(categoryId)) {
-            throw createValidationError(errorMessages.invalidCategory, 400);
+            throw createValidationError(errorMessages.data.category, 400);
         }
 
         if (description.length > 5000) {
@@ -109,18 +107,14 @@ function validateDestinationFieldOnEdit(data) {
 }
 
 function validatePlaceFieldOnEdit(data) {
-    if (!isObject(data)) {
-        throw createValidationError(errorMessages.invalidBody, 400);
-    }
-
     const { description, infoId } = data;
 
     if (!isString(description)) {
-        throw createValidationError(errorMessages.mustBeAString('Description'), 400);
+        throw createValidationError(errorMessages.form.string('Description'), 400);
     }
 
     if (!isString(infoId)) {
-        throw createValidationError(errorMessages.mustBeAString('infoId'), 400);
+        throw createValidationError(errorMessages.form.string('infoId'), 400);
     }
 
     if (!allowedFieldsToUpdate.includes(infoId.toLowerCase())) {
@@ -144,7 +138,7 @@ function validatePlaceFieldOnEdit(data) {
 
 function validateDescription(description) {
     if (!isString(description)) {
-        throw createValidationError(errorMessages.mustBeAString('Description'), 400);
+        throw createValidationError(errorMessages.form.string('Description'), 400);
     }
 
     if (!validator.isLength(description.trim(), { min: 50, max: 5000 })) {
@@ -156,11 +150,11 @@ function validateDescription(description) {
 
 function validatePlaceType(type) {
     if (!isString(type)) {
-        throw createValidationError(errorMessages.mustBeAString('Place type'), 400);
+        throw createValidationError(errorMessages.form.string('Place type'), 400);
     }
 
     if (!allowedPlaceCategories.includes(type)) {
-        throw createValidationError(errorMessages.invalidCategory, 400);
+        throw createValidationError(errorMessages.data.category, 400);
     }
 
     return true;
@@ -168,7 +162,7 @@ function validatePlaceType(type) {
 
 function validatePlaceName(name) {
     if (!isString(name)) {
-        throw createValidationError(errorMessages.mustBeAString('Place name'), 400);
+        throw createValidationError(errorMessages.form.string('Place name'), 400);
     }
 
     if (!validator.isLength(name.trim(), { min: 1, max: 60 })) {

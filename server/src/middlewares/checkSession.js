@@ -15,12 +15,12 @@ async function checkSession(req, res, next) {
             const { ownerId } = decodedToken;
 
             if (!ownerId || !isValid(ownerId)) {
-                return res.status(401).json({ message: errorMessages.unauthorized });
+                return res.status(401).json({ message: errorMessages.auth.unauthorized });
             }
 
             req.user = decodedToken;
         } catch (err) {
-            return res.status(401).json({ message: errorMessages.unauthorized });
+            return res.status(401).json({ message: errorMessages.auth.unauthorized });
         }
     }
 

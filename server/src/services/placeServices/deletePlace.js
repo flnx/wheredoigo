@@ -20,12 +20,12 @@ async function deletePlace(placeId, user) {
     const place = await Place.findById(placeId).exec();
 
     if (!place) {
-        throw createValidationError(errorMessages.notFound, 404);
+        throw createValidationError(errorMessages.data.notFound, 404);
     }
 
     // Allow admin role to bypass access check
     if (role !== 'admin' && !place.ownerId.equals(ownerId)) {
-        throw createValidationError(errorMessages.accessDenied, 403);
+        throw createValidationError(errorMessages.auth.accessDenied, 403);
     }
 
     // Extract the comment ids
@@ -47,7 +47,7 @@ async function proceedDeletion({ placeId, commentIds }) {
             const place = await Place.findByIdAndDelete(placeId).session(session);
 
             if (!place) {
-                throw new Error(errorMessages.couldNotDelete('place'), 500);
+                throw new Error(errorMessages.data.notFound, 404);
             }
 
             // Delete all place comments
@@ -56,7 +56,7 @@ async function proceedDeletion({ placeId, commentIds }) {
             }).session(session);
 
             if (comments.deletedCount !== commentIds.length) {
-                throw new Error(errorMessages.couldNotDelete('comments'), 500);
+                throw new Error(errorMessages.session('comments'), 500);
             }
 
             // Remove all user activities related to that place (comments)
@@ -71,7 +71,7 @@ async function proceedDeletion({ placeId, commentIds }) {
         return true;
     } catch (err) {
         console.error(err || err.message);
-        throw createValidationError(errorMessages.serverError, 500);
+        throw createValidationError(errorMessages.request.server, 500);
     } finally {
         await session.endSession();
     }

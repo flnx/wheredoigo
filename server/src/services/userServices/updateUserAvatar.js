@@ -18,7 +18,7 @@ const updateUserAvatar = async (image, userData) => {
         .exec();
 
     if (!user) {
-        throw createValidationError(errorMessages.notFound, 404);
+        throw createValidationError(errorMessages.data.notFound, 404);
     }
 
     const avatarIdToDelete = user.avatar_id;

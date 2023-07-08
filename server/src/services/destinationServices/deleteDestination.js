@@ -28,12 +28,12 @@ async function deleteDestination(destinationId, user) {
     const [destination, places] = await Promise.all(promises);
 
     if (!destination) {
-        throw createValidationError(errorMessages.notFound, 404);
+        throw createValidationError(errorMessages.data.notFound, 404);
     }
 
     // Allow admin role to bypass access check
     if (role !== 'admin' && !destination.ownerId.equals(ownerId)) {
-        throw createValidationError(errorMessages.accessDenied, 403);
+        throw createValidationError(errorMessages.auth.accessDenied, 403);
     }
 
     // Extract Public IDS
@@ -85,7 +85,7 @@ async function proceedDeletion({
             );
 
             if (!dest) {
-                throw new Error(errorMessages.couldNotDelete('Destination'));
+                throw new Error(errorMessages.data.notFound);
             }
 
             // Delete destination places
@@ -94,7 +94,7 @@ async function proceedDeletion({
             );
 
             if (places.deletedCount !== placesIds.length) {
-                throw new Error(errorMessages.couldNotDelete('places'));
+                throw new Error(errorMessages.session('places'));
             }
 
             // Delete all comments related to their places
@@ -103,7 +103,7 @@ async function proceedDeletion({
             }).session(session);
 
             if (comments.deletedCount !== commentsIds.length) {
-                throw new Error(errorMessages.couldNotDelete('comments'));
+                throw new Error(errorMessages.session('comments'));
             }
 
             // Remove all user activities related to that destination and its places (likes/comments)
@@ -125,7 +125,7 @@ async function proceedDeletion({
         return true;
     } catch (err) {
         console.log(err.message || err);
-        throw createValidationError(errorMessages.serverError, 500);
+        throw createValidationError(errorMessages.request.server);
     } finally {
         await session.endSession();
     }

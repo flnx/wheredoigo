@@ -12,7 +12,7 @@ function validateCommentFields({ content, title, rating }) {
     }
 
     if (!isValidInteger(rating) || rating < 1 || rating > 5) {
-        throw createValidationError(errorMessages.invalidRating, 500);
+        throw createValidationError(errorMessages.rating, 500);
     }
 }
 

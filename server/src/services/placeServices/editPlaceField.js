@@ -18,7 +18,7 @@ async function editPlaceField(placeId, updatedField) {
         .exec();
 
     if (!result || result.matchedCount === 0) {
-        throw createValidationError(errorMessages.couldNotUpdate(infoId), 404);
+        throw createValidationError(errorMessages.data.notEdited, 404);
     }
 
     return result;

@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
     const { id } = req.params;
 
     if (!id || !isValid(id)) {
-        return res.status(404).json({ message: errorMessages.notFound });
+        return res.status(404).json({ message: errorMessages.data.notFound });
     }
 
     next();

@@ -26,7 +26,7 @@ async function getDestinationById(destinationId, user) {
     const [destination, isLikedByUser] = await Promise.all(promises);
 
     if (!destination) {
-        throw createValidationError(errorMessages.notFound, 404);
+        throw createValidationError(errorMessages.data.notFound, 404);
     }
 
     const { 

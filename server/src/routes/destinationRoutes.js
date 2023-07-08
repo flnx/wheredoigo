@@ -4,10 +4,7 @@ const express = require('express');
 const { auth } = require('../middlewares/auth');
 const { upload } = require('../middlewares/images');
 const { checkSession } = require('../middlewares/checkSession');
-const {
-    fetchDestinationAndCheckOwnership,
-    checkDestinationOwnershipOnly,
-} = require('../middlewares/checkDestinationOwnership');
+const { fetchDestinationAndCheckOwnership, checkDestinationOwnershipOnly } = require('../middlewares/checkDestinationOwnership');
 const validateMongoId = require('../middlewares/validateMongoId');
 
 // Controllers

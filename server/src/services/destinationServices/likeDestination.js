@@ -10,7 +10,7 @@ async function likeDestination(id, userId) {
     );
 
     if (result.modifiedCount == 0) {
-        throw createValidationError(errorMessages.serverError, 500);
+        throw createValidationError(errorMessages.request.server, 500);
     }
 
     addUserActivity();

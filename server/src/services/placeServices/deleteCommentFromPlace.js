@@ -14,7 +14,7 @@ async function deleteCommentFromPlace(placeId, commentId, user) {
 
     // Checks if the commentId is a valid mongoDB id
     if (!commentId || !isValid(commentId)) {
-        throw createValidationError(errorMessages.notFound, 404);
+        throw createValidationError(errorMessages.data.notFound, 404);
     }
 
     // Finds the comment
@@ -22,12 +22,12 @@ async function deleteCommentFromPlace(placeId, commentId, user) {
 
     // Checks if it exists
     if (!comment) {
-        throw new Error(`${errorMessages.notFound}`);
+        throw new Error(`${errorMessages.data.notFound}`);
     }
 
     // Allow admin role to bypass ownership check
     if (role !== 'admin' && !comment.ownerId.equals(ownerId)) {
-        throw createValidationError(errorMessages.accessDenied, 403);
+        throw createValidationError(errorMessages.auth.accessDenied, 403);
     }
 
     // Starting a transaction
@@ -73,7 +73,7 @@ async function deleteCommentFromPlace(placeId, commentId, user) {
         return result;
     } catch (err) {
         console.error(err.message || err);
-        throw createValidationError(errorMessages.notFound, 404);
+        throw createValidationError(errorMessages.data.notFound, 404);
     } finally {
         // Ending the transaction
         await session.endSession();

@@ -12,7 +12,7 @@ const deleteImageQuery = require('../../queries/deleteImageQuery');
 
 async function deleteDestinationImage(destinationId, imgId) {
     if (!imgId || !isValid(imgId)) {
-        throw createValidationError(errorMessages.notFound, 404);
+        throw createValidationError(errorMessages.data.notFound, 404);
     }
 
     const query = deleteImageQuery(destinationId, imgId);
@@ -23,7 +23,7 @@ async function deleteDestinationImage(destinationId, imgId) {
         .exec();
 
     if (!result) {
-        throw createValidationError(errorMessages.notFound, 404);
+        throw createValidationError(errorMessages.data.notFound, 404);
     }
 
     // Extracts the public ID
