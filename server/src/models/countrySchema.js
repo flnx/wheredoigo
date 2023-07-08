@@ -6,8 +6,8 @@ const countrySchema = new Schema({
     name: {
         type: String,
         trim: true,
-        minLength: [4, errorMessages.invalidCity],
-        maxLength: [56, errorMessages.invalidCity],
+        minLength: [4, errorMessages.data.city],
+        maxLength: [56, errorMessages.data.city],
         lowercase: true,
         required: [true, 'Country is required'],
         unique: true,

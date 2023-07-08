@@ -21,8 +21,8 @@ const destinationSchema = new Schema({
     city: {
         type: String,
         trim: true,
-        minLength: [1, errorMessages.invalidCity],
-        maxLength: [85, errorMessages.invalidCity],
+        minLength: [1, errorMessages.data.city],
+        maxLength: [85, errorMessages.data.city],
         lowercase: true,
         required: [true, 'City is required'],
     },

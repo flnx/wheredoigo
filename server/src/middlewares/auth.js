@@ -15,9 +15,9 @@ const auth = async (req, res, next) => {
 
     try {
         const decodedToken = await jwt.verify(accessToken, process.env.JWT_SECRET);
-        const { ownerId, role } = decodedToken;
-
-        if (!ownerId || !isValid(ownerId) || !role) {
+        const { ownerId, role, username } = decodedToken;
+        
+        if (!ownerId || !isValid(ownerId) || !role || !username) {
             return unauthorizedResponse(res);
         }
 

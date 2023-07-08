@@ -45,6 +45,7 @@ async function getPlaceComments(placeId, user, page) {
         // Removes owner id before sending it to the client
         const { _id, ...ownerData } = comment.ownerId;
 
+        // Add isOwner field to an admin too
         if (user && (_id.equals(ownerId) || role === 'admin')) {
             comment.isOwner = true;
         }

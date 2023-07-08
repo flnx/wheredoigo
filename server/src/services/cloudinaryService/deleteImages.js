@@ -49,7 +49,7 @@ async function deleteImages(public_ids = [], folderNames = []) {
 async function storeTheUndeletedToDB(failedToDelete, promises_ids) {
     const failedPublicIds = failedToDelete.map((result) => result.reason.publicId);
 
-    // Store the ids in the specified mongoDB schema
+    // Store the ids in the specified mongoDB
     FailedDeletion.create({ public_ids: failedPublicIds }).catch((err) =>
         console.error(err?.message)
     );

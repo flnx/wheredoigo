@@ -36,8 +36,8 @@ const placeSchema = new Schema({
         type: String,
         trim: true,
         lowercase: true,
-        minLength: [1, errorMessages.invalidCity],
-        maxLength: [85, errorMessages.invalidCity],
+        minLength: [1, errorMessages.data.city],
+        maxLength: [85, errorMessages.data.city],
         required: [true, 'City is required!'],
     },
     description: {

@@ -64,7 +64,7 @@ async function createDestination(data, images, user) {
 
         // if the city is not found in the provided country cities array, it throws
         if (!city) {
-            throw createValidationError(errorMessages.invalidCity, 400);
+            throw createValidationError(errorMessages.data.city, 400);
         }
     }
 
