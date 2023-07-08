@@ -1,8 +1,18 @@
+const { errorMessages } = require('../constants/errorMessages');
 const capitalizeEachWord = require('../utils/capitalizeWords');
 
 function errorHandler(err, req, res, next) {
     console.error(err.message || err);
     switch (err.name) {
+        case 'MulterError':
+            if (err.code == 'LIMIT_UNEXPECTED_FILE') {
+                res.status(400).json({ message: errorMessages.data.imagesLimit });
+            } else {
+                res.status(400).json({
+                    message: err.message || errorMessages.request.upload,
+                });
+            }
+            break;
         case 'SyntaxError':
             res.status(400).json({ message: 'Invalid JSON payload' });
             break;

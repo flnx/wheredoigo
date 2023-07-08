@@ -51,6 +51,6 @@ export const createAvatarImage = async (imgAfterCrop) => {
 };
 
 const validateImageFile = (contentType) => {
-    const imagePattern = /^image\/(jpe?g|png|webp)$/i;
+    const imagePattern = /^image\/(jpe?g|png|webp|gif)$/i;
     return imagePattern.test(contentType);
 };

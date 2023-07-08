@@ -26,27 +26,22 @@ exports.errorMessages = {
         notEdited: 'Edit failed. Please try again',
         notDeleted: 'Deletion process failed. Please try again.',
         invalidBody: 'Please provide a valid object with the updated destination fields',
-        invalidImages: 'Invalid Field: images. Expected an array',
-        imagesBoundary: (num) => `Please upload at least ${num} ${num > 1 ? 'images' : 'image'}`,
-        imagesLimitError: 'You have uploaded too many images. Please limit your upload to 20 images or less',
+        imagesField: 'Invalid Field: images. Expected an array',
+        imagesBoundary: (num) => `Please upload a minimum of ${num} ${num > 1 ? 'images' : 'image'}.`,
+        imagesLimit: 'You have uploaded too many images. Please limit your upload to 30 images or less',
         destinationDetails: 'Destination details must be an array',
       },
 
       request: {
         server: 'Apologies for the inconvenience. An error occurred. Please try again later',
-        body: 'Request Body must be an Object'
+        body: 'Request Body must be an Object',
+        upload: 'Sorry, there was an error during the upload process. Please try again.',
       },
 
       form: {
           string: (field) => `Invalid ${field}: Expected a String`,
       },
 
-    imagesBoundary: (num) =>
-        `You need to upload at least ${num} ${num > 1 ? 'images' : 'image'}`,
-    uploadError:
-        'Sorry, there was an error during the upload process. Please try again later.',
-    imagesLimitError:
-        'You have uploaded too many images. Please limit your upload to 20 images or less.',
     selectCategory: 'Please select at least 1 category',
     invalidCategory: 'Invalid category!',
     invalidRating: 'Please rate the place to share your experience.',

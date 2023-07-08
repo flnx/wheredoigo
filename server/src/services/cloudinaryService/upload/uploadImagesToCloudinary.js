@@ -2,6 +2,8 @@ const uploadFile = require('./uploadFile');
 
 // Utils
 const { validateImages } = require('../../../utils/validators/validateImages');
+const { createValidationError } = require('../../../utils/createValidationError');
+const { errorMessages } = require('../../../constants/errorMessages');
 
 async function uploadImagesToCloudinary(
     files = [],
@@ -29,7 +31,7 @@ async function uploadImagesToCloudinary(
 
     // Throw error if there's not a single successful upload
     if (fulfilledResults.length === 0) {
-        throw new Error('Failed to upload images to Cloudinary');
+        throw createValidationError(errorMessages.request.upload)
     }
 
     // Log the errors from rejected promises

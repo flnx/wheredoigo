@@ -19,6 +19,8 @@ function validateImages(images, minimumNum) {
             Object.hasOwn(obj, 'buffer') &&
             Object.hasOwn(obj, 'mimetype');
 
+            console.log(obj.mimetype)
+
         // Check if 'obj.buffer' is a Buffer
         const isBuffer = isValidObject && Buffer.isBuffer(obj.buffer);
 
