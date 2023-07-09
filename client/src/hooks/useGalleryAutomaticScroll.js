@@ -1,31 +1,40 @@
-export const useGalleryAutomaticScroll = (e, secondaryImagesRef) => {
+export const useGalleryAutomaticScroll = (e, secondaryImagesRef, screenWidth) => {
     const image = e.target;
-    const secondaryImagesElement = secondaryImagesRef.current;
 
-    // Rect
-    const imgRect = image.getBoundingClientRect();
-    const secImgsRect = secondaryImagesElement.getBoundingClientRect();
-
-    // Scroll offset threshold value
-    const scrollOffset = imgRect.height * 0.7;
-
-    // Check if the image is at the end or top of the secondary images container
-    const isNearEnd = imgRect.bottom >= secImgsRect.bottom - scrollOffset;
-    const isNearTop = imgRect.top <= secImgsRect.top + scrollOffset;
-
-    // imgRect.right >= secImgsRect.right - threshold ||
-
-    if (isNearTop) {
-        secondaryImagesElement.scroll({
-            top: secondaryImagesElement.scrollTop - imgRect.height,
+    if (screenWidth < 1296) {
+        image.scrollIntoView({
+            inline: 'center',
+            block: 'end',
             behavior: 'smooth',
         });
-    }
+    } else {
+        const secImgsElem = secondaryImagesRef.current;
 
-    if (isNearEnd) {
-        secondaryImagesElement.scroll({
-            top: secondaryImagesElement.scrollTop + imgRect.height,
-            behavior: 'smooth',
-        });
+        // Rect
+        const imgRect = image.getBoundingClientRect();
+        const secImgsRect = secImgsElem.getBoundingClientRect();
+
+        // Scroll offset value
+        const offset = screenWidth >= 1296 && imgRect.height * 0.7;
+
+        const isNearEnd = screenWidth >= 1296 && imgRect.bottom >= secImgsRect.bottom - offset;
+
+        const isNearTop = screenWidth >= 1296 && imgRect.top <= secImgsRect.top + offset;
+
+        if (isNearTop) {
+            image.scrollIntoView({
+                inline: 'start',
+                block: 'center',
+                behavior: 'smooth',
+            });
+        }
+
+        if (isNearEnd) {
+            image.scrollIntoView({
+                inline: 'start',
+                block: 'center',
+                behavior: 'smooth',
+            });
+        }
     }
 };

@@ -1,8 +1,11 @@
 .secondaryImgContainer {
     padding: 1rem;
-    overflow-y: scroll;
+    overflow: scroll;
+    overflow-y: hidden;
+    white-space: no-wrap;
     flex: 1;
     height: 100%;
+    /* width: 100%; */
     display: flex;
     gap: 1rem;
 }
@@ -29,6 +32,8 @@
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         grid-auto-rows: min-content;
+        overflow-y: scroll;
+        overflow-x: hidden;
     }
 
     .secondaryImgContainer img {

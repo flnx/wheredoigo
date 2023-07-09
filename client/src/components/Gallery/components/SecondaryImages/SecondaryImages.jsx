@@ -10,14 +10,15 @@ export const SecondaryImages = () => {
         currentIndex, 
         handleCurrentImageIndex, 
         alt, 
-        secImgsRef, 
+        secImgsRef,
+        screenWidth
     } = useContext(GalleryContext);
 
     const mainImage = images[currentIndex];
     const isActive = styles.isActive;
 
     const onClickHandler = (e, index) => {
-        useGalleryAutomaticScroll(e, secImgsRef);
+        useGalleryAutomaticScroll(e, secImgsRef, screenWidth);
         handleCurrentImageIndex(index);
     };
 
