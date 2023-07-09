@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
-import { createContext, useState } from 'react';
+import { createContext, useRef, useState } from 'react';
 import { useKeyboardNavigation } from '../../../hooks/useKeyboardNavigation';
+import { useGalleryAutomaticScroll } from '../../../hooks/useGalleryAutomaticScroll';
 
 export const GalleryContext = createContext();
 
@@ -13,11 +14,11 @@ const propTypes = {
     ).isRequired,
     closeGalleryHandler: PropTypes.func.isRequired,
     alt: PropTypes.string.isRequired,
-}
-
+};
 
 export const GalleryContextProvider = ({ children, images, closeGalleryHandler, alt }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const secImgsRef = useRef(null);
 
     const handleCurrentImageIndex = (i) => setCurrentIndex(i);
 
@@ -26,6 +27,9 @@ export const GalleryContextProvider = ({ children, images, closeGalleryHandler, 
 
         if (previousImage) {
             setCurrentIndex(currentIndex - 1);
+
+            const currentImage =  secImgsRef.current.children[currentIndex];
+            useGalleryAutomaticScroll({ target: currentImage }, secImgsRef);
         }
     };
 
@@ -34,6 +38,9 @@ export const GalleryContextProvider = ({ children, images, closeGalleryHandler, 
 
         if (nextImage) {
             setCurrentIndex(currentIndex + 1);
+
+            const currentImage =  secImgsRef.current.children[currentIndex];
+            useGalleryAutomaticScroll({ target: currentImage }, secImgsRef);
         }
     };
 
@@ -51,13 +58,10 @@ export const GalleryContextProvider = ({ children, images, closeGalleryHandler, 
         handleCurrentImageIndex,
         onLeftArrowClickHandler,
         onRightArrowClickHandler,
-    }
+        secImgsRef,
+    };
 
-    return (
-        <GalleryContext.Provider value={contextValue}>
-            {children}
-        </GalleryContext.Provider>
-    );
+    return <GalleryContext.Provider value={contextValue}>{children}</GalleryContext.Provider>;
 };
 
 GalleryContextProvider.propTypes = propTypes;
