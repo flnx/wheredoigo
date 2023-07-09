@@ -11,7 +11,7 @@
     transition: 0.1s;
     letter-spacing: 1px;
     font-weight: 600;
-    overflow: hidden;
+    overflow: hidden;   
     border-radius: 5px;
     color: var(--danger);
     box-shadow: 0 0 1px var(--clr-neon);

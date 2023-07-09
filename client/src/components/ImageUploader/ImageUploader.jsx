@@ -18,7 +18,6 @@ export const ImageUploader = ({ addImages }) => {
                     multiple
                     name="images"
                     id="images"
-                    required
                     onChange={handleImageSelect}
                     onClick={(e) => (e.target.value = null)}
                     data-testid="hidden-file-input"
