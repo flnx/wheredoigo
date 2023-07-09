@@ -27,8 +27,6 @@ export const createImageFiles = async (imageUrls, formData) => {
         }
     }).slice(0,50);
 
-    console.log(fetchPromises.length)
-
     await Promise.all(fetchPromises);
 };
 

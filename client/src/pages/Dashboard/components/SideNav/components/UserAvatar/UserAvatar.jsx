@@ -103,7 +103,8 @@ export const UserAvatar = () => {
                 </div>
             )}
             <canvas ref={canvasRef} style={{ display: 'none' }} />
-            {error && <ServerError errorMessage={error} />}
+            {/* {error && <ServerError errorMessage={error} />} */}
+            <ServerError errorMessage={error} />
         </header>
     );
 };

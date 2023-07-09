@@ -1,17 +1,39 @@
 .serverError {
     z-index: 10;
     position: fixed;
-    left: 5%;
+    left: -100%; /* Start offscreen */
     right: 5%;
     bottom: 8%;
-    padding: 0.65rem 1.5rem;
+    padding: 1rem 1.5rem;
     background: #fff;
-    border: 2px solid var(--danger);
     color: var(--danger);
     border-radius: 5px;
-    max-width: 25rem;
+    max-width: 30rem;
     text-align: center;
-    font-size: 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: var(--clr-neon);
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0 0 1px var(--clr-neon), 0 0 25px var(--clr-neon), 0 0 10px var(--clr-neon),
+        0 0 0px var(--clr-neon);
+    -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+
+    /* Animation */
+    animation-name: slideFromLeft;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes slideFromLeft {
+    0% {
+        left: -100%; /* Start offscreen */
+    }
+    100% {
+        left: 5%; /* End position */
+    }
 }
 
 @media (min-width: 64em) {
