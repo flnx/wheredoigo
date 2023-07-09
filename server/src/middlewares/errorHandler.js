@@ -7,7 +7,7 @@ function errorHandler(err, req, res, next) {
     switch (err.name) {
         case 'MulterError':
             if (err.code == 'LIMIT_UNEXPECTED_FILE') {
-                res.status(400).json({ message: errorMessages.data.imagesLimit });
+                next(err);
             } else {
                 res.status(400).json({
                     message: err.message || errorMessages.request.upload,

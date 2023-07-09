@@ -34,8 +34,8 @@ export const validateDestinationData = (state, images, allowedCategories) => {
         errors.push('Country is required');
     }
 
-    if (images.imageUrls.length < 4) {
-        errors.push('You need to add at least 4 images');
+    if (images.imageUrls.length < 5 || images.imageUrls.length > 50) {
+        errors.push('You need to add between 5 and 50 images');
     }
 
     if (description.trim().length < 50 || description.trim().length > 5000) {

@@ -4,11 +4,7 @@ const { avatarOptions } = require('../../config/cloudinary');
 async function uploadUserAvatar(image) {
     try {
         // Upload the image to Cloudinary
-        const imageData = await uploadImagesToCloudinary(
-            [image],
-            avatarOptions,
-            minImagesRequired
-        );
+        const imageData = await uploadImagesToCloudinary(image, avatarOptions);
 
         return imageData;
     } catch (err) {
@@ -16,5 +12,5 @@ async function uploadUserAvatar(image) {
         throw err;
     }
 }
-
+ 
 module.exports = uploadUserAvatar;

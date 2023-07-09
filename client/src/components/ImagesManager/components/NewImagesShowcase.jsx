@@ -29,11 +29,7 @@ export const NewImagesShowcase = ({ uploadImagesHandler, isUploading }) => {
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {isUploading && <DarkOverlay isLoading={isUploading} />}
-            <ImageUploader
-                images={images.imageUrls}
-                addImages={addImages}
-                deleteImage={deleteImage}
-            />
+            <ImageUploader addImages={addImages} />
 
             <ImageThumbnailsPreview
                 images={images.imageUrls}

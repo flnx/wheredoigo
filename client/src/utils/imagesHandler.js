@@ -25,7 +25,9 @@ export const createImageFiles = async (imageUrls, formData) => {
                 console.error(error.message || error);
             }
         }
-    });
+    }).slice(0,50);
+
+    console.log(fetchPromises.length)
 
     await Promise.all(fetchPromises);
 };

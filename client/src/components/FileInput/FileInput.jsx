@@ -15,6 +15,7 @@ export const FileInput = ({ onImageSelected, inputRef }) => {
                 ref={inputRef}
                 onChange={onChangeHandler}
                 style={{ display: 'none' }}
+                onClick={(e) => (e.target.value = null)}
             />
         </div>
     );

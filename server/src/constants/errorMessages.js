@@ -26,7 +26,7 @@ exports.errorMessages = {
         notEdited: 'Edit failed. Please try again',
         notDeleted: 'Deletion process failed. Please try again.',
         invalidBody: 'Please provide a valid object with the updated destination fields',
-        imagesBoundary: (num) => `Please upload a minimum of ${num} ${num > 1 ? 'images' : 'image'}.`,
+        imagesBoundary: (num = 1) => `Please upload a minimum of ${num} ${num > 1 ? 'images' : 'image'}.`,
         imagesLimit: 'You have uploaded too many images. Please limit your upload to 50 images or less',
         category: 'Please select at least 1 category',
         city: 'We could not find this city in our database :(',

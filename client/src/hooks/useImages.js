@@ -9,7 +9,8 @@ export const useImages = () => {
         dispatch({
             type: 'add_images',
             payload: {
-                files: Array.from(files),
+                // limit the files up to 50
+                files: Array.from(files).slice(0, 50),
             },
         });
     };

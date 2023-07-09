@@ -21,7 +21,7 @@ function validateImages(images, minimumNum) {
 
         // Check if 'obj.buffer' is a Buffer
         const isBuffer = isValidObject && Buffer.isBuffer(obj.buffer);
-
+        
         // Check if 'obj.mimetype' corresponds to an expected image format
         const isImageFormat = isValidObject && isExpectedImageFormat(obj.mimetype);
 
