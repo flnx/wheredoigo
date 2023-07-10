@@ -35,7 +35,7 @@
 
 .container {
     margin: 0 auto;
-    width: clamp(14rem, 93.5vw, 80rem);
+    width: clamp(14rem, 93.5vw, 85rem);
 }
 
 @media (min-width: 40em) {

@@ -16,6 +16,7 @@ import { EditPlace } from '../pages/EditPlace/EditPlace';
 import { Logout } from '../components/Logout/Logout';
 
 import routeConstants from '../constants/routeConstants';
+import { NotFound } from '../components/NotFound/NotFound';
 
 const { HOME, AUTH, DASHBOARD, DESTINATIONS, PLACES, DISCOVER } = routeConstants;
 
@@ -42,7 +43,7 @@ export const AppRoutes = () => {
                 <Route path={PLACES.BY_ID.route} element={<PlaceDetails />}>
                     <Route path={PLACES.ABOUT.route} element={<DetailsModal />} />
                 </Route>
-                <Route path="*" element={<p>404 Not Found</p>} />
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </main>
     );
