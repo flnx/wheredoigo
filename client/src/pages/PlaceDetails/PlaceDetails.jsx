@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { usePlace } from '../../hooks/queries/usePlace';
 import { extractServerErrorMessage } from '../../utils/utils';
@@ -9,9 +10,9 @@ import { Images } from './components/ImagesSection/ImagesSection';
 import { Comments } from './components/Comments/Comments';
 import { CommentForm } from './components/CommentForm/CommentForm';
 import { GenerateAIComments } from './components/GenerateAIComments/GenerateAIComments';
+import { NotFound } from '../../components/NotFound/NotFound';
 
 import styles from './PlaceDetails.module.css';
-import { useRef } from 'react';
 
 export const PlaceDetails = () => {
     const { placeId } = useParams();
@@ -22,6 +23,10 @@ export const PlaceDetails = () => {
     const imagesData = place?.imageUrls || [];
 
     const { isAuth, hasCommented, hasAIComments, isOwner } = data || {};
+
+    if (error && error?.response.status == 404) {
+        return <NotFound />;
+    }
 
     return (
         <Container>

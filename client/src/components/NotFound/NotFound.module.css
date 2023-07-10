@@ -1,7 +1,7 @@
 .section {
     max-width: 60rem;
     margin-inline: auto;
-    padding: 5rem 0;
+    padding: 4rem 0;
 }
 
 .flex {
@@ -38,6 +38,10 @@
 }
 
 @media (min-width: 64em) {
+    .section {
+        padding: 5rem 0;
+    }
+
     .content .title {
         font-size: 8rem;
     }

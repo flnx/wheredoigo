@@ -8,6 +8,7 @@ import { DestinationHeader } from './components/Header/Header';
 import { PlacesShowcase } from './components/PlacesShowcase/PlacesShowcase';
 import { Container } from '../../components/Containers/Container/Container';
 import { LinkButtonSecondary } from '../../components/Buttons/Secondary-Btn/LinkButtonSecondary';
+import { NotFound } from '../../components/NotFound/NotFound';
 
 import routeConstants from '../../constants/routeConstants';
 import styles from './DestinationDetails.module.css';
@@ -20,6 +21,10 @@ export const DestinationDetails = () => {
     const destination = data || {};
     const placesData = destination?.places || [];
     const imagesData = destination?.imageUrls || [];
+
+    if (error && error?.response.status == 404) {
+        return <NotFound />;
+    }
 
     return (
         <Container>
