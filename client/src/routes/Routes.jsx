@@ -1,8 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
 
-import { UserDashboardRoutes } from '../routes/UserDashboardRoutes';
 import { AuthRoutes } from '../routes/AuthRoutes';
 import { UnauthenticatedRoute } from '../components/UnauthenticatedRoute/UnauthenticatedRoute';
+const UserDashboardRoutes = lazy(() => import('./UserDashboardRoutes'));
 
 import { ErrorBoundaryFallback as ErrorBoundary } from '../components/Errors/ErrorFallbackComponent';
 import { ProtectedRoute } from '../components/ProtectedRoutes/ProtectedRoute';
@@ -18,6 +19,7 @@ import { Logout } from '../components/Logout/Logout';
 import { NotFound } from '../components/Errors/NotFound/NotFound';
 
 import routeConstants from '../constants/routeConstants';
+import { DarkOverlay } from '../components/DarkOverlay/DarkOverlay';
 
 const { HOME, AUTH, DASHBOARD, DESTINATIONS, PLACES, DISCOVER } = routeConstants;
 
@@ -38,18 +40,32 @@ export const AppRoutes = () => {
                 </Route>
                 <Route
                     element={
-                        <ErrorBoundary key={'protectedRoutes'}>
+                        <ErrorBoundary key={'protected'}>
                             <ProtectedRoute />
                         </ErrorBoundary>
                     }
                 >
-                    <Route path={`${DASHBOARD.route}/*`} element={<UserDashboardRoutes />} />
+                    <Route
+                        path={`${DASHBOARD.route}/*`}
+                        element={
+                            <Suspense fallback={<DarkOverlay isLoading={true} />}>
+                                <UserDashboardRoutes />
+                            </Suspense>
+                        }
+                    />
                     <Route path={DESTINATIONS.EDIT.route} element={<EditDestination />} />
                     <Route path={PLACES.EDIT.route} element={<EditPlace />} />
                     <Route path={PLACES.ADD.route} element={<AddPlace />} />
                     <Route path={AUTH.LOGOUT.route} element={<Logout />} />
                 </Route>
-                <Route path={DISCOVER.route} element={<Discover />} />
+                <Route
+                    path={DISCOVER.route}
+                    element={
+                        <ErrorBoundary key={DISCOVER.name}>
+                            <Discover />
+                        </ErrorBoundary>
+                    }
+                />
                 <Route
                     path={DESTINATIONS.BY_ID.route}
                     element={

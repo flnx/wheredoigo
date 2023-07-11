@@ -8,7 +8,6 @@ import { SomethingBroke } from './SomethingBroke/SomethingBroke';
 
 const ErrorFallbackComponent = ({ error, resetErrorBoundary }) => {
     const errorMessage = extractServerErrorMessage(error);
-    console.log(errorMessage);
 
     if (errorMessage === 'Network Error') {
         return <ServerDown />;
@@ -21,7 +20,14 @@ const ErrorFallbackComponent = ({ error, resetErrorBoundary }) => {
 
 export const ErrorBoundaryFallback = ({ children }) => {
     return (
-        <ErrorBoundary FallbackComponent={ErrorFallbackComponent}>
+        <ErrorBoundary
+            FallbackComponent={ErrorFallbackComponent}
+            onError={(error) => {
+                const errorMessage = error.message || extractServerErrorMessage(error);
+
+                console.error(errorMessage);
+            }}
+        >
             {children}
         </ErrorBoundary>
     );

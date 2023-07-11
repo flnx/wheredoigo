@@ -26,3 +26,5 @@ export const UserDashboardRoutes = () => {
         </Routes>
     );
 };
+
+export default UserDashboardRoutes;
