@@ -43,32 +43,33 @@ export function checkArrayAndPreloadElements(arr, prefillNum) {
 export function extractServerErrorMessage(error) {
     if (!error) return;
 
+    
     if (error?.message == 'Network Error') {
         // Check ErrorFallbackComponent before changing this!!!
         return 'Network Error';
     }
-
+    
     const { response } = error || {};
-
+    
     if (!response) {
         return 'An error occurred';
     }
-
+    
     const { status, data } = response;
-
+    
     let message = '';
-
+    
     if (data && typeof data.message === 'string') {
         message = data.message;
     }
-
+    
     switch (status) {
         case 400:
             return message || 'Bad Request';
         case 401:
             return message || 'Unauthorized';
         case 403:
-            return message || 'Forbidden';
+            return 'Forbidden';
         case 404:
             return 'Not Found'; // Check ErrorFallbackComponent before changing this!!!
         case 500:

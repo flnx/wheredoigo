@@ -1,0 +1,57 @@
+.section {
+    max-width: 60rem;
+    margin-inline: auto;
+    padding: 4rem 0;
+}
+
+.flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.imageContainer img {
+    border-radius: 20%;
+}
+
+.content .title {
+    font-size: 6.5rem;
+    font-weight: 900;
+    letter-spacing: 5px;
+    line-height: 1.3;
+}
+
+.content {
+    text-align: center;
+}
+
+.content .notFound {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.text {
+    font-size: 1.15rem;
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+@media (min-width: 64em) {
+    .section {
+        padding: 5rem 0;
+    }
+
+    .content .title {
+        font-size: 8rem;
+    }
+
+    .content .notFound {
+        font-size: 4.5rem;
+    }
+
+    .flex {
+        flex-direction: row;
+        gap: 3rem;
+    }
+}

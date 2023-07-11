@@ -3,8 +3,10 @@ import { queryEndpoints } from '../../constants/reactQueryEndpoints';
 import { getCreatePlacePermissions } from '../../service/data/permissions';
 
 export const useRequestCreatePlacePermissions = (destinationId) => {
-    return useQuery({
+    const { data, isLoading, error } = useQuery({
         queryKey: [queryEndpoints.createPlacePermissions, destinationId],
         queryFn: () => getCreatePlacePermissions(destinationId),
     });
+
+    return { data, isLoading, error };
 };

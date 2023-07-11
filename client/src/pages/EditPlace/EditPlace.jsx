@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useGetPlaceToEdit } from '../../hooks/queries/useGetPlaceToEdit';
 import { useDeletePlaceImage } from '../../hooks/queries/useDeletePlaceImage';
 import { useAddPlaceNewImages } from '../../hooks/queries/useAddPlaceNewImages';
@@ -12,58 +11,41 @@ import { FlexSectionContainer } from '../../components/Containers/FlexSectionCon
 import { ImagesManager } from '../../components/ImagesManager/ImagesManager';
 import { TextWrap } from '../../components/TextWrap/TextWrap';
 
-import { extractServerErrorMessage } from '../../utils/utils';
-import routeConstants from '../../constants/routeConstants';
-
 export const EditPlace = () => {
     const { placeId } = useParams();
-    const navigate = useNavigate();
     const { showBoundary } = useErrorBoundary();
 
-    const [data, error, isLoading, serverError] = useGetPlaceToEdit(placeId);
+    const [data, error, isLoading] = useGetPlaceToEdit(placeId);
     const deleteImageHook = () => useDeletePlaceImage(placeId, data?.destinationId);
     const addImageHook = () => useAddPlaceNewImages(placeId, data?.destinationId);
 
     const placeTitle = `${data?.name}, ${data?.city}`;
 
-    useEffect(() => {
-        if (error) {
-            const { routePath } = routeConstants.PLACES.BY_ID;
-            navigate(routePath(placeId), { replace: true });
-        }
-    }, [error]);
-
-    if (serverError) {
-        showBoundary(serverError);
+    if (error) {
+        showBoundary(error);
         return null;
     }
 
     return (
         <Container mb={3}>
-            {error ? (
-                extractServerErrorMessage(error)
-            ) : (
-                <>
-                    <h1 className="smaller mb-2">
-                        <TextWrap isLoading={isLoading} content={`Edit ${placeTitle}`} />
-                    </h1>
+            <h1 className="smaller mb-2">
+                <TextWrap isLoading={isLoading} content={`Edit ${placeTitle}`} />
+            </h1>
 
-                    <FlexSectionContainer>
-                        <Form
-                            data={data || {}}
-                            placeId={placeId}
-                            destinationId={data?.destinationId}
-                            isLoading={isLoading}
-                        />
-                        <ImagesManager
-                            imagesData={data?.imageUrls || []}
-                            deleteImageHook={deleteImageHook}
-                            addImageHook={addImageHook}
-                            isLoading={isLoading}
-                        />
-                    </FlexSectionContainer>
-                </>
-            )}
+            <FlexSectionContainer>
+                <Form
+                    data={data || {}}
+                    placeId={placeId}
+                    destinationId={data?.destinationId}
+                    isLoading={isLoading}
+                />
+                <ImagesManager
+                    imagesData={data?.imageUrls || []}
+                    deleteImageHook={deleteImageHook}
+                    addImageHook={addImageHook}
+                    isLoading={isLoading}
+                />
+            </FlexSectionContainer>
         </Container>
     );
 };

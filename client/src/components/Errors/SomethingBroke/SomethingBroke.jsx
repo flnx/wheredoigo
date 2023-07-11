@@ -7,7 +7,10 @@ export const SomethingBroke = () => {
             <section className={styles.section}>
                 <div className={styles.flex}>
                     <div className={styles.imageContainer}>
-                        <img src="https://media.tenor.com/Svg4wm7e5JoAAAAC/no-why.gif" />
+                        <img
+                            src="https://media.tenor.com/Svg4wm7e5JoAAAAC/no-why.gif"
+                            alt="TBBT Raj, Howard, Leonard disagree with someone else"
+                        />
                     </div>
 
                     <div className={styles.content}>

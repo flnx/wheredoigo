@@ -14,8 +14,6 @@ async function getDestinationsPaginated(page, limit, searchParams, categories) {
         regex
     );
 
-    throw new Error('Transaction error')
-
     const countPromise = Destination.aggregate(countPipeline).exec();
     const dataPromise = Destination.aggregate(dataPipeline).exec();
 

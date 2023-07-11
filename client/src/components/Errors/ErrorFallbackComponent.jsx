@@ -1,10 +1,12 @@
 import { extractServerErrorMessage } from '../../utils/utils';
 import { ErrorBoundary } from 'react-error-boundary';
 
+// LAZY??
 // Components
 import { NotFound } from './NotFound/NotFound';
 import { ServerDown } from './ServerDown/ServerDown';
 import { SomethingBroke } from './SomethingBroke/SomethingBroke';
+import { Forbidden } from './Forbidden/Forbidden';
 
 const ErrorFallbackComponent = ({ error, resetErrorBoundary }) => {
     const errorMessage = extractServerErrorMessage(error);
@@ -13,6 +15,8 @@ const ErrorFallbackComponent = ({ error, resetErrorBoundary }) => {
         return <ServerDown />;
     } else if (errorMessage == 'Not Found') {
         return <NotFound />;
+    } else if (errorMessage == 'Forbidden') {
+        return <Forbidden />
     } else {
         return <SomethingBroke />;
     }

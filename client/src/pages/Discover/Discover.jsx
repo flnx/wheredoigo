@@ -21,9 +21,8 @@ export const Discover = () => {
     const categories = validateCategoriesOnSearch(searchParams);
 
     // Updates the URL queries with the newly picked "categories" and "search"
+    // - newSearch prop is the current user search input value from SearchBar
     const updateSearchParamsHandler = (newSearch) => {
-        // - newSearch prop is the current user search input value from SearchBar
-
         // - This is the object that'll update the URL queries, initialized with categories (empty or not)
         const updatedParams = {
             category: categories,
