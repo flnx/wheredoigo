@@ -1,14 +1,28 @@
 import { ClipLoader } from 'react-spinners';
 import { useInfiniteDestinations } from '../../../../hooks/queries/useInfiniteDestinations';
+import { useErrorBoundary } from 'react-error-boundary';
 
 import { DestinationsGrid } from '../../../../components/DestinationsGrid/DestinationsGrid';
 import { extractServerErrorMessage } from '../../../../utils/utils';
 import styles from './Destinations.module.css';
 
 export const Destinations = ({ searchParam, categoryParams }) => {
-    const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching, error } =
-        useInfiniteDestinations(searchParam, categoryParams);
- 
+    const { showBoundary } = useErrorBoundary();
+
+    const { 
+        data, 
+        fetchNextPage, 
+        hasNextPage, 
+        isFetchingNextPage, 
+        isFetching, 
+        error 
+    } = useInfiniteDestinations(searchParam, categoryParams);
+
+    if (error) {
+        showBoundary(error);
+        return;
+    }
+
     const loadingClass = (isFetchingNextPage || !hasNextPage) && styles.loading;
     const destinations = data?.pages.flatMap((arr) => arr.result) ?? [];
 

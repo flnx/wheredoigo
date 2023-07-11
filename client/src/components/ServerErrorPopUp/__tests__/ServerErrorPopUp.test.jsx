@@ -1,8 +1,8 @@
 import { act } from 'react-dom/test-utils';
 import { render, screen, userEvent, waitFor } from '../../../utils/test-utils';
-import { ServerError } from '../ServerError';
+import { ServerErrorPopUp } from '../ServerErrorPopUp';
 
-describe('ServerError testing', () => {
+describe('ServerErrorPopUp testing', () => {
     const errorMessage = 'error test';
     const mockServerError = {
         response: {
@@ -14,7 +14,7 @@ describe('ServerError testing', () => {
     };
 
     it('Renders the error message', () => {
-        render(<ServerError errorMessage={mockServerError} />);
+        render(<ServerErrorPopUp errorMessage={mockServerError} />);
 
         const serverError = screen.getByText(errorMessage);
         expect(serverError).toBeInTheDocument();
@@ -23,7 +23,7 @@ describe('ServerError testing', () => {
     it('hides the error message after a timeout', async () => {
         vi.useFakeTimers();
 
-        render(<ServerError errorMessage={mockServerError} />);
+        render(<ServerErrorPopUp errorMessage={mockServerError} />);
 
         const serverError = screen.getByText(errorMessage);
         expect(serverError).toBeInTheDocument();

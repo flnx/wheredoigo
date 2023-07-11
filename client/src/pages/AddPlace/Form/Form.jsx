@@ -10,7 +10,7 @@ import { DarkOverlay } from '../../../components/DarkOverlay/DarkOverlay';
 import { Input } from './Input';
 import { Textarea } from './Textarea';
 import { FormSelect } from '../../../components/FormSelect/FormSelect';
-import { ServerError } from '../../../components/ServerError/ServerError';
+import { ServerErrorPopUp } from '../../../components/ServerErrorPopUp/ServerErrorPopUp';
 import { SuccessButton } from '../../../components/Buttons/Success-Button/SuccessButton';
 
 import styles from './Form.module.css';
@@ -59,7 +59,7 @@ export const Form = ({ destinationId, allowedCategories }) => {
                 Add Place
             </SuccessButton>
             {isLoading && <DarkOverlay isLoading={isLoading} />}
-            {serverError && <ServerError errorMessage={serverError} />}
+            {serverError && <ServerErrorPopUp errorMessage={serverError} />}
         </form>
     );
 };

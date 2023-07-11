@@ -4,7 +4,7 @@ import { useSubmitData } from './useSubmitData';
 import { useImages } from '../../../../hooks/useImages';
 
 // Components
-import { ServerError } from '../../../../components/ServerError/ServerError';
+import { ServerErrorPopUp } from '../../../../components/ServerErrorPopUp/ServerErrorPopUp';
 import { Description } from './components/Description';
 import { Details } from './components/Details';
 import { ImageUploader } from '../../../../components/ImageUploader/ImageUploader';
@@ -40,7 +40,7 @@ export const AddDestination = () => {
             <h1 className="smaller mb-2">Add destination</h1>
 
             {isLoading && <DarkOverlay isLoading={isLoading} />}
-            {error && <ServerError errorMessage={error} />}
+            {error && <ServerErrorPopUp errorMessage={error} />}
 
             <form className={styles.form} onSubmit={submitHandler}>
                 <MemoizedLocationDropdown

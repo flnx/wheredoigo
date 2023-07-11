@@ -1,7 +1,7 @@
 import { useUserActivity } from '../../../../hooks/queries/useUserActivity';
 
 // Components
-import { ServerError } from '../../../../components/ServerError/ServerError';
+import { ServerErrorPopUp } from '../../../../components/ServerErrorPopUp/ServerErrorPopUp';
 import { UserLastActivities } from './components/UserDashboardData/UserDashboardData';
 import { RecentActivities } from './components/RecentActivities/RecentActivities';
 import { ClipLoader } from 'react-spinners';
@@ -28,7 +28,7 @@ export const Main = () => {
                 size={45}
                 className={styles.spinner}
             />
-            {error && <ServerError errorMessage={error} />}
+            {error && <ServerErrorPopUp errorMessage={error} />}
         </div>
     );
 };

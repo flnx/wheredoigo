@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useFetchPlacesData } from '../../../../hooks/queries/useFetchPlaceData';
 
-import { ServerError } from '../../../../components/ServerError/ServerError';
+import { ServerErrorPopUp } from '../../../../components/ServerErrorPopUp/ServerErrorPopUp';
 import { FormSelect } from '../../../../components/FormSelect/FormSelect';
 import { PieChart } from './components/PieChart';
 
@@ -37,7 +37,7 @@ export const SideStats = () => {
             <section>
                 {!isLoading && <PieChart placeData={inputValue} />}
             </section>
-            {error && <ServerError errorMessage={error}/>}
+            {error && <ServerErrorPopUp errorMessage={error}/>}
         </div>
     );
 };

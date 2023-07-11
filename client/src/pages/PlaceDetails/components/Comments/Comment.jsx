@@ -8,7 +8,7 @@ import { DotsThree } from '@phosphor-icons/react';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 import { StarRating } from '../../../../components/StarRating/StarRating';
 import { Dropdown } from './Dropdown/Dropdown';
-import { ServerError } from '../../../../components/ServerError/ServerError';
+import { ServerErrorPopUp } from '../../../../components/ServerErrorPopUp/ServerErrorPopUp';
 
 import styles from './Comments.module.css';
 
@@ -64,7 +64,7 @@ export const Comment = ({ comment }) => {
 
     return (
         <section className={styles.comment}>
-            {removeError && <ServerError errorMessage={removeError} />}
+            {removeError && <ServerErrorPopUp errorMessage={removeError} />}
 
             <div className={styles.avatar}>
                 <img src={comment.ownerId.avatarUrl} alt="img" />

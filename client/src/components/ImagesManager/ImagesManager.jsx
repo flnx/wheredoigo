@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 // Components
-import { ServerError } from '../ServerError/ServerError';
+import { ServerErrorPopUp } from '../ServerErrorPopUp/ServerErrorPopUp';
 import { ImageHandler } from './components/ImageHandler';
 import { NewImagesShowcase } from './components/NewImagesShowcase';
 
@@ -53,7 +53,7 @@ export const ImagesManager = ({ imagesData, deleteImageHook, addImageHook, isLoa
                 )}
             </div>
 
-            {error && <ServerError errorMessage={error} />}
+            {error && <ServerErrorPopUp errorMessage={error} />}
         </section>
     );
 };

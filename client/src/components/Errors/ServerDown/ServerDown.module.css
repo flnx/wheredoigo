@@ -1,0 +1,41 @@
+.section {
+    max-width: 60rem;
+    margin-inline: auto;
+    padding: 4rem 0.75rem;
+}
+
+.flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    gap: 1.5rem;
+}
+
+.imageContainer,
+.content {
+    flex: 1;
+}
+
+.imageContainer img {
+    border-radius: 5px;
+}
+
+.content {
+    text-align: center;
+}
+
+.content .text {
+    font-weight: 600;
+    color: var(--error-message);
+}
+
+@media (min-width: 64em) {
+    .section {
+        padding: 10rem 0;
+    }
+
+    .flex {
+        flex-direction: row;
+    }
+}

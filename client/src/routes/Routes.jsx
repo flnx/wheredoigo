@@ -14,9 +14,9 @@ import { AddPlace } from '../pages/AddPlace/AddPlace';
 import { EditDestination } from '../pages/EditDestination/EditDestination';
 import { EditPlace } from '../pages/EditPlace/EditPlace';
 import { Logout } from '../components/Logout/Logout';
+import { NotFound } from '../components/Errors/NotFound/NotFound';
 
 import routeConstants from '../constants/routeConstants';
-import { NotFound } from '../components/NotFound/NotFound';
 
 const { HOME, AUTH, DASHBOARD, DESTINATIONS, PLACES, DISCOVER } = routeConstants;
 

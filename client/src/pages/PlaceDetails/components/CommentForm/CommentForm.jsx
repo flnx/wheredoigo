@@ -5,7 +5,7 @@ import { useSubmitFormData } from './useSubmitFormData';
 import { SecondaryButton } from '../../../../components/Buttons/Secondary-Btn/SecondaryButton';
 import { Rate } from './Rate';
 import { DarkOverlay } from '../../../../components/DarkOverlay/DarkOverlay';
-import { ServerError } from '../../../../components/ServerError/ServerError';
+import { ServerErrorPopUp } from '../../../../components/ServerErrorPopUp/ServerErrorPopUp';
 
 import styles from './CommentForm.module.css';
 
@@ -65,7 +65,7 @@ export const CommentForm = ({ commentSectionRef }) => {
             </form>
             {isLoading && <DarkOverlay isLoading={isLoading} />}
             {validationError && <span className={styles.error}>{validationError}</span>}
-            {error && <ServerError errorMessage={error} />}
+            {error && <ServerErrorPopUp errorMessage={error} />}
         </div>
     );
 };

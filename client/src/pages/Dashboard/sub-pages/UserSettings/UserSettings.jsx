@@ -5,7 +5,7 @@ import { AuthContext } from '../../../../context/AuthContext';
 // Components
 import { WarningButton } from '../../../../components/Buttons/Button-Warning/WarningButton';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
-import { ServerError } from '../../../../components/ServerError/ServerError';
+import { ServerErrorPopUp } from '../../../../components/ServerErrorPopUp/ServerErrorPopUp';
 
 import styles from './UserSettings.module.css';
 
@@ -61,7 +61,7 @@ export const UserSettings = () => {
                     </div>
                 </ConfirmModal>
             )}
-            {error && <ServerError errorMessage={error}/>}
+            {error && <ServerErrorPopUp errorMessage={error}/>}
         </div>
     );
 };

@@ -48,6 +48,8 @@ async function isCommentedByAIBots({ placeId }) {
     ];
 
     const [place, commenters] = await Promise.all(promises);
+
+    throw new Error('lol nigga')
     
     if (!place) {
         throw createValidationError(errorMessages.data.notFound, 404);

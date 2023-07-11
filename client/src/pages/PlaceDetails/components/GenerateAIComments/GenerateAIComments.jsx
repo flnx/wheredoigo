@@ -1,6 +1,6 @@
 import { ButtonGlow } from '../../../../components/Buttons/Button-Glow/ButtonGlow';
 import { DarkOverlay } from '../../../../components/DarkOverlay/DarkOverlay';
-import { ServerError } from '../../../../components/ServerError/ServerError';
+import { ServerErrorPopUp } from '../../../../components/ServerErrorPopUp/ServerErrorPopUp';
 import { useGenerateAIComments } from '../../../../hooks/queries/useGenerateAIComments';
 
 export const GenerateAIComments = ({ placeId }) => {
@@ -23,7 +23,7 @@ export const GenerateAIComments = ({ placeId }) => {
                 />
             )}
 
-            {error && <ServerError errorMessage={error} />}
+            {error && <ServerErrorPopUp errorMessage={error} />}
         </section>
     );
 };

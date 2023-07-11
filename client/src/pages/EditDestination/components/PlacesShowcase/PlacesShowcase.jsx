@@ -6,7 +6,7 @@ import { checkArrayAndPreloadElements } from '../../../../utils/utils';
 import { Places } from '../../../../components/Places/Places';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 import { LinkButtonSecondary } from '../../../../components/Buttons/Secondary-Btn/LinkButtonSecondary';
-import { ServerError } from '../../../../components/ServerError/ServerError';
+import { ServerErrorPopUp } from '../../../../components/ServerErrorPopUp/ServerErrorPopUp';
 import { TextWrap } from '../../../../components/TextWrap/TextWrap';
 
 import routeConstants from '../../../../constants/routeConstants';
@@ -73,7 +73,7 @@ export const PlacesShowcase = ({ places, destinationId, isLoading }) => {
                 </ConfirmModal>
             )}
 
-            {error && <ServerError errorMessage={error} />}
+            {error && <ServerErrorPopUp errorMessage={error} />}
         </section>
     );
 };

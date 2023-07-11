@@ -10,7 +10,7 @@ import { CancelButton } from '../../../../../../components/Buttons/Cancel-Button
 import { SuccessButton } from '../../../../../../components/Buttons/Success-Button/SuccessButton';
 import { CameraPlus } from '@phosphor-icons/react';
 import { DarkOverlay } from '../../../../../../components/DarkOverlay/DarkOverlay';
-import { ServerError } from '../../../../../../components/ServerError/ServerError';
+import { ServerErrorPopUp } from '../../../../../../components/ServerErrorPopUp/ServerErrorPopUp';
 
 import styles from './UserAvatar.module.css';
 
@@ -103,7 +103,7 @@ export const UserAvatar = () => {
                 </div>
             )}
             <canvas ref={canvasRef} style={{ display: 'none' }} />
-            {error && <ServerError errorMessage={error} />}
+            {error && <ServerErrorPopUp errorMessage={error} />}
         </header>
     );
 };

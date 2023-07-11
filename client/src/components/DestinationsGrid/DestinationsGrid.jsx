@@ -17,7 +17,7 @@ export const DestinationsGrid = ({
 }) => {
     return (
         <div className={styles.grid}>
-            {destinations?.map((destination) => (
+            {destinations.map((destination) => (
                 <Destination
                     destination={destination}
                     key={destination._id}

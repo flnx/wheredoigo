@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 // Component
 import { Heart } from '@phosphor-icons/react';
-import { ServerError } from '../ServerError/ServerError';
+import { ServerErrorPopUp } from '../ServerErrorPopUp/ServerErrorPopUp';
 
 import styles from './AddToFavorites.module.css';
 import routeConstants from '../../constants/routeConstants';
@@ -48,7 +48,7 @@ export const AddToFavorites = ({ size, _id, isLikedByUser, hasSession }) => {
                 className={`${styles.icon} ${rotateClass} ${likedOrDislikedClass}`}
                 data-testid="heart-icon"
             />
-            {error && <ServerError errorMessage={error} />}
+            {error && <ServerErrorPopUp errorMessage={error} />}
         </>
     );
 };

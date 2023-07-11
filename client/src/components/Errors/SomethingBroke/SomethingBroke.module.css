@@ -1,0 +1,48 @@
+.section {
+    max-width: 50rem;
+    margin-inline: auto;
+    padding: 4rem 0.75rem;
+}
+
+.flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    gap: 1rem;
+}
+
+.imageContainer,
+.content {
+    flex: 1;
+}
+
+.imageContainer img {
+    border-radius: 10%;
+}
+
+.content {
+    text-align: center;
+}
+
+.content .text {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--error-message);
+}
+
+@media (min-width: 64em) {
+    .section {
+        max-width: 65rem;
+        padding: 10rem 0;
+    }
+
+    .flex {
+        flex-direction: row;
+        gap: 2rem;
+    }
+
+    .imageContainer img {
+        border-radius: 50%;
+    }
+}

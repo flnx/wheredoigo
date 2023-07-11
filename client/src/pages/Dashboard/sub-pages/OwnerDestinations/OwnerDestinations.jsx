@@ -7,7 +7,7 @@ import { extractServerErrorMessage } from '../../../../utils/utils';
 import { DestinationsGrid } from '../../../../components/DestinationsGrid/DestinationsGrid';
 import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
 import { ClipLoader } from 'react-spinners';
-import { ServerError } from '../../../../components/ServerError/ServerError';
+import { ServerErrorPopUp } from '../../../../components/ServerErrorPopUp/ServerErrorPopUp';
 
 import styles from './OwnerDestinations.module.css';
 
@@ -44,7 +44,7 @@ export const OwnerDestinations = () => {
     return (
         <div className={styles.container}>
             <h1 className="smaller mb-2">Created destinations 🦖</h1>
-            {deleteError && <ServerError errorMessage={deleteError} />}
+            {deleteError && <ServerErrorPopUp errorMessage={deleteError} />}
             {error ? (
                 extractServerErrorMessage(error)
             ) : (

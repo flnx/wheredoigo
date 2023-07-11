@@ -1,10 +1,9 @@
 import { useUserFavorites } from '../../../../hooks/queries/useUserFavorites';
-import { extractServerErrorMessage } from '../../../../utils/utils';
 
 // Components
 import { ClipLoader } from 'react-spinners';
 import { DestinationsGrid } from '../../../../components/DestinationsGrid/DestinationsGrid';
-import { ServerError } from '../../../../components/ServerError/ServerError';
+import { ServerErrorPopUp } from '../../../../components/ServerErrorPopUp/ServerErrorPopUp';
 
 export const Favorites = () => {
     const [data, isLoading, error] = useUserFavorites();
@@ -22,17 +21,16 @@ export const Favorites = () => {
                 </span>
             ) : (
                 <>
-                    {!hasDestinations && <p>You don't have favorite destinations yet</p>}
-                    {!isLoading && hasDestinations && (
-                        <DestinationsGrid destinations={destinations} />
+                    {!error && !hasDestinations && (
+                        <p>You don't have favorite destinations yet</p>
                     )}
+                    {!isLoading && <DestinationsGrid destinations={destinations} />}
                 </>
             )}
 
             {error && (
                 <>
-                    <p>{extractServerErrorMessage(error)}</p>
-                    <ServerError errorMessage={error} />
+                    <ServerErrorPopUp errorMessage={error} />
                 </>
             )}
         </div>

@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { extractServerErrorMessage } from '../../utils/utils';
 
-import styles from './ServerError.module.css';
+import styles from './ServerErrorPopUp.module.css';
 
-export const ServerError = ({ errorMessage }) => {
+export const ServerErrorPopUp = ({ errorMessage }) => {
     const [isVisible, setIsVisible] = useState(true);
 
     const error = extractServerErrorMessage(errorMessage);
+    
     useEffect(() => {
         const timer = setTimeout(() => {
             setIsVisible(false);

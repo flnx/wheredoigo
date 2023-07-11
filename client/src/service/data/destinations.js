@@ -10,6 +10,8 @@ export const getDestinations = async () => {
 export const getMostLikedDestinations = async () => {
     const res = await axios.get(apiEndpoints.mostLikedDestinations);
 
+    // await new Promise(res => setTimeout(res, 4000)) 
+
     return res.data;
 };
 
@@ -28,7 +30,6 @@ export const likeDestination = async (id, likeData) => {
         isLike,
     };
 };
-
 
 export const getCreatorDestinations = async () => {
     const res = await axios.get(apiEndpoints.creatorDestinations);

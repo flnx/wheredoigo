@@ -1,4 +1,4 @@
-import { Container } from '../Containers/Container/Container';
+import { Container } from '../../Containers/Container/Container';
 import styles from './NotFound.module.css';
 
 export const NotFound = () => {
@@ -16,7 +16,9 @@ export const NotFound = () => {
                     <div className={styles.content}>
                         <h1 className={styles.title}>404</h1>
                         <p className={styles.notFound}>Not Found</p>
-                        <p className={styles.text}>The page you're looking for doesn't exist</p>
+                        <p className={styles.text}>
+                            The page you're looking for doesn't exist
+                        </p>
                     </div>
                 </div>
             </section>

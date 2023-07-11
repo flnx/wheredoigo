@@ -9,6 +9,7 @@ import { LoadingSkeleton } from '../../../components/LoadingSkeletons/LoadingSke
 import routeConstants from '../../../constants/routeConstants';
 import homeStyles from '../Home.module.css';
 import styles from './Categories.module.css';
+import { TextWrap } from '../../../components/TextWrap/TextWrap';
 
 const propTypes = {
     categories: PropTypes.array.isRequired,
@@ -27,7 +28,10 @@ export const Categories = ({ categories, isLoading }) => {
         <section>
             <Container>
                 <h2 className={homeStyles.title}>
-                    {isLoading ? <LoadingSkeleton /> : 'Have something in mind..?'}
+                    <TextWrap 
+                        content={'Have something in mind..?'} 
+                        isLoading={isLoading} 
+                    />
                 </h2>
                 <div className={styles['categories']}>
                     {data.map((categoryName, i) => (
