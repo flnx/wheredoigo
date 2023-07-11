@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { DarkOverlay } from '../components/DarkOverlay/DarkOverlay';
+import { ErrorBoundaryFallback as ErrorBoundary } from '../components/Errors/ErrorFallbackComponent';
 
 import routeConstants from '../constants/routeConstants';
 
@@ -16,7 +17,9 @@ export const AuthRoutes = () => {
                 path={AUTH.LOGIN.route}
                 element={
                     <Suspense fallback={<DarkOverlay isLoading={true} />}>
-                        <Login />
+                        <ErrorBoundary key={AUTH.LOGIN.name}>
+                            <Login />
+                        </ErrorBoundary>
                     </Suspense>
                 }
             />
@@ -24,7 +27,9 @@ export const AuthRoutes = () => {
                 path={AUTH.REGISTER.route}
                 element={
                     <Suspense fallback={<DarkOverlay isLoading={true} />}>
-                        <Register />
+                        <ErrorBoundary key={AUTH.REGISTER.name}>
+                            <Register />
+                        </ErrorBoundary>
                     </Suspense>
                 }
             />

@@ -44,9 +44,10 @@ export function extractServerErrorMessage(error) {
     if (!error) return;
 
     const { response } = error;
-    
+
     if (error.message == 'Network Error' || !response) {
-        return 'Apologies, a network error has occurred. Please try again later.';
+        // Check ErrorFallbackComponent before changing this!!!
+        return 'Network Error';
     }
 
     const { status, data } = response;
@@ -65,7 +66,7 @@ export function extractServerErrorMessage(error) {
         case 403:
             return message || 'Forbidden';
         case 404:
-            return message || 'Not Found';
+            return 'Not Found'; // Check ErrorFallbackComponent before changing this!!!
         case 500:
             return message || 'Internal Server Error';
         default:

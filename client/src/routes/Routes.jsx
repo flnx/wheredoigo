@@ -1,4 +1,4 @@
-import { Routes, Route, Outlet } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import { UserDashboardRoutes } from '../routes/UserDashboardRoutes';
 import { AuthRoutes } from '../routes/AuthRoutes';
@@ -25,7 +25,14 @@ export const AppRoutes = () => {
     return (
         <main>
             <Routes>
-                <Route path={HOME.route} element={<Home />} />
+                <Route
+                    path={HOME.route}
+                    element={
+                        <ErrorBoundary key={routeConstants.HOME.name}>
+                            <Home />
+                        </ErrorBoundary>
+                    }
+                />
                 <Route element={<UnauthenticatedRoute />}>
                     <Route path={`${AUTH.route}/*`} element={<AuthRoutes />} />
                 </Route>

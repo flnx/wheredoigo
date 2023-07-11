@@ -7,13 +7,12 @@ import { ServerDown } from './ServerDown/ServerDown';
 import { SomethingBroke } from './SomethingBroke/SomethingBroke';
 
 const ErrorFallbackComponent = ({ error, resetErrorBoundary }) => {
-    const message = extractServerErrorMessage(error);
+    const errorMessage = extractServerErrorMessage(error);
+    console.log(errorMessage);
 
-    console.error(error);
-
-    if (error?.message === 'Network Error') {
+    if (errorMessage === 'Network Error') {
         return <ServerDown />;
-    } else if (error?.response?.status == 404) {
+    } else if (errorMessage == 'Not Found') {
         return <NotFound />;
     } else {
         return <SomethingBroke />;
