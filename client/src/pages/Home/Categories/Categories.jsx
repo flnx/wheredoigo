@@ -18,7 +18,8 @@ const propTypes = {
 
 export const Categories = ({ categories, isLoading }) => {
     // 1. If data is loading - it returns a new array with X elements
-    // 1.1 This ensures that the section will render (X) amount of div boxes when the data is being fetched in order the loading skeleton to visualize inside them
+    // 1.1 This ensures that the section will render (X) amount of div boxes when the data is...
+    // ...being fetched in order the loading skeleton to visualize inside them
     const data = checkArrayAndPreloadElements(categories, 6);
     const { categoryRoute } = routeConstants.DISCOVER;
 

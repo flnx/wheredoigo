@@ -55,7 +55,7 @@ export const validateDestinationData = (state, images, allowedCategories) => {
     return errors;
 };
 
-export const validateCategories = (searchParams) => {
+export const validateCategoriesOnSearch = (searchParams) => {
     const allowed = [
         'Beach',
         'Mountains',
@@ -64,9 +64,10 @@ export const validateCategories = (searchParams) => {
         'Islands',
         'Adventure',
     ];
-
+    
     const enteredCategories = searchParams.getAll('category') || [];
 
+    // Filters out the invalid / repeating categories
     const filteredCategories = enteredCategories
         .filter((x) => allowed.includes(x))
         .filter((value, index, self) => self.indexOf(value) === index); // Filter out repeating values

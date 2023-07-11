@@ -15,7 +15,7 @@ import './styles/theme.css';
 import './styles/utils.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <ErrorBoundary>
+    <ErrorBoundary key="global">
         <BrowserRouter>
             <QueryClientProvider client={queryClient}>
                 <App />

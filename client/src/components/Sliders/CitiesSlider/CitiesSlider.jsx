@@ -14,7 +14,7 @@ CitiesSlider.propTypes = {
     isLoading: PropTypes.bool.isRequired,
 };
 
-export function CitiesSlider({ destinationsData, isLoading }) {
+export function  CitiesSlider({ destinationsData, isLoading }) {
     const { data, error } = destinationsData;
     // If destinations data is loading - it returns a new array with X elements
     // This ensures that the Slider will render (X) amount of div boxes.. 
