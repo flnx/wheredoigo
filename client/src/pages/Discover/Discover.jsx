@@ -82,6 +82,8 @@ export const Discover = () => {
                     onHashTagClickHandler={onHashTagClickHandler}
                 />
                 <CategoriesNav onCategoryClickHandler={onCategoryClickHandler} />
+                
+                {/* Passing down the updated URL quries here to trigger a new fetch request */}
                 <Destinations searchParam={searchParam} categoryParams={categories.join()} />
             </div>
         </Container>

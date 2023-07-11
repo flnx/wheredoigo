@@ -35,11 +35,32 @@ const {
 
 const router = express.Router();
 
-// GET
-router.get('/top-places', get_top_places);
-router.get('/places/user-places-data', auth, get_user_places_data);
-router.get('/places/:id', validateMongoId, checkSession, place_details);
-router.get('/places/:id/comments/', validateMongoId, checkSession, place_comments);
+// -- GET --
+
+router.get(
+    '/top-places', 
+    get_top_places
+);
+
+router.get(
+    '/places/user-places-data', 
+    auth, 
+    get_user_places_data
+);
+
+router.get(
+    '/places/:id', 
+    validateMongoId, 
+    checkSession, 
+    place_details
+);
+
+router.get(
+    '/places/:id/comments/', 
+    validateMongoId, 
+    checkSession, 
+    place_comments
+);
 
 router.get(
     '/places/:id/request-edit-permissions',
@@ -57,7 +78,9 @@ router.get(
     add_new_place_request
 );
 
-// POST
+
+// -- POST --
+
 router.post(
     '/destinations/:id/places/add',
     validateMongoId,
@@ -75,18 +98,30 @@ router.post(
     generate_place_ai_comments
 );
 
-
 router.post('/places/:id/comment', 
     validateMongoId, 
     auth, 
     post_comment
 );
 
-// DELETE
-router.delete('/places/:id/comment', validateMongoId, auth, delete_comment);
-router.delete('/places/:id/delete', validateMongoId, auth, delete_place);
 
-// PUT
+// -- DELETE --
+router.delete(
+    '/places/:id/comment', 
+    validateMongoId, 
+    auth, 
+    delete_comment
+);
+
+router.delete(
+    '/places/:id/delete', 
+    validateMongoId, 
+    auth, 
+    delete_place
+);
+
+
+// -- PUT --
 router.put(
     '/places/:id/edit-place-field',
     validateMongoId,

@@ -24,8 +24,13 @@ export const Destinations = ({ searchParam, categoryParams }) => {
     }
 
     const loadingClass = (isFetchingNextPage || !hasNextPage) && styles.loading;
+
+    // React Query infiniteScroll returns "pages" array of arrays
+    // Each array inside of it represents a "page". And each page contains the currently fetched results
+    // To extract each page result, It's just easy to flatten them and "later" map through all the results
     const destinations = data?.pages.flatMap((arr) => arr.result) ?? [];
 
+    // No results found
     const notFound = !isFetching && destinations.length == 0;
 
     return (
@@ -37,12 +42,15 @@ export const Destinations = ({ searchParam, categoryParams }) => {
                     <div className={styles.categories}>
                         <span>Destinations</span>
                     </div>
+
                     <div className={styles.destinations}>
                         <DestinationsGrid
                             destinations={destinations || []}
                             background={'#fff'}
                         />
+
                         {isFetching && <div className={styles.overlay} />}
+
                         <ClipLoader
                             color="#36d7b7"
                             size={40}
@@ -51,11 +59,13 @@ export const Destinations = ({ searchParam, categoryParams }) => {
                             className={styles.spinner}
                         />
                     </div>
+
                     {notFound && (
                         <h3 className="mb-2">
                             Oops! No destination matches found. New options coming soon 🦖
                         </h3>
                     )}
+                    
                     <button
                         onClick={fetchNextPage}
                         disabled={!hasNextPage || isFetchingNextPage}
