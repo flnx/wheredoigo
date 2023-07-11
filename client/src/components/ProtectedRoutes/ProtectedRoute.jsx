@@ -5,8 +5,7 @@ import routeConstants from '../../constants/routeConstants';
 
 const { LOGIN } = routeConstants.AUTH;
 
-
-export const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({ children }) => {
     const { auth } = useContext(AuthContext);
 
     if (!auth.accessToken) {
@@ -15,3 +14,5 @@ export const ProtectedRoute = ({ children }) => {
 
     return children ? children : <Outlet />;
 };
+
+export default ProtectedRoute;

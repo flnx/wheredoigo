@@ -6,7 +6,7 @@ import { AxiosInterceptor } from './service/Axios';
 // Pages
 import { AuthContextProvider } from './context/AuthContext';
 
-import { AppRoutes } from './routes/Routes';
+import { AppRoutes } from './routes/AppRoutes';
 import { useScrollToTop } from './hooks/useScrollTop';
 
 function App() {

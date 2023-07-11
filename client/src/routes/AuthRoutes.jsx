@@ -9,7 +9,7 @@ import { NotFound } from '../components/Errors/NotFound/NotFound';
 const Login = React.lazy(() => import('../pages/Authentication/Login/Login'));
 const Register = React.lazy(() => import('../pages/Authentication/Register/Register'));
 
-export const AuthRoutes = () => {
+const AuthRoutes = () => {
     const { AUTH } = routeConstants;
 
     return (
@@ -38,3 +38,5 @@ export const AuthRoutes = () => {
         </Routes>
     );
 };
+
+export default AuthRoutes;

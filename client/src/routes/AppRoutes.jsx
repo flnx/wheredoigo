@@ -1,14 +1,19 @@
 import { Routes, Route } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 
+// Routes
+import AuthRoutes from './AuthRoutes';
+import ProtectedRoute from '../components/ProtectedRoutes/ProtectedRoute';
+import UnauthenticatedRoute from '../components/UnauthenticatedRoute/UnauthenticatedRoute';
+
+// Lazy Routes
 const UserDashboardRoutes = lazy(() => import('./UserDashboardRoutes'));
-// const CreatorActionsRoutes = lazy(() => import('./CreatorActionsRoutes'));
+const CreatorActionsRoutes = lazy(() => import('./CreatorActionsRoutes'));
 
-import { AuthRoutes } from '../routes/AuthRoutes';
-import { UnauthenticatedRoute } from '../components/UnauthenticatedRoute/UnauthenticatedRoute';
 
+// Components
+import { DarkOverlay } from '../components/DarkOverlay/DarkOverlay';
 import { ErrorBoundaryFallback as ErrorBoundary } from '../components/Errors/ErrorFallbackComponent';
-import { ProtectedRoute } from '../components/ProtectedRoutes/ProtectedRoute';
 import { Home } from '../pages/Home/Home';
 import { Discover } from '../pages/Discover/Discover';
 import { DestinationDetails } from '../pages/DestinationDetails/DestinationDetails';
@@ -18,8 +23,6 @@ import { PlaceDetails } from '../pages/PlaceDetails/PlaceDetails';
 import { NotFound } from '../components/Errors/NotFound/NotFound';
 
 import routeConstants from '../constants/routeConstants';
-import { DarkOverlay } from '../components/DarkOverlay/DarkOverlay';
-import CreatorActionsRoutes from './CreatorActionsRoutes';
 
 const { HOME, AUTH, DASHBOARD, DESTINATIONS, PLACES, DISCOVER } = routeConstants;
 
@@ -60,7 +63,14 @@ export const AppRoutes = () => {
                     />
 
                     {/* Add Place, Edit Place, Edit Destination */}
-                    <Route path={'*'} element={<CreatorActionsRoutes />} />
+                    <Route
+                        path={'*'}
+                        element={
+                            <Suspense fallback={<DarkOverlay isLoading={true} />}>
+                                <CreatorActionsRoutes />
+                            </Suspense>
+                        }
+                    />
 
                     {/* Logout */}
                     <Route path={AUTH.LOGOUT.route} element={<Logout />} />
