@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 // Hooks
+import { useErrorBoundary } from 'react-error-boundary';
 import { useUserRegister } from '../../../hooks/queries/useUserRegister';
 import { useSubmitFormData } from '../hooks/useSubmitFormData';
 import { useFormInput } from '../hooks/useFormInput';
@@ -19,9 +20,15 @@ import styles from '../FormLayout.module.css';
 const { AUTH } = routeConstants;
 
 const Register = () => {
+    const { showBoundary } = useErrorBoundary();
     const [state, onChangeHandler] = useFormInput();
-    const [register, isLoading] = useUserRegister();
+    const [register, isLoading, serverError] = useUserRegister();
     const [submitHandler, error] = useSubmitFormData(state, register, isLoading);
+
+    if (serverError) {
+        showBoundary(serverError);
+        return null;
+    }
 
     return (
         <FormLayout>

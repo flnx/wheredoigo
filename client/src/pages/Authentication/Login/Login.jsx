@@ -24,7 +24,7 @@ const Login = () => {
     const [login, isLoading, serverError] = useUserLogin();
     const [submitHandler, error] = useSubmitFormData(state, login, isLoading);
 
-    if (serverError?.message == 'Network Error') {
+    if (serverError) {
         showBoundary(serverError);
         return null;
     }
