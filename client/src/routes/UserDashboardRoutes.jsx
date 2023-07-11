@@ -10,6 +10,7 @@ import { UserSettings } from '../pages/Dashboard/sub-pages/UserSettings/UserSett
 import { Favorites } from '../pages/Dashboard/sub-pages/Favorites/Favorites';
 import { Main } from '../pages/Dashboard/sub-pages/Main/Main';
 import { AddDestination } from '../pages/Dashboard/sub-pages/AddDestination/AddDestination';
+import { NotFound } from '../components/Errors/NotFound/NotFound';
 
 export const UserDashboardRoutes = () => {
     const { ADD_DESTINATION, MY_DESTINATIONS, FAVORITES, SETTINGS } = routeConstants.DASHBOARD;
@@ -23,6 +24,7 @@ export const UserDashboardRoutes = () => {
                 <Route path={FAVORITES.route} element={<Favorites />} />
                 <Route path={SETTINGS.route} element={<UserSettings />} />
             </Route>
+            <Route path="*" element={<NotFound />} />
         </Routes>
     );
 };

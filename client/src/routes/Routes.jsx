@@ -1,25 +1,25 @@
 import { Routes, Route } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 
+const UserDashboardRoutes = lazy(() => import('./UserDashboardRoutes'));
+// const CreatorActionsRoutes = lazy(() => import('./CreatorActionsRoutes'));
+
 import { AuthRoutes } from '../routes/AuthRoutes';
 import { UnauthenticatedRoute } from '../components/UnauthenticatedRoute/UnauthenticatedRoute';
-const UserDashboardRoutes = lazy(() => import('./UserDashboardRoutes'));
 
 import { ErrorBoundaryFallback as ErrorBoundary } from '../components/Errors/ErrorFallbackComponent';
 import { ProtectedRoute } from '../components/ProtectedRoutes/ProtectedRoute';
 import { Home } from '../pages/Home/Home';
 import { Discover } from '../pages/Discover/Discover';
 import { DestinationDetails } from '../pages/DestinationDetails/DestinationDetails';
+import { Logout } from '../components/Logout/Logout';
 import { DetailsModal } from '../components/DetailsModal/DetailsModal';
 import { PlaceDetails } from '../pages/PlaceDetails/PlaceDetails';
-import { AddPlace } from '../pages/AddPlace/AddPlace';
-import { EditDestination } from '../pages/EditDestination/EditDestination';
-import { EditPlace } from '../pages/EditPlace/EditPlace';
-import { Logout } from '../components/Logout/Logout';
 import { NotFound } from '../components/Errors/NotFound/NotFound';
 
 import routeConstants from '../constants/routeConstants';
 import { DarkOverlay } from '../components/DarkOverlay/DarkOverlay';
+import CreatorActionsRoutes from './CreatorActionsRoutes';
 
 const { HOME, AUTH, DASHBOARD, DESTINATIONS, PLACES, DISCOVER } = routeConstants;
 
@@ -27,6 +27,7 @@ export const AppRoutes = () => {
     return (
         <main>
             <Routes>
+                {/* Home */}
                 <Route
                     path={HOME.route}
                     element={
@@ -35,9 +36,13 @@ export const AppRoutes = () => {
                         </ErrorBoundary>
                     }
                 />
+
+                {/* Login / Register */}
                 <Route element={<UnauthenticatedRoute />}>
                     <Route path={`${AUTH.route}/*`} element={<AuthRoutes />} />
                 </Route>
+
+                {/* Protected Routes:  */}
                 <Route
                     element={
                         <ErrorBoundary key={'protected'}>
@@ -53,11 +58,14 @@ export const AppRoutes = () => {
                             </Suspense>
                         }
                     />
-                    <Route path={DESTINATIONS.EDIT.route} element={<EditDestination />} />
-                    <Route path={PLACES.EDIT.route} element={<EditPlace />} />
-                    <Route path={PLACES.ADD.route} element={<AddPlace />} />
+
+                    {/* Add Place, Edit Place, Edit Destination */}
+                    <Route path={'*'} element={<CreatorActionsRoutes />} />
+
+                    {/* Logout */}
                     <Route path={AUTH.LOGOUT.route} element={<Logout />} />
                 </Route>
+
                 <Route
                     path={DISCOVER.route}
                     element={

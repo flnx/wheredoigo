@@ -4,6 +4,7 @@ import { DarkOverlay } from '../components/DarkOverlay/DarkOverlay';
 import { ErrorBoundaryFallback as ErrorBoundary } from '../components/Errors/ErrorFallbackComponent';
 
 import routeConstants from '../constants/routeConstants';
+import { NotFound } from '../components/Errors/NotFound/NotFound';
 
 const Login = React.lazy(() => import('../pages/Authentication/Login/Login'));
 const Register = React.lazy(() => import('../pages/Authentication/Register/Register'));
@@ -33,6 +34,7 @@ export const AuthRoutes = () => {
                     </Suspense>
                 }
             />
+            <Route path="*" element={<NotFound />} />
         </Routes>
     );
 };
