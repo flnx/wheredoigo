@@ -1,26 +1,30 @@
 import { ClipLoader } from 'react-spinners';
 import { useInfiniteDestinations } from '../../../../hooks/queries/useInfiniteDestinations';
 import { useErrorBoundary } from 'react-error-boundary';
-
 import { DestinationsGrid } from '../../../../components/DestinationsGrid/DestinationsGrid';
-import { extractServerErrorMessage } from '../../../../utils/utils';
+
 import styles from './Destinations.module.css';
+import { extractServerErrorMessage } from '../../../../utils/utils';
+import { ButtonGlow } from '../../../../components/Buttons/Button-Glow/ButtonGlow';
 
 export const Destinations = ({ searchParam, categoryParams }) => {
     const { showBoundary } = useErrorBoundary();
 
-    const { 
-        data, 
-        fetchNextPage, 
-        hasNextPage, 
-        isFetchingNextPage, 
-        isFetching, 
-        error 
+    const {
+        data,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
+        isFetching,
+        error,
+        serverError,
+        isRefetching,
+        refetch,
     } = useInfiniteDestinations(searchParam, categoryParams);
 
-    if (error) {
-        showBoundary(error);
-        return;
+    if (serverError) {
+        showBoundary(serverError);
+        return null;
     }
 
     const loadingClass = (isFetchingNextPage || !hasNextPage) && styles.loading;
@@ -36,11 +40,16 @@ export const Destinations = ({ searchParam, categoryParams }) => {
     return (
         <section>
             {error ? (
-                <p className="server-error">{extractServerErrorMessage(error)}</p>
+                <div className={styles.errors}>
+                    <h2 className="server-error">{extractServerErrorMessage(error)}</h2>
+                    <ButtonGlow onClickHandler={refetch} isLoading={isRefetching}>
+                        Retry
+                    </ButtonGlow>
+                </div>
             ) : (
                 <>
                     <div className={styles.categories}>
-                        <span>Destinations</span>
+                        <h2>Destinations</h2>
                     </div>
 
                     <div className={styles.destinations}>
@@ -65,7 +74,7 @@ export const Destinations = ({ searchParam, categoryParams }) => {
                             Oops! No destination matches found. New options coming soon 🦖
                         </h3>
                     )}
-                    
+
                     <button
                         onClick={fetchNextPage}
                         disabled={!hasNextPage || isFetchingNextPage}

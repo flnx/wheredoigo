@@ -5,6 +5,7 @@ const validateMongoId = require('../middlewares/validateMongoId');
 const { auth } = require('../middlewares/auth');
 const { upload } = require('../middlewares/images');
 const { checkSession } = require('../middlewares/checkSession');
+
 const { 
     fetchDestinationAndCheckOwnership, 
     checkDestinationOwnershipOnly 
@@ -31,7 +32,6 @@ const {
 const router = express.Router();
 
 // -- GET -- 
-
 router.get(
     '/destinations', 
     paginated_destinations
@@ -71,7 +71,6 @@ router.get(
 
 
 // -- POST --
-
 router.post(
     '/destinations', 
     auth, 
@@ -93,8 +92,8 @@ router.post(
     dislike_destination
 );
 
-// -- PUT --
 
+// -- PUT --
 router.put(
     '/destinations/:id/delete-image',
     validateMongoId,
@@ -120,8 +119,8 @@ router.put(
     edit_destination_field
 );
 
-// -- DELETE --
 
+// -- DELETE --
 router.delete(
     '/destinations/:id/delete', 
     validateMongoId, 

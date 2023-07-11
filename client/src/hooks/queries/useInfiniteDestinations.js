@@ -4,7 +4,15 @@ import { getDestinationsPaginated } from '../../service/data/destinations';
 import { queryEndpoints } from '../../constants/reactQueryEndpoints';
 
 export const useInfiniteDestinations = (searchParams, categoryParams) => {
-    return useInfiniteQuery({
+    const {
+        data,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
+        isFetching,
+        error,
+        refetch
+    } = useInfiniteQuery({
         queryKey: [
             queryEndpoints.destinations,
             'infinite',
@@ -16,4 +24,17 @@ export const useInfiniteDestinations = (searchParams, categoryParams) => {
         cacheTime: 0,
         keepPreviousData: true,
     });
+
+    const serverError = error?.message == 'Network Error' && error;
+
+    return {
+        data,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
+        isFetching,
+        error,
+        serverError,
+        refetch
+    };
 };

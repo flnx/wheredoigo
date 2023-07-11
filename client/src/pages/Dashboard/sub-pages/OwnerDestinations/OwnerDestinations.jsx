@@ -46,7 +46,10 @@ export const OwnerDestinations = () => {
             <h1 className="smaller mb-2">Created destinations 🦖</h1>
             {deleteError && <ServerErrorPopUp errorMessage={deleteError} />}
             {error ? (
-                extractServerErrorMessage(error)
+                <>
+                    <ServerErrorPopUp errorMessage={error} />
+                    <span className={'server-error'}>{extractServerErrorMessage(error)}</span>
+                </>
             ) : (
                 <>
                     {data?.length > 0 ? (

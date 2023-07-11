@@ -8,5 +8,7 @@ export const useGetPlaceToEdit = (placeId) => {
         queryFn: () => getPlaceToEdit(placeId),
     });
 
-    return [data, error, isLoading];
+    const serverError = error?.message == 'Network Error' && error;
+
+    return [data, error, isLoading, serverError];
 };

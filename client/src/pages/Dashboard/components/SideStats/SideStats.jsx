@@ -1,3 +1,4 @@
+import { useErrorBoundary } from 'react-error-boundary';
 import { useEffect, useState } from 'react';
 import { useFetchPlacesData } from '../../../../hooks/queries/useFetchPlaceData';
 
@@ -5,12 +6,14 @@ import { ServerErrorPopUp } from '../../../../components/ServerErrorPopUp/Server
 import { FormSelect } from '../../../../components/FormSelect/FormSelect';
 import { PieChart } from './components/PieChart';
 
+
 import styles from './SideStats.module.css';
 
 export const SideStats = () => {
-    const [placesData, isLoading, error] = useFetchPlacesData();
+    const { showBoundary } = useErrorBoundary();
+    const [placesData, isLoading, error, serverError] = useFetchPlacesData();
     const [inputValue, setInputValue] = useState({ name: '-- No Data --', data: [] });
-
+    
     useEffect(() => {
         if (placesData.length > 0) {
             setInputValue(placesData[0]);
@@ -25,6 +28,11 @@ export const SideStats = () => {
 
     const placesNames = placesData.map((p) => p.name);
 
+    if (serverError) {
+        showBoundary(serverError);
+        return null;
+    }
+
     return (
         <div className={styles.chart}>
             <FormSelect
@@ -37,6 +45,7 @@ export const SideStats = () => {
             <section>
                 {!isLoading && <PieChart placeData={inputValue} />}
             </section>
+
             {error && <ServerErrorPopUp errorMessage={error}/>}
         </div>
     );

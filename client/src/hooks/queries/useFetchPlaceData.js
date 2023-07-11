@@ -10,5 +10,7 @@ export const useFetchPlacesData = () => {
         cacheTime: 0.20 * (60 * 1000), // 12s mins
     });
 
-    return [data || [], isLoading, error];
+    const serverError = error?.message == 'Network Error' && error;
+
+    return [data || [], isLoading, error, serverError];
 };

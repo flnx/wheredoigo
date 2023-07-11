@@ -1,19 +1,20 @@
 const express = require('express');
 const validateMongoId = require('../middlewares/validateMongoId');
-const {
-    checkDestinationOwnershipOnly,
-} = require('../middlewares/checkDestinationOwnership');
 
 // Middlewares
 const { auth } = require('../middlewares/auth');
 const { upload } = require('../middlewares/images');
 const { checkSession } = require('../middlewares/checkSession');
+
 const {
     fetchPlaceAndCheckOwnership,
     checkPlaceOwnershipOnly,
     checkPlaceOwnershipAndCommenters,
 } = require('../middlewares/checkPlaceOwnership');
 
+const {
+    checkDestinationOwnershipOnly,
+} = require('../middlewares/checkDestinationOwnership');
 
 // Controllers
 const {
@@ -36,7 +37,6 @@ const {
 const router = express.Router();
 
 // -- GET --
-
 router.get(
     '/top-places', 
     get_top_places
@@ -80,7 +80,6 @@ router.get(
 
 
 // -- POST --
-
 router.post(
     '/destinations/:id/places/add',
     validateMongoId,
@@ -103,23 +102,6 @@ router.post('/places/:id/comment',
     auth, 
     post_comment
 );
-
-
-// -- DELETE --
-router.delete(
-    '/places/:id/comment', 
-    validateMongoId, 
-    auth, 
-    delete_comment
-);
-
-router.delete(
-    '/places/:id/delete', 
-    validateMongoId, 
-    auth, 
-    delete_place
-);
-
 
 // -- PUT --
 router.put(
@@ -147,4 +129,18 @@ router.put(
     delete_place_image
 );
 
+// -- DELETE --
+router.delete(
+    '/places/:id/comment', 
+    validateMongoId, 
+    auth, 
+    delete_comment
+);
+
+router.delete(
+    '/places/:id/delete', 
+    validateMongoId, 
+    auth, 
+    delete_place
+);
 module.exports = router;

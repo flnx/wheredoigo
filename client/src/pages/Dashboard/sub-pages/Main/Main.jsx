@@ -7,9 +7,10 @@ import { RecentActivities } from './components/RecentActivities/RecentActivities
 import { ClipLoader } from 'react-spinners';
 
 import styles from './Main.module.css';
+import { extractServerErrorMessage } from '../../../../utils/utils';
 
 export const Main = () => {
-    const { data, isLoading, error } = useUserActivity();
+    const [data, isLoading, error] = useUserActivity();
 
     return (
         <div className={styles.container}>
@@ -28,7 +29,12 @@ export const Main = () => {
                 size={45}
                 className={styles.spinner}
             />
-            {error && <ServerErrorPopUp errorMessage={error} />}
+            {error && (
+                <>
+                    <span className="server-error">{extractServerErrorMessage(error)}</span>
+                    <ServerErrorPopUp errorMessage={error} />
+                </>
+            )}
         </div>
     );
 };

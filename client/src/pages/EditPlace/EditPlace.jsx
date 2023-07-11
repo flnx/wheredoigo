@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useGetPlaceToEdit } from '../../hooks/queries/useGetPlaceToEdit';
 import { useDeletePlaceImage } from '../../hooks/queries/useDeletePlaceImage';
 import { useAddPlaceNewImages } from '../../hooks/queries/useAddPlaceNewImages';
+import { useErrorBoundary } from 'react-error-boundary';
 
 // Components
 import { Container } from '../../components/Containers/Container/Container';
@@ -11,14 +12,15 @@ import { FlexSectionContainer } from '../../components/Containers/FlexSectionCon
 import { ImagesManager } from '../../components/ImagesManager/ImagesManager';
 import { TextWrap } from '../../components/TextWrap/TextWrap';
 
-import routeConstants from '../../constants/routeConstants';
 import { extractServerErrorMessage } from '../../utils/utils';
+import routeConstants from '../../constants/routeConstants';
 
 export const EditPlace = () => {
     const { placeId } = useParams();
     const navigate = useNavigate();
+    const { showBoundary } = useErrorBoundary();
 
-    const [data, error, isLoading] = useGetPlaceToEdit(placeId);
+    const [data, error, isLoading, serverError] = useGetPlaceToEdit(placeId);
     const deleteImageHook = () => useDeletePlaceImage(placeId, data?.destinationId);
     const addImageHook = () => useAddPlaceNewImages(placeId, data?.destinationId);
 
@@ -30,6 +32,11 @@ export const EditPlace = () => {
             navigate(routePath(placeId), { replace: true });
         }
     }, [error]);
+
+    if (serverError) {
+        showBoundary(serverError);
+        return null;
+    }
 
     return (
         <Container mb={3}>

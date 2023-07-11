@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useErrorBoundary } from 'react-error-boundary';
 import { useGetDestinationToEdit } from '../../hooks/queries/useGetDestinationToEdit';
 import { useDeleteDestinationImage } from '../../hooks/queries/useDeleteDestinationImage';
 import { useAddDestinationNewImages } from '../../hooks/queries/useAddDestinationNewImages';
@@ -18,11 +19,20 @@ import routeConstants from '../../constants/routeConstants';
 export const EditDestination = () => {
     const { destinationId } = useParams();
     const navigate = useNavigate();
-    const [data, error, isLoading] = useGetDestinationToEdit(destinationId);
+    const { showBoundary } = useErrorBoundary();
+
+    // React Query hooks
+    const [data, error, isLoading, serverError] = useGetDestinationToEdit(destinationId);
     const deleteImageHook = () => useDeleteDestinationImage(destinationId);
     const addImageHook = () => useAddDestinationNewImages(destinationId);
 
     const destinationTitle = `${data?.city}, ${data?.country}`;
+
+    if (serverError) {
+        showBoundary(serverError);
+        return null;
+    }
+
 
     useEffect(() => {
         if (error) {

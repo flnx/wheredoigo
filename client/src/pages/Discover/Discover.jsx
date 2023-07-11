@@ -28,13 +28,13 @@ export const Discover = () => {
         const updatedParams = {
             category: categories,
         };
-        
-        // - Adds a "search" prop/query if the user has entered any 
+
+        // - Adds a "search" prop/query if the user has entered any
         // - In this way we also avoid setting an empty "search" query if the user has entered only categories
         if (newSearch) {
             updatedParams.search = newSearch;
         }
-        
+
         // Updating the URL with the new queries "search" and "categories"
         setSearchParams(updatedParams);
     };
@@ -63,7 +63,7 @@ export const Discover = () => {
             category: [...categories, category],
         };
 
-         // This ensures that the search query will stay in the URL when the hook updates the url
+        // This ensures that the search query will stay in the URL when the hook updates the url
         if (searchParam) {
             updatedParams.search = searchParam;
         }
@@ -82,7 +82,7 @@ export const Discover = () => {
                     onHashTagClickHandler={onHashTagClickHandler}
                 />
                 <CategoriesNav onCategoryClickHandler={onCategoryClickHandler} />
-                
+
                 {/* Passing down the updated URL quries here to trigger a new fetch request */}
                 <Destinations searchParam={searchParam} categoryParams={categories.join()} />
             </div>

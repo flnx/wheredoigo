@@ -10,5 +10,7 @@ export const useGetDestinationToEdit = (destinationId) => {
         // cacheTime: 0.5 * 60 * 1000, // 30 seconds
     });
 
-    return [data, error, isLoading];
+    const serverError = error?.message == 'Network Error' && error;
+
+    return [data, error, isLoading, serverError];
 };
