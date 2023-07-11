@@ -42,10 +42,10 @@ export function checkArrayAndPreloadElements(arr, prefillNum) {
 
 export function extractServerErrorMessage(error) {
     if (!error) return;
-    
-    const { response } = error;
 
-    if (!response) {
+    const { response } = error;
+    
+    if (error.message == 'Network Error' || !response) {
         return 'Apologies, a network error has occurred. Please try again later.';
     }
 

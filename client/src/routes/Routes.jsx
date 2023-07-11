@@ -1,9 +1,10 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Outlet } from 'react-router-dom';
 
 import { UserDashboardRoutes } from '../routes/UserDashboardRoutes';
 import { AuthRoutes } from '../routes/AuthRoutes';
 import { UnauthenticatedRoute } from '../components/UnauthenticatedRoute/UnauthenticatedRoute';
 
+import { ErrorBoundaryFallback as ErrorBoundary } from '../components/Errors/ErrorFallbackComponent';
 import { ProtectedRoute } from '../components/ProtectedRoutes/ProtectedRoute';
 import { Home } from '../pages/Home/Home';
 import { Discover } from '../pages/Discover/Discover';
@@ -28,7 +29,13 @@ export const AppRoutes = () => {
                 <Route element={<UnauthenticatedRoute />}>
                     <Route path={`${AUTH.route}/*`} element={<AuthRoutes />} />
                 </Route>
-                <Route element={<ProtectedRoute />}>
+                <Route
+                    element={
+                        <ErrorBoundary key={'protectedRoutes'}>
+                            <ProtectedRoute />
+                        </ErrorBoundary>
+                    }
+                >
                     <Route path={`${DASHBOARD.route}/*`} element={<UserDashboardRoutes />} />
                     <Route path={DESTINATIONS.EDIT.route} element={<EditDestination />} />
                     <Route path={PLACES.EDIT.route} element={<EditPlace />} />
@@ -36,11 +43,25 @@ export const AppRoutes = () => {
                     <Route path={AUTH.LOGOUT.route} element={<Logout />} />
                 </Route>
                 <Route path={DISCOVER.route} element={<Discover />} />
-                <Route path={DESTINATIONS.BY_ID.route} element={<DestinationDetails />}>
+                <Route
+                    path={DESTINATIONS.BY_ID.route}
+                    element={
+                        <ErrorBoundary key={DESTINATIONS.name}>
+                            <DestinationDetails />
+                        </ErrorBoundary>
+                    }
+                >
                     <Route path={DESTINATIONS.INFO.route} element={<DetailsModal />} />
                     <Route path={DESTINATIONS.OVERVIEW.route} element={<DetailsModal />} />
                 </Route>
-                <Route path={PLACES.BY_ID.route} element={<PlaceDetails />}>
+                <Route
+                    path={PLACES.BY_ID.route}
+                    element={
+                        <ErrorBoundary key={PLACES.name}>
+                            <PlaceDetails />
+                        </ErrorBoundary>
+                    }
+                >
                     <Route path={PLACES.ABOUT.route} element={<DetailsModal />} />
                 </Route>
                 <Route path="*" element={<NotFound />} />

@@ -1,5 +1,5 @@
 .section {
-    max-width: 60rem;
+    max-width: 65rem;
     margin-inline: auto;
     padding: 4rem 0.75rem;
 }
@@ -18,7 +18,7 @@
 }
 
 .imageContainer img {
-    border-radius: 5px;
+    border-radius: 10%;
 }
 
 .content {
@@ -27,6 +27,7 @@
 
 .content .text {
     font-weight: 600;
+    font-size: 1rem;
     color: var(--error-message);
 }
 

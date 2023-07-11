@@ -2,8 +2,7 @@
 import { Navbar } from './components/Navbar/Navbar';
 import { Footer } from './components/Footer/Footer';
 import { AxiosInterceptor } from './service/Axios';
-import { ErrorBoundary } from 'react-error-boundary';
-import { ErrorFallbackComponent } from './components/Errors/ErrorFallbackComponent';
+import { ErrorBoundaryFallback as ErrorBoundary } from './components/Errors/ErrorFallbackComponent';
 
 // Pages
 import { AuthContextProvider } from './context/AuthContext';
@@ -19,7 +18,7 @@ function App() {
             <AxiosInterceptor>
                 <div className="App">
                     <Navbar />
-                    <ErrorBoundary FallbackComponent={ErrorFallbackComponent}>
+                    <ErrorBoundary>
                         <AppRoutes />
                     </ErrorBoundary>
                     <Footer />

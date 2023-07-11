@@ -1,8 +1,8 @@
 import React, { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { DarkOverlay } from '../components/DarkOverlay/DarkOverlay';
 
 import routeConstants from '../constants/routeConstants';
-import { DarkOverlay } from '../components/DarkOverlay/DarkOverlay';
 
 const Login = React.lazy(() => import('../pages/Authentication/Login/Login'));
 const Register = React.lazy(() => import('../pages/Authentication/Register/Register'));

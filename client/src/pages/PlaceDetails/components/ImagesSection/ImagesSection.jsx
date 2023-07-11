@@ -22,6 +22,7 @@ export const Images = ({ imageUrls, isLoading, city }) => {
         setGallery([]);
     };
 
+
     const isGalleryOpen = gallery.length > 0;
 
     return (

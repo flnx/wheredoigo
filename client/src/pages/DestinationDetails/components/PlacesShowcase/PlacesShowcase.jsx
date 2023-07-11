@@ -10,9 +10,10 @@ const propTypes = {
 };
 
 export const PlacesShowcase = ({ places, isLoading }) => {
-    const explorePlaces = places.filter((x) => x?.type.toLowerCase() == 'explore');
-    const partyPlaces = places.filter((x) => x?.type.toLowerCase() == 'fun');
-    const eatingPlaces = places.filter((x) => x?.type.toLowerCase() == 'eat');
+    // Filter out each category
+    const explorePlaces = places.filter((x) => x.type.toLowerCase() == 'explore');
+    const partyPlaces = places.filter((x) => x.type.toLowerCase() == 'fun');
+    const eatingPlaces = places.filter((x) => x.type.toLowerCase() == 'eat');
 
     // If data is loading - it returns a new array with 3 elements (in order to render 3 sections)
     // This ensures that there will be 3 category sections for the loading skeleton during the fetching process

@@ -19,8 +19,8 @@ export const DestinationDetails = () => {
     const { routePath } = routeConstants.PLACES.ADD;
 
     const destination = data || {};
-    const placesData = destination?.places || [];
-    const imagesData = destination?.imageUrls || [];
+    const placesData = destination.places || [];
+    const imagesData = destination.imageUrls || [];
 
     if (error) {
         showBoundary(error);

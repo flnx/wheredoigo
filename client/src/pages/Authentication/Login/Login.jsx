@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 // Hooks
+import { useErrorBoundary } from 'react-error-boundary';
 import { useUserLogin } from '../../../hooks/queries/useUserLogin';
 import { useFormInput } from '../hooks/useFormInput';
 import { useSubmitFormData } from '../hooks/useSubmitFormData';
@@ -18,9 +19,15 @@ import styles from '../FormLayout.module.css';
 const { AUTH } = routeConstants;
 
 const Login = () => {
+    const { showBoundary } = useErrorBoundary();
     const [state, onChangeHandler] = useFormInput();
-    const [login, isLoading] = useUserLogin();
+    const [login, isLoading, serverError] = useUserLogin();
     const [submitHandler, error] = useSubmitFormData(state, login, isLoading);
+
+    if (serverError?.message == 'Network Error') {
+        showBoundary(serverError);
+        return null;
+    }
 
     return (
         <FormLayout>
