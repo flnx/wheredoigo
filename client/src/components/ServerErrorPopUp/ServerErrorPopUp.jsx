@@ -6,8 +6,14 @@ import styles from './ServerErrorPopUp.module.css';
 export const ServerErrorPopUp = ({ errorMessage }) => {
     const [isVisible, setIsVisible] = useState(true);
 
-    const error = extractServerErrorMessage(errorMessage);
     
+    let error = errorMessage;
+    
+    if (typeof errorMessage !== 'string') {
+        error = extractServerErrorMessage(error);
+    }
+    
+    console.log(error);
     useEffect(() => {
         const timer = setTimeout(() => {
             setIsVisible(false);

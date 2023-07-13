@@ -6,6 +6,7 @@ import { SecondaryButton } from '../../../../components/Buttons/Secondary-Btn/Se
 import { Rate } from './Rate';
 import { DarkOverlay } from '../../../../components/DarkOverlay/DarkOverlay';
 import { ServerErrorPopUp } from '../../../../components/ServerErrorPopUp/ServerErrorPopUp';
+import { ShowFormError } from '../../../../components/ShowFormError/ShowFormError';
 
 import styles from './CommentForm.module.css';
 
@@ -14,12 +15,14 @@ export const CommentForm = ({ commentSectionRef }) => {
     const [title, setTitle] = useState('');
     const [rating, setRating] = useState(0);
     const [cachedRate, setCachedRate] = useState(0);
-    const [handleSubmit, isLoading, error, validationError] = useSubmitFormData({
+    const [handleSubmit, isLoading, error, validationErrors] = useSubmitFormData({
         title,
         content,
         rating,
         resetForm,
     });
+
+    console.log(validationErrors)
 
     function cacheRateHandler(value) {
         setCachedRate(value);
@@ -47,6 +50,7 @@ export const CommentForm = ({ commentSectionRef }) => {
                     handleRateCache={cacheRateHandler}
                     cachedRate={cachedRate}
                 />
+                <ShowFormError errors={validationErrors} errorParam={'rate'} />
 
                 <input
                     className={styles.formInput}
@@ -55,16 +59,20 @@ export const CommentForm = ({ commentSectionRef }) => {
                     onChange={(e) => setTitle(e.target.value)}
                     value={title}
                 />
+                <ShowFormError errors={validationErrors} errorParam={'title'} />
+
                 <textarea
                     className={styles.formTextarea}
                     onChange={(e) => setContent(e.target.value)}
                     placeholder="Add a comment..."
                     value={content}
                 />
+                <ShowFormError errors={validationErrors} errorParam={'comment'} />
                 <SecondaryButton isLoading={isLoading}>Submit your Review</SecondaryButton>
+                
+
             </form>
             {isLoading && <DarkOverlay isLoading={isLoading} />}
-            {validationError && <span className={styles.error}>{validationError}</span>}
             {error && <ServerErrorPopUp errorMessage={error} />}
         </div>
     );

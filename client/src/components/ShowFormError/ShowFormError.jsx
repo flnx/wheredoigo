@@ -2,11 +2,18 @@ import styles from './ShowFormError.module.css';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    errors: PropTypes.array.isRequired,
-    errorParam: PropTypes.string.isRequired,
+    errors: PropTypes.array,
+    errorParam: PropTypes.string,
 };
 
 export const ShowFormError = ({ errors, errorParam }) => {
+    console.log(errors);
+    console.log(errorParam);
+
+    if (errors.length == 0 || !errorParam) {
+        return null;
+    }
+
     const errorChecker = (name) => {
         name = name.toLowerCase();
         return errors.find((e) => e.toLowerCase().includes(name));
@@ -14,7 +21,9 @@ export const ShowFormError = ({ errors, errorParam }) => {
 
     const hasError = errorChecker(errorParam);
 
-    return hasError ? <span className={styles.error}>{errorChecker(errorParam)}</span> : null;
+    return hasError ? (
+        <span className={styles.error}>{errorChecker(errorParam)}</span>
+    ) : null;
 };
 
 ShowFormError.propTypes = propTypes;

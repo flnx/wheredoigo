@@ -1,5 +1,8 @@
 .form {
     max-width: 52.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
 }
 
 .form ::selection {
@@ -30,24 +33,4 @@
 .formTextarea {
     resize: none;
     height: 15rem;
-}
-
-.btn {
-    border: none;
-    border-radius: 10px;
-    background: var(--button-primary);
-    color: #fff;
-    font-weight: 700;
-    padding: 0.85rem 2rem;
-    transition: all 0.25s ease-in-out;
-    cursor: pointer;
-}
-
-.btn:hover,
-.btn:focus {
-    background: var(--button-hover);
-}
-
-.error {
-    color: var(--error-message);
 }
