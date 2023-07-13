@@ -1,7 +1,7 @@
 import { Container } from '../../Containers/Container/Container';
 import styles from './NotFound.module.css';
 
-export const NotFound = () => {
+const NotFound = () => {
     return (
         <Container>
             <section className={styles.section}>
@@ -25,3 +25,5 @@ export const NotFound = () => {
         </Container>
     );
 };
+
+export default NotFound;

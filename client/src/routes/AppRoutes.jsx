@@ -11,10 +11,10 @@ const UserDashboardRoutes = lazy(() => import('./UserDashboardRoutes'));
 const CreatorActionsRoutes = lazy(() => import('./CreatorActionsRoutes'));
 
 // Components
+import NotFound from '../components/Errors/NotFound/NotFound';
 import { DarkOverlay } from '../components/DarkOverlay/DarkOverlay';
 import { ErrorBoundaryFallback as ErrorBoundary } from '../components/Errors/ErrorFallbackComponent';
 import { DetailsModal } from '../components/DetailsModal/DetailsModal';
-import { NotFound } from '../components/Errors/NotFound/NotFound';
 import { Logout } from '../components/Logout/Logout';
 
 // Pages
@@ -69,7 +69,9 @@ export const AppRoutes = () => {
                     <Route
                         path={'*'}
                         element={
-                            <Suspense fallback={<DarkOverlay isLoading={true} text={'Loading'}/>}>
+                            <Suspense
+                                fallback={<DarkOverlay isLoading={true} text={'Loading'} />}
+                            >
                                 <CreatorActionsRoutes />
                             </Suspense>
                         }

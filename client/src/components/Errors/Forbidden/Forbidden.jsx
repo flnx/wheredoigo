@@ -1,7 +1,7 @@
 import { Container } from '../../Containers/Container/Container';
 import styles from './Forbidden.module.css';
 
-export const Forbidden = () => {
+const Forbidden = () => {
     return (
         <Container>
             <section className={styles.section}>
@@ -25,3 +25,5 @@ export const Forbidden = () => {
         </Container>
     );
 };
+
+export default Forbidden;

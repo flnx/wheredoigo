@@ -1,7 +1,7 @@
 import styles from './SomethingBroke.module.css';
 import { Container } from '../../Containers/Container/Container';
 
-export const SomethingBroke = () => {
+const SomethingBroke = () => {
     return (
         <Container>
             <section className={styles.section}>
@@ -31,3 +31,5 @@ export const SomethingBroke = () => {
         </Container>
     );
 };
+
+export default SomethingBroke;

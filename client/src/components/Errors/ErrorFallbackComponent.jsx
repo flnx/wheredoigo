@@ -1,25 +1,31 @@
 import { extractServerErrorMessage } from '../../utils/utils';
 import { ErrorBoundary } from 'react-error-boundary';
+import { Suspense, lazy } from 'react';
 
-// LAZY??
 // Components
-import { NotFound } from './NotFound/NotFound';
-import { ServerDown } from './ServerDown/ServerDown';
-import { SomethingBroke } from './SomethingBroke/SomethingBroke';
-import { Forbidden } from './Forbidden/Forbidden';
+import { DarkOverlay } from '../DarkOverlay/DarkOverlay';
+
+const NotFound = lazy(() => import('./NotFound/NotFound'));
+const ServerDown = lazy(() => import('./ServerDown/ServerDown'));
+const SomethingBroke = lazy(() => import('./SomethingBroke/SomethingBroke'));
+const Forbidden = lazy(() => import('./Forbidden/Forbidden'));
+
+const componentMap = {
+    'Network Error': ServerDown,
+    'Not Found': NotFound,
+    Forbidden,
+    default: SomethingBroke,
+};
 
 const ErrorFallbackComponent = ({ error, resetErrorBoundary }) => {
     const errorMessage = extractServerErrorMessage(error);
+    const ErrorComponent = componentMap[errorMessage] || componentMap.default;
 
-    if (errorMessage === 'Network Error') {
-        return <ServerDown />;
-    } else if (errorMessage == 'Not Found') {
-        return <NotFound />;
-    } else if (errorMessage == 'Forbidden') {
-        return <Forbidden />
-    } else {
-        return <SomethingBroke />;
-    }
+    return (
+        <Suspense fallback={<DarkOverlay isLoading={true} />}>
+            <ErrorComponent />
+        </Suspense>
+    );
 };
 
 export const ErrorBoundaryFallback = ({ children }) => {
@@ -32,7 +38,7 @@ export const ErrorBoundaryFallback = ({ children }) => {
                 console.error(errorMessage);
             }}
         >
-            {children}
+            <Suspense fallback={<DarkOverlay isLoading={true} />}>{children}</Suspense>
         </ErrorBoundary>
     );
 };

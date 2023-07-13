@@ -1,7 +1,7 @@
 import styles from './ServerDown.module.css';
 import { Container } from '../../Containers/Container/Container';
 
-export const ServerDown = () => {
+const ServerDown = () => {
     return (
         <Container>
             <section className={styles.section}>
@@ -28,3 +28,5 @@ export const ServerDown = () => {
         </Container>
     );
 };
+
+export default ServerDown;

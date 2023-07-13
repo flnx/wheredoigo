@@ -4,7 +4,7 @@ import routeConstants from '../constants/routeConstants';
 import { AddPlace } from '../pages/AddPlace/AddPlace';
 import { EditDestination } from '../pages/EditDestination/EditDestination';
 import { EditPlace } from '../pages/EditPlace/EditPlace';
-import { NotFound } from '../components/Errors/NotFound/NotFound';
+import NotFound from '../components/Errors/NotFound/NotFound';
 
 const { DESTINATIONS, PLACES } = routeConstants;
 

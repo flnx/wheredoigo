@@ -62,13 +62,14 @@ const destination_details = async (req, res, next) => {
     const user = req.user;
 
     try {
-        const [destination, places] = await Promise.all([
-            getDestinationById(id, user),
-            getDestinationPlaces(id),
-        ]);
-
-        destination.places = places;
-        res.json(destination);
+        // const [destination, places] = await Promise.all([
+        //     getDestinationById(id, user),
+        //     getDestinationPlaces(id),
+        // ]);
+        
+        // destination.places = places;
+        // res.json(destination);
+        res.status(500).end();
     } catch (err) {
         next(err);
     }
