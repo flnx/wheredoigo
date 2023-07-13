@@ -32,6 +32,7 @@ export const SecondaryImages = () => {
                     alt={`${alt || 'image'} ${i + 1}`} // Include the index to differentiate alt text
                     key={x._id}
                     onClick={(e) => onClickHandler(e, i)}
+                    loading="lazy"
                 />
             ))}
         </div>
