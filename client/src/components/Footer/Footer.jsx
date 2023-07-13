@@ -40,9 +40,7 @@ export const Footer = () => {
                         <p className={styles.link}>Lorem Ipsum</p>
                     </section>
                     <section className={styles.newsletter}>
-                        <h3 className={styles.title}>
-                            Stay in touch with our weekly newsletter
-                        </h3>
+                        <h3 className={styles.title}>Stay updated, join our newsletter.</h3>
                         <input type="search" name="" id="" />
                     </section>
                 </div>

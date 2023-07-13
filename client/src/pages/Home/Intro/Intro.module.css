@@ -1,6 +1,8 @@
 .introSection {
     position: relative;
     background-image: var(--background-intro);
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)),
+        url("https://images.unsplash.com/photo-1547314283-befb6cc5cf29?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80") no-repeat 50% 50% / cover;
     padding: 3em 0;
 }
 
@@ -13,11 +15,10 @@
     bottom: 0;
 }
 
-
 .wrapper {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2.5rem;
     z-index: -1;
 }
 
@@ -28,6 +29,10 @@
     z-index: 1;
 }
 
+.imageContainer .image {
+    border-bottom-left-radius:0%;
+    border-bottom-right-radius: 50%;
+}
 
 .intro {
     flex: 1.25;
@@ -41,7 +46,8 @@
 }
 
 .content {
-    margin-bottom: 1.125rem;
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
 }
 
 .title,
@@ -53,28 +59,28 @@
     background-color: var(--button-secondary);
 }
 
-.intro button:hover, .intro button:focus {
+.intro button:hover,
+.intro button:focus {
     background-color: var(--button-hover-secondary);
 }
 
 @media (min-width: 40em) {
     .wrapper {
         flex-direction: row;
-        gap: 2.5rem;
     }
 }
 
 @media (min-width: 64em) {
     .intro {
-        margin-top: 5rem;
+        margin-top: 2rem;
     }
 
     .title {
-        font-size: 3.5rem;
-        margin-bottom: 3.5rem;
+        font-size: 3rem;
     }
 
     .content {
-        font-size: 1.425rem;
+        font-size: 1.225rem;
+        font-weight: 400;
     }
 }

@@ -7,7 +7,7 @@ import { LoadingSkeleton } from '../../../components/LoadingSkeletons/LoadingSke
 import routeConstants from '../../../constants/routeConstants';
 import styles from './Intro.module.css';
 
-const { DISCOVER } = routeConstants;
+const { routePath } = routeConstants.DESTINATIONS.BY_ID;
 
 export const Intro = ({ isLoading }) => {
     return (
@@ -20,15 +20,22 @@ export const Intro = ({ isLoading }) => {
             <Container>
                 <div className={styles.wrapper}>
                     <div className={styles.imageContainer}>
-                        <img src={introImage} alt="person with a big bagpack" />
+                        <img
+                            src={introImage}
+                            alt="person with a big bagpack"
+                            className={styles.image}
+                        />
                     </div>
                     <div className={styles.intro}>
-                        <h2 className={styles.title}>Travel any corner of the world</h2>
+                        <h2 className={styles.title}>
+                            Embark on an adventurous journey in New Zealand!
+                        </h2>
                         <p className={styles.content}>
-                            Take a vacation with your friends and get rid of the boredom!
+                            Uncover boundless and limitless wonders as you explore the world
+                            around you. The thrill awaits!
                         </p>
-                        <ButtonLinkPrimary to={DISCOVER.route}>
-                            Discover (change it)
+                        <ButtonLinkPrimary to={routePath('64963e73ef146e69c5aa2842')}>
+                            Discover
                         </ButtonLinkPrimary>
                     </div>
                 </div>
