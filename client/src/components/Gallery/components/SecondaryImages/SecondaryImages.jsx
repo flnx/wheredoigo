@@ -3,6 +3,7 @@ import { GalleryContext } from '../../context/GalleryContext';
 import { useGalleryAutomaticScroll } from '../../../../hooks/useGalleryAutomaticScroll';
 
 import styles from './SecondaryImages.module.css';
+import { applyCloudinaryTransformation } from '../../../../utils/utils';
 
 export const SecondaryImages = () => {
     const { 
@@ -27,7 +28,7 @@ export const SecondaryImages = () => {
             {images.map((x, i) => (
                 <img
                     className={`${mainImage == x && isActive}`} // Adds border to the clicked image
-                    src={x.imageUrl}
+                    src={applyCloudinaryTransformation(x.imageUrl)} // remove if cloudainry credits get low
                     alt={`${alt || 'image'} ${i + 1}`} // Include the index to differentiate alt text
                     key={x._id}
                     onClick={(e) => onClickHandler(e, i)}

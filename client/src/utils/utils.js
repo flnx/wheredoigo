@@ -27,6 +27,13 @@ export const isValidArrayOfStrings = (arr) => {
     return true;
 };
 
+// Stop this if cloudinary credits get low
+export function applyCloudinaryTransformation(imageUrl) {
+    const parts = imageUrl.split('/upload/');
+    const transformedUrl = `${parts[0]}/upload/t_small/${parts[1]}`;
+    return transformedUrl;
+}
+
 export function checkArrayAndPreloadElements(arr, prefillNum) {
     if (!Number.isInteger(prefillNum)) {
         prefillNum = 4; // Set default value to 4
@@ -43,26 +50,25 @@ export function checkArrayAndPreloadElements(arr, prefillNum) {
 export function extractServerErrorMessage(error) {
     if (!error) return;
 
-    
     if (error?.message == 'Network Error') {
         // Check ErrorFallbackComponent before changing this!!!
         return 'Network Error';
     }
-    
+
     const { response } = error || {};
-    
+
     if (!response) {
         return 'An error occurred';
     }
-    
+
     const { status, data } = response;
-    
+
     let message = '';
-    
+
     if (data && typeof data.message === 'string') {
         message = data.message;
     }
-    
+
     switch (status) {
         case 400:
             return message || 'Bad Request';
