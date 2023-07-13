@@ -13,58 +13,6 @@
     gap: 1rem;
 }
 
-.imageContainer {
-    width: 44%;
-    /* Adding aspect ratio here for the loading skeleton */
-    aspect-ratio: 1.3/1; 
-}
-
-.imageContainer img {
-    aspect-ratio: 1.3/1;
-    border-radius: 10px;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.content {
-    width: calc(60% - 1.55rem);
-    display: flex;
-    gap: 0.5rem;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.content .placeName {
-    height: 3.2rem;
-    color: var(--text-primary);
-    overflow: hidden;
-    display: -webkit-box;
-    text-overflow: ellipsis;
-    word-wrap: break-word;
-    white-space: break-spaces;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-}
-
-.location {
-    display: -webkit-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-wrap: break-word;
-    white-space: break-spaces;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    font-size: 1.075rem;
-    color: var(--text-links);
-}
-
-.buttons {
-    display: flex;
-    gap: 0.65rem;
-    margin-top: 0.35rem;
-}
-
 @media (min-width: 87.5em) {
     .card {
         min-height: 8.45rem;

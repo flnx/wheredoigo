@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 // Components
 import { Link } from 'react-router-dom';
 import { LoadingSkeleton } from '../../LoadingSkeletons/LoadingSkeleton';
+import { likedByMessage } from '../../../utils/likedByMessage';
 
 import routeConstants from '../../../constants/routeConstants';
 import styles from './CitiesSlider.module.css';
+import { applyCloudinaryTransformation } from '../../../utils/utils';
 
 const propTypes = {
     destination: PropTypes.object.isRequired,
@@ -26,13 +28,21 @@ export const SliderCard = ({ destination, isLoading }) => {
                 {isLoading ? (
                     <LoadingSkeleton />
                 ) : (
-                    <img src={imageUrls} alt={city} className={styles.image} />
+                    <img
+                        src={applyCloudinaryTransformation(imageUrls)}
+                        alt={city}
+                        className={styles.image}
+                    />
                 )}
             </div>
             {isLoading ? (
                 <div className={styles.loading}>
-                    <h3><LoadingSkeleton /></h3>
-                    <p><LoadingSkeleton /></p>
+                    <h3>
+                        <LoadingSkeleton />
+                    </h3>
+                    <p>
+                        <LoadingSkeleton />
+                    </p>
                 </div>
             ) : (
                 <div className={styles.cardBody}>
@@ -57,19 +67,6 @@ export const SliderCard = ({ destination, isLoading }) => {
             )}
         </Link>
     );
-};
-
-const likedByMessage = ({ lastUserLikes, likesCount }) => {
-    if (lastUserLikes) {
-        const lastUsernameLike = lastUserLikes?.slice(0, 3).at(-1).username?.slice(0, 12);
-        const totalLikesWithoutLastOne = likesCount - 1;
-        const likedByOtherMsg = likesCount - 1 == 1 ? 'other' : 'others';
-        const likedByMessage = `Liked By ${lastUsernameLike} and ${totalLikesWithoutLastOne} ${likedByOtherMsg}`;
-
-        return likedByMessage;
-    }
-
-    return null;
 };
 
 SliderCard.propTypes = propTypes;

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { applyCloudinaryTransformation } from '../../../../utils/utils';
 import { LoadingWrapper } from '../LoadingWrapper/LoadingWrapper';
 
 import styles from './SecondaryImages.module.css';
@@ -18,7 +19,7 @@ export const SecondaryImages = ({ secondaryImages, alt, onClickHandler, isLoadin
                     <LoadingWrapper key={x._id} />
                 ) : (
                     <img
-                        src={x.imageUrl}
+                        src={applyCloudinaryTransformation(x.imageUrl)}
                         alt={`${alt || 'image'} ${i + 1}`} // Include the index to differentiate alt text
                         onClick={() => onClickHandler(x)}
                         key={x._id}

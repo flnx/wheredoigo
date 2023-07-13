@@ -29,6 +29,12 @@ export const isValidArrayOfStrings = (arr) => {
 
 // Stop this if cloudinary credits get low
 export function applyCloudinaryTransformation(imageUrl) {
+    if (!imageUrl) return;
+
+    if (imageUrl.startsWith('blob')) {
+        return imageUrl;
+    }
+
     const parts = imageUrl.split('/upload/');
     const transformedUrl = `${parts[0]}/upload/t_small/${parts[1]}`;
     return transformedUrl;

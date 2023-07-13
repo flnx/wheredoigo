@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 // Components
 import { X } from '@phosphor-icons/react';
 import { LoadingSkeleton } from '../LoadingSkeletons/LoadingSkeleton';
+import { applyCloudinaryTransformation } from '../../utils/utils';
 
 import styles from './ImageThumbnailsPreview.module.css';
 
@@ -20,7 +21,7 @@ export const ImageThumbnailsPreview = ({ images, handleDeleteImage, isLoading, a
                 <div
                     key={i}
                     className={styles.thumbnail}
-                    onClick={(_) => handleDeleteImage(_, i)} // doesn't trigger click during loading
+                    onClick={(e) => handleDeleteImage(e, i)} // doesn't trigger click during loading
                 >
                     <div className={styles.overlayText}>tap to remove</div>
                     <div className={styles.imageContainer}>
@@ -28,7 +29,7 @@ export const ImageThumbnailsPreview = ({ images, handleDeleteImage, isLoading, a
                             <LoadingSkeleton />
                         ) : (
                             <img
-                                src={extractUrl(img)}
+                                src={applyCloudinaryTransformation(extractUrl(img))}
                                 alt={alt ? `${alt} ${i}` : `image preview ${i}`}
                             />
                         )}

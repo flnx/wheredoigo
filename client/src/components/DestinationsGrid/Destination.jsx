@@ -5,6 +5,7 @@ import { LinkButtonSuccess } from '../Buttons/Success-Button/LinkButtonSuccess';
 
 import styles from './DestinationsGrid.module.css';
 import routeConstants from '../../constants/routeConstants';
+import { applyCloudinaryTransformation } from '../../utils/utils';
 
 const propTypes = {
     destination: PropTypes.shape({
@@ -28,7 +29,10 @@ export const Destination = ({ destination, onDeleteClickHandler, isEditable, bac
         <div className={styles['card']} style={style} data-testid={'destination'}>
             <div className={styles.imageContainer}>
                 <Link to={BY_ID.routePath(_id)}>
-                    <img src={imageUrls} alt={city} />
+                    <img 
+                        src={applyCloudinaryTransformation(imageUrls)} 
+                        alt={city} 
+                    />
                 </Link>
             </div>
             <section className={styles.content}>
