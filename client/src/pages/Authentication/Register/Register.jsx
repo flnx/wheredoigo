@@ -13,6 +13,7 @@ import { ButtonSky } from '../../../components/Buttons/Button-Sky/ButtonSky';
 import { User } from '@phosphor-icons/react';
 import { EnvelopeSimple } from '@phosphor-icons/react';
 import { LockSimple } from '@phosphor-icons/react';
+import { useDocumentTitle } from '../../../hooks/useDocumentTitle';
 
 import routeConstants from '../../../constants/routeConstants';
 import styles from '../FormLayout.module.css';
@@ -24,6 +25,7 @@ const Register = () => {
     const [state, onChangeHandler] = useFormInput();
     const [register, isLoading, serverError] = useUserRegister();
     const [submitHandler, error] = useSubmitFormData(state, register, isLoading);
+    useDocumentTitle('Sign Up')
 
     if (serverError) {
         showBoundary(serverError);

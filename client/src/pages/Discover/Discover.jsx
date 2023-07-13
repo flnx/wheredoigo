@@ -1,5 +1,6 @@
 import { validateCategoriesOnSearch } from '../../utils/formValidators';
 import { useSearchParams } from 'react-router-dom';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
 // Components
 import { CategoriesNav } from '../../components/CategoriesNav/CategoriesNav';
@@ -11,65 +12,63 @@ import { HashTagCategories } from './components/HashTagCategories/HashTagCategor
 import styles from './Discover.module.css';
 
 export const Discover = () => {
-    // useSearchParam hook to base the search on the URL
+    // Retrieve search parameters from the URL
     const [searchParams, setSearchParams] = useSearchParams({});
+    useDocumentTitle('Discover');
 
-    // Extracts the "search" URL query search value from searchParams
+    // Extract the "search" query parameter from the searchParams
     const searchParam = searchParams.get('search') || '';
 
     // Filters out the invalid / repeating categories (if user enters them via URL)
     const categories = validateCategoriesOnSearch(searchParams);
 
-    // Updates the URL queries with the newly picked "categories" and "search"
-    // - newSearch prop is the current user search input value from SearchBar
+    // Validate and filter out invalid/repeating categories from the searchParams
     const updateSearchParamsHandler = (newSearch) => {
-        // - This is the object that'll update the URL queries, initialized with categories (empty or not)
+        // Update the URL query parameters with the newly selected "categories" and "search"
         const updatedParams = {
-            category: categories,
+            category: categories, // Initialize with current categories
         };
 
-        // - Adds a "search" prop/query if the user has entered any
-        // - In this way we also avoid setting an empty "search" query if the user has entered only categories
+        // Add "search" query parameter if the user has entered any value
         if (newSearch) {
             updatedParams.search = newSearch;
         }
 
-        // Updating the URL with the new queries "search" and "categories"
+        // Update the URL with the new query parameters
         setSearchParams(updatedParams);
     };
 
-    // #hashtag click handler - accepts updated categories
-    // HashTagCategories component filters out the clicked category and passes the updated categories
+    // Handle click on a hashtag - receives updated categories
     const onHashTagClickHandler = (updatedParams) => {
-        // This ensures that the search query will stay in the URL when the hook updates the url
+        // Preserve the search query in the URL when updating
         if (searchParam) {
             updatedParams.search = searchParam;
         }
 
-        // Updating the URL with the filtered categories
+        // Update the URL with the filtered categories
         setSearchParams(updatedParams);
     };
 
-    // This handlerr adds the clicked category in the URL
-    // Also adds a #hashtag (that can be removed on click - check onHashTagClickHandler)
-
+    // Handle click on a category - adds the clicked category to the URL
     const onCategoryClickHandler = (category) => {
-        // If the category already exists, it doesn't update the url
+        // If the category already exists, don't update the URL
         if (categories.includes(category)) return;
 
-        // Adding the clicked category to the current categories (if any)
+        // Add the clicked category to the current categories
         const updatedParams = {
             category: [...categories, category],
         };
 
-        // This ensures that the search query will stay in the URL when the hook updates the url
+        // Preserve the search query in the URL when updating
         if (searchParam) {
             updatedParams.search = searchParam;
         }
 
-        // Updating the URL with the filtered categories
+        // Update the URL with the filtered categories
         setSearchParams(updatedParams);
     };
+
+    console.log('hello')
 
     return (
         <Container mb={3}>
@@ -82,7 +81,7 @@ export const Discover = () => {
                 />
                 <CategoriesNav onCategoryClickHandler={onCategoryClickHandler} />
 
-                {/* Passing down the updated URL quries here to trigger a new fetch request */}
+                {/* Pass the updated URL queries to trigger a new fetch request */}
                 <Destinations searchParam={searchParam} categoryParams={categories.join()} />
             </div>
         </Container>

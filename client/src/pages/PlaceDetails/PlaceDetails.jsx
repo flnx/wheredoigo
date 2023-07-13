@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { usePlace } from '../../hooks/queries/usePlace';
 import { useErrorBoundary } from 'react-error-boundary';
-import { useDocumentTitle } from '../../hooks/useTitle';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
 // components
 import { Container } from '../../components/Containers/Container/Container';

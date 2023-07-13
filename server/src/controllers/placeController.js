@@ -9,31 +9,35 @@ const addPlaceNewImages = require('../services/placeServices/addPlaceNewImages')
 const getTopPlaces = require('../services/placeServices/getTopPlaces');
 const getUserPlacesData = require('../services/placeServices/getUserPlacesData');
 
-const {allowedPlaceCategories, allowedFieldsToUpdate } = require('../constants/allowedPlaceCategories');
+const {
+    allowedPlaceCategories,
+    allowedFieldsToUpdate,
+} = require('../constants/allowedPlaceCategories');
 const getPlaceComments = require('../services/placeServices/getPlaceComments');
 const { extractPageFromQuery } = require('../utils/extractPageFromQuery');
-const { addAIGeneratedCommentsToPlace } = require('../services/placeServices/addAIGeneratedCommentsToPlace');
+const {
+    addAIGeneratedCommentsToPlace,
+} = require('../services/placeServices/addAIGeneratedCommentsToPlace');
 
-const get_top_places = async(req, res, next) => {
+const get_top_places = async (req, res, next) => {
     try {
         const places = await getTopPlaces();
         res.json(places);
-    } catch(err) {
+    } catch (err) {
         next(err);
     }
-}
+};
 
-const get_user_places_data = async(req, res, next) => {
+const get_user_places_data = async (req, res, next) => {
     const { ownerId } = req.user;
-    
+
     try {
         const places = await getUserPlacesData({ ownerId });
         res.json(places);
-    } catch(err) {
+    } catch (err) {
         next(err);
     }
-}
-
+};
 
 const add_new_place = async (req, res, next) => {
     const placeInfo = req.body;
@@ -50,7 +54,10 @@ const add_new_place = async (req, res, next) => {
 };
 
 const add_new_place_request = async (req, res, next) => {
-    res.json(allowedPlaceCategories);
+    res.json({
+        city: req.destination.city,
+        allowedPlaceCategories,
+    });
 };
 
 const place_details = async (req, res, next) => {
@@ -181,7 +188,6 @@ const generate_place_ai_comments = async (req, res, next) => {
     }
 };
 
-
 module.exports = {
     add_new_place,
     add_new_place_request,
@@ -196,5 +202,5 @@ module.exports = {
     delete_place_image,
     get_top_places,
     get_user_places_data,
-    generate_place_ai_comments
+    generate_place_ai_comments,
 };

@@ -7,9 +7,6 @@ const propTypes = {
 };
 
 export const ShowFormError = ({ errors, errorParam }) => {
-    console.log(errors);
-    console.log(errorParam);
-
     if (errors.length == 0 || !errorParam) {
         return null;
     }

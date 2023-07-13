@@ -15,7 +15,7 @@ import { SuccessButton } from '../../../components/Buttons/Success-Button/Succes
 
 import styles from './Form.module.css';
 
-export const Form = ({ destinationId, allowedCategories }) => {
+export const Form = ({ destinationId, allowedCategories, city }) => {
     const { state, onChangeHandler } = useFormInput();
     const { images, addImages, deleteImage } = useImages();
 
@@ -28,6 +28,8 @@ export const Form = ({ destinationId, allowedCategories }) => {
 
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
+            <h1>Add place to {city}</h1>
+
             <Input name={state.name} onChangeHandler={onChangeHandler} errors={errors} />
             <Textarea
                 description={state.description}

@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useDestination } from '../../hooks/queries/useDestination';
 import { useErrorBoundary } from 'react-error-boundary';
-import { useDocumentTitle } from '../../hooks/useTitle';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
 // Components
 import { ImagesSection } from './components/ImagesSection/ImagesSection';

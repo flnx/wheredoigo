@@ -10,6 +10,7 @@ import { Form } from './components/Form/Form';
 import { FlexSectionContainer } from '../../components/Containers/FlexSectionContainer/FlexSectionContainer';
 import { ImagesManager } from '../../components/ImagesManager/ImagesManager';
 import { TextWrap } from '../../components/TextWrap/TextWrap';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
 export const EditPlace = () => {
     const { placeId } = useParams();
@@ -18,6 +19,7 @@ export const EditPlace = () => {
     const [data, error, isLoading] = useGetPlaceToEdit(placeId);
     const deleteImageHook = () => useDeletePlaceImage(placeId, data?.destinationId);
     const addImageHook = () => useAddPlaceNewImages(placeId, data?.destinationId);
+    useDocumentTitle(`Edit ${data?.name}`);
 
     const placeTitle = `${data?.name}, ${data?.city}`;
 

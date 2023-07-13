@@ -5,6 +5,7 @@ import { useErrorBoundary } from 'react-error-boundary';
 import { useUserLogin } from '../../../hooks/queries/useUserLogin';
 import { useFormInput } from '../hooks/useFormInput';
 import { useSubmitFormData } from '../hooks/useSubmitFormData';
+import { useDocumentTitle } from '../../../hooks/useDocumentTitle';
 
 // Components
 import { FormLayout } from '../components/FormLayout';
@@ -23,6 +24,7 @@ const Login = () => {
     const [state, onChangeHandler] = useFormInput();
     const [login, isLoading, serverError] = useUserLogin();
     const [submitHandler, error] = useSubmitFormData(state, login, isLoading);
+    useDocumentTitle('Login');
 
     if (serverError) {
         showBoundary(serverError);
