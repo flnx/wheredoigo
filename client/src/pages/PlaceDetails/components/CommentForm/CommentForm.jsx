@@ -22,7 +22,7 @@ export const CommentForm = ({ commentSectionRef }) => {
         resetForm,
     });
 
-    console.log(validationErrors)
+    console.log(validationErrors);
 
     function cacheRateHandler(value) {
         setCachedRate(value);
@@ -68,9 +68,9 @@ export const CommentForm = ({ commentSectionRef }) => {
                     value={content}
                 />
                 <ShowFormError errors={validationErrors} errorParam={'comment'} />
-                <SecondaryButton isLoading={isLoading}>Submit your Review</SecondaryButton>
-                
-
+                <SecondaryButton padding={0.95} isLoading={isLoading}>
+                    Submit your Review
+                </SecondaryButton>
             </form>
             {isLoading && <DarkOverlay isLoading={isLoading} />}
             {error && <ServerErrorPopUp errorMessage={error} />}
