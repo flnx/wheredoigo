@@ -64,7 +64,11 @@ export const GalleryContextProvider = ({ children, images, closeGalleryHandler, 
         screenWidth
     };
 
-    return <GalleryContext.Provider value={contextValue}>{children}</GalleryContext.Provider>;
+    return (
+        <GalleryContext.Provider value={contextValue}>
+            {children}
+        </GalleryContext.Provider>
+    );
 };
 
 GalleryContextProvider.propTypes = propTypes;

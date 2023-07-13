@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { usePlace } from '../../hooks/queries/usePlace';
 import { useErrorBoundary } from 'react-error-boundary';
+import { useDocumentTitle } from '../../hooks/useTitle';
 
 // components
 import { Container } from '../../components/Containers/Container/Container';
@@ -18,6 +19,7 @@ export const PlaceDetails = () => {
     const { placeId } = useParams();
     const { data, isLoading, error } = usePlace(placeId);
     const commentSectionRef = useRef();
+    useDocumentTitle(data?.name);
 
     if (error) {
         showBoundary(error);

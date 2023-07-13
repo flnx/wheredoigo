@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useDestination } from '../../hooks/queries/useDestination';
 import { useErrorBoundary } from 'react-error-boundary';
+import { useDocumentTitle } from '../../hooks/useTitle';
 
 // Components
 import { ImagesSection } from './components/ImagesSection/ImagesSection';
@@ -17,11 +18,13 @@ export const DestinationDetails = () => {
     const { destinationId } = useParams();
     const { isLoading, error, data } = useDestination(destinationId);
     const { routePath } = routeConstants.PLACES.ADD;
+    useDocumentTitle(data?.city);
 
     const destination = data || {};
     const placesData = destination.places || [];
     const imagesData = destination.imageUrls || [];
 
+  
     if (error) {
         showBoundary(error);
         return null;
