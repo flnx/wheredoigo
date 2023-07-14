@@ -21,6 +21,7 @@
 .navbar li a {
     display: block;
     padding: 1rem;
+    transition: 0s;
     /* font-weight: 400; */
 }
 

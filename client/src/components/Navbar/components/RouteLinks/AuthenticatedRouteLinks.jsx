@@ -8,7 +8,7 @@ import { AppWindow } from '@phosphor-icons/react';
 import { Plus } from '@phosphor-icons/react';
 import { SuitcaseRolling } from '@phosphor-icons/react';
 import { GearSix } from '@phosphor-icons/react';
-import { Heart } from '@phosphor-icons/react';
+import { SignOut } from '@phosphor-icons/react';
 import { IconLink } from '../../../Buttons/IconLink/IconLink';
 
 export const AuthenticatedRouteLinks = () => {
@@ -26,11 +26,29 @@ export const AuthenticatedRouteLinks = () => {
                 </IconLink>
             </li>
 
-            <Link to={DASHBOARD.MY_DESTINATIONS.routePath}>
-                {DASHBOARD.MY_DESTINATIONS.name}
-            </Link>
-            <Link to={DASHBOARD.SETTINGS.routePath}>{DASHBOARD.SETTINGS.name}</Link>
-            <Link to={AUTH.LOGOUT.route}>{AUTH.LOGOUT.name}</Link>
+            <li>
+                <IconLink to={DASHBOARD.MY_DESTINATIONS.routePath} Icon={SuitcaseRolling}>
+                    {DASHBOARD.MY_DESTINATIONS.name}
+                </IconLink>
+            </li>
+
+            <li>
+                <IconLink to={DASHBOARD.SETTINGS.routePath} Icon={GearSix}>
+                    {DASHBOARD.SETTINGS.name}
+                </IconLink>
+            </li>
+
+            <li>
+                <IconLink to={DASHBOARD.SETTINGS.routePath} Icon={GearSix}>
+                    {DASHBOARD.SETTINGS.name}
+                </IconLink>
+            </li>
+
+            <li>
+                <IconLink to={AUTH.LOGOUT.route} Icon={SignOut}>
+                    {AUTH.LOGOUT.name}
+                </IconLink>
+            </li>
         </>
     );
 };
