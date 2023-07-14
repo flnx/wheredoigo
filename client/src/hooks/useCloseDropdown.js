@@ -27,6 +27,7 @@ export const useCloseDropdown = ({
 
         document.addEventListener('mousedown', handleClickOutsideDropdownModal);
 
+        // cleanup
         return () => {
             document.removeEventListener('mousedown', handleClickOutsideDropdownModal);
         };

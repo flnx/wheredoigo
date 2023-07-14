@@ -39,12 +39,6 @@ export const AuthenticatedRouteLinks = () => {
             </li>
 
             <li>
-                <IconLink to={DASHBOARD.SETTINGS.routePath} Icon={GearSix}>
-                    {DASHBOARD.SETTINGS.name}
-                </IconLink>
-            </li>
-
-            <li>
                 <IconLink to={AUTH.LOGOUT.route} Icon={SignOut}>
                     {AUTH.LOGOUT.name}
                 </IconLink>

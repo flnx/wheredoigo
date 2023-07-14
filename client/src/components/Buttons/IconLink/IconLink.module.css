@@ -6,7 +6,6 @@
 }
 
 .navText {
-    display: none;
     font-size: 0.8345rem;
     font-weight: 600;
 }
@@ -24,9 +23,5 @@
 @media (min-width: 64em) {
     .navLink {
         min-width: 10rem;
-    }
-
-    .navText {
-        display: inline;
     }
 }

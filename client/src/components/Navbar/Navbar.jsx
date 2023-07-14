@@ -29,10 +29,12 @@ export const Navbar = () => {
     const avatarIconRef = useRef(null);
     const desktopDropdownRef = useRef(null);
 
+    // Closing dropdown when navigating to another page
     useEffect(() => {
         setIsNavToggled(false);
     }, [location]);
 
+    // Closing dropdown when clicked outside
     useCloseDropdown({
         isDropdownOpen: isNavToggled,
         mainElementRef: avatarIconRef,

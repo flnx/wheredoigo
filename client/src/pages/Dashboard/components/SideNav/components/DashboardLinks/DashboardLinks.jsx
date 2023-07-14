@@ -12,25 +12,47 @@ import styles from './DashboardLinks.module.css';
 export const DashboardLinks = () => {
     const { ADD_DESTINATION, MY_DESTINATIONS, FAVORITES, SETTINGS } = routeConstants.DASHBOARD;
 
+    const hideTextMobileClass = styles.navHiddenMobile;
+
     return (
         <nav className={styles.navbar}>
-            <IconLink to={routeConstants.DASHBOARD.route} Icon={AppWindow}>
+            <IconLink
+                className={hideTextMobileClass}
+                to={routeConstants.DASHBOARD.route}
+                Icon={AppWindow}
+            >
                 {routeConstants.DASHBOARD.name}
             </IconLink>
 
-            <IconLink to={ADD_DESTINATION.routePath} Icon={Plus}>
+            <IconLink
+                className={hideTextMobileClass}
+                to={ADD_DESTINATION.routePath}
+                Icon={Plus}
+            >
                 {ADD_DESTINATION.name}
             </IconLink>
 
-            <IconLink to={MY_DESTINATIONS.routePath} Icon={SuitcaseRolling}>
+            <IconLink
+                className={hideTextMobileClass}
+                to={MY_DESTINATIONS.routePath}
+                Icon={SuitcaseRolling}
+            >
                 {MY_DESTINATIONS.name}
             </IconLink>
 
-            <IconLink to={FAVORITES.routePath} Icon={Heart}>
+            <IconLink 
+                className={hideTextMobileClass} 
+                to={FAVORITES.routePath} 
+                Icon={Heart}
+            >
                 {FAVORITES.name}
             </IconLink>
 
-            <IconLink to={SETTINGS.routePath} Icon={GearSix}>
+            <IconLink 
+                className={hideTextMobileClass} 
+                to={SETTINGS.routePath} 
+                Icon={GearSix}
+            >
                 {SETTINGS.name}
             </IconLink>
         </nav>
