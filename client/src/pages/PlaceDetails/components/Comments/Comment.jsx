@@ -18,15 +18,15 @@ export const Comment = ({ comment }) => {
         comment._id,
         placeId
     );
-    const [isDropDownModal, setIsDropdownModalOpen] = useState(false);
+    const [isDropDownModalOpen, setIsDropdownModalOpen] = useState(false);
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-    const modalRef = useRef(null);
+    const dropdownRef = useRef(null);
     const treeDotsRef = useRef(null);
 
     useCloseDropdown({
-        isDropDownModal,
-        modalRef,
-        treeDotsRef,
+        isDropdownOpen: isDropDownModalOpen,
+        mainElementRef: treeDotsRef,
+        dropdownRef,
         handleCloseDropdownModal,
     });
 
@@ -88,10 +88,10 @@ export const Comment = ({ comment }) => {
                 />
             )}
 
-            {isDropDownModal && (
+            {isDropDownModalOpen && (
                 <Dropdown
                     onItemClick={handleDropdownModalItemClick}
-                    modalRef={modalRef}
+                    dropdownRef={dropdownRef}
                     isOwner={comment.isOwner}
                 />
             )}

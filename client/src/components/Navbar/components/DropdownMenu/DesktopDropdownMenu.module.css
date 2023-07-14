@@ -13,9 +13,9 @@
     align-items: center;
     justify-content: space-around;
     flex-direction: column;
+    z-index: 1;
 }
 
 .navbar li a {
     color: #fff;
 }
-

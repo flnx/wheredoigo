@@ -4,10 +4,14 @@ import { CaretUp } from '@phosphor-icons/react';
 
 import styles from './AvatarIcon.module.css';
 
-export const AvatarIcon = ({ onAvatarClickHandler, isNavToggled, auth }) => {
+export const AvatarIcon = ({ onAvatarClickHandler, isNavToggled, avatarIconRef }) => {
     return (
         <div className={styles.dropdown}>
-            <div className={styles.avatarContainer} onClick={onAvatarClickHandler}>
+            <div
+                className={styles.avatarContainer}
+                onClick={onAvatarClickHandler}
+                ref={avatarIconRef}
+            >
                 <img
                     src="https://randomuser.me/api/portraits/men/47.jpg"
                     alt="username"

@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useRef } from 'react';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
@@ -15,6 +15,7 @@ import logo from '../../assets/logo/logo.png';
 
 import routeConstants from '../../constants/routeConstants';
 import styles from './Navbar.module.css';
+import { useCloseDropdown } from '../../hooks/useCloseDropdown';
 
 const { HOME } = routeConstants;
 
@@ -24,9 +25,19 @@ export const Navbar = () => {
     const location = useLocation();
     const screenWidth = useWindowSize();
 
+    const avatarIconRef = useRef(null);
+    const desktopDropdownRef = useRef(null);
+
     useEffect(() => {
         setIsNavToggled(false);
     }, [location]);
+
+    useCloseDropdown({
+        isDropdownOpen: isNavToggled,
+        mainElementRef: avatarIconRef,
+        dropdownRef: desktopDropdownRef,
+        handleCloseDropdownModal: () => setIsNavToggled(false),
+    });
 
     const onHamburgerOrAvatarClickHandler = () => {
         setIsNavToggled(!isNavToggled);
@@ -50,6 +61,7 @@ export const Navbar = () => {
                         <AvatarIcon
                             onAvatarClickHandler={onHamburgerOrAvatarClickHandler}
                             isNavToggled={isNavToggled}
+                            avatarIconRef={avatarIconRef}
                         />
                     ) : (
                         <HamburgerIcon
@@ -60,9 +72,11 @@ export const Navbar = () => {
                     )}
                 </div>
 
-                {!isMobile && isNavToggled && <DesktopDropdownMenu auth={auth} />}
+                {!isMobile && isNavToggled && (
+                    <DesktopDropdownMenu auth={auth} desktopDropdownRef={desktopDropdownRef} />
+                )}
             </div>
-            
+
             {isMobile && isNavToggled && <MobileDropdownMenu auth={auth} />}
         </header>
     );

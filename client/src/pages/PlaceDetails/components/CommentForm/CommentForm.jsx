@@ -22,8 +22,6 @@ export const CommentForm = ({ commentSectionRef }) => {
         resetForm,
     });
 
-    console.log(validationErrors);
-
     function cacheRateHandler(value) {
         setCachedRate(value);
     }

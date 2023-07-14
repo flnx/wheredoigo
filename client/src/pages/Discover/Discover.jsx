@@ -68,8 +68,6 @@ export const Discover = () => {
         setSearchParams(updatedParams);
     };
 
-    console.log('hello')
-
     return (
         <Container mb={3}>
             <div className={styles.grid}>

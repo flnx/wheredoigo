@@ -7,10 +7,9 @@ import styles from './DesktopDropdownMenu.module.css';
 
 const { DISCOVER } = routeConstants;
 
-export const DesktopDropdownMenu = ({ auth }) => {
-
+export const DesktopDropdownMenu = ({ auth, desktopDropdownRef }) => {
     return (
-        <ul className={styles.navbar}>
+        <ul className={styles.navbar} ref={desktopDropdownRef}>
             <Link to={DISCOVER.route}>{DISCOVER.name}</Link>
 
             {!auth.accessToken 
