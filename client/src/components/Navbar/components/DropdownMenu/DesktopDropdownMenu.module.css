@@ -1,0 +1,21 @@
+.navbar {
+    position: absolute;
+    right: 0;
+    background: var(--background-nav-dropdown);
+    top: 4rem;
+    width: 15rem;
+    height: 15rem;
+    padding: 1rem;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.navbar li a {
+    color: #fff;
+}
+

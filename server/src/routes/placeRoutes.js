@@ -38,12 +38,12 @@ const router = express.Router();
 
 // -- GET --
 router.get(
-    '/top-places', 
+    '/top-places',
     get_top_places
 );
 
 router.get(
-    '/places/user-places-data', 
+    '/places/user-places-data',
     auth, 
     get_user_places_data
 );

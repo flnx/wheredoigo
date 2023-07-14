@@ -1,0 +1,30 @@
+.dropdown {
+    display: flex;
+    align-items: center;
+}
+
+.avatarContainer {
+    position: relative;
+    cursor: pointer;
+    transition: opacity 0.15s ease-in-out;
+}
+
+.avatarContainer:hover,
+.avatarContainer:focus {
+    opacity: 0.7;
+}
+
+.avatarContainer .image {
+    width: 43px;
+    height: 43px;
+    border-radius: 50%;
+}
+
+.avatarContainer .caretDown {
+    position: absolute;
+    bottom: 0;
+    right: -5px;
+    background: var(--danger);
+    color: #fff;
+    border-radius: 50%;
+}

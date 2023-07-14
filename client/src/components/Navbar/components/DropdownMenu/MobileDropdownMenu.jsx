@@ -1,15 +1,11 @@
 import { NavLink } from 'react-router-dom';
-import { useContext } from 'react';
-import { AuthContext } from '../../../context/AuthContext';
 
-import routeConstants from '../../../constants/routeConstants';
-import styles from '../Navbar.module.css';
+import routeConstants from '../../../../constants/routeConstants';
+import styles from './MobileDropdownMenu.module.css';
 
 const { DISCOVER, DASHBOARD, AUTH } = routeConstants;
 
-export const NavLinks = () => {
-    const { auth } = useContext(AuthContext);
-
+export const MobileDropdownMenu = ({ auth }) => {
     return (
         <nav>
             <ul className={styles.navbar}>

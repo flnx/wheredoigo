@@ -34,16 +34,18 @@ const router = express.Router();
 // -- GET -- 
 router.get(
     '/destinations', 
+    checkSession,
     paginated_destinations
 );
 
 router.get(
-    '/top-destinations', 
+    '/top-destinations',
+    checkSession,
     top_destinations
 );
 
 router.get(
-    '/destinations/countries-and-cities', 
+    '/destinations/countries-and-cities',
     auth, 
     get_countries_and_cities
 );

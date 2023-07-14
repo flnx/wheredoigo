@@ -1,0 +1,16 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.navbar li a {
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.55rem 1.5rem;
+}
+
+.navbar .btn {
+    padding: 0;
+    color: var(--text-primary);
+}
