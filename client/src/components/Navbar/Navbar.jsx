@@ -25,14 +25,15 @@ export const Navbar = () => {
     const [isNavToggled, setIsNavToggled] = useState(false);
     const location = useLocation();
     const screenWidth = useWindowSize();
-
     const avatarIconRef = useRef(null);
     const desktopDropdownRef = useRef(null);
+
+    const isMobile = screenWidth < 640;
 
     // Closing dropdown when navigating to another page
     useEffect(() => {
         setIsNavToggled(false);
-    }, [location]);
+    }, [location, isMobile]);
 
     // Closing dropdown when clicked outside
     useCloseDropdown({
@@ -46,7 +47,6 @@ export const Navbar = () => {
         setIsNavToggled(!isNavToggled);
     };
 
-    const isMobile = screenWidth < 640;
 
     return (
         <header className={styles.header}>

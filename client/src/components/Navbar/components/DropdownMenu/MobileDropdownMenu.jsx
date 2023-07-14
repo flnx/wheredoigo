@@ -5,35 +5,31 @@ import { disableBodyScroll, enableBodyScroll } from '../../../../utils/utils';
 import { UnauthenticatedRoutesLinks } from '../RouteLinks/UnauthenticatedRoutesLinks';
 import { AuthenticatedRouteLinks } from '../RouteLinks/AuthenticatedRouteLinks';
 import { UserDropdownIntro } from './UserDropdownIntro';
-import { IconLink } from '../../../Buttons/IconLink/IconLink';
-import { MagnifyingGlass } from '@phosphor-icons/react';
 
 import styles from './MobileDropdownMenu.module.css';
 
-import routeConstants from '../../../../constants/routeConstants';
+import { PublicRoutes } from './PublicRoutes';
 
-export const MobileDropdownMenu = ({ auth, desktopDropdownRef }) => {
-    const { DISCOVER } = routeConstants;
-
+export const MobileDropdownMenu = ({ auth }) => {
     useEffect(() => {
         disableBodyScroll();
 
         return () => enableBodyScroll();
     }, []);
 
+    const authClass = !auth.accessToken ? styles.unAuth : '';
+
     return (
-        <ul className={styles.navbar} ref={desktopDropdownRef}>
+        <ul className={`${styles.navbar} ${authClass}`}>
             {!auth.accessToken ? (
-                <UnauthenticatedRoutesLinks />
+                <>
+                    <UnauthenticatedRoutesLinks />
+                    <PublicRoutes />
+                </>
             ) : (
                 <>
                     <UserDropdownIntro auth={auth} />
-                    <li>
-                        <IconLink to={DISCOVER.route} Icon={MagnifyingGlass}>
-                            {DISCOVER.name}
-                        </IconLink>
-                    </li>
-
+                    <PublicRoutes />
                     <AuthenticatedRouteLinks />
                 </>
             )}

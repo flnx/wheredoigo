@@ -5,8 +5,9 @@
     background: var(--background-nav-dropdown);
     width: 100%;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
     flex-direction: column;
     z-index: 9999;
     padding: 0 0 2rem 0;
@@ -21,13 +22,38 @@
     display: flex;
     justify-content: center;
     transition: none;
+    font-weight: 400;
 }
 
-.navbar li a:hover, .navbar li a:focus {
+.navbar li a:hover,
+.navbar li a:focus {
     background: var(--minimalistic-red);
     outline: none;
 }
 
-    .navbar li a {
-        color: #fff;
-    }
+.navbar li a {
+    color: #fff;
+}
+
+.unAuth {
+    justify-content: flex-start;
+    padding: 1rem;
+}
+
+.unAuth li:last-child {
+    border: 1px solid var(--minimalistic-red);
+    border-radius: 5px;
+    font-weight: 900;
+    font-size: 1rem;
+}
+
+.unAuth li span {
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.unAuth li a {
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 1rem;
+}
