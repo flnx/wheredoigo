@@ -1,5 +1,6 @@
 import { UnauthenticatedRoutesLinks } from '../RouteLinks/UnauthenticatedRoutesLinks';
 import { AuthenticatedRouteLinks } from '../RouteLinks/AuthenticatedRouteLinks';
+import { UserDropdownIntro } from './UserDropdownIntro';
 
 import styles from './DesktopDropdownMenu.module.css';
 
@@ -10,18 +11,7 @@ export const DesktopDropdownMenu = ({ auth, desktopDropdownRef }) => {
                 <UnauthenticatedRoutesLinks />
             ) : (
                 <>
-                    <li className={styles.userContainer}>
-                        <img
-                            src={auth.avatarUrl}
-                            alt={auth.username}
-                            className={styles.avatar}
-                        />
-                        <div className={styles.userContent}>
-                            <span className={styles.username}>
-                                @{auth.username}
-                            </span>
-                        </div>
-                    </li>
+                    <UserDropdownIntro auth={auth}/>
                     <AuthenticatedRouteLinks />
                 </>
             )}

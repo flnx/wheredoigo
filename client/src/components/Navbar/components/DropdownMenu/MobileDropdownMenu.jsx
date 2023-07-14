@@ -1,41 +1,42 @@
-import { NavLink } from 'react-router-dom';
+import { useEffect } from 'react';
+import { disableBodyScroll, enableBodyScroll } from '../../../../utils/utils';
 
-import routeConstants from '../../../../constants/routeConstants';
+// Components
+import { UnauthenticatedRoutesLinks } from '../RouteLinks/UnauthenticatedRoutesLinks';
+import { AuthenticatedRouteLinks } from '../RouteLinks/AuthenticatedRouteLinks';
+import { UserDropdownIntro } from './UserDropdownIntro';
+import { IconLink } from '../../../Buttons/IconLink/IconLink';
+import { MagnifyingGlass } from '@phosphor-icons/react';
+
 import styles from './MobileDropdownMenu.module.css';
 
-const { DISCOVER, DASHBOARD, AUTH } = routeConstants;
+import routeConstants from '../../../../constants/routeConstants';
 
-export const MobileDropdownMenu = ({ auth }) => {
-    return (
-        <nav>
-            <ul className={styles.navbar}>
-                <Link to={DISCOVER.route}>{DISCOVER.name}</Link>
-                {!auth.accessToken ? (
-                    <>
-                        <Link to={AUTH.LOGIN.routePath} className={styles.btn}>
-                            {AUTH.LOGIN.name}
-                        </Link>
-                        <Link to={AUTH.REGISTER.routePath} className={styles.btn}>
-                            {AUTH.REGISTER.name}
-                        </Link>
-                    </>
-                ) : (
-                    <>
-                        <Link to={DASHBOARD.route}>{DASHBOARD.name}</Link>
-                        <Link to={AUTH.LOGOUT.route}>{AUTH.LOGOUT.name}</Link>
-                    </>
-                )}
-            </ul>
-        </nav>
-    );
-};
+export const MobileDropdownMenu = ({ auth, desktopDropdownRef }) => {
+    const { DISCOVER } = routeConstants;
 
-const Link = ({ children, to, className }) => {
+    useEffect(() => {
+        disableBodyScroll();
+
+        return () => enableBodyScroll();
+    }, []);
+
     return (
-        <li>
-            <NavLink to={to} className={className}>
-                {children}
-            </NavLink>
-        </li>
+        <ul className={styles.navbar} ref={desktopDropdownRef}>
+            {!auth.accessToken ? (
+                <UnauthenticatedRoutesLinks />
+            ) : (
+                <>
+                    <UserDropdownIntro auth={auth} />
+                    <li>
+                        <IconLink to={DISCOVER.route} Icon={MagnifyingGlass}>
+                            {DISCOVER.name}
+                        </IconLink>
+                    </li>
+
+                    <AuthenticatedRouteLinks />
+                </>
+            )}
+        </ul>
     );
 };

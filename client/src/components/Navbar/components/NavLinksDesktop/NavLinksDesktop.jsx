@@ -7,10 +7,9 @@ import routeConstants from '../../../../constants/routeConstants';
 
 import styles from './NavLinksDesktop.module.css';
 
-const { DISCOVER, DASHBOARD, AUTH } = routeConstants;
-
 export const NavLinksDesktop = () => {
     const { auth } = useContext(AuthContext);
+    const { DISCOVER, DASHBOARD } = routeConstants;
 
     return (
         <nav>

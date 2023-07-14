@@ -14,15 +14,15 @@ CitiesSlider.propTypes = {
     isLoading: PropTypes.bool.isRequired,
 };
 
-export function  CitiesSlider({ destinationsData, isLoading }) {
+export function CitiesSlider({ destinationsData, isLoading }) {
     const { data, error } = destinationsData;
     // If destinations data is loading - it returns a new array with X elements
-    // This ensures that the Slider will render (X) amount of div boxes.. 
+    // This ensures that the Slider will render (X) amount of div boxes..
     // ..when the data is being fetched in order the loading skeleton to visualize inside them
     const destinations = checkArrayAndPreloadElements(data?.results, 4);
 
     return (
-        <section>
+        <section style={{ zIndex: 0 }}>
             <Container>
                 {error ? (
                     <h2 className="server-error">{extractServerErrorMessage(error)}</h2>
