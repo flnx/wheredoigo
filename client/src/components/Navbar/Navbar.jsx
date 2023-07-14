@@ -63,6 +63,7 @@ export const Navbar = () => {
                             onAvatarClickHandler={onHamburgerOrAvatarClickHandler}
                             isNavToggled={isNavToggled}
                             avatarIconRef={avatarIconRef}
+                            auth={auth}
                         />
                     ) : (
                         <HamburgerIcon
@@ -74,7 +75,10 @@ export const Navbar = () => {
                 </div>
 
                 {!isMobile && isNavToggled && (
-                    <DesktopDropdownMenu auth={auth} desktopDropdownRef={desktopDropdownRef} />
+                    <DesktopDropdownMenu 
+                        auth={auth} 
+                        desktopDropdownRef={desktopDropdownRef} 
+                    />
                 )}
             </div>
 

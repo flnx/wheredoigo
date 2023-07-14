@@ -1,8 +1,8 @@
 import { NavLink, useLocation } from 'react-router-dom';
 
-import styles from './DashboardLinks.module.css';
+import styles from './DashboardLink.module.css';
 
-export const DashboardLink = ({ children, Icon, to }) => {
+export const IconLink = ({ children, Icon, to }) => {
     const location = useLocation();
     const path = to;
 

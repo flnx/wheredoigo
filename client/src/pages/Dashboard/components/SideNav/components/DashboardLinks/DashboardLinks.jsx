@@ -1,11 +1,10 @@
-import { DashboardLink } from './DashboardLink';
-
 // Icons
 import { AppWindow } from '@phosphor-icons/react';
 import { Plus } from '@phosphor-icons/react';
-import { SuitcaseRolling  } from '@phosphor-icons/react';
+import { SuitcaseRolling } from '@phosphor-icons/react';
 import { GearSix } from '@phosphor-icons/react';
 import { Heart } from '@phosphor-icons/react';
+import { IconLink } from '../../../../../../components/Buttons/IconLink/IconLink';
 
 import routeConstants from '../../../../../../constants/routeConstants';
 import styles from './DashboardLinks.module.css';
@@ -15,25 +14,25 @@ export const DashboardLinks = () => {
 
     return (
         <nav className={styles.navbar}>
-            <DashboardLink to={routeConstants.DASHBOARD.route} Icon={AppWindow}>
+            <IconLink to={routeConstants.DASHBOARD.route} Icon={AppWindow}>
                 {routeConstants.DASHBOARD.name}
-            </DashboardLink>
+            </IconLink>
 
-            <DashboardLink to={ADD_DESTINATION.routePath} Icon={Plus}>
+            <IconLink to={ADD_DESTINATION.routePath} Icon={Plus}>
                 {ADD_DESTINATION.name}
-            </DashboardLink>
+            </IconLink>
 
-            <DashboardLink to={MY_DESTINATIONS.routePath} Icon={SuitcaseRolling }>
+            <IconLink to={MY_DESTINATIONS.routePath} Icon={SuitcaseRolling}>
                 {MY_DESTINATIONS.name}
-            </DashboardLink>
+            </IconLink>
 
-            <DashboardLink to={FAVORITES.routePath} Icon={Heart}>
+            <IconLink to={FAVORITES.routePath} Icon={Heart}>
                 {FAVORITES.name}
-            </DashboardLink>
+            </IconLink>
 
-            <DashboardLink to={SETTINGS.routePath} Icon={GearSix}>
+            <IconLink to={SETTINGS.routePath} Icon={GearSix}>
                 {SETTINGS.name}
-            </DashboardLink>
+            </IconLink>
         </nav>
     );
 };
