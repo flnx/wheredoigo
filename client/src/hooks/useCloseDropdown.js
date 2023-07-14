@@ -30,5 +30,5 @@ export const useCloseDropdown = ({
         return () => {
             document.removeEventListener('mousedown', handleClickOutsideDropdownModal);
         };
-    }, [isDropdownOpen, dropdownRef, mainElementRef, handleCloseDropdownModal]);
+    }, [isDropdownOpen]);
 };
