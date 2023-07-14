@@ -7,25 +7,20 @@ export const useCloseDropdown = ({
     handleCloseDropdownModal,
 }) => {
     useEffect(() => {
-        console.log(dropdownRef.current);
-
         const handleClickOutsideDropdownModal = (e) => {
             // * Check if the dropdown is open and the necessary elements exist
 
             // Check if the dropdown is open
-            const isDropdownOpen = isDropdownOpen && dropdownRef.current; 
-
+            const isDropDownOpen = isDropdownOpen && dropdownRef?.current;
 
             // Check if the click target is not within the dropdown
-            const isOutsideDropdown = !dropdownRef.current.contains(e.target); 
-
+            const isOutsideDropdown = !dropdownRef?.current?.contains(e.target);
 
             // Check if the click target is not within the main element
-            const isOutsideMainElement = !mainElementRef.current?.contains(e.target); 
-
+            const isOutsideMainElement = !mainElementRef?.current?.contains(e.target);
 
             // If all conditions are met, close the dropdown
-            if (isDropdownOpen && isOutsideDropdown && isOutsideMainElement) {
+            if (isDropDownOpen && isOutsideDropdown && isOutsideMainElement) {
                 handleCloseDropdownModal();
             }
         };
@@ -33,10 +28,7 @@ export const useCloseDropdown = ({
         document.addEventListener('mousedown', handleClickOutsideDropdownModal);
 
         return () => {
-            document.removeEventListener(
-                'mousedown',
-                handleClickOutsideDropdownModal
-            );
+            document.removeEventListener('mousedown', handleClickOutsideDropdownModal);
         };
-    }, [isDropdownOpen]);
+    }, [isDropdownOpen, dropdownRef, mainElementRef, handleCloseDropdownModal]);
 };
