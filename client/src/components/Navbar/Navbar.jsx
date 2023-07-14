@@ -17,7 +17,6 @@ import logo from '../../assets/logo/logo.png';
 import routeConstants from '../../constants/routeConstants';
 import styles from './Navbar.module.css';
 
-
 const { HOME } = routeConstants;
 
 export const Navbar = () => {
@@ -30,7 +29,7 @@ export const Navbar = () => {
 
     const isMobile = screenWidth < 640;
 
-    // Closing dropdown when navigating to another page
+    // Closing dropdown when navigating to another page or when isMobile bool changes
     useEffect(() => {
         setIsNavToggled(false);
     }, [location, isMobile]);
@@ -46,7 +45,6 @@ export const Navbar = () => {
     const onHamburgerOrAvatarClickHandler = () => {
         setIsNavToggled(!isNavToggled);
     };
-
 
     return (
         <header className={styles.header}>
@@ -77,14 +75,16 @@ export const Navbar = () => {
                 </div>
 
                 {!isMobile && isNavToggled && (
-                    <DesktopDropdownMenu 
-                        auth={auth} 
-                        desktopDropdownRef={desktopDropdownRef} 
-                    />
+                    <DesktopDropdownMenu auth={auth} desktopDropdownRef={desktopDropdownRef} />
                 )}
             </div>
 
-            {isMobile && isNavToggled && <MobileDropdownMenu auth={auth} />}
+            {isMobile && isNavToggled && (
+                <MobileDropdownMenu
+                    auth={auth}
+                    onCloseHandler={onHamburgerOrAvatarClickHandler}
+                />
+            )}
         </header>
     );
 };

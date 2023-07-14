@@ -5,12 +5,13 @@ import { disableBodyScroll, enableBodyScroll } from '../../../../utils/utils';
 import { UnauthenticatedRoutesLinks } from '../RouteLinks/UnauthenticatedRoutesLinks';
 import { AuthenticatedRouteLinks } from '../RouteLinks/AuthenticatedRouteLinks';
 import { UserDropdownIntro } from './UserDropdownIntro';
+import { X } from '@phosphor-icons/react';
 
 import styles from './MobileDropdownMenu.module.css';
 
 import { PublicRoutes } from './PublicRoutes';
 
-export const MobileDropdownMenu = ({ auth }) => {
+export const MobileDropdownMenu = ({ auth, onCloseHandler }) => {
     useEffect(() => {
         disableBodyScroll();
 
@@ -21,6 +22,12 @@ export const MobileDropdownMenu = ({ auth }) => {
 
     return (
         <ul className={`${styles.navbar} ${authClass}`}>
+            <X 
+                size={36} 
+                className={styles.closeIcon} 
+                color="#fff" 
+                onClick={onCloseHandler} 
+            />
             {!auth.accessToken ? (
                 <>
                     <UnauthenticatedRoutesLinks />

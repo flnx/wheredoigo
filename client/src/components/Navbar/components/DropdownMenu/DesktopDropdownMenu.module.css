@@ -4,7 +4,6 @@
     background: var(--background-nav-dropdown);
     top: 4rem;
     width: 17.5rem;
-    padding: 1rem 0;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     display: flex;
@@ -22,7 +21,6 @@
     display: block;
     padding: 1rem;
     transition: 0s;
-    /* font-weight: 400; */
 }
 
 .navbar li a:hover, .navbar li a:focus {

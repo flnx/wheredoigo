@@ -1,6 +1,6 @@
 .navbar {
     position: fixed;
-    top: 4rem;
+    top: 0;
     bottom: 0;
     background: var(--background-nav-dropdown);
     width: 100%;
@@ -10,7 +10,14 @@
     gap: 1rem;
     flex-direction: column;
     z-index: 9999;
-    padding: 0 0 2rem 0;
+    padding-bottom: 2.25rem;
+}
+
+.navbar .closeIcon {
+    position: absolute;
+    right: 0.95rem;
+    top: 1.3rem;
+    cursor: pointer;
 }
 
 .navbar li {
