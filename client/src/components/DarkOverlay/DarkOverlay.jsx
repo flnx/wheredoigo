@@ -18,7 +18,11 @@ export const DarkOverlay = ({ onClickHandler, isLoading, text }) => {
                 <p className={styles.text}>
                     {text}
                     <span className={styles.pulseLoader}>
-                        <PulseLoader color="#36d7b7" size={10} />
+                        <PulseLoader 
+                            color="#36d7b7" 
+                            size={10} 
+                            aria-label="Pulse Loader" 
+                        />
                     </span>
                 </p>
             ) : (

@@ -39,4 +39,12 @@ describe('ConfirmModal tests', () => {
 
         expect(onClickHandler).toBeCalledTimes(1);
     });
+
+    it('Renders the Pulse Loader when "text" is provided', () => {
+        render(<DarkOverlay text="Please wait..." />);
+        const pulseLoader = screen.queryByLabelText('Pulse Loader');
+
+        expect(pulseLoader).toBeInTheDocument();
+
+    });
 });
