@@ -13,7 +13,6 @@ export const ServerErrorPopUp = ({ errorMessage }) => {
         error = extractServerErrorMessage(error);
     }
     
-    console.log(error);
     useEffect(() => {
         const timer = setTimeout(() => {
             setIsVisible(false);
