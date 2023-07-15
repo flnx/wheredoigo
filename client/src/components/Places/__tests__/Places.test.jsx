@@ -1,6 +1,7 @@
 import { MemoryRouter } from 'react-router-dom';
 import { render as customRender, screen, userEvent, waitFor } from '../../../utils/test-utils';
 import { Places } from '../Places';
+import { applyCloudinaryTransformation } from '../../../utils/utils';
 
 const render = (Component) => {
     return customRender(<MemoryRouter>{Component}</MemoryRouter>);
@@ -39,7 +40,7 @@ describe('Places testing', () => {
         props.onDeleteClickHandler = vi.fn();
     });
 
-    it('Renders all the places with the correct props', () => {
+    it('Renders all the places with the correct props and transformed images', () => {
         render(<Places {...props} />);
 
         // Rendered places
@@ -48,7 +49,10 @@ describe('Places testing', () => {
 
         props.places.forEach((place) => {
             // Assert the place images
-            expect(screen.getByAltText(place.name)).toHaveAttribute('src', place.imageUrl);
+            expect(screen.getByAltText(place.name)).toHaveAttribute(
+                'src',
+                applyCloudinaryTransformation(place.imageUrl)
+            );
 
             // Assert the place names
             expect(screen.getByText(place.name)).toBeInTheDocument();
