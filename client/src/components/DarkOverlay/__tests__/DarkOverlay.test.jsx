@@ -45,6 +45,5 @@ describe('ConfirmModal tests', () => {
         const pulseLoader = screen.queryByLabelText('Pulse Loader');
 
         expect(pulseLoader).toBeInTheDocument();
-
     });
 });

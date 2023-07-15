@@ -3,13 +3,15 @@ import { MemoryRouter } from 'react-router-dom';
 import { render as customRender, screen, userEvent, waitFor } from '../../../utils/test-utils';
 import { DestinationsGrid } from '../DestinationsGrid';
 import routeConstants from '../../../constants/routeConstants';
+import { applyCloudinaryTransformation } from '../../../utils/utils';
 
 const render = (Component) => {
     return customRender(<MemoryRouter>{Component}</MemoryRouter>);
 };
 
 describe('ConfirmModal tests', () => {
-    const imageUrl = 'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80';
+    const imageUrl =
+        'https://res.cloudinary.com/degidchop/image/upload/v1688464712/cld-sample-2.jpg';
 
     const destinations = [
         {
@@ -34,7 +36,7 @@ describe('ConfirmModal tests', () => {
 
     const destinationsNum = destinations.length;
 
-    it('Renders the destinations', () => {
+    it('Renders the destinations with transformed img sizes ', () => {
         render(<DestinationsGrid destinations={destinations} />);
 
         // Renders the correct number of destinations
@@ -45,10 +47,11 @@ describe('ConfirmModal tests', () => {
             const countryElement = screen.getByText(destination.country);
             const cityElement = screen.getByText(destination.city);
             const imageElement = screen.getByAltText(destination.city);
+            const transformedImage = applyCloudinaryTransformation(destination.imageUrls);
 
             expect(countryElement).toBeInTheDocument();
             expect(cityElement).toBeInTheDocument();
-            expect(imageElement).toHaveAttribute('src', destination.imageUrls);
+            expect(imageElement).toHaveAttribute('src', transformedImage);
         });
     });
 
