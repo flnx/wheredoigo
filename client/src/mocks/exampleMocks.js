@@ -1,4 +1,4 @@
-const images = [
+export const images = [
     {
         imageUrl:
             'https://res.cloudinary.com/degidchop/image/upload/v1689423053/tests/b9ltohrvtvxkkwghdx5e.jpg',
@@ -47,8 +47,4 @@ export const newlyAddedImages = {
         },
     ],
     imgError: null,
-};
-
-module.exports = {
-    images,
 };

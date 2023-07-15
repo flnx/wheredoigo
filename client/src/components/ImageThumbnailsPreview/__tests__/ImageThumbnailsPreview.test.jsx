@@ -1,20 +1,11 @@
+import { images } from '../../../mocks/exampleMocks';
 import { render, screen, userEvent } from '../../../utils/test-utils';
+import { applyCloudinaryTransformation } from '../../../utils/utils';
 import { ImageThumbnailsPreview } from '../ImageThumbnailsPreview';
 
 describe('ImageThumbnailsPreview testing', () => {
     const props = {
-        images: [
-            {
-                imageUrl:
-                    'https://images.pexels.com/photos/2440021/pexels-photo-2440021.jpeg?auto=compress&cs=tinysrgb&w=600&h=750&dpr=1',
-                _id: 'id1',
-            },
-            {
-                imageUrl:
-                    'https://images.pexels.com/photos/325807/pexels-photo-325807.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-                _id: 'id2',
-            },
-        ],
+        images: images.slice(0, 2),
         handleDeleteImage: vi.fn(),
         isLoading: false,
         alt: '',
@@ -24,8 +15,9 @@ describe('ImageThumbnailsPreview testing', () => {
         props.handleDeleteImage = vi.fn();
     });
 
-    it('Renders the images', () => {
+    it('Renders the images (transformed)', () => {
         render(<ImageThumbnailsPreview {...props} />);
+
         const images = screen.getAllByAltText(/image preview/i);
 
         // Checks if renders the correct amount of images
@@ -33,7 +25,7 @@ describe('ImageThumbnailsPreview testing', () => {
 
         // Checks if the urls is correct
         images.forEach((image, i) => {
-            const url = props.images[i].imageUrl;
+            const url = applyCloudinaryTransformation(props.images[i].imageUrl);
             expect(image).toHaveAttribute('src', url);
         });
     });
@@ -48,8 +40,8 @@ describe('ImageThumbnailsPreview testing', () => {
         // Called once
         expect(props.handleDeleteImage).toHaveBeenCalledTimes(1);
 
-        // The image index is passed correctly
-        expect(props.handleDeleteImage).toHaveBeenCalledWith(0);
+        // The image index is passed correctly (1st prop is event)
+        expect(props.handleDeleteImage).toHaveBeenCalledWith(expect.anything(), 0);
 
         // Clicks on the second image
         await userEvent.click(images[1]);
@@ -58,7 +50,7 @@ describe('ImageThumbnailsPreview testing', () => {
         expect(props.handleDeleteImage).toHaveBeenCalledTimes(2);
 
         // The secocnd image index is passed correctly
-        expect(props.handleDeleteImage).toHaveBeenCalledWith(1);
+        expect(props.handleDeleteImage).toHaveBeenCalledWith(expect.anything(), 1);
     });
 
     it('Sets default alt attribute - "image preview {index}" ', () => {
