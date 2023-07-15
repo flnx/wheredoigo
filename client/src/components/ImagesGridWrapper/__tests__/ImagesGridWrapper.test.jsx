@@ -1,40 +1,11 @@
 import { render, screen, userEvent, waitFor } from '../../../utils/test-utils';
 import { ImagesGridWrapper } from '../ImagesGridWrapper';
+import { images } from '../../../mocks/exampleMocks';
+import { applyCloudinaryTransformation } from '../../../utils/utils';
 
 describe('Gallery correctly renders the images and sets the main image', () => {
     const props = {
-        images: [
-            {
-                imageUrl:
-                    'https://images.pexels.com/photos/2440021/pexels-photo-2440021.jpeg?auto=compress&cs=tinysrgb&w=600&h=750&dpr=1',
-                _id: 'id1',
-            },
-            {
-                imageUrl:
-                    'https://images.pexels.com/photos/325807/pexels-photo-325807.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-                _id: 'id2',
-            },
-            {
-                imageUrl:
-                    'https://images.pexels.com/photos/1324803/pexels-photo-1324803.jpeg?auto=compress&cs=tinysrgb&w=600&h=750&dpr=1',
-                _id: 'id3',
-            },
-            {
-                imageUrl:
-                    'https://images.pexels.com/photos/1108701/pexels-photo-1108701.jpeg?auto=compress&cs=tinysrgb&w=600&h=750&dpr=1',
-                _id: 'id4',
-            },
-            {
-                imageUrl:
-                    'https://images.pexels.com/photos/335966/pexels-photo-335966.jpeg?auto=compress&cs=tinysrgb&w=600&h=750&dpr=1',
-                _id: 'id5',
-            },
-            {
-                imageUrl:
-                    'https://images.pexels.com/photos/335966/pexels-photo-335966.jpeg?auto=compress&cs=tinysrgb&w=600&h=750&dpr=1',
-                _id: 'id6',
-            },
-        ],
+        images,
         onClickHandler: vi.fn(),
         alt: 'Los Test',
         isLoading: false,
@@ -63,10 +34,11 @@ describe('Gallery correctly renders the images and sets the main image', () => {
         expect(mainImage).toHaveAttribute('src', firstImageInArrayUrl);
     });
 
-    it('Renders next 4 images (without the main image) as secondary images', async () => {
+    it('Renders secondary images (transformed)', async () => {
         render(<ImagesGridWrapper {...props} />);
 
         const images = screen.getAllByAltText(new RegExp(props.alt, 'i'));
+
         // Slices out the 1st (main image)
         const secondaryImages = images.slice(1);
 
@@ -76,7 +48,7 @@ describe('Gallery correctly renders the images and sets the main image', () => {
             // ..we increment the index by 1 for each iteration...
             // ..so we can extract the correct secondary images and their urls from props.images;
             const url = props.images[i + 1].imageUrl;
-            expect(image).toHaveAttribute('src', url);
+            expect(image).toHaveAttribute('src', applyCloudinaryTransformation(url));
         });
     });
 
