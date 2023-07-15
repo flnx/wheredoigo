@@ -3,37 +3,22 @@ import { ImagesManager } from '../ImagesManager';
 
 import { useAddDestinationNewImages } from '../../../hooks/queries/useAddDestinationNewImages';
 import { useDeleteDestinationImage } from '../../../hooks/queries/useDeleteDestinationImage';
-import { newlyAddedImages } from '../../../mocks/handlers';
-
-const props = {
-    imagesData: [
-        {
-            imageUrl:
-                'https://images.pexels.com/photos/2440021/pexels-photo-2440021.jpeg?auto=compress&cs=tinysrgb&w=600&h=750&dpr=1',
-            _id: 'id1',
-        },
-        {
-            imageUrl:
-                'https://images.pexels.com/photos/325807/pexels-photo-325807.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-            _id: 'id2',
-        },
-        {
-            imageUrl:
-                'https://images.pexels.com/photos/1324803/pexels-photo-1324803.jpeg?auto=compress&cs=tinysrgb&w=600&h=750&dpr=1',
-            _id: 'id3',
-        },
-    ],
-    deleteImageHook: vi.fn(),
-    addImageHook: vi.fn(),
-    isLoading: false,
-};
+import { images, newlyAddedImages } from '../../../mocks/exampleMocks';
+import { applyCloudinaryTransformation } from '../../../utils/utils';
 
 describe('ImagesManager rendering testing', () => {
+    let props;
+    const testId = 'testId';
+
     beforeEach(() => {
-        const testId = 'testId';
+        props = {
+            imagesData: images,
+            deleteImageHook: () => useDeleteDestinationImage(testId),
+            addImageHook: () => useAddDestinationNewImages(testId),
+            isLoading: false,
+        };
+
         // replaces the vitest functions with actual react query hooks
-        props.deleteImageHook = () => useDeleteDestinationImage(testId);
-        props.addImageHook = () => useAddDestinationNewImages(testId);
     });
 
     it('Renders the ImagesManager with the current destination/place images (if any)', () => {
@@ -66,18 +51,22 @@ describe('ImagesManager rendering testing', () => {
 
 describe('ImagesManager functionality testing', () => {
     let mockCreateObjectURL;
+    let props;
+    const testId = 'testId';
 
     beforeEach(() => {
-        URL.revokeObjectURL = vi.fn();
+        props = {
+            imagesData: images,
+            deleteImageHook: () => useDeleteDestinationImage(testId),
+            addImageHook: () => useAddDestinationNewImages(testId),
+            isLoading: false,
+        };
 
+        URL.revokeObjectURL = vi.fn();
         mockCreateObjectURL = vi.fn();
+
         URL.createObjectURL = mockCreateObjectURL;
         mockCreateObjectURL.mockReturnValue('blob:http://localhost:5173/test-path');
-
-        const testId = 'testId';
-        // replaces the vitest functions with actual react query hooks
-        props.deleteImageHook = () => useDeleteDestinationImage(testId);
-        props.addImageHook = () => useAddDestinationNewImages(testId);
     });
 
     afterEach(() => {
@@ -95,7 +84,7 @@ describe('ImagesManager functionality testing', () => {
         expect(confirmModal).toBeInTheDocument();
     });
 
-    it('Closes the confirm Modal on Cancel button click', async () => {
+    it('Checks for cancel button and closes the confirm Modal on Cancel button click', async () => {
         render(<ImagesManager {...props} />);
 
         const uploadedImages = screen.queryAllByAltText(/uploaded/i);
@@ -111,8 +100,8 @@ describe('ImagesManager functionality testing', () => {
         ).not.toBeInTheDocument();
     });
 
-    it('Correctly delete image on confirm', async () => {
-        const { rerender } = render(<ImagesManager {...props} />);
+    it('Checks for delete button and closes the modal after deletion', async () => {
+        render(<ImagesManager {...props} />);
 
         const uploadedImages = screen.queryAllByAltText(/uploaded/i);
         const firstImage = uploadedImages[0];
@@ -121,19 +110,29 @@ describe('ImagesManager functionality testing', () => {
         const deleteButton = screen.getByRole('button', { name: /delete/i });
         expect(deleteButton).toBeInTheDocument();
 
-        userEvent.click(deleteButton);
+        await userEvent.click(deleteButton);
+        expect(
+            screen.queryByText(/Are you sure you want to delete this image/i)
+        ).not.toBeInTheDocument();
+    });
 
-        await waitFor(() => {
-            // Checks if the Modal is hidden after image is deleted
-            expect(
-                screen.queryByText(/Are you sure you want to delete this image/i)
-            ).not.toBeInTheDocument();
-        });
+    it('Correctly delete image on confirm', async () => {
+        const { rerender } = render(<ImagesManager {...props} />);
+
+        const uploadedImages = screen.queryAllByAltText(/uploaded/i);
+        const firstImage = uploadedImages[0];
+        await userEvent.click(firstImage);
+
+        const deleteButton = screen.getByRole('button', { name: /delete/i });
+        await userEvent.click(deleteButton);
 
         // Simulated react query onSucccess props update that causes rerendering after img deletion
         const updatedProps = {
             ...props,
-            imagesData: props.imagesData.filter((img) => img.imageUrl !== firstImage.src),
+            imagesData: props.imagesData.filter(
+                // image urls are being transformed, this is why we need cloudinaryTransform
+                (img) => applyCloudinaryTransformation(img.imageUrl) !== firstImage.src
+            ),
         };
 
         rerender(<ImagesManager {...updatedProps} />);

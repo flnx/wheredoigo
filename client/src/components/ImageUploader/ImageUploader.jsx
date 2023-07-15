@@ -19,7 +19,7 @@ export const ImageUploader = ({ addImages }) => {
                     name="images"
                     id="images"
                     onChange={handleImageSelect}
-                    onClick={(e) => (e.target.value = null)}
+                    onClick={(e) => (e.target.value = '')}
                     data-testid="hidden-file-input"
                 />
             </div>
