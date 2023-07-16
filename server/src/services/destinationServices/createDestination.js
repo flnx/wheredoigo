@@ -24,10 +24,8 @@ async function createDestination(data, images, user) {
         category: JSON.parse(data.category),
     };
 
-    // Validation
     const categories = validateCreatedDestination(destinationData);
 
-    throw new Error('hello');
     await validateCountryAndCity(destinationData.country, destinationData.city);
 
     const country = await addCountry(destinationData.country);

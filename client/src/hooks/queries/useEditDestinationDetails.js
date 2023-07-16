@@ -18,6 +18,7 @@ export const useEditDestinationDetails = (destinationId) => {
             let updatedDestination;
 
             if (categories) {
+                // Update category
                 updatedDestination = {
                     ...destination,
                     category: categories,
@@ -28,22 +29,11 @@ export const useEditDestinationDetails = (destinationId) => {
                         ? { ...destination, description }
                         : {
                               ...destination,
-                              details: destination.details.map((detail) => {
-                                  if (detail._id !== categoryId) {
-                                      return detail;
-                                  }
-
-                                  return {
-                                      ...detail,
-                                      info: detail.info.map((info) => {
-                                          if (info._id !== infoId) {
-                                              return info;
-                                          }
-
-                                          return { ...info, description };
-                                      }),
-                                  };
-                              }),
+                              details: destination.details.map((detail) =>
+                                  detail._id == categoryId
+                                      ? { ...detail, content: description }
+                                      : detail
+                              ),
                           };
             }
 

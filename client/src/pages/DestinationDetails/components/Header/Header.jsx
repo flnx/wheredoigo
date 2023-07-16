@@ -15,7 +15,7 @@ export const DestinationHeader = ({ destination, isLoading }) => {
     const { city, country, description, _id, isLikedByUser, hasSession } = destination;
 
     const { routePath } = routeConstants.DESTINATIONS.BY_ID;
-    const { name, route } = routeConstants.DESTINATIONS.OVERVIEW;
+    const { OVERVIEW } = routeConstants.DESTINATIONS;
 
     const onCategoryClickHandler = (detail) => {
         setModalPopUpInfo({
@@ -27,7 +27,8 @@ export const DestinationHeader = ({ destination, isLoading }) => {
     const onOverviewClickHandler = () => {
         setModalPopUpInfo({
             pageRoute: routePath(_id),
-            info: { title: name, content: description },
+            name: OVERVIEW.name,
+            content: description,
         });
     };
 
@@ -52,13 +53,13 @@ export const DestinationHeader = ({ destination, isLoading }) => {
                     <TextWrap isLoading={isLoading} content={country} />
                 </p>
                 <h3 className={styles.descriptionTitle}>
-                    <TextWrap isLoading={isLoading} content={name} />
+                    <TextWrap isLoading={isLoading} content={OVERVIEW.name} />
                 </h3>
                 <p className={`${styles.description} ${descLoading}`}>
                     <TextWrap isLoading={isLoading} content={description} />
                 </p>
                 <ShowMoreButton
-                    path={route}
+                    path={OVERVIEW.route}
                     onClick={onOverviewClickHandler}
                     isLoading={isLoading}
                 />

@@ -37,7 +37,8 @@ export const Header = ({ place, isLoading }) => {
             <Outlet
                 context={{
                     pageRoute,
-                    info: { name: ABOUT.name, content: description },
+                    name: ABOUT.name,
+                    content: description,
                 }}
             />
         </header>

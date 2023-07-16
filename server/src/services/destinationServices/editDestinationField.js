@@ -1,16 +1,29 @@
 const Destination = require('../../models/destinationSchema');
-
 const { errorMessages } = require('../../constants/errorMessages');
 
-// utils
+// Utils
+const { isValid } = require('mongoose').Types.ObjectId;
 const { createValidationError } = require('../../utils/createValidationError');
-const { validateDestinationFieldOnEdit } = require('../../utils/validateFields');
+const { isString } = require('../../utils/utils');
+const {
+    validateDescription,
+    validateCategories,
+} = require('../../utils/validateFields');
 
 async function editDestinationField(destinationId, updatedFields) {
-    const { description, categories, infoId, categoryId } = validateDestinationFieldOnEdit(updatedFields);
+    const { description, categories, infoId, categoryId } = updatedFields;
+
+    if (!isString(description)) {
+        throw createValidationError(errorMessages.form.string('Description'), 400);
+    }
+
+    if (!isString(infoId)) {
+        throw createValidationError(errorMessages.form.string('infoId'), 400);
+    }
 
     if (infoId.toLowerCase() == 'description') {
-        const result = await editDescription(destinationId, description, infoId);
+        validateDescription(description);
+        const result = await editDescription(destinationId, description);
         return result;
     }
 
@@ -19,11 +32,34 @@ async function editDestinationField(destinationId, updatedFields) {
         return result;
     }
 
-    const result = await editDetail(destinationId, categoryId, infoId, description);
+    const result = await editDetail(destinationId, categoryId, description);
     return result;
 }
 
+// --- DESCRIPTION ---
+async function editDescription(destinationId, description) {
+    const result = await Destination.updateOne(
+        { _id: destinationId },
+        { $set: { description: description } }
+    )
+        .lean()
+        .exec();
+
+    if (!result || result.matchedCount === 0) {
+        throw createValidationError(errorMessages.data.notEdited, 404);
+    }
+
+    return result;
+}
+
+// --- CATEGORIES ---
 async function editCategories(destinationId, categories) {
+    const validatedCategories = validateCategories(categories);
+
+    if (validatedCategories.length == 0) {
+        throw createValidationError(errorMessages.data.category, 400);
+    }
+
     const result = await Destination.updateOne(
         { _id: destinationId },
         { $set: { category: categories } }
@@ -38,35 +74,20 @@ async function editCategories(destinationId, categories) {
     return result;
 }
 
-async function editDetail(destinationId, categoryId, infoId, updatedValue) {
-    const result = await Destination.updateOne(
-        {
-            _id: destinationId,
-            'details._id': categoryId,
-            'details.info._id': infoId,
-        },
-        { $set: { 'details.$[det].info.$[inf].description': updatedValue } },
-        {
-            arrayFilters: [{ 'det._id': categoryId }, { 'inf._id': infoId }],
-        }
-    )
-        .lean()
-        .exec();
-
-    if (!result || result.matchedCount === 0) {
-        throw createValidationError(errorMessages.data.notEdited, 404);
+// --- DETAILS ---
+async function editDetail(destinationId, detail_id, updatedContent) {
+    if (!isString(detail_id) || !isValid(detail_id)) {
+        throw createValidationError('Invalid Detail ID', 400);
     }
 
-    return result;
-}
+    if (updatedContent.length > 5000) {
+        throw createValidationError(errorMessages.validation.description, 400);
+    }
 
-async function editDescription(destinationId, description, infoId) {
     const result = await Destination.updateOne(
-        { _id: destinationId },
-        { $set: { description: description } }
-    )
-        .lean()
-        .exec();
+        { _id: destinationId, 'details._id': detail_id },
+        { $set: { 'details.$.content': updatedContent } }
+    ).exec();
 
     if (!result || result.matchedCount === 0) {
         throw createValidationError(errorMessages.data.notEdited, 404);

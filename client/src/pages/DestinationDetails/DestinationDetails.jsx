@@ -39,7 +39,10 @@ export const DestinationDetails = () => {
                     isLoading={isLoading}
                 />
 
-                <DestinationHeader destination={destination} isLoading={isLoading} />
+                <DestinationHeader 
+                    destination={destination} 
+                    isLoading={isLoading} 
+                />
 
                 {!isLoading && data.isOwner && (
                     <LinkButtonSecondary to={routePath(destinationId)}>

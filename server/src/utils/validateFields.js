@@ -27,44 +27,6 @@ function validatePlaceFields(placeData) {
     return true;
 }
 
-function validateDestinationFieldOnEdit(data) {
-    const { description, infoId, categoryId, categories } = data;
-
-    if (!isString(description)) {
-        throw createValidationError(errorMessages.form.string('Description'), 400);
-    }
-
-    if (!isString(infoId)) {
-        throw createValidationError(errorMessages.form.string('infoId'), 400);
-    }
-
-    if (infoId.toLowerCase() == 'description') {
-        validateDescription(description);
-    } else if (categories) {
-        const validatedCategories = validateCategories(categories);
-
-        if (validatedCategories.length == 0) {
-            throw createValidationError(errorMessages.data.category, 400);
-        }
-
-        data.categories = validatedCategories;
-    } else {
-        if (!isString(categoryId) || categoryId.trim().length == 0) {
-            throw createValidationError(errorMessages.form.string('Category'), 400);
-        }
-
-        if (!isValid(infoId) || !isValid(categoryId)) {
-            throw createValidationError(errorMessages.data.category, 400);
-        }
-
-        if (description.length > 5000) {
-            throw createValidationError(errorMessages.validation.description, 400);
-        }
-    }
-
-    return data;
-}
-
 function validatePlaceFieldOnEdit(data) {
     const { description, infoId } = data;
 
@@ -192,10 +154,9 @@ function validateDestinationDetails(details) {
 }
 
 module.exports = {
-    validateDestinationFieldOnEdit,
     validateCategories,
     validatePlaceFields,
     validatePlaceFieldOnEdit,
     validateDescription,
-    validateDestinationDetails
+    validateDestinationDetails,
 };

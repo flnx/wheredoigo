@@ -27,7 +27,7 @@ exports.errorMessages = {
         notDeleted: 'Deletion process failed. Please try again.',
         imagesBoundary: (num = 1) => `Please upload a minimum of ${num} ${num > 1 ? 'images' : 'image'}.`,
         imagesLimit: 'You have uploaded too many images. Please limit your upload to 50 images or less',
-        category: 'Please select at least 1 category',
+        category: 'Please select at least 1 valid category',
         city: 'We could not find this city in our database :(',
         country: 'We could not find this country in our database :(',
         details: 'Unallowed details name or a missing detail'

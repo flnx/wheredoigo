@@ -8,6 +8,8 @@ export const DetailsModal = () => {
     const context = useOutletContext();
     const navigate = useNavigate();
 
+    console.log(context);
+
     const { pageRoute } = context;
 
     useEffect(() => {
@@ -25,7 +27,7 @@ export const DetailsModal = () => {
     return (
         <OverlayDisabledBodyScroll closeModalHandler={closeModalHandler}>
             <div className={styles.tips}>
-                <h3 className={styles.title}>{tip.context.name}</h3>
+                <h3 className={styles.title}>{context.name}</h3>
                 <p className={styles.description}>{context.content}</p>
             </div>
         </OverlayDisabledBodyScroll>
