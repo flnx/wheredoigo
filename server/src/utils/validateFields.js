@@ -8,52 +8,14 @@ const {
     allowedFieldsToUpdate,
 } = require('../constants/allowedPlaceCategories');
 
-const { errorMessages } = require('../constants/errorMessages');
-
 const {
     destinationCategories,
+    destinationDetails,
 } = require('../constants/allowedDestinationCategories');
 
+const { errorMessages } = require('../constants/errorMessages');
 // Utils
-const { isString, isValidArrayOfStrings } = require('./utils');
-
-function validateDestinationFields(data) {
-    const { city, country, description, category, details } = data;
-
-    // Details validation
-    if (!Array.isArray(details)) {
-        throw createValidationError(errorMessages.form.array('details'), 400);
-    }
-
-    // City validation
-    if (!isString(city)) {
-        throw createValidationError(errorMessages.form.string('City'), 400);
-    }
-
-    if (!validator.isLength(city.trim(), { min: 1, max: 85 })) {
-        throw createValidationError(errorMessages.data.city, 400);
-    }
-
-    // Country validation
-    if (!isString(country)) {
-        throw createValidationError(errorMessages.form.string('Country'), 400);
-    }
-
-    if (!validator.isLength(country.trim(), { min: 4, max: 56 })) {
-        throw createValidationError(errorMessages.data.country, 400);
-    }
-
-    // Description validation
-    validateDescription(description);
-
-    const validatedCategories = validateCategories(category);
-
-    if (validatedCategories.length == 0) {
-        throw createValidationError(errorMessages.data.category, 400);
-    }
-
-    return validatedCategories;
-}
+const { isString, isValidArrayOfStrings, isObject } = require('./utils');
 
 function validatePlaceFields(placeData) {
     const { description, type, name } = placeData;
@@ -88,10 +50,7 @@ function validateDestinationFieldOnEdit(data) {
         data.categories = validatedCategories;
     } else {
         if (!isString(categoryId) || categoryId.trim().length == 0) {
-            throw createValidationError(
-                errorMessages.form.string('Category'),
-                400
-            );
+            throw createValidationError(errorMessages.form.string('Category'), 400);
         }
 
         if (!isValid(infoId) || !isValid(categoryId)) {
@@ -184,10 +143,59 @@ function validateCategories(categories) {
     return [];
 }
 
+function validateDestinationDetails(details) {
+    // Details array validation
+
+    if (!Array.isArray(details)) {
+        throw createValidationError(errorMessages.form.array('details'), 400);
+    }
+
+    // Array size validation
+    if (details.length !== destinationDetails.length) {
+        throw createValidationError(errorMessages.data.details, 400);
+    }
+
+    // Non object inside details found
+    const invalidIndex = details.findIndex((detail) => !isObject(detail));
+
+    if (invalidIndex !== -1) {
+        throw createValidationError(
+            errorMessages.form.object(`Inside details.[${invalidIndex}]`),
+            400
+        );
+    }
+
+    // Detail name or content is not a string
+    const invalidTypeInsideDetailIndex = details.findIndex(
+        (detail) => !isString(detail.name) || !isString(detail.content)
+    );
+
+    if (invalidTypeInsideDetailIndex !== -1) {
+        throw createValidationError(
+            errorMessages.form.string(
+                `An object inside details has a non string field - [${invalidTypeInsideDetailIndex}]`
+            ),
+            400
+        );
+    }
+
+    // Invalid detail found
+    const invalidDetail = details.some(
+        (detail) => !destinationDetails.includes(detail.name)
+    );
+
+    console.log(invalidDetail);
+
+    if (invalidDetail) {
+        throw createValidationError(errorMessages.data.details, 400);
+    }
+}
+
 module.exports = {
-    validateDestinationFields,
     validateDestinationFieldOnEdit,
     validateCategories,
     validatePlaceFields,
     validatePlaceFieldOnEdit,
+    validateDescription,
+    validateDestinationDetails
 };

@@ -5,7 +5,9 @@ const { createValidationError } = require('../../utils/createValidationError');
 const { errorMessages } = require('../../constants/errorMessages');
 
 // utils
-const { validateDestinationFields } = require('../../utils/validateFields');
+const {
+    validateCreatedDestination,
+} = require('../../utils/validators/validateCreatedDestination');
 
 // Services
 const { fetchACountryAndItsCities } = require('../getCityCountryData');
@@ -23,7 +25,9 @@ async function createDestination(data, images, user) {
     };
 
     // Validation
-    const categories = validateDestinationFields(destinationData);
+    const categories = validateCreatedDestination(destinationData);
+
+    throw new Error('hello');
     await validateCountryAndCity(destinationData.country, destinationData.city);
 
     const country = await addCountry(destinationData.country);
@@ -36,6 +40,8 @@ async function createDestination(data, images, user) {
         likes: [],
         ownerId,
     });
+
+    await destination.save();
 
     const folderName = 'destinations';
     const { imageUrls, imgError } = await uploadImages(

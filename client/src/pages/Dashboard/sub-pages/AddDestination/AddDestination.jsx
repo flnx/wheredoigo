@@ -21,7 +21,7 @@ import styles from './AddDestination.module.css';
 const categories = ['Beach', 'Mountains', 'Cultural', 'Snow', 'Islands', 'Adventure'];
 
 export const AddDestination = () => {
-    const [showDetail, setShowDetail] = useState({ category: null });
+    const [showDetail, setShowDetail] = useState({ name: '' });
     const { updateField, updateDetail, updateCategory, state } = useDestinationInput();
     const { images, addImages, deleteImage } = useImages();
     const { submitHandler, isLoading, error, errors } = useSubmitData(
@@ -30,10 +30,10 @@ export const AddDestination = () => {
         categories
     );
 
-    const showDetailHandler = (category) => setShowDetail(category);
-    const openedDetailsCategory = state.details.find((x) => x.category == showDetail.category);
-
     const updateFieldCb = useCallback((name, value) => updateField(name, value), []);
+
+    const showDetailHandler = (detail) => setShowDetail(detail);
+    const selectedDetail = state.details.find((d) => d.name == showDetail.name);
 
     return (
         <div className={styles.container}>
@@ -64,11 +64,11 @@ export const AddDestination = () => {
                 />
 
                 <DetailsButtons showDetailHandler={showDetailHandler} />
-                {showDetail.category && (
+                {selectedDetail && (
                     <Details
                         updateDetail={updateDetail}
                         showDetailHandler={showDetailHandler}
-                        openedDetailsCategory={openedDetailsCategory}
+                        selectedDetail={selectedDetail}
                     />
                 )}
 

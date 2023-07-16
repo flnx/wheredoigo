@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { LoadingSkeleton } from '../../../../components/LoadingSkeletons/LoadingSkeleton';
 import { checkArrayAndPreloadElements } from '../../../../utils/utils';
 import { Link } from 'react-router-dom';
+
 import routeConstants from '../../../../constants/routeConstants';
 import styles from './TipsPopUp.module.css';
 
@@ -23,14 +24,14 @@ export const TipsPopUp = ({ details, onCategoryClickHandler, isLoading }) => {
 
     return (
         <section className={styles.wrapper}>
-            {details.map((x) => (
+            {details.map((detail) => (
                 <Link
-                    key={x._id}
+                    key={detail._id}
                     to={INFO.route}
                     className={styles.category}
-                    onClick={() => onCategoryClickHandler(x)}
+                    onClick={() => onCategoryClickHandler(detail)}
                 >
-                    {x.category || 'Category'}
+                    {detail.name}
                 </Link>
             ))}
             {isLoading && (

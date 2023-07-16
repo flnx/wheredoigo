@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const { errorMessages } = require('../constants/errorMessages');
 const {
     destinationCategories,
-    destinationInfoCategories,
+    destinationDetails,
 } = require('../constants/allowedDestinationCategories');
 
 const destinationSchema = new Schema({
@@ -52,25 +52,17 @@ const destinationSchema = new Schema({
     likesCount: { type: Number, default: 0 },
     details: [
         {
-            category: {
+            name: {
                 type: String,
                 trim: true,
                 required: true,
-                enum: destinationInfoCategories,
+                enum: destinationDetails,
             },
-            info: [
-                {
-                    title: {
-                        type: String,
-                        trim: true,
-                        required: true,
-                    },
-                    description: {
-                        type: String,
-                        trim: true,
-                    },
-                },
-            ],
+            content: {
+                type: String,
+                trim: true,
+                default: '',
+            },
         },
     ],
     imageUrls: [

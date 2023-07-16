@@ -17,9 +17,9 @@ export const DestinationHeader = ({ destination, isLoading }) => {
     const { routePath } = routeConstants.DESTINATIONS.BY_ID;
     const { name, route } = routeConstants.DESTINATIONS.OVERVIEW;
 
-    const onCategoryClickHandler = (tipsInfo) => {
+    const onCategoryClickHandler = (detail) => {
         setModalPopUpInfo({
-            ...tipsInfo,
+            ...detail,
             pageRoute: routePath(_id),
         });
     };
@@ -27,7 +27,7 @@ export const DestinationHeader = ({ destination, isLoading }) => {
     const onOverviewClickHandler = () => {
         setModalPopUpInfo({
             pageRoute: routePath(_id),
-            info: [{ _id: 1, title: name, description }],
+            info: { title: name, content: description },
         });
     };
 

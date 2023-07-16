@@ -2,7 +2,7 @@ import styles from './DetailsButtons.module.css';
 
 export const DetailsButtons = ({ showDetailHandler }) => {
     const onDetailsClickHandler = (detailName) => {
-        showDetailHandler({ category: detailName });
+        showDetailHandler({ name: detailName });
     };
 
     return (

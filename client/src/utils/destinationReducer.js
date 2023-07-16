@@ -32,19 +32,10 @@ export function destinationFormReducer(state, action) {
             return {
                 ...state,
                 details: state.details.map((detail) => {
-                    if (detail.category == action.category) {
-                        const updateInfo = detail.info.map((x) =>
-                            x.name == action.payload.name
-                                ? {
-                                      ...x,
-                                      description: action.payload.description,
-                                  }
-                                : x
-                        );
-
+                    if (detail.name == action.payload.name) {
                         return {
                             ...detail,
-                            info: updateInfo,
+                            content: action.payload.content,
                         };
                     } else {
                         return detail;
@@ -65,120 +56,20 @@ export const initialState = {
     categories: [],
     details: [
         {
-            category: 'Good to Know',
-            info: [
-                {
-                    name: 'timezone',
-                    title: 'What is the timezone?',
-                    description: '',
-                    rows: 1,
-                },
-                {
-                    name: 'plugTypes',
-                    title: 'What are the voltage/plug types?',
-                    description: '',
-                    rows: 3,
-                },
-                {
-                    name: 'currency',
-                    title: 'What is the currency?',
-                    description: '',
-                    rows: 3,
-                },
-                {
-                    name: 'atms',
-                    title: 'Are ATMs readily accessible?',
-                    description: '',
-                    rows: 3,
-                },
-                {
-                    name: 'creditCards',
-                    title: 'Are credit cards widely accepted?',
-                    description: '',
-                    rows: 3,
-                },
-                {
-                    name: 'tipping',
-                    title: 'How much do I tip?',
-                    description: '',
-                    rows: 3,
-                },
-                {
-                    name: 'wifi',
-                    title: 'Is WiFi widely available?',
-                    description: '',
-                    rows: 3,
-                },
-            ],
+            name: 'Good to Know',
+            content: ''
         },
         {
-            category: 'Transport',
-            info: [
-                {
-                    name: 'cycling',
-                    title: 'Cycling',
-                    description: '',
-                    rows: 6,
-                },
-                {
-                    name: 'publicTransport',
-                    title: 'Public Transport',
-                    description: '',
-                    rows: 6,
-                },
-                {
-                    name: 'taxis',
-                    title: 'Taxis',
-                    description: '',
-                    rows: 6,
-                },
-                {
-                    name: 'rideesharing',
-                    title: 'Rideesharing',
-                    description: '',
-                    rows: 6,
-                },
-            ],
+            name: 'Transport',
+            content: ''
         },
         {
-            category: 'Local Customs',
-            info: [
-                {
-                    name: 'drinking',
-                    title: 'Drinking',
-                    description: '',
-                    rows: 6,
-                },
-                {
-                    name: 'greetings',
-                    title: 'Greetings',
-                    description: '',
-                    rows: 6,
-                },
-                {
-                    name: 'personalSpace',
-                    title: 'Personal Space',
-                    description: '',
-                    rows: 6,
-                },
-                {
-                    name: 'additionalInfo',
-                    title: 'Additional info',
-                    description: '',
-                    rows: 6,
-                },
-            ],
+            name: 'Local Customs',
+            content: ''
         },
         {
-            category: 'Pro Tips',
-            info: [
-                {
-                    name: 'beforeYouGo',
-                    title: 'Any tips you can give about this destination? 😎',
-                    description: '',
-                    rows: 25,
-                },
-            ],
+            name: 'Pro Tips',
+            content: ''
         },
     ],
 };

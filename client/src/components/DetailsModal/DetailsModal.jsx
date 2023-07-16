@@ -24,18 +24,10 @@ export const DetailsModal = () => {
 
     return (
         <OverlayDisabledBodyScroll closeModalHandler={closeModalHandler}>
-            {context.info.map((x) => (
-                <TipsTemplate tip={x} key={x._id} />
-            ))}
+            <div className={styles.tips}>
+                <h3 className={styles.title}>{tip.context.name}</h3>
+                <p className={styles.description}>{context.content}</p>
+            </div>
         </OverlayDisabledBodyScroll>
-    );
-};
-
-const TipsTemplate = ({ tip }) => {
-    return (
-        <div className={styles.tips}>
-            <h3 className={styles.title}>{tip.title}</h3>
-            <p className={styles.description}>{tip.description}</p>
-        </div>
     );
 };

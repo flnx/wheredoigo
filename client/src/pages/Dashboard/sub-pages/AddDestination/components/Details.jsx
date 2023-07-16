@@ -1,41 +1,26 @@
 import styles from '../AddDestination.module.css';
 import { OverlayDisabledBodyScroll } from '../../../../../components/OverlayDisabledBodyScroll/OverlayDisabledBodyScroll';
 
-export const Details = ({ showDetailHandler, openedDetailsCategory, updateDetail }) => {
-    const onDetailsChange = (e, category) => {
-        updateDetail(e.target.name, e.target.value, category);
-    };
-
-    const closeDetailWindowHandler = () => {
-        showDetailHandler({});
-    };
-
+export const Details = ({ showDetailHandler, selectedDetail, updateDetail }) => {
     return (
-        <OverlayDisabledBodyScroll closeModalHandler={closeDetailWindowHandler}>
+        <OverlayDisabledBodyScroll 
+            closeModalHandler={() => showDetailHandler({ name: '' })
+        }>
             <div className={styles.detailsContainer}>
-                <h3 className={styles.detailsTitle}>{openedDetailsCategory.category}</h3>
+                <h3 className={styles.detailsTitle}>{selectedDetail.name}</h3>
 
-                {openedDetailsCategory.info.map((x) => {
-                    return (
-                        <div
-                            className={styles.formField}
-                            key={openedDetailsCategory.category + x.name}
-                        >
-                            <label htmlFor={x.name}>{x.title}</label>
-                            <textarea
-                                key={x.name}
-                                id={x.name}
-                                name={x.name}
-                                rows={x.rows}
-                                placeholder="Add information..."
-                                onChange={(e) =>
-                                    onDetailsChange(e, openedDetailsCategory.category)
-                                }
-                                value={x.description}
-                            />
-                        </div>
-                    );
-                })}
+                <div className={styles.formField}>
+                    <label htmlFor={selectedDetail.name}>{selectedDetail.name}</label>
+
+                    <textarea
+                        id={selectedDetail.name}
+                        name={selectedDetail.name}
+                        placeholder="Add information..."
+                        onChange={(e) => updateDetail(e.target.name, e.target.value)}
+                        rows={20}
+                        value={selectedDetail.content}
+                    />
+                </div>
             </div>
         </OverlayDisabledBodyScroll>
     );

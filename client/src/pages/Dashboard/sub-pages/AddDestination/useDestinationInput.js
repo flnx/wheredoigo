@@ -14,11 +14,10 @@ export const useDestinationInput = () => {
         });
     };
 
-    const updateDetail = (name, description, category) => {
+    const updateDetail = (name, content) => {
         dispatch({
             type: 'details_change',
-            category,
-            payload: { name, description },
+            payload: { name, content },
         });
     };
 

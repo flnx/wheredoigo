@@ -25,25 +25,26 @@ exports.errorMessages = {
         rating: 'Please rate the place to share your experience',
         notEdited: 'Edit failed. Please try again',
         notDeleted: 'Deletion process failed. Please try again.',
-        invalidBody: 'Please provide a valid object with the updated destination fields',
         imagesBoundary: (num = 1) => `Please upload a minimum of ${num} ${num > 1 ? 'images' : 'image'}.`,
         imagesLimit: 'You have uploaded too many images. Please limit your upload to 50 images or less',
         category: 'Please select at least 1 category',
         city: 'We could not find this city in our database :(',
         country: 'We could not find this country in our database :(',
+        details: 'Unallowed details name or a missing detail'
     },
 
-      request: {
-          server: 'Apologies for the inconvenience. An error occurred. Please try again later',
-          body: 'Request Body must be an Object',
-          upload: 'Sorry, there was an error during the upload process. Please try again.',
-          unavailable: 'Service currently unavailable. Please try again later.',
-        },
-        
-        form: {
-            string: (field) => `Invalid Field: ${field}. Expected a String`,
-            array: (field) => `Invalid Field: ${field}. Expected an Array`,
-      },
+    request: {
+        server: 'Apologies for the inconvenience. An error occurred. Please try again later',
+        body: 'Request Body must be an Object',
+        upload: 'Sorry, there was an error during the upload process. Please try again.',
+        unavailable: 'Service currently unavailable. Please try again later.',
+    },
+
+    form: {
+        string: (field) => `Invalid Field: ${field}. Expected a String`,
+        array: (field) => `Invalid Field: ${field}. Expected an Array`,
+        object: (field) => `Invalid Field: ${field}. Expected an Object`,
+    },
 
     transaction: (msg = '') => `Error ending transaction: ${msg}`,
 };
