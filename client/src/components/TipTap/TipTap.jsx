@@ -92,7 +92,7 @@ export const TipTap = ({ onChangeHandler }) => {
         ],
         content: ``,
 
-        onUpdate: ({ editor }) => {
+        onBlur: ({ editor }) => {
             const html = editor.getHTML();
             const charCounter = editor?.storage.characterCount.characters();
 
