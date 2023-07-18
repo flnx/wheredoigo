@@ -1,3 +1,4 @@
+import parse from 'html-react-parser';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
@@ -55,9 +56,9 @@ export const DestinationHeader = ({ destination, isLoading }) => {
                 <h3 className={styles.descriptionTitle}>
                     <TextWrap isLoading={isLoading} content={OVERVIEW.name} />
                 </h3>
-                <p className={`${styles.description} ${descLoading}`}>
-                    <TextWrap isLoading={isLoading} content={description} />
-                </p>
+                <div className={`${styles.description} ${descLoading}`}>
+                    <TextWrap isLoading={isLoading} content={parse(description || '')} />
+                </div>
                 <ShowMoreButton
                     path={OVERVIEW.route}
                     onClick={onOverviewClickHandler}
