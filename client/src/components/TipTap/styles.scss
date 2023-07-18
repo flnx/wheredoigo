@@ -1,0 +1,68 @@
+/* Basic editor styles */
+
+.editor {
+  border: 1px solid var(--border-dark);
+  border-radius: 5px;
+}
+
+.ProseMirror {
+  outline: none;
+  padding: 16px;
+  min-height: 20rem;
+  max-height: 35rem;
+  overflow: scroll;
+
+  > * + * {
+    margin-top: 0.75em;
+  }
+
+  ul,
+  ol {
+    padding: 0 1rem;
+  }
+
+  ol li {
+    list-style-type: decimal;
+  }
+
+  ul li {
+    list-style: circle;
+  }
+
+  h2,
+  h3,
+  h4 {
+    line-height: 1.1;
+  }
+
+  blockquote {
+    padding-left: 1rem;
+    border-left: 2px solid rgba(#0d0d0d, 0.1);
+  }
+
+  p {
+    color: var(--text-primary);
+  }
+}
+
+.buttons {
+  border-top: 1px solid var(--border-dark);
+  padding: 5px 5px 3px 5px;
+
+  button {
+    margin-left: 1rem;
+    cursor: pointer;
+    // color: #fff;
+    font-size: 1.25rem;
+    outline: none;
+    border: none;
+    background: none;
+    padding: 0;
+    border: none;
+    border-radius: 2px;
+  }
+
+  .is-active {
+    color: var(--danger);
+  }
+}

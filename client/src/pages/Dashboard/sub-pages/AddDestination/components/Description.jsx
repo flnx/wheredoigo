@@ -1,10 +1,19 @@
 import { ShowFormError } from '../../../../../components/ShowFormError/ShowFormError';
-import { Tiptap } from '../../../../../components/TipTap/TipTap';
+import { TipTap } from '../../../../../components/TipTap/TipTap';
 import styles from '../AddDestination.module.css';
 
 export const Description = ({ updateField, description, errors }) => {
-    return <Tiptap />;
+    return (
+        <div
+            className={styles.formField}
+            style={{ backgroundColor: '#fff', padding: 0, boxShadow: 'none' }}
+        >
+            <label htmlFor="description">Description</label>
+            <TipTap />
+        </div>
+    );
 };
+
 // export const Description2 = ({ updateField, description, errors }) => {
 //     const onChangeHandler = (e) => {
 //         updateField(e.target.name, e.target.value);
