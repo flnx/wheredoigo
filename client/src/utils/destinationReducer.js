@@ -14,6 +14,15 @@ export function destinationFormReducer(state, action) {
                 };
             }
 
+        case 'UPDATE_DESCRIPTION':
+            return {
+                ...state,
+                description: {
+                    text: action.payload.value,
+                    charCounter: action.payload.charCounter,
+                },
+            };
+
         case 'ADD_CATEGORY':
             return {
                 ...state,
@@ -28,7 +37,7 @@ export function destinationFormReducer(state, action) {
                 ),
             };
 
-        case 'details_change': {
+        case 'DETAILS_CHANGE': {
             return {
                 ...state,
                 details: state.details.map((detail) => {
@@ -50,26 +59,29 @@ export function destinationFormReducer(state, action) {
 }
 
 export const initialState = {
-    description: '',
+    description: {
+        charCounter: 0,
+        text: '',
+    },
     city: '',
     country: '',
     categories: [],
     details: [
         {
             name: 'Good to Know',
-            content: ''
+            content: '',
         },
         {
             name: 'Transport',
-            content: ''
+            content: '',
         },
         {
             name: 'Local Customs',
-            content: ''
+            content: '',
         },
         {
             name: 'Pro Tips',
-            content: ''
+            content: '',
         },
     ],
 };

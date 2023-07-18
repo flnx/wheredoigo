@@ -10,13 +10,20 @@ export const useDestinationInput = () => {
     const updateField = (name, value) => {
         dispatch({
             type: 'change',
-            payload: { name, value },
+            payload: { name, value, charCount },
+        });
+    };
+
+    const updateDescription = (value, charCounter) => {
+        dispatch({
+            type: 'UPDATE_DESCRIPTION',
+            payload: { value, charCounter },
         });
     };
 
     const updateDetail = (name, content) => {
         dispatch({
-            type: 'details_change',
+            type: 'DETAILS_CHANGE',
             payload: { name, content },
         });
     };
@@ -34,5 +41,6 @@ export const useDestinationInput = () => {
         updateDetail,
         state,
         updateCategory,
+        updateDescription
     };
 };

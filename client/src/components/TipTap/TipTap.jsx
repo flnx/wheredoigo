@@ -1,3 +1,9 @@
+import { EditorContent, useEditor } from '@tiptap/react';
+import CharacterCount from '@tiptap/extension-character-count';
+import ListItem from '@tiptap/extension-list-item';
+import TextStyle from '@tiptap/extension-text-style';
+import StarterKit from '@tiptap/starter-kit';
+
 // Icons
 import {
     ListBullets,
@@ -8,12 +14,8 @@ import {
     TextHTwo,
     TextItalic,
 } from '@phosphor-icons/react';
-import './styles.scss';
 
-import ListItem from '@tiptap/extension-list-item';
-import TextStyle from '@tiptap/extension-text-style';
-import { EditorContent, useEditor } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
+import './styles.scss';
 
 const MenuBar = ({ editor }) => {
     if (!editor) {
@@ -70,7 +72,7 @@ const MenuBar = ({ editor }) => {
     );
 };
 
-export const TipTap = () => {
+export const TipTap = ({ onChangeHandler }) => {
     const editor = useEditor({
         extensions: [
             TextStyle.configure({ types: [ListItem.name] }),
@@ -84,32 +86,29 @@ export const TipTap = () => {
                     keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
                 },
             }),
+            CharacterCount.configure({
+                limit: 5000,
+            }),
         ],
-        content: `
-      <h2>
-        Hi there,
-      </h2>
-      <p>
-        this is a <em>basic</em> example of <strong>tiptap</strong>. Sure, there are all kind of basic text styles you’d probably expect from a text editor. But wait until you see the lists:
-      </p>
-      <ul>
-        <li>
-          That’s a bullet list with one …
-        </li>
-        <li>
-          … or two list items.
-        </li>
-      </ul>
-      <blockquote>
-        Wow, that’s amazing. Good work, boy! 👏
-        — Mom
-      </blockquote>
-    `,
+        content: ``,
+
+        onUpdate: ({ editor }) => {
+            const html = editor.getHTML();
+            const charCounter = editor?.storage.characterCount.characters();
+
+            onChangeHandler(html, charCounter);
+        },
     });
 
     return (
         <div className="editor">
             <EditorContent editor={editor} />
+            <div className="character-count">
+                <div>
+                    {editor?.storage.characterCount.characters()}/{5000} characters
+                </div>
+
+            </div>
             <MenuBar editor={editor} />
         </div>
     );

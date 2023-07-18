@@ -7,7 +7,7 @@
 
 .ProseMirror {
   outline: none;
-  padding: 16px;
+  padding: 1rem;
   min-height: 20rem;
   max-height: 35rem;
   overflow: scroll;
@@ -65,4 +65,9 @@
   .is-active {
     color: var(--danger);
   }
+}
+
+.character-count {
+  padding: 0 1rem 0.5rem 1rem;
+  color: var(--text-secondary);
 }

@@ -22,8 +22,10 @@ const categories = ['Beach', 'Mountains', 'Cultural', 'Snow', 'Islands', 'Advent
 
 export const AddDestination = () => {
     const [showDetail, setShowDetail] = useState({ name: '' });
-    const { updateField, updateDetail, updateCategory, state } = useDestinationInput();
+    const { updateField, updateDescription, updateDetail, updateCategory, state } =
+        useDestinationInput();
     const { images, addImages, deleteImage } = useImages();
+
     const { submitHandler, isLoading, error, errors } = useSubmitData(
         images,
         state,
@@ -31,7 +33,6 @@ export const AddDestination = () => {
     );
 
     const updateFieldCb = useCallback((name, value) => updateField(name, value), []);
-
     const showDetailHandler = (detail) => setShowDetail(detail);
     const selectedDetail = state.details.find((d) => d.name == showDetail.name);
 
@@ -51,9 +52,9 @@ export const AddDestination = () => {
                 />
 
                 <Description
-                    updateField={updateFieldCb}
-                    description={state.description}
+                    updateDescription={updateDescription}
                     errors={errors}
+                    charCounter={state.description.charCounter}
                 />
 
                 <FormCheckboxes

@@ -38,7 +38,7 @@ export const validateDestinationData = (state, images, allowedCategories) => {
         errors.push('You need to add between 5 and 50 images');
     }
 
-    if (description.trim().length < 50 || description.trim().length > 5000) {
+    if (description.charCounter < 50) {
         errors.push('Description must be between 50 and 5000 characters');
     }
 
