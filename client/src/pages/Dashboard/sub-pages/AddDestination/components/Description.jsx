@@ -9,8 +9,6 @@ export const Description = ({ updateDescription, errors, charCounter }) => {
 
     const hasError = errors.some((msg) => msg.includes('Description'));
 
-    console.log(charCounter)
-
     return (
         <div
             className={styles.formField}

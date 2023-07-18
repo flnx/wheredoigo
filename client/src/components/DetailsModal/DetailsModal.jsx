@@ -8,8 +8,6 @@ export const DetailsModal = () => {
     const context = useOutletContext();
     const navigate = useNavigate();
 
-    console.log(context);
-
     const { pageRoute } = context;
 
     useEffect(() => {

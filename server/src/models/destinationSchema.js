@@ -30,7 +30,7 @@ const destinationSchema = new Schema({
         type: String,
         trim: true,
         minLength: [50, errorMessages.validation.description],
-        maxLength: [5000, errorMessages.validation.description],
+        maxLength: [15000, errorMessages.validation.description], // max is 5k without html, this is a backup if something fails
         required: true,
     },
     category: {

@@ -1,8 +1,8 @@
-const { isValid } = require('mongoose').Types.ObjectId;
 const validator = require('validator');
-const { createValidationError } = require('./createValidationError');
 
 // Constants
+const { errorMessages } = require('../constants/errorMessages');
+
 const {
     allowedPlaceCategories,
     allowedFieldsToUpdate,
@@ -13,8 +13,10 @@ const {
     destinationDetails,
 } = require('../constants/allowedDestinationCategories');
 
-const { errorMessages } = require('../constants/errorMessages');
 // Utils
+const { sanitizeHtml } = require('./sanitizeHtml');
+const { removeTagsAndGetLength } = require('./removeTagsAndGetLength');
+const { createValidationError } = require('./createValidationError');
 const { isString, isValidArrayOfStrings, isObject } = require('./utils');
 
 function validatePlaceFields(placeData) {
@@ -57,16 +59,19 @@ function validatePlaceFieldOnEdit(data) {
     return data;
 }
 
-function validateDescription(description) {
-    if (!isString(description)) {
+function validateDescription(htmlStr) {
+    if (!isString(htmlStr)) {
         throw createValidationError(errorMessages.form.string('Description'), 400);
     }
-
-    if (!validator.isLength(description.trim(), { min: 50, max: 5000 })) {
+    
+    const sanitizedHtmlStr = sanitizeHtml(htmlStr);
+    const plainText = removeTagsAndGetLength(sanitizedHtmlStr);
+    
+    if (!validator.isLength(plainText.trim(), { min: 50, max: 5000 })) {
         throw createValidationError(errorMessages.validation.description, 400);
     }
 
-    return true;
+    return sanitizedHtmlStr;
 }
 
 function validatePlaceType(type) {
@@ -145,8 +150,6 @@ function validateDestinationDetails(details) {
     const invalidDetail = details.some(
         (detail) => !destinationDetails.includes(detail.name)
     );
-
-    console.log(invalidDetail);
 
     if (invalidDetail) {
         throw createValidationError(errorMessages.data.details, 400);

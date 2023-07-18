@@ -10,7 +10,7 @@ export const useDestinationInput = () => {
     const updateField = (name, value) => {
         dispatch({
             type: 'change',
-            payload: { name, value, charCount },
+            payload: { name, value },
         });
     };
 

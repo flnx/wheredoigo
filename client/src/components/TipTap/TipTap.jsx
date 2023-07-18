@@ -25,6 +25,7 @@ const MenuBar = ({ editor }) => {
     return (
         <div className="buttons">
             <button
+                type="button"
                 onClick={() => editor.chain().focus().toggleBold().run()}
                 disabled={!editor.can().chain().focus().toggleBold().run()}
                 className={editor.isActive('bold') ? 'is-active' : ''}
@@ -32,6 +33,7 @@ const MenuBar = ({ editor }) => {
                 <TextB weight="bold" />
             </button>
             <button
+                type="button"
                 onClick={() => editor.chain().focus().toggleItalic().run()}
                 disabled={!editor.can().chain().focus().toggleItalic().run()}
                 className={editor.isActive('italic') ? 'is-active' : ''}
@@ -39,30 +41,35 @@ const MenuBar = ({ editor }) => {
                 <TextItalic />
             </button>
             <button
+                type="button"
                 onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
                 className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}
             >
                 <TextHOne weight="bold" />
             </button>
             <button
+                type="button"
                 onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
                 className={editor.isActive('heading', { level: 3 }) ? 'is-active' : ''}
             >
                 <TextHTwo weight="bold" />
             </button>
             <button
+                type="button"
                 onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
                 className={editor.isActive('heading', { level: 4 }) ? 'is-active' : ''}
             >
                 <TextHThree weight="bold" />
             </button>
             <button
+                type="button"
                 onClick={() => editor.chain().focus().toggleBulletList().run()}
                 className={editor.isActive('bulletList') ? 'is-active' : ''}
             >
                 <ListBullets />
             </button>
             <button
+                type="button"
                 onClick={() => editor.chain().focus().toggleOrderedList().run()}
                 className={editor.isActive('orderedList') ? 'is-active' : ''}
             >
@@ -107,7 +114,6 @@ export const TipTap = ({ onChangeHandler }) => {
                 <div>
                     {editor?.storage.characterCount.characters()}/{5000} characters
                 </div>
-
             </div>
             <MenuBar editor={editor} />
         </div>

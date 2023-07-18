@@ -1,42 +1,20 @@
 const Destination = require('../../models/destinationSchema');
 const Country = require('../../models/countrySchema');
 
-const { createValidationError } = require('../../utils/createValidationError');
-const { errorMessages } = require('../../constants/errorMessages');
-
-// utils
-const {
-    validateCreatedDestination,
-} = require('../../utils/validators/validateCreatedDestination');
-
 // Services
-const { fetchACountryAndItsCities } = require('../getCityCountryData');
 const uploadImages = require('../cloudinaryService/uploadImages');
 
 async function createDestination(data, images, user) {
     const { ownerId } = user;
 
-    const destinationData = {
-        city: data.city,
-        country: data.country,
-        description: data.description,
-        details: JSON.parse(data.details) || [],
-        category: JSON.parse(data.category),
-    };
-
-    const categories = validateCreatedDestination(destinationData);
-
-    await validateCountryAndCity(destinationData.country, destinationData.city);
-
-    const country = await addCountry(destinationData.country);
+    const country = await addCountry(data.country);
 
     const destination = new Destination({
-        ...destinationData,
-        category: categories,
+        ...data,
+        ownerId,
         country: country._id,
         imageUrls: [],
         likes: [],
-        ownerId,
     });
 
     await destination.save();
@@ -56,21 +34,6 @@ async function createDestination(data, images, user) {
         _id: destination._id,
         imgError,
     };
-
-    async function validateCountryAndCity(countryStr, cityStr) {
-        // fetches the country and its cities
-        const countryData = await fetchACountryAndItsCities(countryStr);
-
-        // finds the city provided by the client
-        const city = countryData.find(
-            (c) => c.toLowerCase() === cityStr.toLowerCase()
-        );
-
-        // if the city is not found in the provided country cities array, it throws
-        if (!city) {
-            throw createValidationError(errorMessages.data.city, 400);
-        }
-    }
 
     async function addCountry(countryName) {
         // looks for the country

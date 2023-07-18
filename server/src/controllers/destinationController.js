@@ -84,7 +84,7 @@ const get_countries_and_cities = async (req, res, next) => {
 };
 
 const add_new_destination = async (req, res, next) => {
-    const destinationInfo = req.body;
+    const destinationInfo = req.destination;
     const images = req.files;
     const user = req.user;
 

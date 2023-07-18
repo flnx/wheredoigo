@@ -5,6 +5,7 @@ const validateMongoId = require('../middlewares/validateMongoId');
 const { auth } = require('../middlewares/auth');
 const { upload } = require('../middlewares/images');
 const { checkSession } = require('../middlewares/checkSession');
+const { validateCreateDestinationData } = require('../middlewares/dataValidators/validateCreateDestinationData');
 
 const { 
     fetchDestinationAndCheckOwnership, 
@@ -76,7 +77,8 @@ router.get(
 router.post(
     '/destinations', 
     auth, 
-    upload, 
+    upload,
+    validateCreateDestinationData,
     add_new_destination
 );
 
