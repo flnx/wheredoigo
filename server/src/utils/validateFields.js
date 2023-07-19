@@ -154,6 +154,13 @@ function validateDestinationDetails(details) {
     if (invalidDetail) {
         throw createValidationError(errorMessages.data.details, 400);
     }
+
+    const sanitizedDetails = details.map((detail) => ({
+        name: detail.name,
+        content: sanitizeHtml(detail.content),
+    }));
+    
+    return sanitizedDetails;
 }
 
 module.exports = {

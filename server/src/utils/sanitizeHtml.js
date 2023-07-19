@@ -1,7 +1,8 @@
 const DOMPurify = require('../config/domPurify');
+const { isString } = require('./utils');
 
 function sanitizeHtml(htmlStr) {
-    if (!htmlStr) {
+    if (!htmlStr || !isString(htmlStr)) {
         return htmlStr;
     }
 

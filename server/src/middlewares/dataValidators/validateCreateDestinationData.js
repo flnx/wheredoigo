@@ -53,14 +53,15 @@ async function validateCreateDestinationData(req, res, next) {
             throw createValidationError(errorMessages.data.category, 400);
         }
 
-        // Details validation
-        validateDestinationDetails(details);
+        // Details validation and sanitization
+        const sanitizedDetails = validateDestinationDetails(details);
 
         // City exists within the given country
         await validateCountryAndCity(country, city);
 
         req.destination = {
             ...updated,
+            details: sanitizedDetails,
             description: validatedDescription,
             category: validatedCategories,
         };
