@@ -45,7 +45,7 @@ function validatePlaceFieldOnEdit(data) {
     }
 
     if (infoId.toLowerCase() == 'description') {
-        validateDescription(description);
+        data.description = validateDescription(description);
     }
 
     if (infoId.toLowerCase() == 'type') {
@@ -59,15 +59,15 @@ function validatePlaceFieldOnEdit(data) {
     return data;
 }
 
-function validateDescription(htmlStr) {
+function validateDescription(htmlStr, min = 50, max = 5000) {
     if (!isString(htmlStr)) {
         throw createValidationError(errorMessages.form.string('Description'), 400);
     }
-    
+
     const sanitizedHtmlStr = sanitizeHtml(htmlStr);
     const plainText = removeTagsAndGetLength(sanitizedHtmlStr);
-    
-    if (!validator.isLength(plainText.trim(), { min: 50, max: 5000 })) {
+
+    if (!validator.isLength(plainText.trim(), { min, max })) {
         throw createValidationError(errorMessages.validation.description, 400);
     }
 

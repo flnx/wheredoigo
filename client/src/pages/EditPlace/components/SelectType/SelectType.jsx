@@ -43,7 +43,6 @@ export const SelectType = ({
 
     return (
         <div>
-            <h3>Category</h3>
             <FormEditWrapper>
                 <SpanLabelTitle title={'Type: '} />
 

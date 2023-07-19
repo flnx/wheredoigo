@@ -9,8 +9,6 @@ import { MemoizedFormFieldEditor } from '../../../../components/FormFieldEditor/
 import { FormLoadingSkeleton } from '../../../../components/FormLoadingSkeleton/FormLoadingSkeleton';
 import { TextWrap } from '../../../../components/TextWrap/TextWrap';
 
-import styles from './Form.module.css';
-
 const propTypes = {
     data: PropTypes.object.isRequired,
     placeId: PropTypes.string.isRequired,
@@ -36,7 +34,7 @@ export const Form = ({ data, placeId, destinationId, isLoading }) => {
             <h3>
                 <TextWrap isLoading={isLoading} content={'Place Info'} />
             </h3>
-            <form className={styles.form}>
+            <form>
                 {isLoading && <FormLoadingSkeleton />}
 
                 {!isLoading && (

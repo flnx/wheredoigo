@@ -5,10 +5,7 @@ const { errorMessages } = require('../../constants/errorMessages');
 const { isValid } = require('mongoose').Types.ObjectId;
 const { createValidationError } = require('../../utils/createValidationError');
 const { isString } = require('../../utils/utils');
-const {
-    validateDescription,
-    validateCategories,
-} = require('../../utils/validateFields');
+const { validateDescription, validateCategories } = require('../../utils/validateFields');
 
 async function editDestinationField(destinationId, updatedFields) {
     const { description, categories, infoId, categoryId } = updatedFields;
@@ -22,7 +19,6 @@ async function editDestinationField(destinationId, updatedFields) {
     }
 
     if (infoId.toLowerCase() == 'description') {
-        validateDescription(description);
         const result = await editDescription(destinationId, description);
         return result;
     }
@@ -38,9 +34,11 @@ async function editDestinationField(destinationId, updatedFields) {
 
 // --- DESCRIPTION ---
 async function editDescription(destinationId, description) {
+    const validatedDescription = validateDescription(description);
+
     const result = await Destination.updateOne(
         { _id: destinationId },
-        { $set: { description: description } }
+        { $set: { description: validatedDescription } }
     )
         .lean()
         .exec();
@@ -75,18 +73,16 @@ async function editCategories(destinationId, categories) {
 }
 
 // --- DETAILS ---
-async function editDetail(destinationId, detail_id, updatedContent) {
+async function editDetail(destinationId, detail_id, editedContent) {
     if (!isString(detail_id) || !isValid(detail_id)) {
         throw createValidationError('Invalid Detail ID', 400);
     }
 
-    if (updatedContent.length > 5000) {
-        throw createValidationError(errorMessages.validation.description, 400);
-    }
+    const validatedContent = validateDescription(editedContent, 0);
 
     const result = await Destination.updateOne(
         { _id: destinationId, 'details._id': detail_id },
-        { $set: { 'details.$.content': updatedContent } }
+        { $set: { 'details.$.content': validatedContent } }
     ).exec();
 
     if (!result || result.matchedCount === 0) {

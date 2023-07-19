@@ -3,6 +3,7 @@ import { ShowMoreButton } from '../../../../components/Buttons/ShowMoreButton/Sh
 import { StarRating } from '../../../../components/StarRating/StarRating';
 import { TextWrap } from '../../../../components/TextWrap/TextWrap';
 
+import parse from 'html-react-parser';
 import routeConstants from '../../../../constants/routeConstants';
 import styles from './Header.module.css';
 
@@ -29,9 +30,9 @@ export const Header = ({ place, isLoading }) => {
                 <h3 className={styles.title}>
                     <TextWrap isLoading={isLoading} content={'Overview'} />
                 </h3>
-                <p className={`${styles.description} ${isLoading ? styles.loading : null}`}>
-                    <TextWrap isLoading={isLoading} content={description} />
-                </p>
+                <div className={`${styles.description} ${isLoading ? styles.loading : ''}`}>
+                    <TextWrap isLoading={isLoading} content={parse(description || '')} />
+                </div>
                 <ShowMoreButton path={ABOUT.route} isLoading={isLoading} />
             </section>
             <Outlet

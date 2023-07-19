@@ -4,11 +4,8 @@ import { useForm } from './useForm';
 // Components
 import { MemoizedFormFieldEditor } from '../../../../components/FormFieldEditor/FormFieldEditor';
 import { DetailsFormFields } from './components/DetailsFormFields';
-import { TextWrap } from '../../../../components/TextWrap/TextWrap';
 import { FormLoadingSkeleton } from '../../../../components/FormLoadingSkeleton/FormLoadingSkeleton';
 import { Categories } from './components/Categories';
-
-import styles from './Form.module.css';
 
 const propTypes = {
     categories: PropTypes.array.isRequired,
@@ -46,10 +43,7 @@ export const Form = ({
 
     return (
         <section>
-            <h3>
-                <TextWrap isLoading={isLoading} content={'Destination Info'} />
-            </h3>
-            <form className={styles.form}>
+            <form>
                 {isLoading && <FormLoadingSkeleton />}
                 {!isLoading && (
                     <>

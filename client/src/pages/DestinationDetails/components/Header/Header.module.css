@@ -38,6 +38,14 @@
     -moz-box-orient: vertical;
 }
 
+.description p {
+    margin-bottom: 1rem;
+}
+
+.description h2, h3, h4 {
+    margin-bottom: 0.35rem;
+}
+
 .descriptionLoading {
     height: 14.875rem !important;
 }

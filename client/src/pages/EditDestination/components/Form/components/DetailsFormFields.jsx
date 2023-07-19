@@ -8,25 +8,19 @@ export const DetailsFormFields = ({
     error,
     details,
 }) => {
-    return (
-        <>
-            <h3>Destination Details</h3>
-
-            {details.map((detail) => (
-                <div key={detail._id}>
-                    <MemoizedFormFieldEditor
-                        fieldId={detail._id}
-                        title={detail.name}
-                        desc={detail.content}
-                        onEditButtonClickHandler={onEditButtonClickHandler}
-                        isEditable={isEditable[detail._id]}
-                        sendEditedFieldClickHandler={sendEditedFieldClickHandler}
-                        isLoading={isLoading}
-                        error={error}
-                        categoryId={detail._id}
-                    />
-                </div>
-            ))}
-        </>
-    );
+    return details.map((detail) => (
+        <div key={detail._id}>
+            <MemoizedFormFieldEditor
+                fieldId={detail._id}
+                title={detail.name}
+                desc={detail.content}
+                onEditButtonClickHandler={onEditButtonClickHandler}
+                isEditable={isEditable[detail._id]}
+                sendEditedFieldClickHandler={sendEditedFieldClickHandler}
+                isLoading={isLoading}
+                error={error}
+                categoryId={detail._id}
+            />
+        </div>
+    ));
 };

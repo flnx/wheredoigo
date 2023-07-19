@@ -28,7 +28,6 @@
 }
 
 .overview .description {
-    max-height: 14.875rem;
     font-size: 1.1rem;
     margin-bottom: 0.75rem;
     overflow: hidden;
@@ -37,6 +36,14 @@
     -webkit-line-clamp: 9;
     -webkit-box-orient: vertical;
     -moz-box-orient: vertical;
+}
+
+.description p {
+    margin-bottom: 1rem;
+}
+
+.description h2, h3, h4 {
+    margin-bottom: 0.35rem;
 }
 
 .loading {
