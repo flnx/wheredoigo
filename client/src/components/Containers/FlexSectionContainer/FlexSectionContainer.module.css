@@ -4,7 +4,7 @@
 }
 
 .flexContainer section:nth-child(1) {
-    flex: 1.1;
+    flex: 1;
 }
 
 .flexContainer section:nth-child(2) {
@@ -12,6 +12,10 @@
 }
 
 @media (min-width: 64em) {
+    .flexContainer section:nth-child(1) {
+        width: 46%;
+    }
+    
     .flexContainer {
         flex-direction: row;
         gap: 4.5rem;

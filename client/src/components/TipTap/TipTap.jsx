@@ -79,7 +79,7 @@ const MenuBar = ({ editor }) => {
     );
 };
 
-export const TipTap = ({ onChangeHandler }) => {
+export const TipTap = ({ onChangeHandler, content = '', backgroundColor = 'none' }) => {
     const editor = useEditor({
         extensions: [
             TextStyle.configure({ types: [ListItem.name] }),
@@ -97,7 +97,7 @@ export const TipTap = ({ onChangeHandler }) => {
                 limit: 5000,
             }),
         ],
-        content: ``,
+        content: content,
 
         onBlur: ({ editor }) => {
             const html = editor.getHTML();
@@ -108,8 +108,8 @@ export const TipTap = ({ onChangeHandler }) => {
     });
 
     return (
-        <div className="editor">
-            <EditorContent editor={editor} />
+        <div className="editor" style={{ backgroundColor }} aria-label="Text Editor">
+            <EditorContent editor={editor} data-testid="editor"/>
             <div className="character-count">
                 <div>
                     {editor?.storage.characterCount.characters()}/{5000} characters

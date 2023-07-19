@@ -27,7 +27,7 @@
 }
 
 .description {
-    max-height: 14.875rem;
+    /* max-height: 14.875rem; */
     font-size: 1.1rem;
     margin-bottom: 0.75rem;
     display: -webkit-box;

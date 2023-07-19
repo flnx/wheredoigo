@@ -5,7 +5,7 @@ export const FormEditWrapper = ({ children }) => {
 };
 
 export const WrapperWithWidth = ({ children }) => {
-    return <div style={{ width: '100%' }}>{children}</div>;
+    return <div className={styles.wrapperWithWidth}>{children}</div>;
 };
 
 export const EditButtonsWrapper = ({ children }) => {

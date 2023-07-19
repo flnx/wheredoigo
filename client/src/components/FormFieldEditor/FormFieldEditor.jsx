@@ -7,9 +7,9 @@ import { ButtonSky } from '../../components/Buttons/Button-Sky/ButtonSky';
 import { CancelButton } from '../../components/Buttons/Cancel-Button/CancelButton';
 import { EditTextareaPairs } from '../Buttons/EditTextareaPairs/EditTextareaPairs';
 import { SpanLabelTitle } from '../SpanLabelTitle/SpanLabelTitle';
+import { TipTap } from '../TipTap/TipTap';
 import { FormEditWrapper, WrapperWithWidth, EditButtonsWrapper } from '../Containers/FormEditWrapper/FormEditWrapper';
 
-import styles from './FormFieldEditor.module.css';
 
 const propTypes = {
     categoryId: PropTypes.string,
@@ -63,13 +63,12 @@ const FormFieldEditor = ({
             <SpanLabelTitle title={title} />
             {isEditable ? (
                 <WrapperWithWidth>
-                    <textarea
-                        name={title}
-                        aria-label={title}
-                        value={description}
-                        onChange={onChangeHandler}
-                        className={styles.textarea}
+                    <TipTap
+                        onChangeHandler={onChangeHandler}
+                        content={description}
+                        backgroundColor={'#fff'}
                     />
+
                     <EditButtonsWrapper>
                         <ButtonSky
                             onClickHandler={onSaveButtonClickHandler}
@@ -84,6 +83,7 @@ const FormFieldEditor = ({
                             Cancel
                         </CancelButton>
                     </EditButtonsWrapper>
+
                     {error && <span className="error-message">{error}</span>}
                 </WrapperWithWidth>
             ) : (
