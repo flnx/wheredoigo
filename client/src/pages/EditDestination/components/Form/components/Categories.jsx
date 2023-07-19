@@ -78,7 +78,7 @@ export const Categories = ({
                 </WrapperWithWidth>
             ) : (
                 <EditTextareaPairs
-                    selected={selectedCategories.join(', ')}
+                    content={selectedCategories.join(', ')}
                     onClickHandler={() => onEditButtonClickHandler(fieldId)}
                 />
             )}

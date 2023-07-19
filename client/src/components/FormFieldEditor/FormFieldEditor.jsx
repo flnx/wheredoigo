@@ -35,17 +35,20 @@ const FormFieldEditor = ({
     categoryId,
 }) => {
     const [description, setDescription] = useState(desc);
+    const [charCounter, setCharCounter] = useState(0);
 
-    const onChangeHandler = (e) => {
-        setDescription(e.target.value);
+    const onChangeHandler = (content, charCount) => {
+        setDescription(content);
+        setCharCounter(charCount);
     };
 
+    
     const onCancelClickHandler = () => {
         // passes the fieldId in order to reset isEditable and hide the textarea/input
         onEditButtonClickHandler(fieldId);
         setDescription(desc);
     };
-
+    
     const onSaveButtonClickHandler = (e) => {
         e.preventDefault();
 
@@ -53,6 +56,7 @@ const FormFieldEditor = ({
             categoryId,
             infoId: fieldId,
             description,
+            charCounter
         };
 
         sendEditedFieldClickHandler(fieldId, editInfo);
@@ -88,7 +92,7 @@ const FormFieldEditor = ({
                 </WrapperWithWidth>
             ) : (
                 <EditTextareaPairs
-                    selected={description}
+                    content={description}
                     onClickHandler={() => onEditButtonClickHandler(fieldId)}
                 />
             )}

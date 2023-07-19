@@ -1,7 +1,6 @@
 import { useCallback, useState } from 'react';
 import { useEditDestinationDetails } from '../../../../hooks/queries/useEditDestinationDetails';
 import { validateFieldsOnEdit } from '../../../../utils/editValidators';
-
 import { extractServerErrorMessage } from '../../../../utils/utils';
 
 export const useForm = ({ destinationId, allowedCategories }) => {
@@ -9,7 +8,8 @@ export const useForm = ({ destinationId, allowedCategories }) => {
     const [isEditable, setIsEditable] = useState({});
     const [editError, setEditError] = useState('');
 
-    const onEditButtonClickHandler = useCallback((clickedId) => {
+    const onEditButtonClickHandler = useCallback(
+        (clickedId) => {
             // enables/disables the form fields
             setIsEditable((prevState) => {
                 // opens/closes the edit field
@@ -26,20 +26,28 @@ export const useForm = ({ destinationId, allowedCategories }) => {
             });
             // removes the error message (if any)
             editError && setEditError('');
-        }, [editError]);
+        },
+        [editError]
+    );
 
-    const sendEditedFieldClickHandler = useCallback((fieldId, editedInfo) => {
-        try {
-            const validated = validateFieldsOnEdit(editedInfo, allowedCategories);
+    const sendEditedFieldClickHandler = useCallback(
+        (fieldId, editedInfo) => {
+            try {
+                const validated = validateFieldsOnEdit(
+                    editedInfo,
+                    allowedCategories
+                );
 
-            editDetails(validated, {
-                onSuccess: () => onEditButtonClickHandler(fieldId),
-                onError: (err) => setEditError(extractServerErrorMessage(err)),
-            });
-        } catch (err) {
-            setEditError(err.message);
-        }
-    }, [destinationId]);
+                editDetails(validated, {
+                    onSuccess: () => onEditButtonClickHandler(fieldId),
+                    onError: (err) => setEditError(extractServerErrorMessage(err)),
+                });
+            } catch (err) {
+                setEditError(err.message);
+            }
+        },
+        [destinationId]
+    );
 
     const descriptionID = 'Description';
     const categoriesID = 'Categories';

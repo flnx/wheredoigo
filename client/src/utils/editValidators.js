@@ -5,7 +5,9 @@ export const validateFieldsOnEdit = (data, allowedCategories) => {
         throw new Error('Only objects are allowed here, buddy 🦖');
     }
 
-    const { description, infoId, categoryId, categories } = data;   
+    const { description, infoId, categoryId, categories, charCounter } = data;
+
+    console.log(charCounter)
 
     if (!isString(description)) {
         throw new Error('Description must be a string 🦖');
@@ -19,7 +21,7 @@ export const validateFieldsOnEdit = (data, allowedCategories) => {
         throw new Error('categoryId must be a string 🦖');
     }
 
-    if (infoId.toLowerCase() == 'description' && description.length < 50 || description.length > 5000) {
+    if (infoId.toLowerCase() == 'description' && charCounter < 50 || charCounter > 5000) {
         throw new Error('Description must be between 50 and 5000 characters');
     }
 

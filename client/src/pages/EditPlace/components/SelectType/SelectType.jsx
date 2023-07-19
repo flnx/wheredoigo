@@ -77,7 +77,7 @@ export const SelectType = ({
                     </WrapperWithWidth>
                 ) : (
                     <EditTextareaPairs
-                        selected={selectedType}
+                        content={selectedType}
                         onClickHandler={() => onEditButtonClickHandler(typeId)}
                     />
                 )}
