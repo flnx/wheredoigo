@@ -3,7 +3,9 @@ const validator = require('validator');
 // Utils
 const { isString } = require('../../utils/utils');
 const { createValidationError } = require('../../utils/createValidationError');
-const { validateDescription, validateCategories, validateDestinationDetails } = require('../../utils/validateFields');
+const { validateCategories } = require('../../utils/validateFields');
+const { validateDescription } = require('../../utils/validators/validateDescription');
+const { validateDestinationDetails } = require('../../utils/validators/validateDestinationDetails');
 
 // Constants
 const { errorMessages } = require('../../constants/errorMessages');

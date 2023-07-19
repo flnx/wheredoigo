@@ -1,7 +1,8 @@
 const DOMPurify = require('../config/domPurify');
+const { isString } = require('./utils');
 
 function removeTagsAndGetLength(str) {
-    if (!str) {
+    if (!str || !isString(str)) {
         return str;
     }
 

@@ -15,7 +15,7 @@ exports.errorMessages = {
             body: 'Comment must contain at least 10 characters',
             addFailed: 'Failed to add the comment. Please try again later',
         },
-        description: 'Description must be between 50 and 5000 characters',
+        description: (min = 50, max = 5000) => `Description must be between ${min} and ${max} characters`,
         placeName: 'Place name must be between 1 and 60 characters',
     },
 

@@ -43,9 +43,9 @@ const placeSchema = new Schema({
     description: {
         type: String,
         trim: true,
-        minLength: [50, errorMessages.validation.description],
-        maxLength: [5000, errorMessages.validation.description],
-        required: [true, errorMessages.validation.description],
+        minLength: [50, errorMessages.validation.description()],
+        maxLength: [5000, errorMessages.validation.description()],
+        required: [true, errorMessages.validation.description()],
     },
     type: {
         type: String,
