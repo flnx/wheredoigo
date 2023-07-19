@@ -40,16 +40,11 @@ export function destinationFormReducer(state, action) {
         case 'DETAILS_CHANGE': {
             return {
                 ...state,
-                details: state.details.map((detail) => {
-                    if (detail.name == action.payload.name) {
-                        return {
-                            ...detail,
-                            content: action.payload.content,
-                        };
-                    } else {
-                        return detail;
-                    }
-                }),
+                details: state.details.map((detail) =>
+                    detail.name == action.payload.name
+                        ? { ...detail, content: action.payload.content }
+                        : detail
+                ),
             };
         }
 

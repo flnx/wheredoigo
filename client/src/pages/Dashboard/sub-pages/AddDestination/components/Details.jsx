@@ -1,26 +1,25 @@
-import styles from '../AddDestination.module.css';
 import { OverlayDisabledBodyScroll } from '../../../../../components/OverlayDisabledBodyScroll/OverlayDisabledBodyScroll';
+import { TipTap } from '../../../../../components/TipTap/TipTap';
 
 export const Details = ({ showDetailHandler, selectedDetail, updateDetail }) => {
+    const titleStyles = {
+        padding: '1rem',
+        textAlign: 'center',
+    };
+
+    const wrapperStyles = {
+        padding: '0.75rem',
+    };
+
     return (
-        <OverlayDisabledBodyScroll 
-            closeModalHandler={() => showDetailHandler({ name: '' })
-        }>
-            <div className={styles.detailsContainer}>
-                <h3 className={styles.detailsTitle}>{selectedDetail.name}</h3>
+        <OverlayDisabledBodyScroll closeModalHandler={() => showDetailHandler({ name: '' })}>
+            <div style={wrapperStyles}>
+                <h3 style={titleStyles}>{selectedDetail.name}</h3>
 
-                <div className={styles.formField}>
-                    <label htmlFor={selectedDetail.name}>{selectedDetail.name}</label>
-
-                    <textarea
-                        id={selectedDetail.name}
-                        name={selectedDetail.name}
-                        placeholder="Add information..."
-                        onChange={(e) => updateDetail(e.target.name, e.target.value)}
-                        rows={20}
-                        value={selectedDetail.content}
-                    />
-                </div>
+                <TipTap
+                    content={selectedDetail.content}
+                    onChangeHandler={(content) => updateDetail(selectedDetail.name, content)}
+                />
             </div>
         </OverlayDisabledBodyScroll>
     );

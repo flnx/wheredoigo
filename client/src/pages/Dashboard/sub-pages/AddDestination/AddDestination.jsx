@@ -22,8 +22,7 @@ const categories = ['Beach', 'Mountains', 'Cultural', 'Snow', 'Islands', 'Advent
 
 export const AddDestination = () => {
     const [showDetail, setShowDetail] = useState({ name: '' });
-    const { updateField, updateDescription, updateDetail, updateCategory, state } =
-        useDestinationInput();
+    const { updateField, updateDescription, updateDetail, updateCategory, state } = useDestinationInput();
     const { images, addImages, deleteImage } = useImages();
 
     const { submitHandler, isLoading, error, errors } = useSubmitData(

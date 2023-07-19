@@ -1,6 +1,5 @@
 import { ShowFormError } from '../../../../../components/ShowFormError/ShowFormError';
 import { TipTap } from '../../../../../components/TipTap/TipTap';
-import styles from '../AddDestination.module.css';
 
 export const Description = ({ updateDescription, errors, charCounter }) => {
     const onChangeHandler = (content, charCounter) => {
@@ -8,12 +7,15 @@ export const Description = ({ updateDescription, errors, charCounter }) => {
     };
 
     const hasError = errors.some((msg) => msg.includes('Description'));
+    const style = {
+        position: 'relative',
+        display: 'flex',
+        gap: '1rem',
+        flexDirection: 'column',
+    };
 
     return (
-        <div
-            className={styles.formField}
-            style={{ backgroundColor: '#fff', padding: 0, boxShadow: 'none' }}
-        >
+        <div style={style}>
             <h3>Description</h3>
             <TipTap onChangeHandler={onChangeHandler} />
 

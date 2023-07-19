@@ -109,7 +109,7 @@ export const TipTap = ({ onChangeHandler, content = '', backgroundColor = 'none'
 
     return (
         <div className="editor" style={{ backgroundColor }} aria-label="Text Editor">
-            <EditorContent editor={editor} data-testid="editor"/>
+            <EditorContent editor={editor} data-testid="editor" />
             <div className="character-count">
                 <div>
                     {editor?.storage.characterCount.characters()}/{5000} characters
