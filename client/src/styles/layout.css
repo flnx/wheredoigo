@@ -68,3 +68,32 @@ button[disabled] {
     font-size: 0.965rem;
     width: 23rem;
 }
+
+.editor-content > * + * {
+    margin-top: 1.25rem;
+}
+
+.editor-content ul, ol {
+    padding: 0 1rem;
+}
+
+.editor-content li {
+    margin-bottom: 1.5rem;
+}
+
+.editor-content ol li {
+    list-style-type: decimal;
+}
+
+.editor-content ul li {
+    list-style: circle;
+}
+
+.editor-content blockquote {
+    padding-left: 1rem;
+    border-left: 2px solid rgba(#0d0d0d, 0.1);
+}
+
+.editor-content p {
+    line-height: 1.6;
+}

@@ -12,7 +12,7 @@
     text-overflow: ellipsis;
     word-wrap: anywhere;
     white-space: break-spaces;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
 }
 

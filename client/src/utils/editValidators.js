@@ -7,8 +7,6 @@ export const validateFieldsOnEdit = (data, allowedCategories) => {
 
     const { description, infoId, categoryId, categories, charCounter } = data;
 
-    console.log(charCounter)
-
     if (!isString(description)) {
         throw new Error('Description must be a string 🦖');
     }

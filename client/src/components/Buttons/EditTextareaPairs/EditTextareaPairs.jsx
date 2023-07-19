@@ -4,7 +4,9 @@ import parse from 'html-react-parser';
 export const EditTextareaPairs = ({ content = '', onClickHandler }) => {
     return (
         <div className={styles.pairs}>
-            <div className={styles.desc}>{parse(content)}</div>
+            <div className={`${styles.desc} editor-content`}>
+                {parse(content)}
+            </div>
             <span className={styles.edit} onClick={onClickHandler}>
                 Edit
             </span>

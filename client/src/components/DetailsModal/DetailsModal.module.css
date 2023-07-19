@@ -4,7 +4,8 @@
 }
 
 .title {
-    margin-bottom: 0.85rem;
+    padding-bottom: 1.5rem;
+    color: var(--text-secondary);
 }
 
 .description {

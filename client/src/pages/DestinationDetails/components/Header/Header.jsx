@@ -33,7 +33,7 @@ export const DestinationHeader = ({ destination, isLoading }) => {
         });
     };
 
-    const descLoading = `${isLoading ? styles.descriptionLoading : null}`;
+    const descLoading = `${isLoading ? styles.descriptionLoading : ''}`;
 
     return (
         <header>
@@ -53,10 +53,7 @@ export const DestinationHeader = ({ destination, isLoading }) => {
                 <p className={styles.country}>
                     <TextWrap isLoading={isLoading} content={country} />
                 </p>
-                <h3 className={styles.descriptionTitle}>
-                    <TextWrap isLoading={isLoading} content={OVERVIEW.name} />
-                </h3>
-                <div className={`${styles.description} ${descLoading}`}>
+                <div className={`${styles.description} ${descLoading} editor-content`}>
                     <TextWrap isLoading={isLoading} content={parse(description || '')} />
                 </div>
                 <ShowMoreButton

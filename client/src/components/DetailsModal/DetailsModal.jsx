@@ -1,3 +1,4 @@
+import parse from 'html-react-parser';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useEffect } from 'react';
 import { OverlayDisabledBodyScroll } from '../OverlayDisabledBodyScroll/OverlayDisabledBodyScroll';
@@ -26,7 +27,9 @@ export const DetailsModal = () => {
         <OverlayDisabledBodyScroll closeModalHandler={closeModalHandler}>
             <div className={styles.tips}>
                 <h3 className={styles.title}>{context.name}</h3>
-                <p className={styles.description}>{context.content}</p>
+                <div className={`${styles.description} editor-content`}>
+                    {parse(context.content || '')}
+                </div>
             </div>
         </OverlayDisabledBodyScroll>
     );

@@ -7,8 +7,8 @@
     padding: 1.5rem 0;
 }
 
-.buttons :first-child {
-    margin-right: 0.45rem;
+.buttons :nth-child(2) {
+    margin-left: 0.45rem;
 }
 
 .wrapperWithWidth {

@@ -13,6 +13,8 @@ export const Header = ({ place, isLoading }) => {
     const { ABOUT, BY_ID } = routeConstants.PLACES;
     const pageRoute = BY_ID.routePath(place?._id);
 
+    const descLoading = `${isLoading ? styles.looading : ''}`;
+
     return (
         <header>
             <section className={styles.introSection}>
@@ -27,10 +29,7 @@ export const Header = ({ place, isLoading }) => {
                 </p>
             </section>
             <section className={styles.overview}>
-                <h3 className={styles.title}>
-                    <TextWrap isLoading={isLoading} content={'Overview'} />
-                </h3>
-                <div className={`${styles.description} ${isLoading ? styles.loading : ''}`}>
+                <div className={`${styles.description} ${descLoading} editor-content`}>
                     <TextWrap isLoading={isLoading} content={parse(description || '')} />
                 </div>
                 <ShowMoreButton path={ABOUT.route} isLoading={isLoading} />

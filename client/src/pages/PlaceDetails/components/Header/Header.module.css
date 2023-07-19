@@ -23,10 +23,6 @@
     white-space: pre-wrap;
 }
 
-.overview .title {
-    margin-bottom: 1rem;
-}
-
 .overview .description {
     font-size: 1.1rem;
     margin-bottom: 0.75rem;
@@ -36,14 +32,6 @@
     -webkit-line-clamp: 9;
     -webkit-box-orient: vertical;
     -moz-box-orient: vertical;
-}
-
-.description p {
-    margin-bottom: 1rem;
-}
-
-.description h2, h3, h4 {
-    margin-bottom: 0.35rem;
 }
 
 .loading {
