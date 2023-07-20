@@ -12,7 +12,9 @@ import { WarningButton } from '../../../../../components/Buttons/Button-Warning/
 export const Details = ({ selectedDetail, updateDetail, hideDetailHandler }) => {
     const [popUpConfirmCloseModal, setPopUpConfirmCloseModal] = useState(false);
     const [detailContent, setDetailContent] = useState(selectedDetail.content);
-    const hasChanges = selectedDetail.content !== detailContent;
+
+    // editor inside clicks causes empty paragraph to appear
+    const hasChanges = detailContent !== '<p></p>' && selectedDetail.content !== detailContent;
 
     const confirmModalCloseHandler = () => {
         if (hasChanges) {

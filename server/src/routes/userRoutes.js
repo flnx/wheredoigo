@@ -3,6 +3,11 @@ const express = require('express');
 // Middlewares
 const { auth } = require('../middlewares/auth');
 const { uploadAvatar } = require('../middlewares/images');
+const { validateData } = require('../middlewares/validationMiddleware');
+
+// YUP Validators
+const register = require('../validators/user/userRegisterSchema');
+
 
 const userController = require('../controllers/userController');
 const router = express.Router();
@@ -25,10 +30,11 @@ router.get(
 router.post(
     '/login', 
     userController.login
-    );
+);
 
 router.post(
     '/register', 
+    validateData(register),
     userController.register
 );
 

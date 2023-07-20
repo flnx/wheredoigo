@@ -1,9 +1,11 @@
 const { errorMessages } = require('../constants/errorMessages');
 const capitalizeEachWord = require('../utils/capitalizeWords');
+const yup = require('yup');
 
 function errorHandler(err, req, res, next) {
     console.info(err.name);
     console.error(err.message || err);
+    console.error(err.errors || '');
     switch (err.name) {
         case 'MulterError':
             if (err.code == 'LIMIT_UNEXPECTED_FILE') {
@@ -18,9 +20,16 @@ function errorHandler(err, req, res, next) {
             res.status(400).json({ message: 'Invalid JSON payload' });
             break;
         case 'ValidationError':
-            const errors = Object.values(err.errors).map((error) => error.message);
-            const error = errors[0];
-            res.status(400).json({ message: error });
+            if (err instanceof yup.ValidationError) {
+                res.status(400).json({ message: err.errors[0] });
+            } else {
+                const errors = Object.values(err.errors).map(
+                    (error) => error.message
+                );
+                const error = errors[0];
+                res.status(400).json({ message: error });
+            }
+
             break;
         case 'CastError':
             res.status(400).json({ message: 'Invalid ID format' });

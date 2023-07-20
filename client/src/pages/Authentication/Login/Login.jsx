@@ -58,7 +58,7 @@ const Login = () => {
 
                 <div>
                     <ButtonSky
-                        isLoading={true}
+                        isLoading={isLoading}
                         type={'submit'}
                         padding={`0.65rem 1.55rem`}
                     >

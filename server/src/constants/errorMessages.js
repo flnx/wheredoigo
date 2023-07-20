@@ -7,8 +7,9 @@ exports.errorMessages = {
 
     validation: {
         fieldsReq: 'Please fill in all required fields',
-        email: 'Invalid email address',
-        password: 'Password must be at least 8 characters long and include at least 1 number and 1 letter',
+        email: 'Please enter a valid email address.',
+        shortPassword: 'Password must be at least 8 characters long',
+        password: 'Password must include at least one letter and one digit.',
         username: 'Username must be between 2-12 characters long and contain only letters and numbers',
         comment: {
             title: 'Title must be at least 2 characters long',
