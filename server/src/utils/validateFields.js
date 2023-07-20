@@ -8,13 +8,13 @@ const { destinationCategories } = require('../constants/allowedDestinationCatego
 // Utils
 const { createValidationError } = require('./createValidationError');
 const { isString, isValidArrayOfStrings} = require('./utils');
-const { validateDescription } = require('./validators/validateDescription');
+const { sanitizeHtmlString } = require('./validators/sanitizeHtmlString');
 
 function validatePlaceFields(placeData) {
     const { description, type, name } = placeData;
 
     validatePlaceName(name);
-    validateDescription(description);
+    sanitizeHtmlString(description);
     validatePlaceType(type);
 
     return true;
@@ -36,7 +36,7 @@ function validatePlaceFieldOnEdit(data) {
     }
 
     if (infoId.toLowerCase() == 'description') {
-        data.description = validateDescription(description);
+        data.description = sanitizeHtmlString(description);
     }
 
     if (infoId.toLowerCase() == 'type') {

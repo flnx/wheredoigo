@@ -50,22 +50,26 @@ const destinationSchema = new Schema({
         },
     ],
     likesCount: { type: Number, default: 0 },
-    details: [
-        {
-            name: {
-                type: String,
-                trim: true,
-                required: true,
-                enum: destinationDetails,
+    details: {
+        type: [
+            {
+                name: {
+                    type: String,
+                    trim: true,
+                    required: true,
+                    unique: true,
+                    enum: destinationDetails,
+                },
+                content: {
+                    type: String,
+                    trim: true,
+                    default: '',
+                    maxLength: [6000, errorMessages.validation.description(0, 2000)],
+                },
             },
-            content: {
-                type: String,
-                trim: true,
-                default: '',
-                maxLength: [6000, errorMessages.validation.description(0, 2000)], // backup if main validation fails
-            },
-        },
-    ],
+        ],
+        required: true, // This makes the 'details' array required
+    },
     imageUrls: [
         {
             imageUrl: String,

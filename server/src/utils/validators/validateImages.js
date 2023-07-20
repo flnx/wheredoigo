@@ -9,21 +9,21 @@ function validateImages(images, minimumNum) {
     }
 
     // Filter the array to ensure each object has the required properties
-    const filteredArray = images.filter((obj) => {
+    const filteredArray = images.filter((file) => {
         // Check if 'obj' is a valid object
-        const isValidObject = isObject(obj);
+        const isValidObject = isObject(file);
 
         // Check if 'obj' has the 'buffer' and 'mimetype' properties
         const hasBufferAndMimetype =
             isValidObject &&
-            Object.hasOwn(obj, 'buffer') &&
-            Object.hasOwn(obj, 'mimetype');
+            Object.hasOwn(file, 'buffer') &&
+            Object.hasOwn(file, 'mimetype');
 
         // Check if 'obj.buffer' is a Buffer
-        const isBuffer = isValidObject && Buffer.isBuffer(obj.buffer);
+        const isBuffer = isValidObject && Buffer.isBuffer(file.buffer);
         
         // Check if 'obj.mimetype' corresponds to an expected image format
-        const isImageFormat = isValidObject && isExpectedImageFormat(obj.mimetype);
+        const isImageFormat = isValidObject && isExpectedImageFormat(file.mimetype);
 
         return isValidObject && hasBufferAndMimetype && isBuffer && isImageFormat;
     });

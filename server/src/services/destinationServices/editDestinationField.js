@@ -6,9 +6,7 @@ const { isValid } = require('mongoose').Types.ObjectId;
 const { createValidationError } = require('../../utils/createValidationError');
 const { isString } = require('../../utils/utils');
 const { validateCategories } = require('../../utils/validateFields');
-const {
-    validateDescription,
-} = require('../../utils/validators/validateDescription');
+const { sanitizeHtmlString } = require('../../utils/validators/sanitizeHtmlString');
 
 async function editDestinationField(destinationId, updatedFields) {
     const { description, categories, infoId, categoryId } = updatedFields;
@@ -37,7 +35,7 @@ async function editDestinationField(destinationId, updatedFields) {
 
 // --- DESCRIPTION ---
 async function editDescription(destinationId, description) {
-    const validatedDescription = validateDescription(description);
+    const validatedDescription = sanitizeHtmlString(description);
 
     const result = await Destination.updateOne(
         { _id: destinationId },
@@ -81,7 +79,7 @@ async function editDetail(destinationId, detail_id, editedContent) {
         throw createValidationError('Invalid Detail ID', 400);
     }
 
-    const validatedContent = validateDescription(editedContent, 0, 2000);
+    const validatedContent = sanitizeHtmlString(editedContent, 0, 2000);
 
     const result = await Destination.updateOne(
         { _id: destinationId, 'details._id': detail_id },

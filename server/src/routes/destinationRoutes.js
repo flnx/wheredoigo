@@ -7,6 +7,10 @@ const { upload } = require('../middlewares/images');
 const { checkSession } = require('../middlewares/checkSession');
 const { validateCreateDestinationData } = require('../middlewares/dataValidators/validateCreateDestinationData');
 
+// Yup Validators
+const { validateData } = require('../middlewares/validateData');
+const createDestinationSchema = require('../validators/destination/createDestinationSchema');
+
 const { 
     fetchDestinationAndCheckOwnership, 
     checkDestinationOwnershipOnly 
@@ -76,9 +80,9 @@ router.get(
 // -- POST --
 router.post(
     '/destinations', 
-    auth, 
-    upload,
-    validateCreateDestinationData,
+    // auth, 
+    // upload,
+    validateCreateDestinationData(createDestinationSchema),
     add_new_destination
 );
 

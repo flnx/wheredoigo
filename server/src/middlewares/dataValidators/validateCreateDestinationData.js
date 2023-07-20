@@ -1,11 +1,7 @@
-const validator = require('validator');
 
 // Utils
-const { isString } = require('../../utils/utils');
 const { createValidationError } = require('../../utils/createValidationError');
-const { validateCategories } = require('../../utils/validateFields');
-const { validateDescription } = require('../../utils/validators/validateDescription');
-const { validateDestinationDetails } = require('../../utils/validators/validateDestinationDetails');
+const { sanitizeHtmlString } = require('../../utils/validators/sanitizeHtmlString');
 
 // Constants
 const { errorMessages } = require('../../constants/errorMessages');
@@ -13,59 +9,39 @@ const { errorMessages } = require('../../constants/errorMessages');
 // Services
 const { fetchACountryAndItsCities } = require('../../services/getCityCountryData');
 
-async function validateCreateDestinationData(req, res, next) {
+
+const validateCreateDestinationData = (yupSchema) => async (req, res, next) => {
     try {
-        const data = req.body;
-
-        const updated = {
-            city: data.city,
-            country: data.country,
-            description: data.description,
-            details: JSON.parse(data.details) || [],
-            category: JSON.parse(data.category),
+        const body = req.body;
+        const data = {
+            city:req.body.city,
+            country: body.country,
+            description: body.description,
+            details: body.details,
+            category: body.category,
         };
+        
+        const { city, country, description, details } = data;
 
-        const { city, country, description, category, details } = updated;
+        // Validate props
+        await yupSchema.validate(data);
 
-        // City validation
-        if (!isString(city)) {
-            throw createValidationError(errorMessages.form.string('City'), 400);
-        }
+        // Sanitize description
+        const sanitizedDescription = sanitizeHtmlString(description);
 
-        if (!validator.isLength(city.trim(), { min: 1, max: 85 })) {
-            throw createValidationError(errorMessages.data.city, 400);
-        }
-
-        // Country validation
-        if (!isString(country)) {
-            throw createValidationError(errorMessages.form.string('Country'), 400);
-        }
-
-        if (!validator.isLength(country.trim(), { min: 4, max: 56 })) {
-            throw createValidationError(errorMessages.data.country, 400);
-        }
-
-        // Description validation
-        const validatedDescription = validateDescription(description);
-
-        // Categories validation
-        const validatedCategories = validateCategories(category);
-
-        if (validatedCategories.length == 0) {
-            throw createValidationError(errorMessages.data.category, 400);
-        }
-
-        // Details validation and sanitization
-        const sanitizedDetails = validateDestinationDetails(details);
+        // Sanitize details
+        const sanitizedDetails = details.map((detail) => ({
+            name: detail.name,
+            content: sanitizeHtmlString(detail.content, 0, 2000),
+        }));
 
         // City exists within the given country
         await validateCountryAndCity(country, city);
 
         req.destination = {
-            ...updated,
+            ...data,
             details: sanitizedDetails,
-            description: validatedDescription,
-            category: validatedCategories,
+            description: sanitizedDescription,
         };
 
         next();

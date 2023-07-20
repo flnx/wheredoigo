@@ -9,7 +9,7 @@ const { removeTagsAndGetLength } = require('../removeTagsAndGetLength');
 const { sanitizeHtml } = require('../sanitizeHtml');
 const { isString } = require('../utils');
 
-function validateDescription(htmlStr, min = 50, max = 5000) {
+function sanitizeHtmlString(htmlStr, min = 50, max = 5000) {
     if (!isString(htmlStr)) {
         throw createValidationError(errorMessages.form.string('Description'), 400);
     }
@@ -28,5 +28,5 @@ function validateDescription(htmlStr, min = 50, max = 5000) {
 }
 
 module.exports = {
-    validateDescription,
+    sanitizeHtmlString,
 };

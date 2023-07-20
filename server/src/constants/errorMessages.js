@@ -22,7 +22,6 @@ exports.errorMessages = {
 
     data: {
         notFound: 'Not Found 🦖',
-        category: 'Invalid category',
         rating: 'Please rate the place to share your experience',
         notEdited: 'Edit failed. Please try again',
         notDeleted: 'Deletion process failed. Please try again.',
@@ -31,7 +30,7 @@ exports.errorMessages = {
         category: 'Please select at least 1 valid category',
         city: 'We could not find this city in our database :(',
         country: 'We could not find this country in our database :(',
-        details: 'Unallowed details name or a missing detail',
+        details: 'Missing details or repeating/unacceptable details names',
         required: (field) => `${field} is required`
     },
 
