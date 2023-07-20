@@ -1,26 +1,14 @@
-const validator = require('validator');
 const bcrypt = require('bcrypt');
 
 const User = require('../../models/userSchema');
 
 const { generateUserToken } = require('../../utils/generateUserToken');
-const { validatePassword, isString } = require('../../utils/utils');
 const { createValidationError } = require('../../utils/createValidationError');
 const { errorMessages } = require('../../constants/errorMessages');
 
 require('dotenv').config();
 
 async function userLogin({ email, password }) {
-    if (!isString(email) || !isString(password)) {
-        throw createValidationError(errorMessages.auth.invalidCredentials, 400);
-    }
-
-    const isPasswordValid = validatePassword(password);
-
-    if (!validator.isEmail(email) || isPasswordValid == false) {
-        throw createValidationError(errorMessages.auth.invalidCredentials, 400);
-    }
-
     const user = await User.findOne({ email }).exec();
 
     if (!user) {

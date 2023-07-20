@@ -31,7 +31,8 @@ exports.errorMessages = {
         category: 'Please select at least 1 valid category',
         city: 'We could not find this city in our database :(',
         country: 'We could not find this country in our database :(',
-        details: 'Unallowed details name or a missing detail'
+        details: 'Unallowed details name or a missing detail',
+        required: (field) => `${field} is required`
     },
 
     request: {

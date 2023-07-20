@@ -43,14 +43,12 @@ function errorHandler(err, req, res, next) {
             } else {
                 res.status(500).json({
                     message: err.message || errorMessages.request.server,
-                    error: err,
                 });
             }
             break;
         default:
             res.status(err.status || 500).json({
                 message: err.message || errorMessages.request.server,
-                error: err,
             });
             break;
     }
