@@ -1,7 +1,13 @@
 import { ClipLoader } from 'react-spinners';
 import styles from './ButtonSky.module.css';
 
-export const ButtonSky = ({ children, onClickHandler, isLoading, type, padding }) => {
+export const ButtonSky = ({
+    children,
+    onClickHandler,
+    isLoading,
+    type,
+    padding,
+}) => {
     const hidden = isLoading ? styles.hidden : null;
 
     return (

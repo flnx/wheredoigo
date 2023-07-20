@@ -7,6 +7,7 @@ export const CancelButton = ({ children, onClickHandler, isLoading }) => {
             className={styles['cancel-button']}
             onClick={onClickHandler}
             disabled={isLoading}
+            type="button"
         >
             {children}
         </button>

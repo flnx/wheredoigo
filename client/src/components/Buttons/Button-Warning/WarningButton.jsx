@@ -6,6 +6,7 @@ export const WarningButton = ({ children, onClickHandler, isLoading }) => {
             className={styles['warning-button']} 
             onClick={onClickHandler} 
             disabled={isLoading}
+            type="button"
         >
             {children}
         </button>

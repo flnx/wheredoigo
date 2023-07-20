@@ -12,9 +12,10 @@ import { WarningButton } from '../../../../../components/Buttons/Button-Warning/
 export const Details = ({ selectedDetail, updateDetail, hideDetailHandler }) => {
     const [popUpConfirmCloseModal, setPopUpConfirmCloseModal] = useState(false);
     const [detailContent, setDetailContent] = useState(selectedDetail.content);
+    const hasChanges = selectedDetail.content !== detailContent;
 
     const confirmModalCloseHandler = () => {
-        if (selectedDetail.content !== detailContent) {
+        if (hasChanges) {
             setPopUpConfirmCloseModal((prev) => !prev);
         } else {
             hideDetailHandler();
@@ -48,9 +49,7 @@ export const Details = ({ selectedDetail, updateDetail, hideDetailHandler }) => 
                     onChangeHandler={updateContentBeforeSavingHandler}
                 />
                 <div style={{ display: 'flex', gap: '0.35rem' }}>
-                    <ButtonSky onClickHandler={updateAndSaveDetailHandler}>
-                        Save
-                    </ButtonSky>
+                    <ButtonSky onClickHandler={updateAndSaveDetailHandler}>Save</ButtonSky>
                     <CancelButton onClickHandler={confirmModalCloseHandler}>
                         Cancel
                     </CancelButton>

@@ -7,6 +7,7 @@ export const ButtonGlow = ({ children, onClickHandler, isLoading }) => {
                 className={styles.neonBtn} 
                 onClick={onClickHandler} 
                 disabled={isLoading}
+                type="button"
             >
                 <span></span>
                 <span></span>
