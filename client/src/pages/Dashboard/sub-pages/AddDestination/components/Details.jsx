@@ -1,25 +1,75 @@
-import { OverlayDisabledBodyScroll } from '../../../../../components/OverlayDisabledBodyScroll/OverlayDisabledBodyScroll';
-import { TipTap } from '../../../../../components/TipTap/TipTap';
+import { useState } from 'react';
 
-export const Details = ({ showDetailHandler, selectedDetail, updateDetail }) => {
-    const titleStyles = {
-        padding: '1rem',
-        textAlign: 'center',
+// Components
+import { TipTap } from '../../../../../components/TipTap/TipTap';
+import { OverlayDisabledBodyScroll } from '../../../../../components/OverlayDisabledBodyScroll/OverlayDisabledBodyScroll';
+import { ButtonSky } from '../../../../../components/Buttons/Button-Sky/ButtonSky';
+import { CancelButton } from '../../../../../components/Buttons/Cancel-Button/CancelButton';
+import { CustomConfirmModal } from '../../../../../components/CustomConfirmModal/CustomConfirmModal';
+import { ButtonPairsWrapper } from '../../../../../components/Containers/ButtonPairsWrapper/ButtonPairsWrapper';
+import { WarningButton } from '../../../../../components/Buttons/Button-Warning/WarningButton';
+
+export const Details = ({ selectedDetail, updateDetail, hideDetailHandler }) => {
+    const [popUpConfirmCloseModal, setPopUpConfirmCloseModal] = useState(false);
+    const [detailContent, setDetailContent] = useState(selectedDetail.content);
+
+    const confirmModalCloseHandler = () => {
+        if (selectedDetail.content !== detailContent) {
+            setPopUpConfirmCloseModal((prev) => !prev);
+        } else {
+            hideDetailHandler();
+        }
     };
 
-    const wrapperStyles = {
-        padding: '0.75rem',
+    const updateContentBeforeSavingHandler = (content) => {
+        setDetailContent(content);
+    };
+
+    const updateAndSaveDetailHandler = () => {
+        hideDetailHandler();
+        updateDetail(selectedDetail.name, detailContent);
     };
 
     return (
-        <OverlayDisabledBodyScroll closeModalHandler={() => showDetailHandler({ name: '' })}>
-            <div style={wrapperStyles}>
-                <h3 style={titleStyles}>{selectedDetail.name}</h3>
-
+        <OverlayDisabledBodyScroll closeModalHandler={confirmModalCloseHandler}>
+            <div
+                style={{
+                    padding: '0.75rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '1rem',
+                }}
+            >
+                <h3 style={{ padding: '0.25rem', textAlign: 'center' }}>
+                    {selectedDetail.name}
+                </h3>
                 <TipTap
-                    content={selectedDetail.content}
-                    onChangeHandler={(content) => updateDetail(selectedDetail.name, content)}
+                    content={detailContent}
+                    onChangeHandler={updateContentBeforeSavingHandler}
                 />
+                <div style={{ display: 'flex', gap: '0.35rem' }}>
+                    <ButtonSky onClickHandler={updateAndSaveDetailHandler}>
+                        Save
+                    </ButtonSky>
+                    <CancelButton onClickHandler={confirmModalCloseHandler}>
+                        Cancel
+                    </CancelButton>
+                </div>
+
+                {popUpConfirmCloseModal && (
+                    <CustomConfirmModal>
+                        You have made changes that haven't been saved yet. Are you sure you
+                        want to discard them without saving?
+                        <ButtonPairsWrapper>
+                            <WarningButton onClickHandler={hideDetailHandler}>
+                                Leave & Discard
+                            </WarningButton>
+                            <CancelButton onClickHandler={confirmModalCloseHandler}>
+                                Cancel
+                            </CancelButton>
+                        </ButtonPairsWrapper>
+                    </CustomConfirmModal>
+                )}
             </div>
         </OverlayDisabledBodyScroll>
     );

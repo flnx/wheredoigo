@@ -13,17 +13,32 @@ const propTypes = {
     isLoading: PropTypes.bool.isRequired,
 };
 
-export const ConfirmModal = ({ children, onCloseHandler, actionClickHandler, isLoading }) => {
+export const ConfirmModal = ({ 
+    children, 
+    onCloseHandler, 
+    actionClickHandler, 
+    isLoading 
+}) => {
     return (
         <>
-            <DarkOverlay onClickHandler={onCloseHandler} isLoading={isLoading} />
+            <DarkOverlay 
+                onClickHandler={onCloseHandler} 
+                isLoading={isLoading} 
+            />
             <div className={styles.modalMain}>
                 {children}
+                
                 <div className={styles.modalButtons} data-testid="modal">
-                    <SuccessButton onClickHandler={actionClickHandler} isLoading={isLoading}>
+                    <SuccessButton 
+                        onClickHandler={actionClickHandler} 
+                        isLoading={isLoading}
+                    >
                         Delete
                     </SuccessButton>
-                    <CancelButton onClickHandler={onCloseHandler} isLoading={isLoading}>
+                    <CancelButton 
+                        onClickHandler={onCloseHandler} 
+                        isLoading={isLoading}
+                    >
                         Cancel
                     </CancelButton>
                 </div>

@@ -22,8 +22,15 @@ const categories = ['Beach', 'Mountains', 'Cultural', 'Snow', 'Islands', 'Advent
 
 export const AddDestination = () => {
     const [showDetail, setShowDetail] = useState({ name: '' });
-    const { updateField, updateDescription, updateDetail, updateCategory, state } = useDestinationInput();
     const { images, addImages, deleteImage } = useImages();
+    
+    const {
+        updateField,
+        updateDescription,
+        updateDetail,
+        updateCategory,
+        state,
+    } = useDestinationInput();
 
     const { submitHandler, isLoading, error, errors } = useSubmitData(
         images,
@@ -33,6 +40,7 @@ export const AddDestination = () => {
 
     const updateFieldCb = useCallback((name, value) => updateField(name, value), []);
     const showDetailHandler = (detail) => setShowDetail(detail);
+    const hideDetailHandler = () => setShowDetail({ name: '' });
     const selectedDetail = state.details.find((d) => d.name == showDetail.name);
 
     return (
@@ -67,7 +75,7 @@ export const AddDestination = () => {
                 {selectedDetail && (
                     <Details
                         updateDetail={updateDetail}
-                        showDetailHandler={showDetailHandler}
+                        hideDetailHandler={hideDetailHandler}
                         selectedDetail={selectedDetail}
                     />
                 )}
