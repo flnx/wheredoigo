@@ -23,7 +23,7 @@ exports.errorMessages = {
     data: {
         notFound: 'Not Found 🦖',
         rating: 'Please rate the place to share your experience',
-        notEdited: 'Edit failed. Please try again',
+        notEdited: "Oops! Edit failed. We couldn't find the thing you were trying to update.",
         notDeleted: 'Deletion process failed. Please try again.',
         imagesBoundary: (num = 1) => `Please upload a minimum of ${num} ${num > 1 ? 'images' : 'image'}.`,
         imagesLimit: 'You have uploaded too many images. Please limit your upload to 50 images or less',

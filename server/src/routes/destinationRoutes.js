@@ -143,8 +143,8 @@ router.put(
 router.put(
     '/destinations/:id/details',
     validateMongoId,
-    auth,
-    checkDestinationOwnershipOnly,
+    // auth,
+    // checkDestinationOwnershipOnly,
     validateData(editDestDetailsSchema),
     edit_destination_details
 )

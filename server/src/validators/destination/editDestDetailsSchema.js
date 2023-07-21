@@ -9,10 +9,10 @@ const editDestDetailsSchema = yup.object({
         .min(50, errorMessages.validation.description(50, 5000))
         // 15k max initial check before the html sanitization and tags removal
         .max(15000, errorMessages.validation.description(50, 5000)),
-    details_id: yup
+    detail_id: yup
         .string()
         .required(errorMessages.data.required('detail_id'))
-        .test('is-valid-mongoID', errorMessages.data.notFound, (detail_id) => {
+        .test('is-valid-mongoID', errorMessages.data.notEdited, (detail_id) => {
             return isValid(detail_id);
         }),
 });

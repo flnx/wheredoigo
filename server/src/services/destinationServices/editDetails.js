@@ -22,6 +22,8 @@ async function editDetails({ id: destination_id, detail_id, description }) {
         .lean()
         .exec();
 
+    console.log(result);
+
     if (!result || result.matchedCount !== 1) {
         throw createValidationError(errorMessages.data.notEdited, 404);
     }
