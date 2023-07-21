@@ -64,11 +64,11 @@ const destinationSchema = new Schema({
                     type: String,
                     trim: true,
                     default: '',
-                    maxLength: [6000, errorMessages.validation.description(0, 2000)],
+                    maxLength: [5000, errorMessages.validation.description(0, 2000)],
                 },
             },
         ],
-        required: true, // This makes the 'details' array required
+        required: true,
     },
     imageUrls: [
         {

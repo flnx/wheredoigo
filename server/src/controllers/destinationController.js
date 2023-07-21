@@ -19,6 +19,7 @@ const {
     editDescription,
 } = require('../services/destinationServices/editDescription');
 const editDetails = require('../services/destinationServices/editDetails');
+const editCategories = require('../services/destinationServices/editCategories');
 
 const paginated_destinations = async (req, res, next) => {
     const page = parseInt(req.query.page) || 0;
@@ -153,6 +154,18 @@ const edit_destination_details = async (req, res, next) => {
     }
 };
 
+const edit_destination_categories = async (req, res, next) => {
+    const { id } = req.params;
+    const { categories } = req.body;
+
+    try {
+        const result = await editCategories({ id, categories });
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
+};
+
 const delete_destination = async (req, res, next) => {
     const { id } = req.params; // destination id
     const user = req.user;
@@ -230,4 +243,5 @@ module.exports = {
     top_destinations,
     edit_destination_description,
     edit_destination_details,
+    edit_destination_categories
 };

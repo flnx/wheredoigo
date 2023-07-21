@@ -12,6 +12,7 @@ const { validateData } = require('../middlewares/dataValidators/validateData');
 const editDestDescriptionSchema = require('../validators/destination/editDestDescriptionSchema');
 const createDestinationSchema = require('../validators/destination/createDestinationSchema');
 const editDestDetailsSchema = require('../validators/destination/editDestDetailsSchema');
+const editDestCategoriesSchema = require('../validators/destination/editDestCategoriesSchema');
 
 const { 
     fetchDestinationAndCheckOwnership, 
@@ -36,6 +37,7 @@ const {
     top_destinations,
     edit_destination_description,
     edit_destination_details,
+    edit_destination_categories,
 } = require('../controllers/destinationController');
 
 const router = express.Router();
@@ -143,10 +145,19 @@ router.put(
 router.put(
     '/destinations/:id/details',
     validateMongoId,
-    // auth,
-    // checkDestinationOwnershipOnly,
+    auth,
+    checkDestinationOwnershipOnly,
     validateData(editDestDetailsSchema),
     edit_destination_details
+)
+
+router.put(
+    '/destinations/:id/categories',
+    validateMongoId,
+    // auth,
+    // checkDestinationOwnershipOnly,
+    validateData(editDestCategoriesSchema),
+    edit_destination_categories
 )
 
 // -- DELETE --

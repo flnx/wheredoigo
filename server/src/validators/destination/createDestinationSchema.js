@@ -27,7 +27,7 @@ const createDestinationSchema = yup.object({
                     .oneOf(destinationDetails, errorMessages.data.details),
                 content: yup.string(),
             })
-        ).test('non-repeating-names', errorMessages.data.details, function(details) {
+        ).test('non-repeating-names', errorMessages.data.details, (details) => {
             const names = details.map(detail => detail.name);
             const uniqueNames = new Set(names);
 
@@ -37,16 +37,16 @@ const createDestinationSchema = yup.object({
         .array()
         .required()
         .min(1, errorMessages.data.category)
-        .of(
-            yup
-                .string()
-                .oneOf(destinationCategories)
-        )
-        .test('non-repeating-categories', 'Warning: repeating categories provided', function(categories) {
-            const uniqueCategories = new Set(categories);
+        .of(yup.string().oneOf(destinationCategories))
+        .test(
+            'non-repeating-categories', 
+            errorMessages.data.repeatingValues('Categories'), 
+            (categories) => {
+                const uniqueCategories = new Set(categories);
 
-            return uniqueCategories.size >= 1;
-        })
+                return uniqueCategories.size === categories.length;
+            }
+        )
 });
 
 module.exports = createDestinationSchema;

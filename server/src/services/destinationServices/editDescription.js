@@ -20,7 +20,7 @@ async function editDescription({ id, description }) {
         .exec();
 
     if (!result || result.matchedCount === 0) {
-        throw createValidationError(errorMessages.data.notEdited, 404);
+        throw createValidationError(errorMessages.data.notEdited, 400);
     }
 
     return result;
