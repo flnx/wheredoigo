@@ -15,7 +15,10 @@ const {
 const likeDestination = require('../services/destinationServices/likeDestination');
 const dislikeDestination = require('../services/destinationServices/dislikeDestination');
 const getMostLikedDestinations = require('../services/destinationServices/getMostLikedDestinations');
-const { editDescription } = require('../services/destinationServices/editDescription');
+const {
+    editDescription,
+} = require('../services/destinationServices/editDescription');
+const editDetails = require('../services/destinationServices/editDetails');
 
 const paginated_destinations = async (req, res, next) => {
     const page = parseInt(req.query.page) || 0;
@@ -48,7 +51,7 @@ const paginated_destinations = async (req, res, next) => {
 const top_destinations = async (req, res, next) => {
     try {
         const data = await getMostLikedDestinations();
-        
+
         res.json({
             results: data,
             allowedCategories: destinationCategories,
@@ -133,10 +136,22 @@ const edit_destination_description = async (req, res, next) => {
     try {
         const result = await editDescription({ id, description });
         res.json(result);
-    } catch(err) {
+    } catch (err) {
         next(err);
     }
-}
+};
+
+const edit_destination_details = async (req, res, next) => {
+    const { id } = req.params;
+    const { detail_id, description } = req.body;
+
+    try {
+        const result = await editDetails({ id, detail_id, description });
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
+};
 
 const delete_destination = async (req, res, next) => {
     const { id } = req.params; // destination id
@@ -213,5 +228,6 @@ module.exports = {
     like_destination,
     dislike_destination,
     top_destinations,
-    edit_destination_description
+    edit_destination_description,
+    edit_destination_details,
 };

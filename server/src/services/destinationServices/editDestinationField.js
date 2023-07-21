@@ -86,7 +86,7 @@ async function editDetail(destinationId, detail_id, editedContent) {
         { $set: { 'details.$.content': validatedContent } }
     ).exec();
 
-    if (!result || result.matchedCount === 0) {
+    if (!result || result.matchedCount !== 1) {
         throw createValidationError(errorMessages.data.notEdited, 404);
     }
 
