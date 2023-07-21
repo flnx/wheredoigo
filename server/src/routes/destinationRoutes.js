@@ -6,9 +6,10 @@ const { auth } = require('../middlewares/auth');
 const { upload } = require('../middlewares/images');
 const { checkSession } = require('../middlewares/checkSession');
 const { validateCreateDestinationData } = require('../middlewares/dataValidators/validateCreateDestinationData');
+const { validateData } = require('../middlewares/dataValidators/validateData');
 
 // Yup Validators
-const { validateData } = require('../middlewares/validateData');
+const editDestDescriptionSchema = require('../validators/destination/editDestDescriptionSchema');
 const createDestinationSchema = require('../validators/destination/createDestinationSchema');
 
 const { 
@@ -32,6 +33,7 @@ const {
     like_destination,
     dislike_destination,
     top_destinations,
+    edit_destination_description,
 } = require('../controllers/destinationController');
 
 const router = express.Router();
@@ -80,8 +82,8 @@ router.get(
 // -- POST --
 router.post(
     '/destinations', 
-    // auth, 
-    // upload,
+    auth, 
+    upload,
     validateCreateDestinationData(createDestinationSchema),
     add_new_destination
 );
@@ -127,6 +129,15 @@ router.put(
     edit_destination_field
 );
 
+router.put(
+    '/destinations/:id/description',
+    validateMongoId,
+    // auth,
+    // checkDestinationOwnershipOnly,
+    validateData(editDestDescriptionSchema),
+    edit_destination_description
+
+)
 
 // -- DELETE --
 router.delete(

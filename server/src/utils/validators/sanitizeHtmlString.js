@@ -1,22 +1,24 @@
+const yup = require('yup');
 const validator = require('validator');
+const DOMPurify = require('../../config/domPurify');
 
-// Constants
 const { errorMessages } = require('../../constants/errorMessages');
-
-// Utils
 const { createValidationError } = require('../createValidationError');
-const { removeTagsAndGetLength } = require('../removeTagsAndGetLength');
-const { sanitizeHtml } = require('../sanitizeHtml');
-const { isString } = require('../utils');
+
+const sanitizeHtmlSchema = yup.object({
+    htmlStr: yup.string(),
+    min: yup.number().integer(),
+    max: yup.number().integer(),
+});
 
 function sanitizeHtmlString(htmlStr, min = 50, max = 5000) {
-    if (!isString(htmlStr)) {
-        throw createValidationError(errorMessages.form.string('Description'), 400);
-    }
+    sanitizeHtmlSchema.validateSync({ htmlStr, min, max });
+    if (!htmlStr) return htmlStr;
 
-    const sanitizedHtmlStr = sanitizeHtml(htmlStr);
-    const plainText = removeTagsAndGetLength(sanitizedHtmlStr);
+    const clean = sanitizeHtml(htmlStr);
+    const plainText = removeTagsAndGetLength(clean);
 
+    // Check required min/max content length
     if (!validator.isLength(plainText.trim(), { min, max })) {
         throw createValidationError(
             errorMessages.validation.description(min, max),
@@ -24,7 +26,22 @@ function sanitizeHtmlString(htmlStr, min = 50, max = 5000) {
         );
     }
 
-    return sanitizedHtmlStr;
+    return clean;
+}
+
+function removeTagsAndGetLength(str) {
+    const plainText = DOMPurify.sanitize(str, { ALLOWED_TAGS: [] });
+    return plainText;
+}
+
+function sanitizeHtml(htmlStr) {
+    const clean = DOMPurify.sanitize(htmlStr, {
+        ALLOWED_TAGS: ['h2', 'h3', 'h4', 'b', 'strong', 'i', 'em', 'ul', 'ol', 'li', 'p', 'br'],
+        ALLOWED_ATTR: [],
+        ALLOW_DATA_ATTR: false,
+    });
+
+    return clean;
 }
 
 module.exports = {

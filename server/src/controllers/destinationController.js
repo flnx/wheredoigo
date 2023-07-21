@@ -15,6 +15,7 @@ const {
 const likeDestination = require('../services/destinationServices/likeDestination');
 const dislikeDestination = require('../services/destinationServices/dislikeDestination');
 const getMostLikedDestinations = require('../services/destinationServices/getMostLikedDestinations');
+const { editDescription } = require('../services/destinationServices/editDescription');
 
 const paginated_destinations = async (req, res, next) => {
     const page = parseInt(req.query.page) || 0;
@@ -90,7 +91,7 @@ const add_new_destination = async (req, res, next) => {
 
     try {
         const destination = await createDestination(destinationInfo, images, user);
-        return res.json(destination);
+        res.json(destination);
     } catch (err) {
         next(err);
     }
@@ -124,6 +125,18 @@ const edit_destination_field = async (req, res, next) => {
         next(err);
     }
 };
+
+const edit_destination_description = async (req, res, next) => {
+    const { id } = req.params;
+    const { description } = req.body;
+
+    try {
+        const result = await editDescription({ id, description });
+        res.json(result);
+    } catch(err) {
+        next(err);
+    }
+}
 
 const delete_destination = async (req, res, next) => {
     const { id } = req.params; // destination id
@@ -200,4 +213,5 @@ module.exports = {
     like_destination,
     dislike_destination,
     top_destinations,
+    edit_destination_description
 };

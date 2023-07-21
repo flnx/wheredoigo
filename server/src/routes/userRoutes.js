@@ -3,7 +3,7 @@ const express = require('express');
 // Middlewares
 const { auth } = require('../middlewares/auth');
 const { uploadAvatar } = require('../middlewares/images');
-const { validateData } = require('../middlewares/validateData');
+const { validateData } = require('../middlewares/dataValidators/validateData');
 
 // YUP Validators
 const registerSchema = require('../validators/user/userRegisterSchema');
