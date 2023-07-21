@@ -1,27 +1,27 @@
 import axios from '../Axios';
-import { apiEndpoints } from '../../constants/apiEndpoints';
+import { apiEndpoints as api } from '../../constants/apiEndpoints';
 
 export const getDestinations = async () => {
-    const res = await axios.get(apiEndpoints.allDestinations);
+    const res = await axios.get(api.allDestinations);
 
     return res.data;
 };
 
 export const getMostLikedDestinations = async () => {
-    const res = await axios.get(apiEndpoints.mostLikedDestinations);
+    const res = await axios.get(api.mostLikedDestinations);
 
     return res.data;
 };
 
 export const getDestination = async (id) => {
-    const res = await axios.get(apiEndpoints.destinationById(id));
+    const res = await axios.get(api.destinationById(id));
 
     return res.data;
 };
 
 export const likeDestination = async (id, likeData) => {
     const { path, isLike } = likeData;
-    const res = await axios.post(apiEndpoints.likeDestination(id, path), {});
+    const res = await axios.post(api.likeDestination(id, path), {});
 
     return {
         ...res.data,
@@ -30,13 +30,13 @@ export const likeDestination = async (id, likeData) => {
 };
 
 export const getCreatorDestinations = async () => {
-    const res = await axios.get(apiEndpoints.creatorDestinations);
+    const res = await axios.get(api.creatorDestinations);
 
     return res.data;
 };
 
 export const createDestination = async (destinationData) => {
-    const res = await axios.post(apiEndpoints.addDestination, destinationData, {
+    const res = await axios.post(api.addDestination, destinationData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
@@ -45,34 +45,36 @@ export const createDestination = async (destinationData) => {
     return res.data;
 };
 
-export const editDestinationDetails = async (destinationId, updatedData) => {
-    await axios.put(apiEndpoints.editDestinationDetails(destinationId), updatedData);
+export const editDestinationDetails = async (id, updatedData) => {
+    await axios.put(api.editDestinationDetails(id), updatedData);
 
     return updatedData;
 };
 
+export const editDestinationDescription = async (id, description) => {
+    await axios.put(api.destination.editDescription(id), description);
+
+    return description;
+};
+
 export const deleteDestinationImage = async (destinationId, imageData) => {
-    await axios.put(apiEndpoints.deleteDestinationImage(destinationId), imageData);
+    await axios.put(api.deleteDestinationImage(destinationId), imageData);
 
     return imageData;
 };
 
 export const addDestinationNewImages = async (destinationId, files) => {
-    const res = await axios.put(
-        apiEndpoints.addDestinationImages(destinationId),
-        files,
-        {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        }
-    );
+    const res = await axios.put(api.addDestinationImages(destinationId), files, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
 
     return res.data;
 };
 
 export const deleteDestination = async (destinationId) => {
-    const result = await axios.delete(apiEndpoints.deleteDestination(destinationId));
+    const result = await axios.delete(api.deleteDestination(destinationId));
 
     return result.data;
 };
@@ -82,14 +84,14 @@ export const getDestinationsPaginated = async ({ pageParam, queryKey }) => {
     const categoryParams = queryKey[3] || '';
 
     const destinations = await axios.get(
-        apiEndpoints.destinationsByPage(searchParams, pageParam, categoryParams)
+        api.destinationsByPage(searchParams, pageParam, categoryParams)
     );
 
     return destinations.data;
 };
 
 export const getCountriesAndCities = async () => {
-    const res = await axios.get(apiEndpoints.countriesAndCities);
+    const res = await axios.get(api.countriesAndCities);
 
     return res.data;
 };

@@ -46,7 +46,7 @@ export const Form = ({ data, placeId, destinationId, isLoading }) => {
                                 desc={data[fieldName]}
                                 onEditButtonClickHandler={onEditButtonClickHandler}
                                 isEditable={isEditable[fieldName]}
-                                sendEditedFieldClickHandler={sendEditedFieldClickHandler}
+                                submitHandler={sendEditedFieldClickHandler}
                                 isLoading={isEditLoading}
                                 error={editError}
                                 key={fieldName}
@@ -59,7 +59,7 @@ export const Form = ({ data, placeId, destinationId, isLoading }) => {
                             selectedType={data.type}
                             types={allowedPlaceCategories}
                             onEditButtonClickHandler={onEditButtonClickHandler}
-                            sendEditedFieldClickHandler={sendEditedFieldClickHandler}
+                            submitHandler={sendEditedFieldClickHandler}
                             isLoading={isEditLoading}
                             error={editError}
                         />

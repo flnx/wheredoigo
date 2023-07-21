@@ -16,7 +16,7 @@ describe('FormFieldEditor Tests', () => {
             title: 'title',
             desc: 'description',
             error: '',
-            sendEditedFieldClickHandler: vi.fn(),
+            submitHandler: vi.fn(),
             onEditButtonClickHandler: vi.fn(),
             isLoading: false,
         };
@@ -73,7 +73,7 @@ describe('FormFieldEditor Tests', () => {
         const saveBtn = screen.getByRole('button', { name: 'Save' });
         await userEvent.click(saveBtn);
 
-        expect(props.sendEditedFieldClickHandler).toHaveBeenCalledTimes(1);
+        expect(props.submitHandler).toHaveBeenCalledTimes(1);
     });
 
     it('Returns the initial text value on cancel button click', async () => {

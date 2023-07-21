@@ -1,4 +1,16 @@
 export const apiEndpoints = {
+    destination: {
+        editDescription: (id) => `destinations/${id}/description`
+    },
+
+    user: {
+
+    },
+
+    place: {
+
+    },
+
     login: '/login',
     register: '/register',
     logout: '/logout',
@@ -10,7 +22,7 @@ export const apiEndpoints = {
     mostLikedDestinations: 'top-destinations',
     creatorDestinations: 'destinations/created-by-user',
     destinationById: (id) => `destinations/${id}`,
-    // the path can be either "like" or "dislike"
+    // the path can be "like" or "dislike"
     likeDestination: (id, path) => `http://localhost:3000/destinations/${id}/${path}`,
     destinationsByPage: (searchParams, skip, categories) => {
         let url = `destinations?search=${searchParams}&page=${skip}`;
@@ -27,6 +39,7 @@ export const apiEndpoints = {
     addDestination: 'destinations',
     requestDestinationToEdit: (id) => `destinations/${id}/request-edit-permissions`,
     editDestinationDetails: (id) => `destinations/${id}/edit-destination-field`,
+    editDestinationDescription: (id) => `destinations/${id}/description`,
     deleteDestination: (id) => `destinations/${id}/delete`,
     addDestinationImages: (id) => `destinations/${id}/add-images`,
     deleteDestinationImage: (id) => `destinations/${id}/delete-image`,

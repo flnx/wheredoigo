@@ -154,8 +154,8 @@ router.put(
 router.put(
     '/destinations/:id/categories',
     validateMongoId,
-    // auth,
-    // checkDestinationOwnershipOnly,
+    auth,
+    checkDestinationOwnershipOnly,
     validateData(editDestCategoriesSchema),
     edit_destination_categories
 )

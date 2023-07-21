@@ -18,7 +18,7 @@ const propTypes = {
     title: PropTypes.string.isRequired,
     desc: PropTypes.string.isRequired,
     error: PropTypes.string.isRequired,
-    sendEditedFieldClickHandler: PropTypes.func.isRequired,
+    submitHandler: PropTypes.func.isRequired,
     onEditButtonClickHandler: PropTypes.func.isRequired,
     isLoading: PropTypes.bool.isRequired,
 };
@@ -29,7 +29,7 @@ const FormFieldEditor = ({
     desc,
     onEditButtonClickHandler,
     isEditable,
-    sendEditedFieldClickHandler,
+    submitHandler,
     isLoading,
     error,
     categoryId,
@@ -59,7 +59,7 @@ const FormFieldEditor = ({
             charCounter
         };
 
-        sendEditedFieldClickHandler(fieldId, editInfo);
+        submitHandler({ fieldId, editInfo });
     };
 
     return (

@@ -2,63 +2,62 @@ import { useCallback, useState } from 'react';
 import { useEditDestinationDetails } from '../../../../hooks/queries/useEditDestinationDetails';
 import { validateFieldsOnEdit } from '../../../../utils/editValidators';
 import { extractServerErrorMessage } from '../../../../utils/utils';
+import { useEditDestinationDescription } from '../../../../hooks/queries/editDestinationDescription';
+import { useEditFieldToggle } from '../../../../hooks/useEditFieldToggle';
+import { editDestDescriptionSchema } from '../../../../utils/validationSchemas/destinationSchemas';
 
 export const useForm = ({ destinationId, allowedCategories }) => {
     const [editDetails, isEditLoading] = useEditDestinationDetails(destinationId);
-    const [isEditable, setIsEditable] = useState({});
+    const [editDesc, isDescLoading] = useEditDestinationDescription(destinationId);
+    const [isEditable, setIsEditable, closeEditField] = useEditFieldToggle();
     const [editError, setEditError] = useState('');
 
-    const onEditButtonClickHandler = useCallback(
-        (clickedId) => {
-            // enables/disables the form fields
-            setIsEditable((prevState) => {
-                // opens/closes the edit field
-                const newState = { [clickedId]: !prevState[clickedId] };
+    const isLoading = isEditLoading || isDescLoading;
 
-                // closes all previously opened edit formfields (if any)
-                Object.keys(prevState).forEach((fieldId) => {
-                    if (fieldId !== clickedId) {
-                        newState[fieldId] = false;
-                    }
-                });
+    const closeEditFieldHandler = () => {
+        closeEditField();
+        setEditError('');
+    }
 
-                return newState;
+    const onFieldToggleHandler = useCallback((clickedId) => {
+        setIsEditable(clickedId);
+        setEditError('');
+    }, []);
+
+    const sendEditedFieldClickHandler = useCallback(({ editInfo }) => {
+        try {
+            const validated = validateFieldsOnEdit(editInfo, allowedCategories);
+
+            editDetails(validated, {
+                onSuccess: () => closeEditFieldHandler(),
+                onError: (err) => setEditError(extractServerErrorMessage(err)),
             });
-            // removes the error message (if any)
-            editError && setEditError('');
-        },
-        [editError]
-    );
-
-    const sendEditedFieldClickHandler = useCallback(
-        (fieldId, editedInfo) => {
-            try {
-                const validated = validateFieldsOnEdit(
-                    editedInfo,
-                    allowedCategories
-                );
-
-                editDetails(validated, {
-                    onSuccess: () => onEditButtonClickHandler(fieldId),
-                    onError: (err) => setEditError(extractServerErrorMessage(err)),
-                });
-            } catch (err) {
-                setEditError(err.message);
-            }
-        },
+        } catch (err) {
+            setEditError(err.message);
+        }
+    },
         [destinationId]
     );
 
-    const descriptionID = 'Description';
-    const categoriesID = 'Categories';
+    const submitDescriptionHandler = useCallback(({ editInfo }) => {
+        try {
+            editDestDescriptionSchema.validateSync(editInfo);
+
+            editDesc(editInfo, {
+                onSuccess: () => closeEditFieldHandler(),
+                onError: (err) => setEditError(extractServerErrorMessage(err)),
+            });
+        } catch (err) {
+            setEditError(err.errors[0]);
+        }
+    }, []);
 
     return {
         isEditable,
-        isEditLoading,
+        isEditLoading: isLoading,
         editError,
-        onEditButtonClickHandler,
+        onEditButtonClickHandler: onFieldToggleHandler,
         sendEditedFieldClickHandler,
-        descriptionID,
-        categoriesID,
+        submitDescriptionHandler,
     };
 };

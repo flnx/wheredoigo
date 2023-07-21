@@ -37,9 +37,11 @@ export const Form = ({
         editError,
         onEditButtonClickHandler,
         sendEditedFieldClickHandler,
-        descriptionID,
-        categoriesID,
+        submitDescriptionHandler
     } = useForm({ destinationId, allowedCategories });
+
+    const descriptionID = 'Description';
+    const categoriesID = 'Categories';
 
     return (
         <section>
@@ -53,7 +55,7 @@ export const Form = ({
                             desc={description}
                             onEditButtonClickHandler={onEditButtonClickHandler}
                             isEditable={isEditable[descriptionID]}
-                            sendEditedFieldClickHandler={sendEditedFieldClickHandler}
+                            submitHandler={submitDescriptionHandler}
                             isLoading={isEditLoading}
                             error={editError}
                         />

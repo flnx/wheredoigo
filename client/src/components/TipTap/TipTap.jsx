@@ -16,6 +16,7 @@ import {
 } from '@phosphor-icons/react';
 
 import './styles.scss';
+import { useEffect } from 'react';
 
 const MenuBar = ({ editor }) => {
     if (!editor) {
@@ -106,6 +107,13 @@ export const TipTap = ({ onChangeHandler, content = '', backgroundColor = 'none'
             onChangeHandler(html, charCounter);
         },
     });
+
+    useEffect(() => {
+        const html = editor?.getHTML();
+        const charCounter = editor?.storage.characterCount.characters();
+
+        onChangeHandler(html, charCounter);
+    }, [editor]);
 
     return (
         <div className="editor" style={{ backgroundColor }} aria-label="Text Editor">

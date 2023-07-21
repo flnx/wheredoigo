@@ -11,7 +11,8 @@ export const useForm = ({ data, placeId, destinationId }) => {
     const typeId = 'type';
     const { allowedPlaceCategories, allowedFieldsToUpdate } = data;
 
-    const sendEditedFieldClickHandler = useCallback((fieldId, editedInfo) => {
+    const sendEditedFieldClickHandler = useCallback(
+        (fieldId, editedInfo) => {
             try {
                 const validated = validateFieldsOnEdit(
                     editedInfo,
@@ -26,10 +27,12 @@ export const useForm = ({ data, placeId, destinationId }) => {
             } catch (err) {
                 setEditError(err.message);
             }
-        }, [destinationId]
+        },
+        [destinationId]
     );
 
-    const onEditButtonClickHandler = useCallback((clickedId) => {
+    const onEditButtonClickHandler = useCallback(
+        (clickedId) => {
             // enables/disables the form fields
             setIsEditable((prevState) => {
                 // opens/closes the edit field
@@ -46,7 +49,8 @@ export const useForm = ({ data, placeId, destinationId }) => {
 
             // removes the error message (if any)
             editError && setEditError('');
-        }, [editError]
+        },
+        [editError]
     );
 
     const fieldsToUpdate = allowedFieldsToUpdate?.filter((x) => x !== typeId);
