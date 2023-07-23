@@ -10,6 +10,7 @@ const { validateData } = require('../middlewares/dataValidators/validateData');
 // Yup Validators
 const editPlaceDescriptionSchema = require('../validators/place/editPlaceDescriptionSchema');
 const editPlaceTypeSchema = require('../validators/place/editPlaceTypeSchema');
+const editPlaceNameSchema = require('../validators/place/editPlaceNameSchema');
 
 const {
     fetchPlaceAndCheckOwnership,
@@ -36,7 +37,8 @@ const {
     get_user_places_data,
     generate_place_ai_comments,
     edit_place_description,
-    edit_place_type
+    edit_place_type,
+    edit_place_name
 } = require('../controllers/placeController');
 
 const router = express.Router();
@@ -150,6 +152,15 @@ router.put(
     validateData(editPlaceTypeSchema),
     checkPlaceOwnershipOnly,
     edit_place_type
+);
+
+router.put(
+    '/places/:id/name',
+    validateMongoId,
+    auth,
+    validateData(editPlaceNameSchema),
+    checkPlaceOwnershipOnly,
+    edit_place_name
 );
 
 // -- DELETE --

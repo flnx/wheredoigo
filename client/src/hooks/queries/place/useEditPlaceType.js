@@ -15,10 +15,7 @@ export const useEditPlaceType = ({ placeId, destinationId }) => {
                 placeId,
             ]);
 
-            const updatedPlace = {
-                ...place,
-                type,
-            };
+            const updatedPlace = { ...place, type };
 
             queryClient.setQueryData(
                 [queryEndpoints.editPlace, placeId],
@@ -29,6 +26,8 @@ export const useEditPlaceType = ({ placeId, destinationId }) => {
                 queryEndpoints.editDestination,
                 destinationId,
             ]);
+
+            // This works without this if but during testing it throws bcs of cachcing
 
             if (destination) {
                 const updatedDestination = {

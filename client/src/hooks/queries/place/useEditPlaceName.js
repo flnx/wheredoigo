@@ -1,24 +1,21 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { queryEndpoints } from '../../constants/reactQueryEndpoints';
-import { editPlaceDetails } from '../../service/data/places';
+import { queryEndpoints } from '../../../constants/reactQueryEndpoints';
+import { editPlaceName } from '../../../service/data/places';
 
-export const useEditPlaceDetails = (placeId, destinationId) => {
+export const useEditPlaceName = ({ placeId, destinationId }) => {
     const queryClient = useQueryClient();
 
     const { mutate, isLoading } = useMutation({
-        mutationFn: (data) => editPlaceDetails(placeId, data),
+        mutationFn: (data) => editPlaceName(placeId, data),
         onSuccess: (updatedField) => {
-            const { infoId, description } = updatedField;
+            const { name } = updatedField;
 
             const place = queryClient.getQueryData([
                 queryEndpoints.editPlace,
                 placeId,
             ]);
 
-            const updatedPlace = {
-                ...place,
-                [infoId]: description,
-            };
+            const updatedPlace = { ...place, name };
 
             queryClient.setQueryData(
                 [queryEndpoints.editPlace, placeId],
@@ -30,6 +27,7 @@ export const useEditPlaceDetails = (placeId, destinationId) => {
                 destinationId,
             ]);
 
+            // This works without this if but during testing it throws bcs of cachcing
             if (destination) {
                 const updatedDestination = {
                     ...destination,
@@ -37,7 +35,7 @@ export const useEditPlaceDetails = (placeId, destinationId) => {
                         if (p._id === placeId) {
                             return {
                                 ...p,
-                                [infoId]: description,
+                                name,
                             };
                         } else {
                             return p;

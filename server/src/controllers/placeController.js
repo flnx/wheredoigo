@@ -13,6 +13,7 @@ const getUserPlacesData = require('../services/placeServices/getUserPlacesData')
 const editPlaceDescription = require('../services/placeServices/editPlaceDescription');
 const getPlaceComments = require('../services/placeServices/getPlaceComments');
 const editPlaceType = require('../services/placeServices/editPlaceType');
+const editPlaceName = require('../services/placeServices/editPlaceName');
 
 // Constants
 const { allowedPlaceCategories } = require('../constants/allowedPlaceCategories');
@@ -100,6 +101,18 @@ const edit_place_field = async (req, res, next) => {
 
     try {
         const result = await editPlaceField(id, req.body);
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
+};
+
+const edit_place_name = async (req, res, next) => {
+    const { id } = req.params;
+    const { name } = req.body;
+
+    try {
+        const result = await editPlaceName({ id, name });
         res.json(result);
     } catch (err) {
         next(err);
@@ -228,5 +241,6 @@ module.exports = {
     get_user_places_data,
     generate_place_ai_comments,
     edit_place_description,
-    edit_place_type
+    edit_place_type,
+    edit_place_name
 };

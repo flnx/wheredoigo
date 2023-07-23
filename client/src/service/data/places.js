@@ -35,9 +35,9 @@ export const createPlace = async (placeData, destinationId) => {
     return res.data;
 };
 
-export const editPlaceDetails = async (placeId, updatedData) => {
-    await axios.put(api.editPlaceDetails(placeId), updatedData);
-    return updatedData;
+export const editPlaceName = async (placeId, updatedData) => {
+    const result = await axios.put(api.place.editName(placeId), updatedData);
+    return result.data;
 };
 
 export const editPlaceType = async (placeId, updatedData) => {

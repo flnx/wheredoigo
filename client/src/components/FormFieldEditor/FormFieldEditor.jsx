@@ -32,6 +32,8 @@ const FormFieldEditor = ({
     submitHandler,
     isLoading,
     error,
+    limitChars,
+    hideMenu
 }) => {
     const [description, setDescription] = useState(desc);
     const [charCounter, setCharCounter] = useState(0);
@@ -41,7 +43,6 @@ const FormFieldEditor = ({
         setCharCounter(charCount);
     };
 
-    
     const onCancelClickHandler = () => {
         // Closes the opened Edit field
         onEditButtonClickHandler(fieldId);
@@ -69,6 +70,8 @@ const FormFieldEditor = ({
                         onChangeHandler={onChangeHandler}
                         content={description}
                         backgroundColor={'#fff'}
+                        limitChars={limitChars}
+                        hideMenu={hideMenu}
                     />
 
                     <EditButtonsWrapper>

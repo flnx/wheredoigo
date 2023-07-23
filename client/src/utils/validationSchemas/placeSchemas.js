@@ -11,10 +11,24 @@ export const editPlaceDescriptionSchema = yup.object({
         .max(5000, errorMessages.validation.description()),
 });
 
-export const editPlaceTypeSchema = (allowedTypes) =>
-    yup.object({
+export const editPlaceTypeSchema = (allowedTypes) => {
+    return yup.object({
         type: yup
             .string()
             .required(errorMessages.data.required('type'))
             .oneOf(allowedTypes, 'Invalid type'),
     });
+};
+
+export const editPlaceNameSchema = yup.object({
+    name: yup
+        .string()
+        .required(errorMessages.data.required('name')),
+
+    charCounter: yup
+        .number()
+        .required()
+        .integer()
+        .min(1, errorMessages.validation.placeName)
+        .max(60, errorMessages.validation.placeName)
+});

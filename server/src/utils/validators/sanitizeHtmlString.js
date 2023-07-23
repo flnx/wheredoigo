@@ -46,4 +46,5 @@ function sanitizeHtml(htmlStr) {
 
 module.exports = {
     sanitizeHtmlString,
+    removeHtmlTags,
 };

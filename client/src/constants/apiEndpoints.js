@@ -12,6 +12,7 @@ export const apiEndpoints = {
     place: {
         editDescription: (id) => `places/${id}/description`,
         editType: (id) => `places/${id}/type`,
+        editName: (id) => `places/${id}/name`
     },
 
     login: '/login',

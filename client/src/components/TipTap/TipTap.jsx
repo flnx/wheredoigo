@@ -80,7 +80,13 @@ const MenuBar = ({ editor }) => {
     );
 };
 
-export const TipTap = ({ onChangeHandler, content = '', backgroundColor = 'none' }) => {
+export const TipTap = ({
+    onChangeHandler,
+    content = '',
+    backgroundColor = 'none',
+    limitChars,
+    hideMenu
+}) => {
     const editor = useEditor({
         extensions: [
             TextStyle.configure({ types: [ListItem.name] }),
@@ -95,7 +101,7 @@ export const TipTap = ({ onChangeHandler, content = '', backgroundColor = 'none'
                 },
             }),
             CharacterCount.configure({
-                limit: 5000,
+                limit: limitChars,
             }),
         ],
         content: content,
@@ -120,10 +126,11 @@ export const TipTap = ({ onChangeHandler, content = '', backgroundColor = 'none'
             <EditorContent editor={editor} data-testid="editor" />
             <div className="character-count">
                 <div>
-                    {editor?.storage.characterCount.characters()}/{5000} characters
+                    {editor?.storage.characterCount.characters()}/{limitChars || 5000}{' '}
+                    characters
                 </div>
             </div>
-            <MenuBar editor={editor} />
+            {!hideMenu && <MenuBar editor={editor} />}
         </div>
     );
 };
