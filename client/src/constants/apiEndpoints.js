@@ -1,6 +1,8 @@
 export const apiEndpoints = {
     destination: {
-        editDescription: (id) => `destinations/${id}/description`
+        editDescription: (id) => `destinations/${id}/description`,
+        editDetails: (id) => `destinations/${id}/details`,
+        editCategories: (id) => `destinations/${id}/categories`,
     },
 
     user: {

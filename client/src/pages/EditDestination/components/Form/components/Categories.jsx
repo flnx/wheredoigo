@@ -6,16 +6,20 @@ import { FormCheckboxes } from '../../../../../components/FormCheckboxes/FormChe
 import { EditTextareaPairs } from '../../../../../components/Buttons/EditTextareaPairs/EditTextareaPairs';
 import { CancelButton } from '../../../../../components/Buttons/Cancel-Button/CancelButton';
 import { ButtonSky } from '../../../../../components/Buttons/Button-Sky/ButtonSky';
-import { FormEditWrapper, WrapperWithWidth, EditButtonsWrapper } from '../../../../../components/Containers/FormEditWrapper/FormEditWrapper';
+import {
+    FormEditWrapper,
+    WrapperWithWidth,
+    EditButtonsWrapper,
+} from '../../../../../components/Containers/FormEditWrapper/FormEditWrapper';
 import { SpanLabelTitle } from '../../../../../components/SpanLabelTitle/SpanLabelTitle';
 
 export const Categories = ({
     categories,
     options,
     error,
-    isEditable,
-    onEditButtonClickHandler,
-    sendEditedFieldClickHandler,
+    isEditToggled,
+    toggleEditHandler,
+    submitCategories,
     fieldId,
     isLoading,
 }) => {
@@ -32,27 +36,24 @@ export const Categories = ({
     };
 
     const onCancelClickHandler = () => {
-        // passes the fieldId in order to reset isEditable and hide the textarea/input
-        onEditButtonClickHandler(fieldId);
+        // Closes the toggled categories
+        toggleEditHandler(fieldId);
+        // Sets the previously seleccted categories back
         setSelectedCategories(categories);
     };
 
     const onSaveButtonClickHandler = (e) => {
         e.preventDefault();
 
-        const editInfo = {
-            description: 'categories',
-            infoId: fieldId,
+        submitCategories({
             categories: selectedCategories,
-        };
-
-        sendEditedFieldClickHandler(fieldId, editInfo);
+        });
     };
 
     return (
         <FormEditWrapper>
             <SpanLabelTitle title={fieldId} />
-            {isEditable ? (
+            {isEditToggled ? (
                 <WrapperWithWidth>
                     <FormCheckboxes
                         categories={selectedCategories}
@@ -79,7 +80,7 @@ export const Categories = ({
             ) : (
                 <EditTextareaPairs
                     content={selectedCategories.join(', ')}
-                    onClickHandler={() => onEditButtonClickHandler(fieldId)}
+                    onClickHandler={() => toggleEditHandler(fieldId)}
                 />
             )}
         </FormEditWrapper>

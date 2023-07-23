@@ -53,8 +53,9 @@ const FormFieldEditor = ({
         e.preventDefault();
 
         const editInfo = {
-            categoryId,
-            infoId: fieldId,
+            // categoryId,
+            // infoId: fieldId,
+            fieldId,
             description,
             charCounter
         };

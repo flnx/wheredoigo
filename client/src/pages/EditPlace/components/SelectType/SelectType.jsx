@@ -11,7 +11,7 @@ import styles from './SelectType.module.css';
 
 export const SelectType = ({
     typeId,
-    isEditable,
+    isEditToggled,
     selectedType,
     types,
     onEditButtonClickHandler,
@@ -46,7 +46,7 @@ export const SelectType = ({
             <FormEditWrapper>
                 <SpanLabelTitle title={'Type: '} />
 
-                {isEditable ? (
+                {isEditToggled ? (
                     <WrapperWithWidth>
                         <select
                             id="type"

@@ -3,7 +3,6 @@ import { useForm } from './useForm';
 
 // Components
 import { MemoizedFormFieldEditor } from '../../../../components/FormFieldEditor/FormFieldEditor';
-import { DetailsFormFields } from './components/DetailsFormFields';
 import { FormLoadingSkeleton } from '../../../../components/FormLoadingSkeleton/FormLoadingSkeleton';
 import { Categories } from './components/Categories';
 
@@ -31,14 +30,9 @@ export const Form = ({
     categories,
     allowedCategories,
 }) => {
-    const {
-        isEditable,
-        isEditLoading,
-        editError,
-        onEditButtonClickHandler,
-        sendEditedFieldClickHandler,
-        submitDescriptionHandler
-    } = useForm({ destinationId, allowedCategories });
+    const formProps = useForm({ destinationId, allowedCategories });
+    const { isEditToggled, isEditLoading, editError, toggleEditHandler } = formProps;
+    const { submitCategories, submitDescription, submitDetails } = formProps;
 
     const descriptionID = 'Description';
     const categoriesID = 'Categories';
@@ -49,36 +43,43 @@ export const Form = ({
                 {isLoading && <FormLoadingSkeleton />}
                 {!isLoading && (
                     <>
+                        {/* Description */}
                         <MemoizedFormFieldEditor
+                            submitHandler={submitDescription}
+                            onEditButtonClickHandler={toggleEditHandler}
                             fieldId={descriptionID}
                             title={descriptionID}
                             desc={description}
-                            onEditButtonClickHandler={onEditButtonClickHandler}
-                            isEditable={isEditable[descriptionID]}
-                            submitHandler={submitDescriptionHandler}
-                            isLoading={isEditLoading}
                             error={editError}
+                            isEditable={isEditToggled[descriptionID]}
+                            isLoading={isEditLoading}
                         />
-
+                        {/* Categories */}
                         <Categories
                             categories={categories}
                             options={allowedCategories}
-                            error={editError}
                             fieldId={categoriesID}
-                            isEditable={isEditable[categoriesID]}
-                            onEditButtonClickHandler={onEditButtonClickHandler}
-                            sendEditedFieldClickHandler={sendEditedFieldClickHandler}
-                            isLoading={isEditLoading}
-                        />
-
-                        <DetailsFormFields
-                            onEditButtonClickHandler={onEditButtonClickHandler}
-                            isEditable={isEditable}
-                            sendEditedFieldClickHandler={sendEditedFieldClickHandler}
-                            isLoading={isEditLoading}
+                            isEditToggled={isEditToggled[categoriesID]}
                             error={editError}
-                            details={details}
+                            toggleEditHandler={toggleEditHandler}
+                            submitCategories={submitCategories}
+                            isLoading={isEditLoading}
                         />
+                        {/* Details */}
+                        {details.map((detail) => (
+                            <div key={detail._id}>
+                                <MemoizedFormFieldEditor
+                                    submitHandler={submitDetails}
+                                    onEditButtonClickHandler={toggleEditHandler}
+                                    fieldId={detail._id}
+                                    title={detail.name}
+                                    desc={detail.content}
+                                    error={editError}
+                                    isEditable={isEditToggled[detail._id]}
+                                    isLoading={isEditLoading}
+                                />
+                            </div>
+                        ))}
                     </>
                 )}
             </form>

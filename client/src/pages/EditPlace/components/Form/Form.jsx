@@ -20,7 +20,7 @@ export const Form = ({ data, placeId, destinationId, isLoading }) => {
     const {
         isEditLoading,
         editError,
-        isEditable,
+        isEditToggled,
         typeId,
         allowedPlaceCategories,
         fieldsToUpdate,
@@ -45,7 +45,7 @@ export const Form = ({ data, placeId, destinationId, isLoading }) => {
                                 title={capitalizeFirstLetter(fieldName)}
                                 desc={data[fieldName]}
                                 onEditButtonClickHandler={onEditButtonClickHandler}
-                                isEditable={isEditable[fieldName]}
+                                isEditable={isEditToggled[fieldName]}
                                 submitHandler={sendEditedFieldClickHandler}
                                 isLoading={isEditLoading}
                                 error={editError}
@@ -55,7 +55,7 @@ export const Form = ({ data, placeId, destinationId, isLoading }) => {
 
                         <SelectType
                             typeId={typeId}
-                            isEditable={isEditable[typeId]}
+                            isEditToggled={isEditToggled[typeId]}
                             selectedType={data.type}
                             types={allowedPlaceCategories}
                             onEditButtonClickHandler={onEditButtonClickHandler}

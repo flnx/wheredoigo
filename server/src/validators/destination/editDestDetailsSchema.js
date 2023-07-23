@@ -6,9 +6,8 @@ const editDestDetailsSchema = yup.object({
     description: yup
         .string()
         .required(errorMessages.data.required('Description'))
-        .min(50, errorMessages.validation.description(50, 5000))
         // 15k max initial check before the html sanitization and tags removal
-        .max(15000, errorMessages.validation.description(50, 5000)),
+        .max(15000, errorMessages.validation.description(0, 5000)),
     detail_id: yup
         .string()
         .required(errorMessages.data.required('detail_id'))

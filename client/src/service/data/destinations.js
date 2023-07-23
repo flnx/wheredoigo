@@ -46,7 +46,13 @@ export const createDestination = async (destinationData) => {
 };
 
 export const editDestinationDetails = async (id, updatedData) => {
-    await axios.put(api.editDestinationDetails(id), updatedData);
+    await axios.put(api.destination.editDetails(id), updatedData);
+
+    return updatedData;
+};
+
+export const editDestinationCategories = async (id, updatedData) => {
+    await axios.put(api.destination.editCategories(id), updatedData);
 
     return updatedData;
 };

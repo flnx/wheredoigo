@@ -8,7 +8,7 @@ const editDestCategoriesSchema = yup.object({
     categories: yup
         .array()
         .required(errorMessages.data.required('Categories field'))
-        .min(1)
+        .min(1, errorMessages.data.category)
         .of(
             yup
                 .string()

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { editDestinationDescription } from '../../service/data/destinations';
-import { queryEndpoints } from '../../constants/reactQueryEndpoints';
+import { editDestinationDescription } from '../../../service/data/destinations';
+import { queryEndpoints } from '../../../constants/reactQueryEndpoints';
 
 export const useEditDestinationDescription = (destinationId) => {
     const queryClient = useQueryClient();
