@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 
 import { useForm } from './useForm';
-import { capitalizeFirstLetter } from '../../../../utils/utils';
 
 // Components
 import { SelectType } from '../SelectType/SelectType';
@@ -17,17 +16,9 @@ const propTypes = {
 };
 
 export const Form = ({ data, placeId, destinationId, isLoading }) => {
-    const {
-        isEditLoading,
-        editError,
-        isEditToggled,
-        typeId,
-        allowedPlaceCategories,
-        fieldsToUpdate,
-        sendEditedFieldClickHandler,
-        onEditButtonClickHandler,
-    } = useForm({ data, placeId, destinationId });
-
+    const formProps = useForm({ data, placeId, destinationId });
+    const { isEditLoading, editError, isEditToggled, toggleEditHandler } = formProps;
+    const { submitHandler, submitDescription } = formProps;
 
     return (
         <section>
@@ -39,27 +30,37 @@ export const Form = ({ data, placeId, destinationId, isLoading }) => {
 
                 {!isLoading && (
                     <>
-                        {fieldsToUpdate.map((fieldName) => (
-                            <MemoizedFormFieldEditor
-                                fieldId={fieldName}
-                                title={capitalizeFirstLetter(fieldName)}
-                                desc={data[fieldName]}
-                                onEditButtonClickHandler={onEditButtonClickHandler}
-                                isEditable={isEditToggled[fieldName]}
-                                submitHandler={sendEditedFieldClickHandler}
-                                isLoading={isEditLoading}
-                                error={editError}
-                                key={fieldName}
-                            />
-                        ))}
+                        {/* Name */}
+                        <MemoizedFormFieldEditor
+                            fieldId={'name'}
+                            title={'Name'}
+                            desc={data.name}
+                            onEditButtonClickHandler={toggleEditHandler}
+                            isEditToggled={isEditToggled.name}
+                            submitHandler={submitHandler}
+                            isLoading={isEditLoading}
+                            error={editError}
+                        />
 
+                        {/* Description */}
+                        <MemoizedFormFieldEditor
+                            fieldId={'description'}
+                            title={'Description'}
+                            desc={data.description}
+                            onEditButtonClickHandler={toggleEditHandler}
+                            isEditToggled={isEditToggled.description}
+                            submitHandler={submitDescription}
+                            isLoading={isEditLoading}
+                            error={editError}
+                        />
+                        {/* Select */}
                         <SelectType
-                            typeId={typeId}
-                            isEditToggled={isEditToggled[typeId]}
+                            typeId={'type'}
+                            isEditToggled={isEditToggled.type}
                             selectedType={data.type}
-                            types={allowedPlaceCategories}
-                            onEditButtonClickHandler={onEditButtonClickHandler}
-                            submitHandler={sendEditedFieldClickHandler}
+                            types={data.allowedPlaceCategories}
+                            onEditButtonClickHandler={toggleEditHandler}
+                            submitHandler={submitHandler}
                             isLoading={isEditLoading}
                             error={editError}
                         />

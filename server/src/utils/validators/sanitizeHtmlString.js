@@ -16,7 +16,7 @@ function sanitizeHtmlString(htmlStr, min = 50, max = 5000) {
     if (!htmlStr) return htmlStr;
 
     const clean = sanitizeHtml(htmlStr);
-    const plainText = removeTagsAndGetLength(clean);
+    const plainText = removeHtmlTags(clean);
 
     // Check required min/max content length
     if (!validator.isLength(plainText.trim(), { min, max })) {
@@ -29,7 +29,7 @@ function sanitizeHtmlString(htmlStr, min = 50, max = 5000) {
     return clean;
 }
 
-function removeTagsAndGetLength(str) {
+function removeHtmlTags(str) {
     const plainText = DOMPurify.sanitize(str, { ALLOWED_TAGS: [] });
     return plainText;
 }

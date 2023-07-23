@@ -9,9 +9,7 @@ async function editDescription({ id, description }) {
     const sanitizedDescription = sanitizeHtmlString(description);
 
     const result = await Destination.updateOne(
-        {
-            _id: id,
-        },
+        { _id: id },
         {
             $set: { description: sanitizedDescription },
         }
@@ -19,7 +17,7 @@ async function editDescription({ id, description }) {
         .lean()
         .exec();
 
-    if (!result || result.matchedCount === 0) {
+    if (!result || result.matchedCount !== 1) {
         throw createValidationError(errorMessages.data.notEdited, 400);
     }
 

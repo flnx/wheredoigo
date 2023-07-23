@@ -2,7 +2,7 @@ const validator = require('validator');
 
 // Constants
 const { errorMessages } = require('../constants/errorMessages');
-const { allowedPlaceCategories, allowedFieldsToUpdate } = require('../constants/allowedPlaceCategories');
+const { allowedPlaceCategories } = require('../constants/allowedPlaceCategories');
 const { destinationCategories } = require('../constants/allowedDestinationCategories');
 
 // Utils
@@ -29,10 +29,6 @@ function validatePlaceFieldOnEdit(data) {
 
     if (!isString(infoId)) {
         throw createValidationError(errorMessages.form.string('infoId'), 400);
-    }
-
-    if (!allowedFieldsToUpdate.includes(infoId.toLowerCase())) {
-        throw createValidationError(errorMessages.data.notFound, 404);
     }
 
     if (infoId.toLowerCase() == 'description') {

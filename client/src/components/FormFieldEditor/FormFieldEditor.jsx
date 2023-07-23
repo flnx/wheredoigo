@@ -13,7 +13,7 @@ import { FormEditWrapper, WrapperWithWidth, EditButtonsWrapper } from '../Contai
 
 const propTypes = {
     categoryId: PropTypes.string,
-    isEditable: PropTypes.bool,
+    isEditToggled: PropTypes.bool,
     fieldId: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     desc: PropTypes.string.isRequired,
@@ -28,11 +28,10 @@ const FormFieldEditor = ({
     title,
     desc,
     onEditButtonClickHandler,
-    isEditable,
+    isEditToggled,
     submitHandler,
     isLoading,
     error,
-    categoryId,
 }) => {
     const [description, setDescription] = useState(desc);
     const [charCounter, setCharCounter] = useState(0);
@@ -44,7 +43,7 @@ const FormFieldEditor = ({
 
     
     const onCancelClickHandler = () => {
-        // passes the fieldId in order to reset isEditable and hide the textarea/input
+        // Closes the opened Edit field
         onEditButtonClickHandler(fieldId);
         setDescription(desc);
     };
@@ -53,20 +52,18 @@ const FormFieldEditor = ({
         e.preventDefault();
 
         const editInfo = {
-            // categoryId,
-            // infoId: fieldId,
             fieldId,
             description,
             charCounter
         };
 
-        submitHandler({ fieldId, editInfo });
+        submitHandler({ editInfo });
     };
 
     return (
         <FormEditWrapper>
             <SpanLabelTitle title={title} />
-            {isEditable ? (
+            {isEditToggled ? (
                 <WrapperWithWidth>
                     <TipTap
                         onChangeHandler={onChangeHandler}

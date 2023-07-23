@@ -2,14 +2,14 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { queryEndpoints } from '../../constants/reactQueryEndpoints';
 import { editPlaceDetails } from '../../service/data/places';
 
-export const useEditPlaceDetails = (placeId) => {
+export const useEditPlaceDetails = (placeId, destinationId) => {
     const queryClient = useQueryClient();
 
     const { mutate, isLoading } = useMutation({
         mutationFn: (data) => editPlaceDetails(placeId, data),
         onSuccess: (updatedField) => {
-            const { infoId, description, destinationId } = updatedField;
-            
+            const { infoId, description } = updatedField;
+
             const place = queryClient.getQueryData([
                 queryEndpoints.editPlace,
                 placeId,

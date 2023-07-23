@@ -2,26 +2,56 @@ import { useCallback, useState } from 'react';
 import { useEditPlaceDetails } from '../../../../hooks/queries/useEditPlaceDetails';
 import { validateFieldsOnEdit } from '../../../../utils/editValidators';
 import { extractServerErrorMessage } from '../../../../utils/utils';
+import { useEditFieldToggle } from '../../../../hooks/useEditFieldToggle';
+import { useEditPlaceDescription } from '../../../../hooks/queries/place/useEditPlaceDescription';
+import { editPlaceDescriptionSchema } from '../../../../utils/validationSchemas/placeSchemas';
 
 export const useForm = ({ data, placeId, destinationId }) => {
-    const [editDetails, isEditLoading] = useEditPlaceDetails(placeId);
+    const [editDetails, isEditLoading] = useEditPlaceDetails(placeId, destinationId);
     const [editError, setEditError] = useState('');
-    const [isEditable, setIsEditable] = useState({});
+    const [isEditToggled, setIsEditToggled, closeEditField] = useEditFieldToggle();
+    const [editDescription, isDescLoading] = useEditPlaceDescription(placeId);
 
-    const typeId = 'type';
-    const { allowedPlaceCategories, allowedFieldsToUpdate } = data;
+    const isLoading = isDescLoading;
 
-    const sendEditedFieldClickHandler = useCallback(
-        (fieldId, editedInfo) => {
+    const closeEditFieldHandler = () => {
+        closeEditField();
+        setEditError('');
+    };
+
+    const toggleEditHandler = useCallback((clickedId) => {
+        setIsEditToggled(clickedId);
+        setEditError('');
+    }, []);
+
+    const { allowedPlaceCategories } = data;
+
+    const submitHandler = useCallback(
+        ({ editInfo }) => {
             try {
-                const validated = validateFieldsOnEdit(
-                    editedInfo,
-                    allowedPlaceCategories
-                );
-                validated.destinationId = destinationId;
+                // const validated = validateFieldsOnEdit(
+                //     editedInfo,
+                //     allowedPlaceCategories
+                // );
 
-                editDetails(validated, {
-                    onSuccess: () => onEditButtonClickHandler(fieldId),
+                console.log(editInfo);
+
+                // editDetails(editedInfo, {
+                //     onSuccess: () => closeEditFieldHandler(),
+                //     onError: (err) => setEditError(extractServerErrorMessage(err)),
+                // });
+            } catch (err) {
+                setEditError(err.message);
+            }
+        },
+        [destinationId]
+    );
+
+    const submitDescription = useCallback(({ editInfo }) => {
+            try {
+                editPlaceDescriptionSchema.validateSync(editInfo);
+                editDescription(editInfo, {
+                    onSuccess: () => closeEditFieldHandler(),
                     onError: (err) => setEditError(extractServerErrorMessage(err)),
                 });
             } catch (err) {
@@ -31,38 +61,12 @@ export const useForm = ({ data, placeId, destinationId }) => {
         [destinationId]
     );
 
-    const onEditButtonClickHandler = useCallback(
-        (clickedId) => {
-            // enables/disables the form fields
-            setIsEditable((prevState) => {
-                // opens/closes the edit field
-                const newState = { [clickedId]: !prevState[clickedId] };
-
-                // closes all previously opened edit form fields (if any)
-                Object.keys(prevState).forEach((fieldId) => {
-                    if (fieldId !== clickedId) {
-                        newState[fieldId] = false;
-                    }
-                });
-                return newState;
-            });
-
-            // removes the error message (if any)
-            editError && setEditError('');
-        },
-        [editError]
-    );
-
-    const fieldsToUpdate = allowedFieldsToUpdate?.filter((x) => x !== typeId);
-
     return {
         isEditLoading,
         editError,
-        isEditable,
-        typeId,
-        allowedPlaceCategories,
-        fieldsToUpdate,
-        sendEditedFieldClickHandler,
-        onEditButtonClickHandler,
+        isEditToggled,
+        submitHandler,
+        toggleEditHandler,
+        submitDescription
     };
 };

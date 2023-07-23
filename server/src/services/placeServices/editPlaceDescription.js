@@ -1,19 +1,21 @@
 const Place = require('../../models/placeSchema');
 
 // Utils
-const { validatePlaceFieldOnEdit } = require('../../utils/validateFields');
 const { createValidationError } = require('../../utils/createValidationError');
+const { sanitizeHtmlString } = require('../../utils/validators/sanitizeHtmlString');
 
 // Constants
 const { errorMessages } = require('../../constants/errorMessages');
 
-async function editPlaceField(placeId, updatedField) {
-    const { description, infoId } = validatePlaceFieldOnEdit(updatedField);
+async function editPlaceDescription({ id, description }) {
+    const sanitized = sanitizeHtmlString(description);
 
-    const updated = {};
-    updated[infoId] = description;
-
-    const result = await Place.updateOne({ _id: placeId }, { $set: updated })
+    const result = await Place.updateOne(
+        { _id: id },
+        {
+            $set: { description: sanitized },
+        }
+    )
         .lean()
         .exec();
 
@@ -24,4 +26,4 @@ async function editPlaceField(placeId, updatedField) {
     return result;
 }
 
-module.exports = editPlaceField;
+module.exports = editPlaceDescription;

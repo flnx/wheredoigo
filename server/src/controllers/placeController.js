@@ -9,15 +9,13 @@ const addPlaceNewImages = require('../services/placeServices/addPlaceNewImages')
 const getTopPlaces = require('../services/placeServices/getTopPlaces');
 const getUserPlacesData = require('../services/placeServices/getUserPlacesData');
 
-const {
-    allowedPlaceCategories,
-    allowedFieldsToUpdate,
-} = require('../constants/allowedPlaceCategories');
+const { allowedPlaceCategories } = require('../constants/allowedPlaceCategories');
 const getPlaceComments = require('../services/placeServices/getPlaceComments');
 const { extractPageFromQuery } = require('../utils/extractPageFromQuery');
 const {
     addAIGeneratedCommentsToPlace,
 } = require('../services/placeServices/addAIGeneratedCommentsToPlace');
+const editPlaceDescription = require('../services/placeServices/editPlaceDescription');
 
 const get_top_places = async (req, res, next) => {
     try {
@@ -91,7 +89,6 @@ const request_place_to_edit = async (req, res, next) => {
     res.json({
         ...place,
         allowedPlaceCategories,
-        allowedFieldsToUpdate,
     });
 };
 
@@ -100,6 +97,18 @@ const edit_place_field = async (req, res, next) => {
 
     try {
         const result = await editPlaceField(id, req.body);
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
+};
+
+const edit_place_description = async (req, res, next) => {
+    const { id } = req.params;
+    const { description } = req.body;
+
+    try {
+        const result = await editPlaceDescription({ id, description });
         res.json(result);
     } catch (err) {
         next(err);
@@ -203,4 +212,5 @@ module.exports = {
     get_top_places,
     get_user_places_data,
     generate_place_ai_comments,
+    edit_place_description,
 };

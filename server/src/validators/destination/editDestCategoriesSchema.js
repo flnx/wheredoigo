@@ -1,8 +1,6 @@
 const yup = require('yup');
 const { errorMessages } = require('../../constants/errorMessages');
-const {
-    destinationCategories,
-} = require('../../constants/allowedDestinationCategories');
+const { destinationCategories } = require('../../constants/allowedDestinationCategories');
 
 const editDestCategoriesSchema = yup.object({
     categories: yup

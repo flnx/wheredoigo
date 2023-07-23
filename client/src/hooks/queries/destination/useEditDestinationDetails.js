@@ -33,8 +33,6 @@ export const useEditDestinationDetails = (destinationId) => {
                 queryEndpoints.destination,
                 destinationId,
             ]);
-
-            queryClient.invalidateQueries([queryEndpoints.creatorDestinations]);
         },
     });
 

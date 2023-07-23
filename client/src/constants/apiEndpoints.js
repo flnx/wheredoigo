@@ -10,7 +10,7 @@ export const apiEndpoints = {
     },
 
     place: {
-
+        editDescription: (id) => `places/${id}/description`,
     },
 
     login: '/login',
@@ -40,7 +40,6 @@ export const apiEndpoints = {
     },
     addDestination: 'destinations',
     requestDestinationToEdit: (id) => `destinations/${id}/request-edit-permissions`,
-    editDestinationDetails: (id) => `destinations/${id}/edit-destination-field`,
     editDestinationDescription: (id) => `destinations/${id}/description`,
     deleteDestination: (id) => `destinations/${id}/delete`,
     addDestinationImages: (id) => `destinations/${id}/add-images`,

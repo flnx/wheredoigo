@@ -25,7 +25,6 @@ const {
     destination_details,
     get_creator_destinations,
     request_destination_to_edit,
-    edit_destination_field,
     delete_destination_image,
     add_destination_new_images,
     paginated_destinations,
@@ -123,14 +122,6 @@ router.put(
     checkDestinationOwnershipOnly,
     upload,
     add_destination_new_images
-);
-
-router.put(
-    '/destinations/:id/edit-destination-field',
-    validateMongoId,
-    auth,
-    checkDestinationOwnershipOnly,
-    edit_destination_field
 );
 
 router.put(

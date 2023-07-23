@@ -11,7 +11,7 @@ describe('FormFieldEditor Tests', () => {
     beforeEach(() => {
         props = {
             categoryId: 'categoryId',
-            isEditable: false,
+            isEditToggled: false,
             fieldId: 'fieldId',
             title: 'title',
             desc: 'description',
@@ -37,7 +37,7 @@ describe('FormFieldEditor Tests', () => {
         const edit = screen.getByText('Edit');
         userEvent.click(edit);
 
-        await waitFor(() => (props.isEditable = true));
+        await waitFor(() => (props.isEditToggled = true));
 
         rerender(<MemoizedFormFieldEditor {...props} />);
 
@@ -55,7 +55,7 @@ describe('FormFieldEditor Tests', () => {
 
         await waitFor(() => {
             expect(props.onEditButtonClickHandler).toHaveBeenCalledTimes(1);
-            props.isEditable = true;
+            props.isEditToggled = true;
         });
 
         rerender(<MemoizedFormFieldEditor {...props} />);
@@ -67,7 +67,7 @@ describe('FormFieldEditor Tests', () => {
     });
 
     it('Saves the text changes when save button is clicked', async () => {
-        props.isEditable = true;
+        props.isEditToggled = true;
         render(<MemoizedFormFieldEditor {...props} />);
 
         const saveBtn = screen.getByRole('button', { name: 'Save' });
@@ -77,7 +77,7 @@ describe('FormFieldEditor Tests', () => {
     });
 
     it('Returns the initial text value on cancel button click', async () => {
-        props.isEditable = true;
+        props.isEditToggled = true;
         render(<MemoizedFormFieldEditor {...props} />);
 
         const cancelBtn = screen.getByRole('button', { name: 'Cancel' });

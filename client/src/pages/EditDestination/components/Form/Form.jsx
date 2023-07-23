@@ -51,7 +51,7 @@ export const Form = ({
                             title={descriptionID}
                             desc={description}
                             error={editError}
-                            isEditable={isEditToggled[descriptionID]}
+                            isEditToggled={isEditToggled[descriptionID]}
                             isLoading={isEditLoading}
                         />
                         {/* Categories */}
@@ -75,7 +75,7 @@ export const Form = ({
                                     title={detail.name}
                                     desc={detail.content}
                                     error={editError}
-                                    isEditable={isEditToggled[detail._id]}
+                                    isEditToggled={isEditToggled[detail._id]}
                                     isLoading={isEditLoading}
                                 />
                             </div>

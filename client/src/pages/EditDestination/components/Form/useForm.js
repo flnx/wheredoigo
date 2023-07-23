@@ -18,7 +18,7 @@ export const useForm = ({ destinationId, allowedCategories }) => {
     const [editDetails, isEditLoading] = useEditDestinationDetails(destinationId);
     const [editDesc, isDescLoading] = useEditDestinationDescription(destinationId);
     const [editCategories, isCategsLoading] = useEditDestinationCategories(destinationId);
-
+    
     const [isEditToggled, setIsEditToggled, closeEditField] = useEditFieldToggle();
     const [editError, setEditError] = useState('');
 
@@ -46,7 +46,7 @@ export const useForm = ({ destinationId, allowedCategories }) => {
                 setEditError(err.message);
             }
         },
-        [destinationId]
+        [destinationId, allowedCategories]
     );
 
     const submitDetails = useCallback(({ editInfo }) => {
@@ -81,7 +81,7 @@ export const useForm = ({ destinationId, allowedCategories }) => {
         } catch (err) {
             setEditError(err.errors[0]);
         }
-    }, []);
+    }, [destinationId]);
 
     return {
         isEditToggled,

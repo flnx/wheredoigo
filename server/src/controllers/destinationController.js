@@ -2,7 +2,6 @@ const addDestinationNewImages = require('../services/destinationServices/addDest
 const createDestination = require('../services/destinationServices/createDestination');
 const deleteDestination = require('../services/destinationServices/deleteDestination');
 const deleteDestinationImage = require('../services/destinationServices/deleteDestinationImage');
-const editDestinationField = require('../services/destinationServices/editDestinationField');
 const getCreatorDestinations = require('../services/destinationServices/getCreatorDestinations');
 const getDestinationById = require('../services/destinationServices/getDestinationById');
 const getDestinationsPaginated = require('../services/destinationServices/getDestinationsPaginated');
@@ -119,17 +118,6 @@ const request_destination_to_edit = async (req, res, next) => {
     res.json(destination);
 };
 
-const edit_destination_field = async (req, res, next) => {
-    const { id } = req.params;
-
-    try {
-        const result = await editDestinationField(id, req.body);
-        res.json(result);
-    } catch (err) {
-        next(err);
-    }
-};
-
 const edit_destination_description = async (req, res, next) => {
     const { id } = req.params;
     const { description } = req.body;
@@ -234,7 +222,6 @@ module.exports = {
     add_new_destination,
     get_creator_destinations,
     request_destination_to_edit,
-    edit_destination_field,
     delete_destination_image,
     add_destination_new_images,
     delete_destination,
