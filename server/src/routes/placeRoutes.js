@@ -7,9 +7,9 @@ const { upload } = require('../middlewares/images');
 const { checkSession } = require('../middlewares/checkSession');
 const { validateData } = require('../middlewares/dataValidators/validateData');
 
-
 // Yup Validators
 const editPlaceDescriptionSchema = require('../validators/place/editPlaceDescriptionSchema');
+const editPlaceTypeSchema = require('../validators/place/editPlaceTypeSchema');
 
 const {
     fetchPlaceAndCheckOwnership,
@@ -17,9 +17,7 @@ const {
     checkPlaceOwnershipAndCommenters,
 } = require('../middlewares/checkPlaceOwnership');
 
-const {
-    checkDestinationOwnershipOnly,
-} = require('../middlewares/checkDestinationOwnership');
+const { checkDestinationOwnershipOnly } = require('../middlewares/checkDestinationOwnership');
 
 // Controllers
 const {
@@ -37,7 +35,8 @@ const {
     get_top_places,
     get_user_places_data,
     generate_place_ai_comments,
-    edit_place_description 
+    edit_place_description,
+    edit_place_type
 } = require('../controllers/placeController');
 
 const router = express.Router();
@@ -142,6 +141,15 @@ router.put(
     validateData(editPlaceDescriptionSchema),
     checkPlaceOwnershipOnly,
     edit_place_description 
+);
+
+router.put(
+    '/places/:id/type',
+    validateMongoId,
+    auth,
+    validateData(editPlaceTypeSchema),
+    checkPlaceOwnershipOnly,
+    edit_place_type
 );
 
 // -- DELETE --

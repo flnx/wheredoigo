@@ -4,15 +4,17 @@ import { validateFieldsOnEdit } from '../../../../utils/editValidators';
 import { extractServerErrorMessage } from '../../../../utils/utils';
 import { useEditFieldToggle } from '../../../../hooks/useEditFieldToggle';
 import { useEditPlaceDescription } from '../../../../hooks/queries/place/useEditPlaceDescription';
-import { editPlaceDescriptionSchema } from '../../../../utils/validationSchemas/placeSchemas';
+import { editPlaceDescriptionSchema, editPlaceTypeSchema } from '../../../../utils/validationSchemas/placeSchemas';
+import { useEditPlaceType } from '../../../../hooks/queries/place/useEditPlaceType';
 
 export const useForm = ({ data, placeId, destinationId }) => {
     const [editDetails, isEditLoading] = useEditPlaceDetails(placeId, destinationId);
     const [editError, setEditError] = useState('');
     const [isEditToggled, setIsEditToggled, closeEditField] = useEditFieldToggle();
-    const [editDescription, isDescLoading] = useEditPlaceDescription(placeId);
 
-    const isLoading = isDescLoading;
+    // React Query Mutations
+    const [editDescription, isDescLoading] = useEditPlaceDescription(placeId);
+    const [editType, isEditTypeLoading] = useEditPlaceType({ placeId, destinationId });
 
     const closeEditFieldHandler = () => {
         closeEditField();
@@ -24,49 +26,44 @@ export const useForm = ({ data, placeId, destinationId }) => {
         setEditError('');
     }, []);
 
-    const { allowedPlaceCategories } = data;
+    const submitType = useCallback((type) => {
+        const { allowedPlaceCategories } = data;
 
-    const submitHandler = useCallback(
-        ({ editInfo }) => {
-            try {
-                // const validated = validateFieldsOnEdit(
-                //     editedInfo,
-                //     allowedPlaceCategories
-                // );
+        try {
+            editPlaceTypeSchema(allowedPlaceCategories).validateSync(type);
 
-                console.log(editInfo);
-
-                // editDetails(editedInfo, {
-                //     onSuccess: () => closeEditFieldHandler(),
-                //     onError: (err) => setEditError(extractServerErrorMessage(err)),
-                // });
-            } catch (err) {
-                setEditError(err.message);
-            }
-        },
-        [destinationId]
-    );
+            editType(type, {
+                onSuccess: () => closeEditFieldHandler(),
+                onError: (err) => setEditError(extractServerErrorMessage(err)),
+            });
+        } catch (err) {
+            setEditError(err.message);
+        }
+    }, [destinationId]);
 
     const submitDescription = useCallback(({ editInfo }) => {
-            try {
-                editPlaceDescriptionSchema.validateSync(editInfo);
-                editDescription(editInfo, {
-                    onSuccess: () => closeEditFieldHandler(),
-                    onError: (err) => setEditError(extractServerErrorMessage(err)),
-                });
-            } catch (err) {
-                setEditError(err.message);
-            }
-        },
-        [destinationId]
-    );
+        try {
+            editPlaceDescriptionSchema.validateSync(editInfo);
+
+            editDescription(editInfo, {
+                onSuccess: () => closeEditFieldHandler(),
+                onError: (err) => setEditError(extractServerErrorMessage(err)),
+            });
+        } catch (err) {
+            setEditError(err.message);
+        }
+    }, [destinationId]);
+
+
+    const submitHandler = () => {}
 
     return {
-        isEditLoading,
+        isEditLoading: isDescLoading || isEditTypeLoading,
         editError,
         isEditToggled,
         submitHandler,
         toggleEditHandler,
-        submitDescription
+        submitDescription,
+        submitType
     };
 };

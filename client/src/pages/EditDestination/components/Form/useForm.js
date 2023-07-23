@@ -15,14 +15,13 @@ import { useEditDestinationDescription } from '../../../../hooks/queries/destina
 import { useEditDestinationCategories } from '../../../../hooks/queries/destination/useEditDestinationCategories';
 
 export const useForm = ({ destinationId, allowedCategories }) => {
-    const [editDetails, isEditLoading] = useEditDestinationDetails(destinationId);
-    const [editDesc, isDescLoading] = useEditDestinationDescription(destinationId);
-    const [editCategories, isCategsLoading] = useEditDestinationCategories(destinationId);
-    
-    const [isEditToggled, setIsEditToggled, closeEditField] = useEditFieldToggle();
     const [editError, setEditError] = useState('');
-
-    const isLoading = isEditLoading || isDescLoading || isCategsLoading;
+    const [isEditToggled, setIsEditToggled, closeEditField] = useEditFieldToggle();
+    
+    // React Query Mutations
+    const [editDesc, isDescLoading] = useEditDestinationDescription(destinationId);
+    const [editDetails, isEditLoading] = useEditDestinationDetails(destinationId);
+    const [editCategories, isCategsLoading] = useEditDestinationCategories(destinationId);
 
     const closeEditFieldHandler = () => {
         closeEditField();
@@ -35,38 +34,38 @@ export const useForm = ({ destinationId, allowedCategories }) => {
     }, []);
 
     const submitCategories = useCallback((editInfo) => {
-            try {
-                editDestCategoriesSchema(allowedCategories).validateSync(editInfo);
+        try {
+            editDestCategoriesSchema(allowedCategories).validateSync(editInfo);
 
-                editCategories(editInfo, {
-                    onSuccess: () => closeEditFieldHandler(),
-                    onError: (err) => setEditError(extractServerErrorMessage(err)),
-                });
-            } catch (err) {
-                setEditError(err.message);
-            }
-        },
+            editCategories(editInfo, {
+                onSuccess: () => closeEditFieldHandler(),
+                onError: (err) => setEditError(extractServerErrorMessage(err)),
+            });
+        } catch (err) {
+            setEditError(err.message);
+        }
+    },
         [destinationId, allowedCategories]
     );
 
     const submitDetails = useCallback(({ editInfo }) => {
-            try {
-                const updated = {
-                    detail_id: editInfo.fieldId,
-                    description: editInfo.description,
-                    charCounter: editInfo.charCounter,
-                };
+        try {
+            const updated = {
+                detail_id: editInfo.fieldId,
+                description: editInfo.description,
+                charCounter: editInfo.charCounter,
+            };
 
-                editDestDetailsSchema.validateSync(updated);
+            editDestDetailsSchema.validateSync(updated);
 
-                editDetails(updated, {
-                    onSuccess: () => closeEditFieldHandler(),
-                    onError: (err) => setEditError(extractServerErrorMessage(err)),
-                });
-            } catch (err) {
-                setEditError(err.errors[0]);
-            }
-        },
+            editDetails(updated, {
+                onSuccess: () => closeEditFieldHandler(),
+                onError: (err) => setEditError(extractServerErrorMessage(err)),
+            });
+        } catch (err) {
+            setEditError(err.errors[0]);
+        }
+    },
         [destinationId]
     );
 
@@ -81,11 +80,13 @@ export const useForm = ({ destinationId, allowedCategories }) => {
         } catch (err) {
             setEditError(err.errors[0]);
         }
-    }, [destinationId]);
+    },
+        [destinationId]
+    );
 
     return {
+        isEditLoading: isEditLoading || isDescLoading || isCategsLoading,
         isEditToggled,
-        isEditLoading: isLoading,
         editError,
         toggleEditHandler,
         submitCategories,

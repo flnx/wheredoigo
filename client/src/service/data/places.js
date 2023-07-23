@@ -40,6 +40,11 @@ export const editPlaceDetails = async (placeId, updatedData) => {
     return updatedData;
 };
 
+export const editPlaceType = async (placeId, updatedData) => {
+    await axios.put(api.place.editType(placeId), updatedData);
+    return updatedData;
+};
+
 export const editPlaceDescription = async (placeId, updatedData) => {
     await axios.put(api.place.editDescription(placeId), updatedData);
     return updatedData;

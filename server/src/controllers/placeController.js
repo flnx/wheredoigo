@@ -1,3 +1,5 @@
+// Services
+const { addAIGeneratedCommentsToPlace } = require('../services/placeServices/addAIGeneratedCommentsToPlace');
 const createNewPlace = require('../services/placeServices/createNewPlace');
 const getPlaceById = require('../services/placeServices/getPlaceById');
 const editPlaceField = require('../services/placeServices/editPlaceField');
@@ -8,14 +10,15 @@ const deletePlaceImage = require('../services/placeServices/deletePlaceImage');
 const addPlaceNewImages = require('../services/placeServices/addPlaceNewImages');
 const getTopPlaces = require('../services/placeServices/getTopPlaces');
 const getUserPlacesData = require('../services/placeServices/getUserPlacesData');
-
-const { allowedPlaceCategories } = require('../constants/allowedPlaceCategories');
-const getPlaceComments = require('../services/placeServices/getPlaceComments');
-const { extractPageFromQuery } = require('../utils/extractPageFromQuery');
-const {
-    addAIGeneratedCommentsToPlace,
-} = require('../services/placeServices/addAIGeneratedCommentsToPlace');
 const editPlaceDescription = require('../services/placeServices/editPlaceDescription');
+const getPlaceComments = require('../services/placeServices/getPlaceComments');
+const editPlaceType = require('../services/placeServices/editPlaceType');
+
+// Constants
+const { allowedPlaceCategories } = require('../constants/allowedPlaceCategories');
+
+// Utils
+const { extractPageFromQuery } = require('../utils/extractPageFromQuery');
 
 const get_top_places = async (req, res, next) => {
     try {
@@ -97,6 +100,18 @@ const edit_place_field = async (req, res, next) => {
 
     try {
         const result = await editPlaceField(id, req.body);
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
+};
+
+const edit_place_type = async (req, res, next) => {
+    const { id } = req.params;
+    const { type } = req.body;
+
+    try {
+        const result = await editPlaceType({ id, type });
         res.json(result);
     } catch (err) {
         next(err);
@@ -213,4 +228,5 @@ module.exports = {
     get_user_places_data,
     generate_place_ai_comments,
     edit_place_description,
+    edit_place_type
 };

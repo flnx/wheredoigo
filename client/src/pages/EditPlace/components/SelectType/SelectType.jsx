@@ -15,7 +15,7 @@ export const SelectType = ({
     selectedType,
     types,
     onEditButtonClickHandler,
-    sendEditedFieldClickHandler,
+    submitHandler,
     isLoading,
     error,
 }) => {
@@ -32,13 +32,7 @@ export const SelectType = ({
 
     const onSaveButtonClickHandler = (e) => {
         e.preventDefault();
-
-        const editInfo = {
-            infoId: typeId,
-            description: type,
-        };
-
-        sendEditedFieldClickHandler(typeId, editInfo);
+        submitHandler({ type });
     };
 
     return (

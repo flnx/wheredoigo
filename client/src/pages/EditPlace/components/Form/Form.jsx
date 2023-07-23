@@ -18,7 +18,7 @@ const propTypes = {
 export const Form = ({ data, placeId, destinationId, isLoading }) => {
     const formProps = useForm({ data, placeId, destinationId });
     const { isEditLoading, editError, isEditToggled, toggleEditHandler } = formProps;
-    const { submitHandler, submitDescription } = formProps;
+    const { submitHandler, submitType, submitDescription } = formProps;
 
     return (
         <section>
@@ -60,7 +60,7 @@ export const Form = ({ data, placeId, destinationId, isLoading }) => {
                             selectedType={data.type}
                             types={data.allowedPlaceCategories}
                             onEditButtonClickHandler={toggleEditHandler}
-                            submitHandler={submitHandler}
+                            submitHandler={submitType}
                             isLoading={isEditLoading}
                             error={editError}
                         />
