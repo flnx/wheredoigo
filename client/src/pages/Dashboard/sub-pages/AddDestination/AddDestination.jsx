@@ -1,28 +1,32 @@
 import { useCallback, useState } from 'react';
 import { useDestinationInput } from './useDestinationInput';
 import { useSubmitData } from './useSubmitData';
-import { useImages } from '../../../../hooks/useImages';
+import { useImages } from 'src/hooks/useImages';
 
-// Components
-import { ServerErrorPopUp } from '../../../../components/ServerErrorPopUp/ServerErrorPopUp';
+// Home Components
 import { Description } from './components/Description';
 import { Details } from './components/Details';
-import { ImageUploader } from '../../../../components/ImageUploader/ImageUploader';
-import { ImageThumbnailsPreview } from '../../../../components/ImageThumbnailsPreview/ImageThumbnailsPreview';
-import { SuccessButton } from '../../../../components/Buttons/Success-Button/SuccessButton';
-import { DetailsButtons } from './components/DetailsButtons/DetailsButtons';
-import { DarkOverlay } from '../../../../components/DarkOverlay/DarkOverlay';
-import { ShowFormError } from '../../../../components/ShowFormError/ShowFormError';
-import { FormCheckboxes } from '../../../../components/FormCheckboxes/FormCheckboxes';
 import { MemoizedLocationDropdown } from './components/LocationDropdown/LocationDropdown';
+import { DetailsButtons } from './components/DetailsButtons/DetailsButtons';
+
+// Global Components
+import { ServerErrorPopUp } from 'src/components/ServerErrorPopUp/ServerErrorPopUp';
+import { ImageUploader } from 'src/components/ImageUploader/ImageUploader';
+import { ImageThumbnailsPreview } from 'src/components/ImageThumbnailsPreview/ImageThumbnailsPreview';
+import { SuccessButton } from 'src/components/Buttons/Success-Button/SuccessButton';
+import { DarkOverlay } from 'src/components/DarkOverlay/DarkOverlay';
+import { ShowFormError } from 'src/components/ShowFormError/ShowFormError';
+import { FormCheckboxes } from 'src/components/FormCheckboxes/FormCheckboxes';
 
 import styles from './AddDestination.module.css';
 
-const categories = ['Beach', 'Mountains', 'Cultural', 'Snow', 'Islands', 'Adventure'];
+
 
 export const AddDestination = () => {
     const [showDetail, setShowDetail] = useState({ name: '' });
     const { images, addImages, deleteImage } = useImages();
+    
+    const categories = ['Beach', 'Mountains', 'Cultural', 'Snow', 'Islands', 'Adventure'];
     
     const {
         updateField,

@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 
 // Components
-import { Container } from '../../../components/Containers/Container/Container';
-import { Places } from '../../../components/Places/Places';
-import { TextWrap } from '../../../components/TextWrap/TextWrap';
-import { checkArrayAndPreloadElements, extractServerErrorMessage } from '../../../utils/utils';
+import { Container } from 'src/components/Containers/Container/Container';
+import { Places } from 'src/components/Places/Places';
+import { TextWrap } from 'src/components/TextWrap/TextWrap';
+
+
+import { checkArrayAndPreloadElements, extractServerErrorMessage } from 'src/utils/utils';
 
 import styles from '../Home.module.css';
 

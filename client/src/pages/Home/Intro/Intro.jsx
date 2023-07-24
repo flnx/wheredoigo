@@ -1,10 +1,11 @@
-import introImage from '../../../assets/pictures/homepage/intro.png';
+import introImage from 'src/assets/pictures/homepage/intro.png';
 
-import { Container } from '../../../components/Containers/Container/Container';
-import { ButtonLinkPrimary } from '../../../components/Buttons/Primary-Btn/LinkButtonPrimary';
-import { LoadingSkeleton } from '../../../components/LoadingSkeletons/LoadingSkeleton';
+// Components
+import { Container } from 'src/components/Containers/Container/Container';
+import { ButtonLinkPrimary } from 'src/components/Buttons/Primary-Btn/LinkButtonPrimary';
+import { LoadingSkeleton } from 'src/components/LoadingSkeletons/LoadingSkeleton';
 
-import routeConstants from '../../../constants/routeConstants';
+import routeConstants from 'src/constants/routeConstants';
 import styles from './Intro.module.css';
 
 const { routePath } = routeConstants.DESTINATIONS.BY_ID;

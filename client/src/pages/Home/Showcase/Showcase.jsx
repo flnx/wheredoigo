@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { ButtonLinkPrimary } from '../../../components/Buttons/Primary-Btn/LinkButtonPrimary';
-import { Container } from '../../../components/Containers/Container/Container';
-import { LoadingSkeleton } from '../../../components/LoadingSkeletons/LoadingSkeleton';
-import { SearchBar } from '../../../components/Serach-Bar/SearchBar';
+import { ButtonLinkPrimary } from 'src/components/Buttons/Primary-Btn/LinkButtonPrimary';
+import { Container } from 'src/components/Containers/Container/Container';
+import { LoadingSkeleton } from 'src/components/LoadingSkeletons/LoadingSkeleton';
+import { SearchBar } from 'src/components/Serach-Bar/SearchBar';
 
-import routeConstants from '../../../constants/routeConstants';
+import routeConstants from 'src/constants/routeConstants';
 import styles from './Showcase.module.css';
 
 export const Showcase = ({ isLoading }) => {

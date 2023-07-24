@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useLikeDestination } from '../../hooks/queries/useLikeDestinations';
+import { useLikeDestination } from 'src/hooks/queries/useLikeDestinations';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ import { Heart } from '@phosphor-icons/react';
 import { ServerErrorPopUp } from '../ServerErrorPopUp/ServerErrorPopUp';
 
 import styles from './AddToFavorites.module.css';
-import routeConstants from '../../constants/routeConstants';
+import routeConstants from 'src/constants/routeConstants';
 
 const propTypes = {
     size: PropTypes.number,

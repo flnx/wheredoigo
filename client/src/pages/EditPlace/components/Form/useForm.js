@@ -2,7 +2,11 @@ import { useCallback, useState } from 'react';
 import { extractServerErrorMessage } from '../../../../utils/utils';
 import { useEditFieldToggle } from '../../../../hooks/useEditFieldToggle';
 import { useEditPlaceDescription } from '../../../../hooks/queries/place/useEditPlaceDescription';
-import { editPlaceDescriptionSchema, editPlaceNameSchema, editPlaceTypeSchema } from '../../../../utils/validationSchemas/placeSchemas';
+import { 
+    editPlaceDescriptionSchema, 
+    editPlaceNameSchema, 
+    editPlaceTypeSchema 
+} from '../../../../utils/validationSchemas/placeSchemas';
 import { useEditPlaceType } from '../../../../hooks/queries/place/useEditPlaceType';
 import { useEditPlaceName } from '../../../../hooks/queries/place/useEditPlaceName';
 

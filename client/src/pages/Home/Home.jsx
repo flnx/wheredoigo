@@ -1,12 +1,16 @@
 import { useErrorBoundary } from 'react-error-boundary';
-import { useDestinationsAndPlaces } from '../../hooks/queries/useDestinations';
 
-// Components
+// React Query Hook
+import { useDestinationsAndPlaces } from "src/hooks/queries/useDestinations";
+
+// Home Components
 import { Showcase } from './Showcase/Showcase';
-import { CitiesSlider } from '../../components/Sliders/CitiesSlider/CitiesSlider';
 import { Categories } from './Categories/Categories';
 import { Intro } from './Intro/Intro';
 import { TopPlaces } from './TopPlaces/TopPlaces';
+
+// Global Components
+import { CitiesSlider } from 'src/components/Sliders/CitiesSlider/CitiesSlider';
 
 import styles from './Home.module.css';
 
