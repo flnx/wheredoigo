@@ -1,13 +1,17 @@
 import { useState } from 'react';
-import { useCreatorDestinations } from '../../../../hooks/queries/useCreatorDestinations';
-import { useDeleteDestination } from '../../../../hooks/queries/useDeleteDestination';
-import { extractServerErrorMessage } from '../../../../utils/utils';
 
-// Components
-import { DestinationsGrid } from '../../../../components/DestinationsGrid/DestinationsGrid';
-import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
+// React Query Hooks
+import { useCreatorDestinations } from 'src/hooks/queries/useCreatorDestinations';
+import { useDeleteDestination } from 'src/hooks/queries/useDeleteDestination';
+
+// Utils
+import { extractServerErrorMessage } from 'src/utils/utils';
+
+// Global Components
 import { ClipLoader } from 'react-spinners';
-import { ServerErrorPopUp } from '../../../../components/ServerErrorPopUp/ServerErrorPopUp';
+import { DestinationsGrid } from 'src/components/DestinationsGrid/DestinationsGrid';
+import { ConfirmModal } from 'src/components/ConfirmModal/ConfirmModal';
+import { ServerErrorPopUp } from 'src/components/ServerErrorPopUp/ServerErrorPopUp';
 
 import styles from './OwnerDestinations.module.css';
 

@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 
-import { useAddComment } from '../../../../hooks/queries/useAddComment';
+import { useAddComment } from 'src/hooks/queries/useAddComment';
 
 export const useSubmitFormData = ({ title, content, rating, resetForm }) => {
     const { placeId } = useParams();

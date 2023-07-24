@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
+import { createPortal } from 'react-dom';
 import { useState } from 'react';
 
 // Components
-import { Gallery } from '../../../../components/Gallery/Gallery';
-import { ImagesGridWrapper } from '../../../../components/ImagesGridWrapper/ImagesGridWrapper';
-import { createPortal } from 'react-dom';
+import { Gallery } from 'src/components/Gallery/Gallery';
+import { ImagesGridWrapper } from 'src/components/ImagesGridWrapper/ImagesGridWrapper';
 
 const propTypes = {
     imageUrls: PropTypes.arrayOf(

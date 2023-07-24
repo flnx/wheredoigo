@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { queryEndpoints } from '../../constants/reactQueryEndpoints';
-import { createPlace } from '../../service/data/places';
+import { queryEndpoints } from 'src/constants/reactQueryEndpoints';
+import { createPlace } from 'src/service/data/places';
 
 export const useAddNewPlace = (destinationId) => {
     const queryClient = useQueryClient();

@@ -1,11 +1,15 @@
 import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { usePlace } from '../../hooks/queries/usePlace';
 import { useErrorBoundary } from 'react-error-boundary';
-import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
-// components
-import { Container } from '../../components/Containers/Container/Container';
+// Hooks
+import { usePlace } from 'src/hooks/queries/usePlace';
+import { useDocumentTitle } from 'src/hooks/useDocumentTitle';
+
+// Global Components
+import { Container } from 'src/components/Containers/Container/Container';
+
+// Local Components
 import { Header } from './components/Header/Header';
 import { Images } from './components/ImagesSection/ImagesSection';
 import { Comments } from './components/Comments/Comments';

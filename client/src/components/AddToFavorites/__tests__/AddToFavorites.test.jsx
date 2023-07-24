@@ -1,5 +1,5 @@
 import { MemoryRouter } from 'react-router-dom';
-import { render as customRender, screen, userEvent, waitFor } from '../../../utils/test-utils';
+import { render as customRender, screen, userEvent } from 'src/utils/test-utils';
 import { AddToFavorites } from '../AddToFavorites';
 
 // This is needed to extract the correct classname from css modules

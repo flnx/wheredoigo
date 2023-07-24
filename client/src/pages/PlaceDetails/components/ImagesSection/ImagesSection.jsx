@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { createPortal } from 'react-dom';
 
 // Components
-import { Gallery } from '../../../../components/Gallery/Gallery';
-import { ImagesGridWrapper } from '../../../../components/ImagesGridWrapper/ImagesGridWrapper';
+import { Gallery } from 'src/components/Gallery/Gallery';
+import { ImagesGridWrapper } from 'src/components/ImagesGridWrapper/ImagesGridWrapper';
 
 export const Images = ({ imageUrls, isLoading, city }) => {
     const [gallery, setGallery] = useState([]);

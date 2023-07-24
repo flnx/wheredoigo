@@ -1,5 +1,5 @@
 import { useReducer } from 'react';
-import { initialState, placeReducer } from '../../../utils/placeReducer';
+import { initialState, placeReducer } from 'src/utils/placeReducer';
 
 export const useFormInput = () => {
     const [state, dispatch] = useReducer(placeReducer, initialState);

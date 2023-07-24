@@ -1,11 +1,11 @@
 import styles from './Content.module.css';
 
-import { StarRating } from '../../StarRating/StarRating';
-import { TextWrap } from '../../TextWrap/TextWrap';
-import { LinkButtonSuccess } from '../../Buttons/Success-Button/LinkButtonSuccess';
-import { WarningButton } from '../../Buttons/Button-Warning/WarningButton';
+import { StarRating } from 'src/components/StarRating/StarRating';
+import { TextWrap } from 'src/components/TextWrap/TextWrap';
+import { LinkButtonSuccess } from 'src/components/Buttons/Success-Button/LinkButtonSuccess';
+import { WarningButton } from 'src/components/Buttons/Button-Warning/WarningButton';
 
-import routeConstants from '../../../constants/routeConstants';
+import routeConstants from 'src/constants/routeConstants';
 
 export const Content = ({ place, isLoading, isOwner, onDeleteClickHandler }) => {
     const { name, averageRating, city, country, _id } = place;

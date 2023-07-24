@@ -1,6 +1,6 @@
 import { MemoryRouter } from 'react-router-dom';
 
-import { render as customRender, screen, userEvent, waitFor } from '../../../utils/test-utils';
+import { render as customRender, screen, userEvent } from 'src/utils/test-utils';
 import { CategoriesNav } from '../CategoriesNav';
 
 const render = (Component) => {

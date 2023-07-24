@@ -1,26 +1,23 @@
 const Place = require('../../models/placeSchema');
 const uploadImages = require('../cloudinaryService/uploadImages');
-const { validatePlaceFields } = require('../../utils/validateFields');
+const { sanitizeHtmlString } = require('../../utils/validators/sanitizeHtmlString');
 
-async function createNewPlace(data, images, destination, ownerId) {
-    const { destinationId, name, description, type } = data;
+async function createNewPlace({ data, images, destination }) {
+    const { name, description, type } = data;
+    const { _id, city, country, ownerId } = destination;
 
-    const placeData = {
-        destinationId,
-        description,
-        type,
-        name,
-    };
-
-    validatePlaceFields(placeData);
+    const clean = sanitizeHtmlString(description);
 
     const place = new Place({
-        ...placeData,
-        city: destination.city,
-        country: destination.country,
+        destinationId: _id,
+        description: clean,
         imageUrls: [],
         comments: [],
         ownerId,
+        city,
+        country,
+        name,
+        type,
     });
 
     const folderName = 'places';

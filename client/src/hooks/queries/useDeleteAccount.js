@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { deleteUserAccount } from '../../service/data/user';
+import { deleteUserAccount } from 'src/service/data/user';
 
 export const useDeleteAccount = () => {
     const { mutate, error, isLoading } = useMutation({

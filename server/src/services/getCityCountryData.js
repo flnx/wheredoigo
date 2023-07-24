@@ -10,12 +10,13 @@ async function fetchCountriesAndCities() {
 
         if (countries?.error) {
             const msg = countries?.msg || errorMessages.request.server;
-            throw createValidationError(msg, 500);
+            throw createValidationError(msg);
         }
-
+        
         return countries;
     } catch (error) {
-        throw error;
+        console.error(err.message || err);
+        throw createValidationError(errorMessages.request.unavailable, 500);
     }
 }
 
@@ -39,12 +40,13 @@ async function fetchACountryAndItsCities(country) {
         const cities = countryData?.data ?? [];
 
         if (cities.length == 0) {
-            throw createValidationError(error.request.server, 500);
+            throw createValidationError(errorMessages.request.unavailable, 500);
         }
 
         return cities;
     } catch (error) {
-        throw error;
+        console.error(err.message || err);
+        throw createValidationError(errorMessages.request.unavailable, 500);
     }
 }
 

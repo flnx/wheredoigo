@@ -1,7 +1,7 @@
-import { render, screen, userEvent, waitFor } from '../../../utils/test-utils';
+import { render, screen, userEvent, waitFor } from 'src/utils/test-utils';
 import { ImagesGridWrapper } from '../ImagesGridWrapper';
-import { images } from '../../../mocks/exampleMocks';
-import { applyCloudinaryTransformation } from '../../../utils/utils';
+import { images } from 'src/mocks/exampleMocks';
+import { applyCloudinaryTransformation } from 'src/utils/utils';
 
 describe('Gallery correctly renders the images and sets the main image', () => {
     const props = {

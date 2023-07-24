@@ -1,5 +1,5 @@
 import styles from './ServerDown.module.css';
-import { Container } from '../../Containers/Container/Container';
+import { Container } from 'src/components/Containers/Container/Container';
 
 const ServerDown = () => {
     return (

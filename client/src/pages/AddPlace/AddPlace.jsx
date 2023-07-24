@@ -1,10 +1,19 @@
 import { useParams } from 'react-router-dom';
-import { useRequestCreatePlacePermissions } from '../../hooks/queries/useRequestCreatePlacePermissions';
-import { useErrorBoundary } from 'react-error-boundary';
-import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
+// React Query Hooks
+import { useRequestCreatePlacePermissions } from 'src/hooks/queries/useRequestCreatePlacePermissions';
+
+// Global Hoooks
+import { useErrorBoundary } from 'react-error-boundary';
+
+// Custom Hooks
+import { useDocumentTitle } from 'src/hooks/useDocumentTitle';
+
+// Global Components
+import { DarkOverlay } from 'src/components/DarkOverlay/DarkOverlay';
+
+// Local Components
 import { Form } from './Form/Form';
-import { DarkOverlay } from '../../components/DarkOverlay/DarkOverlay';
 
 export const AddPlace = () => {
     const { showBoundary } = useErrorBoundary();

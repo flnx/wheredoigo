@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { CaretRight } from '@phosphor-icons/react';
-import { TextWrap } from '../../TextWrap/TextWrap';
+import { TextWrap } from 'src/components/TextWrap/TextWrap';
 
 import styles from './ShowMoreButton.module.css';
 

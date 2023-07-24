@@ -1,7 +1,7 @@
-import { IconLink } from '../../../Buttons/IconLink/IconLink';
 import { MagnifyingGlass } from '@phosphor-icons/react';
+import { IconLink } from 'src/components/Buttons/IconLink/IconLink';
 
-import routeConstants from '../../../../constants/routeConstants';
+import routeConstants from 'src/constants/routeConstants';
 
 export const PublicRoutes = () => {
     const { DISCOVER } = routeConstants;

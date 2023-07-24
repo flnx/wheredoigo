@@ -1,9 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext';
-import routeConstants from '../../constants/routeConstants';
-
-import * as user from '../../service/auth/logout';
+import { AuthContext } from 'src/context/AuthContext';
+import routeConstants from 'src/constants/routeConstants';
 
 const { HOME } = routeConstants;
 

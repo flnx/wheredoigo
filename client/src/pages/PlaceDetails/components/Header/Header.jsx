@@ -1,10 +1,12 @@
-import { Outlet } from 'react-router-dom';
-import { ShowMoreButton } from '../../../../components/Buttons/ShowMoreButton/ShowMoreButton';
-import { StarRating } from '../../../../components/StarRating/StarRating';
-import { TextWrap } from '../../../../components/TextWrap/TextWrap';
-
 import parse from 'html-react-parser';
-import routeConstants from '../../../../constants/routeConstants';
+import { Outlet } from 'react-router-dom';
+
+// Components
+import { ShowMoreButton } from 'src/components/Buttons/ShowMoreButton/ShowMoreButton';
+import { StarRating } from 'src/components/StarRating/StarRating';
+import { TextWrap } from 'src/components/TextWrap/TextWrap';
+
+import routeConstants from 'src/constants/routeConstants';
 import styles from './Header.module.css';
 
 export const Header = ({ place, isLoading }) => {
@@ -13,7 +15,7 @@ export const Header = ({ place, isLoading }) => {
     const { ABOUT, BY_ID } = routeConstants.PLACES;
     const pageRoute = BY_ID.routePath(place?._id);
 
-    const descLoading = `${isLoading ? styles.looading : ''}`;
+    const descLoading = isLoading ? styles.loading : '';
 
     return (
         <header>

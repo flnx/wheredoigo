@@ -1,6 +1,4 @@
-import { Link } from './Link';
-
-import routeConstants from '../../../../constants/routeConstants';
+import routeConstants from 'src/constants/routeConstants';
 const { DASHBOARD, AUTH } = routeConstants;
 
 // Icons
@@ -9,7 +7,8 @@ import { Plus } from '@phosphor-icons/react';
 import { SuitcaseRolling } from '@phosphor-icons/react';
 import { GearSix } from '@phosphor-icons/react';
 import { SignOut } from '@phosphor-icons/react';
-import { IconLink } from '../../../Buttons/IconLink/IconLink';
+
+import { IconLink } from 'src/components/Buttons/IconLink/IconLink';
 
 export const AuthenticatedRouteLinks = () => {
     return (

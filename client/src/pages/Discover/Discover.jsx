@@ -1,12 +1,16 @@
-import { validateCategoriesOnSearch } from '../../utils/formValidators';
+import { validateCategoriesOnSearch } from 'src/utils/formValidators';
 import { useSearchParams } from 'react-router-dom';
-import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
-// Components
-import { CategoriesNav } from '../../components/CategoriesNav/CategoriesNav';
-import { SearchBar } from '../../components/Serach-Bar/SearchBar';
+// Hooks
+import { useDocumentTitle } from 'src/hooks/useDocumentTitle';
+
+// Global Components
+import { CategoriesNav } from 'src/components/CategoriesNav/CategoriesNav';
+import { SearchBar } from 'src/components/Serach-Bar/SearchBar';
+import { Container } from 'src/components/Containers/Container/Container';
+
+// Local Components
 import { Destinations } from './components/Destinations/Destinations';
-import { Container } from '../../components/Containers/Container/Container';
 import { HashTagCategories } from './components/HashTagCategories/HashTagCategories';
 
 import styles from './Discover.module.css';

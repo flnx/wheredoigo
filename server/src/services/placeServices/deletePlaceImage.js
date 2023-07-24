@@ -1,5 +1,4 @@
 const Place = require('../../models/placeSchema');
-const { isValid } = require('mongoose').Types.ObjectId;
 const { errorMessages } = require('../../constants/errorMessages');
 
 // Query
@@ -13,10 +12,6 @@ const { createValidationError } = require('../../utils/createValidationError');
 
 
 async function deletePlaceImage(placeId, imgId) {
-    if (!imgId || !isValid(imgId)) {
-        throw createValidationError(errorMessages.data.notFound, 404);
-    }
-
     const query = deleteImageQuery(placeId, imgId);
     const result = await Place.findOneAndUpdate(...query)
         .lean()

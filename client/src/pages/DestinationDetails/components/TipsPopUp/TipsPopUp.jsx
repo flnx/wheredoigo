@@ -1,11 +1,13 @@
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 // Components
-import { LoadingSkeleton } from '../../../../components/LoadingSkeletons/LoadingSkeleton';
-import { checkArrayAndPreloadElements } from '../../../../utils/utils';
-import { Link } from 'react-router-dom';
+import { LoadingSkeleton } from 'src/components/LoadingSkeletons/LoadingSkeleton';
 
-import routeConstants from '../../../../constants/routeConstants';
+// Utils
+import { checkArrayAndPreloadElements } from 'src/utils/utils';
+
+import routeConstants from 'src/constants/routeConstants';
 import styles from './TipsPopUp.module.css';
 
 const propTypes = {

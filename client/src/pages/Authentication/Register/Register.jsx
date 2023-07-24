@@ -1,21 +1,28 @@
 import { Link } from 'react-router-dom';
 
-// Hooks
+// React Query Hooks
+import { useUserRegister } from 'src/hooks/queries/useUserRegister';
+
+// Global Hooks
 import { useErrorBoundary } from 'react-error-boundary';
-import { useUserRegister } from '../../../hooks/queries/useUserRegister';
+import { useDocumentTitle } from 'src/hooks/useDocumentTitle';
+
+// Local Hooks
 import { useSubmitFormData } from '../hooks/useSubmitFormData';
 import { useFormInput } from '../hooks/useFormInput';
 
-// Components
+// Global Components
+import { ButtonSky } from 'src/components/Buttons/Button-Sky/ButtonSky';
+// -- ICONS --
+import { EnvelopeSimple } from '@phosphor-icons/react';
+import { User } from '@phosphor-icons/react';
+import { LockSimple } from '@phosphor-icons/react';
+
+// Local Components
 import { FormLayout } from '../components/FormLayout';
 import { FormInput } from '../components/FormInput';
-import { ButtonSky } from '../../../components/Buttons/Button-Sky/ButtonSky';
-import { User } from '@phosphor-icons/react';
-import { EnvelopeSimple } from '@phosphor-icons/react';
-import { LockSimple } from '@phosphor-icons/react';
-import { useDocumentTitle } from '../../../hooks/useDocumentTitle';
 
-import routeConstants from '../../../constants/routeConstants';
+import routeConstants from 'src/constants/routeConstants';
 import styles from '../FormLayout.module.css';
 
 const { AUTH } = routeConstants;

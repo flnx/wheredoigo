@@ -4,8 +4,8 @@ import { WarningButton } from '../Buttons/Button-Warning/WarningButton';
 import { LinkButtonSuccess } from '../Buttons/Success-Button/LinkButtonSuccess';
 
 import styles from './DestinationsGrid.module.css';
-import routeConstants from '../../constants/routeConstants';
-import { applyCloudinaryTransformation } from '../../utils/utils';
+import routeConstants from 'src/constants/routeConstants';
+import { applyCloudinaryTransformation } from 'src/utils/utils';
 
 const propTypes = {
     destination: PropTypes.shape({

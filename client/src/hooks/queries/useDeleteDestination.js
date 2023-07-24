@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteDestination } from '../../service/data/destinations';
-// import { queryEndpoints } from '../../constants/reactQueryEndpoints';
+import { deleteDestination } from 'src/service/data/destinations';
 
 export const useDeleteDestination = () => {
     const queryClient = useQueryClient();

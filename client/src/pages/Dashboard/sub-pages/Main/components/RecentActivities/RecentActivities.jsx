@@ -1,7 +1,9 @@
-import { AuthContext } from '../../../../../../context/AuthContext';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import routeConstants from '../../../../../../constants/routeConstants';
+
+import { AuthContext } from 'src/context/AuthContext';
+import routeConstants from 'src/constants/routeConstants';
+
 import styles from './RecentActivities.module.css';
 
 export const RecentActivities = ({ activities }) => {

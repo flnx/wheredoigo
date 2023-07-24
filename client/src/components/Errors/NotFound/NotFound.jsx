@@ -1,4 +1,4 @@
-import { Container } from '../../Containers/Container/Container';
+import { Container } from 'src/components/Containers/Container/Container';
 import styles from './NotFound.module.css';
 
 const NotFound = () => {

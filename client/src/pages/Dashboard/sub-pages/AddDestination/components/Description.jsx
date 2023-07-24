@@ -1,5 +1,6 @@
-import { ShowFormError } from '../../../../../components/ShowFormError/ShowFormError';
-import { TipTap } from '../../../../../components/TipTap/TipTap';
+// Components
+import { ShowFormError } from 'src/components/ShowFormError/ShowFormError';
+import { TipTap } from 'src/components/TipTap/TipTap';
 
 export const Description = ({ updateDescription, errors, charCounter }) => {
     const onChangeHandler = (content, charCounter) => {

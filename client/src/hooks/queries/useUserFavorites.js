@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { queryEndpoints } from '../../constants/reactQueryEndpoints';
-import { getUserFavorites } from '../../service/data/user';
+import { queryEndpoints } from 'src/constants/reactQueryEndpoints';
+import { getUserFavorites } from 'src/service/data/user';
 
 export const useUserFavorites = () => {
     const { data, isLoading, error } = useQuery({

@@ -1,10 +1,10 @@
-import { render, screen, userEvent, waitFor } from '../../../utils/test-utils';
+import { render, screen, userEvent, waitFor } from 'src/utils/test-utils';
 import { ImagesManager } from '../ImagesManager';
 
-import { useAddDestinationNewImages } from '../../../hooks/queries/useAddDestinationNewImages';
-import { useDeleteDestinationImage } from '../../../hooks/queries/useDeleteDestinationImage';
-import { images, newlyAddedImages } from '../../../mocks/exampleMocks';
-import { applyCloudinaryTransformation } from '../../../utils/utils';
+import { useAddDestinationNewImages } from 'src/hooks/queries/useAddDestinationNewImages';
+import { useDeleteDestinationImage } from 'src/hooks/queries/useDeleteDestinationImage';
+import { images, newlyAddedImages } from 'src/mocks/exampleMocks';
+import { applyCloudinaryTransformation } from 'src/utils/utils';
 
 describe('ImagesManager rendering testing', () => {
     let props;

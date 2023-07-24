@@ -1,4 +1,4 @@
-import { ShowFormError } from '../../../components/ShowFormError/ShowFormError';
+import { ShowFormError } from 'src/components/ShowFormError/ShowFormError';
 import styles from './Form.module.css';
 
 export const Textarea = ({ description, onChangeHandler, errors }) => {

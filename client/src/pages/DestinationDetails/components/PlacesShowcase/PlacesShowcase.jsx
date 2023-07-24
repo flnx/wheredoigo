@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import { checkArrayAndPreloadElements } from '../../../../utils/utils';
+import { checkArrayAndPreloadElements } from 'src/utils/utils';
 
-import { PlacesSlider } from '../../../../components/Sliders/PlacesSlider/PlacesSlider';
-import { LoadingSkeleton } from '../../../../components/LoadingSkeletons/LoadingSkeleton';
+import { PlacesSlider } from 'src/components/Sliders/PlacesSlider/PlacesSlider';
+import { LoadingSkeleton } from 'src/components/LoadingSkeletons/LoadingSkeleton';
 
 const propTypes = {
     places: PropTypes.array.isRequired,

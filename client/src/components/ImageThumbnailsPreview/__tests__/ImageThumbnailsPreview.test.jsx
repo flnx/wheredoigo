@@ -1,6 +1,6 @@
-import { images } from '../../../mocks/exampleMocks';
-import { render, screen, userEvent } from '../../../utils/test-utils';
-import { applyCloudinaryTransformation } from '../../../utils/utils';
+import { images } from 'src/mocks/exampleMocks';
+import { render, screen, userEvent } from 'src/utils/test-utils';
+import { applyCloudinaryTransformation } from 'src/utils/utils';
 import { ImageThumbnailsPreview } from '../ImageThumbnailsPreview';
 
 describe('ImageThumbnailsPreview testing', () => {

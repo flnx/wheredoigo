@@ -1,16 +1,22 @@
 import { useParams } from 'react-router-dom';
-import { useDestination } from '../../hooks/queries/useDestination';
 import { useErrorBoundary } from 'react-error-boundary';
-import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
-// Components
+// React Query Hooks
+import { useDestination } from 'src/hooks/queries/useDestination';
+
+// Custom Hooks
+import { useDocumentTitle } from 'src/hooks/useDocumentTitle';
+
+// Local Components
 import { ImagesSection } from './components/ImagesSection/ImagesSection';
-import { DestinationHeader } from './components/Header/Header';
 import { PlacesShowcase } from './components/PlacesShowcase/PlacesShowcase';
-import { Container } from '../../components/Containers/Container/Container';
-import { LinkButtonSecondary } from '../../components/Buttons/Secondary-Btn/LinkButtonSecondary';
+import { DestinationHeader } from './components/Header/Header';
 
-import routeConstants from '../../constants/routeConstants';
+// Global Components
+import { Container } from 'src/components/Containers/Container/Container';
+import { LinkButtonSecondary } from 'src/components/Buttons/Secondary-Btn/LinkButtonSecondary';
+
+import routeConstants from 'src/constants/routeConstants';
 import styles from './DestinationDetails.module.css';
 
 export const DestinationDetails = () => {
@@ -19,7 +25,7 @@ export const DestinationDetails = () => {
     const { isLoading, error, data } = useDestination(destinationId);
     const { routePath } = routeConstants.PLACES.ADD;
     useDocumentTitle(data?.city);
-
+    
     const destination = data || {};
     const placesData = destination.places || [];
     const imagesData = destination.imageUrls || [];

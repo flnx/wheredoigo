@@ -3,7 +3,7 @@ import { useErrorBoundary } from 'react-error-boundary';
 // React Query Hook
 import { useDestinationsAndPlaces } from "src/hooks/queries/useDestinations";
 
-// Home Components
+// Local Components
 import { Showcase } from './Showcase/Showcase';
 import { Categories } from './Categories/Categories';
 import { Intro } from './Intro/Intro';

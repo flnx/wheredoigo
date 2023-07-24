@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useSubmitFormData } from './useSubmitFormData';
 
-// Components
-import { SecondaryButton } from '../../../../components/Buttons/Secondary-Btn/SecondaryButton';
+// Local Components
 import { Rate } from './Rate';
-import { DarkOverlay } from '../../../../components/DarkOverlay/DarkOverlay';
-import { ServerErrorPopUp } from '../../../../components/ServerErrorPopUp/ServerErrorPopUp';
-import { ShowFormError } from '../../../../components/ShowFormError/ShowFormError';
+
+// Global Components
+import { SecondaryButton } from 'src/components/Buttons/Secondary-Btn/SecondaryButton';
+import { DarkOverlay } from 'src/components/DarkOverlay/DarkOverlay';
+import { ServerErrorPopUp } from 'src/components/ServerErrorPopUp/ServerErrorPopUp';
+import { ShowFormError } from 'src/components/ShowFormError/ShowFormError';
 
 import styles from './CommentForm.module.css';
 

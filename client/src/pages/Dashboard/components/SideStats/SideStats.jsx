@@ -1,9 +1,14 @@
 import { useErrorBoundary } from 'react-error-boundary';
 import { useEffect, useState } from 'react';
-import { useFetchPlacesData } from '../../../../hooks/queries/useFetchPlaceData';
 
-import { ServerErrorPopUp } from '../../../../components/ServerErrorPopUp/ServerErrorPopUp';
-import { FormSelect } from '../../../../components/FormSelect/FormSelect';
+// React Query Hooks
+import { useFetchPlacesData } from 'src/hooks/queries/useFetchPlaceData';
+
+// Global Ccomponents
+import { ServerErrorPopUp } from 'src/components/ServerErrorPopUp/ServerErrorPopUp';
+import { FormSelect } from 'src/components/FormSelect/FormSelect';
+
+// Local Components
 import { PieChart } from './components/PieChart';
 
 

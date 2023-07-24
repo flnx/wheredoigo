@@ -1,5 +1,5 @@
 import { LoadingSkeleton } from '../LoadingSkeletons/LoadingSkeleton';
-import { checkArrayAndPreloadElements } from '../../utils/utils';
+import { checkArrayAndPreloadElements } from 'src/utils/utils';
 
 export const FormLoadingSkeleton = () => {
     const dataDuringLoading = checkArrayAndPreloadElements([], 7);

@@ -4,14 +4,7 @@ const { errorMessages } = require('../../constants/errorMessages');
 const editPlaceNameSchema = yup.object({
     name: yup
         .string()
-        .required(errorMessages.data),
-
-    charCounter: yup
-        .number()
-        .required()
-        .integer()
-        .min(1, errorMessages.validation.placeName)
-        .max(60, errorMessages.validation.placeName),
+        .required(errorMessages.data.required('Name')),
 });
 
 module.exports = editPlaceNameSchema;

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { removeComment } from '../../service/data/comments';
-import { queryEndpoints } from '../../constants/reactQueryEndpoints';
+import { removeComment } from 'src/service/data/comments';
+import { queryEndpoints } from 'src/constants/reactQueryEndpoints';
 
 export const useRemoveComment = (commentId, placeId) => {
     const queryClient = useQueryClient();

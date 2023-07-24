@@ -14,10 +14,9 @@ export const createDestinationFormData = async (state, images) => {
     return formData;
 };
 
-export const createPlaceFormData = async (state, images, destinationId) => {
+export const createPlaceFormData = async (state, images) => {
     const formData = new FormData();
 
-    formData.append('destinationId', destinationId);
     formData.append('name', state.name);
     formData.append('type', state.type);
     formData.append('description', state.description);

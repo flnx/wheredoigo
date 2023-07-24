@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import { Adventure, Beach, Culture, Islands, Mountain, Snow } from '../../utils/icons';
+import { Adventure, Beach, Culture, Islands, Mountain, Snow } from 'src/utils/icons';
 import styles from './CategoriesNav.module.css';
 
 const propTypes = {

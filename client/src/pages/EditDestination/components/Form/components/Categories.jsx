@@ -1,17 +1,12 @@
 import { useState } from 'react';
 
-// Components
-
-import { FormCheckboxes } from '../../../../../components/FormCheckboxes/FormCheckboxes';
-import { EditTextareaPairs } from '../../../../../components/Buttons/EditTextareaPairs/EditTextareaPairs';
-import { CancelButton } from '../../../../../components/Buttons/Cancel-Button/CancelButton';
-import { ButtonSky } from '../../../../../components/Buttons/Button-Sky/ButtonSky';
-import {
-    FormEditWrapper,
-    WrapperWithWidth,
-    EditButtonsWrapper,
-} from '../../../../../components/Containers/FormEditWrapper/FormEditWrapper';
-import { SpanLabelTitle } from '../../../../../components/SpanLabelTitle/SpanLabelTitle';
+// Global Components
+import { FormCheckboxes } from 'src/components/FormCheckboxes/FormCheckboxes';
+import { EditTextareaPairs } from 'src/components/Buttons/EditTextareaPairs/EditTextareaPairs';
+import { CancelButton } from 'src/components/Buttons/Cancel-Button/CancelButton';
+import { ButtonSky } from 'src/components/Buttons/Button-Sky/ButtonSky';
+import { FormEditWrapper, WrapperWithWidth, EditButtonsWrapper } from 'src/components/Containers/FormEditWrapper/FormEditWrapper';
+import { SpanLabelTitle } from 'src/components/SpanLabelTitle/SpanLabelTitle';
 
 export const Categories = ({
     categories,

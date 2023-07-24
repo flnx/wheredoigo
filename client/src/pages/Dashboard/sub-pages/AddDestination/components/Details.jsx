@@ -1,19 +1,19 @@
 import { useState } from 'react';
 
-// Components
-import { TipTap } from '../../../../../components/TipTap/TipTap';
-import { OverlayDisabledBodyScroll } from '../../../../../components/OverlayDisabledBodyScroll/OverlayDisabledBodyScroll';
-import { ButtonSky } from '../../../../../components/Buttons/Button-Sky/ButtonSky';
-import { CancelButton } from '../../../../../components/Buttons/Cancel-Button/CancelButton';
-import { CustomConfirmModal } from '../../../../../components/CustomConfirmModal/CustomConfirmModal';
-import { ButtonPairsWrapper } from '../../../../../components/Containers/ButtonPairsWrapper/ButtonPairsWrapper';
-import { WarningButton } from '../../../../../components/Buttons/Button-Warning/WarningButton';
+// Global Components
+import { TipTap } from 'src/components/TipTap/TipTap';
+import { OverlayDisabledBodyScroll } from 'src/components/OverlayDisabledBodyScroll/OverlayDisabledBodyScroll';
+import { ButtonSky } from 'src/components/Buttons/Button-Sky/ButtonSky';
+import { CancelButton } from 'src/components/Buttons/Cancel-Button/CancelButton';
+import { CustomConfirmModal } from 'src/components/CustomConfirmModal/CustomConfirmModal';
+import { ButtonPairsWrapper } from 'src/components/Containers/ButtonPairsWrapper/ButtonPairsWrapper';
+import { WarningButton } from 'src/components/Buttons/Button-Warning/WarningButton';
 
 export const Details = ({ selectedDetail, updateDetail, hideDetailHandler }) => {
     const [popUpConfirmCloseModal, setPopUpConfirmCloseModal] = useState(false);
     const [detailContent, setDetailContent] = useState(selectedDetail.content);
 
-    // editor inside clicks causes empty paragraph to appear
+    // Editor inside click causes empty paragraph to appear
     const hasChanges = detailContent !== '<p></p>' && selectedDetail.content !== detailContent;
 
     const confirmModalCloseHandler = () => {

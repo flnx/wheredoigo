@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAddNewDestination } from '../../../../hooks/queries/useAddDestination';
 
-import { createDestinationFormData } from '../../../../utils/formData';
-import { validateDestinationData } from '../../../../utils/formValidators';
+// React Query Hooks
+import { useAddNewDestination } from 'src/hooks/queries/useAddDestination';
 
-import routeConstants from '../../../../constants/routeConstants';
+// Utils
+import { createDestinationFormData } from 'src/utils/formData';
+import { validateDestinationData } from 'src/utils/formValidators';
+
+import routeConstants from 'src/constants/routeConstants';
 
 export const useSubmitData = (images, state, categories) => {
     const [createDestination, error, isLoading] = useAddNewDestination();

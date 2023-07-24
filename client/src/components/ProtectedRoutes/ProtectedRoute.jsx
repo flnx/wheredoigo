@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext';
-import routeConstants from '../../constants/routeConstants';
+import { AuthContext } from 'src/context/AuthContext';
+import routeConstants from 'src/constants/routeConstants';
 
 const { LOGIN } = routeConstants.AUTH;
 

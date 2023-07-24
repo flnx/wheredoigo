@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { queryEndpoints } from '../../../constants/reactQueryEndpoints';
-import { editPlaceType } from '../../../service/data/places';
+import { queryEndpoints } from 'src/constants/reactQueryEndpoints';
+import { editPlaceType } from 'src/service/data/places';
 
 export const useEditPlaceType = ({ placeId, destinationId }) => {
     const queryClient = useQueryClient();

@@ -12,9 +12,10 @@ exports.errorMessages = {
         password: 'Password must include at least one letter and one digit.',
         username: 'Username must be between 2-12 characters long and contain only letters and numbers',
         comment: {
-            title: 'Title must be at least 2 characters long',
-            body: 'Comment must contain at least 10 characters',
+            title: 'Title must be between 2 and 100 characters',
+            body: 'Comment must be between 10 and 2000 characters',
             addFailed: 'Failed to add the comment. Please try again later',
+            rating: 'Please rate the place to share your experience',
         },
         description: (min = 50, max = 5000) => `Description must be between ${min} and ${max} characters`,
         placeName: 'Place name must be between 1 and 60 characters',
@@ -22,9 +23,8 @@ exports.errorMessages = {
 
     data: {
         notFound: 'Not Found 🦖',
-        rating: 'Please rate the place to share your experience',
         notEdited: "Oops! Edit failed. We couldn't find the thing you were trying to update.",
-        notDeleted: 'Deletion process failed. Please try again.',
+        notDeleted: "Oh no! We couldn't complete the action. Please try again",
         imagesBoundary: (num = 1) => `Please upload a minimum of ${num} ${num > 1 ? 'images' : 'image'}.`,
         imagesLimit: 'You have uploaded too many images. Please limit your upload to 50 images or less',
         category: 'Please select at least 1 valid category',

@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import { memo, useMemo } from 'react';
 
-// Components
-import { FormSelect } from '../../../../../../components/FormSelect/FormSelect';
-import { useCountriesCities } from '../../../../../../hooks/queries/useCountriesCities';
+// Global Components
+import { FormSelect } from 'src/components/FormSelect/FormSelect';
+import { useCountriesCities } from 'src/hooks/queries/useCountriesCities';
 
-import { extractServerErrorMessage } from '../../../../../../utils/utils';
+// Utils
+import { extractServerErrorMessage } from 'src/utils/utils';
 import styles from './LocationDropdown.module.css';
 
 const propTypes = {

@@ -1,4 +1,3 @@
-
 // Utils
 const { createValidationError } = require('../../utils/createValidationError');
 const { sanitizeHtmlString } = require('../../utils/validators/sanitizeHtmlString');
@@ -9,18 +8,17 @@ const { errorMessages } = require('../../constants/errorMessages');
 // Services
 const { fetchACountryAndItsCities } = require('../../services/getCityCountryData');
 
-
 const validateCreateDestinationData = (yupSchema) => async (req, res, next) => {
     try {
         const body = req.body;
         const data = {
-            city:req.body.city,
+            city: req.body.city,
             country: body.country,
             description: body.description,
             details: body.details,
             category: body.category,
         };
-        
+
         const { city, country, description, details } = data;
 
         // Validate props
@@ -48,16 +46,14 @@ const validateCreateDestinationData = (yupSchema) => async (req, res, next) => {
     } catch (err) {
         next(err);
     }
-}
+};
 
 async function validateCountryAndCity(countryStr, cityStr) {
     // fetches the country and its cities
     const countryData = await fetchACountryAndItsCities(countryStr);
 
     // finds the city provided by the client
-    const city = countryData.find(
-        (c) => c.toLowerCase() === cityStr.toLowerCase()
-    );
+    const city = countryData.find((c) => c.toLowerCase() === cityStr.toLowerCase());
 
     // if the city is not found in the provided country cities array, it throws
     if (!city) {

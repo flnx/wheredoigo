@@ -1,12 +1,15 @@
 import PropTypes from 'prop-types';
 
+// Custom Hooks
 import { useForm } from './useForm';
 
-// Components
+// Local Components
 import { SelectType } from '../SelectType/SelectType';
-import { MemoizedFormFieldEditor } from '../../../../components/FormFieldEditor/FormFieldEditor';
-import { FormLoadingSkeleton } from '../../../../components/FormLoadingSkeleton/FormLoadingSkeleton';
-import { TextWrap } from '../../../../components/TextWrap/TextWrap';
+
+// Global Components
+import { MemoizedFormFieldEditor } from 'src/components/FormFieldEditor/FormFieldEditor';
+import { FormLoadingSkeleton } from 'src/components/FormLoadingSkeleton/FormLoadingSkeleton';
+import { TextWrap } from 'src/components/TextWrap/TextWrap';
 
 const propTypes = {
     data: PropTypes.object.isRequired,
@@ -26,7 +29,9 @@ export const Form = ({ data, placeId, destinationId, isLoading }) => {
                 <TextWrap isLoading={isLoading} content={'Place Info'} />
             </h3>
             <form>
-                {isLoading && <FormLoadingSkeleton />}
+                <section className="flex-column">
+                    {isLoading && <FormLoadingSkeleton />}
+                </section>
 
                 {!isLoading && (
                     <>

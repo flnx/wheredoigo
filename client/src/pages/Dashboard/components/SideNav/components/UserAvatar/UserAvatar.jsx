@@ -1,16 +1,22 @@
 import { useState, useRef, useContext } from 'react';
-import { useChangeUserAvatar } from '../../../../../../hooks/queries/useChangeUserAvatar';
-import { AuthContext } from '../../../../../../context/AuthContext';
-import { createAvatarImage } from '../../../../../../utils/imagesHandler';
 
-// Components
-import { ImageCrop } from '../../../../../../components/ImageCrop/ImageCrop';
-import { FileInput } from '../../../../../../components/FileInput/FileInput';
-import { CancelButton } from '../../../../../../components/Buttons/Cancel-Button/CancelButton';
-import { SuccessButton } from '../../../../../../components/Buttons/Success-Button/SuccessButton';
+// React Query Hooks
+import { useChangeUserAvatar } from 'src/hooks/queries/useChangeUserAvatar';
+
+// Auth Context
+import { AuthContext } from 'src/context/AuthContext';
+
+// Utils
+import { createAvatarImage } from 'src/utils/imagesHandler';
+
+// Global Components
 import { CameraPlus } from '@phosphor-icons/react';
-import { DarkOverlay } from '../../../../../../components/DarkOverlay/DarkOverlay';
-import { ServerErrorPopUp } from '../../../../../../components/ServerErrorPopUp/ServerErrorPopUp';
+import { ImageCrop } from 'src/components/ImageCrop/ImageCrop';
+import { FileInput } from 'src/components/FileInput/FileInput';
+import { CancelButton } from 'src/components/Buttons/Cancel-Button/CancelButton';
+import { SuccessButton } from 'src/components/Buttons/Success-Button/SuccessButton';
+import { DarkOverlay } from 'src/components/DarkOverlay/DarkOverlay';
+import { ServerErrorPopUp } from 'src/components/ServerErrorPopUp/ServerErrorPopUp';
 
 import styles from './UserAvatar.module.css';
 

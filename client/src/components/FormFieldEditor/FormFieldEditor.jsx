@@ -2,14 +2,15 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { memo } from 'react';
 
-// Components
-import { ButtonSky } from '../../components/Buttons/Button-Sky/ButtonSky';
-import { CancelButton } from '../../components/Buttons/Cancel-Button/CancelButton';
+// Global Components
+import { ButtonSky } from 'src/components/Buttons/Button-Sky/ButtonSky';
+import { CancelButton } from 'src/components/Buttons/Cancel-Button/CancelButton';
+
+// Local Components
 import { EditTextareaPairs } from '../Buttons/EditTextareaPairs/EditTextareaPairs';
 import { SpanLabelTitle } from '../SpanLabelTitle/SpanLabelTitle';
 import { TipTap } from '../TipTap/TipTap';
 import { FormEditWrapper, WrapperWithWidth, EditButtonsWrapper } from '../Containers/FormEditWrapper/FormEditWrapper';
-
 
 const propTypes = {
     categoryId: PropTypes.string,

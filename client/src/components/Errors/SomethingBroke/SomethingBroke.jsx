@@ -1,5 +1,5 @@
 import styles from './SomethingBroke.module.css';
-import { Container } from '../../Containers/Container/Container';
+import { Container } from 'src/components/Containers/Container/Container';
 
 const SomethingBroke = () => {
     return (

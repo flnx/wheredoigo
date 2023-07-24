@@ -1,25 +1,23 @@
+import { ClipLoader } from 'react-spinners';
 import { useSearchParams } from 'react-router-dom';
-import { getPageFromSearchParams } from '../../../../utils/getPageFromSearchParams';
-import { usePlaceComments } from '../../../../hooks/queries/usePlaceComments';
 
-// Components
+// Utils
+import { getPageFromSearchParams } from 'src/utils/getPageFromSearchParams';
+import { extractServerErrorMessage } from 'src/utils/utils';
+
+// Custom Hooks
+import { usePlaceComments } from 'src/hooks/queries/usePlaceComments';
+
+// Local Components
 import { PaginationBar } from '../PaginationBar/PaginationBar';
 import { Comment } from './Comment';
-import { ClipLoader } from 'react-spinners';
 
-import { extractServerErrorMessage } from '../../../../utils/utils';
 import styles from './Comments.module.css';
 
 export const Comments = ({ placeId, commentSectionRef }) => {
     const [currentPage, setCurrentPage] = useSearchParams({});
     const page = getPageFromSearchParams(currentPage);
-    const [
-        comments, 
-        error, 
-        isLoading, 
-        isPreviousData, 
-        isFetching
-    ] = usePlaceComments({ placeId, page });
+    const [comments, error, isPreviousData, isFetching] = usePlaceComments({ placeId, page });
 
     const onPageClickHandler = (value) => {
         const page = parseInt(value);

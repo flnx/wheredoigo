@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { getDestination } from '../../service/data/destinations';
-import { queryEndpoints } from '../../constants/reactQueryEndpoints';
+import { getDestination } from 'src/service/data/destinations';
+import { queryEndpoints } from 'src/constants/reactQueryEndpoints';
 
 export const useDestination = (destinationId) => {
     const destination = useQuery({

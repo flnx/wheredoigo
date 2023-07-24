@@ -1,5 +1,5 @@
 import { act } from 'react-dom/test-utils';
-import { render, screen } from '../../../utils/test-utils';
+import { render, screen } from 'src/utils/test-utils';
 import { ServerErrorPopUp } from '../ServerErrorPopUp';
 
 describe('ServerErrorPopUp testing', () => {

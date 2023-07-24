@@ -1,4 +1,4 @@
-import { extractServerErrorMessage } from '../../utils/utils';
+import { extractServerErrorMessage } from 'src/utils/utils';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Suspense, lazy } from 'react';
 

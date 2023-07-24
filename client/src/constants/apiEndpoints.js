@@ -12,7 +12,9 @@ export const apiEndpoints = {
     place: {
         editDescription: (id) => `places/${id}/description`,
         editType: (id) => `places/${id}/type`,
-        editName: (id) => `places/${id}/name`
+        editName: (id) => `places/${id}/name`,
+        create: (destinationId) => `destinations/${destinationId}/places/add`,
+
     },
 
     login: '/login',
@@ -55,7 +57,6 @@ export const apiEndpoints = {
     placeById: (id) => `places/${id}`,
     placeComments: (id, page) => `places/${id}/comments?page=${page}`,
     generateAIComments: (id) => `places/${id}/generate-ai-comments`,
-    addPlace: (destinationId) => `destinations/${destinationId}/places/add`,
     requestCreatePlacePermissions: (destinationId) => `destinations/${destinationId}/places/add`,
     requestPlaceToEdit: (id) => `places/${id}/request-edit-permissions`,
     deletePlace: (id) => `places/${id}/delete`,

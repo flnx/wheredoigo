@@ -1,4 +1,4 @@
-import { LoadingSkeleton } from '../../../LoadingSkeletons/LoadingSkeleton';
+import { LoadingSkeleton } from 'src/components/LoadingSkeletons/LoadingSkeleton';
 
 import styles from '../../ImagesGridWrapper.module.css';
 

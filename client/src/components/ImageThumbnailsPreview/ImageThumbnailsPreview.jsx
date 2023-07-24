@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 // Components
 import { X } from '@phosphor-icons/react';
 import { LoadingSkeleton } from '../LoadingSkeletons/LoadingSkeleton';
-import { applyCloudinaryTransformation } from '../../utils/utils';
+
+// Utils
+import { applyCloudinaryTransformation } from 'src/utils/utils';
 
 import styles from './ImageThumbnailsPreview.module.css';
 

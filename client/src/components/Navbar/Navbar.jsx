@@ -1,10 +1,14 @@
-import { AuthContext } from '../../context/AuthContext';
 import { useState, useEffect, useContext, useRef } from 'react';
-import { useWindowSize } from '../../hooks/useWindowSize';
 import { Link, useLocation } from 'react-router-dom';
-import { useCloseDropdown } from '../../hooks/useCloseDropdown';
 
-// Components
+// Auth Context
+import { AuthContext } from 'src/context/AuthContext';
+
+// Custom Hooks
+import { useWindowSize } from 'src/hooks/useWindowSize';
+import { useCloseDropdown } from 'src/hooks/useCloseDropdown';
+
+// Local Components
 import { NavLinksDesktop } from './components/NavLinksDesktop/NavLinksDesktop';
 import { AvatarIcon } from './components/AvatarIcon/AvatarIcon';
 import { DesktopDropdownMenu } from './components/DropdownMenu/DesktopDropdownMenu';
@@ -12,9 +16,9 @@ import { MobileDropdownMenu } from './components/DropdownMenu/MobileDropdownMenu
 import { HamburgerIcon } from './components/HamburgerIcon/HamburgerIcon';
 
 // assets
-import logo from '../../assets/logo/logo.png';
+import logo from 'src/assets/logo/logo.png';
 
-import routeConstants from '../../constants/routeConstants';
+import routeConstants from 'src/constants/routeConstants';
 import styles from './Navbar.module.css';
 
 const { HOME } = routeConstants;

@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 
+// Components
+import { Container } from 'src/components/Containers/Container/Container';
 import { SwiperSlide } from 'swiper/react';
 import { SliderWrapper } from './SwiperSettings';
 import { SliderCard } from './SliderCard';
-import { Container } from '../../Containers/Container/Container';
 
-import { checkArrayAndPreloadElements, extractServerErrorMessage } from '../../../utils/utils';
+// Utils
+import { checkArrayAndPreloadElements, extractServerErrorMessage } from 'src/utils/utils';
 
 import styles from './CitiesSlider.module.css';
 

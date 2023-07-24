@@ -1,15 +1,20 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { checkArrayAndPreloadElements } from '../../../utils/utils';
+
+// Utils
+import { checkArrayAndPreloadElements } from 'src/utils/utils';
 
 // Components
-import { Container } from '../../../components/Containers/Container/Container';
-import { LoadingSkeleton } from '../../../components/LoadingSkeletons/LoadingSkeleton';
+import { Container } from 'src/components/Containers/Container/Container';
+import { LoadingSkeleton } from 'src/components/LoadingSkeletons/LoadingSkeleton';
+import { TextWrap } from 'src/components/TextWrap/TextWrap';
 
-import routeConstants from '../../../constants/routeConstants';
-import homeStyles from '../Home.module.css';
+// Constants
+import routeConstants from 'src/constants/routeConstants';
+
+// Styles
 import styles from './Categories.module.css';
-import { TextWrap } from '../../../components/TextWrap/TextWrap';
+import homeStyles from '../Home.module.css';
 
 const propTypes = {
     categories: PropTypes.array.isRequired,

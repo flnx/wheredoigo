@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import errorMessages from '../../constants/errorMessages';
+import errorMessages from 'src/constants/errorMessages';
 
 export const editDestDescriptionSchema = yup.object({
     description: yup.string().required(errorMessages.data.required('Description')),

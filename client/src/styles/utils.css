@@ -9,3 +9,20 @@
 .mb-5 {
     margin-bottom: 5rem !important;
 }
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    width: 100% !important;
+}
+
+.flex-column > * {
+    margin-bottom: 0.25rem;
+}
+
+@media (min-width: 64em) {
+    .flex-column > * {
+        height: 3rem;
+        margin-bottom: 0.85rem;
+    }
+}

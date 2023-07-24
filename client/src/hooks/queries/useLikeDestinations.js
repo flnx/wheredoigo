@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { queryEndpoints } from '../../constants/reactQueryEndpoints';
-import { likeDestination } from '../../service/data/destinations';
+import { queryEndpoints } from 'src/constants/reactQueryEndpoints';
+import { likeDestination } from 'src/service/data/destinations';
 
 export const useLikeDestination = (destinationId) => {
     const queryClient = useQueryClient();

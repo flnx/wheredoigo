@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { disableBodyScroll, enableBodyScroll } from '../../../../utils/utils';
+import { disableBodyScroll, enableBodyScroll } from 'src/utils/utils';
 
 // Components
 import { UnauthenticatedRoutesLinks } from '../RouteLinks/UnauthenticatedRoutesLinks';

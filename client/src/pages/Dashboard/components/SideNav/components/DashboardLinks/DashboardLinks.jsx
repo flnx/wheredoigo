@@ -4,9 +4,11 @@ import { Plus } from '@phosphor-icons/react';
 import { SuitcaseRolling } from '@phosphor-icons/react';
 import { GearSix } from '@phosphor-icons/react';
 import { Heart } from '@phosphor-icons/react';
-import { IconLink } from '../../../../../../components/Buttons/IconLink/IconLink';
 
-import routeConstants from '../../../../../../constants/routeConstants';
+// Custom Components
+import { IconLink } from 'src/components/Buttons/IconLink/IconLink';
+
+import routeConstants from 'src/constants/routeConstants';
 import styles from './DashboardLinks.module.css';
 
 export const DashboardLinks = () => {

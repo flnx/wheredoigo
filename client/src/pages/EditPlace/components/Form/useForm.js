@@ -1,14 +1,20 @@
 import { useCallback, useState } from 'react';
-import { extractServerErrorMessage } from '../../../../utils/utils';
-import { useEditFieldToggle } from '../../../../hooks/useEditFieldToggle';
-import { useEditPlaceDescription } from '../../../../hooks/queries/place/useEditPlaceDescription';
+import { extractServerErrorMessage } from 'src/utils/utils';
+
+// React Query Hooks
+import { useEditPlaceDescription } from 'src/hooks/queries/place/useEditPlaceDescription';
+import { useEditPlaceType } from 'src/hooks/queries/place/useEditPlaceType';
+import { useEditPlaceName } from 'src/hooks/queries/place/useEditPlaceName';
+
+// Custom Hoooks
+import { useEditFieldToggle } from 'src/hooks/useEditFieldToggle';
+
+// Validators
 import { 
     editPlaceDescriptionSchema, 
     editPlaceNameSchema, 
     editPlaceTypeSchema 
-} from '../../../../utils/validationSchemas/placeSchemas';
-import { useEditPlaceType } from '../../../../hooks/queries/place/useEditPlaceType';
-import { useEditPlaceName } from '../../../../hooks/queries/place/useEditPlaceName';
+} from 'src/utils/validationSchemas/placeSchemas';
 
 export const useForm = ({ data, placeId, destinationId }) => {
     const [editError, setEditError] = useState('');

@@ -1,5 +1,5 @@
 import axios from '../Axios';
-import { apiEndpoints } from '../../constants/apiEndpoints';
+import { apiEndpoints } from 'src/constants/apiEndpoints';
 
 export const register = async ({ username, password, email }) => {
     const userData = {

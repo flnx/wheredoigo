@@ -1,7 +1,7 @@
-import { render, screen, userEvent, waitFor } from '../../../utils/test-utils';
+import { render, screen, userEvent } from 'src/utils/test-utils';
 import { Gallery } from '../Gallery';
-import { applyCloudinaryTransformation } from '../../../utils/utils';
-import { images } from '../../../mocks/exampleMocks';
+import { applyCloudinaryTransformation } from 'src/utils/utils';
+import { images } from 'src/mocks/exampleMocks';
 
 
 const props = {

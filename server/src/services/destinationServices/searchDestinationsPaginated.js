@@ -3,7 +3,7 @@ const paginatedSearchPipeline = require('../../pipelines/paginatedSearchPipeline
 const capitalizeEachWord = require('../../utils/capitalizeWords');
 const { validateCategories } = require('../../utils/validateFields');
 
-async function getDestinationsPaginated(page, limit, searchParams, categories) {
+async function searchDestinationsPaginated(page, limit, searchParams, categories) {
     let regex = new RegExp(searchParams, 'i');
 
     const filteredCategories = validateCategories(categories);
@@ -41,4 +41,4 @@ async function getDestinationsPaginated(page, limit, searchParams, categories) {
     return [destinations, nextPage];
 }
 
-module.exports = getDestinationsPaginated;
+module.exports = searchDestinationsPaginated;

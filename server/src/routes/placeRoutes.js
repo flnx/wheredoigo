@@ -11,6 +11,7 @@ const { validateData } = require('../middlewares/dataValidators/validateData');
 const editPlaceDescriptionSchema = require('../validators/place/editPlaceDescriptionSchema');
 const editPlaceTypeSchema = require('../validators/place/editPlaceTypeSchema');
 const editPlaceNameSchema = require('../validators/place/editPlaceNameSchema');
+const deleteImageSchema = require('../validators/deleteImageSchema');
 
 const {
     fetchPlaceAndCheckOwnership,
@@ -29,7 +30,6 @@ const {
     delete_comment,
     delete_place,
     request_place_to_edit,
-    edit_place_field,
     add_place_new_images,
     delete_place_image,
     place_comments,
@@ -40,6 +40,8 @@ const {
     edit_place_type,
     edit_place_name
 } = require('../controllers/placeController');
+const addCommentSchema = require('../validators/place/addCommentSchema');
+const createNewPlaceSchema = require('../validators/place/createNewPlaceSchema');
 
 const router = express.Router();
 
@@ -93,6 +95,7 @@ router.post(
     auth,
     checkDestinationOwnershipOnly,
     upload,
+    validateData(createNewPlaceSchema),
     add_new_place
 );
 
@@ -107,16 +110,8 @@ router.post(
 router.post('/places/:id/comment', 
     validateMongoId, 
     auth, 
+    validateData(addCommentSchema),
     post_comment
-);
-
-// -- PUT --
-router.put(
-    '/places/:id/edit-place-field',
-    validateMongoId,
-    auth,
-    checkPlaceOwnershipOnly,
-    edit_place_field
 );
 
 router.put(
@@ -132,6 +127,7 @@ router.put(
     '/places/:id/delete-image',
     validateMongoId,
     auth,
+    validateData(deleteImageSchema),
     checkPlaceOwnershipOnly,
     delete_place_image
 );
@@ -177,4 +173,5 @@ router.delete(
     auth, 
     delete_place
 );
+
 module.exports = router;

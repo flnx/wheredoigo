@@ -1,4 +1,4 @@
-import { render, screen, userEvent, waitFor } from '../../../utils/test-utils';
+import { render, screen, userEvent } from 'src/utils/test-utils';
 import { SearchBar } from '../SearchBar';
 
 describe('SearchBar testing', () => {

@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import { createContext, useRef, useState } from 'react';
-import { useKeyboardNavigation } from '../../../hooks/useKeyboardNavigation';
-import { useGalleryAutomaticScroll } from '../../../hooks/useGalleryAutomaticScroll';
-import { useWindowSize } from '../../../hooks/useWindowSize';
+import { useKeyboardNavigation } from 'src/hooks/useKeyboardNavigation';
+import { useGalleryAutomaticScroll } from 'src/hooks/useGalleryAutomaticScroll';
+import { useWindowSize } from 'src/hooks/useWindowSize';
 
 export const GalleryContext = createContext();
 

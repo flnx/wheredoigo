@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-import { getDestinationsPaginated } from '../../service/data/destinations';
-import { queryEndpoints } from '../../constants/reactQueryEndpoints';
+import { getDestinationsPaginated } from 'src/service/data/destinations';
+import { queryEndpoints } from 'src/constants/reactQueryEndpoints';
 
 export const useInfiniteDestinations = (searchParams, categoryParams) => {
     const {

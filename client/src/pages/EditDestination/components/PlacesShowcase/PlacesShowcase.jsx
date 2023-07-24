@@ -1,18 +1,21 @@
 import { useState } from 'react';
-import { useDeletePlace } from '../../../../hooks/queries/useDeletePlace';
-import { checkArrayAndPreloadElements } from '../../../../utils/utils';
 
-// Components
-import { Places } from '../../../../components/Places/Places';
-import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
-import { LinkButtonSecondary } from '../../../../components/Buttons/Secondary-Btn/LinkButtonSecondary';
-import { ServerErrorPopUp } from '../../../../components/ServerErrorPopUp/ServerErrorPopUp';
-import { TextWrap } from '../../../../components/TextWrap/TextWrap';
+// React Query Hooks
+import { useDeletePlace } from 'src/hooks/queries/useDeletePlace';
 
-import routeConstants from '../../../../constants/routeConstants';
+// Utils
+import { checkArrayAndPreloadElements } from 'src/utils/utils';
+
+// Global Components
+import { Places } from 'src/components/Places/Places';
+import { ConfirmModal } from 'src/components/ConfirmModal/ConfirmModal';
+import { LinkButtonSecondary } from 'src/components/Buttons/Secondary-Btn/LinkButtonSecondary';
+import { ServerErrorPopUp } from 'src/components/ServerErrorPopUp/ServerErrorPopUp';
+import { TextWrap } from 'src/components/TextWrap/TextWrap';
+
+import routeConstants from 'src/constants/routeConstants';
 import styles from './PlacesShowcase.module.css';
 
-const { PLACES } = routeConstants;
 
 export const PlacesShowcase = ({ places, destinationId, isLoading }) => {
     const [deletePlace, error, isDeleteLoading] = useDeletePlace(destinationId);
@@ -41,6 +44,7 @@ export const PlacesShowcase = ({ places, destinationId, isLoading }) => {
     // This ensures that there will be 3 div boxes for the loading skeleton when is loading
     const placesData = isLoading ? checkArrayAndPreloadElements([], 3) : places;
     const hasNoPlaces = placesData.length == 0;
+    const { PLACES } = routeConstants;
 
     return (
         <section className={styles.section}>

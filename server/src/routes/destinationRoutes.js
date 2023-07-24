@@ -13,6 +13,7 @@ const editDestDescriptionSchema = require('../validators/destination/editDestDes
 const createDestinationSchema = require('../validators/destination/createDestinationSchema');
 const editDestDetailsSchema = require('../validators/destination/editDestDetailsSchema');
 const editDestCategoriesSchema = require('../validators/destination/editDestCategoriesSchema');
+const deleteImageSchema = require('../validators/deleteImageSchema');
 
 const { 
     fetchDestinationAndCheckOwnership, 
@@ -111,6 +112,7 @@ router.put(
     '/destinations/:id/delete-image',
     validateMongoId,
     auth,
+    validateData(deleteImageSchema),
     checkDestinationOwnershipOnly,
     delete_destination_image
 );

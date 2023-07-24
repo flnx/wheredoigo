@@ -1,12 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-import { useAddNewPlace } from '../../../hooks/queries/useAddPlace';
 import { useState } from 'react';
 
-import { validatePlaceData } from '../../../utils/formValidators';
-import { createPlaceFormData } from '../../../utils/formData';
-import { extractServerErrorMessage } from '../../../utils/utils';
+// React Query Hooks
+import { useAddNewPlace } from 'src/hooks/queries/useAddPlace';
 
-import routeConstants from '../../../constants/routeConstants';
+// Utils
+import { validatePlaceData } from 'src/utils/formValidators';
+import { createPlaceFormData } from 'src/utils/formData';
+import { extractServerErrorMessage } from 'src/utils/utils';
+
+import routeConstants from 'src/constants/routeConstants';
 
 export const useSubmitFormData = ({ destinationId, allowedCategories, state, images }) => {
     const [createPlace, isLoading, serverError] = useAddNewPlace(destinationId);
@@ -23,7 +26,7 @@ export const useSubmitFormData = ({ destinationId, allowedCategories, state, ima
 
         if (dataValidationErrors.length !== 0) return;
 
-        const formData = await createPlaceFormData(state, images, destinationId);
+        const formData = await createPlaceFormData(state, images);
 
         createPlace(formData, {
             onSuccess: (newPlace) => {

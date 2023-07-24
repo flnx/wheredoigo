@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { queryEndpoints } from '../../constants/reactQueryEndpoints';
-import { getUserLastActivities } from '../../service/data/user';
+import { queryEndpoints } from 'src/constants/reactQueryEndpoints';
+import { getUserLastActivities } from 'src/service/data/user';
 
 export const useUserActivity = () => {
     const { data, isLoading, error } = useQuery({

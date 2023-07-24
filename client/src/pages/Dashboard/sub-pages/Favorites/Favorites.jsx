@@ -1,9 +1,10 @@
-import { useUserFavorites } from '../../../../hooks/queries/useUserFavorites';
+// React Query Hooks
+import { useUserFavorites } from 'src/hooks/queries/useUserFavorites';
 
-// Components
+// Global Components
 import { ClipLoader } from 'react-spinners';
-import { DestinationsGrid } from '../../../../components/DestinationsGrid/DestinationsGrid';
-import { ServerErrorPopUp } from '../../../../components/ServerErrorPopUp/ServerErrorPopUp';
+import { DestinationsGrid } from 'src/components/DestinationsGrid/DestinationsGrid';
+import { ServerErrorPopUp } from 'src/components/ServerErrorPopUp/ServerErrorPopUp';
 
 export const Favorites = () => {
     const [data, isLoading, error] = useUserFavorites();

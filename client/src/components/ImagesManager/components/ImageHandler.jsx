@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { checkArrayAndPreloadElements } from '../../../utils/utils';
+
+// Utils
+import { checkArrayAndPreloadElements } from 'src/utils/utils';
 
 // Components
-import { ConfirmModal } from '../../ConfirmModal/ConfirmModal';
-import { ImageThumbnailsPreview } from '../../ImageThumbnailsPreview/ImageThumbnailsPreview';
-import { TextWrap } from '../../TextWrap/TextWrap';
+import { ConfirmModal } from 'src/components/ConfirmModal/ConfirmModal';
+import { ImageThumbnailsPreview } from 'src/components/ImageThumbnailsPreview/ImageThumbnailsPreview';
+import { TextWrap } from 'src/components/TextWrap/TextWrap';
 
 const propTypes = {
     imagesData: PropTypes.array.isRequired,

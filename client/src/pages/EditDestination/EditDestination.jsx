@@ -1,17 +1,23 @@
 import { useParams } from 'react-router-dom';
 import { useErrorBoundary } from 'react-error-boundary';
-import { useGetDestinationToEdit } from '../../hooks/queries/useGetDestinationToEdit';
-import { useDeleteDestinationImage } from '../../hooks/queries/useDeleteDestinationImage';
-import { useAddDestinationNewImages } from '../../hooks/queries/useAddDestinationNewImages';
-import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
-// Components
-import { Container } from '../../components/Containers/Container/Container';
-import { FlexSectionContainer } from '../../components/Containers/FlexSectionContainer/FlexSectionContainer';
+// React Query Hooks
+import { useGetDestinationToEdit } from 'src/hooks/queries/useGetDestinationToEdit';
+import { useDeleteDestinationImage } from 'src/hooks/queries/useDeleteDestinationImage';
+import { useAddDestinationNewImages } from 'src/hooks/queries/useAddDestinationNewImages';
+
+// Custom Hooks
+import { useDocumentTitle } from 'src/hooks/useDocumentTitle';
+
+// Local Components
 import { PlacesShowcase } from './components/PlacesShowcase/PlacesShowcase';
 import { Form } from './components/Form/Form';
-import { ImagesManager } from '../../components/ImagesManager/ImagesManager';
-import { TextWrap } from '../../components/TextWrap/TextWrap';
+
+// Global Components
+import { Container } from 'src/components/Containers/Container/Container';
+import { FlexSectionContainer } from 'src/components/Containers/FlexSectionContainer/FlexSectionContainer';
+import { ImagesManager } from 'src/components/ImagesManager/ImagesManager';
+import { TextWrap } from 'src/components/TextWrap/TextWrap';
 
 export const EditDestination = () => {
     const { destinationId } = useParams();

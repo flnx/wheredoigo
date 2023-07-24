@@ -1,11 +1,15 @@
 import { useContext, useState } from 'react';
-import { useDeleteAccount } from '../../../../hooks/queries/useDeleteAccount';
-import { AuthContext } from '../../../../context/AuthContext';
 
-// Components
-import { WarningButton } from '../../../../components/Buttons/Button-Warning/WarningButton';
-import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
-import { ServerErrorPopUp } from '../../../../components/ServerErrorPopUp/ServerErrorPopUp';
+// React Query Hooks
+import { useDeleteAccount } from 'src/hooks/queries/useDeleteAccount';
+
+// Context
+import { AuthContext } from 'src/context/AuthContext';
+
+// Global Components
+import { WarningButton } from 'src/components/Buttons/Button-Warning/WarningButton';
+import { ConfirmModal } from 'src/components/ConfirmModal/ConfirmModal';
+import { ServerErrorPopUp } from 'src/components/ServerErrorPopUp/ServerErrorPopUp';
 
 import styles from './UserSettings.module.css';
 

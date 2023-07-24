@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { queryEndpoints } from '../../constants/reactQueryEndpoints';
-import { getDestinationToEdit } from '../../service/data/permissions';
+import { queryEndpoints } from 'src/constants/reactQueryEndpoints';
+import { getDestinationToEdit } from 'src/service/data/permissions';
 
 export const useGetDestinationToEdit = (destinationId) => {
     const { data, error, isLoading } = useQuery({

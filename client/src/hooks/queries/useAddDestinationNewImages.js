@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { queryEndpoints } from '../../constants/reactQueryEndpoints';
-import { addDestinationNewImages } from '../../service/data/destinations';
+import { queryEndpoints } from 'src/constants/reactQueryEndpoints';
+import { addDestinationNewImages } from 'src/service/data/destinations';
 
 export const useAddDestinationNewImages = (destinationId) => {
     const queryClient = useQueryClient();

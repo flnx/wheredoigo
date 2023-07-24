@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 import { GalleryContext } from '../../context/GalleryContext';
-import { useGalleryAutomaticScroll } from '../../../../hooks/useGalleryAutomaticScroll';
+import { useGalleryAutomaticScroll } from 'src/hooks/useGalleryAutomaticScroll';
 
 import styles from './SecondaryImages.module.css';
-import { applyCloudinaryTransformation } from '../../../../utils/utils';
+import { applyCloudinaryTransformation } from 'src/utils/utils';
 
 export const SecondaryImages = () => {
     const { 

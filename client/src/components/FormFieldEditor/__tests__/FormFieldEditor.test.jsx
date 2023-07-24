@@ -1,4 +1,4 @@
-import { render as customRender, screen, userEvent, waitFor } from '../../../utils/test-utils';
+import { render as customRender, screen, userEvent, waitFor } from 'src/utils/test-utils';
 import { MemoizedFormFieldEditor } from '../FormFieldEditor';
 
 const render = (Component) => {

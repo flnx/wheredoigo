@@ -2,7 +2,6 @@
 const { addAIGeneratedCommentsToPlace } = require('../services/placeServices/addAIGeneratedCommentsToPlace');
 const createNewPlace = require('../services/placeServices/createNewPlace');
 const getPlaceById = require('../services/placeServices/getPlaceById');
-const editPlaceField = require('../services/placeServices/editPlaceField');
 const deletePlace = require('../services/placeServices/deletePlace');
 const addCommentToPlace = require('../services/placeServices/addCommentToPlace');
 const deleteCommentFromPlace = require('../services/placeServices/deleteCommentFromPlace');
@@ -42,13 +41,12 @@ const get_user_places_data = async (req, res, next) => {
 };
 
 const add_new_place = async (req, res, next) => {
-    const placeInfo = req.body;
+    const data = req.body;
     const images = req.files;
-    const { ownerId } = req.user;
     const destination = req.destination;
 
     try {
-        const place = await createNewPlace(placeInfo, images, destination, ownerId);
+        const place = await createNewPlace( { data, images, destination });
         res.json(place);
     } catch (err) {
         next(err);
@@ -94,17 +92,6 @@ const request_place_to_edit = async (req, res, next) => {
         ...place,
         allowedPlaceCategories,
     });
-};
-
-const edit_place_field = async (req, res, next) => {
-    const { id } = req.params;
-
-    try {
-        const result = await editPlaceField(id, req.body);
-        res.json(result);
-    } catch (err) {
-        next(err);
-    }
 };
 
 const edit_place_name = async (req, res, next) => {
@@ -234,7 +221,6 @@ module.exports = {
     post_comment,
     delete_comment,
     delete_place,
-    edit_place_field,
     add_place_new_images,
     delete_place_image,
     get_top_places,

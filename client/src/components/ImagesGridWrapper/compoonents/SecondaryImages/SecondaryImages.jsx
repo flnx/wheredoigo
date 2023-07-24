@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { applyCloudinaryTransformation } from '../../../../utils/utils';
+import { applyCloudinaryTransformation } from 'src/utils/utils';
 import { LoadingWrapper } from '../LoadingWrapper/LoadingWrapper';
 
 import styles from './SecondaryImages.module.css';

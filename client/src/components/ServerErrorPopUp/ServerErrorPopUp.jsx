@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { extractServerErrorMessage } from '../../utils/utils';
+import { extractServerErrorMessage } from 'src/utils/utils';
 
 import styles from './ServerErrorPopUp.module.css';
 

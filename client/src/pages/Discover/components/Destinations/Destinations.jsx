@@ -1,11 +1,17 @@
 import { ClipLoader } from 'react-spinners';
-import { useInfiniteDestinations } from '../../../../hooks/queries/useInfiniteDestinations';
 import { useErrorBoundary } from 'react-error-boundary';
-import { DestinationsGrid } from '../../../../components/DestinationsGrid/DestinationsGrid';
+
+// Hooks
+import { useInfiniteDestinations } from 'src/hooks/queries/useInfiniteDestinations';
+
+// Utils
+import { extractServerErrorMessage } from 'src/utils/utils';
+
+// Components
+import { DestinationsGrid } from 'src/components/DestinationsGrid/DestinationsGrid';
+import { ButtonGlow } from 'src/components/Buttons/Button-Glow/ButtonGlow';
 
 import styles from './Destinations.module.css';
-import { extractServerErrorMessage } from '../../../../utils/utils';
-import { ButtonGlow } from '../../../../components/Buttons/Button-Glow/ButtonGlow';
 
 export const Destinations = ({ searchParam, categoryParams }) => {
     const { showBoundary } = useErrorBoundary();

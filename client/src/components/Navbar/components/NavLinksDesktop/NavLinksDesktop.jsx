@@ -1,10 +1,12 @@
 import { useContext } from 'react';
-import { AuthContext } from '../../../../context/AuthContext';
+
+// Auth Context
+import { AuthContext } from 'src/context/AuthContext';
+
 import { UnauthenticatedRoutesLinks } from '../RouteLinks/UnauthenticatedRoutesLinks';
 import { Link } from '../RouteLinks/Link';
 
-import routeConstants from '../../../../constants/routeConstants';
-
+import routeConstants from 'src/constants/routeConstants';
 import styles from './NavLinksDesktop.module.css';
 
 export const NavLinksDesktop = () => {

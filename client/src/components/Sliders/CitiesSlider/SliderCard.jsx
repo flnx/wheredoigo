@@ -2,12 +2,14 @@ import PropTypes from 'prop-types';
 
 // Components
 import { Link } from 'react-router-dom';
-import { LoadingSkeleton } from '../../LoadingSkeletons/LoadingSkeleton';
-import { likedByMessage } from '../../../utils/likedByMessage';
+import { LoadingSkeleton } from 'src/components/LoadingSkeletons/LoadingSkeleton';
 
-import routeConstants from '../../../constants/routeConstants';
+// Utils
+import { likedByMessage } from 'src/utils/likedByMessage';
+import { applyCloudinaryTransformation } from 'src/utils/utils';
+
+import routeConstants from 'src/constants/routeConstants';
 import styles from './CitiesSlider.module.css';
-import { applyCloudinaryTransformation } from '../../../utils/utils';
 
 const propTypes = {
     destination: PropTypes.object.isRequired,

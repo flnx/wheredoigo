@@ -1,6 +1,5 @@
 const Destination = require('../../models/destinationSchema');
 
-const { isValid } = require('mongoose').Types.ObjectId;
 const { errorMessages } = require('../../constants/errorMessages');
 const { deleteImages } = require('../cloudinaryService/deleteImages');
 
@@ -11,10 +10,6 @@ const { createValidationError } = require('../../utils/createValidationError');
 const deleteImageQuery = require('../../queries/deleteImageQuery');
 
 async function deleteDestinationImage(destinationId, imgId) {
-    if (!imgId || !isValid(imgId)) {
-        throw createValidationError(errorMessages.data.notFound, 404);
-    }
-
     const query = deleteImageQuery(destinationId, imgId);
 
     // Finds the requested image by its ID, deletes it and returns the deleted result

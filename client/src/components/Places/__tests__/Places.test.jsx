@@ -1,7 +1,7 @@
 import { MemoryRouter } from 'react-router-dom';
-import { render as customRender, screen, userEvent, waitFor } from '../../../utils/test-utils';
 import { Places } from '../Places';
-import { applyCloudinaryTransformation } from '../../../utils/utils';
+import { render as customRender, screen, userEvent } from 'src/utils/test-utils';
+import { applyCloudinaryTransformation } from 'src/utils/utils';
 
 const render = (Component) => {
     return customRender(<MemoryRouter>{Component}</MemoryRouter>);

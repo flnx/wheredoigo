@@ -1,7 +1,7 @@
-import { ButtonGlow } from '../../../../components/Buttons/Button-Glow/ButtonGlow';
-import { DarkOverlay } from '../../../../components/DarkOverlay/DarkOverlay';
-import { ServerErrorPopUp } from '../../../../components/ServerErrorPopUp/ServerErrorPopUp';
-import { useGenerateAIComments } from '../../../../hooks/queries/useGenerateAIComments';
+import { ButtonGlow } from 'src/components/Buttons/Button-Glow/ButtonGlow';
+import { DarkOverlay } from 'src/components/DarkOverlay/DarkOverlay';
+import { ServerErrorPopUp } from 'src/components/ServerErrorPopUp/ServerErrorPopUp';
+import { useGenerateAIComments } from 'src/hooks/queries/useGenerateAIComments';
 
 export const GenerateAIComments = ({ placeId }) => {
     const [generateAIComments, isLoading, error] = useGenerateAIComments(placeId);

@@ -1,7 +1,9 @@
 import { Outlet } from 'react-router-dom';
-import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
-// Components
+// Custom Hooks
+import { useDocumentTitle } from 'src/hooks/useDocumentTitle';
+
+// Local Components
 import { SideNavigation } from './components/SideNav/SideNavigation';
 import { SideStats } from './components/SideStats/SideStats';
 

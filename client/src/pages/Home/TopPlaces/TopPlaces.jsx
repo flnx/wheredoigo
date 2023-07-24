@@ -18,7 +18,7 @@ const propTypes = {
 export const TopPlaces = ({ places, isLoading }) => {
     const { data, error } = places;
 
-    // 1. If places data is loading - it returns a new array with "9" elements
+    // 1. If is loading - it returns a new array with "9" elements
     // 1.1 This ensures that the section will render (9) amount of div boxes (for Loading Skeletons)..
     // ..when the data is being fetched the >Loading skeletons< will be visualized inside those div boxes
     const explorePlaces = isLoading

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { addComment } from '../../service/data/comments';
-import { queryEndpoints } from '../../constants/reactQueryEndpoints';
+import { addComment } from 'src/service/data/comments';
+import { queryEndpoints } from 'src/constants/reactQueryEndpoints';
 
 export const useAddComment = (placeId) => {
     const queryClient = useQueryClient();

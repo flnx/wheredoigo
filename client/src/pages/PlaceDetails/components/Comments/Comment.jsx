@@ -1,14 +1,18 @@
 import { useRef, useState } from 'react';
-import { useRemoveComment } from '../../../../hooks/queries/useRemoveComment';
 import { useParams } from 'react-router-dom';
-import { useCloseDropdown } from '../../../../hooks/useCloseDropdown';
 
-// Components
+// Custom Hooks
+import { useCloseDropdown } from 'src/hooks/useCloseDropdown';
+import { useRemoveComment } from 'src/hooks/queries/useRemoveComment';
+
+// Global Components
 import { DotsThree } from '@phosphor-icons/react';
-import { ConfirmModal } from '../../../../components/ConfirmModal/ConfirmModal';
-import { StarRating } from '../../../../components/StarRating/StarRating';
+import { ConfirmModal } from 'src/components/ConfirmModal/ConfirmModal';
+import { StarRating } from 'src/components/StarRating/StarRating';
+import { ServerErrorPopUp } from 'src/components/ServerErrorPopUp/ServerErrorPopUp';
+
+// Local Components
 import { Dropdown } from './Dropdown/Dropdown';
-import { ServerErrorPopUp } from '../../../../components/ServerErrorPopUp/ServerErrorPopUp';
 
 import styles from './Comments.module.css';
 

@@ -1,18 +1,20 @@
 import { useCallback, useState } from 'react';
-import { extractServerErrorMessage } from '../../../../utils/utils';
-import { useEditFieldToggle } from '../../../../hooks/useEditFieldToggle';
+import { extractServerErrorMessage } from 'src/utils/utils';
+
+// Custom Hooks
+import { useEditFieldToggle } from 'src/hooks/useEditFieldToggle';
 
 // Validation
 import {
     editDestCategoriesSchema,
     editDestDescriptionSchema,
     editDestDetailsSchema,
-} from '../../../../utils/validationSchemas/destinationSchemas';
+} from 'src/utils/validationSchemas/destinationSchemas';
 
-// React Query
-import { useEditDestinationDetails } from '../../../../hooks/queries/destination/useEditDestinationDetails';
-import { useEditDestinationDescription } from '../../../../hooks/queries/destination/editDestinationDescription';
-import { useEditDestinationCategories } from '../../../../hooks/queries/destination/useEditDestinationCategories';
+// React Query Hooks
+import { useEditDestinationDetails } from 'src/hooks/queries/destination/useEditDestinationDetails';
+import { useEditDestinationDescription } from 'src/hooks/queries/destination/editDestinationDescription';
+import { useEditDestinationCategories } from 'src/hooks/queries/destination/useEditDestinationCategories';
 
 export const useForm = ({ destinationId, allowedCategories }) => {
     const [editError, setEditError] = useState('');

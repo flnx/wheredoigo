@@ -1,11 +1,15 @@
 import { useState } from 'react';
 
-// Components
-import { EditTextareaPairs } from '../../../../components/Buttons/EditTextareaPairs/EditTextareaPairs';
-import { ButtonSky } from '../../../../components/Buttons/Button-Sky/ButtonSky';
-import { CancelButton } from '../../../../components/Buttons/Cancel-Button/CancelButton';
-import { SpanLabelTitle } from '../../../../components/SpanLabelTitle/SpanLabelTitle';
-import { EditButtonsWrapper, FormEditWrapper, WrapperWithWidth } from '../../../../components/Containers/FormEditWrapper/FormEditWrapper';
+// Global Components
+import { EditTextareaPairs } from 'src/components/Buttons/EditTextareaPairs/EditTextareaPairs';
+import { ButtonSky } from 'src/components/Buttons/Button-Sky/ButtonSky';
+import { CancelButton } from 'src/components/Buttons/Cancel-Button/CancelButton';
+import { SpanLabelTitle } from 'src/components/SpanLabelTitle/SpanLabelTitle';
+import {
+    EditButtonsWrapper,
+    FormEditWrapper,
+    WrapperWithWidth,
+} from 'src/components/Containers/FormEditWrapper/FormEditWrapper';
 
 import styles from './SelectType.module.css';
 

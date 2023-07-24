@@ -1,13 +1,16 @@
 import PropTypes from 'prop-types';
-import { checkArrayAndPreloadElements } from '../../../utils/utils';
 
+// Utils
+import { checkArrayAndPreloadElements } from 'src/utils/utils';
+
+// Components
 import { Link } from 'react-router-dom';
 import { SwiperSlide } from 'swiper/react';
 import { SliderWrapper } from './SwiperSettings';
-import { Container } from '../../Containers/Container/Container';
-import { LoadingSkeleton } from '../../LoadingSkeletons/LoadingSkeleton';
+import { Container } from 'src/components/Containers/Container/Container';
+import { LoadingSkeleton } from 'src/components/LoadingSkeletons/LoadingSkeleton';
 
-import routeConstants from '../../../constants/routeConstants';
+import routeConstants from 'src/constants/routeConstants';
 import styles from './PlacesSlider.module.css';
 
 const propTypes = {

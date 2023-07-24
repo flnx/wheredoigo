@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { queryEndpoints } from '../../constants/reactQueryEndpoints';
-import { getCountriesAndCities } from '../../service/data/destinations';
+import { queryEndpoints } from 'src/constants/reactQueryEndpoints';
+import { getCountriesAndCities } from 'src/service/data/destinations';
 
 export const useCountriesCities = () => {
     const { data, isLoading, error } = useQuery({

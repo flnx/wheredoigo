@@ -1,6 +1,6 @@
 import { MemoryRouter } from 'react-router-dom';
 
-import { render as customRender, screen, userEvent } from '../../../utils/test-utils';
+import { render as customRender, screen, userEvent } from 'src/utils/test-utils';
 import { ConfirmModal } from '../ConfirmModal';
 
 const render = (Component) => {

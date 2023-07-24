@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import { useWindowSize } from '../../hooks/useWindowSize';
-import { checkArrayAndPreloadElements } from '../../utils/utils';
+import { useWindowSize } from 'src/hooks/useWindowSize';
+import { checkArrayAndPreloadElements } from 'src/utils/utils';
 
 // Components
 import { MainImage } from './compoonents/MainImage/MainImage';

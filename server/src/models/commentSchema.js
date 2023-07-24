@@ -6,12 +6,14 @@ const commentSchema = new Schema({
     title: {
         type: String,
         trim: true,
-        minlength: [2, errorMessages.validation.comment.title],
+        minLength: [2, errorMessages.validation.comment.title],
+        maxLength: [100, errorMessages.validation.comment.title]
     },
     content: {
         type: String,
         trim: true,
-        minlength: [10, errorMessages.validation.comment.body],
+        minLength: [10, errorMessages.validation.comment.body],
+        maxLength: [2000, errorMessages.validation.comment.body],
     },
     time: {
         type: Date,
@@ -32,7 +34,7 @@ const commentSchema = new Schema({
         type: Number,
         min: 1,
         max: 5,
-        default: 0,
+        default: 1,
     },
 });
 

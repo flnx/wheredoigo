@@ -1,7 +1,9 @@
 import { useContext, useState } from 'react';
-import { AuthContext } from '../../../context/AuthContext';
-import { extractServerErrorMessage } from '../../../utils/utils';
-import { validateLoginData } from '../../../utils/userDataValidators';
+import { AuthContext } from 'src/context/AuthContext';
+
+// Utils
+import { extractServerErrorMessage } from 'src/utils/utils';
+import { validateLoginData } from 'src/utils/userDataValidators';
 
 export const useSubmitFormData = (state, submitFn, isLoading) => {
     const { setUserData } = useContext(AuthContext);

@@ -1,8 +1,5 @@
 import { useReducer } from 'react';
-import {
-    destinationFormReducer,
-    initialState,
-} from '../../../../utils/destinationReducer';
+import { destinationFormReducer, initialState } from 'src/utils/destinationReducer';
 
 export const useDestinationInput = () => {
     const [state, dispatch] = useReducer(destinationFormReducer, initialState);
@@ -41,6 +38,6 @@ export const useDestinationInput = () => {
         updateDetail,
         state,
         updateCategory,
-        updateDescription
+        updateDescription,
     };
 };

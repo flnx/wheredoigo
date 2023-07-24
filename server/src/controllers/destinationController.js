@@ -4,19 +4,15 @@ const deleteDestination = require('../services/destinationServices/deleteDestina
 const deleteDestinationImage = require('../services/destinationServices/deleteDestinationImage');
 const getCreatorDestinations = require('../services/destinationServices/getCreatorDestinations');
 const getDestinationById = require('../services/destinationServices/getDestinationById');
-const getDestinationsPaginated = require('../services/destinationServices/getDestinationsPaginated');
+const searchDestinationsPaginated = require('../services/destinationServices/searchDestinationsPaginated');
 const getDestinationPlaces = require('../services/placeServices/getDestinationPlaces');
 
 const { fetchCountriesAndCities } = require('../services/getCityCountryData');
-const {
-    destinationCategories,
-} = require('../constants/allowedDestinationCategories');
+const { destinationCategories } = require('../constants/allowedDestinationCategories');
 const likeDestination = require('../services/destinationServices/likeDestination');
 const dislikeDestination = require('../services/destinationServices/dislikeDestination');
 const getMostLikedDestinations = require('../services/destinationServices/getMostLikedDestinations');
-const {
-    editDescription,
-} = require('../services/destinationServices/editDescription');
+const { editDescription } = require('../services/destinationServices/editDescription');
 const editDetails = require('../services/destinationServices/editDetails');
 const editCategories = require('../services/destinationServices/editCategories');
 
@@ -31,7 +27,7 @@ const paginated_destinations = async (req, res, next) => {
             categories = JSON.parse(categories);
         }
 
-        const destinations = await getDestinationsPaginated(
+        const destinations = await searchDestinationsPaginated(
             page,
             limit,
             search,

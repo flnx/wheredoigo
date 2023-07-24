@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import { useForm } from './useForm';
 
-// Components
-import { MemoizedFormFieldEditor } from '../../../../components/FormFieldEditor/FormFieldEditor';
-import { FormLoadingSkeleton } from '../../../../components/FormLoadingSkeleton/FormLoadingSkeleton';
+// Global Components
+import { MemoizedFormFieldEditor } from 'src/components/FormFieldEditor/FormFieldEditor';
+import { FormLoadingSkeleton } from 'src/components/FormLoadingSkeleton/FormLoadingSkeleton';
+
+// Local Components
 import { Categories } from './components/Categories';
 
 const propTypes = {
@@ -40,7 +42,11 @@ export const Form = ({
     return (
         <section>
             <form>
-                {isLoading && <FormLoadingSkeleton />}
+                {isLoading && (
+                    <section className="flex-column">
+                        <FormLoadingSkeleton />
+                    </section>
+                )}
                 {!isLoading && (
                     <>
                         {/* Description */}

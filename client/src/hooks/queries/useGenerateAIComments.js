@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { generateAIComments } from '../../service/data/comments';
-import { queryEndpoints } from '../../constants/reactQueryEndpoints';
+import { generateAIComments } from 'src/service/data/comments';
+import { queryEndpoints } from 'src/constants/reactQueryEndpoints';
 
 export const useGenerateAIComments = (placeId) => {
     const queryClient = useQueryClient();

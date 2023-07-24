@@ -1,6 +1,6 @@
-import { ButtonLinkPrimary } from '../../../Buttons/Primary-Btn/LinkButtonPrimary';
+import { ButtonLinkPrimary } from 'src/components/Buttons/Primary-Btn/LinkButtonPrimary';
 
-import routeConstants from '../../../../constants/routeConstants';
+import routeConstants from 'src/constants/routeConstants';
 const { AUTH } = routeConstants;
 
 export const UnauthenticatedRoutesLinks = () => {

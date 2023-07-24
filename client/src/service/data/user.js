@@ -1,5 +1,5 @@
 import axios from '../Axios';
-import { apiEndpoints } from '../../constants/apiEndpoints';
+import { apiEndpoints } from 'src/constants/apiEndpoints';
 
 export const changeUserAvatar = async (formData) => {
     const result = await axios.put(apiEndpoints.changeAvatar, formData, {

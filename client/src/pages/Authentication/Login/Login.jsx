@@ -1,20 +1,27 @@
 import { Link } from 'react-router-dom';
 
-// Hooks
+// React Query Hook
+import { useUserLogin } from 'src/hooks/queries/useUserLogin';
+
+// Global Hooks
 import { useErrorBoundary } from 'react-error-boundary';
-import { useUserLogin } from '../../../hooks/queries/useUserLogin';
+import { useDocumentTitle } from 'src/hooks/useDocumentTitle';
+
+// Local Hooks
 import { useFormInput } from '../hooks/useFormInput';
 import { useSubmitFormData } from '../hooks/useSubmitFormData';
-import { useDocumentTitle } from '../../../hooks/useDocumentTitle';
 
-// Components
-import { FormLayout } from '../components/FormLayout';
-import { FormInput } from '../components/FormInput';
-import { ButtonSky } from '../../../components/Buttons/Button-Sky/ButtonSky';
+// Global Components 
+import { ButtonSky } from 'src/components/Buttons/Button-Sky/ButtonSky';
+// --ICONS--
 import { EnvelopeSimple } from '@phosphor-icons/react';
 import { LockSimple } from '@phosphor-icons/react';
 
-import routeConstants from '../../../constants/routeConstants';
+// Local Components
+import { FormLayout } from '../components/FormLayout';
+import { FormInput } from '../components/FormInput';
+
+import routeConstants from 'src/constants/routeConstants';
 import styles from '../FormLayout.module.css';
 
 const { AUTH } = routeConstants;

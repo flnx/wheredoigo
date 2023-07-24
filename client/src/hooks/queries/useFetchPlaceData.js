@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { queryEndpoints } from '../../constants/reactQueryEndpoints';
-import { getUserPlacesData } from '../../service/data/places';
+import { queryEndpoints } from 'src/constants/reactQueryEndpoints';
+import { getUserPlacesData } from 'src/service/data/places';
 
 export const useFetchPlacesData = () => {
     const { data, isLoading, error } = useQuery({

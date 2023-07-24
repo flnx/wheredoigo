@@ -1,13 +1,18 @@
-import { useUserActivity } from '../../../../hooks/queries/useUserActivity';
+// React Query Hooks
+import { useUserActivity } from 'src/hooks/queries/useUserActivity';
 
-// Components
-import { ServerErrorPopUp } from '../../../../components/ServerErrorPopUp/ServerErrorPopUp';
+// Global Components
+import { ClipLoader } from 'react-spinners';
+import { ServerErrorPopUp } from 'src/components/ServerErrorPopUp/ServerErrorPopUp';
+
+// Local Components
 import { UserLastActivities } from './components/UserDashboardData/UserDashboardData';
 import { RecentActivities } from './components/RecentActivities/RecentActivities';
-import { ClipLoader } from 'react-spinners';
+
+// Utils
+import { extractServerErrorMessage } from 'src/utils/utils';
 
 import styles from './Main.module.css';
-import { extractServerErrorMessage } from '../../../../utils/utils';
 
 export const Main = () => {
     const [data, isLoading, error] = useUserActivity();

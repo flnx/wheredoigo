@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import { useImages } from '../../../hooks/useImages';
-import { createImagesFormData } from '../../../utils/formData';
+import { useImages } from 'src/hooks/useImages';
+import { createImagesFormData } from 'src/utils/formData';
 
 // Components
-import { DarkOverlay } from '../../DarkOverlay/DarkOverlay';
-import { ImageUploader } from '../../ImageUploader/ImageUploader';
-import { SuccessButton } from '../../Buttons/Success-Button/SuccessButton';
-import { ImageThumbnailsPreview } from '../../ImageThumbnailsPreview/ImageThumbnailsPreview';
+import { DarkOverlay } from 'src/components/DarkOverlay/DarkOverlay';
+import { ImageUploader } from 'src/components/ImageUploader/ImageUploader';
+import { SuccessButton } from 'src/components/Buttons/Success-Button/SuccessButton';
+import { ImageThumbnailsPreview } from 'src/components/ImageThumbnailsPreview/ImageThumbnailsPreview';
 
 const propTypes = {
     uploadImagesHandler: PropTypes.func.isRequired,

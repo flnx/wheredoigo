@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { ImageContainer } from './components/ImageContainer';
 import { Content } from './components/Content';
 
-import { applyCloudinaryTransformation } from '../../utils/utils';
-import routeConstants from '../../constants/routeConstants';
+import { applyCloudinaryTransformation } from 'src/utils/utils';
+import routeConstants from 'src/constants/routeConstants';
 import styles from './Places.module.css';
 
 const propTypes = {

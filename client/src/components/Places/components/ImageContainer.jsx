@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { LoadingSkeleton } from '../../LoadingSkeletons/LoadingSkeleton';
+import { LoadingSkeleton } from 'src/components/LoadingSkeletons/LoadingSkeleton';
 
 import styles from './ImageContainer.module.css';
 

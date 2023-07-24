@@ -2,13 +2,15 @@ import parse from 'html-react-parser';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
-// components
-import { ShowMoreButton } from '../../../../components/Buttons/ShowMoreButton/ShowMoreButton';
-import { TipsPopUp } from '../TipsPopUp/TipsPopUp';
-import { TextWrap } from '../../../../components/TextWrap/TextWrap';
-import { AddToFavorites } from '../../../../components/AddToFavorites/AddToFavorites';
+// Global Components
+import { ShowMoreButton } from 'src/components/Buttons/ShowMoreButton/ShowMoreButton';
+import { TextWrap } from 'src/components/TextWrap/TextWrap';
+import { AddToFavorites } from 'src/components/AddToFavorites/AddToFavorites';
 
-import routeConstants from '../../../../constants/routeConstants';
+// Local Components
+import { TipsPopUp } from '../TipsPopUp/TipsPopUp';
+
+import routeConstants from 'src/constants/routeConstants';
 import styles from './Header.module.css';
 
 export const DestinationHeader = ({ destination, isLoading }) => {

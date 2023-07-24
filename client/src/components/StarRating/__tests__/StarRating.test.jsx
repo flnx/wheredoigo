@@ -1,6 +1,5 @@
-import { render, screen, userEvent, waitFor } from '../../../utils/test-utils';
+import { render, screen } from 'src/utils/test-utils';
 import { StarRating } from '../StarRating';
-import styles from '../StarRating.module.css';
 
 describe('StarRating testing', () => {
     it('renders the correct number of stars', () => {

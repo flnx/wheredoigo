@@ -1,5 +1,5 @@
 import axios from '../Axios';
-import { apiEndpoints as api } from '../../constants/apiEndpoints';
+import { apiEndpoints as api } from 'src/constants/apiEndpoints';
 
 export const getTopPlaces = async () => {
     const res = await axios.get(api.topPlaces);
@@ -26,7 +26,7 @@ export const getPlaceComments = async (id, page) => {
 };
 
 export const createPlace = async (placeData, destinationId) => {
-    const res = await axios.post(api.addPlace(destinationId), placeData, {
+    const res = await axios.post(api.place.create(destinationId), placeData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
