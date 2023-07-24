@@ -6,7 +6,7 @@ import { useImages } from 'src/hooks/useImages';
 
 // Local Components
 import { Input } from './Input';
-import { Textarea } from './Textarea';
+import { Description } from './Description';
 
 // Global Components
 import { ImageUploader } from 'src/components/ImageUploader/ImageUploader';
@@ -20,7 +20,7 @@ import { SuccessButton } from 'src/components/Buttons/Success-Button/SuccessButt
 import styles from './Form.module.css';
 
 export const Form = ({ destinationId, allowedCategories, city }) => {
-    const { state, onChangeHandler } = useFormInput();
+    const { state, onChangeHandler, onDescriptionChangeHandler } = useFormInput();
     const { images, addImages, deleteImage } = useImages();
 
     const { handleSubmit, errors, isLoading, serverError } = useSubmitFormData({
@@ -35,9 +35,11 @@ export const Form = ({ destinationId, allowedCategories, city }) => {
             <h1>Add place to {city}</h1>
 
             <Input name={state.name} onChangeHandler={onChangeHandler} errors={errors} />
-            <Textarea
-                description={state.description}
-                onChangeHandler={onChangeHandler}
+
+            <Description
+                description={state.description.text}
+                charCounter={state.description.charCounter}
+                onChangeHandler={onDescriptionChangeHandler}
                 errors={errors}
             />
 

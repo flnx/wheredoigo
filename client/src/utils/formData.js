@@ -19,7 +19,7 @@ export const createPlaceFormData = async (state, images) => {
 
     formData.append('name', state.name);
     formData.append('type', state.type);
-    formData.append('description', state.description);
+    formData.append('description', state.description.text);
 
     await createImageFiles(images.imageUrls, formData);
 

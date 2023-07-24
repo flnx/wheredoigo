@@ -9,5 +9,9 @@ export const useFormInput = () => {
         dispatch({ type: 'change', payload: { name, value } });
     };
 
-    return { state, onChangeHandler };
+    const onDescriptionChangeHandler = (content, charCounter) => {
+        dispatch({ type: 'description', payload: { content, charCounter } });
+    };
+
+    return { state, onChangeHandler, onDescriptionChangeHandler };
 };

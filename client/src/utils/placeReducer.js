@@ -5,6 +5,15 @@ export function placeReducer(state, action) {
                 ...state,
                 [action.payload.name]: action.payload.value,
             };
+
+        case 'description':
+            return {
+                ...state,
+                description: {
+                    text: action.payload.content,
+                    charCounter: action.payload.charCounter
+                }
+            }
         default:
             return state;
     }
@@ -12,6 +21,9 @@ export function placeReducer(state, action) {
 
 export const initialState = {
     name: '',
-    description: '',
+    description: {
+        text: '',
+        charCounter: 0
+    },
     type: '',
 };

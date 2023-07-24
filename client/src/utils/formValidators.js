@@ -3,7 +3,7 @@ export function validatePlaceData({ state, images, allowedCategories }) {
 
     const errors = [];
 
-    if (description.trim().length < 50 || description.trim().length > 5000) {
+    if (description.text.trim().length < 50 || description.text.trim().length > 5000) {
         errors.push('Description must be between 50 and 5000 characters');
     }
 
