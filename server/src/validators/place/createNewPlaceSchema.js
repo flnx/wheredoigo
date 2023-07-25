@@ -6,12 +6,11 @@ const createNewPlaceSchema = yup.object({
     name: yup
         .string()
         .required(errorMessages.data.required('Name'))
-        .min(1, errorMessages.validation.placeName)
         .max(60, errorMessages.validation.placeName),
     type: yup
         .string()
         .required(errorMessages.data.required('type'))
-        .oneOf(allowedPlaceCategories, 'Invalid type'),
+        .oneOf(allowedPlaceCategories, errorMessages.data.type),
     description: yup
         .string()
         .required(errorMessages.data.required('Description'))

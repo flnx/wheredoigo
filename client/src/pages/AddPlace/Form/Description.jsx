@@ -4,7 +4,6 @@ import styles from './Form.module.css';
 
 export const Description = ({ description, onChangeHandler, errors, charCounter }) => {
     const isNotValid = charCounter < 50 || charCounter > 5000;
-    console.log(charCounter)
 
     return (
         <div className={styles.formRow}>

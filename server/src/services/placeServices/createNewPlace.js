@@ -21,7 +21,7 @@ async function createNewPlace({ data, images, destination }) {
     });
 
     const folderName = 'places';
-    const { imageUrls, imgError } = await uploadImages(images, place, folderName, 4);
+    const { imageUrls, imgError } = await uploadImages(images, place, folderName, 5);
 
     place.imageUrls = imageUrls;
     await place.save();

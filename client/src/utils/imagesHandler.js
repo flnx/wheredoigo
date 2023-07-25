@@ -1,17 +1,16 @@
 export const createImageFiles = async (imageUrls, formData) => {
-    const fetchPromises = imageUrls.map(async (url, index) => {
-        const isDev = url.includes('localhost');
-        const isTestUrl = isDev && url.includes('test-path');
-        const validUrl = isTestUrl ? 'test-path' : url;
+    const fetchPromises = imageUrls
+        .map(async (url, index) => {
+            const isDev = url.includes('localhost');
+            const isTestUrl = isDev && url.includes('test-path');
+            const validUrl = isTestUrl ? 'test-path' : url;
 
-        try {
             const res = await fetch(validUrl);
             const blob = await res.blob();
             const contentType = blob.type;
 
             if (!validateImageFile(contentType)) {
-                console.error('Only image files are allowed');
-                return;
+                throw new Error('Images must be jpe?g/png/webp/gif format');
             }
 
             const fileExtension = '.' + contentType.split('/')[1];
@@ -20,12 +19,8 @@ export const createImageFiles = async (imageUrls, formData) => {
             });
 
             formData.append('imageUrls', file);
-        } catch (error) {
-            if (!isTestUrl) {
-                console.error(error.message || error);
-            }
-        }
-    }).slice(0,50);
+        })
+        .slice(0, 50);
 
     await Promise.all(fetchPromises);
 };
