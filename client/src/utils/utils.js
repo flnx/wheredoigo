@@ -1,30 +1,9 @@
 export const disableBodyScroll = () => {
     return (document.body.style.overflow = 'hidden');
 };
+
 export const enableBodyScroll = () => {
     return (document.body.style.overflow = '');
-};
-
-export const capitalizeFirstLetter = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-};
-
-export const isObject = (value) => {
-    return typeof value === 'object' && !Array.isArray(value) && value !== null;
-};
-
-export const isValidArrayOfStrings = (arr) => {
-    if (!Array.isArray(arr)) {
-        return false;
-    }
-
-    const hasInvalidCategory = arr.some((c) => typeof c !== 'string');
-
-    if (hasInvalidCategory) {
-        return false;
-    }
-
-    return true;
 };
 
 // Stop this if cloudinary credits get low

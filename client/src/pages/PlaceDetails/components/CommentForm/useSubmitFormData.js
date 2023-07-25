@@ -10,7 +10,7 @@ import { addCommentSchema } from 'src/utils/validationSchemas/placeSchemas';
 export const useSubmitFormData = ({ title, content, rating, resetForm }) => {
     const { placeId } = useParams();
     const { isLoading, error, mutate: addComment } = useAddComment(placeId);
-    const [validationErrors, setValidationErrors] = useState([]);
+    const [errors, setErrors] = useState([]);
 
     const handleSubmit = async (e, commentSectionRef) => {
         e.preventDefault();
@@ -22,7 +22,7 @@ export const useSubmitFormData = ({ title, content, rating, resetForm }) => {
 
             addComment(data, {
                 onSuccess: () => {
-                    setValidationErrors('');
+                    setErrors('');
                     resetForm();
                     // when comment is added it scrolls right on it
 
@@ -31,9 +31,9 @@ export const useSubmitFormData = ({ title, content, rating, resetForm }) => {
             });
         } catch (err) {
             console.log(err.errors);
-            setValidationErrors(err.errors || [err.message]);
+            setErrors(err.errors || [err.message]);
         }
     };
 
-    return [handleSubmit, isLoading, error, validationErrors];
+    return [handleSubmit, isLoading, error, errors];
 };
