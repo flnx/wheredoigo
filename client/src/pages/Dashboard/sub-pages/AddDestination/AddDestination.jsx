@@ -20,8 +20,6 @@ import { FormCheckboxes } from 'src/components/FormCheckboxes/FormCheckboxes';
 
 import styles from './AddDestination.module.css';
 
-
-
 export const AddDestination = () => {
     const [showDetail, setShowDetail] = useState({ name: '' });
     const { images, addImages, deleteImage } = useImages();
@@ -91,7 +89,7 @@ export const AddDestination = () => {
                     handleDeleteImage={(_, index) => deleteImage(index)}
                 />
 
-                {images.imageUrls.length < 4 && (
+                {images.imageUrls.length < 5 && (
                     <ShowFormError errors={errors} errorParam={'images'} />
                 )}
 

@@ -1,38 +1,3 @@
-export const validateDestinationData = (state, images, allowedCategories) => {
-    const { city, country, description, categories } = state;
-    const errors = [];
-
-    if (!city) {
-        errors.push('City is required');
-    }
-
-    if (!country) {
-        errors.push('Country is required');
-    }
-
-    if (images.imageUrls.length < 5 || images.imageUrls.length > 50) {
-        errors.push('You need to add between 5 and 50 images');
-    }
-
-    if (description.charCounter < 50) {
-        errors.push('Description must be between 50 and 5000 characters');
-    }
-
-    if (categories.length == 0) {
-        errors.push('Please select at least 1 category');
-    } else {
-        const hasInvalidCategory = categories.some(
-            (c) => !allowedCategories.includes(c)
-        );
-
-        if (hasInvalidCategory) {
-            errors.push('Invalid category!');
-        }
-    }
-
-    return errors;
-};
-
 export const validateCategoriesOnSearch = (searchParams) => {
     const allowed = [
         'Beach',

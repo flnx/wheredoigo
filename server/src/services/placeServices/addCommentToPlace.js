@@ -5,14 +5,10 @@ const Comment = require('../../models/commentSchema');
 const UserActivity = require('../../models/userActivitiesSchema');
 
 // utils
-const { validateCommentFields } = require('../../utils/validateComment');
 const { createValidationError } = require('../../utils/createValidationError');
 const { errorMessages } = require('../../constants/errorMessages');
 
 async function addCommentToPlace({ id, title, content, rating, user }) {
-    // Validate comment fields
-    validateCommentFields({ content, title, rating });
-
     // Extract user information
     const { ownerId } = user;
 

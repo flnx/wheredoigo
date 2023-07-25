@@ -5,6 +5,7 @@ const Country = require('../../models/countrySchema');
 const uploadImages = require('../cloudinaryService/uploadImages');
 
 async function createDestination(data, images, user) {
+
     const { ownerId } = user;
 
     const country = await addCountry(data.country);
@@ -17,14 +18,12 @@ async function createDestination(data, images, user) {
         likes: [],
     });
 
-    await destination.save();
-
     const folderName = 'destinations';
     const { imageUrls, imgError } = await uploadImages(
         images,
         destination,
         folderName,
-        4
+        5
     );
 
     destination.imageUrls = imageUrls;

@@ -6,16 +6,19 @@ const createDestinationSchema = yup.object({
     city: yup
         .string()
         .required(errorMessages.data.required('City'))
-        .min(1, errorMessages.data.city)
         .max(85, errorMessages.data.city),
     country: yup
         .string()
-        .required()
+        .required(errorMessages.data.required('Country'))
         .min(4, errorMessages.data.country)
         .max(56, errorMessages.data.country),
     description: yup
         .string()
         .required(errorMessages.data.required('Description')),
+    imageUrls: yup
+        .array()
+        .required()
+        .min(5, errorMessages.data.imagesBoundary(5)),
     details: yup
         .array()
         .required()

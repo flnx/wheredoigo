@@ -15,14 +15,14 @@ const validateCreateDestinationData = (yupSchema) => async (req, res, next) => {
             city: req.body.city,
             country: body.country,
             description: body.description,
-            details: body.details,
-            category: body.category,
+            details: JSON.parse(body.details),
+            category: JSON.parse(body.categories),
         };
 
         const { city, country, description, details } = data;
-
+        
         // Validate props
-        await yupSchema.validate(data);
+        await yupSchema.validate({ ...data, imageUrls: req.files });
 
         // Sanitize description
         const sanitizedDescription = sanitizeHtmlString(description);
