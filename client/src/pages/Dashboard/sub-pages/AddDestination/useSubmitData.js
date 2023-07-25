@@ -23,15 +23,15 @@ export const useSubmitData = (images, state, categories) => {
         if (isLoading) return;
 
         try {
-            // await createDestinationSchema(categories).validate(
-            //     {
-            //         ...state,
-            //         imageUrls: images.imageUrls,
-            //         description: state.description.text,
-            //         charCounter: state.description.charCounter,
-            //     },
-            //     { abortEarly: false }
-            // );
+            await createDestinationSchema(categories).validate(
+                {
+                    ...state,
+                    imageUrls: images.imageUrls,
+                    description: state.description.text,
+                    charCounter: state.description.charCounter,
+                },
+                { abortEarly: false }
+            );
 
             const formData = await createDestinationFormData(state, images);
 

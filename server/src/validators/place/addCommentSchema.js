@@ -15,7 +15,7 @@ const addCommentSchema = yup.object({
     rating: yup
         .number()
         .integer()
-        .required(errorMessages.data.required('Title'))
+        .required(errorMessages.data.required('Rating'))
         .min(1)
         .max(5),
 });

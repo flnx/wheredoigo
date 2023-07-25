@@ -17,7 +17,7 @@ export const CommentForm = ({ commentSectionRef }) => {
     const [title, setTitle] = useState('');
     const [rating, setRating] = useState(0);
     const [cachedRate, setCachedRate] = useState(0);
-    const [handleSubmit, isLoading, error, validationErrors] = useSubmitFormData({
+    const [handleSubmit, isLoading, error, errors] = useSubmitFormData({
         title,
         content,
         rating,
@@ -39,6 +39,10 @@ export const CommentForm = ({ commentSectionRef }) => {
         cacheRateHandler(0);
     }
 
+    const isNotTitled = title.length < 2 && errors.some((err) => err.includes('Title'));
+    const hasCommentError = errors.some((err) => err.includes('Comment'));
+    const hasCommentCharBoundary = content.length < 10 || content.length > 2000;
+
     return (
         <div>
             <h3 className={styles.title}>Leave a comment</h3>
@@ -49,8 +53,8 @@ export const CommentForm = ({ commentSectionRef }) => {
                     changeRateHandler={onRateChangeHandler}
                     handleRateCache={cacheRateHandler}
                     cachedRate={cachedRate}
+                    errors={errors}
                 />
-                <ShowFormError errors={validationErrors} errorParam={'rate'} />
 
                 <input
                     className={styles.formInput}
@@ -59,7 +63,7 @@ export const CommentForm = ({ commentSectionRef }) => {
                     onChange={(e) => setTitle(e.target.value)}
                     value={title}
                 />
-                <ShowFormError errors={validationErrors} errorParam={'title'} />
+                {isNotTitled && <ShowFormError errors={errors} errorParam={'title'} />}
 
                 <textarea
                     className={styles.formTextarea}
@@ -67,7 +71,10 @@ export const CommentForm = ({ commentSectionRef }) => {
                     placeholder="Add a comment..."
                     value={content}
                 />
-                <ShowFormError errors={validationErrors} errorParam={'comment'} />
+                {hasCommentError && hasCommentCharBoundary && (
+                    <ShowFormError errors={errors} errorParam={'comment'} />
+                )}
+
                 <SecondaryButton padding={0.95} isLoading={isLoading}>
                     Submit your Review
                 </SecondaryButton>

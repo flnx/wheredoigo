@@ -1,7 +1,11 @@
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 
+// React Query Hooks
 import { useAddComment } from 'src/hooks/queries/useAddComment';
+
+// Validation
+import { addCommentSchema } from 'src/utils/validationSchemas/placeSchemas';
 
 export const useSubmitFormData = ({ title, content, rating, resetForm }) => {
     const { placeId } = useParams();
@@ -11,37 +15,24 @@ export const useSubmitFormData = ({ title, content, rating, resetForm }) => {
     const handleSubmit = async (e, commentSectionRef) => {
         e.preventDefault();
 
-        let errors = [];
-
-        if (isLoading) return;
-
-        if (rating == 0) {
-            errors.push('Please rate the place to share your experience')
-        }
-        
-        if (title.length < 2) {
-            errors.push('Title must be at least 2 characters long')
-        }
-
-        if (content.length < 10) {
-            errors.push('Comment must contain at least 10 characters');
-        }
-
-        if (errors.length > 0) {
-            return setValidationErrors(errors);
-        }
-
         const data = { title, content, rating };
 
-        addComment(data, {
-            onSuccess: () => {
-                setValidationErrors('');
-                resetForm();
-                // when comment is added it scrolls right on it
+        try {
+            await addCommentSchema.validate(data, { abortEarly: false });
 
-                commentSectionRef.current?.scrollIntoView();
-            },
-        });
+            addComment(data, {
+                onSuccess: () => {
+                    setValidationErrors('');
+                    resetForm();
+                    // when comment is added it scrolls right on it
+
+                    commentSectionRef.current?.scrollIntoView();
+                },
+            });
+        } catch (err) {
+            console.log(err.errors);
+            setValidationErrors(err.errors || [err.message]);
+        }
     };
 
     return [handleSubmit, isLoading, error, validationErrors];

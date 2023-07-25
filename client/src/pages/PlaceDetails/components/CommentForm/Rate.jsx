@@ -1,8 +1,15 @@
-import { Star } from '@phosphor-icons/react';
 import { useState } from 'react';
+import { Star } from '@phosphor-icons/react';
+import { ShowFormError } from 'src/components/ShowFormError/ShowFormError';
 import styles from './Rate.module.css';
 
-export const Rate = ({ userRating, changeRateHandler, cachedRate, handleRateCache }) => {
+export const Rate = ({
+    userRating,
+    changeRateHandler,
+    cachedRate,
+    handleRateCache,
+    errors,
+}) => {
     const [hovered, setHovered] = useState(false);
 
     const onStarClickHandler = (rating) => {
@@ -22,6 +29,7 @@ export const Rate = ({ userRating, changeRateHandler, cachedRate, handleRateCach
     };
 
     const ratingPoints = new Array(5).fill().map((_, i) => i + 1);
+    const isNotRated = cachedRate == 0 && errors.some((err) => err.includes('rate'));
 
     return (
         <div className={styles.stars}>
@@ -38,6 +46,12 @@ export const Rate = ({ userRating, changeRateHandler, cachedRate, handleRateCach
                     onMouseLeave={onRatingUnhover}
                 />
             ))}
+
+            {isNotRated && (
+                <div>
+                    <ShowFormError errors={errors} errorParam={'rate'} />
+                </div>
+            )}
         </div>
     );
 };
