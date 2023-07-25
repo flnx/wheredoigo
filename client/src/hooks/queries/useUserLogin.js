@@ -6,6 +6,6 @@ export const useUserLogin = () => {
         mutationFn: (data) => user.login(data),
     });
 
-    const serverError = error?.message == 'Network Error' && error;
+    const serverError = error && error?.message == 'Network Error';
     return [mutate, isLoading, serverError];
 };

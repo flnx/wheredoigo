@@ -16,8 +16,6 @@ const userRegisterSchema = yup.object({
     username: yup
         .string()
         .required(errorMessages.data.required('Username'))
-        .min(2, errorMessages.validation.username)
-        .max(12, errorMessages.validation.username)
         .matches(regex.username, errorMessages.validation.username),
 });
 

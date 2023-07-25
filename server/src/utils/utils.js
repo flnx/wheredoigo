@@ -1,9 +1,3 @@
-function validatePassword(password) {
-    const regex = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=[\w\d#?!@$%^&*-_]).{8,}$/;
-
-    return regex.test(password);
-}
-
 function isObject(value) {
     return typeof value === 'object' && !Array.isArray(value) && value !== null;
 }
@@ -35,7 +29,6 @@ function isValidArrayOfStrings(arr) {
 }
 
 module.exports = {
-    validatePassword,
     isObject,
     isString,
     isValidInteger,

@@ -9,7 +9,7 @@ const userLoginSchema = yup.object({
         .email(errorMessages.auth.invalidCredentials),
     password: yup
         .string()
-        .required(errorMessages.data.required('password'))
+        .required(errorMessages.data.required('Password'))
         .matches(regex.password, errorMessages.auth.invalidCredentials),
 });
 

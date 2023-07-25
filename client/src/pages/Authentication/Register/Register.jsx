@@ -1,15 +1,12 @@
 import { Link } from 'react-router-dom';
 
-// React Query Hooks
-import { useUserRegister } from 'src/hooks/queries/useUserRegister';
-
 // Global Hooks
 import { useErrorBoundary } from 'react-error-boundary';
 import { useDocumentTitle } from 'src/hooks/useDocumentTitle';
 
 // Local Hooks
-import { useSubmitFormData } from '../hooks/useSubmitFormData';
 import { useFormInput } from '../hooks/useFormInput';
+import { useSubmitRegister } from './useSubmitRegister';
 
 // Global Components
 import { ButtonSky } from 'src/components/Buttons/Button-Sky/ButtonSky';
@@ -24,18 +21,19 @@ import { FormInput } from '../components/FormInput';
 
 import routeConstants from 'src/constants/routeConstants';
 import styles from '../FormLayout.module.css';
+import { ShowFormError } from 'src/components/ShowFormError/ShowFormError';
 
 const { AUTH } = routeConstants;
 
 const Register = () => {
+    useDocumentTitle('Sign Up');
     const { showBoundary } = useErrorBoundary();
     const [state, onChangeHandler] = useFormInput();
-    const [register, isLoading, serverError] = useUserRegister();
-    const [submitHandler, error] = useSubmitFormData(state, register, isLoading);
-    useDocumentTitle('Sign Up')
+    const { submitHandler, errors, networkError, isLoading, serverErrMsg } =
+        useSubmitRegister(state);
 
-    if (serverError) {
-        showBoundary(serverError);
+    if (networkError) {
+        showBoundary(networkError);
         return null;
     }
 
@@ -49,6 +47,7 @@ const Register = () => {
                     value={state.username}
                     onChangeHandler={onChangeHandler}
                     Icon={User}
+                    errors={errors}
                 />
                 <FormInput
                     name={'password'}
@@ -57,6 +56,7 @@ const Register = () => {
                     value={state.password}
                     onChangeHandler={onChangeHandler}
                     Icon={LockSimple}
+                    errors={errors}
                 />
                 <FormInput
                     name={'repeatPassword'}
@@ -65,6 +65,7 @@ const Register = () => {
                     value={state.repeatPassword}
                     onChangeHandler={onChangeHandler}
                     Icon={LockSimple}
+                    errors={errors}
                 />
                 <FormInput
                     name={'email'}
@@ -73,10 +74,11 @@ const Register = () => {
                     value={state.email}
                     onChangeHandler={onChangeHandler}
                     Icon={EnvelopeSimple}
+                    errors={errors}
                 />
 
                 <div className={styles.errorWrapper}>
-                    {error && <p className={styles.error}>{error}</p>}
+                    {serverErrMsg && <p className={styles.error}>{serverErrMsg}</p>}
                 </div>
 
                 <div className={styles.formField}>

@@ -7,7 +7,7 @@ const propTypes = {
 };
 
 export const ShowFormError = ({ errors, errorParam }) => {
-    if (errors.length == 0 || !errorParam) {
+    if (!Array.isArray(errors) || errors.length == 0 || !errorParam) {
         return null;
     }
 

@@ -33,7 +33,9 @@ export function checkArrayAndPreloadElements(arr, prefillNum) {
 }
 
 export function extractServerErrorMessage(error) {
-    if (!error) return;
+    if (!error) {
+        return false;
+    }
 
     if (error?.message == 'Network Error') {
         // Check ErrorFallbackComponent before changing this!!!

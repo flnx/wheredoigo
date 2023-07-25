@@ -1,15 +1,11 @@
 import { Link } from 'react-router-dom';
 
-// React Query Hook
-import { useUserLogin } from 'src/hooks/queries/useUserLogin';
-
 // Global Hooks
 import { useErrorBoundary } from 'react-error-boundary';
 import { useDocumentTitle } from 'src/hooks/useDocumentTitle';
 
 // Local Hooks
 import { useFormInput } from '../hooks/useFormInput';
-import { useSubmitFormData } from '../hooks/useSubmitFormData';
 
 // Global Components 
 import { ButtonSky } from 'src/components/Buttons/Button-Sky/ButtonSky';
@@ -23,15 +19,15 @@ import { FormInput } from '../components/FormInput';
 
 import routeConstants from 'src/constants/routeConstants';
 import styles from '../FormLayout.module.css';
+import { useSubmitLogin } from './useSubmitLogin';
 
 const { AUTH } = routeConstants;
 
 const Login = () => {
+    useDocumentTitle('Login');
     const { showBoundary } = useErrorBoundary();
     const [state, onChangeHandler] = useFormInput();
-    const [login, isLoading, serverError] = useUserLogin();
-    const [submitHandler, error] = useSubmitFormData(state, login, isLoading);
-    useDocumentTitle('Login');
+    const { submitHandler, error, serverError, isLoading } = useSubmitLogin(state);
 
     if (serverError) {
         showBoundary(serverError);

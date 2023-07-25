@@ -6,7 +6,7 @@ export const useUserRegister = () => {
         mutationFn: (data) => user.register(data),
     });
 
-    const serverError = error?.message == 'Network Error' && error;
+    const networkError = error && error?.message == 'Network Error';
 
-    return [mutate, isLoading, serverError];
+    return [mutate, isLoading, networkError, error];
 };
