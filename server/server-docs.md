@@ -1,4 +1,27 @@
-# NodeJS/Express Server API for Where Do I Go
+# NodeJS/Express API for Where Do I Go
+
+## IMPORTANT
+
+### Request Headers
+
+1. **For each request** the authenticated user should include the access token in the request headers using the "Authorization" header field.
+2. The token must be a JSON Web Token (JWT), returned from the server.
+3. It should be prefixed with "Bearer" to comply with the server's authentication process.
+
+> Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.{your_access_token}
+
+Example:
+
+```JS
+ const response = await fetch(url, {
+    method: "POST",
+        headers: {
+            "Authorization": `Bearer ${accessToken}`
+        },
+        ...
+    });
+
+```
 
 ## User Resource
 
@@ -19,7 +42,7 @@ Returns:
   "email": "tester@yahoo.com",
   "username": "Tester",
   // initial default url
-  "avatarUrl": "https://res.cloudinary.com/degidchop/image/upload/v1690401797/avatars/reedeharqpql6jvjdwcs.png", 
+  "avatarUrl": "https://res.cloudinary.com/degidchop/image/upload/v1690401797/avatars/reedeharqpql6jvjdwcs.png",
   "role": "user",
   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1Mj..."
 }
@@ -41,7 +64,7 @@ Returns:
   "email": "tester@yahoo.com",
   "username": "Tester",
   // initial default url
-  "avatarUrl": "https://res.cloudinary.com/degidchop/image/upload/v1690401797/avatars/reedeharqpql6jvjdwcs.png", 
+  "avatarUrl": "https://res.cloudinary.com/degidchop/image/upload/v1690401797/avatars/reedeharqpql6jvjdwcs.png",
   "role": "user",
   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1Mj..."
 }
@@ -78,7 +101,7 @@ returns:
   "email": "tester@abv.bg",
   "username": "Tester",
   // Uploaded image file URL
-  "avatarUrl": "http://res.cloudinary.com/degidchop/image/upload/v1690404138/avatars/kmjsxnbcufe56ew20hwx.jpg", 
+  "avatarUrl": "http://res.cloudinary.com/degidchop/image/upload/v1690404138/avatars/kmjsxnbcufe56ew20hwx.jpg",
   "role": "user",
   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1Mj..."
 }
