@@ -79,12 +79,37 @@ Returns:
 
 ## User Resource
 
+### GET /user/favorites
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
+1. Get all user likes (favorites)
+
+returns:
+
+```json
+[
+  {
+    "_id": "646e78213d3b7387243fc4fc",
+    "country": "Netherlands",
+    "city": "Amsterdam",
+    "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1684961314/destinations/amsterdam-646e78213d3b7387243fc4fc/atvy1vfvl2jooliojoxw.jpg"
+  },
+  {
+    "_id": "649a272ce046091e047012d3",
+    "country": "Czech Republic",
+    "city": "Prague",
+    "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1687824173/destinations/prague-649a272ce046091e047012d3/behpvxmpohibg25gsdlp.jpg"
+  }
+]
+```
+
 ### GET /user/activities
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
 
 1. Last 3 user activities (Comments and Likes)
 2. Total number of user comments, likes(favorites) and created destinations
-
-**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
 
 returns:
 

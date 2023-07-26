@@ -12,7 +12,7 @@ export const changeUserAvatar = async (formData) => {
 };
 
 export const getUserFavorites = async () => {
-    const result = await axios.get(apiEndpoints.userFavorites);
+    const result = await axios.get(apiEndpoints.user.favorites);
     return result.data;
 };
 

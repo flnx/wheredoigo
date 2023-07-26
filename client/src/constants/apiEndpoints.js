@@ -12,6 +12,7 @@ export const apiEndpoints = {
         avatar: 'user/avatar',
         delete: 'user/delete',
         activities: 'user/activities',
+        favorites: 'user/favorites',
     },
 
     place: {
@@ -22,7 +23,6 @@ export const apiEndpoints = {
 
     },
 
-    userFavorites: 'user/favorites',
 
     allDestinations: 'destinations',
     mostLikedDestinations: 'top-destinations',
