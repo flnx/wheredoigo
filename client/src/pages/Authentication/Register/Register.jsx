@@ -21,7 +21,6 @@ import { FormInput } from '../components/FormInput';
 
 import routeConstants from 'src/constants/routeConstants';
 import styles from '../FormLayout.module.css';
-import { ShowFormError } from 'src/components/ShowFormError/ShowFormError';
 
 const { AUTH } = routeConstants;
 
@@ -29,8 +28,7 @@ const Register = () => {
     useDocumentTitle('Sign Up');
     const { showBoundary } = useErrorBoundary();
     const [state, onChangeHandler] = useFormInput();
-    const { submitHandler, errors, networkError, isLoading, serverErrMsg } =
-        useSubmitRegister(state);
+    const { submitHandler, errors, networkError, isLoading, serverErrMsg } = useSubmitRegister(state);
 
     if (networkError) {
         showBoundary(networkError);

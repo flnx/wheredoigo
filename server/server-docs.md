@@ -1,100 +1,93 @@
-# NodeJS Server for Where Do I Go SPA App
+# NodeJS/Express Server API for Where Do I Go
 
-## Server Packages:
+## User Resource
 
-- Express
-- MongoDB
-- dotenv
-- cors
-- bcrypt
-- jsonwebtoken
-- validator
-- cloudinary
-- multer
-- streamifier
-- express-rate-limit
+### POST /register
 
-### REGISTER
-- Endpoint (POST): /register
-
+```json
 {
-    email: "test",
-    password: "test",
-    username: "test",
+  "email": "test@yahoo.com",
+  "password": "asdasd77", // Min 8 chars, at least 1 letter and 1 num (special chars allowed)
+  "username": "ye" // Alpha numeric username 2-12 chars
 }
-
-1. Email: Valid and Unique
-2. Password: At least 6 characters long
-3. Username: At least 2 characters long and must contain only letters and numbers
+```
 
 ### LOGIN
+
 - Endpoint (POST): /login
 
   {
-    email: "test",
-    password: "test",
+  email: "test",
+  password: "test",
   }
 
 1. Email: Valid and Unique
 2. Password: At least 6 characters long and valid
 
 ### DESTINATIONS
+
 - Endpoint (GET): /destinations
 
 1. Returns max 9 destinations
 2. In order too get less than 9 results use limit
-  - query: limit
-  - example: destinations?limit=5
-3. in order to achieve PAGINATION, use page query
-  - query: page
-  - example: /destinations?page=3
-4. to combine them:
-  - destinations?page=3&limit=4
 
+- query: limit
+- example: destinations?limit=5
+
+3. in order to achieve PAGINATION, use page query
+
+- query: page
+- example: /destinations?page=3
+
+4. to combine them:
+
+- destinations?page=3&limit=4
 
 ### CREATE DESTINATION (Granted Accesss)
+
 - Endpoint (POST):
 
-1. JSON Info: 
- - country: It will be automatically created on the backend after checking the city
- - city: (required and valid)
- - description: (required and at least 10 characters long)
- - details: not required but it will be automatically created on the client with empty fields for each category
- - imageUrls: At least 3 images (blobs). The server will upload them to cloudinary and store the URLS for each Image (compressed).
- 
+1. JSON Info:
+
+- country: It will be automatically created on the backend after checking the city
+- city: (required and valid)
+- description: (required and at least 10 characters long)
+- details: not required but it will be automatically created on the client with empty fields for each category
+- imageUrls: At least 3 images (blobs). The server will upload them to cloudinary and store the URLS for each Image (compressed).
 
 2. Allowed Categories: (Might be Updated in Future)
- - Good to Know
- - Transport
- - Local Customs
- - Pro Tips
+
+- Good to Know
+- Transport
+- Local Customs
+- Pro Tips
 
 {
-    country: "",
-    city: "",
-    description: "",
-    details: [
-        {
-            category: "Transport",
-            info: [
-                {
-                    title: "",
-                    description: "",
-                },
-                {
-                    title: "",
-                    description: "",
-                },
-                ...
-            ],
-        },
-        ..More Categories (if needed)
-    ],
-    imageUrls: [file1, file2, file3...] // the server will return urls,
+country: "",
+city: "",
+description: "",
+details: [
+{
+category: "Transport",
+info: [
+{
+title: "",
+description: "",
+},
+{
+title: "",
+description: "",
+},
+...
+],
+},
+..More Categories (if needed)
+],
+imageUrls: [file1, file2, file3...] // the server will return urls,
 }
 
-
 ### CREATE PLACE
+
 - Endpoint (POST): /places
 
 ### FETCH CITY DATA
@@ -102,8 +95,8 @@
 - Endpoint (POST): /destinations/get-city-data
 
 1. {
-     city: "cityName"
-  }
+   city: "cityName"
+   }
 
 ### A cloud-based image management service - Cloudinary and Image Handling
 
