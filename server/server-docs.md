@@ -2,7 +2,7 @@
 
 ## IMPORTANT
 
-### Request Headers
+### Authentication (Request Headers)
 
 1. **For each request** the authenticated user should include the access token in the request headers using the "Authorization" header field.
 
@@ -26,7 +26,7 @@ Example:
 ```
 <br>
 
-## User Resource
+## Authentication
 
 ### POST /register
 
@@ -74,6 +74,8 @@ Returns:
 ```
 <br>
 
+## User Resource
+
 ### PUT /user/avatar
 
 Upload user avatar:
@@ -117,9 +119,8 @@ returns:
 
 ### DELETE /user/delete
 
+Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)
 
-```json
-
-
-
-```
+1. After the user deletes their account, it cannot be restored. 
+2. All of their comments and likes will be permanently removed. 
+3. However, the destinations and places they created will not be deleted; they will remain visible to other users.
