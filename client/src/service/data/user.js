@@ -17,7 +17,7 @@ export const getUserFavorites = async () => {
 };
 
 export const getUserLastActivities = async () => {
-    const result = await axios.get(apiEndpoints.userLastActivities);
+    const result = await axios.get(apiEndpoints.user.activities);
 
     return result.data;
 };

@@ -24,6 +24,7 @@ Example:
     });
 
 ```
+
 <br>
 
 ## Authentication
@@ -50,6 +51,7 @@ Returns:
   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1Mj..."
 }
 ```
+
 <br>
 
 ### POST /login
@@ -72,9 +74,77 @@ Returns:
   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1Mj..."
 }
 ```
+
 <br>
 
 ## User Resource
+
+### GET /user/activities
+
+1. Last 3 user activities (Comments and Likes)
+2. Total number of user comments, likes(favorites) and created destinations
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
+returns:
+
+```json
+{
+  "likes": [
+    {
+      "destinationId": "64a8fed0fc2c004f3f9ca1b3",
+      "city": "Dresden",
+      "date": "13 July 2023",
+      "time": "14:18:08"
+    },
+    {
+      "destinationId": "64b6e77f93848f1dff591baa",
+      "city": "Veliko Tarnovo",
+      "date": "27 July 2023",
+      "time": "01:32:56"
+    },
+    {
+      "destinationId": "649231795466cc1e6c46aa23",
+      "city": "Kailua",
+      "date": "27 July 2023",
+      "time": "01:33:19"
+    }
+  ],
+  "comments": [
+    {
+      "placeId": "6499f997e046091e04700fd0",
+      "name": "Teorema Rooms",
+      "title": "Great experience!",
+      "content": "I had a wonderful stay at Teorema Rooms. The room was clean and comfortable, and the staff was friendly and helpful. Highly recommended!",
+      "rating": 5,
+      "date": "2 July 2023",
+      "time": "10:29:15"
+    },
+    {
+      "placeId": "649236755466cc1e6c46aa82",
+      "name": "Lanikai Beach",
+      "title": "Lovely beach",
+      "content": "Great beach! The sand was really nice and it was not over crowded. I would highly recommend this to people visiting Honolulu. The only issue was that you need a car to get there.",
+      "rating": 4,
+      "date": "27 July 2023",
+      "time": "01:33:43"
+    },
+    {
+      "placeId": "64923dfe5466cc1e6c46ab99",
+      "name": "Kailua Beach Park",
+      "title": "Loved it.",
+      "content": "Incredible. It was quiet and beautiful",
+      "rating": 5,
+      "date": "27 July 2023",
+      "time": "01:36:51"
+    }
+  ],
+  "hasNoActivity": false,
+  "countComments": 93,
+  "countCreated": 22,
+  "countFavorites": 22
+}
+```
 
 ### PUT /user/avatar
 
@@ -115,12 +185,13 @@ returns:
   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1Mj..."
 }
 ```
+
 <br>
 
 ### DELETE /user/delete
 
-Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
 
-1. After the user deletes their account, it cannot be restored. 
-2. All of their comments and likes will be permanently removed. 
+1. After the user deletes their account, it cannot be restored.
+2. All of their comments and likes will be permanently removed.
 3. However, the destinations and places they created will not be deleted; they will remain visible to other users.

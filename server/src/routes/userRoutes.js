@@ -15,7 +15,7 @@ const router = express.Router();
 
 // -- GET --
 router.get(
-    '/user/last-activities', 
+    '/user/activities', 
     auth, 
     userController.get_last_activities
 );
