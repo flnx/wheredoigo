@@ -103,6 +103,7 @@ returns:
   }
 ]
 ```
+<br>
 
 ### GET /user/activities
 
@@ -171,7 +172,7 @@ returns:
 }
 ```
 
-_NOTE_
+**NOTE**
 
 > _If the user hasn't added any comments and hasn't liked anything yet, the likes and comments arrays will be empty and hasNoActivity will be set to true_
 
@@ -181,13 +182,13 @@ Example:
 {
   "comments": [],
   "likes": [],
-  "created": [],
   "hasNoActivity": true,
   "countComments": 0,
   "countCreated": 0,
   "countFavorites": 0
 }
 ```
+<br>
 
 ### PUT /user/avatar
 

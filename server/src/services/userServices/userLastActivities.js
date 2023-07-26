@@ -24,7 +24,6 @@ async function getUserLastActivities(userId) {
         return {
             comments: [],
             likes: [],
-            created: [],
             hasNoActivity: true,
         };
     }
