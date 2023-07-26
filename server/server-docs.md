@@ -51,9 +51,10 @@ Append an image file to a formData with path: **avatarUrl**
 
 Example:
 
-> const formData = new FormData() formData.append('avatarUrl', image, 'avatar.jpg');
-
-
+<code>
+    const formData = new FormData() 
+    formData.append('avatarUrl', image, 'avatar.jpg');
+</code>
 
 ### DESTINATIONS
 
