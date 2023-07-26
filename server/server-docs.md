@@ -6,23 +6,32 @@
 
 ```json
 {
-  "email": "test@yahoo.com",
+  "email": "tester@yahoo.com",
   "password": "asdasd77", // Min 8 chars, at least 1 letter and 1 num (special chars allowed)
-  "username": "ye" // Alpha numeric username 2-12 chars
+  "username": "Tester" // Alpha numeric username 2-12 chars
 }
 ```
 
-### LOGIN
+Returns:
 
-- Endpoint (POST): /login
+```json
+{
+  "email": "tester@yahoo.com",
+  "username": "Tester",
+  "avatarUrl": "https://supercharge.info/images/avatar-placeholder.png", // default avatar url
+  "role": "user",
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1MjY5YTU5ZjVjMzRhIiwiZW1haWwiOiJ0ZXN0ZXJAYWJ2LmJnIiwidXNlcm5hbWUiOiJUZXN0ZXIiLCJyb2xlIjoidXNlciIsImlhdCI6MTY5MDQwMDc5Mn0.kEigEgexRocrAq3IvgFxuxK78QYNg-LJua4F9BGZHS0"
+}
+```
 
-  {
-  email: "test",
-  password: "test",
-  }
+### LOGIN /login
 
-1. Email: Valid and Unique
-2. Password: At least 6 characters long and valid
+```json
+{
+  "email": "test@yahoo.com",
+  "password": "asdasd77" // Min 8 chars, at least 1 letter and 1 num (special chars allowed)
+}
+```
 
 ### DESTINATIONS
 
