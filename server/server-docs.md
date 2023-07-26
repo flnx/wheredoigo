@@ -5,7 +5,9 @@
 ### Request Headers
 
 1. **For each request** the authenticated user should include the access token in the request headers using the "Authorization" header field.
+
 2. The token must be a JSON Web Token (JWT), returned from the server.
+
 3. It should be prefixed with "Bearer" to comply with the server's authentication process.
 
 > Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.{your_access_token}
