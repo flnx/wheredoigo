@@ -54,13 +54,11 @@ Returns:
 }
 ```
 
-Implementation:
+**Technical Implementation**
 
-1. Middlewares: 
-    - [validateData](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/dataValidators/validateData.js)
-    - Validation (Yup): [userRegisterSchema](https://github.com/flnx/wheredoigo/blob/main/server/src/validators/user/userRegisterSchema.js)
-3. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/userRegister.js)
-4. [Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/userSchema.js)
+1. [Data Validation (Yup)](https://github.com/flnx/wheredoigo/blob/main/server/src/validators/user/userRegisterSchema.js)
+2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/userRegister.js)
+3. [Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/userSchema.js)
 
 <br>
 
