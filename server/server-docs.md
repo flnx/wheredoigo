@@ -31,6 +31,8 @@ Example:
 
 ### POST /register
 
+
+
 ```json
 {
   "email": "tester@yahoo.com",
@@ -51,6 +53,14 @@ Returns:
   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1Mj..."
 }
 ```
+
+Implementation:
+
+1. Middlewares: 
+    - [validateData](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/dataValidators/validateData.js)
+    - Validation (Yup): [userRegisterSchema](https://github.com/flnx/wheredoigo/blob/main/server/src/validators/user/userRegisterSchema.js)
+3. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/userRegister.js)
+4. [Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/userSchema.js)
 
 <br>
 
