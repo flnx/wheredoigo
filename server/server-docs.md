@@ -20,11 +20,11 @@ Returns:
   "username": "Tester",
   "avatarUrl": "https://res.cloudinary.com/degidchop/image/upload/v1690401797/avatars/reedeharqpql6jvjdwcs.png", // initial default url
   "role": "user",
-  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1MjY5YTU5ZjVjMzRhIiwiZW1haWwiOiJ0ZXN0ZXJAYWJ2LmJnIiwidXNlcm5hbWUiOiJUZXN0ZXIiLCJyb2xlIjoidXNlciIsImlhdCI6MTY5MDQwMDc5Mn0.kEigEgexRocrAq3IvgFxuxK78QYNg-LJua4F9BGZHS0"
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1Mj..."
 }
 ```
 
-### LOGIN /login
+### POST /login
 
 ```json
 {
@@ -41,9 +41,19 @@ Returns:
   "username": "Tester",
   "avatarUrl": "https://res.cloudinary.com/degidchop/image/upload/v1690401797/avatars/reedeharqpql6jvjdwcs.png", // initial default url
   "role": "user",
-  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1MjY5YTU5ZjVjMzRhIiwiZW1haWwiOiJ0ZXN0ZXJAYWJ2LmJnIiwidXNlcm5hbWUiOiJUZXN0ZXIiLCJyb2xlIjoidXNlciIsImlhdCI6MTY5MDQwMDc5Mn0.kEigEgexRocrAq3IvgFxuxK78QYNg-LJua4F9BGZHS0"
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1Mj..."
 }
 ```
+
+### PUT /change-avatar
+
+Append an image file to a formData with path: **avatarUrl**
+
+Example:
+
+> const formData = new FormData() formData.append('avatarUrl', image, 'avatar.jpg');
+
+
 
 ### DESTINATIONS
 
