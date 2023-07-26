@@ -63,7 +63,6 @@ Returns:
 {
   "email": "tester@yahoo.com",
   "username": "Tester",
-  // initial default url
   "avatarUrl": "https://res.cloudinary.com/degidchop/image/upload/v1690401797/avatars/reedeharqpql6jvjdwcs.png",
   "role": "user",
   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1Mj..."
@@ -72,10 +71,13 @@ Returns:
 
 ### PUT /user/avatar
 
-**avatarUrl** (file) - The avatar image file to be uploaded.
-The server will interpret the file with the name 'avatarUrl'
+Upload user avatar:
 
-The old avatar will be automatically deleted after the new one is uploaded
+1. **avatarUrl** (file) - The avatar image file to be uploaded.
+
+2. The server will interpret the file with the name **avatarUrl**
+
+3. The old avatar will be automatically deleted after the new one is uploaded
 
 Example:
 
