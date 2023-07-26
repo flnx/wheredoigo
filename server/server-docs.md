@@ -25,7 +25,6 @@ Example:
 
 ```
 <br>
-<br>
 
 ## User Resource
 
@@ -52,7 +51,6 @@ Returns:
 }
 ```
 <br>
-<br>
 
 ### POST /login
 
@@ -74,7 +72,6 @@ Returns:
   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1Mj..."
 }
 ```
-<br>
 <br>
 
 ### PUT /user/avatar
@@ -116,7 +113,6 @@ returns:
   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1Mj..."
 }
 ```
-<br>
 <br>
 
 ### DELETE /user/delete
