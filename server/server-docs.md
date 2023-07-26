@@ -18,7 +18,7 @@ Returns:
 {
   "email": "tester@yahoo.com",
   "username": "Tester",
-  "avatarUrl": "https://supercharge.info/images/avatar-placeholder.png", // default avatar url
+  "avatarUrl": "https://res.cloudinary.com/degidchop/image/upload/v1690401797/avatars/reedeharqpql6jvjdwcs.png", // initial default url
   "role": "user",
   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1MjY5YTU5ZjVjMzRhIiwiZW1haWwiOiJ0ZXN0ZXJAYWJ2LmJnIiwidXNlcm5hbWUiOiJUZXN0ZXIiLCJyb2xlIjoidXNlciIsImlhdCI6MTY5MDQwMDc5Mn0.kEigEgexRocrAq3IvgFxuxK78QYNg-LJua4F9BGZHS0"
 }
@@ -28,8 +28,20 @@ Returns:
 
 ```json
 {
-  "email": "test@yahoo.com",
-  "password": "asdasd77" // Min 8 chars, at least 1 letter and 1 num (special chars allowed)
+  "email": "tester@yahoo.com",
+  "password": "asdasd77"
+}
+```
+
+Returns:
+
+```json
+{
+  "email": "tester@yahoo.com",
+  "username": "Tester",
+  "avatarUrl": "https://res.cloudinary.com/degidchop/image/upload/v1690401797/avatars/reedeharqpql6jvjdwcs.png", // initial default url
+  "role": "user",
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1MjY5YTU5ZjVjMzRhIiwiZW1haWwiOiJ0ZXN0ZXJAYWJ2LmJnIiwidXNlcm5hbWUiOiJUZXN0ZXIiLCJyb2xlIjoidXNlciIsImlhdCI6MTY5MDQwMDc5Mn0.kEigEgexRocrAq3IvgFxuxK78QYNg-LJua4F9BGZHS0"
 }
 ```
 

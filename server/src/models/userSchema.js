@@ -26,7 +26,7 @@ const userSchema = new Schema({
     },
     avatarUrl: {
         type: String,
-        default: 'https://supercharge.info/images/avatar-placeholder.png',
+        default: 'https://res.cloudinary.com/degidchop/image/upload/v1690401797/avatars/reedeharqpql6jvjdwcs.png',
     },
     avatar_id: {
         type: String,
