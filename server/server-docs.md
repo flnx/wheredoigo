@@ -47,12 +47,37 @@ Returns:
 
 ### PUT /change-avatar
 
-Append an image file to a formData with path: **avatarUrl**
+**avatarUrl** (file) - The avatar image file to be uploaded.
+The server will interpret the file with the name 'avatarUrl'
 
 Example:
 
-`    const formData = new FormData() 
-    formData.append('avatarUrl', image, 'avatar.jpg');`
+```JS
+const formData = new FormData()
+formData.append('avatarUrl', avatarImageFile, 'avatar.jpg')
+
+const changeUserAvatar = async (formData) => {
+    const result = await axios.put(apiEndpoints.changeAvatar, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+
+    return result.data;
+};
+```
+
+returns:
+
+```json
+{
+  "email": "tester@abv.bg",
+  "username": "Tester",
+  "avatarUrl": "http://res.cloudinary.com/degidchop/image/upload/v1690404138/avatars/kmjsxnbcufe56ew20hwx.jpg",
+  "role": "user",
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1Mj..."
+}
+```
 
 ### DESTINATIONS
 
