@@ -7,7 +7,7 @@ export const register = async ({ username, password, email }) => {
         password,
         email,
     };
-    const res = await axios.post(apiEndpoints.register, userData);
+    const res = await axios.post(apiEndpoints.user.register, userData);
 
     return res.data;
 };

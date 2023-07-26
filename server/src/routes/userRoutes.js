@@ -42,7 +42,7 @@ router.post(
 
 // -- PUT --
 router.put(
-    '/change-avatar', 
+    '/user/avatar', 
     auth, 
     uploadAvatar, 
     userController.change_avatar

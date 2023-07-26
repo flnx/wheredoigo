@@ -2,7 +2,7 @@ import axios from '../Axios';
 import { apiEndpoints } from 'src/constants/apiEndpoints';
 
 export const changeUserAvatar = async (formData) => {
-    const result = await axios.put(apiEndpoints.changeAvatar, formData, {
+    const result = await axios.put(apiEndpoints.user.avatar, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
@@ -23,7 +23,7 @@ export const getUserLastActivities = async () => {
 };
 
 export const deleteUserAccount = async () => {
-    const result = await axios.delete(apiEndpoints.deleteAccount);
+    const result = await axios.delete(apiEndpoints.user.delete);
 
     return result.data;
 };

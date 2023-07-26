@@ -6,7 +6,11 @@ export const apiEndpoints = {
     },
 
     user: {
-
+        register: '/register',
+        login: '/login',
+        logout: '/logout',
+        avatar: 'user/avatar',
+        delete: 'user/delete'
     },
 
     place: {
@@ -17,11 +21,7 @@ export const apiEndpoints = {
 
     },
 
-    login: '/login',
-    register: '/register',
-    logout: '/logout',
     userLastActivities: 'user/last-activities',
-    deleteAccount: 'user/delete',
     userFavorites: 'user/favorites',
 
     allDestinations: 'destinations',
@@ -49,7 +49,6 @@ export const apiEndpoints = {
     addDestinationImages: (id) => `destinations/${id}/add-images`,
     deleteDestinationImage: (id) => `destinations/${id}/delete-image`,
 
-    changeAvatar: 'change-avatar',
     countriesAndCities: 'destinations/countries-and-cities',
 
     topPlaces: `top-places`,

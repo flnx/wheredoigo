@@ -18,7 +18,8 @@ Returns:
 {
   "email": "tester@yahoo.com",
   "username": "Tester",
-  "avatarUrl": "https://res.cloudinary.com/degidchop/image/upload/v1690401797/avatars/reedeharqpql6jvjdwcs.png", // initial default url
+  // initial default url
+  "avatarUrl": "https://res.cloudinary.com/degidchop/image/upload/v1690401797/avatars/reedeharqpql6jvjdwcs.png", 
   "role": "user",
   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1Mj..."
 }
@@ -39,16 +40,19 @@ Returns:
 {
   "email": "tester@yahoo.com",
   "username": "Tester",
-  "avatarUrl": "https://res.cloudinary.com/degidchop/image/upload/v1690401797/avatars/reedeharqpql6jvjdwcs.png", // initial default url
+  // initial default url
+  "avatarUrl": "https://res.cloudinary.com/degidchop/image/upload/v1690401797/avatars/reedeharqpql6jvjdwcs.png", 
   "role": "user",
   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1Mj..."
 }
 ```
 
-### PUT /change-avatar
+### PUT /user/avatar
 
 **avatarUrl** (file) - The avatar image file to be uploaded.
 The server will interpret the file with the name 'avatarUrl'
+
+The old avatar will be automatically deleted after the new one is uploaded
 
 Example:
 
@@ -73,10 +77,19 @@ returns:
 {
   "email": "tester@abv.bg",
   "username": "Tester",
-  "avatarUrl": "http://res.cloudinary.com/degidchop/image/upload/v1690404138/avatars/kmjsxnbcufe56ew20hwx.jpg",
+  // Uploaded image file URL
+  "avatarUrl": "http://res.cloudinary.com/degidchop/image/upload/v1690404138/avatars/kmjsxnbcufe56ew20hwx.jpg", 
   "role": "user",
   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1Mj..."
 }
+```
+
+### DELETE /user/delete
+
+```json
+
+
+
 ```
 
 ### DESTINATIONS
