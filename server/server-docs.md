@@ -171,6 +171,24 @@ returns:
 }
 ```
 
+_NOTE_
+
+> _If the user hasn't added any comments and hasn't liked anything yet, the likes and comments arrays will be empty and hasNoActivity will be set to true_
+
+Example:
+
+```json
+{
+  "comments": [],
+  "likes": [],
+  "created": [],
+  "hasNoActivity": true,
+  "countComments": 0,
+  "countCreated": 0,
+  "countFavorites": 0
+}
+```
+
 ### PUT /user/avatar
 
 Upload user avatar:
