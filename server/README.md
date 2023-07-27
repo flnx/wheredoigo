@@ -35,7 +35,7 @@ Example:
 
 ## Authentication
 
-### POST > _/register_
+#### POST /register
 
 ```json
 {
