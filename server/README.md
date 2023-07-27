@@ -731,6 +731,8 @@ Returns:
 
 Request edit permissions and get destination data to edit
 
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
 Returns:
 
 ```json
@@ -823,6 +825,8 @@ Returns:
 
 Create a new destination
 
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
 #### Destination data
 
 ```JS
@@ -898,3 +902,89 @@ Returns:
   "imgError": null
 }
 ```
+
+<br>
+
+### POST /destinations/:id/like
+
+Like a destination
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
+Example:
+
+```JS
+const likeDestination = async (id, likeData) => {
+    // Just send an empty object. The user information will be extracted from the access token
+    const res = await axios.post(api.likeDestination('/destinations/64c2b40636950267714c1ed5/like'), {});
+
+    return res.data;
+};
+```
+
+Returns:
+
+```json
+{
+  "acknowledged": true,
+  "modifiedCount": 1,
+  "upsertedId": null,
+  "upsertedCount": 0,
+  "matchedCount": 1
+}
+```
+
+**NOTES**
+
+1. After you've liked a destination, it will automatically be added to the user's like activity
+2. The destination ID will be added to the user's list of favorite destinations.
+3. When the client fetches a single destination (by id), the _isLikedByUser_ field will be set to _true_
+
+**Technical Implementation**
+
+1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+2. Service:
+   - [likeDestination](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/likeDestination.js)
+
+<br>
+
+### POST /destinations/:id/dislike
+
+Dislike a destination
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
+Example:
+
+```JS
+const dislikeDestination = async (id, likeData) => {
+    // Just send an empty object. The user information will be extracted from the access token
+    const res = await axios.post(api.likeDestination('/destinations/64c2b40636950267714c1ed5/dislike'), {});
+
+    return res.data;
+};
+```
+
+Returns:
+
+```json
+{
+  "acknowledged": true,
+  "modifiedCount": 1,
+  "upsertedId": null,
+  "upsertedCount": 0,
+  "matchedCount": 1
+}
+```
+
+**NOTES**
+
+1. After you've disliked a destination, it will automatically be removed from the user's like activity
+2. The destination ID will be removed from user's list of favorite destinations.
+3. When the client fetches a single destination (by id), the _isLikedByUser_ field will be set to _false_
+
+**Technical Implementation**
+
+1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+2. Service:
+   - [likeDestination](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/dislikeDestination.js)
