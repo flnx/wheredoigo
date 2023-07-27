@@ -17,6 +17,8 @@ const extractMultipleFolderNames = require('../../utils/cloudinary/extractMultip
 const extractAllPublicIds = require('../../utils/cloudinary/extractImagesPublicIds');
 
 async function deleteDestination(destinationId, user) {
+
+    throw new Error('bazinga')
     const { ownerId, role } = user;
 
     // Find the destination and its places

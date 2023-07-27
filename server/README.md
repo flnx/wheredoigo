@@ -10,6 +10,8 @@
 
 3. It should be prefixed with "Bearer" to comply with the server's authentication process.
 
+4. Editing or deleting destinations and places is restricted to their owners (creators) or authorized moderators only.
+
 > Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.{your_access_token}
 
 Example:
@@ -307,6 +309,8 @@ Returns:
 
 1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
 2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/deleteUserAccount.js)
+
+<br>
 
 ---
 
@@ -1302,6 +1306,53 @@ Returns:
 2. Service:
 
    - [editCategories](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/editCategories.js)
+
+<br>
+
+---
+
+<br>
+
+### DELETE /destinations/:id/delete
+
+Deletes the destination
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
+**NOTE**
+
+1. The destination will be permanently deleted.
+2. All places associated with the destination will also be permanently deleted.
+3. All comments on the places will be permanently deleted.
+4. Any user activities related to the destination and its places will be permanently deleted.
+
+Example:
+
+```js
+const deleteDestination = async (destinationId) => {
+  const result = await axios.delete(`/destinations/:id/delete${destinationId}`);
+
+  return result.data;
+};
+```
+
+Returns:
+
+```json
+{
+  "message": "deleted 🦖"
+}
+```
+
+**Technical Implementation**
+
+1. Middlewares:
+
+   - [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+
+2. Service:
+
+   - [deleteDestination](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/deleteDestination.js)
 
 <br>
 
