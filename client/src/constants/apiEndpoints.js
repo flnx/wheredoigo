@@ -4,18 +4,21 @@ export const apiEndpoints = {
         editDescription: (id) => `destinations/${id}/description`,
         editDetails: (id) => `destinations/${id}/details`,
         editCategories: (id) => `destinations/${id}/categories`,
-        top: 'destinations/top',
+        deleteImage: (id) => `destinations/${id}/delete-image`,
         search: (searchParams, skip = 0, categories) => {
             let url = `destinations?search=${searchParams}&page=${skip}`;
-
+            
             if (categories) {
                 const categoriesArray = categories.split(',');
                 url += `&categories=${encodeURIComponent(JSON.stringify(categoriesArray))}`;
             }
-
+            
             return url;
         },
+        top: 'destinations/top',
         add: 'destinations',
+        creator: 'destinations/created-by-user',
+
     },
 
     user: {
@@ -35,15 +38,12 @@ export const apiEndpoints = {
         create: (destinationId) => `destinations/${destinationId}/places/add`,
     },
 
-    allDestinations: 'destinations',
-    creatorDestinations: 'destinations/created-by-user',
     // the path can be "like" or "dislike"
     likeDestination: (id, path) => `destinations/${id}/${path}`,
     requestDestinationToEdit: (id) => `destinations/${id}/request-edit-permissions`,
     editDestinationDescription: (id) => `destinations/${id}/description`,
     deleteDestination: (id) => `destinations/${id}/delete`,
     addDestinationImages: (id) => `destinations/${id}/add-images`,
-    deleteDestinationImage: (id) => `destinations/${id}/delete-image`,
 
     countriesAndCities: 'destinations/countries-and-cities',
 

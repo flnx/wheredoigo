@@ -26,6 +26,7 @@ Example:
 ```
 
 ---
+
 <br>
 
 ## Authentication
@@ -47,7 +48,7 @@ Returns:
   "email": "tester@yahoo.com",
   "username": "Tester",
   // initial default url
-  "avatarUrl": "https://res.cloudinary.com/degidchop/image/upload/v1690401797/avatars/reedeharqpql6jvjdwcs.png",
+  "avatarUrl": "https://res.cloudinary.com/degidchop/image//v1690401797/avatars/reedeharqpql6jvjdwcs.png",
   "role": "user",
   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1Mj..."
 }
@@ -61,6 +62,7 @@ Returns:
 3. [User Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/userSchema.js)
 
 ---
+
 <br>
 
 ### POST /login
@@ -78,7 +80,7 @@ Returns:
 {
   "email": "tester@yahoo.com",
   "username": "Tester",
-  "avatarUrl": "https://res.cloudinary.com/degidchop/image/upload/v1690401797/avatars/reedeharqpql6jvjdwcs.png",
+  "avatarUrl": "https://res.cloudinary.com/degidchop/image//v1690401797/avatars/reedeharqpql6jvjdwcs.png",
   "role": "user",
   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1Mj..."
 }
@@ -91,6 +93,7 @@ Returns:
    - [generateUserToken](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/generateUserToken.js)
 
 ---
+
 <br>
 
 ## User Resource
@@ -109,13 +112,13 @@ Returns:
     "_id": "646e78213d3b7387243fc4fc",
     "country": "Netherlands",
     "city": "Amsterdam",
-    "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1684961314/destinations/amsterdam-646e78213d3b7387243fc4fc/atvy1vfvl2jooliojoxw.jpg"
+    "imageUrls": "http://res.cloudinary.com/degidchop/image//v1684961314/destinations/amsterdam-646e78213d3b7387243fc4fc/atvy1vfvl2jooliojoxw.jpg"
   },
   {
     "_id": "649a272ce046091e047012d3",
     "country": "Czech Republic",
     "city": "Prague",
-    "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1687824173/destinations/prague-649a272ce046091e047012d3/behpvxmpohibg25gsdlp.jpg"
+    "imageUrls": "http://res.cloudinary.com/degidchop/image//v1687824173/destinations/prague-649a272ce046091e047012d3/behpvxmpohibg25gsdlp.jpg"
   }
 ]
 ```
@@ -126,6 +129,7 @@ Returns:
 2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/userFavorites.js)
 
 ---
+
 <br>
 
 ### GET /user/activities
@@ -221,17 +225,18 @@ Example:
 3. [Activities Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/userActivitiesSchema.js)
 
 ---
+
 <br>
 
 ### PUT /user/avatar
 
-Upload user avatar:
+user avatar:
 
-1. **avatarUrl** (file) - The avatar image file to be uploaded.
+1. **avatarUrl** (file) - The avatar image file to be ed.
 
 2. The server will interpret the file with the name **avatarUrl**
 
-3. The old avatar will be automatically deleted after the new one is uploaded
+3. The old avatar will be automatically deleted after the new one is ed
 
 Example:
 
@@ -239,7 +244,7 @@ Example:
 const formData = new FormData()
 formData.append('avatarUrl', avatarImageFile, 'avatar.jpg')
 
-const changeUserAvatar = async (formData) => {
+const changeUserAvatar = async () => {
     const result = await axios.put(apiEndpoints.changeAvatar, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
@@ -256,8 +261,8 @@ Returns:
 {
   "email": "tester@abv.bg",
   "username": "Tester",
-  // Uploaded image file URL
-  "avatarUrl": "http://res.cloudinary.com/degidchop/image/upload/v1690404138/avatars/kmjsxnbcufe56ew20hwx.jpg",
+  // ed image file URL
+  "avatarUrl": "http://res.cloudinary.com/degidchop/image//v1690404138/avatars/kmjsxnbcufe56ew20hwx.jpg",
   "role": "user",
   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1Mj..."
 }
@@ -267,14 +272,15 @@ Returns:
 
 1. Middlewares:
    - [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
-   - [uploadAvatar middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/images.js)
+   - [Avatar middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/.js)
 2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/updateUserAvatar.js)
-3. [validateImages](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/validators/validateImages.js)
-4. [uploadUserAvatar](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/uploadUserAvatar.js)
-5. [uploadImagesToCloudinary](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/upload/uploadImagesToCloudinary.js)
-6. [uploadFile](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/upload/uploadFile.js)
+3. [validate](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/validators/validate.js)
+4. [UserAvatar](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/UserAvatar.js)
+5. [ToCloudinary](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService//ToCloudinary.js)
+6. [File](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService//File.js)
 
 ---
+
 <br>
 
 ### DELETE /user/delete
@@ -291,6 +297,7 @@ Returns:
 2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/deleteUserAccount.js)
 
 ---
+
 <br>
 
 ## Destination Resource
@@ -307,42 +314,42 @@ Returns:
     {
       "_id": "645b80b5afb7e42c0ba43fc8",
       "likesCount": 27,
-      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1683718327/destinations/berlin-645b80b5afb7e42c0ba43fc8/tnjuvndtbpuq8yzkpptj.jpg",
+      "imageUrls": "http://res.cloudinary.com/degidchop/image//v1683718327/destinations/berlin-645b80b5afb7e42c0ba43fc8/tnjuvndtbpuq8yzkpptj.jpg",
       "city": "Berlin",
       "country": "Germany",
       "lastUserLikes": [
         {
           "username": "HilariousHobbit",
-          "avatarUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687022584/avatars/vpfscp0owgvpvrxu6wng.jpg"
+          "avatarUrl": "http://res.cloudinary.com/degidchop/image//v1687022584/avatars/vpfscp0owgvpvrxu6wng.jpg"
         },
         {
           "username": "skywalker",
-          "avatarUrl": "http://res.cloudinary.com/degidchop/image/upload/v1685335585/avatars/fymlmiwhbh8o7akax6hv.jpg"
+          "avatarUrl": "http://res.cloudinary.com/degidchop/image//v1685335585/avatars/fymlmiwhbh8o7akax6hv.jpg"
         },
         {
           "username": "Jenny",
-          "avatarUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687014568/avatars/stfqoz82uiqbkleotite.jpg"
+          "avatarUrl": "http://res.cloudinary.com/degidchop/image//v1687014568/avatars/stfqoz82uiqbkleotite.jpg"
         }
       ]
     },
     {
       "_id": "649a0fcae046091e04701161",
       "likesCount": 24,
-      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1687818186/destinations/dublin-649a0fcae046091e04701161/i2uiodlgsgb4fylu8ecr.jpg",
+      "imageUrls": "http://res.cloudinary.com/degidchop/image//v1687818186/destinations/dublin-649a0fcae046091e04701161/i2uiodlgsgb4fylu8ecr.jpg",
       "city": "Dublin",
       "country": "Ireland",
       "lastUserLikes": [
         {
           "username": "Elizabeth",
-          "avatarUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687013300/avatars/qphr0yezzmjzbs2numri.jpg"
+          "avatarUrl": "http://res.cloudinary.com/degidchop/image//v1687013300/avatars/qphr0yezzmjzbs2numri.jpg"
         },
         {
           "username": "Peshozavur",
-          "avatarUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687004999/avatars/jiucl37ui8qta0nnr6bl.jpg"
+          "avatarUrl": "http://res.cloudinary.com/degidchop/image//v1687004999/avatars/jiucl37ui8qta0nnr6bl.jpg"
         },
         {
           "username": "Steven",
-          "avatarUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687136740/avatars/jo52ckxa4c8ttanj3qr7.jpg"
+          "avatarUrl": "http://res.cloudinary.com/degidchop/image//v1687136740/avatars/jo52ckxa4c8ttanj3qr7.jpg"
         }
       ]
     },
@@ -359,6 +366,7 @@ Returns:
 3. [Destination Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/destinationSchema.js)
 
 ---
+
 <br>
 
 ### GET /destinations
@@ -420,7 +428,7 @@ Paginated Destination Search (Page Size - 8)
       "_id": "6499d94e7ae6eac92fd96c02",
       "country": "Bulgaria",
       "city": "Sofia",
-      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1687804238/destinations/sofia-6499d94e7ae6eac92fd96c02/fpjqmugddljrlo6lwrfb.jpg"
+      "imageUrls": "http://res.cloudinary.com/degidchop/image//v1687804238/destinations/sofia-6499d94e7ae6eac92fd96c02/fpjqmugddljrlo6lwrfb.jpg"
     }
   ],
   "nextPage": null
@@ -436,19 +444,19 @@ Paginated Destination Search (Page Size - 8)
       "_id": "645b8de2afb7e42c0ba4400e",
       "country": "Bulgaria",
       "city": "Plovdiv",
-      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1688561894/destinations/plovdiv-645b8de2afb7e42c0ba4400e/km3qfhpnsrjrxwqzvjv9.jpg"
+      "imageUrls": "http://res.cloudinary.com/degidchop/image//v1688561894/destinations/plovdiv-645b8de2afb7e42c0ba4400e/km3qfhpnsrjrxwqzvjv9.jpg"
     },
     {
       "_id": "64945e28dd1758dfdd696be9",
       "country": "Bulgaria",
       "city": "Nesebar",
-      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1687445031/destinations/nesebar-64945e28dd1758dfdd696be9/dvhwvuqzqruhjmihsymc.jpg"
+      "imageUrls": "http://res.cloudinary.com/degidchop/image//v1687445031/destinations/nesebar-64945e28dd1758dfdd696be9/dvhwvuqzqruhjmihsymc.jpg"
     },
     {
       "_id": "6495dfe8ef146e69c5aa1b6f",
       "country": "Bulgaria",
       "city": "Bansko",
-      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1687543785/destinations/bansko-6495dfe8ef146e69c5aa1b6f/lzk6oubekgw0oo06awnq.jpg"
+      "imageUrls": "http://res.cloudinary.com/degidchop/image//v1687543785/destinations/bansko-6495dfe8ef146e69c5aa1b6f/lzk6oubekgw0oo06awnq.jpg"
     },
 ...
   ],
@@ -467,19 +475,19 @@ Returns:
       "_id": "6492cc99ec09aa8d098c33d0",
       "country": "United States",
       "city": "Honolulu",
-      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1687342233/destinations/honolulu-6492cc99ec09aa8d098c33d0/a9uzpqd0damez437f1qi.jpg"
+      "imageUrls": "http://res.cloudinary.com/degidchop/image//v1687342233/destinations/honolulu-6492cc99ec09aa8d098c33d0/a9uzpqd0damez437f1qi.jpg"
     },
     {
       "_id": "64935d9823621c42ba898c2b",
       "country": "Maldives",
       "city": "Maafushi Island",
-      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1687379352/destinations/maafushi-island-64935d9823621c42ba898c2b/ckn5l3zykpupgd6zzumf.jpg"
+      "imageUrls": "http://res.cloudinary.com/degidchop/image//v1687379352/destinations/maafushi-island-64935d9823621c42ba898c2b/ckn5l3zykpupgd6zzumf.jpg"
     },
     {
       "_id": "64945e28dd1758dfdd696be9",
       "country": "Bulgaria",
       "city": "Nesebar",
-      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1687445031/destinations/nesebar-64945e28dd1758dfdd696be9/dvhwvuqzqruhjmihsymc.jpg"
+      "imageUrls": "http://res.cloudinary.com/degidchop/image//v1687445031/destinations/nesebar-64945e28dd1758dfdd696be9/dvhwvuqzqruhjmihsymc.jpg"
     },
 ...
   ],
@@ -496,19 +504,19 @@ Returns:
       "_id": "645b7f82afb7e42c0ba43fa4",
       "country": "United States",
       "city": "San Diego",
-      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1683718019/destinations/san-diego-645b7f82afb7e42c0ba43fa4/c6neoiwdvmirj2hmv010.jpg"
+      "imageUrls": "http://res.cloudinary.com/degidchop/image//v1683718019/destinations/san-diego-645b7f82afb7e42c0ba43fa4/c6neoiwdvmirj2hmv010.jpg"
     },
     {
       "_id": "645b80b5afb7e42c0ba43fc8",
       "country": "Germany",
       "city": "Berlin",
-      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1683718327/destinations/berlin-645b80b5afb7e42c0ba43fc8/tnjuvndtbpuq8yzkpptj.jpg"
+      "imageUrls": "http://res.cloudinary.com/degidchop/image//v1683718327/destinations/berlin-645b80b5afb7e42c0ba43fc8/tnjuvndtbpuq8yzkpptj.jpg"
     },
     {
       "_id": "645b8de2afb7e42c0ba4400e",
       "country": "Bulgaria",
       "city": "Plovdiv",
-      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1688561894/destinations/plovdiv-645b8de2afb7e42c0ba4400e/km3qfhpnsrjrxwqzvjv9.jpg"
+      "imageUrls": "http://res.cloudinary.com/degidchop/image//v1688561894/destinations/plovdiv-645b8de2afb7e42c0ba4400e/km3qfhpnsrjrxwqzvjv9.jpg"
     },
 ...
   ],
@@ -525,19 +533,19 @@ Returns:
       "_id": "64945e28dd1758dfdd696be9",
       "country": "Bulgaria",
       "city": "Plovdiv",
-      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1687445031/destinations/nesebar-64945e28dd1758dfdd696be9/dvhwvuqzqruhjmihsymc.jpg"
+      "imageUrls": "http://res.cloudinary.com/degidchop/image//v1687445031/destinations/nesebar-64945e28dd1758dfdd696be9/dvhwvuqzqruhjmihsymc.jpg"
     },
     {
       "_id": "6495dfe8ef146e69c5aa1b6f",
       "country": "Bulgaria",
       "city": "Bansko",
-      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1687543785/destinations/bansko-6495dfe8ef146e69c5aa1b6f/lzk6oubekgw0oo06awnq.jpg"
+      "imageUrls": "http://res.cloudinary.com/degidchop/image//v1687543785/destinations/bansko-6495dfe8ef146e69c5aa1b6f/lzk6oubekgw0oo06awnq.jpg"
     },
     {
       "_id": "6499d94e7ae6eac92fd96c02",
       "country": "Bulgaria",
       "city": "Sofia",
-      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1687804238/destinations/sofia-6499d94e7ae6eac92fd96c02/fpjqmugddljrlo6lwrfb.jpg"
+      "imageUrls": "http://res.cloudinary.com/degidchop/image//v1687804238/destinations/sofia-6499d94e7ae6eac92fd96c02/fpjqmugddljrlo6lwrfb.jpg"
     }
   ],
   "nextPage": 8
@@ -551,6 +559,7 @@ Returns:
 3. [MongoDB search pipelines](https://github.com/flnx/wheredoigo/blob/main/server/src/pipelines/paginatedSearchPipeline.js)
 
 ---
+
 <br>
 
 ### GET /destinations/countries-and-cities
@@ -607,6 +616,7 @@ _NOTE_: Uses eternal API to fetch the data
 2. [Service: fetchCountriesAndCities](https://github.com/flnx/wheredoigo/blob/main/server/src/services/getCityCountryData.js)
 
 ---
+
 <br>
 
 ### GET /destinations/created-by-user
@@ -623,19 +633,19 @@ Returns:
     "_id": "645b7f82afb7e42c0ba43fa4",
     "country": "United States",
     "city": "San Diego",
-    "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1683718019/destinations/san-diego-645b7f82afb7e42c0ba43fa4/c6neoiwdvmirj2hmv010.jpg"
+    "imageUrls": "http://res.cloudinary.com/degidchop/image//v1683718019/destinations/san-diego-645b7f82afb7e42c0ba43fa4/c6neoiwdvmirj2hmv010.jpg"
   },
   {
     "_id": "645b80b5afb7e42c0ba43fc8",
     "country": "Germany",
     "city": "Berlin",
-    "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1683718327/destinations/berlin-645b80b5afb7e42c0ba43fc8/tnjuvndtbpuq8yzkpptj.jpg"
+    "imageUrls": "http://res.cloudinary.com/degidchop/image//v1683718327/destinations/berlin-645b80b5afb7e42c0ba43fc8/tnjuvndtbpuq8yzkpptj.jpg"
   },
   {
     "_id": "645b8de2afb7e42c0ba4400e",
     "country": "Bulgaria",
     "city": "Plovdiv",
-    "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1688561894/destinations/plovdiv-645b8de2afb7e42c0ba4400e/km3qfhpnsrjrxwqzvjv9.jpg"
+    "imageUrls": "http://res.cloudinary.com/degidchop/image//v1688561894/destinations/plovdiv-645b8de2afb7e42c0ba4400e/km3qfhpnsrjrxwqzvjv9.jpg"
   },
   ...
 ]
@@ -647,6 +657,7 @@ Returns:
 2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/getCreatorDestinations.js)
 
 ---
+
 <br>
 
 ### GET /destinations/:id'
@@ -687,15 +698,15 @@ Returns:
   "isOwner": true,
   "imageUrls": [
     {
-      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687113299/destinations/budapest-648f4e52cdbe02c435ff2048/ajxri3sqblu01eqcol4x.jpg",
+      "imageUrl": "http://res.cloudinary.com/degidchop/image//v1687113299/destinations/budapest-648f4e52cdbe02c435ff2048/ajxri3sqblu01eqcol4x.jpg",
       "_id": "648f4e55cdbe02c435ff205e"
     },
     {
-      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687113299/destinations/budapest-648f4e52cdbe02c435ff2048/nk1kr5j29beuedf5yxj3.jpg",
+      "imageUrl": "http://res.cloudinary.com/degidchop/image//v1687113299/destinations/budapest-648f4e52cdbe02c435ff2048/nk1kr5j29beuedf5yxj3.jpg",
       "_id": "648f4e55cdbe02c435ff205f"
     },
     {
-      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687113299/destinations/budapest-648f4e52cdbe02c435ff2048/gcpgznu26yodzz7p0gev.jpg",
+      "imageUrl": "http://res.cloudinary.com/degidchop/image//v1687113299/destinations/budapest-648f4e52cdbe02c435ff2048/gcpgznu26yodzz7p0gev.jpg",
       "_id": "648f4e55cdbe02c435ff2060"
     },
   ...
@@ -712,7 +723,7 @@ Returns:
       "name": "Bar 360",
       "city": "Budapest",
       "country": "Hungary",
-      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687114084/places/budapest-648f5163cdbe02c435ff207b/hwyuyyjd0vzld7qikytv.jpg"
+      "imageUrl": "http://res.cloudinary.com/degidchop/image//v1687114084/places/budapest-648f5163cdbe02c435ff207b/hwyuyyjd0vzld7qikytv.jpg"
     },
     {
       "_id": "648f536bcdbe02c435ff209c",
@@ -721,7 +732,7 @@ Returns:
       "name": "Buda Castle & Castle Hill",
       "city": "Budapest",
       "country": "Hungary",
-      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687114604/places/budapest-648f536bcdbe02c435ff209c/jorcnqkrlhzrcadz1caw.jpg"
+      "imageUrl": "http://res.cloudinary.com/degidchop/image//v1687114604/places/budapest-648f536bcdbe02c435ff209c/jorcnqkrlhzrcadz1caw.jpg"
     },
    ...
   ]
@@ -737,6 +748,7 @@ Returns:
    - [getDestinationPlaces](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/getDestinationPlaces.js)
 
 ---
+
 <br>
 
 ### GET /destinations/:id/request-edit-permissions
@@ -779,11 +791,11 @@ Returns:
   "isOwner": true,
   "imageUrls": [
     {
-      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1684961314/destinations/amsterdam-646e78213d3b7387243fc4fc/atvy1vfvl2jooliojoxw.jpg",
+      "imageUrl": "http://res.cloudinary.com/degidchop/image//v1684961314/destinations/amsterdam-646e78213d3b7387243fc4fc/atvy1vfvl2jooliojoxw.jpg",
       "_id": "646e78243d3b7387243fc512"
     },
     {
-      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1684961314/destinations/amsterdam-646e78213d3b7387243fc4fc/l2xjuo0xktjtwxp6p6oq.jpg",
+      "imageUrl": "http://res.cloudinary.com/degidchop/image//v1684961314/destinations/amsterdam-646e78213d3b7387243fc4fc/l2xjuo0xktjtwxp6p6oq.jpg",
       "_id": "646e78243d3b7387243fc513"
     },
    ...
@@ -800,7 +812,7 @@ Returns:
       "name": "Anne Frank House",
       "city": "Amsterdam",
       "country": "Netherlands",
-      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1684961414/places/amsterdam-646e788687367f3c46abe56c/jobka2ar7nmqghrataxv.jpg"
+      "imageUrl": "http://res.cloudinary.com/degidchop/image//v1684961414/places/amsterdam-646e788687367f3c46abe56c/jobka2ar7nmqghrataxv.jpg"
     },
     {
       "_id": "646e86401fb95037888ee213",
@@ -809,7 +821,7 @@ Returns:
       "name": "Cannibale Royale",
       "city": "Amsterdam",
       "country": "Netherlands",
-      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1684965117/places/amsterdam-646e86401fb95037888ee213/pbqyd5ss2ou6mxcjxmki.jpg"
+      "imageUrl": "http://res.cloudinary.com/degidchop/image//v1684965117/places/amsterdam-646e86401fb95037888ee213/pbqyd5ss2ou6mxcjxmki.jpg"
     },
    ...
   ],
@@ -832,6 +844,7 @@ Returns:
    - [getDestinationPlaces](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/getDestinationPlaces.js)
 
 ---
+
 <br>
 
 ### POST /destinations
@@ -871,14 +884,14 @@ Create a new destination
       content: ""
     }
   ],
-  // Between 5-50 images
+  // Between 5-50
   imageUrls: [imageFile1, imageFile2, imageFile3]
 }
 ```
 
-#### Images:
+#### :
 
-1. **imageUrls** (files) - The image files to be uploaded.
+1. **imageUrls** (files) - The image files to be ed.
 
 2. The server will interpret the files with the name **imageUrls**
 
@@ -896,7 +909,7 @@ Examples
     formData.append('imageUrls', imageFiles);
     ...
 
-    const createDestination = async (destinationData) => {
+    const createDestination = async () => {
     const res = await axios.post('/destinations/', formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
@@ -916,7 +929,28 @@ Returns:
 }
 ```
 
+**Technical Implementation**
+
+1. Middlewares:
+
+   - [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+   - [checkDestinationOwnershipOnly](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkDestinationOwnership.js)
+   - [multer upload middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/images.js)
+   - [validateCreateDestinationData](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/dataValidators/validateCreateDestinationData.js)
+     - [Yup Validation: createDestinationSchema](https://github.com/flnx/wheredoigo/blob/main/server/src/validators/destination/createDestinationSchema.js)
+   - [imagesValidation](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/validators/validateImages.js)
+
+2. Service:
+
+   - [createDestination](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/createDestination.js)
+     - [uploadImages (setting up the files)](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/uploadImages.js)
+       - [uploadImagesToCloudinary (Upload all and error checks)](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/upload/uploadImagesToCloudinary.js)
+         - [uploadFile (cloudinary + streamifier)](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/upload/uploadFile.js)
+
+3. [Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/destinationSchema.js)
+
 ---
+
 <br>
 
 ### POST /destinations/:id/like
@@ -928,9 +962,9 @@ Like a destination
 Example:
 
 ```JS
-const likeDestination = async (id, likeData) => {
+const likeDestination = async () => {
     // Just send an empty object. The user information will be extracted from the access token
-    const res = await axios.post(api.likeDestination('/destinations/64c2b40636950267714c1ed5/like'), {});
+    const res = await axios.post(api.likeDestination('/destinations/:id/like'), {});
 
     return res.data;
 };
@@ -961,6 +995,7 @@ Returns:
    - [likeDestination](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/likeDestination.js)
 
 ---
+
 <br>
 
 ### POST /destinations/:id/dislike
@@ -972,9 +1007,9 @@ Dislike a destination
 Example:
 
 ```JS
-const dislikeDestination = async (id, likeData) => {
+const dislikeDestination = async () => {
     // Just send an empty object. The user information will be extracted from the access token
-    const res = await axios.post(api.likeDestination('/destinations/64c2b40636950267714c1ed5/dislike'), {});
+    const res = await axios.post(api.likeDestination('/destinations/:id/dislike'), {});
 
     return res.data;
 };
@@ -1003,3 +1038,102 @@ Returns:
 1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
 2. Service:
    - [dislikeDestination](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/dislikeDestination.js)
+
+---
+
+<br>
+
+### PUT /destinations/:id/delete-image
+
+Delete destination image
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
+Example:
+
+```json
+{
+  "imgId": "646e78243d3b7387243fc512"
+}
+```
+
+Returns:
+
+```json
+{
+  "deleted": true
+}
+```
+
+**Technical Implementation**
+
+1. Middlewares:
+   - [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+   - [checkDestinationOwnershipOnly](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkDestinationOwnership.js)
+   - [Validation: deleteSchema](https://github.com/flnx/wheredoigo/blob/main/server/src/validators/deletechema.js)
+2. Service:
+   - [deleteDestinationImage](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/deleteDestinationImage.js)
+   - [delete](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/delete.js)
+
+---
+
+<br>
+
+### PUT /destinations/:id/add-
+
+Add destination new
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
+1. **imageUrls** (files) - The image files to be ed.
+
+2. The server will interpret the files with the name **imageUrls**
+
+Example:
+
+```JS
+    const formData = new FormData();
+
+    formData.append('imageUrls', [imageFile1, imageFile2]);
+    ...
+
+    const addDestinationNew = async () => {
+    const res = await axios.put('/destinations/:id/add-', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+
+    return res.data;
+};
+```
+
+Returns:
+
+```json
+{
+  "imageUrls": [
+    {
+      "imageUrl": "http://res.cloudinary.com/degidchop/image//v1690489402/destinations/veliko-tarnovo-64b6e77f93848f1dff591baa/v0tpgesdgm5e5bewwo2s.jpg",
+      "_id": "64c2d23c36950267714c1f94"
+    },
+    {
+      "imageUrl": "http://res.cloudinary.com/degidchop/image//v1690489402/destinations/veliko-tarnovo-64b6e77f93848f1dff591baa/v0tpgesdgm5e5bewwo2s.jpg",
+      "_id": "64c2d23c36950267714c1f95"
+    }
+  ],
+  "imgError": null
+}
+```
+
+**Technical Implementation**
+
+1. Middlewares:
+
+   - [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+   - [checkDestinationOwnershipOnly](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkDestinationOwnership.js)
+   - [multer upload middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/images.js)
+
+2. Service:
+   - [deleteDestinationImage](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/deleteDestinationImage.js)
+     - [deleteImages (proceed cloudinary image deletion)](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/deleteImages.js)
