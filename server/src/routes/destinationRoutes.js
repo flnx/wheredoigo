@@ -57,7 +57,7 @@ router.get(
 
 router.get(
     '/destinations/countries-and-cities',
-    auth, 
+    // auth, 
     get_countries_and_cities
 );
 
