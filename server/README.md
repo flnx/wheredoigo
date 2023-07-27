@@ -1103,10 +1103,11 @@ Returns:
 1. Middlewares:
    - [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
    - [checkDestinationOwnershipOnly](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkDestinationOwnership.js)
-   - [Validation: deleteSchema](https://github.com/flnx/wheredoigo/blob/main/server/src/validators/deletechema.js)
+   - [Validation: deleteSchema](https://github.com/flnx/wheredoigo/blob/main/server/src/validators/deleteImageSchema.js)
 2. Service:
    - [deleteDestinationImage](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/deleteDestinationImage.js)
-   - [delete](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/delete.js)
+   - [Cloudinary: deleteImages setting up](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/deleteImages.js)
+   - [deleteImageFromCloudinary](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/delete/deleteImageFromCloudinary.js)
 
 <br>
 
