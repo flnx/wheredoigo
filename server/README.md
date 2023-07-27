@@ -378,7 +378,7 @@ Paginated Destination Search (Page Size - 8)
      - _/destinations?search=Sofia_
      - _/destinations?search=Bulgaria_
 
-2. **?page** - Represents how many pages to skip in order to achieve pagination.
+2. **?page**
 
    - **Description:** How many pages to skip in order to get to the desired page.
    - **Page Size Limit:** The page size limit is set to 8 by default (currently can't be customized by the client).
@@ -391,7 +391,7 @@ Paginated Destination Search (Page Size - 8)
 
 > If "page" query is not provided, it will always be set to 0 by default, which means 1st page
 
-3. **?categores** (Optional) - Not required but you can search for categories when needed - [ "Beach", "Mountains", "Cultural", "Snow", "Islands", "Adventure" ]
+3. **?categores** (Optional)
 
    - **Description**: Allows you to search for destinations based on specific categories.
    - **Available Categories**: ["Beach", "Mountains", "Cultural", "Snow", "Islands", "Adventure"]
