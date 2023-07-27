@@ -25,6 +25,7 @@ Example:
 
 ```
 
+---
 <br>
 
 ## Authentication
@@ -59,6 +60,7 @@ Returns:
    - [generateUserToken](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/generateUserToken.js)
 3. [User Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/userSchema.js)
 
+---
 <br>
 
 ### POST /login
@@ -88,6 +90,7 @@ Returns:
 2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/userLogin.js)
    - [generateUserToken](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/generateUserToken.js)
 
+---
 <br>
 
 ## User Resource
@@ -122,6 +125,7 @@ Returns:
 1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
 2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/userFavorites.js)
 
+---
 <br>
 
 ### GET /user/activities
@@ -216,6 +220,7 @@ Example:
    - [Last 3 Activities](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/userLastActivities.js)
 3. [Activities Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/userActivitiesSchema.js)
 
+---
 <br>
 
 ### PUT /user/avatar
@@ -269,6 +274,7 @@ Returns:
 5. [uploadImagesToCloudinary](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/upload/uploadImagesToCloudinary.js)
 6. [uploadFile](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/upload/uploadFile.js)
 
+---
 <br>
 
 ### DELETE /user/delete
@@ -284,6 +290,7 @@ Returns:
 1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
 2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/deleteUserAccount.js)
 
+---
 <br>
 
 ## Destination Resource
@@ -351,6 +358,7 @@ Returns:
 2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/getMostLikedDestinations.js)
 3. [Destination Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/destinationSchema.js)
 
+---
 <br>
 
 ### GET /destinations
@@ -542,6 +550,7 @@ Returns:
 2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/searchDestinationsPaginated.js)
 3. [MongoDB search pipelines](https://github.com/flnx/wheredoigo/blob/main/server/src/pipelines/paginatedSearchPipeline.js)
 
+---
 <br>
 
 ### GET /destinations/countries-and-cities
@@ -597,6 +606,7 @@ _NOTE_: Uses eternal API to fetch the data
 1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
 2. [Service: fetchCountriesAndCities](https://github.com/flnx/wheredoigo/blob/main/server/src/services/getCityCountryData.js)
 
+---
 <br>
 
 ### GET /destinations/created-by-user
@@ -636,6 +646,7 @@ Returns:
 1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
 2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/getCreatorDestinations.js)
 
+---
 <br>
 
 ### GET /destinations/:id'
@@ -725,6 +736,7 @@ Returns:
    - [getDestinationById](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/getDestinationById.js)
    - [getDestinationPlaces](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/getDestinationPlaces.js)
 
+---
 <br>
 
 ### GET /destinations/:id/request-edit-permissions
@@ -819,6 +831,7 @@ Returns:
    - [getDestinationById](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/getDestinationById.js)
    - [getDestinationPlaces](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/getDestinationPlaces.js)
 
+---
 <br>
 
 ### POST /destinations
@@ -902,6 +915,7 @@ Returns:
   "imgError": null
 }
 ```
+
 ---
 <br>
 
