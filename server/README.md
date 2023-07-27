@@ -98,7 +98,7 @@ Returns:
 
 1. Get all user likes (favorites)
 
-returns:
+Returns:
 
 ```json
 [
@@ -131,7 +131,7 @@ returns:
 1. Last 3 user activities (Comments and Likes)
 2. Total number of user comments, likes(favorites) and created destinations
 
-returns:
+Returns:
 
 ```json
 {
@@ -245,7 +245,7 @@ const changeUserAvatar = async (formData) => {
 };
 ```
 
-returns:
+Returns:
 
 ```json
 {
@@ -450,7 +450,7 @@ Paginated Destination Search (Page Size - 8)
 
 **Endpoint:** _/destinations?page=8_
 
-returns:
+Returns:
 
 ```json
 {
@@ -550,7 +550,7 @@ All world countries and cities
 
 **_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
 
-returns:
+Returns:
 
 ```json
 {
@@ -605,7 +605,7 @@ All destinations created by the user
 
 **_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
 
-returns:
+Returns:
 
 ```json
 [
@@ -642,7 +642,7 @@ returns:
 
 Single Destination Details
 
-returns:
+Returns:
 
 ```json
 {
@@ -716,10 +716,107 @@ returns:
   ]
 }
 ```
+
 **Technical Implementation**
 
 1. [checkSession middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkSession.js)
-2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/getDestinationById.js)
+2. Service
+
+   - [getDestinationById](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/getDestinationById.js)
+   - [getDestinationPlaces](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/getDestinationPlaces.js)
 
 <br>
+
+### GET /destinations/:id/request-edit-permissions
+
+Request edit permissions and get destination data to edit
+
+Returns:
+
+```json
+{
+  "_id": "646e78213d3b7387243fc4fc",
+  "description": "<p><strong>Amsterdam </strong>is the capital and largest city in the European country of the Netherlands. Amsterdam is famous for its canals and dikes</p>",
+  "category": ["Cultural"],
+  "details": [
+    {
+      "name": "Good to Know",
+      "content": "",
+      "_id": "64b3df625a9cac9e8adac128"
+    },
+    {
+      "name": "Transport",
+      "content": "",
+      "_id": "64b3df625a9cac9e8adac129"
+    },
+    {
+      "name": "Local Customs",
+      "content": "",
+      "_id": "64b3df625a9cac9e8adac12a"
+    },
+    {
+      "name": "Pro Tips",
+      "content": "",
+      "_id": "64b3df625a9cac9e8adac12b"
+    }
+  ],
+  "__v": 1,
+  "likesCount": 19,
+  "isOwner": true,
+  "imageUrls": [
+    {
+      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1684961314/destinations/amsterdam-646e78213d3b7387243fc4fc/atvy1vfvl2jooliojoxw.jpg",
+      "_id": "646e78243d3b7387243fc512"
+    },
+    {
+      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1684961314/destinations/amsterdam-646e78213d3b7387243fc4fc/l2xjuo0xktjtwxp6p6oq.jpg",
+      "_id": "646e78243d3b7387243fc513"
+    },
+   ...
+  ],
+  "country": "Netherlands",
+  "city": "Amsterdam",
+  "isLikedByUser": true,
+  "hasSession": true,
+  "places": [
+    {
+      "_id": "646e788687367f3c46abe56c",
+      "type": "Explore",
+      "averageRating": 4.55,
+      "name": "Anne Frank House",
+      "city": "Amsterdam",
+      "country": "Netherlands",
+      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1684961414/places/amsterdam-646e788687367f3c46abe56c/jobka2ar7nmqghrataxv.jpg"
+    },
+    {
+      "_id": "646e86401fb95037888ee213",
+      "type": "Explore",
+      "averageRating": 4.36,
+      "name": "Cannibale Royale",
+      "city": "Amsterdam",
+      "country": "Netherlands",
+      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1684965117/places/amsterdam-646e86401fb95037888ee213/pbqyd5ss2ou6mxcjxmki.jpg"
+    },
+   ...
+  ],
+  "allowedCategories": [
+    "Beach",
+    "Mountains",
+    "Cultural",
+    "Snow",
+    "Islands",
+    "Adventure"
+  ]
+}
+```
+
+**Technical Implementation**
+
+1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+2. Service
+   - [getDestinationById](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/getDestinationById.js)
+   - [getDestinationPlaces](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/getDestinationPlaces.js)
+
+<br>
+
 
