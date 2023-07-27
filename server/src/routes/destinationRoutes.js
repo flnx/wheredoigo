@@ -50,7 +50,7 @@ router.get(
 );
 
 router.get(
-    '/top-destinations',
+    '/destinations/top',
     checkSession,
     top_destinations
 );

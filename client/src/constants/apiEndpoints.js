@@ -3,6 +3,7 @@ export const apiEndpoints = {
         editDescription: (id) => `destinations/${id}/description`,
         editDetails: (id) => `destinations/${id}/details`,
         editCategories: (id) => `destinations/${id}/categories`,
+        top: 'destinations/top',
     },
 
     user: {
@@ -14,7 +15,7 @@ export const apiEndpoints = {
         activities: 'user/activities',
         favorites: 'user/favorites',
     },
-
+    
     place: {
         editDescription: (id) => `places/${id}/description`,
         editType: (id) => `places/${id}/type`,
@@ -25,7 +26,6 @@ export const apiEndpoints = {
 
 
     allDestinations: 'destinations',
-    mostLikedDestinations: 'top-destinations',
     creatorDestinations: 'destinations/created-by-user',
     destinationById: (id) => `destinations/${id}`,
     // the path can be "like" or "dislike"

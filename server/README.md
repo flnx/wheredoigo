@@ -57,7 +57,7 @@ Returns:
 1. [Data Validation (Yup)](https://github.com/flnx/wheredoigo/blob/main/server/src/validators/user/userRegisterSchema.js)
 2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/userRegister.js)
    - [generateUserToken](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/generateUserToken.js)
-3. [Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/userSchema.js)
+3. [User Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/userSchema.js)
 
 <br>
 
@@ -214,7 +214,7 @@ Example:
 2. Service:
    - [Last Activities Totals Counter](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/userDashboardData.js)
    - [Last 3 Activities](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/userLastActivities.js)
-3. [Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/userActivitiesSchema.js)
+3. [Activities Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/userActivitiesSchema.js)
 
 <br>
 
@@ -260,7 +260,9 @@ returns:
 
 **Technical Implementation**
 
-1. [uploadAvatar middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/images.js)
+1. Middlewares:
+   - [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+   - [uploadAvatar middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/images.js)
 2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/updateUserAvatar.js)
 3. [validateImages](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/validators/validateImages.js)
 4. [uploadUserAvatar](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/uploadUserAvatar.js)
@@ -287,3 +289,67 @@ returns:
 ## Destination Resource
 
 ### GET /destinations
+
+Top 12 most liked destinations along with all destination sub-categories
+
+Returns:
+
+```json
+{
+  "results": [
+    {
+      "_id": "645b80b5afb7e42c0ba43fc8",
+      "likesCount": 27,
+      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1683718327/destinations/berlin-645b80b5afb7e42c0ba43fc8/tnjuvndtbpuq8yzkpptj.jpg",
+      "city": "Berlin",
+      "country": "Germany",
+      "lastUserLikes": [
+        {
+          "username": "HilariousHobbit",
+          "avatarUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687022584/avatars/vpfscp0owgvpvrxu6wng.jpg"
+        },
+        {
+          "username": "skywalker",
+          "avatarUrl": "http://res.cloudinary.com/degidchop/image/upload/v1685335585/avatars/fymlmiwhbh8o7akax6hv.jpg"
+        },
+        {
+          "username": "Jenny",
+          "avatarUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687014568/avatars/stfqoz82uiqbkleotite.jpg"
+        }
+      ]
+    },
+    {
+      "_id": "649a0fcae046091e04701161",
+      "likesCount": 24,
+      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1687818186/destinations/dublin-649a0fcae046091e04701161/i2uiodlgsgb4fylu8ecr.jpg",
+      "city": "Dublin",
+      "country": "Ireland",
+      "lastUserLikes": [
+        {
+          "username": "Elizabeth",
+          "avatarUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687013300/avatars/qphr0yezzmjzbs2numri.jpg"
+        },
+        {
+          "username": "Peshozavur",
+          "avatarUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687004999/avatars/jiucl37ui8qta0nnr6bl.jpg"
+        },
+        {
+          "username": "Steven",
+          "avatarUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687136740/avatars/jo52ckxa4c8ttanj3qr7.jpg"
+        }
+      ]
+    },
+    ...
+  ],
+  "allowedCategories": [ "Beach", "Mountains", "Cultural", "Snow", "Islands", "Adventure" ]
+}
+```
+
+**Technical Implementation**
+
+1. [checkSession middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkSession.js)
+2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/getMostLikedDestinations.js)3
+3. [Destination Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/destinationSchema.js)
+
+<br>
+
