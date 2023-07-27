@@ -597,6 +597,8 @@ _NOTE_: Uses eternal API to fetch the data
 1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
 2. [Service: fetchCountriesAndCities](https://github.com/flnx/wheredoigo/blob/main/server/src/services/getCityCountryData.js)
 
+<br>
+
 ### GET /destinations/created-by-user
 
 All destinations created by the user
@@ -628,7 +630,96 @@ returns:
   ...
 ]
 ```
+
 **Technical Implementation**
 
 1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
 2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/getCreatorDestinations.js)
+
+<br>
+
+### GET /destinations/:id'
+
+Single Destination Details
+
+returns:
+
+```json
+{
+  "_id": "648f4e52cdbe02c435ff2048",
+  "description": "<h3>Budapest, the enchanting capital city of Hungary</h3><p>Known as the <strong><em>\"Pearl of the Danube\",</em></strong>...</p>",
+  "category": ["Cultural"],
+  "details": [
+    {
+      "name": "Good to Know",
+      "content": "",
+      "_id": "64b3df625a9cac9e8adac128"
+    },
+    {
+      "name": "Transport",
+      "content": "",
+      "_id": "64b3df625a9cac9e8adac129"
+    },
+    {
+      "name": "Local Customs",
+      "content": "",
+      "_id": "64b3df625a9cac9e8adac12a"
+    },
+    {
+      "name": "Pro Tips",
+      "content": "",
+      "_id": "64b3df625a9cac9e8adac12b"
+    }
+  ],
+  "__v": 1,
+  "likesCount": 8,
+  "isOwner": true,
+  "imageUrls": [
+    {
+      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687113299/destinations/budapest-648f4e52cdbe02c435ff2048/ajxri3sqblu01eqcol4x.jpg",
+      "_id": "648f4e55cdbe02c435ff205e"
+    },
+    {
+      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687113299/destinations/budapest-648f4e52cdbe02c435ff2048/nk1kr5j29beuedf5yxj3.jpg",
+      "_id": "648f4e55cdbe02c435ff205f"
+    },
+    {
+      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687113299/destinations/budapest-648f4e52cdbe02c435ff2048/gcpgznu26yodzz7p0gev.jpg",
+      "_id": "648f4e55cdbe02c435ff2060"
+    },
+  ...
+  ],
+  "country": "Hungary",
+  "city": "Budapest",
+  "isLikedByUser": true,
+  "hasSession": true,
+  "places": [
+    {
+      "_id": "648f5163cdbe02c435ff207b",
+      "type": "Fun",
+      "averageRating": 4.5,
+      "name": "Bar 360",
+      "city": "Budapest",
+      "country": "Hungary",
+      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687114084/places/budapest-648f5163cdbe02c435ff207b/hwyuyyjd0vzld7qikytv.jpg"
+    },
+    {
+      "_id": "648f536bcdbe02c435ff209c",
+      "type": "Explore",
+      "averageRating": 4.27,
+      "name": "Buda Castle & Castle Hill",
+      "city": "Budapest",
+      "country": "Hungary",
+      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687114604/places/budapest-648f536bcdbe02c435ff209c/jorcnqkrlhzrcadz1caw.jpg"
+    },
+   ...
+  ]
+}
+```
+**Technical Implementation**
+
+1. [checkSession middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkSession.js)
+2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/getDestinationById.js)
+
+<br>
+
