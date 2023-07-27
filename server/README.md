@@ -25,6 +25,8 @@ Example:
 
 ```
 
+<br>
+
 ---
 
 <br>
@@ -61,6 +63,8 @@ Returns:
    - [generateUserToken](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/generateUserToken.js)
 3. [User Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/userSchema.js)
 
+<br>
+
 ---
 
 <br>
@@ -91,6 +95,8 @@ Returns:
 1. [Data Validation (Yup)](https://github.com/flnx/wheredoigo/blob/main/server/src/validators/user/userLoginSchema.js)
 2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/userLogin.js)
    - [generateUserToken](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/generateUserToken.js)
+
+<br>
 
 ---
 
@@ -127,6 +133,8 @@ Returns:
 
 1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
 2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/userFavorites.js)
+
+<br>
 
 ---
 
@@ -224,6 +232,8 @@ Example:
    - [Last 3 Activities](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/userLastActivities.js)
 3. [Activities Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/userActivitiesSchema.js)
 
+<br>
+
 ---
 
 <br>
@@ -278,6 +288,8 @@ Returns:
 4. [UserAvatar](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/UserAvatar.js)
 5. [ToCloudinary](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService//ToCloudinary.js)
 6. [File](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService//File.js)
+
+<br>
 
 ---
 
@@ -364,6 +376,8 @@ Returns:
 1. [checkSession middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkSession.js)
 2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/getMostLikedDestinations.js)
 3. [Destination Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/destinationSchema.js)
+
+<br>
 
 ---
 
@@ -558,6 +572,8 @@ Returns:
 2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/searchDestinationsPaginated.js)
 3. [MongoDB search pipelines](https://github.com/flnx/wheredoigo/blob/main/server/src/pipelines/paginatedSearchPipeline.js)
 
+<br>
+
 ---
 
 <br>
@@ -615,6 +631,8 @@ _NOTE_: Uses eternal API to fetch the data
 1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
 2. [Service: fetchCountriesAndCities](https://github.com/flnx/wheredoigo/blob/main/server/src/services/getCityCountryData.js)
 
+<br>
+
 ---
 
 <br>
@@ -655,6 +673,8 @@ Returns:
 
 1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
 2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/getCreatorDestinations.js)
+
+<br>
 
 ---
 
@@ -746,6 +766,8 @@ Returns:
 
    - [getDestinationById](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/getDestinationById.js)
    - [getDestinationPlaces](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/getDestinationPlaces.js)
+
+<br>
 
 ---
 
@@ -842,6 +864,8 @@ Returns:
 2. Service
    - [getDestinationById](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/getDestinationById.js)
    - [getDestinationPlaces](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/getDestinationPlaces.js)
+
+<br>
 
 ---
 
@@ -949,6 +973,8 @@ Returns:
 
 3. [Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/destinationSchema.js)
 
+<br>
+
 ---
 
 <br>
@@ -993,6 +1019,8 @@ Returns:
 1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
 2. Service:
    - [likeDestination](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/likeDestination.js)
+
+<br>
 
 ---
 
@@ -1039,6 +1067,8 @@ Returns:
 2. Service:
    - [dislikeDestination](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/dislikeDestination.js)
 
+<br>
+
 ---
 
 <br>
@@ -1074,6 +1104,8 @@ Returns:
 2. Service:
    - [deleteDestinationImage](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/deleteDestinationImage.js)
    - [delete](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/delete.js)
+
+<br>
 
 ---
 
@@ -1139,6 +1171,8 @@ Returns:
    - [deleteDestinationImage](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/deleteDestinationImage.js)
      - [deleteImages (proceed cloudinary image deletion)](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/deleteImages.js)
 
+<br>
+
 ---
 
 <br>
@@ -1180,6 +1214,8 @@ Returns:
 
    - [editDescription](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/editDescription.js)
    - [sanitizeHtmlString](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/validators/sanitizeHtmlString.js)
+
+<br>
 
 ---
 
@@ -1223,7 +1259,7 @@ Returns:
 
    - [editDetails](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/editDetails.js)
    - [sanitizeHtmlString](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/validators/sanitizeHtmlString.js)
-   
+
 <br>
 
 ---
@@ -1266,6 +1302,8 @@ Returns:
 2. Service:
 
    - [editCategories](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/editCategories.js)
+
+<br>
 
 ---
 
