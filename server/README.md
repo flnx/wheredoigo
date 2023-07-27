@@ -1226,8 +1226,6 @@ Returns:
 
 ---
 
-<br>
-
 ### PUT /destinations/:id/categories
 
 Edit destination categories
@@ -1236,7 +1234,7 @@ Edit destination categories
 
 ```json
 {
-  // At least one of the followed categories: ["Beach", "Mountains", "Cultural", "Snow", "Islands", "Adventure"]
+  // At least one of the following categories: ["Beach", "Mountains", "Cultural", "Snow", "Islands", "Adventure"]
   "categories": ["Snow", "Mountains"]
 }
 ```
