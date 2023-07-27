@@ -31,8 +31,6 @@ Example:
 
 ### POST /register
 
-
-
 ```json
 {
   "email": "tester@yahoo.com",
@@ -83,6 +81,11 @@ Returns:
 }
 ```
 
+**Technical Implementation**
+
+1. [Data Validation (Yup)](https://github.com/flnx/wheredoigo/blob/main/server/src/validators/user/userLoginSchema.js)
+2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/userLogin.js)
+
 <br>
 
 ## User Resource
@@ -111,6 +114,11 @@ returns:
   }
 ]
 ```
+
+**Technical Implementation**
+
+1. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/userFavorites.js)
+
 <br>
 
 ### GET /user/activities
@@ -196,6 +204,13 @@ Example:
   "countFavorites": 0
 }
 ```
+**Technical Implementation**
+
+1. Service:
+   - [Last Activities Totals Counter](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/userDashboardData.js)
+   - [Last 3 Activities](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/userLastActivities.js)
+2. [Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/userActivitiesSchema.js)
+
 <br>
 
 ### PUT /user/avatar
@@ -237,6 +252,11 @@ returns:
   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1Mj..."
 }
 ```
+**Technical Implementation**
+1. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/updateUserAvatar.js)
+2. [validateImages](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/validators/validateImages.js)
+3. [uploadUserAvatar](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/uploadUserAvatar.js)
+4. [uploadImagesToCloudinary](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/upload/uploadImagesToCloudinary.js)
 
 <br>
 
@@ -247,3 +267,6 @@ returns:
 1. After the user deletes their account, it cannot be restored.
 2. All of their comments and likes will be permanently removed.
 3. However, the destinations and places they created will not be deleted; they will remain visible to other users.
+
+**Technical Implementation**
+1. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/deleteUserAccount.js)
