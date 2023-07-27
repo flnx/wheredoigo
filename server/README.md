@@ -257,6 +257,7 @@ returns:
 2. [validateImages](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/validators/validateImages.js)
 3. [uploadUserAvatar](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/uploadUserAvatar.js)
 4. [uploadImagesToCloudinary](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/upload/uploadImagesToCloudinary.js)
+5. [uploadFile](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/upload/uploadFile.js)
 
 <br>
 
