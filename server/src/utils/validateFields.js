@@ -1,4 +1,5 @@
 const { destinationCategories } = require('../constants/allowedDestinationCategories');
+const { isValidArrayOfStrings } = require('./utils');
 
 function validateCategories(categories) {
     if (categories && isValidArrayOfStrings(categories)) {

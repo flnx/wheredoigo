@@ -90,7 +90,7 @@ export const getDestinationsPaginated = async ({ pageParam, queryKey }) => {
     const categoryParams = queryKey[3] || '';
 
     const destinations = await axios.get(
-        api.destinationsByPage(searchParams, pageParam, categoryParams)
+        api.destination.search(searchParams, pageParam, categoryParams)
     );
 
     return destinations.data;

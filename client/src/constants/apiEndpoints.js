@@ -4,6 +4,16 @@ export const apiEndpoints = {
         editDetails: (id) => `destinations/${id}/details`,
         editCategories: (id) => `destinations/${id}/categories`,
         top: 'destinations/top',
+        search: (searchParams, skip = 0, categories) => {
+            let url = `destinations?search=${searchParams}&page=${skip}`;
+
+            if (categories) {
+                const categoriesArray = categories.split(',');
+                url += `&categories=${encodeURIComponent(JSON.stringify(categoriesArray))}`;
+            }
+
+            return url;
+        },
     },
 
     user: {
@@ -15,33 +25,20 @@ export const apiEndpoints = {
         activities: 'user/activities',
         favorites: 'user/favorites',
     },
-    
+
     place: {
         editDescription: (id) => `places/${id}/description`,
         editType: (id) => `places/${id}/type`,
         editName: (id) => `places/${id}/name`,
         create: (destinationId) => `destinations/${destinationId}/places/add`,
-
     },
-
 
     allDestinations: 'destinations',
     creatorDestinations: 'destinations/created-by-user',
     destinationById: (id) => `destinations/${id}`,
     // the path can be "like" or "dislike"
-    likeDestination: (id, path) => `http://localhost:3000/destinations/${id}/${path}`,
-    destinationsByPage: (searchParams, skip, categories) => {
-        let url = `destinations?search=${searchParams}&page=${skip}`;
-
-        if (categories) {
-            const categoriesArray = categories.split(',');
-            url += `&categories=${encodeURIComponent(
-                JSON.stringify(categoriesArray)
-            )}`;
-        }
-
-        return url;
-    },
+    likeDestination: (id, path) =>
+        `http://localhost:3000/destinations/${id}/${path}`,
     addDestination: 'destinations',
     requestDestinationToEdit: (id) => `destinations/${id}/request-edit-permissions`,
     editDestinationDescription: (id) => `destinations/${id}/description`,
@@ -56,12 +53,14 @@ export const apiEndpoints = {
     placeById: (id) => `places/${id}`,
     placeComments: (id, page) => `places/${id}/comments?page=${page}`,
     generateAIComments: (id) => `places/${id}/generate-ai-comments`,
-    requestCreatePlacePermissions: (destinationId) => `destinations/${destinationId}/places/add`,
+    requestCreatePlacePermissions: (destinationId) =>
+        `destinations/${destinationId}/places/add`,
     requestPlaceToEdit: (id) => `places/${id}/request-edit-permissions`,
     deletePlace: (id) => `places/${id}/delete`,
     addPlaceImages: (id) => `places/${id}/add-images`,
     deletePlaceImage: (id) => `places/${id}/delete-image`,
 
-    deleteComment: (placeId, commentId) => `places/${placeId}/comment?commentId=${commentId}`,
+    deleteComment: (placeId, commentId) =>
+        `places/${placeId}/comment?commentId=${commentId}`,
     addComment: (id) => `places/${id}/comment`,
 };

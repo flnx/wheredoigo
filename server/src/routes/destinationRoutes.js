@@ -28,7 +28,7 @@ const {
     request_destination_to_edit,
     delete_destination_image,
     add_destination_new_images,
-    paginated_destinations,
+    search_destinations_paginated,
     get_countries_and_cities,
     delete_destination,
     add_new_destination,
@@ -46,7 +46,7 @@ const router = express.Router();
 router.get(
     '/destinations', 
     checkSession,
-    paginated_destinations
+    search_destinations_paginated
 );
 
 router.get(

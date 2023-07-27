@@ -16,10 +16,10 @@ const { editDescription } = require('../services/destinationServices/editDescrip
 const editDetails = require('../services/destinationServices/editDetails');
 const editCategories = require('../services/destinationServices/editCategories');
 
-const paginated_destinations = async (req, res, next) => {
+const search_destinations_paginated = async (req, res, next) => {
     const page = parseInt(req.query.page) || 0;
     const limit = 8;
-    const search = req.query.search;
+    const search = req.query.search || '';
     let categories = req.query.categories;
 
     try {
@@ -212,7 +212,7 @@ const dislike_destination = async (req, res, next) => {
 };
 
 module.exports = {
-    paginated_destinations,
+    search_destinations_paginated,
     destination_details,
     get_countries_and_cities,
     add_new_destination,

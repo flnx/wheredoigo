@@ -288,7 +288,7 @@ returns:
 
 ## Destination Resource
 
-### GET /destinations
+### GET /destinations/top
 
 Top 12 most liked destinations along with all destination sub-categories
 
@@ -353,3 +353,185 @@ Returns:
 
 <br>
 
+### GET /destinations
+
+Paginated Destination Search (Page Size - 8)
+
+- The paginated destination search allows you to search for destinations (cities, countries) or filter them by categories...
+  ...and receive results in a paginated format with a page size of 8 destinations per page.
+
+> E.G. _/destinations?search=${searchParamsStr}&page=${pageNum}&categories=${categoriesArr}_
+
+Default Behavior:
+
+- Endpoint: _/destinations_
+- Description: Returns the first 8 destinations if no queries have been applied.
+
+Queries:
+
+1. **?search**
+
+   - **Description:** The destination (either a city or a country) to be searched for.
+
+   - **Examples:**
+
+     - _/destinations?search=Sofia_
+     - _/destinations?search=Bulgaria_
+
+2. **?page** - Represents how many pages to skip in order to achieve pagination.
+
+   - **Description:** How many pages to skip in order to get to the desired page.
+   - **Page Size Limit:** The page size limit is set to 8 by default (currently can't be customized by the client).
+   - **Next Page Param:** The server returns a nextPage parameter indicating how many pages to skip to get to the next page. If it's "null," that means there's no next page.
+
+   - **Examples:**
+
+     - _/destinations?page=0_ is equal to Page 1
+     - _/destinations?page=8_ is equal to Page 2
+
+   > If "page" query is not provided, it will always be set to 0 by default, which means 1st page
+
+3. **?categores** (Optional) - Not required but you can search for categories when needed - [ "Beach", "Mountains", "Cultural", "Snow", "Islands", "Adventure" ]
+
+   - **Description**: Allows you to search for destinations based on specific categories.
+   - **Available Categories**: ["Beach", "Mountains", "Cultural", "Snow", "Islands", "Adventure"]
+
+   - **Examples:**
+
+     - _/destinations?categories=["Cultural"]&page=0_
+     - _/destinations?search=Bulgaria&page=1&categories=["Cultural"]_
+
+#### Paginated Responses
+
+**Endpoint:** _/destinations?search=Sofia&page=0_
+
+```json
+{
+  "result": [
+    {
+      "_id": "6499d94e7ae6eac92fd96c02",
+      "country": "Bulgaria",
+      "city": "Sofia",
+      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1687804238/destinations/sofia-6499d94e7ae6eac92fd96c02/fpjqmugddljrlo6lwrfb.jpg"
+    }
+  ],
+  "nextPage": null
+}
+```
+
+**Endpoint:** _/destinations?search=Bulgaria&page=0_
+
+```json
+{
+  "result": [
+    {
+      "_id": "645b8de2afb7e42c0ba4400e",
+      "country": "Bulgaria",
+      "city": "Plovdiv",
+      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1688561894/destinations/plovdiv-645b8de2afb7e42c0ba4400e/km3qfhpnsrjrxwqzvjv9.jpg"
+    },
+    {
+      "_id": "64945e28dd1758dfdd696be9",
+      "country": "Bulgaria",
+      "city": "Nesebar",
+      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1687445031/destinations/nesebar-64945e28dd1758dfdd696be9/dvhwvuqzqruhjmihsymc.jpg"
+    },
+    {
+      "_id": "6495dfe8ef146e69c5aa1b6f",
+      "country": "Bulgaria",
+      "city": "Bansko",
+      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1687543785/destinations/bansko-6495dfe8ef146e69c5aa1b6f/lzk6oubekgw0oo06awnq.jpg"
+    },
+...
+  ],
+  "nextPage": 8
+}
+```
+
+**Endpoint:** _/destinations?page=8_
+
+returns:
+
+```json
+{
+  "result": [
+    {
+      "_id": "6492cc99ec09aa8d098c33d0",
+      "country": "United States",
+      "city": "Honolulu",
+      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1687342233/destinations/honolulu-6492cc99ec09aa8d098c33d0/a9uzpqd0damez437f1qi.jpg"
+    },
+    {
+      "_id": "64935d9823621c42ba898c2b",
+      "country": "Maldives",
+      "city": "Maafushi Island",
+      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1687379352/destinations/maafushi-island-64935d9823621c42ba898c2b/ckn5l3zykpupgd6zzumf.jpg"
+    },
+    {
+      "_id": "64945e28dd1758dfdd696be9",
+      "country": "Bulgaria",
+      "city": "Nesebar",
+      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1687445031/destinations/nesebar-64945e28dd1758dfdd696be9/dvhwvuqzqruhjmihsymc.jpg"
+    },
+...
+  ],
+  "nextPage": 16
+}
+```
+
+**Endpoint:** _/destinations?categories=["adventure", "mountain"]&page=1_
+
+```json
+{
+  "result": [
+    {
+      "_id": "645b7f82afb7e42c0ba43fa4",
+      "country": "United States",
+      "city": "San Diego",
+      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1683718019/destinations/san-diego-645b7f82afb7e42c0ba43fa4/c6neoiwdvmirj2hmv010.jpg"
+    },
+    {
+      "_id": "645b80b5afb7e42c0ba43fc8",
+      "country": "Germany",
+      "city": "Berlin",
+      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1683718327/destinations/berlin-645b80b5afb7e42c0ba43fc8/tnjuvndtbpuq8yzkpptj.jpg"
+    },
+    {
+      "_id": "645b8de2afb7e42c0ba4400e",
+      "country": "Bulgaria",
+      "city": "Plovdiv",
+      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1688561894/destinations/plovdiv-645b8de2afb7e42c0ba4400e/km3qfhpnsrjrxwqzvjv9.jpg"
+    },
+...
+  ],
+  "nextPage": 16
+}
+```
+
+**Endpoint:** _/destinations?search=Amsterdam&page=1&categories=["Cultural"]_
+
+```json
+{
+  "result": [
+    {
+      "_id": "64945e28dd1758dfdd696be9",
+      "country": "Bulgaria",
+      "city": "Plovdiv",
+      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1687445031/destinations/nesebar-64945e28dd1758dfdd696be9/dvhwvuqzqruhjmihsymc.jpg"
+    },
+    {
+      "_id": "6495dfe8ef146e69c5aa1b6f",
+      "country": "Bulgaria",
+      "city": "Bansko",
+      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1687543785/destinations/bansko-6495dfe8ef146e69c5aa1b6f/lzk6oubekgw0oo06awnq.jpg"
+    },
+    {
+      "_id": "6499d94e7ae6eac92fd96c02",
+      "country": "Bulgaria",
+      "city": "Sofia",
+      "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1687804238/destinations/sofia-6499d94e7ae6eac92fd96c02/fpjqmugddljrlo6lwrfb.jpg"
+    }
+  ],
+  "nextPage": null
+}
+```
