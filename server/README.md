@@ -348,7 +348,7 @@ Returns:
 **Technical Implementation**
 
 1. [checkSession middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkSession.js)
-2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/getMostLikedDestinations.js)3
+2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/getMostLikedDestinations.js)
 3. [Destination Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/destinationSchema.js)
 
 <br>
@@ -362,12 +362,12 @@ Paginated Destination Search (Page Size - 8)
 
 > E.G. _/destinations?search=${searchParamsStr}&page=${pageNum}&categories=${categoriesArr}_
 
-Default Behavior:
+#### Default Behavior:
 
 - Endpoint: _/destinations_
 - Description: Returns the first 8 destinations if no queries have been applied.
 
-Queries:
+#### Queries:
 
 1. **?search**
 
@@ -389,7 +389,7 @@ Queries:
      - _/destinations?page=0_ is equal to Page 1
      - _/destinations?page=8_ is equal to Page 2
 
-   > If "page" query is not provided, it will always be set to 0 by default, which means 1st page
+> If "page" query is not provided, it will always be set to 0 by default, which means 1st page
 
 3. **?categores** (Optional) - Not required but you can search for categories when needed - [ "Beach", "Mountains", "Cultural", "Snow", "Islands", "Adventure" ]
 
