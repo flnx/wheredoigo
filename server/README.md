@@ -56,6 +56,7 @@ Returns:
 
 1. [Data Validation (Yup)](https://github.com/flnx/wheredoigo/blob/main/server/src/validators/user/userRegisterSchema.js)
 2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/userRegister.js)
+   - [generateUserToken](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/generateUserToken.js)
 3. [Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/userSchema.js)
 
 <br>
@@ -85,6 +86,7 @@ Returns:
 
 1. [Data Validation (Yup)](https://github.com/flnx/wheredoigo/blob/main/server/src/validators/user/userLoginSchema.js)
 2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/userLogin.js)
+   - [generateUserToken](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/generateUserToken.js)
 
 <br>
 
@@ -117,7 +119,8 @@ returns:
 
 **Technical Implementation**
 
-1. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/userFavorites.js)
+1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/userFavorites.js)
 
 <br>
 
@@ -204,12 +207,14 @@ Example:
   "countFavorites": 0
 }
 ```
+
 **Technical Implementation**
 
-1. Service:
+1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+2. Service:
    - [Last Activities Totals Counter](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/userDashboardData.js)
    - [Last 3 Activities](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/userLastActivities.js)
-2. [Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/userActivitiesSchema.js)
+3. [Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/userActivitiesSchema.js)
 
 <br>
 
@@ -252,12 +257,15 @@ returns:
   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1Mj..."
 }
 ```
+
 **Technical Implementation**
-1. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/updateUserAvatar.js)
-2. [validateImages](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/validators/validateImages.js)
-3. [uploadUserAvatar](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/uploadUserAvatar.js)
-4. [uploadImagesToCloudinary](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/upload/uploadImagesToCloudinary.js)
-5. [uploadFile](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/upload/uploadFile.js)
+
+1. [uploadAvatar middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/images.js)
+2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/updateUserAvatar.js)
+3. [validateImages](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/validators/validateImages.js)
+4. [uploadUserAvatar](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/uploadUserAvatar.js)
+5. [uploadImagesToCloudinary](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/upload/uploadImagesToCloudinary.js)
+6. [uploadFile](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/upload/uploadFile.js)
 
 <br>
 
@@ -270,4 +278,12 @@ returns:
 3. However, the destinations and places they created will not be deleted; they will remain visible to other users.
 
 **Technical Implementation**
-1. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/deleteUserAccount.js)
+
+1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/deleteUserAccount.js)
+
+<br>
+
+## Destination Resource
+
+### GET /destinations
