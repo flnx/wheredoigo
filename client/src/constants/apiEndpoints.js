@@ -1,17 +1,18 @@
 export const apiEndpoints = {
     destination: {
+        byId: (id) => `destinations/${id}`,
         editDescription: (id) => `destinations/${id}/description`,
         editDetails: (id) => `destinations/${id}/details`,
         editCategories: (id) => `destinations/${id}/categories`,
         top: 'destinations/top',
         search: (searchParams, skip = 0, categories) => {
             let url = `destinations?search=${searchParams}&page=${skip}`;
-
+            
             if (categories) {
                 const categoriesArray = categories.split(',');
                 url += `&categories=${encodeURIComponent(JSON.stringify(categoriesArray))}`;
             }
-
+            
             return url;
         },
     },
@@ -35,10 +36,8 @@ export const apiEndpoints = {
 
     allDestinations: 'destinations',
     creatorDestinations: 'destinations/created-by-user',
-    destinationById: (id) => `destinations/${id}`,
     // the path can be "like" or "dislike"
-    likeDestination: (id, path) =>
-        `http://localhost:3000/destinations/${id}/${path}`,
+    likeDestination: (id, path) => `destinations/${id}/${path}`,
     addDestination: 'destinations',
     requestDestinationToEdit: (id) => `destinations/${id}/request-edit-permissions`,
     editDestinationDescription: (id) => `destinations/${id}/description`,
@@ -60,7 +59,6 @@ export const apiEndpoints = {
     addPlaceImages: (id) => `places/${id}/add-images`,
     deletePlaceImage: (id) => `places/${id}/delete-image`,
 
-    deleteComment: (placeId, commentId) =>
-        `places/${placeId}/comment?commentId=${commentId}`,
+    deleteComment: (placeId, commentId) => `places/${placeId}/comment?commentId=${commentId}`,
     addComment: (id) => `places/${id}/comment`,
 };

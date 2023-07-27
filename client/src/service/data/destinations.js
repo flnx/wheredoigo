@@ -14,7 +14,7 @@ export const getMostLikedDestinations = async () => {
 };
 
 export const getDestination = async (id) => {
-    const res = await axios.get(api.destinationById(id));
+    const res = await axios.get(api.destination.byId(id));
 
     return res.data;
 };
