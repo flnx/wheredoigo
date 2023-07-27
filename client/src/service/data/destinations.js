@@ -36,7 +36,7 @@ export const getCreatorDestinations = async () => {
 };
 
 export const createDestination = async (destinationData) => {
-    const res = await axios.post(api.addDestination, destinationData, {
+    const res = await axios.post(api.destination.add, destinationData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },

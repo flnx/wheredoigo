@@ -7,14 +7,15 @@ export const apiEndpoints = {
         top: 'destinations/top',
         search: (searchParams, skip = 0, categories) => {
             let url = `destinations?search=${searchParams}&page=${skip}`;
-            
+
             if (categories) {
                 const categoriesArray = categories.split(',');
                 url += `&categories=${encodeURIComponent(JSON.stringify(categoriesArray))}`;
             }
-            
+
             return url;
         },
+        add: 'destinations',
     },
 
     user: {
@@ -38,7 +39,6 @@ export const apiEndpoints = {
     creatorDestinations: 'destinations/created-by-user',
     // the path can be "like" or "dislike"
     likeDestination: (id, path) => `destinations/${id}/${path}`,
-    addDestination: 'destinations',
     requestDestinationToEdit: (id) => `destinations/${id}/request-edit-permissions`,
     editDestinationDescription: (id) => `destinations/${id}/description`,
     deleteDestination: (id) => `destinations/${id}/delete`,
@@ -59,6 +59,7 @@ export const apiEndpoints = {
     addPlaceImages: (id) => `places/${id}/add-images`,
     deletePlaceImage: (id) => `places/${id}/delete-image`,
 
-    deleteComment: (placeId, commentId) => `places/${placeId}/comment?commentId=${commentId}`,
+    deleteComment: (placeId, commentId) =>
+        `places/${placeId}/comment?commentId=${commentId}`,
     addComment: (id) => `places/${id}/comment`,
 };

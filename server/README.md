@@ -819,4 +819,82 @@ Returns:
 
 <br>
 
+### POST /destinations
 
+Create a new destination
+
+#### Destination data
+
+```JS
+{
+  // Description must be between 50-5000 characters (Without the html tags, if any)
+  description: "<p>Blagoevgrad is а town in Southwestern Bulgaria, the administrative centre of Blagoevgrad Municipality and of Blagoevgrad Province.</p>",
+  // Real city
+  city: "Blagoevgrad",
+  // Real country
+  country: "Bulgaria",
+  // At least one of the allowed categories: ["Beach", "Mountains", "Cultural", "Snow", "Islands", "Adventure"]
+  categories: [ "Cultural", "Mountains"],
+  // Details content can be be betwen 0 - 2000 characters
+  details: [
+    {
+      name: "Good to Know",
+      content: "<p>Just some info...</p>"
+    },
+    {
+      name: "Transport",
+      content: ""
+    },
+    {
+      name: "Local Customs",
+      content: ""
+    },
+    {
+      name: "Pro Tips",
+      content: ""
+    }
+  ],
+  // Between 5-50 images
+  imageUrls: [imageFile1, imageFile2, imageFile3]
+}
+```
+
+#### Images:
+
+1. **imageUrls** (files) - The image files to be uploaded.
+
+2. The server will interpret the files with the name **imageUrls**
+
+Examples
+
+```JS
+...
+    const formData = new FormData();
+
+    formData.append('city', state.city);
+    formData.append('country', state.country);
+    formData.append('description', state.description.text);
+    formData.append('categories', JSON.stringify(state.categories));
+    formData.append('details', JSON.stringify(state.details));
+    formData.append('imageUrls', imageFiles);
+    ...
+
+    const createDestination = async (destinationData) => {
+    const res = await axios.post('/destinations/', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+
+    return res.data;
+};
+```
+
+Returns:
+
+```json
+{
+  "_id": "64c2b40636950267714c1ed5",
+  "imgError": null
+}
+```
