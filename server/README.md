@@ -891,7 +891,7 @@ Create a new destination
 
 #### :
 
-1. **imageUrls** (files) - The image files to be ed.
+1. **imageUrls** (files) - The image files to be added.
 
 2. The server will interpret the files with the name **imageUrls**
 
@@ -1079,13 +1079,13 @@ Returns:
 
 <br>
 
-### PUT /destinations/:id/add-
+### PUT /destinations/:id/add-images
 
-Add destination new
+Add destination new images
 
 **_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
 
-1. **imageUrls** (files) - The image files to be ed.
+1. **imageUrls** (files) - The image files to be added.
 
 2. The server will interpret the files with the name **imageUrls**
 
@@ -1135,5 +1135,53 @@ Returns:
    - [multer upload middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/images.js)
 
 2. Service:
+
    - [deleteDestinationImage](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/deleteDestinationImage.js)
      - [deleteImages (proceed cloudinary image deletion)](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/deleteImages.js)
+
+---
+
+<br>
+
+### PUT /destinations/:id/description
+
+Edit destination description
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
+```json
+{
+  // Min 50 characters, Max 5000 characters (without the html tags, if any)
+  "description": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>"
+}
+```
+
+Returns:
+
+```json
+{
+  "acknowledged": true,
+  "modifiedCount": 1,
+  "upsertedId": null,
+  "upsertedCount": 0,
+  "matchedCount": 1
+}
+```
+
+**Technical Implementation**
+
+1. Middlewares:
+
+   - [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+   - [checkDestinationOwnershipOnly](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkDestinationOwnership.js)
+   - [Yup Validation: editDestDescriptionSchema](https://github.com/flnx/wheredoigo/blob/main/server/src/validators/destination/editDestDescriptionSchema.js)
+
+2. Service:
+
+   - [editDescription](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/editDescription.js)
+   - [sanitizeHtmlString](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/validators/sanitizeHtmlString.js)
+
+---
+<br>
+
+
