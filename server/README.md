@@ -538,5 +538,97 @@ returns:
 
 **Technical Implementation**
 
-- [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/searchDestinationsPaginated.js)
-- [MongoDB search pipelines](https://github.com/flnx/wheredoigo/blob/main/server/src/pipelines/paginatedSearchPipeline.js)
+1. [checkSession middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkSession.js)
+2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/searchDestinationsPaginated.js)
+3. [MongoDB search pipelines](https://github.com/flnx/wheredoigo/blob/main/server/src/pipelines/paginatedSearchPipeline.js)
+
+<br>
+
+### GET /destinations/countries-and-cities
+
+All world countries and cities
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
+returns:
+
+```json
+{
+  "error": false,
+  "msg": "countries and cities retrieved",
+  "data": [
+    {
+      "iso2": "AF",
+      "iso3": "AFG",
+      "country": "Afghanistan",
+      "cities": [
+        "Herat",
+        "Kabul",
+        "Kandahar",
+        "Molah",
+        "Rana",
+        "Shar",
+        "Sharif",
+        "Wazir Akbar Khan"
+      ]
+    },
+    {
+      "iso2": "AL",
+      "iso3": "ALB",
+      "country": "Albania",
+      "cities": [
+        "Elbasan",
+        "Petran",
+        "Pogradec",
+        "Shkoder",
+        "Tirana",
+        "Ura Vajgurore"
+      ]
+    }
+  ]
+  ...
+}
+```
+
+**Technical Implementation**
+
+_NOTE_: Uses eternal API to fetch the data
+
+1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+2. [Service: fetchCountriesAndCities](https://github.com/flnx/wheredoigo/blob/main/server/src/services/getCityCountryData.js)
+
+### GET /destinations/created-by-user
+
+All destinations created by the user
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
+returns:
+
+```json
+[
+  {
+    "_id": "645b7f82afb7e42c0ba43fa4",
+    "country": "United States",
+    "city": "San Diego",
+    "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1683718019/destinations/san-diego-645b7f82afb7e42c0ba43fa4/c6neoiwdvmirj2hmv010.jpg"
+  },
+  {
+    "_id": "645b80b5afb7e42c0ba43fc8",
+    "country": "Germany",
+    "city": "Berlin",
+    "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1683718327/destinations/berlin-645b80b5afb7e42c0ba43fc8/tnjuvndtbpuq8yzkpptj.jpg"
+  },
+  {
+    "_id": "645b8de2afb7e42c0ba4400e",
+    "country": "Bulgaria",
+    "city": "Plovdiv",
+    "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1688561894/destinations/plovdiv-645b8de2afb7e42c0ba4400e/km3qfhpnsrjrxwqzvjv9.jpg"
+  },
+  ...
+]
+```
+**Technical Implementation**
+
+1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/getCreatorDestinations.js)
