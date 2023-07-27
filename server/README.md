@@ -902,7 +902,7 @@ Returns:
   "imgError": null
 }
 ```
-
+---
 <br>
 
 ### POST /destinations/:id/like
@@ -946,6 +946,7 @@ Returns:
 2. Service:
    - [likeDestination](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/likeDestination.js)
 
+---
 <br>
 
 ### POST /destinations/:id/dislike
@@ -987,4 +988,4 @@ Returns:
 
 1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
 2. Service:
-   - [likeDestination](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/dislikeDestination.js)
+   - [dislikeDestination](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/dislikeDestination.js)
