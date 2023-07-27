@@ -35,7 +35,7 @@ Example:
 
 ## Authentication
 
-### POST /register
+### POST > /register
 
 ```json
 {
@@ -242,7 +242,7 @@ Example:
 
 ### PUT /user/avatar
 
-user avatar:
+Update user avatar:
 
 1. **avatarUrl** (file) - The avatar image file to be ed.
 
