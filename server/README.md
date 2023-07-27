@@ -479,7 +479,7 @@ returns:
 }
 ```
 
-**Endpoint:** _/destinations?categories=["adventure", "mountain"]&page=1_
+**Endpoint:** _/destinations?categories=["adventure", "mountain"]&page=8_
 
 ```json
 {
@@ -508,7 +508,7 @@ returns:
 }
 ```
 
-**Endpoint:** _/destinations?search=Amsterdam&page=1&categories=["Cultural"]_
+**Endpoint:** _/destinations?search=Bulgaria&page=0&categories=["Cultural"]_
 
 ```json
 {
@@ -532,6 +532,11 @@ returns:
       "imageUrls": "http://res.cloudinary.com/degidchop/image/upload/v1687804238/destinations/sofia-6499d94e7ae6eac92fd96c02/fpjqmugddljrlo6lwrfb.jpg"
     }
   ],
-  "nextPage": null
+  "nextPage": 8
 }
 ```
+
+**Technical Implementation**
+
+- [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/searchDestinationsPaginated.js)
+- [MongoDB search pipelines](https://github.com/flnx/wheredoigo/blob/main/server/src/pipelines/paginatedSearchPipeline.js)
