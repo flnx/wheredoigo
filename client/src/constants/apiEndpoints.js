@@ -1,24 +1,29 @@
 export const apiEndpoints = {
     destination: {
         byId: (id) => `destinations/${id}`,
+        editRequest: (id) => `destinations/${id}/request-edit-permissions`,
         editDescription: (id) => `destinations/${id}/description`,
         editDetails: (id) => `destinations/${id}/details`,
         editCategories: (id) => `destinations/${id}/categories`,
+        like: (id, path) => `destinations/${id}/${path}`, // The path can be "like" or "dislike"
         deleteImage: (id) => `destinations/${id}/delete-image`,
+        addImages: (id) => `destinations/${id}/add-images`,
         search: (searchParams, skip = 0, categories) => {
             let url = `destinations?search=${searchParams}&page=${skip}`;
-            
+
             if (categories) {
                 const categoriesArray = categories.split(',');
-                url += `&categories=${encodeURIComponent(JSON.stringify(categoriesArray))}`;
+                const encoded = encodeURIComponent(JSON.stringify(categoriesArray));
+
+                url += `&categories=${encoded}`;
             }
-            
+
             return url;
         },
         top: 'destinations/top',
         add: 'destinations',
         creator: 'destinations/created-by-user',
-
+        delete: (id) => `destinations/${id}/delete`,
     },
 
     user: {
@@ -38,13 +43,6 @@ export const apiEndpoints = {
         create: (destinationId) => `destinations/${destinationId}/places/add`,
     },
 
-    // the path can be "like" or "dislike"
-    likeDestination: (id, path) => `destinations/${id}/${path}`,
-    requestDestinationToEdit: (id) => `destinations/${id}/request-edit-permissions`,
-    editDestinationDescription: (id) => `destinations/${id}/description`,
-    deleteDestination: (id) => `destinations/${id}/delete`,
-    addDestinationImages: (id) => `destinations/${id}/add-images`,
-
     countriesAndCities: 'destinations/countries-and-cities',
 
     topPlaces: `top-places`,
@@ -58,7 +56,6 @@ export const apiEndpoints = {
     deletePlace: (id) => `places/${id}/delete`,
     addPlaceImages: (id) => `places/${id}/add-images`,
     deletePlaceImage: (id) => `places/${id}/delete-image`,
-
     deleteComment: (placeId, commentId) =>
         `places/${placeId}/comment?commentId=${commentId}`,
     addComment: (id) => `places/${id}/comment`,

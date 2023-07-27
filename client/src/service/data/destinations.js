@@ -42,7 +42,7 @@ export const getCountriesAndCities = async () => {
 
 export const likeDestination = async (id, likeData) => {
     const { path, isLike } = likeData;
-    const res = await axios.post(api.likeDestination(id, path), {});
+    const res = await axios.post(api.destination.like(id, path), {});
 
     return {
         ...res.data,
@@ -87,7 +87,7 @@ export const deleteDestinationImage = async (destinationId, imageData) => {
 };
 
 export const addDestinationNewImages = async (destinationId, files) => {
-    const res = await axios.put(api.addDestinationImages(destinationId), files, {
+    const res = await axios.put(api.destination.addImages(destinationId), files, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
@@ -99,7 +99,7 @@ export const addDestinationNewImages = async (destinationId, files) => {
 // DELETE
 
 export const deleteDestination = async (destinationId) => {
-    const result = await axios.delete(api.deleteDestination(destinationId));
+    const result = await axios.delete(api.destination.delete(destinationId));
 
     return result.data;
 };

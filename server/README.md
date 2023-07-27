@@ -1182,6 +1182,90 @@ Returns:
    - [sanitizeHtmlString](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/validators/sanitizeHtmlString.js)
 
 ---
+
 <br>
 
+### PUT /destinations/:id/details
+
+Edit destination details
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
+```json
+{
+  // Between 0 - 2000 characters (without the html tags, if any)
+  "description": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>",
+  "detail_id": "64b6e77f93848f1dff591bab"
+}
+```
+
+Returns:
+
+```json
+{
+  "acknowledged": true,
+  "modifiedCount": 1,
+  "upsertedId": null,
+  "upsertedCount": 0,
+  "matchedCount": 1
+}
+```
+
+**Technical Implementation**
+
+1. Middlewares:
+
+   - [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+   - [checkDestinationOwnershipOnly](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkDestinationOwnership.js)
+   - [Yup Validation: editDestDetailsSchema](https://github.com/flnx/wheredoigo/blob/main/server/src/validators/destination/editDestDetailsSchema.js)
+
+2. Service:
+
+   - [editDetails](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/editDetails.js)
+   - [sanitizeHtmlString](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/validators/sanitizeHtmlString.js)
+
+---
+
+<br>
+
+### PUT /destinations/:id/categories
+
+Edit destination categories
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
+```json
+{
+  // At least one of the followed categories: ["Beach", "Mountains", "Cultural", "Snow", "Islands", "Adventure"]
+  "categories": ["Snow", "Mountains"]
+}
+```
+
+Returns:
+
+```json
+{
+  "acknowledged": true,
+  "modifiedCount": 1,
+  "upsertedId": null,
+  "upsertedCount": 0,
+  "matchedCount": 1
+}
+```
+
+**Technical Implementation**
+
+1. Middlewares:
+
+   - [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+   - [checkDestinationOwnershipOnly](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkDestinationOwnership.js)
+   - [Yup Validation: editDestCategoriesSchema](https://github.com/flnx/wheredoigo/blob/main/server/src/validators/destination/editDestCategoriesSchema.js)
+
+2. Service:
+
+   - [editCategories](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/editCategories.js)
+
+---
+
+<br>
 
