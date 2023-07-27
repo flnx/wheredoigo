@@ -248,7 +248,7 @@ user avatar:
 
 2. The server will interpret the file with the name **avatarUrl**
 
-3. The old avatar will be automatically deleted after the new one is ed
+3. The old avatar will be automatically deleted after the new one is added
 
 Example:
 
@@ -273,7 +273,7 @@ Returns:
 {
   "email": "tester@abv.bg",
   "username": "Tester",
-  // ed image file URL
+  // Add image file URL
   "avatarUrl": "http://res.cloudinary.com/degidchop/image//v1690404138/avatars/kmjsxnbcufe56ew20hwx.jpg",
   "role": "user",
   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoiNjRjMTc4MTgwMGY1Mj..."
@@ -284,12 +284,12 @@ Returns:
 
 1. Middlewares:
    - [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
-   - [Avatar middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/.js)
+   - [uploadAvatar middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/images.js)
 2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/userServices/updateUserAvatar.js)
 3. [validate](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/validators/validate.js)
-4. [UserAvatar](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/UserAvatar.js)
-5. [ToCloudinary](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService//ToCloudinary.js)
-6. [File](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService//File.js)
+4. [uploadUserAvatar](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/uploadUserAvatar.js)
+5. [uploadImagesToCloudinary](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/upload/uploadImagesToCloudinary.js)
+6. [uploadFile](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/upload/uploadFile.js)
 
 <br>
 
