@@ -42,11 +42,11 @@ export const apiEndpoints = {
         editName: (id) => `places/${id}/name`,
         create: (destinationId) => `destinations/${destinationId}/places/add`,
         top: `places/top`,
+        creator: 'places/created-by-user',
     },
 
     countriesAndCities: 'destinations/countries-and-cities',
 
-    userPlacesData: 'places/user-places-data',
     placeById: (id) => `places/${id}`,
     placeComments: (id, page) => `places/${id}/comments?page=${page}`,
     generateAIComments: (id) => `places/${id}/generate-ai-comments`,

@@ -34,7 +34,7 @@ const {
     delete_place_image,
     place_comments,
     get_top_places,
-    get_user_places_data,
+    get_creator_places,
     generate_place_ai_comments,
     edit_place_description,
     edit_place_type,
@@ -48,13 +48,14 @@ const router = express.Router();
 // -- GET --
 router.get(
     '/places/top',
+    checkSession,
     get_top_places
 );
 
 router.get(
-    '/places/user-places-data',
+    '/places/created-by-user',
     auth, 
-    get_user_places_data
+    get_creator_places
 );
 
 router.get(

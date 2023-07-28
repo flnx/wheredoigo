@@ -1,7 +1,7 @@
 const Place = require('../../models/placeSchema');
 const capitalizeEachWord = require('../../utils/capitalizeWords');
 
-async function getUserPlacesData({ ownerId }) {
+async function getCreatorPlaces({ ownerId }) {
     const places = await Place.find({ ownerId: ownerId })
         .select('-_id name comments')
         .populate({
@@ -41,4 +41,4 @@ async function getUserPlacesData({ ownerId }) {
     return updatedData;
 }
 
-module.exports = getUserPlacesData;
+module.exports = getCreatorPlaces;
