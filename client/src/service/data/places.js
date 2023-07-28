@@ -16,7 +16,7 @@ export const getUserPlacesRatingData = async () => {
 };
 
 export const getPlace = async (id) => {
-    const placeData = await axios.get(api.placeById(id));
+    const placeData = await axios.get(api.place.byId(id));
 
     return placeData.data;
 };

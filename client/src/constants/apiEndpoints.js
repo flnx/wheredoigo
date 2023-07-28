@@ -37,6 +37,7 @@ export const apiEndpoints = {
     },
     
     place: {
+        byId: (id) => `places/${id}`,
         editDescription: (id) => `places/${id}/description`,
         editType: (id) => `places/${id}/type`,
         editName: (id) => `places/${id}/name`,
@@ -47,7 +48,6 @@ export const apiEndpoints = {
 
     countriesAndCities: 'destinations/countries-and-cities',
 
-    placeById: (id) => `places/${id}`,
     placeComments: (id, page) => `places/${id}/comments?page=${page}`,
     generateAIComments: (id) => `places/${id}/generate-ai-comments`,
     requestCreatePlacePermissions: (destinationId) =>

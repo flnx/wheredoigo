@@ -44,7 +44,7 @@ async function getPlaceComments(placeId, user, page) {
 
     // Adds isOwner boolean if the current user (if any) is the owner of the comment
     place.comments.forEach((comment) => {
-        // This fallback should never be needed, but just in case
+        // This fallback shouldn't be needed, but just in case if a deleted user wasn't removed from place commenters
         const deletedOwner = deletedUserFallback();
 
         // Removes owner id before sending it to the client
@@ -74,7 +74,7 @@ function deletedUserFallback() {
     return {
         _id: new mongoose.Types.ObjectId(),
         username: 'deleted',
-        avatarUrl: 'https://supercharge.info/images/avatar-placeholder.png',
+        avatarUrl: 'https://res.cloudinary.com/degidchop/image/upload/v1690401797/avatars/reedeharqpql6jvjdwcs.png',
     };
 }
 

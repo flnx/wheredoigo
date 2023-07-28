@@ -1605,3 +1605,69 @@ Returns:
 
 <br>
 
+### GET /places/:id/comments/'
+
+Place comments (Paginated)
+
+**_Queries_**
+
+2. **?page**
+
+   - **Description:** Navigate through the comments. The server also returns _totalPages_ (number) and _hasNextPage_ / _hasPreviousPage_ (booleans) page parameters
+   - **Page Size Limit:** 5
+
+   - **Examples:**
+
+     - _/places/:id/comments?page=1_
+     - _/places/:id/comments?page=2_
+
+Returns:
+
+```json
+{
+  "data": [
+    {
+      "_id": "649fb9dd2916fa24d1bf350a",
+      "title": "A must-see in Prague",
+      "content": "Visiting Prague Castle is an absolute must when in Prague. The castle's beauty and historical significance make it a top attraction.",
+      "ownerId": {
+        "username": "Steven",
+        "avatarUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687136740/avatars/jo52ckxa4c8ttanj3qr7.jpg"
+      },
+      "placeId": "649a2b9ce046091e04701370",
+      "rating": 5,
+      "time": "2023-07-01T05:30:05.664Z",
+      "__v": 0,
+    },
+    {
+      "_id": "649fb9dd2916fa24d1bf3509",
+      "title": "Fascinating exhibitions",
+      "content": "The exhibitions within the castle offer a deep insight into Czech history. They are well-curated and provide a great learning experience.",
+      "ownerId": {
+        "username": "Hilarioushobbit",
+        "avatarUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687022584/avatars/vpfscp0owgvpvrxu6wng.jpg"
+      },
+      "placeId": "649a2b9ce046091e04701370",
+      "rating": 4,
+      "time": "2023-07-01T05:30:05.664Z",
+      "__v": 0,
+    },
+... 3 more comments
+  ],
+  "totalComments": 11,
+  "hasNextPage": true,
+  "hasPreviousPage": false,
+  "totalPages": 3
+}
+```
+
+**Technical Implementation**
+
+1. [checkSession middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkSession.js)
+2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/getPlaceComments.js)
+
+<br>
+
+---
+
+<br>
