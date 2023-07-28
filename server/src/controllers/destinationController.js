@@ -1,3 +1,4 @@
+// Destination Service
 const addDestinationNewImages = require('../services/destinationServices/addDestinationNewImages');
 const createDestination = require('../services/destinationServices/createDestination');
 const deleteDestination = require('../services/destinationServices/deleteDestination');
@@ -5,16 +6,24 @@ const deleteDestinationImage = require('../services/destinationServices/deleteDe
 const getCreatorDestinations = require('../services/destinationServices/getCreatorDestinations');
 const getDestinationById = require('../services/destinationServices/getDestinationById');
 const searchDestinationsPaginated = require('../services/destinationServices/searchDestinationsPaginated');
-const getDestinationPlaces = require('../services/placeServices/getDestinationPlaces');
-
-const { fetchCountriesAndCities } = require('../services/getCityCountryData');
-const { destinationCategories } = require('../constants/allowedDestinationCategories');
 const likeDestination = require('../services/destinationServices/likeDestination');
 const dislikeDestination = require('../services/destinationServices/dislikeDestination');
 const getMostLikedDestinations = require('../services/destinationServices/getMostLikedDestinations');
 const { editDescription } = require('../services/destinationServices/editDescription');
 const editDetails = require('../services/destinationServices/editDetails');
 const editCategories = require('../services/destinationServices/editCategories');
+
+// Place Service
+const getDestinationPlaces = require('../services/placeServices/getDestinationPlaces');
+const createNewPlace = require('../services/placeServices/createNewPlace');
+
+const { fetchCountriesAndCities } = require('../services/getCityCountryData');
+
+// Constants
+const { destinationCategories } = require('../constants/allowedDestinationCategories');
+const { allowedPlaceCategories } = require('../constants/allowedPlaceCategories');
+
+
 
 const search_destinations_paginated = async (req, res, next) => {
     const page = parseInt(req.query.page) || 0;
@@ -106,6 +115,27 @@ const get_creator_destinations = async (req, res, next) => {
         next(err);
     }
 };
+
+const add_new_place = async (req, res, next) => {
+    const data = req.body;
+    const images = req.files;
+    const destination = req.destination;
+
+    try {
+        const place = await createNewPlace( { data, images, destination });
+        res.json(place);
+    } catch (err) {
+        next(err);
+    }
+};
+
+const add_new_place_request = async (req, res, next) => {
+    res.json({
+        city: req.destination.city,
+        allowedPlaceCategories,
+    });
+};
+
 
 const request_destination_to_edit = async (req, res, next) => {
     const destination = req.destination;
@@ -226,5 +256,7 @@ module.exports = {
     top_destinations,
     edit_destination_description,
     edit_destination_details,
-    edit_destination_categories
+    edit_destination_categories,
+    add_new_place,
+    add_new_place_request
 };

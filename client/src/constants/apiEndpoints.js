@@ -44,11 +44,11 @@ export const apiEndpoints = {
         create: (destinationId) => `destinations/${destinationId}/places/add`,
         top: `places/top`,
         creatorPlacesRatingData: 'places/created-by-user/ratings',
+        comments: (id, page) => `places/${id}/comments?page=${page}`,
     },
 
     countriesAndCities: 'destinations/countries-and-cities',
 
-    placeComments: (id, page) => `places/${id}/comments?page=${page}`,
     generateAIComments: (id) => `places/${id}/generate-ai-comments`,
     requestCreatePlacePermissions: (destinationId) =>
         `destinations/${destinationId}/places/add`,

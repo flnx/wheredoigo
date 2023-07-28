@@ -874,6 +874,25 @@ Returns:
 
 <br>
 
+### GET /destinations/:id/places/add
+
+Add new Place GET Request that returns the allowed place categories and the destination name (city)
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
+```json
+{
+  "city": "San Diego",
+  "allowedPlaceCategories": ["Explore", "Eat", "Fun"]
+}
+```
+
+<br>
+
+---
+
+<br>
+
 ### POST /destinations
 
 Create a new destination
@@ -916,13 +935,13 @@ Create a new destination
 }
 ```
 
-#### :
+#### Images
 
 1. **imageUrls** (files) - The image files to be added.
 
 2. The server will interpret the files with the name **imageUrls**
 
-Examples
+Example
 
 ```JS
 ...
@@ -975,6 +994,91 @@ Returns:
          - [uploadFile (cloudinary + streamifier)](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/upload/uploadFile.js)
 
 3. [Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/destinationSchema.js)
+
+<br>
+
+---
+
+<br>
+
+### POST /destinations/:id/places/add
+
+Creates a new place that corresponds to the destination ID
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
+#### Place data
+
+```JS
+{
+    // Between 1 and 60 characters
+    name: "Burgermeister",
+    // Description must be between 50-5000 characters (Without the html tags, if any)
+    description: "There are plenty of great burgers found in Berlin, but none are quite as iconic as Burgermeister’s.",
+    // At least one of the allowed types: ["Explore", "Eat", "Fun"]
+    type: "Fun",
+    // Between 5-50
+    imageUrls: [imageFile1, imageFile2, imageFile3]
+}
+```
+
+#### Images
+
+1. **imageUrls** (files) - The image files to be added.
+
+2. The server will interpret the files with the name **imageUrls**
+
+Example
+
+```JS
+...
+    const formData = new FormData();
+
+    formData.append('name', state.name);
+    formData.append('description', state.description);
+    formData.append('categories', JSON.stringify(state.type));
+    formData.append('imageUrls', imageFiles);
+    ...
+
+    const createPlace = async () => {
+    const res = await axios.post('/destinations/:id/places/add', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+
+    return res.data;
+};
+```
+
+Returns:
+
+```json
+{
+  "_id": "649a2b9ce046091e04701370",
+  "imgError": null
+}
+```
+
+**Technical Implementation**
+
+1. Middlewares:
+
+   - [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+   - [checkDestinationOwnershipOnly](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkDestinationOwnership.js)
+   - [multer upload middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/images.js)
+   - [validateCreateDestinationData](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/dataValidators/validateCreateDestinationData.js)
+     - [Yup Validation: createNewPlaceSchema](https://github.com/flnx/wheredoigo/blob/main/server/src/validators/place/createNewPlaceSchema.js)
+   - [imagesValidation](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/validators/validateImages.js)
+
+2. Service:
+
+   - [createNewPlace](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/createNewPlace.js)
+     - [uploadImages (setting up the files)](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/uploadImages.js)
+       - [uploadImagesToCloudinary (Upload all and error checks)](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/upload/uploadImagesToCloudinary.js)
+         - [uploadFile (cloudinary + streamifier)](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/upload/uploadFile.js)
+
+3. [Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/placeSchema.js)
 
 <br>
 
@@ -1427,6 +1531,7 @@ Returns:
 1. [checkSession middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkSession.js)
 2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/getTopPlaces.js)
    - [mongoDB searchPipeline](https://github.com/flnx/wheredoigo/blob/main/server/src/pipelines/topPlacesPipeline.js)
+3. [Mongoose Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/placeSchema.js)
 
 <br>
 

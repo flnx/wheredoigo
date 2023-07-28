@@ -22,7 +22,7 @@ export const getPlace = async (id) => {
 };
 
 export const getPlaceComments = async (id, page) => {
-    const placeData = await axios.get(api.placeComments(id, page));
+    const placeData = await axios.get(api.place.comments(id, page));
 
     return placeData.data;
 };

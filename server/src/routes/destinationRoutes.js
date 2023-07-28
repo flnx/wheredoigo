@@ -14,6 +14,7 @@ const createDestinationSchema = require('../validators/destination/createDestina
 const editDestDetailsSchema = require('../validators/destination/editDestDetailsSchema');
 const editDestCategoriesSchema = require('../validators/destination/editDestCategoriesSchema');
 const deleteImageSchema = require('../validators/deleteImageSchema');
+const createNewPlaceSchema = require('../validators/place/createNewPlaceSchema');
 
 const { 
     fetchDestinationAndCheckOwnership, 
@@ -38,6 +39,8 @@ const {
     edit_destination_description,
     edit_destination_details,
     edit_destination_categories,
+    add_new_place_request,
+    add_new_place
 } = require('../controllers/destinationController');
 
 const router = express.Router();
@@ -82,8 +85,25 @@ router.get(
     request_destination_to_edit
 );
 
+router.get(
+    '/destinations/:id/places/add',
+    validateMongoId,
+    auth,
+    checkDestinationOwnershipOnly,
+    add_new_place_request
+);
 
 // -- POST --
+router.post(
+    '/destinations/:id/places/add',
+    validateMongoId,
+    auth,
+    checkDestinationOwnershipOnly,
+    upload,
+    validateData(createNewPlaceSchema),
+    add_new_place
+);
+
 router.post(
     '/destinations', 
     auth, 

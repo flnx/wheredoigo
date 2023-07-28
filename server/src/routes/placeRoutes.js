@@ -19,14 +19,10 @@ const {
     checkPlaceOwnershipAndCommenters,
 } = require('../middlewares/checkPlaceOwnership');
 
-const { checkDestinationOwnershipOnly } = require('../middlewares/checkDestinationOwnership');
-
 // Controllers
 const {
     place_details,
-    add_new_place,
     post_comment,
-    add_new_place_request,
     delete_comment,
     delete_place,
     request_place_to_edit,
@@ -41,7 +37,6 @@ const {
     edit_place_name
 } = require('../controllers/placeController');
 const addCommentSchema = require('../validators/place/addCommentSchema');
-const createNewPlaceSchema = require('../validators/place/createNewPlaceSchema');
 
 const router = express.Router();
 
@@ -78,26 +73,6 @@ router.get(
     auth,
     fetchPlaceAndCheckOwnership,
     request_place_to_edit
-);
-
-router.get(
-    '/destinations/:id/places/add',
-    validateMongoId,
-    auth,
-    checkDestinationOwnershipOnly,
-    add_new_place_request
-);
-
-
-// -- POST --
-router.post(
-    '/destinations/:id/places/add',
-    validateMongoId,
-    auth,
-    checkDestinationOwnershipOnly,
-    upload,
-    validateData(createNewPlaceSchema),
-    add_new_place
 );
 
 router.post(

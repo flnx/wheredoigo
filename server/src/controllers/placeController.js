@@ -1,6 +1,5 @@
-// Services
+// Place Service
 const { addAIGeneratedCommentsToPlace } = require('../services/placeServices/addAIGeneratedCommentsToPlace');
-const createNewPlace = require('../services/placeServices/createNewPlace');
 const getPlaceById = require('../services/placeServices/getPlaceById');
 const deletePlace = require('../services/placeServices/deletePlace');
 const addCommentToPlace = require('../services/placeServices/addCommentToPlace');
@@ -38,26 +37,6 @@ const get_creator_places_rating_data = async (req, res, next) => {
     } catch (err) {
         next(err);
     }
-};
-
-const add_new_place = async (req, res, next) => {
-    const data = req.body;
-    const images = req.files;
-    const destination = req.destination;
-
-    try {
-        const place = await createNewPlace( { data, images, destination });
-        res.json(place);
-    } catch (err) {
-        next(err);
-    }
-};
-
-const add_new_place_request = async (req, res, next) => {
-    res.json({
-        city: req.destination.city,
-        allowedPlaceCategories,
-    });
 };
 
 const place_details = async (req, res, next) => {
@@ -213,8 +192,6 @@ const generate_place_ai_comments = async (req, res, next) => {
 };
 
 module.exports = {
-    add_new_place,
-    add_new_place_request,
     place_details,
     place_comments,
     request_place_to_edit,
@@ -228,5 +205,5 @@ module.exports = {
     generate_place_ai_comments,
     edit_place_description,
     edit_place_type,
-    edit_place_name
+    edit_place_name,
 };
