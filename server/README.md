@@ -1552,10 +1552,56 @@ Returns:
 **Technical Implementation**
 
 1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
-2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/getCreatorDestinations.js)
+2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/getCreatorPlacesRatingData.js)
 
 <br>
 
 ---
 
 <br>
+
+### GET /places/:id'
+
+Single Place Details
+
+Returns:
+
+```json
+{
+  "_id": "649a2b9ce046091e04701370",
+  "destinationId": "649a272ce046091e047012d3", // parent destination
+  "type": "Explore",
+  "name": "Prague Castle",
+  "city": "Prague",
+  "country": "Czech Republic",
+  "description": "Prague Castle, known as Pražský hrad in Czech, is a historic fortress complex and...",
+  "imageUrls": [
+    {
+      "_id": "649a2b9ee046091e04701372",
+      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687825308/places/prague-649a2b9ce046091e04701370/fbaymbnotugcf47mqt7j.jpg"
+    },
+    {
+      "_id": "649a2b9ee046091e04701373",
+      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687825308/places/prague-649a2b9ce046091e04701370/vo78d7ltpp17c8xqzwfh.jpg"
+    },
+   ...
+  ],
+  "isAuth": true, // checks the session
+  "hasCommented": true, // tells if the current user (session) left a comment
+  "averageRating": 4.18,
+  "isOwner": true, // tells if the logged user (session) is the creator of that place
+  "hasAIComments": false // tells if it has AI generated comments by all bots (commenters)
+}
+```
+
+**Technical Implementation**
+
+1. [checkSession middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkSession.js)
+2. [Service](<(https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/getPlaceById.js)>)
+
+<br>
+
+---
+
+<br>
+
