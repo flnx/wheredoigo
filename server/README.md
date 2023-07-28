@@ -1433,3 +1433,129 @@ Returns:
 ---
 
 <br>
+
+All places created by the user
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
+Returns:
+
+```json
+[
+  {
+    "_id": "645b7f82afb7e42c0ba43fa4",
+    "country": "United States",
+    "city": "San Diego",
+    "imageUrls": "http://res.cloudinary.com/degidchop/image//v1683718019/destinations/san-diego-645b7f82afb7e42c0ba43fa4/c6neoiwdvmirj2hmv010.jpg"
+  },
+  {
+    "_id": "645b80b5afb7e42c0ba43fc8",
+    "country": "Germany",
+    "city": "Berlin",
+    "imageUrls": "http://res.cloudinary.com/degidchop/image//v1683718327/destinations/berlin-645b80b5afb7e42c0ba43fc8/tnjuvndtbpuq8yzkpptj.jpg"
+  },
+  {
+    "_id": "645b8de2afb7e42c0ba4400e",
+    "country": "Bulgaria",
+    "city": "Plovdiv",
+    "imageUrls": "http://res.cloudinary.com/degidchop/image//v1688561894/destinations/plovdiv-645b8de2afb7e42c0ba4400e/km3qfhpnsrjrxwqzvjv9.jpg"
+  },
+  ...
+]
+```
+
+**Technical Implementation**
+
+1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/getCreatorDestinations.js)
+
+<br>
+
+---
+
+<br>
+
+### GET /places/created-by-user/ratings
+
+All user places ratings data
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
+Returns:
+
+```json
+[
+  {
+    "name": "Kapana Neighborhood",
+    "data": [
+      {
+        "rating": "1 star ",
+        "totalVotes": 1
+      },
+      {
+        "rating": "2 stars ",
+        "totalVotes": 0
+      },
+      {
+        "rating": "3 stars ",
+        "totalVotes": 1
+      },
+      {
+        "rating": "4 stars ",
+        "totalVotes": 2
+      },
+      {
+        "rating": "5 stars ",
+        "totalVotes": 5
+      }
+      ...
+    ]
+  },
+  {
+    "name": "Old Town Hall With Astronomical Clock",
+    "data": [
+      {
+        "rating": "1 star ",
+        "totalVotes": 0
+      },
+      {
+        "rating": "2 stars ",
+        "totalVotes": 2
+      },
+      {
+        "rating": "3 stars ",
+        "totalVotes": 1
+      },
+      {
+        "rating": "4 stars ",
+        "totalVotes": 4
+      },
+      {
+        "rating": "5 stars ",
+        "totalVotes": 4
+      }
+      ...
+    ]
+  },
+  {
+    "name": "Ancient Theatre",
+    "data": []
+  },
+  {
+    "name": "Asen's Fortress",
+    "data": []
+  },
+  ...
+]
+```
+
+**Technical Implementation**
+
+1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/getCreatorDestinations.js)
+
+<br>
+
+---
+
+<br>

@@ -8,7 +8,7 @@ const deleteCommentFromPlace = require('../services/placeServices/deleteCommentF
 const deletePlaceImage = require('../services/placeServices/deletePlaceImage');
 const addPlaceNewImages = require('../services/placeServices/addPlaceNewImages');
 const getTopPlaces = require('../services/placeServices/getTopPlaces');
-const getCreatorPlaces = require('../services/placeServices/getCreatorPlaces');
+const getCreatorPlacesRatingData = require('../services/placeServices/getCreatorPlacesRatingData');
 const editPlaceDescription = require('../services/placeServices/editPlaceDescription');
 const getPlaceComments = require('../services/placeServices/getPlaceComments');
 const editPlaceType = require('../services/placeServices/editPlaceType');
@@ -29,11 +29,11 @@ const get_top_places = async (req, res, next) => {
     }
 };
 
-const get_creator_places = async (req, res, next) => {
+const get_creator_places_rating_data = async (req, res, next) => {
     const { ownerId } = req.user;
 
     try {
-        const places = await getCreatorPlaces({ ownerId });
+        const places = await getCreatorPlacesRatingData({ ownerId });
         res.json(places);
     } catch (err) {
         next(err);
@@ -224,7 +224,7 @@ module.exports = {
     add_place_new_images,
     delete_place_image,
     get_top_places,
-    get_creator_places,
+    get_creator_places_rating_data,
     generate_place_ai_comments,
     edit_place_description,
     edit_place_type,

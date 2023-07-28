@@ -42,7 +42,7 @@ export const apiEndpoints = {
         editName: (id) => `places/${id}/name`,
         create: (destinationId) => `destinations/${destinationId}/places/add`,
         top: `places/top`,
-        creator: 'places/created-by-user',
+        creatorPlacesRatingData: 'places/created-by-user/ratings',
     },
 
     countriesAndCities: 'destinations/countries-and-cities',

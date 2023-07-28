@@ -9,8 +9,8 @@ export const getTopPlaces = async () => {
     return res.data;
 };
 
-export const getPlacesCreatedByUser = async () => {
-    const res = await axios.get(api.place.creator);
+export const getUserPlacesRatingData = async () => {
+    const res = await axios.get(api.place.creatorPlacesRatingData);
 
     return res.data;
 };

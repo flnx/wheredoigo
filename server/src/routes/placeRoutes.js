@@ -34,7 +34,7 @@ const {
     delete_place_image,
     place_comments,
     get_top_places,
-    get_creator_places,
+    get_creator_places_rating_data,
     generate_place_ai_comments,
     edit_place_description,
     edit_place_type,
@@ -53,9 +53,9 @@ router.get(
 );
 
 router.get(
-    '/places/created-by-user',
+    '/places/created-by-user/ratings',
     auth, 
-    get_creator_places
+    get_creator_places_rating_data
 );
 
 router.get(
