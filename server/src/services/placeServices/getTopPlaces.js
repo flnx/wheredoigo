@@ -13,7 +13,6 @@ async function getTopPlaces() {
         Place.aggregate(eatPipeline),
     ];
 
-    // Fetching the data
     const [exploreAndFunPlaces, eatPlaces] = await Promise.all(promises);
 
     const updatedExplorePlaces = exploreAndFunPlaces.map((place) => ({

@@ -47,7 +47,7 @@ const router = express.Router();
 
 // -- GET --
 router.get(
-    '/top-places',
+    '/places/top',
     get_top_places
 );
 

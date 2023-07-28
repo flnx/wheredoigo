@@ -14,10 +14,10 @@ export const apiEndpoints = {
             if (categories) {
                 const categoriesArray = categories.split(',');
                 const encoded = encodeURIComponent(JSON.stringify(categoriesArray));
-
+                
                 url += `&categories=${encoded}`;
             }
-
+            
             return url;
         },
         top: 'destinations/top',
@@ -25,7 +25,7 @@ export const apiEndpoints = {
         creator: 'destinations/created-by-user',
         delete: (id) => `destinations/${id}/delete`,
     },
-
+    
     user: {
         register: '/register',
         login: '/login',
@@ -35,17 +35,17 @@ export const apiEndpoints = {
         activities: 'user/activities',
         favorites: 'user/favorites',
     },
-
+    
     place: {
         editDescription: (id) => `places/${id}/description`,
         editType: (id) => `places/${id}/type`,
         editName: (id) => `places/${id}/name`,
         create: (destinationId) => `destinations/${destinationId}/places/add`,
+        top: `places/top`,
     },
 
     countriesAndCities: 'destinations/countries-and-cities',
 
-    topPlaces: `top-places`,
     userPlacesData: 'places/user-places-data',
     placeById: (id) => `places/${id}`,
     placeComments: (id, page) => `places/${id}/comments?page=${page}`,

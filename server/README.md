@@ -35,7 +35,7 @@ Example:
 
 ## Authentication
 
-#### POST /register
+### POST /register
 
 ```json
 {
@@ -1106,7 +1106,7 @@ Returns:
    - [Validation: deleteSchema](https://github.com/flnx/wheredoigo/blob/main/server/src/validators/deleteImageSchema.js)
 2. Service:
    - [deleteDestinationImage](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/deleteDestinationImage.js)
-   - [Cloudinary: deleteImages setting up](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/deleteImages.js)
+   - [deleteImages setting up](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/deleteImages.js)
    - [deleteImageFromCloudinary](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/delete/deleteImageFromCloudinary.js)
 
 <br>
@@ -1353,6 +1353,80 @@ Returns:
 2. Service:
 
    - [deleteDestination](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/deleteDestination.js)
+   - [deleteImages setting up](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/deleteImages.js)
+   - [deleteImageFromCloudinary](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/delete/deleteImageFromCloudinary.js)
+
+<br>
+
+---
+
+<br>
+
+## Destination Resource
+
+### /places/top
+
+- Top 12 highest rated european places that match "Explore" category
+- Top 12 highest rated european places that match "Eat" category
+
+Currently applied for the following euroopean countries:
+
+- Netherlands, Bulgaria, Germany, Hungary
+
+Returns:
+
+```json
+{
+  "explorePlaces": [
+    {
+      "_id": "646e88bb67440d711c085186",
+      "type": "Explore",
+      "averageRating": 4.636363636363637,
+      "name": "Rijksmuseum",
+      "city": "Amsterdam",
+      "country": "Netherlands",
+      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1684965563/places/amsterdam-646e88bb67440d711c085186/a7gguqetnjbyyza0k080.jpg"
+    },
+    {
+      "_id": "648f56dccdbe02c435ff20de",
+      "type": "Explore",
+      "averageRating": 5,
+      "name": "The Danube Promenade",
+      "city": "Budapest",
+      "country": "Hungary",
+      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687115485/places/budapest-648f56dccdbe02c435ff20de/zqanpsmors5jutxdldnn.jpg"
+    }
+    // ...
+  ],
+  "eatPlaces": [
+    {
+      "_id": "648f5630cdbe02c435ff20ce",
+      "type": "Eat",
+      "averageRating": 4,
+      "name": "Spíler Bistro",
+      "city": "Budapest",
+      "country": "Hungary",
+      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687115313/places/budapest-648f5630cdbe02c435ff20ce/a5drr9kv8cwke8zv0cgc.jpg"
+    },
+    {
+      "_id": "646e87a367440d711c08514a",
+      "type": "Eat",
+      "averageRating": 4.181818181818182,
+      "name": "Box Sociaal",
+      "city": "Amsterdam",
+      "country": "Netherlands",
+      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1684965284/places/amsterdam-646e87a367440d711c08514a/q79ss1fvmtjmratw6nnf.jpg"
+    }
+    // ...
+  ]
+}
+```
+
+**Technical Implementation**
+
+1. [checkSession middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkSession.js)
+2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/getTopPlaces.js)
+   - [mongoDB searchPipeline](https://github.com/flnx/wheredoigo/blob/main/server/src/pipelines/topPlacesPipeline.js)
 
 <br>
 
