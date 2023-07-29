@@ -2020,10 +2020,7 @@ Returns:
 
 <br>
 
-### GET /places/:id/delete-image
-
-
-### PUT /destinations/:id/delete-image
+### PUT /places/:id/delete-image
 
 Delete destination image
 
