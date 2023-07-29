@@ -1703,7 +1703,7 @@ Returns:
 **Technical Implementation**
 
 1. [checkSession middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkSession.js)
-2. [Service]((https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/getPlaceById.js))
+2. [Service](<(https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/getPlaceById.js)>)
 
 <br>
 
@@ -1979,7 +1979,7 @@ Example:
 
     return res.data;
 };
-```  
+```
 
 Returns:
 
@@ -2059,7 +2059,6 @@ Returns:
 
 <br>
 
-
 ### PUT /places/:id/description
 
 Edit place description
@@ -2097,6 +2096,90 @@ Returns:
 
    - [editPlaceDescription](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/editPlaceDescription.js)
    - [sanitizeHtmlString](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/validators/sanitizeHtmlString.js)
+
+<br>
+
+---
+
+<br>
+
+### PUT /places/:id/type
+
+Edit place type
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
+```json
+{
+  // At least one of the allowed types: ["Explore", "Eat", "Fun"]
+  "type": "Fun"
+}
+```
+
+Returns:
+
+```json
+{
+  "acknowledged": true,
+  "modifiedCount": 1,
+  "upsertedId": null,
+  "upsertedCount": 0,
+  "matchedCount": 1
+}
+```
+**Technical Implementation**
+
+1. Middlewares:
+
+   - [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+   - [checkPlaceOwnershipOnly](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkPlaceOwnership.js)
+   - [Yup Validation: editPlaceTypeSchema](https://github.com/flnx/wheredoigo/blob/main/server/src/validators/place/editPlaceTypeSchema.js)
+
+2. Service:
+
+   - [editPlaceType](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/editPlaceType.js)
+
+<br>
+
+---
+
+<br>
+
+### PUT /places/:id/name
+
+Edit place name
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
+```json
+{
+  // Between 1 and 60 characters
+  "name": "Random Place Name"
+}
+```
+
+Returns:
+
+```json
+{
+  "acknowledged": true,
+  "modifiedCount": 1,
+  "upsertedId": null,
+  "upsertedCount": 0,
+  "matchedCount": 1
+}
+```
+**Technical Implementation**
+
+1. Middlewares:
+
+   - [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+   - [checkPlaceOwnershipOnly](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkPlaceOwnership.js)
+   - [Yup Validation: editPlaceNameSchema](https://github.com/flnx/wheredoigo/blob/main/server/src/validators/place/editPlaceNameSchema.js)
+
+2. Service:
+    
+   - [editPlaceName](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/editPlaceName.js)
 
 <br>
 
