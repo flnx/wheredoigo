@@ -1236,8 +1236,8 @@ Example:
     formData.append('imageUrls', [imageFile1, imageFile2]);
     ...
 
-    const addDestinationNew = async () => {
-    const res = await axios.put('/destinations/:id/add-', formData, {
+    const addDestinationNewImages = async () => {
+    const res = await axios.put('/destinations/:id/add-images', formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
@@ -1272,11 +1272,13 @@ Returns:
    - [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
    - [checkDestinationOwnershipOnly](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkDestinationOwnership.js)
    - [multer upload middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/images.js)
+   - [validateImages](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/validators/validateImages.js)
 
 2. Service:
 
-   - [deleteDestinationImage](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/deleteDestinationImage.js)
-     - [deleteImages (proceed cloudinary image deletion)](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/deleteImages.js)
+   - [addDestinationNewImages](https://github.com/flnx/wheredoigo/blob/main/server/src/services/destinationServices/addDestinationNewImages.js)
+     - [uploadImages](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/uploadImages.js)
+     - [uploadImagesToCloudinary](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/upload/uploadImagesToCloudinary.js)
 
 <br>
 
@@ -1915,5 +1917,105 @@ Like that:
 
 ### POST /places/:id/comment
 
-Add comment to a place
+Add comment to a a place
 
+```JS
+{
+    // Between 2 and 100 characters
+    title: "Cool",
+    // Between 10 and 2000 characters
+    content: "Hello there"
+    // Between 1 and 5
+    rating: 5,
+}
+```
+
+Returns the updated average place rating
+
+```json
+{
+  "averageRating": "4.33"
+}
+```
+
+**Technical Implementation**
+
+1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+2. [Yup: validatePlaceComment Schema](https://github.com/flnx/wheredoigo/blob/main/server/src/validators/place/addCommentSchema.js)
+3. Service:
+   - [addCommentToPlace](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/addCommentToPlace.js)
+4. [Mongoose Comment Model](https://github.com/flnx/wheredoigo/blob/main/server/src/models/commentSchema.js)
+
+<br>
+
+---
+
+<br>
+
+### PUT /places/:id/add-images
+
+Add place new images
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
+1. **imageUrls** (files) - The image files to be added.
+
+2. The server will interpret the files with the name **imageUrls**
+
+Example:
+
+```JS
+    const formData = new FormData();
+
+    formData.append('imageUrls', [imageFile1, imageFile2]);
+    ...
+
+    const addPlaceNewImages = async () => {
+    const res = await axios.put('/places/:id/add-images', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+
+    return res.data;
+};
+```
+
+Returns:
+
+```json
+{
+  "imageUrls": [
+    {
+      "imageUrl": "http://res.cloudinary.com/degidchop/image//v1690489402/places/castle-hill-64b6e77f93848f1dff591baa/v0tpgesdgm5e5bewwo2s.jpg",
+      "_id": "64c2d23c36950267714c1f94"
+    },
+    {
+      "imageUrl": "http://res.cloudinary.com/degidchop/image//v1690489402/places/castle-hill-64b6e77f93848f1dff591baa/v0tpgesdgm5e5bewwo2s.jpg",
+      "_id": "64c2d23c36950267714c1f95"
+    }
+  ],
+  "imgError": null
+}
+```
+
+**Technical Implementation**
+
+1. Middlewares:
+
+   - [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+   - [checkPlaceOwnershipOnly](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkPlaceOwnership.js)
+   - [multer upload middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/images.js)
+     - [validateImages](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/validators/validateImages.js)
+
+2. Service:
+
+   - [addPlaceNewImages](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/addPlaceNewImages.js)
+    - [uploadImages](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/uploadImages.js)
+    - [uploadImagesToCloudinary](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/upload/uploadImagesToCloudinary.js)
+
+<br>
+
+---
+
+<br>

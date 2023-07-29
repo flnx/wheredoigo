@@ -49,12 +49,11 @@ export const apiEndpoints = {
         deleteComment: (placeId, commentId) => `places/${placeId}/comment?commentId=${commentId}`,
         addComment: (id) => `places/${id}/comment`,
         generateAIComments: (id) => `places/${id}/generate-ai-comments`,
+        deleteImage: (id) => `places/${id}/delete-image`,
+        addImages: (id) => `places/${id}/add-images`,
+        delete: (id) => `places/${id}/delete`,
+        requestEdit: (id) => `places/${id}/request-edit-permissions`,
     },
 
     countriesAndCities: 'destinations/countries-and-cities',
-
-    requestPlaceToEdit: (id) => `places/${id}/request-edit-permissions`,
-    deletePlace: (id) => `places/${id}/delete`,
-    addPlaceImages: (id) => `places/${id}/add-images`,
-    deletePlaceImage: (id) => `places/${id}/delete-image`,
 };

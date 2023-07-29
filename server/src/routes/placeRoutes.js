@@ -41,6 +41,7 @@ const addCommentSchema = require('../validators/place/addCommentSchema');
 const router = express.Router();
 
 // -- GET --
+
 router.get(
     '/places/top',
     checkSession,
@@ -83,12 +84,16 @@ router.post(
     generate_place_ai_comments
 );
 
+// -- POST --
+
 router.post('/places/:id/comment', 
     validateMongoId, 
     auth, 
     validateData(addCommentSchema),
     post_comment
 );
+
+// -- PUT --
 
 router.put(
     '/places/:id/add-images',
@@ -136,6 +141,7 @@ router.put(
 );
 
 // -- DELETE --
+
 router.delete(
     '/places/:id/comment', 
     validateMongoId, 

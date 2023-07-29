@@ -13,7 +13,7 @@ export const getDestinationToEdit = async (id) => {
 };
 
 export const getPlaceToEdit = async (id) => {
-    const res = await axios.get(apiEndpoints.requestPlaceToEdit(id));
+    const res = await axios.get(apiEndpoints.place.requestEdit(id));
 
     return res.data;
 };
