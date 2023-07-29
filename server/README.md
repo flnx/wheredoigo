@@ -1912,3 +1912,8 @@ Like that:
 ---
 
 <br>
+
+### POST /places/:id/comment
+
+Add comment to a place
+

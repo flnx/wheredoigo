@@ -43,7 +43,6 @@ async function addCommentToPlace({ id, title, content, rating, user }) {
             await comment.save({ session });
             await UserActivity.addCommentActivity(ownerId, id, comment._id, session);
 
-            // Return the comment details along with owner information and average rating
             result = {
                 averageRating: place.averageRating,
             };
