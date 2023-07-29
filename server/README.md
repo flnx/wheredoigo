@@ -1435,7 +1435,9 @@ Example:
 
 ```js
 const deleteDestination = async (destinationId) => {
-  const result = await axios.delete(`/destinations/:id/delete/${destinationId}`);
+  const result = await axios.delete(
+    `/destinations/:id/delete/${destinationId}`
+  );
 
   return result.data;
 };
@@ -1917,16 +1919,18 @@ Like that:
 
 ### POST /places/:id/comment
 
-Add comment to a a place
+Add a comment
 
-```JS
+Example:
+
+```json
 {
     // Between 2 and 100 characters
-    title: "Cool",
+    "title": "Cool",
     // Between 10 and 2000 characters
-    content: "Hello there"
+    "content": "Hello there",
     // Between 1 and 5
-    rating: 5,
+    "rating": 5,
 }
 ```
 
@@ -2182,7 +2186,7 @@ Returns:
 
 ### DELETE /places/:id/comment?commentId=${commentId}
 
-Delete place comoment
+Delete a comment
 
 **_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
 
