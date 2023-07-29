@@ -1666,7 +1666,7 @@ Returns:
 
 <br>
 
-### GET /places/:id'
+### GET /places/:id
 
 Single Place Details
 
@@ -1703,7 +1703,7 @@ Returns:
 **Technical Implementation**
 
 1. [checkSession middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkSession.js)
-2. [Service](<(https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/getPlaceById.js)>)
+2. [Service]((https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/getPlaceById.js))
 
 <br>
 
