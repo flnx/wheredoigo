@@ -2127,6 +2127,7 @@ Returns:
   "matchedCount": 1
 }
 ```
+
 **Technical Implementation**
 
 1. Middlewares:
@@ -2145,18 +2146,11 @@ Returns:
 
 <br>
 
-### PUT /places/:id/name
+### DELETE /places/:id/comment?commentId=${commentId}
 
-Edit place name
+Delete place comoment
 
 **_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
-
-```json
-{
-  // Between 1 and 60 characters
-  "name": "Random Place Name"
-}
-```
 
 Returns:
 
@@ -2169,17 +2163,50 @@ Returns:
   "matchedCount": 1
 }
 ```
+
 **Technical Implementation**
 
 1. Middlewares:
 
    - [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
-   - [checkPlaceOwnershipOnly](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkPlaceOwnership.js)
-   - [Yup Validation: editPlaceNameSchema](https://github.com/flnx/wheredoigo/blob/main/server/src/validators/place/editPlaceNameSchema.js)
 
 2. Service:
-    
-   - [editPlaceName](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/editPlaceName.js)
+   - [deleteCommentFromPlace](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/deleteCommentFromPlace.js)
+     - [deletePlaceCommentAndRating schema statics](https://github.com/flnx/wheredoigo/blob/main/server/src/models/placeSchema.js)
+
+<br>
+
+---
+
+<br>
+
+### DELETE /places/:id/comment?commentId=${commentId}
+
+Delete place comoment
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
+Returns:
+
+```json
+{
+  "acknowledged": true,
+  "modifiedCount": 1,
+  "upsertedId": null,
+  "upsertedCount": 0,
+  "matchedCount": 1
+}
+```
+
+**Technical Implementation**
+
+1. Middlewares:
+
+   - [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+
+2. Service:
+   - [deleteCommentFromPlace](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/deleteCommentFromPlace.js)
+     - [deletePlaceCommentAndRating schema statics](https://github.com/flnx/wheredoigo/blob/main/server/src/models/placeSchema.js)
 
 <br>
 
