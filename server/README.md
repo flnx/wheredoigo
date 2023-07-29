@@ -1435,7 +1435,7 @@ Example:
 
 ```js
 const deleteDestination = async (destinationId) => {
-  const result = await axios.delete(`/destinations/:id/delete${destinationId}`);
+  const result = await axios.delete(`/destinations/:id/delete/${destinationId}`);
 
   return result.data;
 };
@@ -2207,6 +2207,49 @@ Returns:
 2. Service:
    - [deleteCommentFromPlace](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/deleteCommentFromPlace.js)
      - [deletePlaceCommentAndRating schema statics](https://github.com/flnx/wheredoigo/blob/main/server/src/models/placeSchema.js)
+
+<br>
+
+---
+
+<br>
+
+### DELETE /places/:id/delete
+
+Delete a place
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
+Example:
+
+```js
+const deletePlace = async (destinationId) => {
+  const result = await axios.delete(`/places/:id/delete/${placeId}`);
+
+  return result.data;
+};
+```
+
+Returns:
+
+```json
+{
+  "message": "Deleted 🦖"
+}
+```
+
+**Technical Implementation**
+
+1. Middlewares:
+
+   - [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+
+2. Service:
+
+   - [deletePlace](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/deletePlace.js)
+
+     - [deleteImages setting up](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/deleteImages.js)
+     - [deleteImagesFromCloudinary](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/delete/deleteImageFromCloudinary.js)
 
 <br>
 
