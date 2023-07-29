@@ -1711,7 +1711,7 @@ Returns:
 
 <br>
 
-### GET /places/:id/comments/'
+### GET /places/:id/comments/
 
 Place comments (Paginated)
 
@@ -1979,7 +1979,7 @@ Example:
 
     return res.data;
 };
-```
+```  
 
 Returns:
 
@@ -2013,6 +2013,48 @@ Returns:
    - [addPlaceNewImages](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/addPlaceNewImages.js)
      - [uploadImages](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/uploadImages.js)
      - [uploadImagesToCloudinary](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/upload/uploadImagesToCloudinary.js)
+
+<br>
+
+---
+
+<br>
+
+### GET /places/:id/delete-image
+
+
+### PUT /destinations/:id/delete-image
+
+Delete destination image
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
+Example:
+
+```json
+{
+  "imgId": "646e78243d3b7387243fc512"
+}
+```
+
+Returns:
+
+```json
+{
+  "deleted": true
+}
+```
+
+**Technical Implementation**
+
+1. Middlewares:
+   - [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+   - [checkPlaceOwnershipOnly](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkPlaceOwnership.js)
+   - [Validation: deleteSchema](https://github.com/flnx/wheredoigo/blob/main/server/src/validators/deleteImageSchema.js)
+2. Service:
+   - [deletePlaceImage](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/deletePlaceImage.js)
+   - [deleteImages setting up](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/deleteImages.js)
+   - [deleteImageFromCloudinary](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/delete/deleteImageFromCloudinary.js)
 
 <br>
 
