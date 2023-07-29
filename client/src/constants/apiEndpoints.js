@@ -10,7 +10,7 @@ export const apiEndpoints = {
         addImages: (id) => `destinations/${id}/add-images`,
         search: (searchParams, skip = 0, categories) => {
             let url = `destinations?search=${searchParams}&page=${skip}`;
-
+            
             if (categories) {
                 const categoriesArray = categories.split(',');
                 const encoded = encodeURIComponent(JSON.stringify(categoriesArray));
@@ -24,6 +24,7 @@ export const apiEndpoints = {
         add: 'destinations',
         creator: 'destinations/created-by-user',
         delete: (id) => `destinations/${id}/delete`,
+        requestCreatePlace: (destinationId) => `destinations/${destinationId}/places/add`,
     },
     
     user: {
@@ -45,18 +46,15 @@ export const apiEndpoints = {
         top: `places/top`,
         creatorPlacesRatingData: 'places/created-by-user/ratings',
         comments: (id, page) => `places/${id}/comments?page=${page}`,
+        deleteComment: (placeId, commentId) => `places/${placeId}/comment?commentId=${commentId}`,
+        addComment: (id) => `places/${id}/comment`,
+        generateAIComments: (id) => `places/${id}/generate-ai-comments`,
     },
 
     countriesAndCities: 'destinations/countries-and-cities',
 
-    generateAIComments: (id) => `places/${id}/generate-ai-comments`,
-    requestCreatePlacePermissions: (destinationId) =>
-        `destinations/${destinationId}/places/add`,
     requestPlaceToEdit: (id) => `places/${id}/request-edit-permissions`,
     deletePlace: (id) => `places/${id}/delete`,
     addPlaceImages: (id) => `places/${id}/add-images`,
     deletePlaceImage: (id) => `places/${id}/delete-image`,
-    deleteComment: (placeId, commentId) =>
-        `places/${placeId}/comment?commentId=${commentId}`,
-    addComment: (id) => `places/${id}/comment`,
 };

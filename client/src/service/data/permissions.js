@@ -2,7 +2,7 @@ import axios from '../Axios';
 import { apiEndpoints } from 'src/constants/apiEndpoints';
 
 export const getCreatePlacePermissions = async (id) => {
-    const res = await axios.get(apiEndpoints.requestCreatePlacePermissions(id));
+    const res = await axios.get(apiEndpoints.destination.requestCreatePlace(id));
 
     return res.data;
 };

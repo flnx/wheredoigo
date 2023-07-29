@@ -1067,7 +1067,6 @@ Returns:
    - [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
    - [checkDestinationOwnershipOnly](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkDestinationOwnership.js)
    - [multer upload middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/images.js)
-   - [validateCreateDestinationData](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/dataValidators/validateCreateDestinationData.js)
      - [Yup Validation: createNewPlaceSchema](https://github.com/flnx/wheredoigo/blob/main/server/src/validators/place/createNewPlaceSchema.js)
    - [imagesValidation](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/validators/validateImages.js)
 
@@ -1770,6 +1769,143 @@ Returns:
 
 1. [checkSession middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkSession.js)
 2. [Service](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/getPlaceComments.js)
+
+<br>
+
+---
+
+<br>
+
+## GET /places/:id/request-edit-permissions
+
+Request edit permissions and get Place data to edit
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
+Returns:
+
+```json
+{
+  "_id": "648f557ecdbe02c435ff20be",
+  "destinationId": "648f4e52cdbe02c435ff2048",
+  "type": "Explore",
+  "name": "The Museum Of Fine Arts",
+  "city": "Budapest",
+  "country": "Hungary",
+  "description": "The Museum of Fine Arts (Szépmuvészeti Múzeum) is not only Budapest's...",
+  "imageUrls": [
+    {
+      "_id": "648f5580cdbe02c435ff20c0",
+      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687115134/places/budapest-648f557ecdbe02c435ff20be/qh5t3mv3ahkqqgamjqyz.jpg"
+    },
+    {
+      "_id": "648f5580cdbe02c435ff20c1",
+      "imageUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687115134/places/budapest-648f557ecdbe02c435ff20be/lykwcvqmzoigxvq50jzp.jpg"
+    },
+   ...
+  ],
+  "isAuth": true,
+  "hasCommented": false,
+  "averageRating": 4.83,
+  "isOwner": true,
+  "hasAIComments": false,
+  "allowedPlaceCategories": ["Explore", "Eat", "Fun"]
+}
+```
+
+**Technical Implementation**
+
+1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+2. [fetchPlaceAndCheckOwnership middlware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkPlaceOwnership.js)
+3. [Service: getPlaceById](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/getPlaceById.js)
+
+<br>
+
+---
+
+<br>
+
+### POST /places/:id/generate-ai-comments
+
+Generate openAI place comments and rating
+
+- The comments will be based on the place name and destination (city)
+- Number of AI generated comments: 10
+
+Example:
+
+Let's say the place name is _German Historical Museum_ in _Berlin_
+
+Just send an empty object to the following endpoint:
+
+```JS
+const generateAIComments = async (placeId) => {
+    const comment = await axios.post('/places/:id/generate-ai-comments', {});
+
+    return comment.data;
+};
+```
+
+Returns:
+
+```json
+{
+  "acknowledged": true,
+  "modifiedCount": 1,
+  "upsertedId": null,
+  "upsertedCount": 0,
+  "matchedCount": 1
+}
+```
+
+- The comments will be added to the place
+- They will have a fake owner
+
+Like that:
+
+```json
+[
+  {
+    "_id": "64a35e2a262bd1ed1919e849",
+    "title": "A treasure trove of artifacts",
+    "content": "The German Historical Museum is a treasure trove of artifacts that offer a glimpse into Germany's rich history. From ancient relics to World War memorabilia, there is something for everyone here. The museum staff is also knowledgeable and friendly, adding to the overall experience.",
+    "ownerId": {
+      "username": "Angrydentist",
+      "avatarUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687017090/avatars/l4o8qqixlknnd124jawd.jpg"
+    },
+    "placeId": "648f3e7acdbe02c435ff1fa7",
+    "rating": 4,
+    "time": "2023-07-03T23:47:54.068Z",
+    "__v": 0,
+    "isOwner": true
+  },
+  {
+    "_id": "64a35e2a262bd1ed1919e84a",
+    "title": "Not worth the hype",
+    "content": "I had high expectations for the German Historical Museum, but it fell short of the hype. The exhibits lacked depth and failed to provide a comprehensive understanding of German history. Additionally, the museum was overcrowded, making it difficult to fully appreciate the displays.",
+    "ownerId": {
+      "username": "Mysticmuffinmaster",
+      "avatarUrl": "http://res.cloudinary.com/degidchop/image/upload/v1687020294/avatars/yzfsdzjt84uca0gvy1sn.jpg"
+    },
+    "placeId": "648f3e7acdbe02c435ff1fa7",
+    "rating": 2,
+    "time": "2023-07-03T23:47:54.068Z",
+    "__v": 0,
+    "isOwner": true
+  }
+  ... 8 more comments
+]
+```
+
+**Technical Implementation**
+
+1. [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+2. [checkPlaceOwnershipAndCommenters middlware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkPlaceOwnership.js)
+3. Service:
+   - [addAIGeneratedCommentsToPlace](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/addAIGeneratedCommentsToPlace.js)
+   - [commentsGeneratedByAI](https://github.com/flnx/wheredoigo/blob/main/server/src/services/openAI/commentsGeneratedByAI.js)
+     - [fetchAIComments](https://github.com/flnx/wheredoigo/blob/main/server/src/services/openAI/fetchAIComments.js)
+     - [validateMultipleCommentsData](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/attachIDsToComments.js)
 
 <br>
 

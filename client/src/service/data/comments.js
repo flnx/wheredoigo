@@ -2,14 +2,14 @@ import axios from '../Axios';
 import { apiEndpoints } from 'src/constants/apiEndpoints';
 
 export const addComment = async (data, placeId) => {
-    const comment = await axios.post(apiEndpoints.addComment(placeId), data);
+    const comment = await axios.post(apiEndpoints.place.addComment(placeId), data);
 
     return comment.data;
 };
 
 export const removeComment = async (placeId, commentId) => {
     const comment = await axios.delete(
-        apiEndpoints.deleteComment(placeId, commentId)
+        apiEndpoints.place.deleteComment(placeId, commentId)
     );
 
 
@@ -17,7 +17,7 @@ export const removeComment = async (placeId, commentId) => {
 };
 
 export const generateAIComments = async (placeId) => {
-    const comment = await axios.post(apiEndpoints.generateAIComments(placeId), {});
+    const comment = await axios.post(apiEndpoints.place.generateAIComments(placeId), {});
     
     return comment.data;
 };
