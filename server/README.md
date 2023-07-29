@@ -2006,13 +2006,13 @@ Returns:
    - [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
    - [checkPlaceOwnershipOnly](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkPlaceOwnership.js)
    - [multer upload middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/images.js)
-     - [validateImages](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/validators/validateImages.js)
+   - [validateImages](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/validators/validateImages.js)
 
 2. Service:
 
    - [addPlaceNewImages](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/addPlaceNewImages.js)
-    - [uploadImages](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/uploadImages.js)
-    - [uploadImagesToCloudinary](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/upload/uploadImagesToCloudinary.js)
+     - [uploadImages](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/uploadImages.js)
+     - [uploadImagesToCloudinary](https://github.com/flnx/wheredoigo/blob/main/server/src/services/cloudinaryService/upload/uploadImagesToCloudinary.js)
 
 <br>
 
