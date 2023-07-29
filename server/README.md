@@ -2058,3 +2058,48 @@ Returns:
 ---
 
 <br>
+
+
+### PUT /places/:id/description
+
+Edit place description
+
+**_Requires an access token provided in the "Authorization" header using the "Bearer" prefix (Refer to the "Authentication" section in the documentation for more details.)_**
+
+```json
+{
+  // Min 50 characters, Max 5000 characters (without the html tags, if any)
+  "description": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>"
+}
+```
+
+Returns:
+
+```json
+{
+  "acknowledged": true,
+  "modifiedCount": 1,
+  "upsertedId": null,
+  "upsertedCount": 0,
+  "matchedCount": 1
+}
+```
+
+**Technical Implementation**
+
+1. Middlewares:
+
+   - [auth middleware](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/auth.js)
+   - [checkPlaceOwnershipOnly](https://github.com/flnx/wheredoigo/blob/main/server/src/middlewares/checkPlaceOwnership.js)
+   - [Yup Validation: editPlaceDescriptionSchema](https://github.com/flnx/wheredoigo/blob/main/server/src/validators/place/editPlaceDescriptionSchema.js)
+
+2. Service:
+
+   - [editPlaceDescription](https://github.com/flnx/wheredoigo/blob/main/server/src/services/placeServices/editPlaceDescription.js)
+   - [sanitizeHtmlString](https://github.com/flnx/wheredoigo/blob/main/server/src/utils/validators/sanitizeHtmlString.js)
+
+<br>
+
+---
+
+<br>

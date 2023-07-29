@@ -27,7 +27,9 @@ async function deletePlaceImage(placeId, imgId) {
     // Deletes the old image
     deleteImages([public_id]).catch((err) => console.error(err.message || err));
 
-    return result;
+    return {
+        deleted: true,
+    }
 }
 
 module.exports = deletePlaceImage;
