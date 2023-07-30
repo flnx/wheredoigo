@@ -1,12 +1,22 @@
-## Where Do I Go
+## Where Do I Go 
 
-An adventurous website featuring an extensive collection of destinations and places from around the world, that can be liked, commented and rated by users.
+### Full Stack MERN App
 
-Ability to upload pictures that’ll be shown in a responsive Gallery, which is easy to navigate through. Leave comments and rate places.
+### About
 
-Furthermore, users can upload a personal photo or avatar to represent themselves, select suitable descriptions and details for their entries, and categorize destinations and places accordingly. An additional feature includes the option to generate AI-driven comments for each place based on its name and location.
+🌎✈️ An adventurous hub featuring an extensive collection of destinations and places, created by our community from around the world, that can be liked, commented and rated by users.
 
-Guests can check out all the cool spots that users create by navigating to the 'Discover' page, where they can easily search for the destinations that match their interests.
+⚒️ Each user can create destinations and places, upload photos and select suitable descriptions and details for their entries
+
+🖼️ Ability to upload pictures that’ll be shown in a responsive Gallery, which is easy to navigate through. Leave comments and rate places.
+
+📸 Furthermore, users can upload a personal photo or avatar to represent themselves
+
+🏖️ Personal Dashboard
+
+🤖 An additional feature includes the option to generate AI-driven comments for each place based on its name and location.
+
+🔎 Guests can check out all the cool spots that users create by navigating to the 'Discover' page, where they can easily search for the destinations that match their interests.
 
 ### Main Technologies:
 
@@ -15,27 +25,20 @@ Guests can check out all the cool spots that users create by navigating to the '
 - React
 - React Query (Caching)
 - Vitest + JEST, MSW
-- chartJS
-- Yup
-- Swiper
-- Tiptap
+- chartJS, Yup, Swiper, Tiptap
 
 #### BackEnd
 
-- NodeJS,
-- Express,
-- MongoDB + Mongoose
+- Express, MongoDB, Mongoose
 - **Cloudinary** (Cloud based image management service)
-- JSON Web Token
-- bcrypt
-- Express Rate Limit
-- Dom Purify/ jsdom
-- Multer
-- Yup / validator
+- JSON Web Token, bcrypt, Express Rate Limit, Dom Purify, JSdom
+- Yup, Validator, Multer
 
 **AI Integration**
 
 - OpenAI
+
+---
 
 ### Key Features:
 
