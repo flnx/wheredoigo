@@ -1469,9 +1469,9 @@ Returns:
 
 <br>
 
-## Destination Resource
+## Place Resource
 
-### /places/top
+### GET /places/top
 
 - Top 12 highest rated european places that match "Explore" category
 - Top 12 highest rated european places that match "Eat" category

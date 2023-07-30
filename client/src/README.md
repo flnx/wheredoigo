@@ -48,32 +48,31 @@ Guests can check out all the cool spots that users create by navigating to the '
 
 #### Destinations
 
-- Users can create destinations, upload pictures and provide a detailed description and information about the location
+- Users can create destinations, upload pictures and provide a detailed information about it
 - Each destination represents a real city within a specific country
-- Add destinations to favorite list
-- Destinations can be categorized under multiple categories, such as “Beach”, “Mountains”, “Cultural”, “Snow”, “Islands”, and “Adventure”
-- Each destination can contain as many places of interest as desired, showcasing various attractions and landmarks
-- The creator of a destination has the ability to edit its information, ensuring the details are accurate and up-to-date
-- The creator has the privilege to upload or delete pictures associated with a destination, maintaining the quality and relevance of the content
+- Destination can be added in favorites (liked) by many users
+- Destinations can be categorized under multiple categories: “Beach”, “Mountains”, “Cultural”, “Snow”, “Islands”, and “Adventure”
+- Each destination can contain many place, showcasing various attractions and landmarks
+- The creator can edit their destinations content such as: _description_, _details_, _upload/remove pictures_
 
 #### Places
 
 - Users can create places, upload pictures, include a description, provide details, and choose a place category/type
 - Each place can be linked to a single destination
-- Each place can be commented on and rated
+- Each place can be commented on and rated by other users
 - The place creator can add AI-generated comments with ratings specific to that place, based on place’s name and location
 - Places are categorized into three main types: 'Explore,' 'Eat,' or 'Fun,'
-- The creator has the ability to edit the place information and upload/delete pictures at any time
+- The creator can edit their places content such as: _description_, _details_, _upload/remove pictures_
 
 #### Dashboard
 
-- Upload/Change/Crop user personal avatar/photo
-- User activities: comments, favorites, creations
-- Places rating **chart** data
-- Add destination - select a country and city, add a description and additional details, upload photos, pick categories
-- Creator Destinations: allows the user to navigate trough their destinations - edit or delete them.
-- Favorite destinations list
-- Settings
+- **Upload/Change/Crop** user personal avatar/photo
+- **User activities:** comments, favorites, creations
+- **Places rating** **chart** data
+- **Add destination** - select a country and city, add a description and additional details, upload photos, pick categories
+- **Creator Destinations:** allows the user to navigate trough their destinations - edit or delete them.
+- **Favorite destinations list**
+- **Settings**
 
 #### Search (Discover)
 
