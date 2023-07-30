@@ -4,6 +4,8 @@
 
 ### About
 
+<br>
+
 🌎✈️ An adventurous hub featuring an extensive collection of destinations and places, created by our community from around the world, that can be liked, commented and rated by users.
 
 ⚒️ Each user can create destinations and places, upload photos and select suitable descriptions and details for their entries
@@ -17,6 +19,8 @@
 🤖 An additional feature includes the option to generate AI-driven comments for each place based on its name and location.
 
 🔎 Guests can check out all the cool spots that users create by navigating to the 'Discover' page, where they can easily search for the destinations that match their interests.
+
+<br>
 
 ### Main Technologies:
 
@@ -37,6 +41,8 @@
 **AI Integration**
 
 - OpenAI
+
+<br>
 
 ---
 
