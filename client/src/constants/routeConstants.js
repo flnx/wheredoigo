@@ -30,7 +30,7 @@ export default Object.freeze({
         route: '/dashboard',
 
         ADD_DESTINATION: {
-            name: 'Add Destination',
+            name: 'Add Destinations',
             route: '/add',
             routePath: '/dashboard/add',
         },
