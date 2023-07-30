@@ -2,19 +2,19 @@
 
 ## About
 
-- 🌎✈️ An adventurous hub featuring an extensive collection of destinations and places, created by our community from around the world, that can be liked, commented and rated by users.
+🌎✈️ An adventurous hub featuring an extensive collection of destinations and places, created by our community from around the world, that can be liked, commented and rated by users.
 
-- ⚒️ Each user can create destinations and places, upload photos and select suitable descriptions and details for their entries
+⚒️ Each user can create destinations and places, upload photos and select suitable descriptions and details for their entries
 
-- 🖼️ Ability to upload pictures that’ll be shown in a responsive Gallery, which is easy to navigate through. Leave comments and rate places.
+🖼️ Ability to upload pictures that’ll be shown in a responsive Gallery, which is easy to navigate through. Leave comments and rate places.
 
-- 📸 Furthermore, users can upload a personal photo or avatar to represent themselves
+📸 Furthermore, users can upload a personal photo or avatar to represent themselves
 
-- 🏖️ Personal Dashboard
+🏖️ Personal Dashboard
 
-- 🤖 An additional feature includes the option to generate AI-driven comments for each place based on its name and location.
+🤖 An additional feature includes the option to generate AI-driven comments for each place based on its name and location.
 
-- 🔎 Guests can check out all the cool spots that users create by navigating to the 'Discover' page, where they can easily search for the destinations that match their interests.
+🔎 Guests can check out all the cool spots that users create by navigating to the 'Discover' page, where they can easily search for the destinations that match their interests.
 
 <br>
 
