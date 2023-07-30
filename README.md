@@ -16,8 +16,6 @@
 
 🔎 Guests can check out all the cool spots that users create by navigating to the 'Discover' page, where they can easily search for the destinations that match their interests.
 
-<br>
-
 ### Main Technologies:
 
 #### FrontEnd
@@ -41,6 +39,8 @@
 <br>
 
 ---
+
+<br>
 
 ### Key Features:
 
