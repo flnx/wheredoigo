@@ -91,5 +91,4 @@
 
 - Moderators are responsible for ensuring a safe and respectful environment for all users
 - If any content is found to be inappropriate or in violation of the platform's policies, moderators can take necessary actions, such as editing, hiding, or removing the content
-
-![](../../../Documents/Desktop%202023.08.02%20-%2000.23.03.02.mp4)
+![](https://drive.google.com/file/d/1gfg9zG2RSa8IR-NaUOoTkSFIfohMsG0s/view)
