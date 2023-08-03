@@ -1,41 +1,30 @@
-## Where Do I Go
-
-An adventurous website featuring an extensive collection of destinations and places from around the world, that can be liked, commented and rated by users.
-
-Ability to upload pictures that’ll be shown in a responsive Gallery, which is easy to navigate through. Leave comments and rate places.
-
-Furthermore, users can upload a personal photo or avatar to represent themselves, select suitable descriptions and details for their entries, and categorize destinations and places accordingly. An additional feature includes the option to generate AI-driven comments for each place based on its name and location.
-
-Guests can check out all the cool spots that users create by navigating to the 'Discover' page, where they can easily search for the destinations that match their interests.
-
 ### Main Technologies:
-
-#### FrontEnd
 
 - React
 - React Query (Caching)
 - Vitest + JEST, MSW
-- chartJS
-- Yup
-- Swiper
-- Tiptap
+- chartJS, Yup, Swiper, Tiptap
 
-#### BackEnd
+## About
 
-- NodeJS,
-- Express,
-- MongoDB + Mongoose
-- **Cloudinary** (Cloud based image management service)
-- JSON Web Token
-- bcrypt
-- Express Rate Limit
-- Dom Purify/ jsdom
-- Multer
-- Yup / validator
+🌎✈️ An adventurous hub featuring an extensive collection of destinations and places, created by our community from around the world, that can be liked, commented and rated by users
 
-**AI Integration**
+⚒️ Each user can create/edit/delete destinations and places, upload pictures and select suitable descriptions and details for their entries
 
-- OpenAI
+🖼️ Responsive Gallery
+
+💬 Leave comments and rate places
+
+📸 Furthermore, users can upload a personal photo or avatar to represent themselves
+
+🏖️ Personal Dashboard
+
+🤖 Option to generate AI-driven comments for each place based on its name and location
+
+🔎 Guests can check out all the cool spots that users create by navigating to the 'Discover' page
+
+👾 Client Data Caching which makes the user experience even better
+
 
 ### Key Features:
 
@@ -76,9 +65,10 @@ Guests can check out all the cool spots that users create by navigating to the '
 
 #### Search (Discover)
 
-- Discover page provides the ability to search for a destination based on its city / country or category that falls into
+- Discover page provides the ability to **search** for a destination based on its city / country or category that falls into
 
 #### Content Regulation by Moderators
 
 - Moderators are responsible for ensuring a safe and respectful environment for all users
 - If any content is found to be inappropriate or in violation of the platform's policies, moderators can take necessary actions, such as editing, hiding, or removing the content
+![]()

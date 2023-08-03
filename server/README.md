@@ -1,4 +1,4 @@
-# NodeJS/Express API for Where Do I Go
+# NodeJS/Express API - Where Do I Go
 
 ## IMPORTANT
 
