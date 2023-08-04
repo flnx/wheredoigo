@@ -53,3 +53,7 @@ Destination Details - Desktop            |  Destination Details - Mobile
 Place Details - Desktop            |  Place Details - Mobile
 :-------------------------:|:-------------------------:
 ![](./screenshots/place%20details%20desktop.gif)   |  ![](./screenshots/place%20details%20mobile.gif)
+
+Discover  - Desktop                                |  Discover - Mobile
+:-------------------------:|:-------------------------:
+![](./screenshots/discover%20desktop.gif)   |  ![](./screenshots/discover%20mobile.gif)
