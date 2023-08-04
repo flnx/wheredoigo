@@ -44,4 +44,4 @@
 
 Desktop Homepage           |  Mobile Homepage
 :-------------------------:|:-------------------------:
-![](./screenshots/home%20desktop.gif)   |  ![](./screenshots/home%20mobile.gif)
+![](./screenshots/home%20desktopx.gif)   |  ![](./screenshots/home%20mobile.gif)
