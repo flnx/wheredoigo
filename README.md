@@ -39,3 +39,5 @@
 **AI Integration**
 
 - OpenAI
+
+![](./screenshots/home%20desktop.gif)
