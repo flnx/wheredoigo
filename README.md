@@ -49,3 +49,7 @@ Homepage - Desktop         |  Homepage - Mobile
 Destination Details - Desktop            |  Destination Details - Mobile
 :-------------------------:|:-------------------------:
 ![](./screenshots/dest%20details%20desktop.gif)   |  ![](./screenshots/dest%20details%20mobile.gif)
+
+Place Details - Desktop            |  Place Details - Mobile
+:-------------------------:|:-------------------------:
+![](./screenshots/place%20details%20desktop.gif)   |  ![](./screenshots/place%20details%20mobile.gif)
