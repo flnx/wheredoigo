@@ -1,5 +1,5 @@
-import styles from './EditTextareaPairs.module.css';
 import parse from 'html-react-parser';
+import styles from './EditTextareaPairs.module.scss';
 
 export const EditTextareaPairs = ({ content = '', onClickHandler }) => {
     return (

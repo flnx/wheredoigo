@@ -2,6 +2,11 @@
     display: flex;
     gap: 2rem;
     width: 100%;
+
+   h1, h2, h3, h4, p {
+    font-size: 0.9125rem;
+    color: var(--text-secondary);
+   }
 }
 
 .desc {

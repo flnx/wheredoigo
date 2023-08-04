@@ -64,7 +64,7 @@ const FormFieldEditor = ({
 
     return (
         <FormEditWrapper>
-            <SpanLabelTitle title={title} />
+            <SpanLabelTitle title={title} size="1.25rem" />
             {isEditToggled ? (
                 <WrapperWithWidth>
                     <TipTap
