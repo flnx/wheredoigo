@@ -40,4 +40,8 @@
 
 - OpenAI
 
-![](./screenshots/home%20desktop.gif)
+### Project Screenshots
+
+Desktop Homepage           |  Mobile Homepage
+:-------------------------:|:-------------------------:
+![](./screenshots/home%20desktop.gif)   |  ![](./screenshots/home%20mobile.gif)
