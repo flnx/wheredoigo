@@ -42,6 +42,10 @@
 
 ### Project Screenshots
 
-Desktop Homepage           |  Mobile Homepage
+Homepage - Desktop         |  Homepage - Mobile
 :-------------------------:|:-------------------------:
 ![](./screenshots/home%20desktopx.gif)   |  ![](./screenshots/home%20mobile.gif)
+
+Destination Details - Desktop            |  Destination Details - Mobile
+:-------------------------:|:-------------------------:
+![](./screenshots/dest%20details%20desktop.gif)   |  ![](./screenshots/dest%20details%20mobile.gif)
