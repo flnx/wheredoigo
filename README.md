@@ -56,4 +56,8 @@ Place Details - Desktop            |  Place Details - Mobile
 
 Discover  - Desktop                                |  Discover - Mobile
 :-------------------------:|:-------------------------:
-![](./screenshots/discover%20desktop.gif)   |  ![](./screenshots/discover%20mobile.gif)
+![](./screenshots/discover%20desktop.gif)          |  ![](./screenshots/discover%20mobile.gif)
+
+Dashboard  - Desktop                               |  Dashboard - Mobile
+:-------------------------:|:-------------------------:
+![](./screenshots/dashboard%20desktop.gif)   |  ![](./screenshots/dashboard%20mobile.gif)
