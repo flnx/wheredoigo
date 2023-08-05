@@ -65,3 +65,11 @@ Dashboard  - Desktop                               |  Dashboard - Mobile
 Edit Destination & Place- Desktop                  |  Edit Destination & Place - Mobile
 :-------------------------:|:-------------------------:
 ![](./screenshots/edit%20desktop.gif)              |  ![](./screenshots/edit%20mobile.gif)
+
+Change Avatar Desktop                              |  Change Avatar - Mobile
+:-------------------------:|:-------------------------:
+![](./screenshots/avatar%20desktop.gif)            |  ![](./screenshots/avatar%20mobile.gif)
+
+Navbar Dropdown Desktop                            |  Navbar Dropdown Mobile  
+:-------------------------:|:-------------------------:
+![](./screenshots/nav%20dropdown%20desktop.gif)            |  ![](./screenshots/nav%20dropdown%20mobile.gif)
