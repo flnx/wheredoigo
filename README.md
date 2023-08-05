@@ -72,4 +72,8 @@ Change Avatar Desktop                              |  Change Avatar - Mobile
 
 Navbar Dropdown Desktop                            |  Navbar Dropdown Mobile  
 :-------------------------:|:-------------------------:
-![](./screenshots/nav%20dropdown%20desktop.gif)            |  ![](./screenshots/nav%20dropdown%20mobile.gif)
+![](./screenshots/nav%20dropdown%20desktop.gif)    |  ![](./screenshots/nav%20dropdown%20mobile.gif)
+
+Create Destination Desktop                         |  Create Destination Mobile  
+:-------------------------:|:-------------------------:
+![](./screenshots/create%20destination%20desktop.gif)   |  ![](./screenshots/create%20destination%20mobile.gif)
