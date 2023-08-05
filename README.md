@@ -50,7 +50,7 @@ Destination Details - Desktop            |  Destination Details - Mobile
 :-------------------------:|:-------------------------:
 ![](./screenshots/dest%20details%20desktop.gif)   |  ![](./screenshots/dest%20details%20mobile.gif)
 
-Place Details - Desktop            |  Place Details - Mobile
+Place Details - Desktop                  |  Place Details - Mobile
 :-------------------------:|:-------------------------:
 ![](./screenshots/place%20details%20desktop.gif)   |  ![](./screenshots/place%20details%20mobile.gif)
 
@@ -61,3 +61,7 @@ Discover  - Desktop                                |  Discover - Mobile
 Dashboard  - Desktop                               |  Dashboard - Mobile
 :-------------------------:|:-------------------------:
 ![](./screenshots/dashboard%20desktop.gif)   |  ![](./screenshots/dashboard%20mobile.gif)
+
+Edit Destination & Place- Desktop                  |  Edit Destination & Place - Mobile
+:-------------------------:|:-------------------------:
+![](./screenshots/edit%20desktop.gif)              |  ![](./screenshots/edit%20mobile.gif)
