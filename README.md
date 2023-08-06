@@ -81,3 +81,7 @@ Create Destination Desktop                              |  Create Destination Mo
 Create Place Desktop                                    |  Create Place Mobile  
 :-------------------------:|:-------------------------:
 ![](./screenshots/add%20place%20desktop.gif)            |  ![](./screenshots/add%20place%20mobile.gif)
+
+Gallery Desktop                                         |  Gallery Mobile  
+:-------------------------:|:-------------------------:
+![](./screenshots/gallery%20desktop.gif)            |  ![](./screenshots/gallery%20mobile.gif)
