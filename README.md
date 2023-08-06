@@ -44,40 +44,40 @@
 
 Homepage - Desktop         |  Homepage - Mobile
 :-------------------------:|:-------------------------:
-![](./screenshots/home%20desktopx.gif)   |  ![](./screenshots/home%20mobile.gif)
+![](./screenshots/home%20desktopx.gif)                  |  ![](./screenshots/home%20mobile.gif)
 
-Destination Details - Desktop            |  Destination Details - Mobile
+Destination Details - Desktop                           |  Destination Details - Mobile
 :-------------------------:|:-------------------------:
-![](./screenshots/dest%20details%20desktop.gif)   |  ![](./screenshots/dest%20details%20mobile.gif)
+![](./screenshots/dest%20details%20desktop.gif)         |  ![](./screenshots/dest%20details%20mobile.gif)
 
-Place Details - Desktop                  |  Place Details - Mobile
+Place Details - Desktop                                 |  Place Details - Mobile
 :-------------------------:|:-------------------------:
-![](./screenshots/place%20details%20desktop.gif)   |  ![](./screenshots/place%20details%20mobile.gif)
+![](./screenshots/place%20details%20desktop.gif)        |  ![](./screenshots/place%20details%20mobile.gif)
 
-Discover  - Desktop                                |  Discover - Mobile
+Discover  - Desktop                                     |  Discover - Mobile
 :-------------------------:|:-------------------------:
-![](./screenshots/discover%20desktop.gif)          |  ![](./screenshots/discover%20mobile.gif)
+![](./screenshots/discover%20desktop.gif)               |  ![](./screenshots/discover%20mobile.gif)
 
-Dashboard  - Desktop                               |  Dashboard - Mobile
+Dashboard  - Desktop                                    |  Dashboard - Mobile
 :-------------------------:|:-------------------------:
-![](./screenshots/dashboard%20desktop.gif)   |  ![](./screenshots/dashboard%20mobile.gif)
+![](./screenshots/dashboard%20desktop.gif)              |  ![](./screenshots/dashboard%20mobile.gif)
 
-Edit Destination & Place- Desktop                  |  Edit Destination & Place - Mobile
+Edit Destination & Place- Desktop                       |  Edit Destination & Place - Mobile
 :-------------------------:|:-------------------------:
-![](./screenshots/edit%20desktop.gif)              |  ![](./screenshots/edit%20mobile.gif)
+![](./screenshots/edit%20desktop.gif)                   |  ![](./screenshots/edit%20mobile.gif)
 
-Change Avatar Desktop                              |  Change Avatar - Mobile
+Change Avatar Desktop                                   |  Change Avatar - Mobile
 :-------------------------:|:-------------------------:
-![](./screenshots/avatar%20desktop.gif)            |  ![](./screenshots/avatar%20mobile.gif)
+![](./screenshots/avatar%20desktop.gif)                 |  ![](./screenshots/avatar%20mobile.gif)
 
-Navbar Dropdown Desktop                            |  Navbar Dropdown Mobile  
+Navbar Dropdown Desktop                                 |  Navbar Dropdown Mobile  
 :-------------------------:|:-------------------------:
-![](./screenshots/nav%20dropdown%20desktop.gif)    |  ![](./screenshots/nav%20dropdown%20mobile.gif)
+![](./screenshots/nav%20dropdown%20desktop.gif)         |  ![](./screenshots/nav%20dropdown%20mobile.gif)
 
-Create Destination Desktop                         |  Create Destination Mobile  
+Create Destination Desktop                              |  Create Destination Mobile  
 :-------------------------:|:-------------------------:
 ![](./screenshots/create%20destination%20desktop.gif)   |  ![](./screenshots/create%20destination%20mobile.gif)
 
-Add Place Desktop                                   |  Add Place Mobile  
+Create Place Desktop                                    |  Create Place Mobile  
 :-------------------------:|:-------------------------:
-![](./screenshots/add%20place%20desktop.gif)        |  ![](./screenshots/add%20place%20mobile.gif)
+![](./screenshots/add%20place%20desktop.gif)            |  ![](./screenshots/add%20place%20mobile.gif)
