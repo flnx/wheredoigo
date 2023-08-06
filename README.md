@@ -77,3 +77,7 @@ Navbar Dropdown Desktop                            |  Navbar Dropdown Mobile
 Create Destination Desktop                         |  Create Destination Mobile  
 :-------------------------:|:-------------------------:
 ![](./screenshots/create%20destination%20desktop.gif)   |  ![](./screenshots/create%20destination%20mobile.gif)
+
+Add Place Desktop                                   |  Add Place Mobile  
+:-------------------------:|:-------------------------:
+![](./screenshots/add%20place%20desktop.gif)        |  ![](./screenshots/add%20place%20mobile.gif)
