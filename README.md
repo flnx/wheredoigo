@@ -84,4 +84,4 @@ Create Place Desktop                                    |  Create Place Mobile
 
 Gallery Desktop                                         |  Gallery Mobile  
 :-------------------------:|:-------------------------:
-![](./screenshots/gallery%20desktop.gif)            |  ![](./screenshots/gallery%20mobile.gif)
+![](./screenshots/gallery%20desktop.gif)                |  ![](./screenshots/gallery%20mobile.gif)
