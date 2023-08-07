@@ -57,9 +57,11 @@
 
 - OpenAI
 
-### Project Screenshots
+### Project Screenshots (May take a few seconds to load the GIFS)
 
-Homepage - Desktop         |  Homepage - Mobile
+
+
+Homepage - Desktop (Implementation)[https://github.com/flnx/wheredoigo/tree/main/client/src/pages/Home]        |  Homepage - Mobile
 :-------------------------:|:-------------------------:
 ![](./screenshots/home%20desktop.gif)                  |  ![](./screenshots/home%20mobile.gif)
 
