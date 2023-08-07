@@ -57,21 +57,41 @@
 
 - OpenAI
 
-### Project Screenshots (May take a few seconds to load the GIFS)
+### Project Screenshots & Implementation (May take a few seconds to load the GIFS)
 
+#### Home page implementation
+ - [Home](https://github.com/flnx/wheredoigo/tree/main/client/src/pages/Home)
+ - [CitiesSlider](https://github.com/flnx/wheredoigo/tree/main/client/src/components/Sliders/CitiesSlider)
 
-
-Homepage - Desktop [Implementation](https://github.com/flnx/wheredoigo/tree/main/client/src/pages/Home)      |  Homepage - Mobile
+Home page - Desktop         |  Home page - Mobile
 :-------------------------:|:-------------------------:
-![](./screenshots/home%20desktop.gif)                  |  ![](./screenshots/home%20mobile.gif)
+![](./screenshots/home%20desktop.gif)                   |  ![](./screenshots/home%20mobile.gif)
+
+#### Destination details implementation
+ - [DestinationDetails](https://github.com/flnx/wheredoigo/tree/main/client/src/pages/DestinationDetails)
+ - [ImagesGridWrapper](https://github.com/flnx/wheredoigo/tree/main/client/src/components/ImagesGridWrapper)
+ - [Gallery](https://github.com/flnx/wheredoigo/tree/main/client/src/components/Gallery)
+ - [PlacesSlider](https://github.com/flnx/wheredoigo/tree/main/client/src/components/Sliders/PlacesSlider)
 
 Destination Details - Desktop                           |  Destination Details - Mobile
 :-------------------------:|:-------------------------:
 ![](./screenshots/dest%20details%20desktop.gif)         |  ![](./screenshots/dest%20details%20mobile.gif)
 
+#### Place details implementation
+ - [PlaceDetails](https://github.com/flnx/wheredoigo/tree/main/client/src/pages/PlaceDetails)
+ - [ImagesGridWrapper](https://github.com/flnx/wheredoigo/tree/main/client/src/components/ImagesGridWrapper)
+ - [Gallery](https://github.com/flnx/wheredoigo/tree/main/client/src/components/Gallery)
+
 Place Details - Desktop                                 |  Place Details - Mobile
 :-------------------------:|:-------------------------:
 ![](./screenshots/place%20details%20desktop.gif)        |  ![](./screenshots/place%20details%20mobile.gif)
+
+#### Discover implementation
+ - [Discover](https://github.com/flnx/wheredoigo/tree/main/client/src/pages/Discover)
+ - [DestinationGrid](https://github.com/flnx/wheredoigo/tree/main/client/src/components/DestinationsGrid)
+ - [SearchBar](https://github.com/flnx/wheredoigo/blob/main/client/src/components/Serach-Bar/SearchBar.jsx)
+ - [CategoriesNav](https://github.com/flnx/wheredoigo/blob/main/client/src/components/CategoriesNav/CategoriesNav.jsx)
+ - [ReactQuery Paginated Data Fetching](https://github.com/flnx/wheredoigo/blob/main/client/src/hooks/queries/useInfiniteDestinations.js)
 
 Discover  - Desktop                                     |  Discover - Mobile
 :-------------------------:|:-------------------------:
