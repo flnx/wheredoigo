@@ -105,9 +105,24 @@ Discover  - Desktop                                     |  Discover - Mobile
 
 ---
 
+#### Dashboard implementation
+ - [Dashboard](https://github.com/flnx/wheredoigo/tree/main/client/src/pages/Dashboard)
+    - [AddDestination](https://github.com/flnx/wheredoigo/tree/main/client/src/pages/Dashboard/sub-pages/AddDestination)
+        - [ImageUploader](https://github.com/flnx/wheredoigo/tree/main/client/src/components/ImageUploader)
+        - [ImageThumbsnailsPreview](https://github.com/flnx/wheredoigo/tree/main/client/src/components/ImageThumbnailsPreview)
+        - [createFormData](https://github.com/flnx/wheredoigo/blob/main/client/src/utils/formData.js)
+        - [handleImageFiles](https://github.com/flnx/wheredoigo/blob/main/client/src/utils/imagesHandler.js)
+        - [validateData](https://github.com/flnx/wheredoigo/blob/main/client/src/utils/validationSchemas/destinationSchemas.js)
+    - [Favorites](https://github.com/flnx/wheredoigo/blob/main/client/src/pages/Dashboard/sub-pages/Favorites/Favorites.jsx)
+    - [Dashboard Main](https://github.com/flnx/wheredoigo/tree/main/client/src/pages/Dashboard/sub-pages/Main)
+    - [OwnerDestinations](https://github.com/flnx/wheredoigo/tree/main/client/src/pages/Dashboard/sub-pages/OwnerDestinations)
+    - [UserSettings](https://github.com/flnx/wheredoigo/tree/main/client/src/pages/Dashboard/sub-pages/UserSettings)
+
 Dashboard  - Desktop                                    |  Dashboard - Mobile
 :-------------------------:|:-------------------------:
 ![](./screenshots/dashboard%20desktop.gif)              |  ![](./screenshots/dashboard%20mobile.gif)
+
+---
 
 Edit Destination & Place- Desktop                       |  Edit Destination & Place - Mobile
 :-------------------------:|:-------------------------:
