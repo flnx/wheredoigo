@@ -61,7 +61,7 @@
 
 
 
-Homepage - Desktop (Implementation)[https://github.com/flnx/wheredoigo/tree/main/client/src/pages/Home]        |  Homepage - Mobile
+Homepage - Desktop [Implementation](https://github.com/flnx/wheredoigo/tree/main/client/src/pages/Home)      |  Homepage - Mobile
 :-------------------------:|:-------------------------:
 ![](./screenshots/home%20desktop.gif)                  |  ![](./screenshots/home%20mobile.gif)
 
