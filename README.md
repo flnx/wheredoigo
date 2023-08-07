@@ -62,6 +62,7 @@
 #### Home page implementation
  - [Home](https://github.com/flnx/wheredoigo/tree/main/client/src/pages/Home)
  - [CitiesSlider](https://github.com/flnx/wheredoigo/tree/main/client/src/components/Sliders/CitiesSlider)
+ - [useScrollTop](https://github.com/flnx/wheredoigo/blob/main/client/src/hooks/useScrollTop.js)
 
 Home page - Desktop         |  Home page - Mobile
 :-------------------------:|:-------------------------:
@@ -74,6 +75,7 @@ Home page - Desktop         |  Home page - Mobile
  - [ImagesGridWrapper](https://github.com/flnx/wheredoigo/tree/main/client/src/components/ImagesGridWrapper)
  - [Gallery](https://github.com/flnx/wheredoigo/tree/main/client/src/components/Gallery)
  - [PlacesSlider](https://github.com/flnx/wheredoigo/tree/main/client/src/components/Sliders/PlacesSlider)
+ - [useScrollTop](https://github.com/flnx/wheredoigo/blob/main/client/src/hooks/useScrollTop.js)
 
 Destination Details - Desktop                           |  Destination Details - Mobile
 :-------------------------:|:-------------------------:
@@ -124,13 +126,37 @@ Dashboard  - Desktop                                    |  Dashboard - Mobile
 
 ---
 
+#### Edit Destination & Place implementation
+ - [EditDestination](https://github.com/flnx/wheredoigo/blob/main/client/src/pages/EditDestination/EditDestination.jsx)
+ - [EditPlace](https://github.com/flnx/wheredoigo/tree/main/client/src/pages/EditPlace)
+
+ - [ImagesManager](https://github.com/flnx/wheredoigo/tree/main/client/src/components/ImagesManager) 
+ - [FormFieldEditor](https://github.com/flnx/wheredoigo/blob/main/client/src/components/FormFieldEditor/FormFieldEditor.jsx)
+ - [TipTap](https://github.com/flnx/wheredoigo/blob/main/client/src/components/TipTap/TipTap.jsx)
+
 Edit Destination & Place- Desktop                       |  Edit Destination & Place - Mobile
 :-------------------------:|:-------------------------:
 ![](./screenshots/edit%20desktop.gif)                   |  ![](./screenshots/edit%20mobile.gif)
 
+---
+
+#### Change Avatar implementation
+ - [UserAvatar](https://github.com/flnx/wheredoigo/blob/main/client/src/pages/Dashboard/components/SideNav/components/UserAvatar/UserAvatar.jsx)
+ - [FileInput](https://github.com/flnx/wheredoigo/blob/main/client/src/components/FileInput/FileInput.jsx)
+ - [ImageCrop](https://github.com/flnx/wheredoigo/blob/main/client/src/components/ImageCrop/ImageCrop.jsx)
+ - [handleImage](https://github.com/flnx/wheredoigo/blob/main/client/src/utils/imagesHandler.js)
+
 Change Avatar Desktop                                   |  Change Avatar - Mobile
 :-------------------------:|:-------------------------:
 ![](./screenshots/avatar%20desktop.gif)                 |  ![](./screenshots/avatar%20mobile.gif)
+
+---
+
+#### Navbar & Navbar Dropdown implementation
+ - [Navbar](https://github.com/flnx/wheredoigo/blob/main/client/src/components/Navbar/Navbar.jsx)
+ - [useWindowSize](https://github.com/flnx/wheredoigo/blob/main/client/src/hooks/useWindowSize.js)
+ - [Dropdown](https://github.com/flnx/wheredoigo/tree/main/client/src/components/Navbar/components/DropdownMenu)
+    - [useCloseDropdown](https://github.com/flnx/wheredoigo/blob/main/client/src/hooks/useCloseDropdown.js)
 
 Navbar Dropdown Desktop                                 |  Navbar Dropdown Mobile  
 :-------------------------:|:-------------------------:
