@@ -109,12 +109,7 @@ Discover  - Desktop                                     |  Discover - Mobile
 
 #### Dashboard implementation
  - [Dashboard](https://github.com/flnx/wheredoigo/tree/main/client/src/pages/Dashboard)
-    - [AddDestination](https://github.com/flnx/wheredoigo/tree/main/client/src/pages/Dashboard/sub-pages/AddDestination)
-        - [ImageUploader](https://github.com/flnx/wheredoigo/tree/main/client/src/components/ImageUploader)
-        - [ImageThumbsnailsPreview](https://github.com/flnx/wheredoigo/tree/main/client/src/components/ImageThumbnailsPreview)
-        - [createFormData](https://github.com/flnx/wheredoigo/blob/main/client/src/utils/formData.js)
-        - [handleImageFiles](https://github.com/flnx/wheredoigo/blob/main/client/src/utils/imagesHandler.js)
-        - [validateData](https://github.com/flnx/wheredoigo/blob/main/client/src/utils/validationSchemas/destinationSchemas.js)
+    - [CreateDestination](https://github.com/flnx/wheredoigo/tree/main/client/src/pages/Dashboard/sub-pages/AddDestination)
     - [Favorites](https://github.com/flnx/wheredoigo/blob/main/client/src/pages/Dashboard/sub-pages/Favorites/Favorites.jsx)
     - [Dashboard Main](https://github.com/flnx/wheredoigo/tree/main/client/src/pages/Dashboard/sub-pages/Main)
     - [OwnerDestinations](https://github.com/flnx/wheredoigo/tree/main/client/src/pages/Dashboard/sub-pages/OwnerDestinations)
@@ -123,6 +118,31 @@ Discover  - Desktop                                     |  Discover - Mobile
 Dashboard  - Desktop                                    |  Dashboard - Mobile
 :-------------------------:|:-------------------------:
 ![](./screenshots/dashboard%20desktop.gif)              |  ![](./screenshots/dashboard%20mobile.gif)
+
+---
+
+#### Create Destination implementation
+ - [CreateDestination](https://github.com/flnx/wheredoigo/tree/main/client/src/pages/Dashboard/sub-pages/AddDestination)
+    - [ImageUploader](https://github.com/flnx/wheredoigo/tree/main/client/src/components/ImageUploader)
+    - [ImageThumbsnailsPreview](https://github.com/flnx/wheredoigo/tree/main/client/src/components/ImageThumbnailsPreview)
+    - [createFormData](https://github.com/flnx/wheredoigo/blob/main/client/src/utils/formData.js)
+    - [handleImageFiles](https://github.com/flnx/wheredoigo/blob/main/client/src/utils/imagesHandler.js)
+    - [validateData](https://github.com/flnx/wheredoigo/blob/main/client/src/utils/validationSchemas/destinationSchemas.js)
+
+Create Destination Desktop                              |  Create Destination Mobile  
+:-------------------------:|:-------------------------:
+![](./screenshots/create%20destination%20desktop.gif)   |  ![](./screenshots/create%20destination%20mobile.gif)
+
+---
+
+#### Create Place implementation
+ - [AddPlace](https://github.com/flnx/wheredoigo/blob/main/client/src/pages/AddPlace/AddPlace.jsx)
+    - [ImageUploader](https://github.com/flnx/wheredoigo/tree/main/client/src/components/ImageUploader)
+    - [ImageThumbsnailsPreview](https://github.com/flnx/wheredoigo/tree/main/client/src/components/ImageThumbnailsPreview)
+
+Add Place Desktop                                       |  Add Place Mobile  
+:-------------------------:|:-------------------------:
+![](./screenshots/add%20place%20desktop.gif)            |  ![](./screenshots/add%20place%20mobile.gif)
 
 ---
 
@@ -162,21 +182,41 @@ Navbar Dropdown Desktop                                 |  Navbar Dropdown Mobil
 :-------------------------:|:-------------------------:
 ![](./screenshots/nav%20dropdown%20desktop.gif)         |  ![](./screenshots/nav%20dropdown%20mobile.gif)
 
-Create Destination Desktop                              |  Create Destination Mobile  
-:-------------------------:|:-------------------------:
-![](./screenshots/create%20destination%20desktop.gif)   |  ![](./screenshots/create%20destination%20mobile.gif)
+---
 
-Create Place Desktop                                    |  Create Place Mobile  
-:-------------------------:|:-------------------------:
-![](./screenshots/add%20place%20desktop.gif)            |  ![](./screenshots/add%20place%20mobile.gif)
+#### Gallery implementation
+ - [Gallery](https://github.com/flnx/wheredoigo/tree/main/client/src/components/Gallery)
+    - [MainImage](https://github.com/flnx/wheredoigo/blob/main/client/src/components/Gallery/components/MainImage/MainImage.jsx)
+    - [SecondaryImages](https://github.com/flnx/wheredoigo/blob/main/client/src/components/Gallery/components/SecondaryImages/SecondaryImages.jsx)
+        - [applyCloudinaryTransformation](https://github.com/flnx/wheredoigo/blob/main/client/src/utils/utils.js)
+    - [Arrows](https://github.com/flnx/wheredoigo/tree/main/client/src/components/Gallery/components/Arrows)
+    - [Gallery Context](https://github.com/flnx/wheredoigo/blob/main/client/src/components/Gallery/context/GalleryContext.jsx)
+    - [useKeyboardNavigation](https://github.com/flnx/wheredoigo/blob/main/client/src/hooks/useKeyboardNavigation.js)
+    - [useGalleryAutomaticScroll](https://github.com/flnx/wheredoigo/blob/main/client/src/hooks/useGalleryAutomaticScroll.js)
+    - [useWindowSize](https://github.com/flnx/wheredoigo/bob/main/client/src/hooks/useWindowSize.js)
+    - [DarkOverlay](https://github.com/flnx/wheredoigo/tree/main/client/src/components/DarkOverlay)
 
 Gallery Desktop                                         |  Gallery Mobile  
 :-------------------------:|:-------------------------:
 ![](./screenshots/gallery%20desktop.gif)                |  ![](./screenshots/gallery%20mobile.gif)
 
+---
+
+#### Register implementation
+ - [Register](https://github.com/flnx/wheredoigo/tree/main/client/src/pages/Authentication/Register)
+ - [userRegisterValidationSchema](https://github.com/flnx/wheredoigo/blob/main/client/src/utils/validationSchemas/userSchemas.js)
+ - [extractServerErrorMessage](https://github.com/flnx/wheredoigo/blob/main/client/src/utils/utils.js)
+
 Register Desktop                                        |  Register Mobile  
 :-------------------------:|:-------------------------:
 ![](./screenshots/register%20desktop.gif)               |  ![](./screenshots/register%20mobile.gif)
+
+---
+
+#### Login implementation
+ - [Login](https://github.com/flnx/wheredoigo/tree/main/client/src/pages/Authentication/Login)
+ - [userLoginValidationSchema](https://github.com/flnx/wheredoigo/blob/main/client/src/utils/validationSchemas/userSchemas.js)
+ - [extractServerErrorMessage](https://github.com/flnx/wheredoigo/blob/main/client/src/utils/utils.js)
 
 Login Desktop                                           |  Login Mobile  
 :-------------------------:|:-------------------------:
