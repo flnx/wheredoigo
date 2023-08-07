@@ -67,6 +67,12 @@ Home page - Desktop         |  Home page - Mobile
 :-------------------------:|:-------------------------:
 ![](./screenshots/home%20desktop.gif)                   |  ![](./screenshots/home%20mobile.gif)
 
+<br>
+
+---
+
+<br>
+
 #### Destination details implementation
  - [DestinationDetails](https://github.com/flnx/wheredoigo/tree/main/client/src/pages/DestinationDetails)
  - [ImagesGridWrapper](https://github.com/flnx/wheredoigo/tree/main/client/src/components/ImagesGridWrapper)
@@ -77,6 +83,12 @@ Destination Details - Desktop                           |  Destination Details -
 :-------------------------:|:-------------------------:
 ![](./screenshots/dest%20details%20desktop.gif)         |  ![](./screenshots/dest%20details%20mobile.gif)
 
+<br>
+
+---
+
+<br>
+
 #### Place details implementation
  - [PlaceDetails](https://github.com/flnx/wheredoigo/tree/main/client/src/pages/PlaceDetails)
  - [ImagesGridWrapper](https://github.com/flnx/wheredoigo/tree/main/client/src/components/ImagesGridWrapper)
@@ -85,6 +97,12 @@ Destination Details - Desktop                           |  Destination Details -
 Place Details - Desktop                                 |  Place Details - Mobile
 :-------------------------:|:-------------------------:
 ![](./screenshots/place%20details%20desktop.gif)        |  ![](./screenshots/place%20details%20mobile.gif)
+
+<br>
+
+---
+
+<br>
 
 #### Discover implementation
  - [Discover](https://github.com/flnx/wheredoigo/tree/main/client/src/pages/Discover)
@@ -96,6 +114,12 @@ Place Details - Desktop                                 |  Place Details - Mobil
 Discover  - Desktop                                     |  Discover - Mobile
 :-------------------------:|:-------------------------:
 ![](./screenshots/discover%20desktop.gif)               |  ![](./screenshots/discover%20mobile.gif)
+
+<br>
+
+---
+
+<br>
 
 Dashboard  - Desktop                                    |  Dashboard - Mobile
 :-------------------------:|:-------------------------:
