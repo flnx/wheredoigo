@@ -7,7 +7,7 @@
 
 ## About
 
-🌎✈️ An adventurous hub featuring an extensive collection of destinations and places, created by our community from around the world, that can be liked, commented and rated by users
+🌎✈️ **An adventurous hub featuring an extensive collection of destinations and places, created by our community from around the world, that can be liked, commented and rated by users**
 
 ⚒️ **Each user can create/edit/delete destinations and places, upload pictures and select suitable descriptions and details for their entries**
  - Users can create/edit/delete _destinations_ and _places_, upload/delete pictures and provide a detailed information

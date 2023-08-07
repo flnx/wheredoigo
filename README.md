@@ -61,7 +61,7 @@
 
 Homepage - Desktop         |  Homepage - Mobile
 :-------------------------:|:-------------------------:
-![](./screenshots/home%20desktopx.gif)                  |  ![](./screenshots/home%20mobile.gif)
+![](./screenshots/home%20desktop.gif)                  |  ![](./screenshots/home%20mobile.gif)
 
 Destination Details - Desktop                           |  Destination Details - Mobile
 :-------------------------:|:-------------------------:
