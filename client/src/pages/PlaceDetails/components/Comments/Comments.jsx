@@ -13,11 +13,23 @@ import { PaginationBar } from '../PaginationBar/PaginationBar';
 import { Comment } from './Comment';
 
 import styles from './Comments.module.css';
+import { useEffect } from 'react';
 
 export const Comments = ({ placeId, commentSectionRef }) => {
     const [currentPage, setCurrentPage] = useSearchParams({});
     const page = getPageFromSearchParams(currentPage);
     const [comments, error, isPreviousData, isFetching] = usePlaceComments({ placeId, page });
+
+    const { data, hasNextPage, hasPreviousPage, totalPages } = comments;
+    const hasComments = data && data?.length > 0;
+    const hasNoComments = !error && !hasComments;
+
+    // Redirect to prev page when the last commented on the current page is deleted
+    useEffect(() => {
+        if (hasNoComments && hasPreviousPage) {
+            setCurrentPage({ page: page - 1 });
+        }
+    }, [data, hasNoComments]);
 
     const onPageClickHandler = (value) => {
         const page = parseInt(value);
@@ -31,10 +43,6 @@ export const Comments = ({ placeId, commentSectionRef }) => {
         }
         commentSectionRef.current?.scrollIntoView();
     };
-
-    const { data, hasNextPage, hasPreviousPage, totalPages } = comments;
-    const hasComments = data && data?.length > 0;
-    const hasNoComments = !error && !hasComments;
 
     return (
         <>

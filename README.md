@@ -85,3 +85,11 @@ Create Place Desktop                                    |  Create Place Mobile
 Gallery Desktop                                         |  Gallery Mobile  
 :-------------------------:|:-------------------------:
 ![](./screenshots/gallery%20desktop.gif)                |  ![](./screenshots/gallery%20mobile.gif)
+
+Register Desktop                                        |  Register Mobile  
+:-------------------------:|:-------------------------:
+![](./screenshots/register%20desktop.gif)               |  ![](./screenshots/register%20mobile.gif)
+
+Login Desktop                                           |  Login Mobile  
+:-------------------------:|:-------------------------:
+![](./screenshots/login%20desktop.gif)                  |  ![](./screenshots/login%20mobile.gif)
