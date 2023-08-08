@@ -245,4 +245,4 @@ Something Broke Desktop                                      |  Something Broke 
 
 Access Denied Desktop                                        |  Access Denied Mobile  
 :-------------------------:|:-------------------------:
-![](./screenshots/access%20denied%20desktop.gif)             |  ![](./screenshots/access%20denied%20mobilex.gif)
+![](./screenshots/access%20denied%20desktopx.gif)             |  ![](./screenshots/access%20denied%20mobilex.gif)
