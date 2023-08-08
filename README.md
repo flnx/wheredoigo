@@ -241,8 +241,8 @@ Server Down Desktop                                          |  Server Down Mobi
 
 Something Broke Desktop                                      |  Something Broke Mobile  
 :-------------------------:|:-------------------------:
-![](./screenshots/something%20wrong%20desktop.gif)           |  ![](./screenshots/something%20went%20wrong%20mobile.gif)
+![](./screenshots/something%20wrong%20desktop.gif)           |  ![](./screenshots/something%20went%20wrong%20mobilex.gif)
 
 Access Denied Desktop                                        |  Access Denied Mobile  
 :-------------------------:|:-------------------------:
-![](./screenshots/access%20denied%20desktop.gif)             |  ![](./screenshots/access%20denied%20mobile.gif)
+![](./screenshots/access%20denied%20desktop.gif)             |  ![](./screenshots/access%20denied%20mobilex.gif)
