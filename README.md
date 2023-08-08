@@ -221,3 +221,28 @@ Register Desktop                                        |  Register Mobile
 Login Desktop                                           |  Login Mobile  
 :-------------------------:|:-------------------------:
 ![](./screenshots/login%20desktop.gif)                  |  ![](./screenshots/login%20mobile.gif)
+
+---
+
+#### Errors
+ - [ErrorFallbackComponent](https://github.com/flnx/wheredoigo/blob/main/client/src/components/Errors/ErrorFallbackComponent.jsx)
+    - [NotFound](https://github.com/flnx/wheredoigo/blob/main/client/src/components/Errors/NotFound/NotFound.jsx)
+    - [ServerDown](https://github.com/flnx/wheredoigo/blob/main/client/src/components/Errors/ServerDown/ServerDown.jsx)
+    - [SomethingBroke](https://github.com/flnx/wheredoigo/blob/main/client/src/components/Errors/SomethingBroke/SomethingBroke.jsx)
+    - [Forbidden](https://github.com/flnx/wheredoigo/blob/main/client/src/components/Errors/Forbidden/Forbidden.jsx)
+
+Not Found Desktop                                            |  Not Found Mobile  
+:-------------------------:|:-------------------------:
+![](./screenshots/not%20found%20desktop.gif)                 |  ![](./screenshots/not%20found%20mobile.gif)
+
+Server Down Desktop                                          |  Server Down Mobile  
+:-------------------------:|:-------------------------:
+![](./screenshots/server%20down%20desktop.gif)               |  ![](./screenshots/server%20down%20mobile.gif)
+
+Something Broke Desktop                                      |  Something Broke Mobile  
+:-------------------------:|:-------------------------:
+![](./screenshots/something%20wrong%20desktop.gif)           |  ![](./screenshots/something%20went%20wrong%20mobile.gif)
+
+Access Denied Desktop                                        |  Access Denied Mobile  
+:-------------------------:|:-------------------------:
+![](./screenshots/access%20denied%20desktop.gif)             |  ![](./screenshots/access%20denied%20mobile.gif)

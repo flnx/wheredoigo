@@ -10,13 +10,14 @@ import { AuthContext } from 'src/context/AuthContext';
 import { createAvatarImage } from 'src/utils/imagesHandler';
 
 // Global Components
-import { CameraPlus } from '@phosphor-icons/react';
 import { ImageCrop } from 'src/components/ImageCrop/ImageCrop';
 import { FileInput } from 'src/components/FileInput/FileInput';
 import { CancelButton } from 'src/components/Buttons/Cancel-Button/CancelButton';
 import { SuccessButton } from 'src/components/Buttons/Success-Button/SuccessButton';
 import { DarkOverlay } from 'src/components/DarkOverlay/DarkOverlay';
 import { ServerErrorPopUp } from 'src/components/ServerErrorPopUp/ServerErrorPopUp';
+
+import { CameraPlus } from '@phosphor-icons/react';
 
 import styles from './UserAvatar.module.css';
 
