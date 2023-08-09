@@ -3,8 +3,7 @@ import { useContext, useEffect, useCallback } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { getToken } from '../utils/getToken';
 
-// const HOST = 'https://wheredoigo-api.onrender.com/';
-const HOST = 'http://localhost:3000/';
+const HOST = 'https://wheredoigo-api.onrender.com/';
 
 const axiosInstance = axios.create({
     baseURL: HOST,
