@@ -30,7 +30,6 @@ export const useSubmitFormData = ({ title, content, rating, resetForm }) => {
                 },
             });
         } catch (err) {
-            console.log(err.errors);
             setErrors(err.errors || [err.message]);
         }
     };

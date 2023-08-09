@@ -27,7 +27,7 @@ async function uploadImages(images, data, mainFolder, minImagesRequired = 1) {
         const imageUrls = cloudinaryImagesData
             .filter((imageData) => imageData.url) // not needed but in case cloudinary mess up
             .map((imageData) => ({
-                imageUrl: imageData.url,
+                imageUrl: imageData.secure_url,
                 public_id: imageData.public_id,
             }));
 

@@ -30,10 +30,10 @@ const updateUserAvatar = async (image, userData) => {
     deleteUserAvatar(avatarIdToDelete);
 
     // Extracts the newly updated image url and public id
-    const { url, public_id } = imageData[0];
+    const { secure_url, public_id } = imageData[0];
 
     // Saves the new url and public_id
-    user.avatarUrl = url;
+    user.avatarUrl = secure_url;
     user.avatar_id = public_id;
     await user.save();
 
@@ -44,7 +44,7 @@ const updateUserAvatar = async (image, userData) => {
     return {
         email: user.email,
         username: user.capitalizedUsername,
-        avatarUrl: url,
+        avatarUrl: secure_url,
         role: user.role,
         accessToken,
     };
