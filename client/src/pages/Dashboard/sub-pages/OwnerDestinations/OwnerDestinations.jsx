@@ -47,7 +47,7 @@ export const OwnerDestinations = () => {
 
     return (
         <div className={styles.container}>
-            <h1 className="smaller mb-2">Created destinations 🦖</h1>
+            <h1 className="smaller mb-2">Created destinations</h1>
             {deleteError && <ServerErrorPopUp errorMessage={deleteError} />}
             {error ? (
                 <>
