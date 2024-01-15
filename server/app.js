@@ -16,7 +16,7 @@ async function start() {
     const app = express();
 
     const corsOptions = {
-        origin: 'https://wheredoigo.onrender.com',
+        origin: config.DOMAIN_NAME,
     };
 
     // Middlewares

@@ -7,6 +7,7 @@ const config = {
         CLOUD_NAME: process.env.CLOUD_NAME,
         CLOUDINARY_KEY: process.env.CLOUDINARY_KEY,
         CLOUDINARY_SECRET: process.env.CLOUDINARY_SECRET,
+        DOMAIN_NAME: process.env.DOMAIN_NAME_DEV,
     },
     production: {
         port: process.env.PROD_PORT,
@@ -14,6 +15,7 @@ const config = {
         CLOUD_NAME: process.env.CLOUD_NAME,
         CLOUDINARY_KEY: process.env.CLOUDINARY_KEY,
         CLOUDINARY_SECRET: process.env.CLOUDINARY_SECRET,
+        DOMAIN_NAME: process.env.DOMAIN_NAME,
     },
 };
 
