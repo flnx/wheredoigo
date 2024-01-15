@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-
 const initializeDatabase = require('./src/config/mongoDB');
 const config = require('./src/config/config');
 const routesConfig = require('./src/routes/routes');
