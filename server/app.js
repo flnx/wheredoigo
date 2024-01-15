@@ -15,7 +15,7 @@ start();
 async function start() {
     const app = express();
 
-    const allowedOrigins = ['http://your-allowed-domain.com'];
+    const allowedOrigins = ['https://wheredoigo.onrender.com/'];
     const corsOptions = {
         origin: function (origin, callback) {
             if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
@@ -25,7 +25,7 @@ async function start() {
             }
         },
     };
-    
+
     // Middlewares
     app.use(cors(corsOptions));
     app.use(express.json());
