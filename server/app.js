@@ -12,25 +12,20 @@ const { requireObjectBody } = require('./src/middlewares/requireObjectBody');
 
 start();
 
-const allowedOrigins = ['http://localhost:5173/', 'http://testsite.com'];
-
 async function start() {
     const app = express();
 
+    const allowedOrigins = ['http://your-allowed-domain.com'];
     const corsOptions = {
-        origin: (origin, callback) => {
-            if (!origin) return callback(null, true);
-            if (allowedOrigins.indexOf(origin) === -1) {
-                // If a specific origin isn’t found on the list of allowed origins
-                let message =
-                    'The CORS policy for this application doesn’t allow access from origin ' +
-                    origin;
-                return callback(new Error(message), false);
+        origin: function (origin, callback) {
+            if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+                callback(null, true);
+            } else {
+                callback(new Error('Not allowed by CORS'));
             }
-            return callback(null, true);
         },
     };
-
+    
     // Middlewares
     app.use(cors(corsOptions));
     app.use(express.json());
