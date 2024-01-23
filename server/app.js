@@ -14,6 +14,8 @@ start();
 async function start() {
     const app = express();
 
+    app.set('trust proxy', 1);
+
     const corsOptions = {
         origin: config.DOMAIN_NAME,
     };
@@ -32,7 +34,9 @@ async function start() {
 
     app.use(errorHandler);
 
-    app.listen(config.port, () =>
-        console.info(`Server listens on port ${config.port}`)
+    console.log(config);
+
+    app.listen(config.port || 443, () =>
+        console.info(`Server listens on port ${config.port || 443}`)
     );
 }

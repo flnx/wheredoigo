@@ -18,7 +18,8 @@
   },
   "scripts": {
     "dev": "set NODE_ENV=development&& nodemon ./app.js",
-    "build": "set NODE_ENV=production&& node ./app.js"
+    "build": "set NODE_ENV=production",
+    "start": "node app.js"
   },
   "name": "server",
   "version": "1.0.0",
@@ -28,6 +29,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.0",
     "nodemon": "^2.0.22"
   }
 }
