@@ -34,8 +34,6 @@ async function start() {
 
     app.use(errorHandler);
 
-    console.log(config);
-
     app.listen(config.port || 443, () =>
         console.info(`Server listens on port ${config.port || 443}`)
     );
