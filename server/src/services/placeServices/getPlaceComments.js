@@ -9,7 +9,7 @@ const capitalizeEachWord = require('../../utils/capitalizeWords');
 const { createValidationError } = require('../../utils/createValidationError');
 
 async function getPlaceComments(placeId, user, page) {
-    const { ownerId, role } = user;
+    const { ownerId, role } = user || {};
 
     const perPage = 5;
     const skip = (page - 1) * perPage;

@@ -26,8 +26,6 @@ async function checkSession(req, res, next) {
         } catch (err) {
             return unauthorizedResponse(res);
         }
-    } else {
-        req.user = {};
     }
 
     next();
