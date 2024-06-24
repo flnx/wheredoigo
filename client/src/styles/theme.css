@@ -46,8 +46,8 @@
     --sky-blue-darker: #005fa3;
     --button-primary: #c05e2b;
     --button-hover: #9f4718;
-    --button-secondary: #00c9aa;
-    --button-hover-secondary: #17a590;
+    --button-secondary: #09a880;
+    --button-hover-secondary: rgb(22, 151, 132);
     --box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.045), 0 2px 2px hsl(0deg 0% 0% / 0.045),
         0 4px 4px hsl(0deg 0% 0% / 0.045), 0 8px 8px hsl(0deg 0% 0% / 0.045),
         0 16px 16px hsl(0deg 0% 0% / 0.045);

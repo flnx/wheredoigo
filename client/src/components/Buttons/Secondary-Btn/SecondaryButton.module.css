@@ -4,14 +4,14 @@
     font-weight: 600;
     border: none;
     color: #fff;
-    background: var(--button-primary);
+    background: var(--button-secondary);
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.25s ease-in-out;
 }
 
 .btn:hover {
-    background: var(--button-hover);
+    background: var(--button-hover-secondary);
 }
 
 .link {

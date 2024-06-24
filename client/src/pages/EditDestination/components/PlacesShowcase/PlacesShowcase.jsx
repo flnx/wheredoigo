@@ -16,7 +16,6 @@ import { TextWrap } from 'src/components/TextWrap/TextWrap';
 import routeConstants from 'src/constants/routeConstants';
 import styles from './PlacesShowcase.module.css';
 
-
 export const PlacesShowcase = ({ places, destinationId, isLoading }) => {
     const [deletePlace, error, isDeleteLoading] = useDeletePlace(destinationId);
     const [openModal, setOpenModal] = useState(false);
@@ -62,9 +61,16 @@ export const PlacesShowcase = ({ places, destinationId, isLoading }) => {
             />
 
             {!isLoading && (
-                <LinkButtonSecondary to={PLACES.ADD.routePath(destinationId)}>
-                    {PLACES.ADD.name}
-                </LinkButtonSecondary>
+                <>
+                    <div
+                        style={{
+                            margin: '2rem 0 2rem 0',
+                        }}
+                    ></div>
+                    <LinkButtonSecondary to={PLACES.ADD.routePath(destinationId)}>
+                        {PLACES.ADD.name}
+                    </LinkButtonSecondary>
+                </>
             )}
 
             {openModal && (
