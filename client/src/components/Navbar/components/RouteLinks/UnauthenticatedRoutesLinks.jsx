@@ -18,8 +18,8 @@ export const UnauthenticatedRoutesLinks = () => {
                 </ButtonLinkPrimary>
             </li>
             <li>
-                <LinkButtonSecondary to={AUTH.REGISTER.routePath}>
-                    Guest login
+                <LinkButtonSecondary to={AUTH.LOGIN.routePath + "?guest=true"}>
+                    Guest Login
                 </LinkButtonSecondary>
             </li>
         </>

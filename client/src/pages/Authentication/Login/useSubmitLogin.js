@@ -37,5 +37,24 @@ export const useSubmitLogin = (state) => {
         }
     };
 
-    return { submitHandler, error, serverError, isLoading };
+    const guestLoginHandler = () => {
+        if (isLoading) return;
+        setError('');
+
+        const guestData = {
+            email: 'wheredoigoguest@yahoo.com',
+            password: 'password123',
+        };
+
+        login(guestData, {
+            onSuccess: (result) => {
+                setUserData(result);
+            },
+            onError: (err) => {
+                setError(extractServerErrorMessage(err));
+            },
+        });
+    };
+
+    return { submitHandler, error, serverError, isLoading, guestLoginHandler };
 };

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
 
 // Global Hooks
 import { useErrorBoundary } from 'react-error-boundary';
@@ -7,7 +7,7 @@ import { useDocumentTitle } from 'src/hooks/useDocumentTitle';
 // Local Hooks
 import { useFormInput } from '../hooks/useFormInput';
 
-// Global Components 
+// Global Components
 import { ButtonSky } from 'src/components/Buttons/Button-Sky/ButtonSky';
 // --ICONS--
 import { EnvelopeSimple } from '@phosphor-icons/react';
@@ -20,6 +20,7 @@ import { FormInput } from '../components/FormInput';
 import routeConstants from 'src/constants/routeConstants';
 import styles from '../FormLayout.module.css';
 import { useSubmitLogin } from './useSubmitLogin';
+import { useEffect } from 'react';
 
 const { AUTH } = routeConstants;
 
@@ -27,7 +28,16 @@ const Login = () => {
     useDocumentTitle('Login');
     const { showBoundary } = useErrorBoundary();
     const [state, onChangeHandler] = useFormInput();
-    const { submitHandler, error, serverError, isLoading } = useSubmitLogin(state);
+    const { submitHandler, error, serverError, isLoading, guestLoginHandler } =
+        useSubmitLogin(state);
+    const [searchParams] = useSearchParams();
+    const isGuest = searchParams.get('guest');
+
+    useEffect(() => {
+        if (isGuest) {
+            guestLoginHandler();
+        }
+    }, [isGuest]);
 
     if (serverError) {
         showBoundary(serverError);
@@ -60,11 +70,7 @@ const Login = () => {
                 </div>
 
                 <div>
-                    <ButtonSky
-                        isLoading={isLoading}
-                        type={'submit'}
-                        padding={`0.65rem 1.55rem`}
-                    >
+                    <ButtonSky isLoading={isLoading} type="submit" padding="0.65rem 1.55rem">
                         {AUTH.LOGIN.name}
                     </ButtonSky>
                     <Link to={AUTH.REGISTER.routePath} className={styles.formFieldLink}>
